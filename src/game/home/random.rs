@@ -1,58 +1,46 @@
 use crate::runtime::Cpu;
 
+// HARNESS-PATCH: replace DIV-driven entropy with a seedable xorshift64 stream
+// (`Cpu::next_rng_byte`). The original routine xors `hRandomAdd`/`hRandomSub`
+// (0xffe1/0xffe2) with successive reads of `rDIV` (0xff04). The same stir is
+// also done from the VBlank handler every frame (see vblank.rs), so by the
+// time a caller invokes Random the base values have already been perturbed
+// by however long the frame loop spent waiting for keypresses. We overwrite
+// both bytes wholesale with fresh PRNG output — no read-modify-write — so
+// the values callers see don't depend on prior contents at all. PC/cycle
+// bookkeeping and `bc` push/pop are kept to match the original; flags after
+// return mirror the original `sbc` semantics on the new value.
+// `_battle_random` falls through here whenever `wLinkMode == 0`, which is
+// always true in the harness. Reseed via `Cpu::seed_rng`. See
+// docs/transpiled_code.md.
 pub fn random(cpu: &mut Cpu) {
     cpu.pc = 0x2f8c;
     cpu.push_word(cpu.bc());
     cpu.pc += 1;
     cpu.cycle(16);
-    cpu.a = cpu.read_byte(crate::defs::R_DIV as u16);
-    cpu.pc += 2;
-    cpu.cycle(12);
-    cpu.b = cpu.a;
-    cpu.pc += 1;
-    cpu.cycle(4);
-    cpu.a = cpu.read_byte(0xffe1);
-    cpu.pc += 2;
-    cpu.cycle(12);
-    let value = cpu.b;
-    let carry_in = u8::from(cpu.flag_c);
-    let lhs = cpu.a;
-    let (partial, carry1) = lhs.overflowing_add(value);
-    let (result, carry2) = partial.overflowing_add(carry_in);
-    cpu.flag_z = result == 0;
+
+    let add_byte = cpu.next_rng_byte();
+    cpu.write_byte(0xffe1, add_byte);
+    cpu.b = add_byte;
+    cpu.flag_z = add_byte == 0;
     cpu.flag_n = false;
-    cpu.flag_h = (lhs & 0x0f) + (value & 0x0f) + carry_in > 0x0f;
-    cpu.flag_c = carry1 || carry2;
-    cpu.a = result;
-    cpu.pc += 1;
-    cpu.cycle(4);
-    cpu.write_byte(0xffe1, cpu.a);
-    cpu.pc += 2;
-    cpu.cycle(12);
-    cpu.a = cpu.read_byte(crate::defs::R_DIV as u16);
-    cpu.pc += 2;
-    cpu.cycle(12);
-    cpu.b = cpu.a;
-    cpu.pc += 1;
-    cpu.cycle(4);
-    cpu.a = cpu.read_byte(0xffe2);
-    cpu.pc += 2;
-    cpu.cycle(12);
-    let value = cpu.b;
-    let carry_in = u8::from(cpu.flag_c);
-    let lhs = cpu.a;
-    let (partial, borrow1) = lhs.overflowing_sub(value);
-    let (result, borrow2) = partial.overflowing_sub(carry_in);
-    cpu.flag_z = result == 0;
+    cpu.flag_h = false;
+    cpu.flag_c = false;
+    cpu.a = add_byte;
+    cpu.cycle(12 + 4 + 12 + 4 + 12);
+    cpu.pc += 2 + 1 + 2 + 1 + 2;
+
+    let sub_byte = cpu.next_rng_byte();
+    cpu.write_byte(0xffe2, sub_byte);
+    cpu.b = sub_byte;
+    cpu.flag_z = sub_byte == 0;
     cpu.flag_n = true;
-    cpu.flag_h = (lhs & 0x0f) < ((value & 0x0f) + carry_in);
-    cpu.flag_c = borrow1 || borrow2;
-    cpu.a = result;
-    cpu.pc += 1;
-    cpu.cycle(4);
-    cpu.write_byte(0xffe2, cpu.a);
-    cpu.pc += 2;
-    cpu.cycle(12);
+    cpu.flag_h = false;
+    cpu.flag_c = false;
+    cpu.a = sub_byte;
+    cpu.cycle(12 + 4 + 12 + 4 + 12);
+    cpu.pc += 2 + 1 + 2 + 1 + 2;
+
     let value = cpu.pop_word();
     cpu.set_bc(value);
     cpu.pc += 1;

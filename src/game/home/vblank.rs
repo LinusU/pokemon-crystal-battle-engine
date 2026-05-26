@@ -116,54 +116,15 @@ pub fn v_blank_normal(cpu: &mut Cpu) {
     cpu.write_byte(addr, result);
     cpu.pc += 1;
     cpu.cycle(12);
-    cpu.a = cpu.read_byte(crate::defs::R_DIV as u16);
-    cpu.pc += 2;
-    cpu.cycle(12);
-    cpu.b = cpu.a;
-    cpu.pc += 1;
-    cpu.cycle(4);
-    cpu.a = cpu.read_byte(0xffe1);
-    cpu.pc += 2;
-    cpu.cycle(12);
-    let value = cpu.b;
-    let carry_in = u8::from(cpu.flag_c);
-    let lhs = cpu.a;
-    let (partial, carry1) = lhs.overflowing_add(value);
-    let (result, carry2) = partial.overflowing_add(carry_in);
-    cpu.flag_z = result == 0;
-    cpu.flag_n = false;
-    cpu.flag_h = (lhs & 0x0f) + (value & 0x0f) + carry_in > 0x0f;
-    cpu.flag_c = carry1 || carry2;
-    cpu.a = result;
-    cpu.pc += 1;
-    cpu.cycle(4);
-    cpu.write_byte(0xffe1, cpu.a);
-    cpu.pc += 2;
-    cpu.cycle(12);
-    cpu.a = cpu.read_byte(crate::defs::R_DIV as u16);
-    cpu.pc += 2;
-    cpu.cycle(12);
-    cpu.b = cpu.a;
-    cpu.pc += 1;
-    cpu.cycle(4);
-    cpu.a = cpu.read_byte(0xffe2);
-    cpu.pc += 2;
-    cpu.cycle(12);
-    let value = cpu.b;
-    let carry_in = u8::from(cpu.flag_c);
-    let lhs = cpu.a;
-    let (partial, borrow1) = lhs.overflowing_sub(value);
-    let (result, borrow2) = partial.overflowing_sub(carry_in);
-    cpu.flag_z = result == 0;
-    cpu.flag_n = true;
-    cpu.flag_h = (lhs & 0x0f) < ((value & 0x0f) + carry_in);
-    cpu.flag_c = borrow1 || borrow2;
-    cpu.a = result;
-    cpu.pc += 1;
-    cpu.cycle(4);
-    cpu.write_byte(0xffe2, cpu.a);
-    cpu.pc += 2;
-    cpu.cycle(12);
+    // HARNESS-PATCH: the original asm folds `rDIV` into `hRandomAdd`/`hRandomSub`
+    // every VBlank — a second entropy source on top of `Random` itself, and
+    // the one most exposed to frame-timing jitter (HALT cycles between
+    // interrupts vary with keypad activity). The seeded PRNG in `home/random.rs`
+    // owns those bytes now, so we skip the stir entirely and just advance PC
+    // and the cycle counter to match the asm. The block is 16 bytes of code
+    // running for 88 cycles. See docs/transpiled_code.md.
+    cpu.pc += 16;
+    cpu.cycle(88);
     cpu.a = cpu.read_byte(0xff9d);
     cpu.pc += 2;
     cpu.cycle(12);

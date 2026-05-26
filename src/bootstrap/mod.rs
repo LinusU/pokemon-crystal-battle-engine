@@ -36,6 +36,10 @@ pub struct BattleHeader {
     pub kind: BattleKind,
     /// Required for `trainer_battle`. Resolved via `bootstrap::trainers`.
     pub trainer: Option<String>,
+    /// Seed for the deterministic battle RNG. If unset, the harness picks
+    /// one from system entropy and logs it. Accepts decimal (`42`) or hex
+    /// (`0xdeadbeef`) literals via TOML's integer parser.
+    pub seed: Option<u64>,
 }
 
 #[derive(Debug, Deserialize, Clone, Copy, PartialEq, Eq)]
@@ -327,6 +331,9 @@ fn launch_trainer_battle(cpu: &mut Cpu, config: &BattleConfig) -> Result<(), Str
 /// Drive the boot to the post-init "ready" state and then launch whatever
 /// battle the config describes. Blocks for the duration of the battle.
 pub fn run(cpu: &mut Cpu, config: &BattleConfig) -> Result<(), String> {
+    let seed = resolve_seed(config.battle.seed);
+    cpu.seed_rng(seed);
+
     cpu.skip_intro_to_battle = true;
     let entry = crate::entry_routine();
     (entry.func)(cpu);
@@ -336,4 +343,31 @@ pub fn run(cpu: &mut Cpu, config: &BattleConfig) -> Result<(), String> {
         BattleKind::TrainerBattle => launch_trainer_battle(cpu, config)?,
     }
     Ok(())
+}
+
+/// Pick a seed for the battle RNG: honour the TOML value if present, otherwise
+/// draw one from system entropy and log it so the run is still reproducible.
+fn resolve_seed(from_config: Option<u64>) -> u64 {
+    if let Some(seed) = from_config {
+        eprintln!("battle: using seed 0x{seed:016x} from scenario");
+        return seed;
+    }
+    let seed = system_entropy_seed();
+    eprintln!("battle: no seed in scenario, generated 0x{seed:016x}");
+    seed
+}
+
+/// Mix `SystemTime` nanos with the process id to get a non-repeating seed
+/// without taking on a `rand` dependency just for this.
+fn system_entropy_seed() -> u64 {
+    let nanos = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_nanos() as u64)
+        .unwrap_or(0);
+    let pid = std::process::id() as u64;
+    let mut seed = nanos ^ pid.wrapping_mul(0x9e37_79b9_7f4a_7c15);
+    if seed == 0 {
+        seed = 0x9e37_79b9_7f4a_7c15;
+    }
+    seed
 }

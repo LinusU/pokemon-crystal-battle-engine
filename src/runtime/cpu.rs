@@ -47,6 +47,10 @@ pub struct Cpu {
     servicing_interrupt: bool,
     div: u8,
     div_counter: u32,
+    /// Seedable PRNG state used by the harness-patched [`crate::game::home::random::random`]
+    /// in place of the engine's original DIV-driven entropy. xorshift64; never zero.
+    /// Reseed with [`Cpu::seed_rng`].
+    rng_state: u64,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -99,6 +103,7 @@ impl Default for Cpu {
             servicing_interrupt: false,
             div: 0,
             div_counter: 0,
+            rng_state: Self::DEFAULT_RNG_SEED,
         };
         cpu.set_initial_hardware();
         cpu
@@ -108,6 +113,28 @@ impl Default for Cpu {
 impl Cpu {
     const R_IF: u16 = 0xff0f;
     const R_IE: u16 = 0xffff;
+    /// Fixed default seed for the harness PRNG. Picked once so behaviour is
+    /// reproducible across runs even when no caller has reseeded.
+    const DEFAULT_RNG_SEED: u64 = 0x9e37_79b9_7f4a_7c15;
+
+    /// Reseed the harness PRNG used by [`crate::game::home::random::random`].
+    /// A zero seed is mapped to the default constant — xorshift64 cannot
+    /// recover from all-zero state.
+    pub fn seed_rng(&mut self, seed: u64) {
+        self.rng_state = if seed == 0 { Self::DEFAULT_RNG_SEED } else { seed };
+    }
+
+    /// Advance the harness PRNG and return the next byte. xorshift64 with the
+    /// standard 13/7/17 triple, low byte taken — quality is more than enough
+    /// for the engine's per-call needs (damage rolls, accuracy, AI tiebreaks).
+    pub fn next_rng_byte(&mut self) -> u8 {
+        let mut x = self.rng_state;
+        x ^= x << 13;
+        x ^= x >> 7;
+        x ^= x << 17;
+        self.rng_state = x;
+        x as u8
+    }
 
     pub fn new_cgb(
         update_screen: Option<std::sync::mpsc::SyncSender<Vec<u8>>>,
@@ -574,5 +601,46 @@ impl Cpu {
         } else {
             self.hdma_len - 1
         };
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::Cpu;
+
+    /// Same seed → same byte stream. The whole reason the harness exists.
+    #[test]
+    fn seeded_rng_is_deterministic() {
+        let mut a = Cpu::default();
+        let mut b = Cpu::default();
+        a.seed_rng(0xdeadbeef);
+        b.seed_rng(0xdeadbeef);
+        let stream_a: Vec<u8> = (0..32).map(|_| a.next_rng_byte()).collect();
+        let stream_b: Vec<u8> = (0..32).map(|_| b.next_rng_byte()).collect();
+        assert_eq!(stream_a, stream_b);
+    }
+
+    /// Different seeds quickly diverge — guards against accidentally
+    /// hard-coding the seed somewhere in the pipeline.
+    #[test]
+    fn different_seeds_diverge() {
+        let mut a = Cpu::default();
+        let mut b = Cpu::default();
+        a.seed_rng(1);
+        b.seed_rng(2);
+        let stream_a: Vec<u8> = (0..16).map(|_| a.next_rng_byte()).collect();
+        let stream_b: Vec<u8> = (0..16).map(|_| b.next_rng_byte()).collect();
+        assert_ne!(stream_a, stream_b);
+    }
+
+    /// xorshift64 cannot recover from all-zero state; seed_rng must fold it
+    /// to the default so a TOML `seed = 0` doesn't produce a stuck PRNG.
+    #[test]
+    fn zero_seed_falls_back() {
+        let mut cpu = Cpu::default();
+        cpu.seed_rng(0);
+        // Two non-zero bytes is enough evidence the state isn't stuck.
+        assert_ne!(cpu.next_rng_byte(), 0);
+        assert_ne!(cpu.next_rng_byte(), 0);
     }
 }
