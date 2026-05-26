@@ -8,6 +8,7 @@
 //! Long-term, the same seeding logic feeds the headless state machine; the
 //! TOML + glium window in `main.rs` is just one consumer.
 
+pub mod items;
 pub mod species;
 
 use serde::Deserialize;
@@ -22,6 +23,8 @@ pub struct BattleConfig {
     pub player_party: Vec<MonSpec>,
     #[serde(default)]
     pub enemy_party: Vec<MonSpec>,
+    #[serde(default)]
+    pub player_items: Vec<ItemSpec>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -40,6 +43,12 @@ pub enum BattleKind {
 pub struct MonSpec {
     pub species: String,
     pub level: u8,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct ItemSpec {
+    pub name: String,
+    pub quantity: u8,
 }
 
 #[derive(Debug)]
@@ -142,13 +151,70 @@ fn seed_player(cpu: &mut Cpu) {
     cpu.write_byte(W_IN_BATTLE_TOWER_BATTLE, 0);
     cpu.write_byte(W_OT_PARTY_COUNT, 0);
 
-    // Empty bag pockets, written like _ResetWRAM.InitList does:
-    // count = 0, first slot = 0xff (terminator). Without the terminator the
-    // pack menu walks past the end of the list and corrupts neighbouring WRAM.
-    for list_addr in [W_NUM_ITEMS, W_NUM_KEY_ITEMS, W_NUM_BALLS, W_NUM_PC_ITEMS] {
+    // Key items and PC items are always empty in this harness. The Items and
+    // Balls pockets are populated by `seed_player_items`, which writes the
+    // count + 0xff terminator even for an empty config.
+    for list_addr in [W_NUM_KEY_ITEMS, W_NUM_PC_ITEMS] {
         cpu.write_byte(list_addr, 0);
         cpu.write_byte(list_addr + 1, 0xff);
     }
+}
+
+/// Write the player's items into the Items and Balls pockets. Each pocket
+/// stores `[count][id, qty]*[0xff]`, matching `_ResetWRAM.InitList`. The
+/// terminator is mandatory — without it, the pack menu walks past the end of
+/// the list and corrupts neighbouring WRAM.
+fn seed_player_items(cpu: &mut Cpu, specs: &[ItemSpec]) -> Result<(), String> {
+    let mut item_pocket: Vec<(u8, u8)> = Vec::new();
+    let mut ball_pocket: Vec<(u8, u8)> = Vec::new();
+
+    for spec in specs {
+        let def = items::lookup(&spec.name)
+            .ok_or_else(|| format!("unknown item: {}", spec.name))?;
+        if spec.quantity == 0 || spec.quantity > defs::MAX_ITEM_STACK {
+            return Err(format!(
+                "item {:?} quantity must be 1..={}, got {}",
+                spec.name,
+                defs::MAX_ITEM_STACK,
+                spec.quantity
+            ));
+        }
+        let bucket = match def.pocket {
+            items::Pocket::Item => &mut item_pocket,
+            items::Pocket::Ball => &mut ball_pocket,
+        };
+        bucket.push((def.id, spec.quantity));
+    }
+
+    if item_pocket.len() > defs::MAX_ITEMS as usize {
+        return Err(format!(
+            "too many items in Items pocket: {} (max {})",
+            item_pocket.len(),
+            defs::MAX_ITEMS
+        ));
+    }
+    if ball_pocket.len() > defs::MAX_BALLS as usize {
+        return Err(format!(
+            "too many balls in Balls pocket: {} (max {})",
+            ball_pocket.len(),
+            defs::MAX_BALLS
+        ));
+    }
+
+    write_pocket(cpu, W_NUM_ITEMS, &item_pocket);
+    write_pocket(cpu, W_NUM_BALLS, &ball_pocket);
+    Ok(())
+}
+
+fn write_pocket(cpu: &mut Cpu, num_addr: u16, entries: &[(u8, u8)]) {
+    cpu.write_byte(num_addr, entries.len() as u8);
+    let mut addr = num_addr + 1;
+    for (id, qty) in entries {
+        cpu.write_byte(addr, *id);
+        cpu.write_byte(addr + 1, *qty);
+        addr += 2;
+    }
+    cpu.write_byte(addr, 0xff);
 }
 
 /// Append one player party slot by driving the engine's own
@@ -179,6 +245,7 @@ fn launch_wild_encounter(cpu: &mut Cpu, config: &BattleConfig) -> Result<(), Str
     }
 
     seed_player(cpu);
+    seed_player_items(cpu, &config.player_items)?;
     cpu.write_byte(W_PARTY_COUNT, 0);
 
     for mon in &config.player_party {

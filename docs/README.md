@@ -9,7 +9,8 @@ The transpiled code is in `src/game/`, `src/dispatch.rs`, `src/defs.rs`. We avoi
 - ✅ The transpiled game still boots end-to-end (`cargo run` with no args plays Crystal).
 - ✅ TOML-driven launch: `cargo run -- scratch/first.toml` skips the title/intro and starts a battle.
 - ✅ Wild encounters supported with `[battle] type = "wild_encounter"`, one player party, one enemy mon.
-- ⬜ Trainer battles, more than one enemy, item & move overrides.
+- ✅ Bag items via `[[player_items]]` — sorted into the engine's Items / Balls pockets.
+- ⬜ Trainer battles, more than one enemy, move/DV overrides per mon.
 - ⬜ Headless mode (skip glium/winit, just iterate the state machine).
 - ⬜ A `step(action) -> Outcome` API. Right now the harness drives the battle "live"; the player still plays in the emulator window with the keyboard.
 

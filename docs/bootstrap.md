@@ -33,7 +33,7 @@ For a wild encounter, the harness writes these WRAM bytes (see [memory_layout.md
 
 - **Player identity**: `wPlayerName`, `wPlayerID`, `wPlayerGender`, `wTimeOfDay`, `wTimeOfDayPal`. Just enough that engine routines that read them get sane values.
 - **Guards**: `wLinkMode = 0`, `wInBattleTowerBattle = 0`, `wOTPartyCount = 0`.
-- **Empty bag pockets**: `wNumItems` / `wNumKeyItems` / `wNumBalls` / `wNumPCItems` set to count=0 with a `0xff` terminator in the first slot (matches `_ResetWRAM.InitList`). Without the terminator the pack menu walks off the list and corrupts neighbouring WRAM — see [memory_layout.md](memory_layout.md).
+- **Bag pockets**: `wNumKeyItems` / `wNumPCItems` are always empty (count=0 + `0xff` terminator, matching `_ResetWRAM.InitList`). `wNumItems` and `wNumBalls` are filled from `[[player_items]]` in the TOML — each entry is resolved via [`src/bootstrap/items.rs`](../src/bootstrap/items.rs) and routed to the matching pocket; both pockets always end with the `0xff` terminator. Without the terminator the pack menu walks off the list and corrupts neighbouring WRAM — see [memory_layout.md](memory_layout.md).
 - **Player party**: for each entry, set `wCurPartySpecies`, `wCurPartyLevel`, `wCurSpecies`, `wMonType = 0` (PARTYMON), `wBattleMode = 0` (so default item / random moves), then call `try_add_mon_to_party`. The engine fills in DVs, computes stats, picks the default moveset.
 - **Encounter state**: `wBattleMode = WILD_BATTLE`, `wBattleType = BATTLETYPE_NORMAL`, `wOtherTrainerClass = 0`, `wTempWildMonSpecies`, `wTempEnemyMonSpecies`, `wCurPartyLevel` (= enemy level), `wCurPartySpecies` (= enemy species).
 - Finally, call `start_battle`.
