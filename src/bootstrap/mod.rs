@@ -10,6 +10,7 @@
 
 pub mod items;
 pub mod species;
+pub mod trainers;
 
 use serde::Deserialize;
 
@@ -25,18 +26,23 @@ pub struct BattleConfig {
     pub enemy_party: Vec<MonSpec>,
     #[serde(default)]
     pub player_items: Vec<ItemSpec>,
+    #[serde(default)]
+    pub enemy_items: Vec<ItemSpec>,
 }
 
 #[derive(Debug, Deserialize)]
 pub struct BattleHeader {
     #[serde(rename = "type")]
     pub kind: BattleKind,
+    /// Required for `trainer_battle`. Resolved via `bootstrap::trainers`.
+    pub trainer: Option<String>,
 }
 
 #[derive(Debug, Deserialize, Clone, Copy, PartialEq, Eq)]
 #[serde(rename_all = "snake_case")]
 pub enum BattleKind {
     WildEncounter,
+    TrainerBattle,
 }
 
 #[derive(Debug, Deserialize)]
@@ -87,6 +93,7 @@ const W_BATTLE_MODE: u16 = 0xd22d;
 const W_TEMP_WILD_MON_SPECIES: u16 = 0xd22e;
 const W_OTHER_TRAINER_CLASS: u16 = 0xd22f;
 const W_BATTLE_TYPE: u16 = 0xd230;
+const W_OTHER_TRAINER_ID: u16 = 0xd231;
 const W_TIME_OF_DAY: u16 = 0xd269;
 const W_OT_PARTY_COUNT: u16 = 0xd280;
 const W_PLAYER_GENDER: u16 = 0xd472;
@@ -233,6 +240,23 @@ fn add_player_mon(cpu: &mut Cpu, species: u8, level: u8) {
     crate::game::engine::pokemon::move_mon::try_add_mon_to_party(cpu);
 }
 
+fn seed_player_party(cpu: &mut Cpu, party: &[MonSpec]) -> Result<(), String> {
+    cpu.write_byte(W_PARTY_COUNT, 0);
+    for mon in party {
+        let id = species::id_from_name(&mon.species)
+            .ok_or_else(|| format!("unknown player species: {}", mon.species))?;
+        add_player_mon(cpu, id, mon.level);
+    }
+    Ok(())
+}
+
+fn start_battle(cpu: &mut Cpu) {
+    switch_bank(cpu, BANK_START_BATTLE);
+    let return_sentinel: u16 = 0xfffd;
+    cpu.push_word(return_sentinel);
+    crate::game::engine::battle::core::start_battle(cpu);
+}
+
 fn launch_wild_encounter(cpu: &mut Cpu, config: &BattleConfig) -> Result<(), String> {
     if config.player_party.is_empty() {
         return Err("wild_encounter requires at least one player_party entry".into());
@@ -243,16 +267,13 @@ fn launch_wild_encounter(cpu: &mut Cpu, config: &BattleConfig) -> Result<(), Str
             config.enemy_party.len()
         ));
     }
+    if !config.enemy_items.is_empty() {
+        return Err("wild_encounter does not accept enemy_items".into());
+    }
 
     seed_player(cpu);
     seed_player_items(cpu, &config.player_items)?;
-    cpu.write_byte(W_PARTY_COUNT, 0);
-
-    for mon in &config.player_party {
-        let id = species::id_from_name(&mon.species)
-            .ok_or_else(|| format!("unknown player species: {}", mon.species))?;
-        add_player_mon(cpu, id, mon.level);
-    }
+    seed_player_party(cpu, &config.player_party)?;
 
     let enemy = &config.enemy_party[0];
     let enemy_id = species::id_from_name(&enemy.species)
@@ -266,10 +287,40 @@ fn launch_wild_encounter(cpu: &mut Cpu, config: &BattleConfig) -> Result<(), Str
     cpu.write_byte(W_CUR_PARTY_LEVEL, enemy.level);
     cpu.write_byte(W_CUR_PARTY_SPECIES, enemy_id);
 
-    switch_bank(cpu, BANK_START_BATTLE);
-    let return_sentinel: u16 = 0xfffd;
-    cpu.push_word(return_sentinel);
-    crate::game::engine::battle::core::start_battle(cpu);
+    start_battle(cpu);
+    Ok(())
+}
+
+fn launch_trainer_battle(cpu: &mut Cpu, config: &BattleConfig) -> Result<(), String> {
+    if config.player_party.is_empty() {
+        return Err("trainer_battle requires at least one player_party entry".into());
+    }
+    let trainer_name = config
+        .battle
+        .trainer
+        .as_deref()
+        .ok_or("trainer_battle requires a [battle] trainer = \"...\" field")?;
+    let trainer = trainers::lookup(trainer_name)
+        .ok_or_else(|| format!("unknown trainer: {trainer_name}"))?;
+
+    seed_player(cpu);
+    seed_player_items(cpu, &config.player_items)?;
+    seed_player_party(cpu, &config.player_party)?;
+
+    // The engine's `InitEnemyTrainer` reads `wOtherTrainerClass` /
+    // `wOtherTrainerID` and uses them to load the canonical party from
+    // `TrainerGroups` and the held items / base reward from
+    // `TrainerClassAttributes`. The `[[enemy_party]]` and `[[enemy_items]]`
+    // entries in the TOML are parsed but the engine still uses ROM data for
+    // both — see docs/toml_schema.md.
+    cpu.write_byte(W_BATTLE_MODE, defs::TRAINER_BATTLE as u8);
+    cpu.write_byte(W_BATTLE_TYPE, defs::BATTLETYPE_NORMAL as u8);
+    cpu.write_byte(W_OTHER_TRAINER_CLASS, trainer.class);
+    cpu.write_byte(W_OTHER_TRAINER_ID, trainer.id);
+    // wTempWildMonSpecies is left as-is; LoadTrainerOrWildMonPic checks
+    // wOtherTrainerClass first and skips the wild path entirely.
+
+    start_battle(cpu);
     Ok(())
 }
 
@@ -282,6 +333,7 @@ pub fn run(cpu: &mut Cpu, config: &BattleConfig) -> Result<(), String> {
 
     match config.battle.kind {
         BattleKind::WildEncounter => launch_wild_encounter(cpu, config)?,
+        BattleKind::TrainerBattle => launch_trainer_battle(cpu, config)?,
     }
     Ok(())
 }

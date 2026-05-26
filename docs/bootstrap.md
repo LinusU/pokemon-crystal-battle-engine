@@ -38,12 +38,25 @@ For a wild encounter, the harness writes these WRAM bytes (see [memory_layout.md
 - **Encounter state**: `wBattleMode = WILD_BATTLE`, `wBattleType = BATTLETYPE_NORMAL`, `wOtherTrainerClass = 0`, `wTempWildMonSpecies`, `wTempEnemyMonSpecies`, `wCurPartyLevel` (= enemy level), `wCurPartySpecies` (= enemy species).
 - Finally, call `start_battle`.
 
+## Trainer battles
+
+For `type = "trainer_battle"`, the player-side seeding is identical to a wild encounter (identity, items, party). The encounter-state bytes differ:
+
+- **Trainer identity**: `wOtherTrainerClass` + `wOtherTrainerID`. The harness resolves `trainer = "Whitney"` (etc.) via [`src/bootstrap/trainers.rs`](../src/bootstrap/trainers.rs).
+- **Mode**: `wBattleMode = TRAINER_BATTLE`, `wBattleType = BATTLETYPE_NORMAL`.
+
+Once those are set, `start_battle → BattleIntro → InitEnemy` notices nonzero `wOtherTrainerClass` and routes to `InitEnemyTrainer`. That routine does the heavy lifting for us: `GetTrainerAttributes` copies the AI items + base reward out of `TrainerClassAttributes`, and `ReadTrainerParty` walks `TrainerGroups` for the matching `(class, id)` pair and calls `try_add_mon_to_party` once per OT mon, filling `wOTPartyCount` / `wOTPartyMon{n}` with the canonical party.
+
+Because the engine owns the enemy-party load for trainer battles, the TOML's `[[enemy_party]]` and `[[enemy_items]]` are currently informational only. Overriding them would need a `HARNESS-PATCH:` in `init_enemy_trainer` that skips the two `callfar`s when a `cpu.skip_trainer_party_load` flag is set, plus harness-side pre-seeding of `wOTParty*` (using `wMonType = OTPARTYMON`) and `wEnemyTrainerItem1` / `Item2`. See [roadmap.md](roadmap.md).
+
 ## ROM banks
 
 Every transpiled function lives in a specific ROM bank. The transpiled code does **not** automatically bankswitch on Rust function entry — it assumes the right bank is already loaded. So before each top-level engine call, the harness writes to `hROMBank` (0xff9d) and the MBC bank-select (`R_ROMB` = 0x2000):
 
 - `try_add_mon_to_party` → bank `0x03`
 - `start_battle` → bank `0x0f`
+
+The trainer-battle path only needs the same banks: `start_battle` (`0x0f`) covers `BattleIntro` / `InitEnemyTrainer` / `GetTrainerAttributes` / `ReadTrainerParty`, which are all in bank `0x0e` and reached via `callfar` (so the engine handles its own bankswitching inside).
 
 If you add new direct-dispatch calls, look the symbol up in `scratch/pokecrystal/pokecrystal.sym` and switch to the bank shown in the prefix (e.g. `03:588c TryAddMonToParty`).
 

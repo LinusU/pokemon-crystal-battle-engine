@@ -18,6 +18,7 @@ The ground truth for symbol addresses is `scratch/pokecrystal/pokecrystal.sym`, 
 | `0xd22e` | `wTempWildMonSpecies` | 1 | Species of the wild encounter. |
 | `0xd22f` | `wOtherTrainerClass` | 1 | Trainer class id, or 0 for wild. |
 | `0xd230` | `wBattleType` | 1 | `BATTLETYPE_NORMAL`, `BATTLETYPE_FISH`, etc. |
+| `0xd231` | `wOtherTrainerID` | 1 | Which trainer of the class (`WHITNEY1`, `JOEY3`, …). |
 | `0xd269` | `wTimeOfDay` | 1 | 0..3 (MORN/DAY/NITE/?). |
 | `0xd280` | `wOTPartyCount` | 1 | Enemy trainer party size; 0 for wild. |
 | `0xd472` | `wPlayerGender` | 1 | 0 = male, 1 = female. |

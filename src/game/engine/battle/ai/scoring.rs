@@ -1039,8 +1039,20 @@ pub(crate) fn ai_smart_checkmove(cpu: &mut Cpu) {
     cpu.push_word(cpu.de());
     cpu.pc += 1;
     cpu.cycle(16);
-    cpu.pc = cpu.pop_word();
+    // HARNESS-PATCH: the asm here is `push de; ret` (in
+    // scratch/pokecrystal/engine/battle/ai/scoring.asm AI_Smart), used as
+    // an indirect `jp de` into the per-effect AI_Smart_* handler in bank
+    // 0x0e. The transpiler emits `cpu.pc = pop_word(); return` which just
+    // unwinds with PC pointing at the handler — the outer FarCall_hl then
+    // trips its assert_eq because PC isn't the expected post-call address.
+    // Dispatch the handler directly and let its own `ret` pop the
+    // `.nextmove` we pushed above; control naturally falls into
+    // ai_smart_nextmove. See docs/transpiled_code.md.
+    let handler_addr = cpu.pop_word();
     cpu.cycle(16);
+    (crate::dispatch::resolve(0x0e, handler_addr))(cpu);
+    assert_eq!(cpu.pc, 0x46ec);
+    become ai_smart_nextmove(cpu);
 }
 
 pub(crate) fn ai_smart_nextmove(cpu: &mut Cpu) {

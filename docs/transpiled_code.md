@@ -49,5 +49,6 @@ We're not graduating anything yet. The prerequisite is a test/replay harness sol
 | File | Function | Flag | Purpose |
 | --- | --- | --- | --- |
 | [src/game/engine/menus/intro_menu.rs](../src/game/engine/menus/intro_menu.rs) | `intro_sequence` | `cpu.skip_intro_to_battle` | Skip title/intro sequence so the harness can drive straight into a battle. |
+| [src/game/engine/battle/ai/scoring.rs](../src/game/engine/battle/ai/scoring.rs) | `ai_smart_checkmove` | — (unconditional) | Dispatch the AI_Smart per-effect handler directly. The asm uses `push de; ret` as an indirect `jp de` into bank 0x0e, which the transpiler can't follow — without the patch, AIChooseMove returns with PC pointing at the handler and FarCall_hl trips its assert. |
 
 Update this table whenever you add or remove a `HARNESS-PATCH:`.

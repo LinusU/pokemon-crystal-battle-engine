@@ -10,7 +10,8 @@ The transpiled code is in `src/game/`, `src/dispatch.rs`, `src/defs.rs`. We avoi
 - ✅ TOML-driven launch: `cargo run -- scratch/first.toml` skips the title/intro and starts a battle.
 - ✅ Wild encounters supported with `[battle] type = "wild_encounter"`, one player party, one enemy mon.
 - ✅ Bag items via `[[player_items]]` — sorted into the engine's Items / Balls pockets.
-- ⬜ Trainer battles, more than one enemy, move/DV overrides per mon.
+- ✅ Trainer battles via `[battle] type = "trainer_battle"`, `trainer = "Whitney"` — the engine loads the canonical party and AI items from ROM.
+- ⬜ Per-mon overrides (moves, DVs, items) and per-trainer overrides for the enemy party and `wEnemyTrainerItem1`/`Item2`.
 - ⬜ Headless mode (skip glium/winit, just iterate the state machine).
 - ⬜ A `step(action) -> Outcome` API. Right now the harness drives the battle "live"; the player still plays in the emulator window with the keyboard.
 

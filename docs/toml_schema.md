@@ -1,8 +1,8 @@
 # TOML schema
 
-The harness reads a battle scenario from a TOML file. Today only wild encounters are supported; everything else is rejected.
+The harness reads a battle scenario from a TOML file. Today two `[battle] type` values are accepted: `"wild_encounter"` and `"trainer_battle"`.
 
-## Example
+## Example — wild encounter
 
 ```toml
 [battle]
@@ -25,13 +25,36 @@ name = "Super Potion"
 quantity = 1
 ```
 
+## Example — trainer battle
+
+```toml
+[battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[player_party]]
+species = "Quilava"
+level = 20
+
+[[player_party]]
+species = "Geodude"
+level = 18
+
+[[player_items]]
+name = "Potion"
+quantity = 3
+```
+
+For trainer battles the enemy party and the trainer's AI items are loaded from ROM via `wOtherTrainerClass` / `wOtherTrainerID`. `[[enemy_party]]` and `[[enemy_items]]` entries are parsed (so scenarios can document the matchup) but the engine still uses the canonical ROM data — overriding them is on the [roadmap](roadmap.md).
+
 ## Fields
 
 ### `[battle]`
 
 | Field | Type | Required | Notes |
 | --- | --- | --- | --- |
-| `type` | string | yes | Currently only `"wild_encounter"`. |
+| `type` | string | yes | `"wild_encounter"` or `"trainer_battle"`. |
+| `trainer` | string | for `trainer_battle` | Trainer display name. Case- and punctuation-insensitive. Resolved via [`src/bootstrap/trainers.rs`](../src/bootstrap/trainers.rs) — today the 8 Johto + 8 Kanto gym leaders, Elite Four, Lance, Red, Blue, and Eusine. |
 
 ### `[[player_party]]` — one or more
 
@@ -46,6 +69,8 @@ DVs, default moves, PP, HP and stats are produced by the engine itself (`try_add
 
 For `wild_encounter`, exactly one entry is required. Same field set as `player_party`.
 
+For `trainer_battle`, optional and currently informational only — the engine loads the trainer's canonical party (species, levels, moves, items) from ROM via `ReadTrainerParty`.
+
 ### `[[player_items]]` — zero or more
 
 | Field | Type | Required | Notes |
@@ -55,6 +80,10 @@ For `wild_encounter`, exactly one entry is required. Same field set as `player_p
 
 Items are sorted into the engine's Items pocket (cap 20) or Balls pocket (cap 12) based on the item's pocket attribute. Key items, TMs, HMs, and mail are not exposed by the harness today — see [`src/bootstrap/items.rs`](../src/bootstrap/items.rs) for the supported list.
 
+### `[[enemy_items]]` — trainer battles only, currently informational
+
+Same field set as `[[player_items]]`. Rejected for `wild_encounter`. For `trainer_battle`, parsed but ignored — the trainer's AI item slots (`wEnemyTrainerItem1` / `Item2`) come from `TrainerClassAttributes` in ROM. Wiring this up to override the ROM values is on the [roadmap](roadmap.md).
+
 ## Species name resolution
 
 See [`src/bootstrap/species.rs`](../src/bootstrap/species.rs). The table is the first 251 species in pokédex order — same order as `scratch/pokecrystal/constants/pokemon_constants.asm`. The lookup is case-insensitive, ignores punctuation, and maps `♀`/`♂` to `F`/`M`.
@@ -63,6 +92,6 @@ See [`src/bootstrap/species.rs`](../src/bootstrap/species.rs). The table is the 
 
 - `nickname`, `item`, `moves = [...]`, `dvs = "..."` per mon (will short-circuit `try_add_mon_to_party` for those fields).
 - `[battle] battle_type` for `BATTLETYPE_FISH`, `BATTLETYPE_DEBUG`, etc.
-- Trainer-class encounters (`type = "trainer_battle"`, `trainer_class = "...", trainer_id = ...`).
+- Honor `[[enemy_party]]` and `[[enemy_items]]` for trainer battles (override the ROM data instead of just documenting the matchup).
 - `[player]` block: `name`, `id`, `gender` instead of the hardcoded "RED" + 0x1234.
-- More item categories (key items, TMs/HMs) and an `[[enemy_items]]` block once trainer battles land.
+- More item categories (key items, TMs/HMs).
