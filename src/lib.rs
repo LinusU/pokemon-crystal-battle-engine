@@ -8,6 +8,7 @@
 #![allow(unused_comparisons)]
 #![allow(unused_parens)]
 
+pub mod bootstrap;
 pub mod defs;
 pub mod dispatch;
 pub mod game;

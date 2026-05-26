@@ -25,6 +25,10 @@ pub struct Cpu {
     pub memory: std::collections::BTreeMap<u16, u8>,
     pub gpu: Gpu,
     pub keypad: Keypad,
+    /// When true, the boot flow returns at the start of `intro_sequence`
+    /// (after `game_init`'s display init has run). The battle-engine harness
+    /// uses this to take over before the game enters the intro/title sequence.
+    pub skip_intro_to_battle: bool,
     mbc: Mbc,
     wram: [u8; WRAM_SIZE],
     zram: [u8; ZRAM_SIZE],
@@ -76,6 +80,7 @@ impl Default for Cpu {
             memory: std::collections::BTreeMap::new(),
             gpu: Gpu::new_cgb(None),
             keypad: Keypad::default(),
+            skip_intro_to_battle: false,
             mbc: Mbc::new(crate::rom::ROM),
             wram: [0; WRAM_SIZE],
             zram: [0; ZRAM_SIZE],
@@ -555,7 +560,12 @@ impl Cpu {
         let src = self.hdma_src;
         for offset in 0..0x10 {
             let byte = self.read_byte(src + offset);
-            self.gpu.wb(self.hdma_dst + offset, byte);
+            // The VRAM-DMA destination is a 13-bit offset within VRAM; the high
+            // bits are forced so it always lands in 0x8000..=0x9fff. Without
+            // this mask a long transfer that starts near the end of VRAM walks
+            // off into 0xa000+ and the GPU panics on the write.
+            let dst = 0x8000 | (self.hdma_dst.wrapping_add(offset) & 0x1fff);
+            self.gpu.wb(dst, byte);
         }
         self.hdma_src = self.hdma_src.wrapping_add(0x10);
         self.hdma_dst = self.hdma_dst.wrapping_add(0x10);

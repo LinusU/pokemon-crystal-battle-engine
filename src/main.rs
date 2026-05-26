@@ -2,6 +2,7 @@ use std::sync::mpsc::{self, Sender, SyncSender};
 use std::thread;
 use winit::platform::pump_events::EventLoopExtPumpEvents;
 
+use rgb2rust_output::bootstrap::{self, BattleConfig};
 use rgb2rust_output::runtime::{KeypadEvent, KeypadKey};
 
 #[derive(Default)]
@@ -10,6 +11,17 @@ struct RenderOptions {
 }
 
 fn main() {
+    let battle_config = match std::env::args().nth(1) {
+        Some(path) => match bootstrap::load_battle(std::path::Path::new(&path)) {
+            Ok(cfg) => Some(cfg),
+            Err(e) => {
+                eprintln!("error: {e}");
+                std::process::exit(1);
+            }
+        },
+        None => None,
+    };
+
     let scale = 4;
     let (sender, receiver) = mpsc::sync_channel(1);
     let (keypad_sender, keypad_receiver) = mpsc::channel::<KeypadEvent>();
@@ -31,7 +43,7 @@ fn main() {
     .unwrap();
 
     let mut render_options = RenderOptions::default();
-    let cpu_thread = thread::spawn(move || run_game(sender, keypad_receiver));
+    let cpu_thread = thread::spawn(move || run_game(sender, keypad_receiver, battle_config));
 
     event_loop.set_control_flow(winit::event_loop::ControlFlow::Poll);
     loop {
@@ -121,11 +133,22 @@ fn create_window_builder() -> winit::window::WindowBuilder {
 fn run_game(
     update_screen: SyncSender<Vec<u8>>,
     keypad_events: mpsc::Receiver<KeypadEvent>,
+    battle_config: Option<BattleConfig>,
 ) {
-    let routine = rgb2rust_output::entry_routine();
     let mut cpu = rgb2rust_output::runtime::Cpu::new_cgb(Some(update_screen), Some(keypad_events));
     cpu.interrupt_vectors = rgb2rust_output::interrupt_vectors();
-    (routine.func)(&mut cpu);
+
+    match battle_config {
+        Some(config) => {
+            if let Err(e) = bootstrap::run(&mut cpu, &config) {
+                eprintln!("battle bootstrap failed: {e}");
+            }
+        }
+        None => {
+            let routine = rgb2rust_output::entry_routine();
+            (routine.func)(&mut cpu);
+        }
+    }
 }
 
 fn recalculate_screen<T>(

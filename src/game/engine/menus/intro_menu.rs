@@ -3186,6 +3186,13 @@ pub(crate) fn intro_place_player_sprite_male(cpu: &mut Cpu) {
 }
 
 pub(crate) fn intro_sequence(cpu: &mut Cpu) {
+    // HARNESS-PATCH: bail out of the boot flow before the title/intro sequence
+    // so the battle-engine consumer can take over. `game_init` has already
+    // done its display init (ClearTilemap / ClearBGPalettes / hBGMapAddress=
+    // 0x9800), so the engine starts from a clean state. See docs/transpiled_code.md.
+    if cpu.skip_intro_to_battle {
+        return;
+    }
     cpu.pc = 0x620b;
     cpu.set_hl(0x4579);
     cpu.pc += 3;
