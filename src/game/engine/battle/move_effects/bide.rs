@@ -1,0 +1,391 @@
+use crate::runtime::Cpu;
+
+pub(crate) fn battle_command_store_energy(cpu: &mut Cpu) {
+    cpu.pc = 0x6671;
+    cpu.a = crate::defs::BATTLE_VARS_SUBSTATUS3 as u8;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::battle_vars::get_battle_var(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    let mask = 1u8 << ((crate::defs::SUBSTATUS_BIDE as u8) & 7);
+    cpu.flag_z = (cpu.a & mask) == 0;
+    cpu.flag_n = false;
+    cpu.flag_h = true;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    if cpu.flag_z {
+        cpu.pc = cpu.pop_word();
+        cpu.cycle(20);
+        return;
+    }
+    cpu.pc += 1;
+    cpu.cycle(8);
+    cpu.set_hl(0xc672);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    cpu.a = cpu.read_byte(0xffe4);
+    cpu.pc += 2;
+    cpu.cycle(12);
+    let value = cpu.a;
+    cpu.a &= value;
+    cpu.flag_z = cpu.a == 0;
+    cpu.flag_n = false;
+    cpu.flag_h = true;
+    cpu.flag_c = false;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    if cpu.flag_z {
+        cpu.cycle(12);
+        become battle_command_store_energy_check_still_storing_energy(cpu);
+    }
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.set_hl(0xc67a);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    become battle_command_store_energy_check_still_storing_energy(cpu);
+}
+
+pub(crate) fn battle_command_store_energy_check_still_storing_energy(cpu: &mut Cpu) {
+    cpu.pc = 0x6684;
+    let addr = cpu.hl();
+    let value = cpu.read_byte(addr);
+    let result = value.wrapping_sub(1);
+    cpu.flag_z = result == 0;
+    cpu.flag_n = true;
+    cpu.flag_h = (value & 0x0f) == 0;
+    cpu.write_byte(addr, result);
+    cpu.pc += 1;
+    cpu.cycle(12);
+    if !cpu.flag_z {
+        cpu.cycle(12);
+        become battle_command_store_energy_still_storing(cpu);
+    }
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.a = crate::defs::BATTLE_VARS_SUBSTATUS3 as u8;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::battle_vars::get_battle_var_addr(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    let mask = 1u8 << ((crate::defs::SUBSTATUS_BIDE as u8) & 7);
+    let addr = cpu.hl();
+    let mut value = cpu.read_byte(addr);
+    value &= !mask;
+    cpu.write_byte(addr, value);
+    cpu.pc += 2;
+    cpu.cycle(16);
+    cpu.set_hl(0x4e84);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::battle::std_battle_textbox(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.a = crate::defs::BATTLE_VARS_MOVE_POWER as u8;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::battle_vars::get_battle_var_addr(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.a = 1;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.write_byte(cpu.hl(), cpu.a);
+    cpu.pc += 1;
+    cpu.cycle(8);
+    cpu.set_hl({ const N: i32 = (0xc682 as i32) + (1 as i32); N as u16 });
+    cpu.pc += 3;
+    cpu.cycle(12);
+    cpu.set_de(0xc732);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    cpu.a = cpu.read_byte(0xffe4);
+    cpu.pc += 2;
+    cpu.cycle(12);
+    let value = cpu.a;
+    cpu.a &= value;
+    cpu.flag_z = cpu.a == 0;
+    cpu.flag_n = false;
+    cpu.flag_h = true;
+    cpu.flag_c = false;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    if cpu.flag_z {
+        cpu.cycle(12);
+        become battle_command_store_energy_player(cpu);
+    }
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.set_hl({ const N: i32 = (0xc684 as i32) + (1 as i32); N as u16 });
+    cpu.pc += 3;
+    cpu.cycle(12);
+    cpu.set_de(0xc733);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    become battle_command_store_energy_player(cpu);
+}
+
+pub(crate) fn battle_command_store_energy_player(cpu: &mut Cpu) {
+    cpu.pc = 0x66ad;
+    cpu.a = cpu.read_byte(cpu.hl());
+    cpu.set_hl(cpu.hl().wrapping_sub(1));
+    cpu.pc += 1;
+    cpu.cycle(8);
+    let value = cpu.a;
+    let lhs = cpu.a;
+    let (result, carry) = lhs.overflowing_add(value);
+    cpu.flag_z = result == 0;
+    cpu.flag_n = false;
+    cpu.flag_h = (lhs & 0x0f) + (value & 0x0f) > 0x0f;
+    cpu.flag_c = carry;
+    cpu.a = result;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.b = cpu.a;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.write_byte({ const N: i32 = (0xd256 as i32) + (1 as i32); N as u16 }, cpu.a);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    cpu.a = cpu.read_byte(cpu.hl());
+    cpu.pc += 1;
+    cpu.cycle(8);
+    let value = cpu.a;
+    let carry_in = u8::from(cpu.flag_c);
+    let result = (value << 1) | carry_in;
+    cpu.flag_z = result == 0;
+    cpu.flag_n = false;
+    cpu.flag_h = false;
+    cpu.flag_c = value & 0x80 != 0;
+    cpu.a = result;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.write_byte(0xd256, cpu.a);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    if !cpu.flag_c {
+        cpu.cycle(12);
+        become battle_command_store_energy_not_maxed(cpu);
+    }
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.a = 0xff;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.write_byte(0xd256, cpu.a);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    cpu.write_byte({ const N: i32 = (0xd256 as i32) + (1 as i32); N as u16 }, cpu.a);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    become battle_command_store_energy_not_maxed(cpu);
+}
+
+pub(crate) fn battle_command_store_energy_not_maxed(cpu: &mut Cpu) {
+    cpu.pc = 0x66c3;
+    let value = cpu.b;
+    cpu.a |= value;
+    cpu.flag_z = cpu.a == 0;
+    cpu.flag_n = false;
+    cpu.flag_h = false;
+    cpu.flag_c = false;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    if !cpu.flag_z {
+        cpu.cycle(12);
+        become battle_command_store_energy_built_up_something(cpu);
+    }
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.a = 1;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.write_byte(0xc667, cpu.a);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    become battle_command_store_energy_built_up_something(cpu);
+}
+
+pub(crate) fn battle_command_store_energy_built_up_something(cpu: &mut Cpu) {
+    cpu.pc = 0x66cb;
+    cpu.a = 0;
+    cpu.flag_z = true;
+    cpu.flag_n = false;
+    cpu.flag_h = false;
+    cpu.flag_c = false;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.write_byte(cpu.hl(), cpu.a);
+    cpu.set_hl(cpu.hl().wrapping_add(1));
+    cpu.pc += 1;
+    cpu.cycle(8);
+    cpu.write_byte(cpu.hl(), cpu.a);
+    cpu.pc += 1;
+    cpu.cycle(8);
+    cpu.write_byte(cpu.de(), cpu.a);
+    cpu.pc += 1;
+    cpu.cycle(8);
+    cpu.a = crate::defs::BATTLE_VARS_MOVE_ANIM as u8;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::battle_vars::get_battle_var_addr(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.a = crate::defs::BIDE as u8;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.write_byte(cpu.hl(), cpu.a);
+    cpu.pc += 1;
+    cpu.cycle(8);
+    cpu.b = crate::defs::UNLEASHENERGY_COMMAND as u8;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.cycle(16);
+    become crate::game::engine::battle::effect_commands::skip_to_battle_command(cpu);
+}
+
+pub(crate) fn battle_command_store_energy_still_storing(cpu: &mut Cpu) {
+    cpu.pc = 0x66dc;
+    cpu.set_hl(0x4e6e);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::battle::std_battle_textbox(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.cycle(16);
+    become crate::game::engine::battle::effect_commands::end_move_effect(cpu);
+}
+
+pub(crate) fn battle_command_unleash_energy(cpu: &mut Cpu) {
+    cpu.pc = 0x66e5;
+    cpu.set_de(0xc682);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    cpu.set_bc(0xc672);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    cpu.a = cpu.read_byte(0xffe4);
+    cpu.pc += 2;
+    cpu.cycle(12);
+    let value = cpu.a;
+    cpu.a &= value;
+    cpu.flag_z = cpu.a == 0;
+    cpu.flag_n = false;
+    cpu.flag_h = true;
+    cpu.flag_c = false;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    if cpu.flag_z {
+        cpu.cycle(12);
+        become battle_command_unleash_energy_got_damage(cpu);
+    }
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.set_de(0xc684);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    cpu.set_bc(0xc67a);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    become battle_command_unleash_energy_got_damage(cpu);
+}
+
+pub(crate) fn battle_command_unleash_energy_got_damage(cpu: &mut Cpu) {
+    cpu.pc = 0x66f6;
+    cpu.a = crate::defs::BATTLE_VARS_SUBSTATUS3 as u8;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::battle_vars::get_battle_var_addr(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    let mask = 1u8 << ((crate::defs::SUBSTATUS_BIDE as u8) & 7);
+    let addr = cpu.hl();
+    let mut value = cpu.read_byte(addr);
+    value |= mask;
+    cpu.write_byte(addr, value);
+    cpu.pc += 2;
+    cpu.cycle(16);
+    cpu.a = 0;
+    cpu.flag_z = true;
+    cpu.flag_n = false;
+    cpu.flag_h = false;
+    cpu.flag_c = false;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.write_byte(cpu.de(), cpu.a);
+    cpu.pc += 1;
+    cpu.cycle(8);
+    cpu.set_de(cpu.de().wrapping_add(1));
+    cpu.pc += 1;
+    cpu.cycle(8);
+    cpu.write_byte(cpu.de(), cpu.a);
+    cpu.pc += 1;
+    cpu.cycle(8);
+    cpu.write_byte(0xc610, cpu.a);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    cpu.write_byte(0xc609, cpu.a);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::random::battle_random(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    let value = 1;
+    cpu.a &= value;
+    cpu.flag_z = cpu.a == 0;
+    cpu.flag_n = false;
+    cpu.flag_h = true;
+    cpu.flag_c = false;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    let value = cpu.a;
+    let result = value.wrapping_add(1);
+    cpu.flag_z = result == 0;
+    cpu.flag_n = false;
+    cpu.flag_h = (value & 0x0f) + 1 > 0x0f;
+    cpu.a = result;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    let value = cpu.a;
+    let result = value.wrapping_add(1);
+    cpu.flag_z = result == 0;
+    cpu.flag_n = false;
+    cpu.flag_h = (value & 0x0f) + 1 > 0x0f;
+    cpu.a = result;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.write_byte(cpu.bc(), cpu.a);
+    cpu.pc += 1;
+    cpu.cycle(8);
+    cpu.a = 1;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.write_byte(0xc689, cpu.a);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::engine::battle::effect_commands::animate_current_move(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.cycle(16);
+    become crate::game::engine::battle::effect_commands::end_move_effect(cpu);
+}

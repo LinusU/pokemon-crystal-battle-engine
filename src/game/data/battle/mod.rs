@@ -1,0 +1,11 @@
+pub mod ai;
+pub mod accuracy_multipliers;
+pub mod critical_hit_chances;
+pub mod effect_command_pointers;
+pub mod held_consumables;
+pub mod held_heal_status;
+pub mod held_stat_up;
+pub mod stat_multipliers;
+pub mod stat_names;
+pub mod weather_modifiers;
+pub mod wobble_probabilities;

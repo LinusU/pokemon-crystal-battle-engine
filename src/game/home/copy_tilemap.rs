@@ -1,0 +1,106 @@
+use crate::runtime::Cpu;
+
+pub fn load_tilemap_to_temp_tilemap(cpu: &mut Cpu) {
+    cpu.pc = 0x309d;
+    cpu.a = cpu.read_byte(crate::defs::R_WBK as u16);
+    cpu.pc += 2;
+    cpu.cycle(12);
+    cpu.push_word(cpu.af());
+    cpu.pc += 1;
+    cpu.cycle(16);
+    cpu.a = 0x02;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.write_byte(crate::defs::R_WBK as u16, cpu.a);
+    cpu.pc += 2;
+    cpu.cycle(12);
+    cpu.set_hl({ const N: i32 = ((((0 as i32) * (crate::defs::SCREEN_WIDTH as u16 as i32)) + (0 as i32)) + (0xc4a0 as i32)); N as u16 });
+    cpu.pc += 3;
+    cpu.cycle(12);
+    cpu.set_de({ const N: i32 = ((((0 as i32) * (crate::defs::SCREEN_WIDTH as u16 as i32)) + (0 as i32)) + (0xd000 as i32)); N as u16 });
+    cpu.pc += 3;
+    cpu.cycle(12);
+    cpu.set_bc({ const N: i32 = (0xc608 as i32) - (0xc4a0 as i32); N as u16 });
+    cpu.pc += 3;
+    cpu.cycle(12);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::copy::copy_bytes(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    let value = cpu.pop_word();
+    cpu.set_af(value);
+    cpu.pc += 1;
+    cpu.cycle(12);
+    cpu.write_byte(crate::defs::R_WBK as u16, cpu.a);
+    cpu.pc += 2;
+    cpu.cycle(12);
+    cpu.pc = cpu.pop_word();
+    cpu.cycle(16);
+}
+
+pub fn safe_load_temp_tilemap_to_tilemap(cpu: &mut Cpu) {
+    cpu.pc = 0x30b4;
+    cpu.a = 0;
+    cpu.flag_z = true;
+    cpu.flag_n = false;
+    cpu.flag_h = false;
+    cpu.flag_c = false;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.write_byte(0xffd4, cpu.a);
+    cpu.pc += 2;
+    cpu.cycle(12);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    load_temp_tilemap_to_tilemap(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.a = 1;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.write_byte(0xffd4, cpu.a);
+    cpu.pc += 2;
+    cpu.cycle(12);
+    cpu.pc = cpu.pop_word();
+    cpu.cycle(16);
+}
+
+pub fn load_temp_tilemap_to_tilemap(cpu: &mut Cpu) {
+    cpu.pc = 0x30bf;
+    cpu.a = cpu.read_byte(crate::defs::R_WBK as u16);
+    cpu.pc += 2;
+    cpu.cycle(12);
+    cpu.push_word(cpu.af());
+    cpu.pc += 1;
+    cpu.cycle(16);
+    cpu.a = 0x02;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.write_byte(crate::defs::R_WBK as u16, cpu.a);
+    cpu.pc += 2;
+    cpu.cycle(12);
+    cpu.set_hl({ const N: i32 = ((((0 as i32) * (crate::defs::SCREEN_WIDTH as u16 as i32)) + (0 as i32)) + (0xd000 as i32)); N as u16 });
+    cpu.pc += 3;
+    cpu.cycle(12);
+    cpu.set_de({ const N: i32 = ((((0 as i32) * (crate::defs::SCREEN_WIDTH as u16 as i32)) + (0 as i32)) + (0xc4a0 as i32)); N as u16 });
+    cpu.pc += 3;
+    cpu.cycle(12);
+    cpu.set_bc({ const N: i32 = (0xc608 as i32) - (0xc4a0 as i32); N as u16 });
+    cpu.pc += 3;
+    cpu.cycle(12);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::copy::copy_bytes(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    let value = cpu.pop_word();
+    cpu.set_af(value);
+    cpu.pc += 1;
+    cpu.cycle(12);
+    cpu.write_byte(crate::defs::R_WBK as u16, cpu.a);
+    cpu.pc += 2;
+    cpu.cycle(12);
+    cpu.pc = cpu.pop_word();
+    cpu.cycle(16);
+}

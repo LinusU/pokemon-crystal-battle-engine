@@ -1,0 +1,15 @@
+pub mod bug_contest_mons;
+pub mod fish;
+pub mod flee_mons;
+pub mod johto_grass;
+pub mod johto_water;
+pub mod kanto_grass;
+pub mod kanto_water;
+pub mod probabilities;
+pub mod roammon_maps;
+pub mod swarm_grass;
+pub mod swarm_water;
+pub mod treemon_maps;
+pub mod treemons;
+pub mod treemons_asleep;
+pub mod unlocked_unowns;

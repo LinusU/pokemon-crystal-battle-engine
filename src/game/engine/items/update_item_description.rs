@@ -1,0 +1,60 @@
+use crate::runtime::Cpu;
+
+pub(crate) fn update_item_description(cpu: &mut Cpu) {
+    cpu.pc = 0x44c3;
+    cpu.a = cpu.read_byte(0xcf74);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    cpu.write_byte(0xcf60, cpu.a);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    cpu.set_hl({ const N: i32 = ((((12 as i32) * (crate::defs::SCREEN_WIDTH as u16 as i32)) + (0 as i32)) + (0xc4a0 as i32)); N as u16 });
+    cpu.pc += 3;
+    cpu.cycle(12);
+    cpu.b = 4;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.c = { let value = ((crate::defs::SCREEN_WIDTH as i32) - (2 as i32)); if value < 0 { i8::try_from(value).expect("n8 expression out of range") as u8 } else { u8::try_from(value).expect("n8 expression out of range") } };
+    cpu.pc += 2;
+    cpu.cycle(8);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::text::textbox(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.a = cpu.read_byte(0xcf74);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    let value = -1i16 as u8;
+    let lhs = cpu.a;
+    let (result, carry) = lhs.overflowing_sub(value);
+    cpu.flag_z = result == 0;
+    cpu.flag_n = true;
+    cpu.flag_h = (lhs & 0x0f) < (value & 0x0f);
+    cpu.flag_c = carry;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    if cpu.flag_z {
+        cpu.pc = cpu.pop_word();
+        cpu.cycle(20);
+        return;
+    }
+    cpu.pc += 1;
+    cpu.cycle(8);
+    cpu.set_de({ const N: i32 = ((((14 as i32) * (crate::defs::SCREEN_WIDTH as u16 as i32)) + (1 as i32)) + (0xc4a0 as i32)); N as u16 });
+    cpu.pc += 3;
+    cpu.cycle(12);
+    cpu.a = 0x72;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.set_hl(0x4955);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    let next_pc = cpu.pc + 1;
+    cpu.push_word(next_pc);
+    cpu.cycle(16);
+    crate::game::home::header::far_call(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.pc = cpu.pop_word();
+    cpu.cycle(16);
+}

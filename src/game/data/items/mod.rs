@@ -1,0 +1,17 @@
+pub mod apricorn_balls;
+pub mod attributes;
+pub mod bargain_shop;
+pub mod buena_prizes;
+pub mod catch_rate_items;
+pub mod descriptions;
+pub mod fruit_trees;
+pub mod heal_hp;
+pub mod heal_status;
+pub mod mail_items;
+pub mod marts;
+pub mod mom_phone;
+pub mod mystery_gift_items;
+pub mod names;
+pub mod pocket_names;
+pub mod rooftop_sale;
+pub mod x_stats;

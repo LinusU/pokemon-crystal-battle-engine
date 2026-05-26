@@ -1,0 +1,228 @@
+use crate::runtime::Cpu;
+
+pub(crate) fn ask_remember_password(cpu: &mut Cpu) {
+    cpu.pc = 0x6e12;
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    ask_remember_password_do_menu(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.a = 0x0;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    if cpu.flag_c {
+        cpu.cycle(12);
+        become ask_remember_password_okay(cpu);
+    }
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.a = 0x1;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    become ask_remember_password_okay(cpu);
+}
+
+pub(crate) fn ask_remember_password_okay(cpu: &mut Cpu) {
+    cpu.pc = 0x6e1b;
+    cpu.write_byte(0xc2dd, cpu.a);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    cpu.pc = cpu.pop_word();
+    cpu.cycle(16);
+}
+
+pub(crate) fn ask_remember_password_do_menu(cpu: &mut Cpu) {
+    cpu.pc = 0x6e1f;
+    cpu.set_bc(0x0e07);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    cpu.push_word(cpu.bc());
+    cpu.pc += 1;
+    cpu.cycle(16);
+    cpu.set_hl(0x1e1d);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::menu::copy_menu_header(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    let value = cpu.pop_word();
+    cpu.set_bc(value);
+    cpu.pc += 1;
+    cpu.cycle(12);
+    cpu.a = cpu.b;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.write_byte(0xcf83, cpu.a);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    let value = 0x5;
+    let lhs = cpu.a;
+    let (result, carry) = lhs.overflowing_add(value);
+    cpu.flag_z = result == 0;
+    cpu.flag_n = false;
+    cpu.flag_h = (lhs & 0x0f) + (value & 0x0f) > 0x0f;
+    cpu.flag_c = carry;
+    cpu.a = result;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.write_byte(0xcf85, cpu.a);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    cpu.a = cpu.c;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.write_byte(0xcf82, cpu.a);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    let value = 0x4;
+    let lhs = cpu.a;
+    let (result, carry) = lhs.overflowing_add(value);
+    cpu.flag_z = result == 0;
+    cpu.flag_n = false;
+    cpu.flag_h = (lhs & 0x0f) + (value & 0x0f) > 0x0f;
+    cpu.flag_c = carry;
+    cpu.a = result;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.write_byte(0xcf84, cpu.a);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::menu::push_window(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::menu::vertical_menu(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.push_word(cpu.af());
+    cpu.pc += 1;
+    cpu.cycle(16);
+    cpu.c = 15;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::delay::delay_frames(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    buena_exit_menu(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    let value = cpu.pop_word();
+    cpu.set_af(value);
+    cpu.pc += 1;
+    cpu.cycle(12);
+    if cpu.flag_c {
+        cpu.cycle(12);
+        become ask_remember_password_refused(cpu);
+    }
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.a = cpu.read_byte(0xcfa9);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    let value = 0x2;
+    let lhs = cpu.a;
+    let (result, carry) = lhs.overflowing_sub(value);
+    cpu.flag_z = result == 0;
+    cpu.flag_n = true;
+    cpu.flag_h = (lhs & 0x0f) < (value & 0x0f);
+    cpu.flag_c = carry;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    if cpu.flag_z {
+        cpu.cycle(12);
+        become ask_remember_password_refused(cpu);
+    }
+    cpu.pc += 2;
+    cpu.cycle(8);
+    let value = cpu.a;
+    cpu.a &= value;
+    cpu.flag_z = cpu.a == 0;
+    cpu.flag_n = false;
+    cpu.flag_h = true;
+    cpu.flag_c = false;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.pc = cpu.pop_word();
+    cpu.cycle(16);
+}
+
+pub(crate) fn ask_remember_password_refused(cpu: &mut Cpu) {
+    cpu.pc = 0x6e57;
+    cpu.a = 0x2;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.write_byte(0xcfa9, cpu.a);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    cpu.flag_n = false;
+    cpu.flag_h = false;
+    cpu.flag_c = true;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.pc = cpu.pop_word();
+    cpu.cycle(16);
+}
+
+pub(crate) fn buena_exit_menu(cpu: &mut Cpu) {
+    cpu.pc = 0x6e5e;
+    cpu.a = cpu.read_byte(0xffd8);
+    cpu.pc += 2;
+    cpu.cycle(12);
+    cpu.push_word(cpu.af());
+    cpu.pc += 1;
+    cpu.cycle(16);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::menu::exit_menu(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::map_objects::update_sprites(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.a = 0;
+    cpu.flag_z = true;
+    cpu.flag_n = false;
+    cpu.flag_h = false;
+    cpu.flag_c = false;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.write_byte(0xffd8, cpu.a);
+    cpu.pc += 2;
+    cpu.cycle(12);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::delay::delay_frame(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.a = 0x1;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.write_byte(0xffd8, cpu.a);
+    cpu.pc += 2;
+    cpu.cycle(12);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::tilemap::apply_tilemap(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    let value = cpu.pop_word();
+    cpu.set_af(value);
+    cpu.pc += 1;
+    cpu.cycle(12);
+    cpu.write_byte(0xffd8, cpu.a);
+    cpu.pc += 2;
+    cpu.cycle(12);
+    cpu.pc = cpu.pop_word();
+    cpu.cycle(16);
+}

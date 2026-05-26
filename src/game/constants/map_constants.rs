@@ -1,0 +1,3268 @@
+use crate::runtime::Cpu;
+
+pub const CONST_VALUE: u8 = 0;
+
+pub const CONST_INC: u8 = 1;
+
+pub const MAPGROUP_OLIVINE: u8 = 0;
+
+pub const _MAP_VALUE_: u8 = 1;
+
+pub const GROUP_OLIVINE_POKECENTER_1F: u8 = 1;
+
+pub const MAP_OLIVINE_POKECENTER_1F: u8 = 1;
+
+pub const OLIVINE_POKECENTER_1F_WIDTH: u8 = 5;
+
+pub const OLIVINE_POKECENTER_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_OLIVINE_GYM: u8 = 1;
+
+pub const MAP_OLIVINE_GYM: u8 = 2;
+
+pub const OLIVINE_GYM_WIDTH: u8 = 5;
+
+pub const OLIVINE_GYM_HEIGHT: u8 = 8;
+
+pub const GROUP_OLIVINE_TIMS_HOUSE: u8 = 1;
+
+pub const MAP_OLIVINE_TIMS_HOUSE: u8 = 3;
+
+pub const OLIVINE_TIMS_HOUSE_WIDTH: u8 = 4;
+
+pub const OLIVINE_TIMS_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_OLIVINE_HOUSE_BETA: u8 = 1;
+
+pub const MAP_OLIVINE_HOUSE_BETA: u8 = 4;
+
+pub const OLIVINE_HOUSE_BETA_WIDTH: u8 = 4;
+
+pub const OLIVINE_HOUSE_BETA_HEIGHT: u8 = 4;
+
+pub const GROUP_OLIVINE_PUNISHMENT_SPEECH_HOUSE: u8 = 1;
+
+pub const MAP_OLIVINE_PUNISHMENT_SPEECH_HOUSE: u8 = 5;
+
+pub const OLIVINE_PUNISHMENT_SPEECH_HOUSE_WIDTH: u8 = 4;
+
+pub const OLIVINE_PUNISHMENT_SPEECH_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_OLIVINE_GOOD_ROD_HOUSE: u8 = 1;
+
+pub const MAP_OLIVINE_GOOD_ROD_HOUSE: u8 = 6;
+
+pub const OLIVINE_GOOD_ROD_HOUSE_WIDTH: u8 = 4;
+
+pub const OLIVINE_GOOD_ROD_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_OLIVINE_CAFE: u8 = 1;
+
+pub const MAP_OLIVINE_CAFE: u8 = 7;
+
+pub const OLIVINE_CAFE_WIDTH: u8 = 4;
+
+pub const OLIVINE_CAFE_HEIGHT: u8 = 4;
+
+pub const GROUP_OLIVINE_MART: u8 = 1;
+
+pub const MAP_OLIVINE_MART: u8 = 8;
+
+pub const OLIVINE_MART_WIDTH: u8 = 6;
+
+pub const OLIVINE_MART_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_38_ECRUTEAK_GATE: u8 = 1;
+
+pub const MAP_ROUTE_38_ECRUTEAK_GATE: u8 = 9;
+
+pub const ROUTE_38_ECRUTEAK_GATE_WIDTH: u8 = 5;
+
+pub const ROUTE_38_ECRUTEAK_GATE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_39_BARN: u8 = 1;
+
+pub const MAP_ROUTE_39_BARN: u8 = 10;
+
+pub const ROUTE_39_BARN_WIDTH: u8 = 4;
+
+pub const ROUTE_39_BARN_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_39_FARMHOUSE: u8 = 1;
+
+pub const MAP_ROUTE_39_FARMHOUSE: u8 = 11;
+
+pub const ROUTE_39_FARMHOUSE_WIDTH: u8 = 4;
+
+pub const ROUTE_39_FARMHOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_38: u8 = 1;
+
+pub const MAP_ROUTE_38: u8 = 12;
+
+pub const ROUTE_38_WIDTH: u8 = 20;
+
+pub const ROUTE_38_HEIGHT: u8 = 9;
+
+pub const GROUP_ROUTE_39: u8 = 1;
+
+pub const MAP_ROUTE_39: u8 = 13;
+
+pub const ROUTE_39_WIDTH: u8 = 10;
+
+pub const ROUTE_39_HEIGHT: u8 = 18;
+
+pub const GROUP_OLIVINE_CITY: u8 = 1;
+
+pub const MAP_OLIVINE_CITY: u8 = 14;
+
+pub const OLIVINE_CITY_WIDTH: u8 = 20;
+
+pub const OLIVINE_CITY_HEIGHT: u8 = 18;
+
+pub const NUM_OLIVINE_MAPS: u8 = 14;
+
+pub const MAPGROUP_MAHOGANY: u8 = 1;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_MAHOGANY_RED_GYARADOS_SPEECH_HOUSE: u8 = 2;
+
+pub const MAP_MAHOGANY_RED_GYARADOS_SPEECH_HOUSE: u8 = 1;
+
+pub const MAHOGANY_RED_GYARADOS_SPEECH_HOUSE_WIDTH: u8 = 4;
+
+pub const MAHOGANY_RED_GYARADOS_SPEECH_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_MAHOGANY_GYM: u8 = 2;
+
+pub const MAP_MAHOGANY_GYM: u8 = 2;
+
+pub const MAHOGANY_GYM_WIDTH: u8 = 5;
+
+pub const MAHOGANY_GYM_HEIGHT: u8 = 9;
+
+pub const GROUP_MAHOGANY_POKECENTER_1F: u8 = 2;
+
+pub const MAP_MAHOGANY_POKECENTER_1F: u8 = 3;
+
+pub const MAHOGANY_POKECENTER_1F_WIDTH: u8 = 5;
+
+pub const MAHOGANY_POKECENTER_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_42_ECRUTEAK_GATE: u8 = 2;
+
+pub const MAP_ROUTE_42_ECRUTEAK_GATE: u8 = 4;
+
+pub const ROUTE_42_ECRUTEAK_GATE_WIDTH: u8 = 5;
+
+pub const ROUTE_42_ECRUTEAK_GATE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_42: u8 = 2;
+
+pub const MAP_ROUTE_42: u8 = 5;
+
+pub const ROUTE_42_WIDTH: u8 = 30;
+
+pub const ROUTE_42_HEIGHT: u8 = 9;
+
+pub const GROUP_ROUTE_44: u8 = 2;
+
+pub const MAP_ROUTE_44: u8 = 6;
+
+pub const ROUTE_44_WIDTH: u8 = 30;
+
+pub const ROUTE_44_HEIGHT: u8 = 9;
+
+pub const GROUP_MAHOGANY_TOWN: u8 = 2;
+
+pub const MAP_MAHOGANY_TOWN: u8 = 7;
+
+pub const MAHOGANY_TOWN_WIDTH: u8 = 10;
+
+pub const MAHOGANY_TOWN_HEIGHT: u8 = 9;
+
+pub const NUM_MAHOGANY_MAPS: u8 = 7;
+
+pub const MAPGROUP_DUNGEONS: u8 = 2;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_SPROUT_TOWER_1F: u8 = 3;
+
+pub const MAP_SPROUT_TOWER_1F: u8 = 1;
+
+pub const SPROUT_TOWER_1F_WIDTH: u8 = 10;
+
+pub const SPROUT_TOWER_1F_HEIGHT: u8 = 8;
+
+pub const GROUP_SPROUT_TOWER_2F: u8 = 3;
+
+pub const MAP_SPROUT_TOWER_2F: u8 = 2;
+
+pub const SPROUT_TOWER_2F_WIDTH: u8 = 10;
+
+pub const SPROUT_TOWER_2F_HEIGHT: u8 = 8;
+
+pub const GROUP_SPROUT_TOWER_3F: u8 = 3;
+
+pub const MAP_SPROUT_TOWER_3F: u8 = 3;
+
+pub const SPROUT_TOWER_3F_WIDTH: u8 = 10;
+
+pub const SPROUT_TOWER_3F_HEIGHT: u8 = 8;
+
+pub const GROUP_TIN_TOWER_1F: u8 = 3;
+
+pub const MAP_TIN_TOWER_1F: u8 = 4;
+
+pub const TIN_TOWER_1F_WIDTH: u8 = 10;
+
+pub const TIN_TOWER_1F_HEIGHT: u8 = 9;
+
+pub const GROUP_TIN_TOWER_2F: u8 = 3;
+
+pub const MAP_TIN_TOWER_2F: u8 = 5;
+
+pub const TIN_TOWER_2F_WIDTH: u8 = 10;
+
+pub const TIN_TOWER_2F_HEIGHT: u8 = 9;
+
+pub const GROUP_TIN_TOWER_3F: u8 = 3;
+
+pub const MAP_TIN_TOWER_3F: u8 = 6;
+
+pub const TIN_TOWER_3F_WIDTH: u8 = 10;
+
+pub const TIN_TOWER_3F_HEIGHT: u8 = 9;
+
+pub const GROUP_TIN_TOWER_4F: u8 = 3;
+
+pub const MAP_TIN_TOWER_4F: u8 = 7;
+
+pub const TIN_TOWER_4F_WIDTH: u8 = 10;
+
+pub const TIN_TOWER_4F_HEIGHT: u8 = 9;
+
+pub const GROUP_TIN_TOWER_5F: u8 = 3;
+
+pub const MAP_TIN_TOWER_5F: u8 = 8;
+
+pub const TIN_TOWER_5F_WIDTH: u8 = 10;
+
+pub const TIN_TOWER_5F_HEIGHT: u8 = 9;
+
+pub const GROUP_TIN_TOWER_6F: u8 = 3;
+
+pub const MAP_TIN_TOWER_6F: u8 = 9;
+
+pub const TIN_TOWER_6F_WIDTH: u8 = 10;
+
+pub const TIN_TOWER_6F_HEIGHT: u8 = 9;
+
+pub const GROUP_TIN_TOWER_7F: u8 = 3;
+
+pub const MAP_TIN_TOWER_7F: u8 = 10;
+
+pub const TIN_TOWER_7F_WIDTH: u8 = 10;
+
+pub const TIN_TOWER_7F_HEIGHT: u8 = 9;
+
+pub const GROUP_TIN_TOWER_8F: u8 = 3;
+
+pub const MAP_TIN_TOWER_8F: u8 = 11;
+
+pub const TIN_TOWER_8F_WIDTH: u8 = 10;
+
+pub const TIN_TOWER_8F_HEIGHT: u8 = 9;
+
+pub const GROUP_TIN_TOWER_9F: u8 = 3;
+
+pub const MAP_TIN_TOWER_9F: u8 = 12;
+
+pub const TIN_TOWER_9F_WIDTH: u8 = 10;
+
+pub const TIN_TOWER_9F_HEIGHT: u8 = 9;
+
+pub const GROUP_BURNED_TOWER_1F: u8 = 3;
+
+pub const MAP_BURNED_TOWER_1F: u8 = 13;
+
+pub const BURNED_TOWER_1F_WIDTH: u8 = 10;
+
+pub const BURNED_TOWER_1F_HEIGHT: u8 = 9;
+
+pub const GROUP_BURNED_TOWER_B1F: u8 = 3;
+
+pub const MAP_BURNED_TOWER_B1F: u8 = 14;
+
+pub const BURNED_TOWER_B1F_WIDTH: u8 = 10;
+
+pub const BURNED_TOWER_B1F_HEIGHT: u8 = 9;
+
+pub const GROUP_NATIONAL_PARK: u8 = 3;
+
+pub const MAP_NATIONAL_PARK: u8 = 15;
+
+pub const NATIONAL_PARK_WIDTH: u8 = 20;
+
+pub const NATIONAL_PARK_HEIGHT: u8 = 27;
+
+pub const GROUP_NATIONAL_PARK_BUG_CONTEST: u8 = 3;
+
+pub const MAP_NATIONAL_PARK_BUG_CONTEST: u8 = 16;
+
+pub const NATIONAL_PARK_BUG_CONTEST_WIDTH: u8 = 20;
+
+pub const NATIONAL_PARK_BUG_CONTEST_HEIGHT: u8 = 27;
+
+pub const GROUP_RADIO_TOWER_1F: u8 = 3;
+
+pub const MAP_RADIO_TOWER_1F: u8 = 17;
+
+pub const RADIO_TOWER_1F_WIDTH: u8 = 9;
+
+pub const RADIO_TOWER_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_RADIO_TOWER_2F: u8 = 3;
+
+pub const MAP_RADIO_TOWER_2F: u8 = 18;
+
+pub const RADIO_TOWER_2F_WIDTH: u8 = 9;
+
+pub const RADIO_TOWER_2F_HEIGHT: u8 = 4;
+
+pub const GROUP_RADIO_TOWER_3F: u8 = 3;
+
+pub const MAP_RADIO_TOWER_3F: u8 = 19;
+
+pub const RADIO_TOWER_3F_WIDTH: u8 = 9;
+
+pub const RADIO_TOWER_3F_HEIGHT: u8 = 4;
+
+pub const GROUP_RADIO_TOWER_4F: u8 = 3;
+
+pub const MAP_RADIO_TOWER_4F: u8 = 20;
+
+pub const RADIO_TOWER_4F_WIDTH: u8 = 9;
+
+pub const RADIO_TOWER_4F_HEIGHT: u8 = 4;
+
+pub const GROUP_RADIO_TOWER_5F: u8 = 3;
+
+pub const MAP_RADIO_TOWER_5F: u8 = 21;
+
+pub const RADIO_TOWER_5F_WIDTH: u8 = 9;
+
+pub const RADIO_TOWER_5F_HEIGHT: u8 = 4;
+
+pub const GROUP_RUINS_OF_ALPH_OUTSIDE: u8 = 3;
+
+pub const MAP_RUINS_OF_ALPH_OUTSIDE: u8 = 22;
+
+pub const RUINS_OF_ALPH_OUTSIDE_WIDTH: u8 = 10;
+
+pub const RUINS_OF_ALPH_OUTSIDE_HEIGHT: u8 = 18;
+
+pub const GROUP_RUINS_OF_ALPH_HO_OH_CHAMBER: u8 = 3;
+
+pub const MAP_RUINS_OF_ALPH_HO_OH_CHAMBER: u8 = 23;
+
+pub const RUINS_OF_ALPH_HO_OH_CHAMBER_WIDTH: u8 = 4;
+
+pub const RUINS_OF_ALPH_HO_OH_CHAMBER_HEIGHT: u8 = 5;
+
+pub const GROUP_RUINS_OF_ALPH_KABUTO_CHAMBER: u8 = 3;
+
+pub const MAP_RUINS_OF_ALPH_KABUTO_CHAMBER: u8 = 24;
+
+pub const RUINS_OF_ALPH_KABUTO_CHAMBER_WIDTH: u8 = 4;
+
+pub const RUINS_OF_ALPH_KABUTO_CHAMBER_HEIGHT: u8 = 5;
+
+pub const GROUP_RUINS_OF_ALPH_OMANYTE_CHAMBER: u8 = 3;
+
+pub const MAP_RUINS_OF_ALPH_OMANYTE_CHAMBER: u8 = 25;
+
+pub const RUINS_OF_ALPH_OMANYTE_CHAMBER_WIDTH: u8 = 4;
+
+pub const RUINS_OF_ALPH_OMANYTE_CHAMBER_HEIGHT: u8 = 5;
+
+pub const GROUP_RUINS_OF_ALPH_AERODACTYL_CHAMBER: u8 = 3;
+
+pub const MAP_RUINS_OF_ALPH_AERODACTYL_CHAMBER: u8 = 26;
+
+pub const RUINS_OF_ALPH_AERODACTYL_CHAMBER_WIDTH: u8 = 4;
+
+pub const RUINS_OF_ALPH_AERODACTYL_CHAMBER_HEIGHT: u8 = 5;
+
+pub const GROUP_RUINS_OF_ALPH_INNER_CHAMBER: u8 = 3;
+
+pub const MAP_RUINS_OF_ALPH_INNER_CHAMBER: u8 = 27;
+
+pub const RUINS_OF_ALPH_INNER_CHAMBER_WIDTH: u8 = 10;
+
+pub const RUINS_OF_ALPH_INNER_CHAMBER_HEIGHT: u8 = 14;
+
+pub const GROUP_RUINS_OF_ALPH_RESEARCH_CENTER: u8 = 3;
+
+pub const MAP_RUINS_OF_ALPH_RESEARCH_CENTER: u8 = 28;
+
+pub const RUINS_OF_ALPH_RESEARCH_CENTER_WIDTH: u8 = 4;
+
+pub const RUINS_OF_ALPH_RESEARCH_CENTER_HEIGHT: u8 = 4;
+
+pub const GROUP_RUINS_OF_ALPH_HO_OH_ITEM_ROOM: u8 = 3;
+
+pub const MAP_RUINS_OF_ALPH_HO_OH_ITEM_ROOM: u8 = 29;
+
+pub const RUINS_OF_ALPH_HO_OH_ITEM_ROOM_WIDTH: u8 = 4;
+
+pub const RUINS_OF_ALPH_HO_OH_ITEM_ROOM_HEIGHT: u8 = 5;
+
+pub const GROUP_RUINS_OF_ALPH_KABUTO_ITEM_ROOM: u8 = 3;
+
+pub const MAP_RUINS_OF_ALPH_KABUTO_ITEM_ROOM: u8 = 30;
+
+pub const RUINS_OF_ALPH_KABUTO_ITEM_ROOM_WIDTH: u8 = 4;
+
+pub const RUINS_OF_ALPH_KABUTO_ITEM_ROOM_HEIGHT: u8 = 5;
+
+pub const GROUP_RUINS_OF_ALPH_OMANYTE_ITEM_ROOM: u8 = 3;
+
+pub const MAP_RUINS_OF_ALPH_OMANYTE_ITEM_ROOM: u8 = 31;
+
+pub const RUINS_OF_ALPH_OMANYTE_ITEM_ROOM_WIDTH: u8 = 4;
+
+pub const RUINS_OF_ALPH_OMANYTE_ITEM_ROOM_HEIGHT: u8 = 5;
+
+pub const GROUP_RUINS_OF_ALPH_AERODACTYL_ITEM_ROOM: u8 = 3;
+
+pub const MAP_RUINS_OF_ALPH_AERODACTYL_ITEM_ROOM: u8 = 32;
+
+pub const RUINS_OF_ALPH_AERODACTYL_ITEM_ROOM_WIDTH: u8 = 4;
+
+pub const RUINS_OF_ALPH_AERODACTYL_ITEM_ROOM_HEIGHT: u8 = 5;
+
+pub const GROUP_RUINS_OF_ALPH_HO_OH_WORD_ROOM: u8 = 3;
+
+pub const MAP_RUINS_OF_ALPH_HO_OH_WORD_ROOM: u8 = 33;
+
+pub const RUINS_OF_ALPH_HO_OH_WORD_ROOM_WIDTH: u8 = 10;
+
+pub const RUINS_OF_ALPH_HO_OH_WORD_ROOM_HEIGHT: u8 = 12;
+
+pub const GROUP_RUINS_OF_ALPH_KABUTO_WORD_ROOM: u8 = 3;
+
+pub const MAP_RUINS_OF_ALPH_KABUTO_WORD_ROOM: u8 = 34;
+
+pub const RUINS_OF_ALPH_KABUTO_WORD_ROOM_WIDTH: u8 = 10;
+
+pub const RUINS_OF_ALPH_KABUTO_WORD_ROOM_HEIGHT: u8 = 7;
+
+pub const GROUP_RUINS_OF_ALPH_OMANYTE_WORD_ROOM: u8 = 3;
+
+pub const MAP_RUINS_OF_ALPH_OMANYTE_WORD_ROOM: u8 = 35;
+
+pub const RUINS_OF_ALPH_OMANYTE_WORD_ROOM_WIDTH: u8 = 10;
+
+pub const RUINS_OF_ALPH_OMANYTE_WORD_ROOM_HEIGHT: u8 = 8;
+
+pub const GROUP_RUINS_OF_ALPH_AERODACTYL_WORD_ROOM: u8 = 3;
+
+pub const MAP_RUINS_OF_ALPH_AERODACTYL_WORD_ROOM: u8 = 36;
+
+pub const RUINS_OF_ALPH_AERODACTYL_WORD_ROOM_WIDTH: u8 = 10;
+
+pub const RUINS_OF_ALPH_AERODACTYL_WORD_ROOM_HEIGHT: u8 = 7;
+
+pub const GROUP_UNION_CAVE_1F: u8 = 3;
+
+pub const MAP_UNION_CAVE_1F: u8 = 37;
+
+pub const UNION_CAVE_1F_WIDTH: u8 = 10;
+
+pub const UNION_CAVE_1F_HEIGHT: u8 = 18;
+
+pub const GROUP_UNION_CAVE_B1F: u8 = 3;
+
+pub const MAP_UNION_CAVE_B1F: u8 = 38;
+
+pub const UNION_CAVE_B1F_WIDTH: u8 = 10;
+
+pub const UNION_CAVE_B1F_HEIGHT: u8 = 18;
+
+pub const GROUP_UNION_CAVE_B2F: u8 = 3;
+
+pub const MAP_UNION_CAVE_B2F: u8 = 39;
+
+pub const UNION_CAVE_B2F_WIDTH: u8 = 10;
+
+pub const UNION_CAVE_B2F_HEIGHT: u8 = 18;
+
+pub const GROUP_SLOWPOKE_WELL_B1F: u8 = 3;
+
+pub const MAP_SLOWPOKE_WELL_B1F: u8 = 40;
+
+pub const SLOWPOKE_WELL_B1F_WIDTH: u8 = 10;
+
+pub const SLOWPOKE_WELL_B1F_HEIGHT: u8 = 9;
+
+pub const GROUP_SLOWPOKE_WELL_B2F: u8 = 3;
+
+pub const MAP_SLOWPOKE_WELL_B2F: u8 = 41;
+
+pub const SLOWPOKE_WELL_B2F_WIDTH: u8 = 10;
+
+pub const SLOWPOKE_WELL_B2F_HEIGHT: u8 = 9;
+
+pub const GROUP_OLIVINE_LIGHTHOUSE_1F: u8 = 3;
+
+pub const MAP_OLIVINE_LIGHTHOUSE_1F: u8 = 42;
+
+pub const OLIVINE_LIGHTHOUSE_1F_WIDTH: u8 = 10;
+
+pub const OLIVINE_LIGHTHOUSE_1F_HEIGHT: u8 = 9;
+
+pub const GROUP_OLIVINE_LIGHTHOUSE_2F: u8 = 3;
+
+pub const MAP_OLIVINE_LIGHTHOUSE_2F: u8 = 43;
+
+pub const OLIVINE_LIGHTHOUSE_2F_WIDTH: u8 = 10;
+
+pub const OLIVINE_LIGHTHOUSE_2F_HEIGHT: u8 = 9;
+
+pub const GROUP_OLIVINE_LIGHTHOUSE_3F: u8 = 3;
+
+pub const MAP_OLIVINE_LIGHTHOUSE_3F: u8 = 44;
+
+pub const OLIVINE_LIGHTHOUSE_3F_WIDTH: u8 = 10;
+
+pub const OLIVINE_LIGHTHOUSE_3F_HEIGHT: u8 = 9;
+
+pub const GROUP_OLIVINE_LIGHTHOUSE_4F: u8 = 3;
+
+pub const MAP_OLIVINE_LIGHTHOUSE_4F: u8 = 45;
+
+pub const OLIVINE_LIGHTHOUSE_4F_WIDTH: u8 = 10;
+
+pub const OLIVINE_LIGHTHOUSE_4F_HEIGHT: u8 = 9;
+
+pub const GROUP_OLIVINE_LIGHTHOUSE_5F: u8 = 3;
+
+pub const MAP_OLIVINE_LIGHTHOUSE_5F: u8 = 46;
+
+pub const OLIVINE_LIGHTHOUSE_5F_WIDTH: u8 = 10;
+
+pub const OLIVINE_LIGHTHOUSE_5F_HEIGHT: u8 = 9;
+
+pub const GROUP_OLIVINE_LIGHTHOUSE_6F: u8 = 3;
+
+pub const MAP_OLIVINE_LIGHTHOUSE_6F: u8 = 47;
+
+pub const OLIVINE_LIGHTHOUSE_6F_WIDTH: u8 = 10;
+
+pub const OLIVINE_LIGHTHOUSE_6F_HEIGHT: u8 = 9;
+
+pub const GROUP_MAHOGANY_MART_1F: u8 = 3;
+
+pub const MAP_MAHOGANY_MART_1F: u8 = 48;
+
+pub const MAHOGANY_MART_1F_WIDTH: u8 = 4;
+
+pub const MAHOGANY_MART_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_TEAM_ROCKET_BASE_B1F: u8 = 3;
+
+pub const MAP_TEAM_ROCKET_BASE_B1F: u8 = 49;
+
+pub const TEAM_ROCKET_BASE_B1F_WIDTH: u8 = 15;
+
+pub const TEAM_ROCKET_BASE_B1F_HEIGHT: u8 = 9;
+
+pub const GROUP_TEAM_ROCKET_BASE_B2F: u8 = 3;
+
+pub const MAP_TEAM_ROCKET_BASE_B2F: u8 = 50;
+
+pub const TEAM_ROCKET_BASE_B2F_WIDTH: u8 = 15;
+
+pub const TEAM_ROCKET_BASE_B2F_HEIGHT: u8 = 9;
+
+pub const GROUP_TEAM_ROCKET_BASE_B3F: u8 = 3;
+
+pub const MAP_TEAM_ROCKET_BASE_B3F: u8 = 51;
+
+pub const TEAM_ROCKET_BASE_B3F_WIDTH: u8 = 15;
+
+pub const TEAM_ROCKET_BASE_B3F_HEIGHT: u8 = 9;
+
+pub const GROUP_ILEX_FOREST: u8 = 3;
+
+pub const MAP_ILEX_FOREST: u8 = 52;
+
+pub const ILEX_FOREST_WIDTH: u8 = 15;
+
+pub const ILEX_FOREST_HEIGHT: u8 = 27;
+
+pub const GROUP_GOLDENROD_UNDERGROUND: u8 = 3;
+
+pub const MAP_GOLDENROD_UNDERGROUND: u8 = 53;
+
+pub const GOLDENROD_UNDERGROUND_WIDTH: u8 = 15;
+
+pub const GOLDENROD_UNDERGROUND_HEIGHT: u8 = 18;
+
+pub const GROUP_GOLDENROD_UNDERGROUND_SWITCH_ROOM_ENTRANCES: u8 = 3;
+
+pub const MAP_GOLDENROD_UNDERGROUND_SWITCH_ROOM_ENTRANCES: u8 = 54;
+
+pub const GOLDENROD_UNDERGROUND_SWITCH_ROOM_ENTRANCES_WIDTH: u8 = 15;
+
+pub const GOLDENROD_UNDERGROUND_SWITCH_ROOM_ENTRANCES_HEIGHT: u8 = 18;
+
+pub const GROUP_GOLDENROD_DEPT_STORE_B1F: u8 = 3;
+
+pub const MAP_GOLDENROD_DEPT_STORE_B1F: u8 = 55;
+
+pub const GOLDENROD_DEPT_STORE_B1F_WIDTH: u8 = 10;
+
+pub const GOLDENROD_DEPT_STORE_B1F_HEIGHT: u8 = 9;
+
+pub const GROUP_GOLDENROD_UNDERGROUND_WAREHOUSE: u8 = 3;
+
+pub const MAP_GOLDENROD_UNDERGROUND_WAREHOUSE: u8 = 56;
+
+pub const GOLDENROD_UNDERGROUND_WAREHOUSE_WIDTH: u8 = 10;
+
+pub const GOLDENROD_UNDERGROUND_WAREHOUSE_HEIGHT: u8 = 9;
+
+pub const GROUP_MOUNT_MORTAR_1F_OUTSIDE: u8 = 3;
+
+pub const MAP_MOUNT_MORTAR_1F_OUTSIDE: u8 = 57;
+
+pub const MOUNT_MORTAR_1F_OUTSIDE_WIDTH: u8 = 20;
+
+pub const MOUNT_MORTAR_1F_OUTSIDE_HEIGHT: u8 = 18;
+
+pub const GROUP_MOUNT_MORTAR_1F_INSIDE: u8 = 3;
+
+pub const MAP_MOUNT_MORTAR_1F_INSIDE: u8 = 58;
+
+pub const MOUNT_MORTAR_1F_INSIDE_WIDTH: u8 = 20;
+
+pub const MOUNT_MORTAR_1F_INSIDE_HEIGHT: u8 = 27;
+
+pub const GROUP_MOUNT_MORTAR_2F_INSIDE: u8 = 3;
+
+pub const MAP_MOUNT_MORTAR_2F_INSIDE: u8 = 59;
+
+pub const MOUNT_MORTAR_2F_INSIDE_WIDTH: u8 = 20;
+
+pub const MOUNT_MORTAR_2F_INSIDE_HEIGHT: u8 = 18;
+
+pub const GROUP_MOUNT_MORTAR_B1F: u8 = 3;
+
+pub const MAP_MOUNT_MORTAR_B1F: u8 = 60;
+
+pub const MOUNT_MORTAR_B1F_WIDTH: u8 = 20;
+
+pub const MOUNT_MORTAR_B1F_HEIGHT: u8 = 18;
+
+pub const GROUP_ICE_PATH_1F: u8 = 3;
+
+pub const MAP_ICE_PATH_1F: u8 = 61;
+
+pub const ICE_PATH_1F_WIDTH: u8 = 20;
+
+pub const ICE_PATH_1F_HEIGHT: u8 = 18;
+
+pub const GROUP_ICE_PATH_B1F: u8 = 3;
+
+pub const MAP_ICE_PATH_B1F: u8 = 62;
+
+pub const ICE_PATH_B1F_WIDTH: u8 = 10;
+
+pub const ICE_PATH_B1F_HEIGHT: u8 = 18;
+
+pub const GROUP_ICE_PATH_B2F_MAHOGANY_SIDE: u8 = 3;
+
+pub const MAP_ICE_PATH_B2F_MAHOGANY_SIDE: u8 = 63;
+
+pub const ICE_PATH_B2F_MAHOGANY_SIDE_WIDTH: u8 = 10;
+
+pub const ICE_PATH_B2F_MAHOGANY_SIDE_HEIGHT: u8 = 9;
+
+pub const GROUP_ICE_PATH_B2F_BLACKTHORN_SIDE: u8 = 3;
+
+pub const MAP_ICE_PATH_B2F_BLACKTHORN_SIDE: u8 = 64;
+
+pub const ICE_PATH_B2F_BLACKTHORN_SIDE_WIDTH: u8 = 5;
+
+pub const ICE_PATH_B2F_BLACKTHORN_SIDE_HEIGHT: u8 = 9;
+
+pub const GROUP_ICE_PATH_B3F: u8 = 3;
+
+pub const MAP_ICE_PATH_B3F: u8 = 65;
+
+pub const ICE_PATH_B3F_WIDTH: u8 = 10;
+
+pub const ICE_PATH_B3F_HEIGHT: u8 = 9;
+
+pub const GROUP_WHIRL_ISLAND_NW: u8 = 3;
+
+pub const MAP_WHIRL_ISLAND_NW: u8 = 66;
+
+pub const WHIRL_ISLAND_NW_WIDTH: u8 = 5;
+
+pub const WHIRL_ISLAND_NW_HEIGHT: u8 = 9;
+
+pub const GROUP_WHIRL_ISLAND_NE: u8 = 3;
+
+pub const MAP_WHIRL_ISLAND_NE: u8 = 67;
+
+pub const WHIRL_ISLAND_NE_WIDTH: u8 = 10;
+
+pub const WHIRL_ISLAND_NE_HEIGHT: u8 = 9;
+
+pub const GROUP_WHIRL_ISLAND_SW: u8 = 3;
+
+pub const MAP_WHIRL_ISLAND_SW: u8 = 68;
+
+pub const WHIRL_ISLAND_SW_WIDTH: u8 = 10;
+
+pub const WHIRL_ISLAND_SW_HEIGHT: u8 = 9;
+
+pub const GROUP_WHIRL_ISLAND_CAVE: u8 = 3;
+
+pub const MAP_WHIRL_ISLAND_CAVE: u8 = 69;
+
+pub const WHIRL_ISLAND_CAVE_WIDTH: u8 = 5;
+
+pub const WHIRL_ISLAND_CAVE_HEIGHT: u8 = 9;
+
+pub const GROUP_WHIRL_ISLAND_SE: u8 = 3;
+
+pub const MAP_WHIRL_ISLAND_SE: u8 = 70;
+
+pub const WHIRL_ISLAND_SE_WIDTH: u8 = 5;
+
+pub const WHIRL_ISLAND_SE_HEIGHT: u8 = 9;
+
+pub const GROUP_WHIRL_ISLAND_B1F: u8 = 3;
+
+pub const MAP_WHIRL_ISLAND_B1F: u8 = 71;
+
+pub const WHIRL_ISLAND_B1F_WIDTH: u8 = 20;
+
+pub const WHIRL_ISLAND_B1F_HEIGHT: u8 = 18;
+
+pub const GROUP_WHIRL_ISLAND_B2F: u8 = 3;
+
+pub const MAP_WHIRL_ISLAND_B2F: u8 = 72;
+
+pub const WHIRL_ISLAND_B2F_WIDTH: u8 = 10;
+
+pub const WHIRL_ISLAND_B2F_HEIGHT: u8 = 18;
+
+pub const GROUP_WHIRL_ISLAND_LUGIA_CHAMBER: u8 = 3;
+
+pub const MAP_WHIRL_ISLAND_LUGIA_CHAMBER: u8 = 73;
+
+pub const WHIRL_ISLAND_LUGIA_CHAMBER_WIDTH: u8 = 10;
+
+pub const WHIRL_ISLAND_LUGIA_CHAMBER_HEIGHT: u8 = 9;
+
+pub const GROUP_SILVER_CAVE_ROOM_1: u8 = 3;
+
+pub const MAP_SILVER_CAVE_ROOM_1: u8 = 74;
+
+pub const SILVER_CAVE_ROOM_1_WIDTH: u8 = 10;
+
+pub const SILVER_CAVE_ROOM_1_HEIGHT: u8 = 18;
+
+pub const GROUP_SILVER_CAVE_ROOM_2: u8 = 3;
+
+pub const MAP_SILVER_CAVE_ROOM_2: u8 = 75;
+
+pub const SILVER_CAVE_ROOM_2_WIDTH: u8 = 15;
+
+pub const SILVER_CAVE_ROOM_2_HEIGHT: u8 = 18;
+
+pub const GROUP_SILVER_CAVE_ROOM_3: u8 = 3;
+
+pub const MAP_SILVER_CAVE_ROOM_3: u8 = 76;
+
+pub const SILVER_CAVE_ROOM_3_WIDTH: u8 = 10;
+
+pub const SILVER_CAVE_ROOM_3_HEIGHT: u8 = 18;
+
+pub const GROUP_SILVER_CAVE_ITEM_ROOMS: u8 = 3;
+
+pub const MAP_SILVER_CAVE_ITEM_ROOMS: u8 = 77;
+
+pub const SILVER_CAVE_ITEM_ROOMS_WIDTH: u8 = 10;
+
+pub const SILVER_CAVE_ITEM_ROOMS_HEIGHT: u8 = 9;
+
+pub const GROUP_DARK_CAVE_VIOLET_ENTRANCE: u8 = 3;
+
+pub const MAP_DARK_CAVE_VIOLET_ENTRANCE: u8 = 78;
+
+pub const DARK_CAVE_VIOLET_ENTRANCE_WIDTH: u8 = 20;
+
+pub const DARK_CAVE_VIOLET_ENTRANCE_HEIGHT: u8 = 18;
+
+pub const GROUP_DARK_CAVE_BLACKTHORN_ENTRANCE: u8 = 3;
+
+pub const MAP_DARK_CAVE_BLACKTHORN_ENTRANCE: u8 = 79;
+
+pub const DARK_CAVE_BLACKTHORN_ENTRANCE_WIDTH: u8 = 15;
+
+pub const DARK_CAVE_BLACKTHORN_ENTRANCE_HEIGHT: u8 = 18;
+
+pub const GROUP_DRAGONS_DEN_1F: u8 = 3;
+
+pub const MAP_DRAGONS_DEN_1F: u8 = 80;
+
+pub const DRAGONS_DEN_1F_WIDTH: u8 = 5;
+
+pub const DRAGONS_DEN_1F_HEIGHT: u8 = 9;
+
+pub const GROUP_DRAGONS_DEN_B1F: u8 = 3;
+
+pub const MAP_DRAGONS_DEN_B1F: u8 = 81;
+
+pub const DRAGONS_DEN_B1F_WIDTH: u8 = 20;
+
+pub const DRAGONS_DEN_B1F_HEIGHT: u8 = 18;
+
+pub const GROUP_DRAGON_SHRINE: u8 = 3;
+
+pub const MAP_DRAGON_SHRINE: u8 = 82;
+
+pub const DRAGON_SHRINE_WIDTH: u8 = 5;
+
+pub const DRAGON_SHRINE_HEIGHT: u8 = 5;
+
+pub const GROUP_TOHJO_FALLS: u8 = 3;
+
+pub const MAP_TOHJO_FALLS: u8 = 83;
+
+pub const TOHJO_FALLS_WIDTH: u8 = 15;
+
+pub const TOHJO_FALLS_HEIGHT: u8 = 9;
+
+pub const GROUP_DIGLETTS_CAVE: u8 = 3;
+
+pub const MAP_DIGLETTS_CAVE: u8 = 84;
+
+pub const DIGLETTS_CAVE_WIDTH: u8 = 10;
+
+pub const DIGLETTS_CAVE_HEIGHT: u8 = 18;
+
+pub const GROUP_MOUNT_MOON: u8 = 3;
+
+pub const MAP_MOUNT_MOON: u8 = 85;
+
+pub const MOUNT_MOON_WIDTH: u8 = 15;
+
+pub const MOUNT_MOON_HEIGHT: u8 = 9;
+
+pub const GROUP_UNDERGROUND_PATH: u8 = 3;
+
+pub const MAP_UNDERGROUND_PATH: u8 = 86;
+
+pub const UNDERGROUND_PATH_WIDTH: u8 = 3;
+
+pub const UNDERGROUND_PATH_HEIGHT: u8 = 14;
+
+pub const GROUP_ROCK_TUNNEL_1F: u8 = 3;
+
+pub const MAP_ROCK_TUNNEL_1F: u8 = 87;
+
+pub const ROCK_TUNNEL_1F_WIDTH: u8 = 15;
+
+pub const ROCK_TUNNEL_1F_HEIGHT: u8 = 18;
+
+pub const GROUP_ROCK_TUNNEL_B1F: u8 = 3;
+
+pub const MAP_ROCK_TUNNEL_B1F: u8 = 88;
+
+pub const ROCK_TUNNEL_B1F_WIDTH: u8 = 15;
+
+pub const ROCK_TUNNEL_B1F_HEIGHT: u8 = 18;
+
+pub const GROUP_SAFARI_ZONE_FUCHSIA_GATE_BETA: u8 = 3;
+
+pub const MAP_SAFARI_ZONE_FUCHSIA_GATE_BETA: u8 = 89;
+
+pub const SAFARI_ZONE_FUCHSIA_GATE_BETA_WIDTH: u8 = 5;
+
+pub const SAFARI_ZONE_FUCHSIA_GATE_BETA_HEIGHT: u8 = 4;
+
+pub const GROUP_SAFARI_ZONE_BETA: u8 = 3;
+
+pub const MAP_SAFARI_ZONE_BETA: u8 = 90;
+
+pub const SAFARI_ZONE_BETA_WIDTH: u8 = 10;
+
+pub const SAFARI_ZONE_BETA_HEIGHT: u8 = 18;
+
+pub const GROUP_VICTORY_ROAD: u8 = 3;
+
+pub const MAP_VICTORY_ROAD: u8 = 91;
+
+pub const VICTORY_ROAD_WIDTH: u8 = 10;
+
+pub const VICTORY_ROAD_HEIGHT: u8 = 36;
+
+pub const NUM_DUNGEONS_MAPS: u8 = 91;
+
+pub const MAPGROUP_ECRUTEAK: u8 = 3;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_ECRUTEAK_TIN_TOWER_ENTRANCE: u8 = 4;
+
+pub const MAP_ECRUTEAK_TIN_TOWER_ENTRANCE: u8 = 1;
+
+pub const ECRUTEAK_TIN_TOWER_ENTRANCE_WIDTH: u8 = 10;
+
+pub const ECRUTEAK_TIN_TOWER_ENTRANCE_HEIGHT: u8 = 9;
+
+pub const GROUP_WISE_TRIOS_ROOM: u8 = 4;
+
+pub const MAP_WISE_TRIOS_ROOM: u8 = 2;
+
+pub const WISE_TRIOS_ROOM_WIDTH: u8 = 4;
+
+pub const WISE_TRIOS_ROOM_HEIGHT: u8 = 4;
+
+pub const GROUP_ECRUTEAK_POKECENTER_1F: u8 = 4;
+
+pub const MAP_ECRUTEAK_POKECENTER_1F: u8 = 3;
+
+pub const ECRUTEAK_POKECENTER_1F_WIDTH: u8 = 5;
+
+pub const ECRUTEAK_POKECENTER_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_ECRUTEAK_LUGIA_SPEECH_HOUSE: u8 = 4;
+
+pub const MAP_ECRUTEAK_LUGIA_SPEECH_HOUSE: u8 = 4;
+
+pub const ECRUTEAK_LUGIA_SPEECH_HOUSE_WIDTH: u8 = 4;
+
+pub const ECRUTEAK_LUGIA_SPEECH_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_DANCE_THEATER: u8 = 4;
+
+pub const MAP_DANCE_THEATER: u8 = 5;
+
+pub const DANCE_THEATER_WIDTH: u8 = 6;
+
+pub const DANCE_THEATER_HEIGHT: u8 = 7;
+
+pub const GROUP_ECRUTEAK_MART: u8 = 4;
+
+pub const MAP_ECRUTEAK_MART: u8 = 6;
+
+pub const ECRUTEAK_MART_WIDTH: u8 = 6;
+
+pub const ECRUTEAK_MART_HEIGHT: u8 = 4;
+
+pub const GROUP_ECRUTEAK_GYM: u8 = 4;
+
+pub const MAP_ECRUTEAK_GYM: u8 = 7;
+
+pub const ECRUTEAK_GYM_WIDTH: u8 = 5;
+
+pub const ECRUTEAK_GYM_HEIGHT: u8 = 9;
+
+pub const GROUP_ECRUTEAK_ITEMFINDER_HOUSE: u8 = 4;
+
+pub const MAP_ECRUTEAK_ITEMFINDER_HOUSE: u8 = 8;
+
+pub const ECRUTEAK_ITEMFINDER_HOUSE_WIDTH: u8 = 4;
+
+pub const ECRUTEAK_ITEMFINDER_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_ECRUTEAK_CITY: u8 = 4;
+
+pub const MAP_ECRUTEAK_CITY: u8 = 9;
+
+pub const ECRUTEAK_CITY_WIDTH: u8 = 20;
+
+pub const ECRUTEAK_CITY_HEIGHT: u8 = 18;
+
+pub const NUM_ECRUTEAK_MAPS: u8 = 9;
+
+pub const MAPGROUP_BLACKTHORN: u8 = 4;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_BLACKTHORN_GYM_1F: u8 = 5;
+
+pub const MAP_BLACKTHORN_GYM_1F: u8 = 1;
+
+pub const BLACKTHORN_GYM_1F_WIDTH: u8 = 5;
+
+pub const BLACKTHORN_GYM_1F_HEIGHT: u8 = 9;
+
+pub const GROUP_BLACKTHORN_GYM_2F: u8 = 5;
+
+pub const MAP_BLACKTHORN_GYM_2F: u8 = 2;
+
+pub const BLACKTHORN_GYM_2F_WIDTH: u8 = 5;
+
+pub const BLACKTHORN_GYM_2F_HEIGHT: u8 = 9;
+
+pub const GROUP_BLACKTHORN_DRAGON_SPEECH_HOUSE: u8 = 5;
+
+pub const MAP_BLACKTHORN_DRAGON_SPEECH_HOUSE: u8 = 3;
+
+pub const BLACKTHORN_DRAGON_SPEECH_HOUSE_WIDTH: u8 = 4;
+
+pub const BLACKTHORN_DRAGON_SPEECH_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_BLACKTHORN_EMYS_HOUSE: u8 = 5;
+
+pub const MAP_BLACKTHORN_EMYS_HOUSE: u8 = 4;
+
+pub const BLACKTHORN_EMYS_HOUSE_WIDTH: u8 = 4;
+
+pub const BLACKTHORN_EMYS_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_BLACKTHORN_MART: u8 = 5;
+
+pub const MAP_BLACKTHORN_MART: u8 = 5;
+
+pub const BLACKTHORN_MART_WIDTH: u8 = 6;
+
+pub const BLACKTHORN_MART_HEIGHT: u8 = 4;
+
+pub const GROUP_BLACKTHORN_POKECENTER_1F: u8 = 5;
+
+pub const MAP_BLACKTHORN_POKECENTER_1F: u8 = 6;
+
+pub const BLACKTHORN_POKECENTER_1F_WIDTH: u8 = 5;
+
+pub const BLACKTHORN_POKECENTER_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_MOVE_DELETERS_HOUSE: u8 = 5;
+
+pub const MAP_MOVE_DELETERS_HOUSE: u8 = 7;
+
+pub const MOVE_DELETERS_HOUSE_WIDTH: u8 = 4;
+
+pub const MOVE_DELETERS_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_45: u8 = 5;
+
+pub const MAP_ROUTE_45: u8 = 8;
+
+pub const ROUTE_45_WIDTH: u8 = 10;
+
+pub const ROUTE_45_HEIGHT: u8 = 45;
+
+pub const GROUP_ROUTE_46: u8 = 5;
+
+pub const MAP_ROUTE_46: u8 = 9;
+
+pub const ROUTE_46_WIDTH: u8 = 10;
+
+pub const ROUTE_46_HEIGHT: u8 = 18;
+
+pub const GROUP_BLACKTHORN_CITY: u8 = 5;
+
+pub const MAP_BLACKTHORN_CITY: u8 = 10;
+
+pub const BLACKTHORN_CITY_WIDTH: u8 = 20;
+
+pub const BLACKTHORN_CITY_HEIGHT: u8 = 18;
+
+pub const NUM_BLACKTHORN_MAPS: u8 = 10;
+
+pub const MAPGROUP_CINNABAR: u8 = 5;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_CINNABAR_POKECENTER_1F: u8 = 6;
+
+pub const MAP_CINNABAR_POKECENTER_1F: u8 = 1;
+
+pub const CINNABAR_POKECENTER_1F_WIDTH: u8 = 5;
+
+pub const CINNABAR_POKECENTER_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_CINNABAR_POKECENTER_2F_BETA: u8 = 6;
+
+pub const MAP_CINNABAR_POKECENTER_2F_BETA: u8 = 2;
+
+pub const CINNABAR_POKECENTER_2F_BETA_WIDTH: u8 = 8;
+
+pub const CINNABAR_POKECENTER_2F_BETA_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_19_FUCHSIA_GATE: u8 = 6;
+
+pub const MAP_ROUTE_19_FUCHSIA_GATE: u8 = 3;
+
+pub const ROUTE_19_FUCHSIA_GATE_WIDTH: u8 = 5;
+
+pub const ROUTE_19_FUCHSIA_GATE_HEIGHT: u8 = 4;
+
+pub const GROUP_SEAFOAM_GYM: u8 = 6;
+
+pub const MAP_SEAFOAM_GYM: u8 = 4;
+
+pub const SEAFOAM_GYM_WIDTH: u8 = 5;
+
+pub const SEAFOAM_GYM_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_19: u8 = 6;
+
+pub const MAP_ROUTE_19: u8 = 5;
+
+pub const ROUTE_19_WIDTH: u8 = 10;
+
+pub const ROUTE_19_HEIGHT: u8 = 18;
+
+pub const GROUP_ROUTE_20: u8 = 6;
+
+pub const MAP_ROUTE_20: u8 = 6;
+
+pub const ROUTE_20_WIDTH: u8 = 30;
+
+pub const ROUTE_20_HEIGHT: u8 = 9;
+
+pub const GROUP_ROUTE_21: u8 = 6;
+
+pub const MAP_ROUTE_21: u8 = 7;
+
+pub const ROUTE_21_WIDTH: u8 = 10;
+
+pub const ROUTE_21_HEIGHT: u8 = 18;
+
+pub const GROUP_CINNABAR_ISLAND: u8 = 6;
+
+pub const MAP_CINNABAR_ISLAND: u8 = 8;
+
+pub const CINNABAR_ISLAND_WIDTH: u8 = 10;
+
+pub const CINNABAR_ISLAND_HEIGHT: u8 = 9;
+
+pub const NUM_CINNABAR_MAPS: u8 = 8;
+
+pub const MAPGROUP_CERULEAN: u8 = 6;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_CERULEAN_GYM_BADGE_SPEECH_HOUSE: u8 = 7;
+
+pub const MAP_CERULEAN_GYM_BADGE_SPEECH_HOUSE: u8 = 1;
+
+pub const CERULEAN_GYM_BADGE_SPEECH_HOUSE_WIDTH: u8 = 4;
+
+pub const CERULEAN_GYM_BADGE_SPEECH_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_CERULEAN_POLICE_STATION: u8 = 7;
+
+pub const MAP_CERULEAN_POLICE_STATION: u8 = 2;
+
+pub const CERULEAN_POLICE_STATION_WIDTH: u8 = 4;
+
+pub const CERULEAN_POLICE_STATION_HEIGHT: u8 = 4;
+
+pub const GROUP_CERULEAN_TRADE_SPEECH_HOUSE: u8 = 7;
+
+pub const MAP_CERULEAN_TRADE_SPEECH_HOUSE: u8 = 3;
+
+pub const CERULEAN_TRADE_SPEECH_HOUSE_WIDTH: u8 = 4;
+
+pub const CERULEAN_TRADE_SPEECH_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_CERULEAN_POKECENTER_1F: u8 = 7;
+
+pub const MAP_CERULEAN_POKECENTER_1F: u8 = 4;
+
+pub const CERULEAN_POKECENTER_1F_WIDTH: u8 = 5;
+
+pub const CERULEAN_POKECENTER_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_CERULEAN_POKECENTER_2F_BETA: u8 = 7;
+
+pub const MAP_CERULEAN_POKECENTER_2F_BETA: u8 = 5;
+
+pub const CERULEAN_POKECENTER_2F_BETA_WIDTH: u8 = 8;
+
+pub const CERULEAN_POKECENTER_2F_BETA_HEIGHT: u8 = 4;
+
+pub const GROUP_CERULEAN_GYM: u8 = 7;
+
+pub const MAP_CERULEAN_GYM: u8 = 6;
+
+pub const CERULEAN_GYM_WIDTH: u8 = 5;
+
+pub const CERULEAN_GYM_HEIGHT: u8 = 8;
+
+pub const GROUP_CERULEAN_MART: u8 = 7;
+
+pub const MAP_CERULEAN_MART: u8 = 7;
+
+pub const CERULEAN_MART_WIDTH: u8 = 6;
+
+pub const CERULEAN_MART_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_10_POKECENTER_1F: u8 = 7;
+
+pub const MAP_ROUTE_10_POKECENTER_1F: u8 = 8;
+
+pub const ROUTE_10_POKECENTER_1F_WIDTH: u8 = 5;
+
+pub const ROUTE_10_POKECENTER_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_10_POKECENTER_2F_BETA: u8 = 7;
+
+pub const MAP_ROUTE_10_POKECENTER_2F_BETA: u8 = 9;
+
+pub const ROUTE_10_POKECENTER_2F_BETA_WIDTH: u8 = 8;
+
+pub const ROUTE_10_POKECENTER_2F_BETA_HEIGHT: u8 = 4;
+
+pub const GROUP_POWER_PLANT: u8 = 7;
+
+pub const MAP_POWER_PLANT: u8 = 10;
+
+pub const POWER_PLANT_WIDTH: u8 = 10;
+
+pub const POWER_PLANT_HEIGHT: u8 = 9;
+
+pub const GROUP_BILLS_HOUSE: u8 = 7;
+
+pub const MAP_BILLS_HOUSE: u8 = 11;
+
+pub const BILLS_HOUSE_WIDTH: u8 = 4;
+
+pub const BILLS_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_4: u8 = 7;
+
+pub const MAP_ROUTE_4: u8 = 12;
+
+pub const ROUTE_4_WIDTH: u8 = 20;
+
+pub const ROUTE_4_HEIGHT: u8 = 9;
+
+pub const GROUP_ROUTE_9: u8 = 7;
+
+pub const MAP_ROUTE_9: u8 = 13;
+
+pub const ROUTE_9_WIDTH: u8 = 30;
+
+pub const ROUTE_9_HEIGHT: u8 = 9;
+
+pub const GROUP_ROUTE_10_NORTH: u8 = 7;
+
+pub const MAP_ROUTE_10_NORTH: u8 = 14;
+
+pub const ROUTE_10_NORTH_WIDTH: u8 = 10;
+
+pub const ROUTE_10_NORTH_HEIGHT: u8 = 9;
+
+pub const GROUP_ROUTE_24: u8 = 7;
+
+pub const MAP_ROUTE_24: u8 = 15;
+
+pub const ROUTE_24_WIDTH: u8 = 10;
+
+pub const ROUTE_24_HEIGHT: u8 = 9;
+
+pub const GROUP_ROUTE_25: u8 = 7;
+
+pub const MAP_ROUTE_25: u8 = 16;
+
+pub const ROUTE_25_WIDTH: u8 = 30;
+
+pub const ROUTE_25_HEIGHT: u8 = 9;
+
+pub const GROUP_CERULEAN_CITY: u8 = 7;
+
+pub const MAP_CERULEAN_CITY: u8 = 17;
+
+pub const CERULEAN_CITY_WIDTH: u8 = 20;
+
+pub const CERULEAN_CITY_HEIGHT: u8 = 18;
+
+pub const NUM_CERULEAN_MAPS: u8 = 17;
+
+pub const MAPGROUP_AZALEA: u8 = 7;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_AZALEA_POKECENTER_1F: u8 = 8;
+
+pub const MAP_AZALEA_POKECENTER_1F: u8 = 1;
+
+pub const AZALEA_POKECENTER_1F_WIDTH: u8 = 5;
+
+pub const AZALEA_POKECENTER_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_CHARCOAL_KILN: u8 = 8;
+
+pub const MAP_CHARCOAL_KILN: u8 = 2;
+
+pub const CHARCOAL_KILN_WIDTH: u8 = 4;
+
+pub const CHARCOAL_KILN_HEIGHT: u8 = 4;
+
+pub const GROUP_AZALEA_MART: u8 = 8;
+
+pub const MAP_AZALEA_MART: u8 = 3;
+
+pub const AZALEA_MART_WIDTH: u8 = 6;
+
+pub const AZALEA_MART_HEIGHT: u8 = 4;
+
+pub const GROUP_KURTS_HOUSE: u8 = 8;
+
+pub const MAP_KURTS_HOUSE: u8 = 4;
+
+pub const KURTS_HOUSE_WIDTH: u8 = 8;
+
+pub const KURTS_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_AZALEA_GYM: u8 = 8;
+
+pub const MAP_AZALEA_GYM: u8 = 5;
+
+pub const AZALEA_GYM_WIDTH: u8 = 5;
+
+pub const AZALEA_GYM_HEIGHT: u8 = 8;
+
+pub const GROUP_ROUTE_33: u8 = 8;
+
+pub const MAP_ROUTE_33: u8 = 6;
+
+pub const ROUTE_33_WIDTH: u8 = 10;
+
+pub const ROUTE_33_HEIGHT: u8 = 9;
+
+pub const GROUP_AZALEA_TOWN: u8 = 8;
+
+pub const MAP_AZALEA_TOWN: u8 = 7;
+
+pub const AZALEA_TOWN_WIDTH: u8 = 20;
+
+pub const AZALEA_TOWN_HEIGHT: u8 = 9;
+
+pub const NUM_AZALEA_MAPS: u8 = 7;
+
+pub const MAPGROUP_LAKE_OF_RAGE: u8 = 8;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_LAKE_OF_RAGE_HIDDEN_POWER_HOUSE: u8 = 9;
+
+pub const MAP_LAKE_OF_RAGE_HIDDEN_POWER_HOUSE: u8 = 1;
+
+pub const LAKE_OF_RAGE_HIDDEN_POWER_HOUSE_WIDTH: u8 = 4;
+
+pub const LAKE_OF_RAGE_HIDDEN_POWER_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_LAKE_OF_RAGE_MAGIKARP_HOUSE: u8 = 9;
+
+pub const MAP_LAKE_OF_RAGE_MAGIKARP_HOUSE: u8 = 2;
+
+pub const LAKE_OF_RAGE_MAGIKARP_HOUSE_WIDTH: u8 = 4;
+
+pub const LAKE_OF_RAGE_MAGIKARP_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_43_MAHOGANY_GATE: u8 = 9;
+
+pub const MAP_ROUTE_43_MAHOGANY_GATE: u8 = 3;
+
+pub const ROUTE_43_MAHOGANY_GATE_WIDTH: u8 = 5;
+
+pub const ROUTE_43_MAHOGANY_GATE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_43_GATE: u8 = 9;
+
+pub const MAP_ROUTE_43_GATE: u8 = 4;
+
+pub const ROUTE_43_GATE_WIDTH: u8 = 5;
+
+pub const ROUTE_43_GATE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_43: u8 = 9;
+
+pub const MAP_ROUTE_43: u8 = 5;
+
+pub const ROUTE_43_WIDTH: u8 = 10;
+
+pub const ROUTE_43_HEIGHT: u8 = 27;
+
+pub const GROUP_LAKE_OF_RAGE: u8 = 9;
+
+pub const MAP_LAKE_OF_RAGE: u8 = 6;
+
+pub const LAKE_OF_RAGE_WIDTH: u8 = 20;
+
+pub const LAKE_OF_RAGE_HEIGHT: u8 = 18;
+
+pub const NUM_LAKE_OF_RAGE_MAPS: u8 = 6;
+
+pub const MAPGROUP_VIOLET: u8 = 9;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_ROUTE_32: u8 = 10;
+
+pub const MAP_ROUTE_32: u8 = 1;
+
+pub const ROUTE_32_WIDTH: u8 = 10;
+
+pub const ROUTE_32_HEIGHT: u8 = 45;
+
+pub const GROUP_ROUTE_35: u8 = 10;
+
+pub const MAP_ROUTE_35: u8 = 2;
+
+pub const ROUTE_35_WIDTH: u8 = 10;
+
+pub const ROUTE_35_HEIGHT: u8 = 18;
+
+pub const GROUP_ROUTE_36: u8 = 10;
+
+pub const MAP_ROUTE_36: u8 = 3;
+
+pub const ROUTE_36_WIDTH: u8 = 30;
+
+pub const ROUTE_36_HEIGHT: u8 = 9;
+
+pub const GROUP_ROUTE_37: u8 = 10;
+
+pub const MAP_ROUTE_37: u8 = 4;
+
+pub const ROUTE_37_WIDTH: u8 = 10;
+
+pub const ROUTE_37_HEIGHT: u8 = 9;
+
+pub const GROUP_VIOLET_CITY: u8 = 10;
+
+pub const MAP_VIOLET_CITY: u8 = 5;
+
+pub const VIOLET_CITY_WIDTH: u8 = 20;
+
+pub const VIOLET_CITY_HEIGHT: u8 = 18;
+
+pub const GROUP_VIOLET_MART: u8 = 10;
+
+pub const MAP_VIOLET_MART: u8 = 6;
+
+pub const VIOLET_MART_WIDTH: u8 = 6;
+
+pub const VIOLET_MART_HEIGHT: u8 = 4;
+
+pub const GROUP_VIOLET_GYM: u8 = 10;
+
+pub const MAP_VIOLET_GYM: u8 = 7;
+
+pub const VIOLET_GYM_WIDTH: u8 = 5;
+
+pub const VIOLET_GYM_HEIGHT: u8 = 8;
+
+pub const GROUP_EARLS_POKEMON_ACADEMY: u8 = 10;
+
+pub const MAP_EARLS_POKEMON_ACADEMY: u8 = 8;
+
+pub const EARLS_POKEMON_ACADEMY_WIDTH: u8 = 4;
+
+pub const EARLS_POKEMON_ACADEMY_HEIGHT: u8 = 8;
+
+pub const GROUP_VIOLET_NICKNAME_SPEECH_HOUSE: u8 = 10;
+
+pub const MAP_VIOLET_NICKNAME_SPEECH_HOUSE: u8 = 9;
+
+pub const VIOLET_NICKNAME_SPEECH_HOUSE_WIDTH: u8 = 4;
+
+pub const VIOLET_NICKNAME_SPEECH_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_VIOLET_POKECENTER_1F: u8 = 10;
+
+pub const MAP_VIOLET_POKECENTER_1F: u8 = 10;
+
+pub const VIOLET_POKECENTER_1F_WIDTH: u8 = 5;
+
+pub const VIOLET_POKECENTER_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_VIOLET_KYLES_HOUSE: u8 = 10;
+
+pub const MAP_VIOLET_KYLES_HOUSE: u8 = 11;
+
+pub const VIOLET_KYLES_HOUSE_WIDTH: u8 = 4;
+
+pub const VIOLET_KYLES_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_32_RUINS_OF_ALPH_GATE: u8 = 10;
+
+pub const MAP_ROUTE_32_RUINS_OF_ALPH_GATE: u8 = 12;
+
+pub const ROUTE_32_RUINS_OF_ALPH_GATE_WIDTH: u8 = 5;
+
+pub const ROUTE_32_RUINS_OF_ALPH_GATE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_32_POKECENTER_1F: u8 = 10;
+
+pub const MAP_ROUTE_32_POKECENTER_1F: u8 = 13;
+
+pub const ROUTE_32_POKECENTER_1F_WIDTH: u8 = 5;
+
+pub const ROUTE_32_POKECENTER_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_35_GOLDENROD_GATE: u8 = 10;
+
+pub const MAP_ROUTE_35_GOLDENROD_GATE: u8 = 14;
+
+pub const ROUTE_35_GOLDENROD_GATE_WIDTH: u8 = 5;
+
+pub const ROUTE_35_GOLDENROD_GATE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_35_NATIONAL_PARK_GATE: u8 = 10;
+
+pub const MAP_ROUTE_35_NATIONAL_PARK_GATE: u8 = 15;
+
+pub const ROUTE_35_NATIONAL_PARK_GATE_WIDTH: u8 = 4;
+
+pub const ROUTE_35_NATIONAL_PARK_GATE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_36_RUINS_OF_ALPH_GATE: u8 = 10;
+
+pub const MAP_ROUTE_36_RUINS_OF_ALPH_GATE: u8 = 16;
+
+pub const ROUTE_36_RUINS_OF_ALPH_GATE_WIDTH: u8 = 5;
+
+pub const ROUTE_36_RUINS_OF_ALPH_GATE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_36_NATIONAL_PARK_GATE: u8 = 10;
+
+pub const MAP_ROUTE_36_NATIONAL_PARK_GATE: u8 = 17;
+
+pub const ROUTE_36_NATIONAL_PARK_GATE_WIDTH: u8 = 5;
+
+pub const ROUTE_36_NATIONAL_PARK_GATE_HEIGHT: u8 = 4;
+
+pub const NUM_VIOLET_MAPS: u8 = 17;
+
+pub const MAPGROUP_GOLDENROD: u8 = 10;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_ROUTE_34: u8 = 11;
+
+pub const MAP_ROUTE_34: u8 = 1;
+
+pub const ROUTE_34_WIDTH: u8 = 10;
+
+pub const ROUTE_34_HEIGHT: u8 = 27;
+
+pub const GROUP_GOLDENROD_CITY: u8 = 11;
+
+pub const MAP_GOLDENROD_CITY: u8 = 2;
+
+pub const GOLDENROD_CITY_WIDTH: u8 = 20;
+
+pub const GOLDENROD_CITY_HEIGHT: u8 = 18;
+
+pub const GROUP_GOLDENROD_GYM: u8 = 11;
+
+pub const MAP_GOLDENROD_GYM: u8 = 3;
+
+pub const GOLDENROD_GYM_WIDTH: u8 = 10;
+
+pub const GOLDENROD_GYM_HEIGHT: u8 = 9;
+
+pub const GROUP_GOLDENROD_BIKE_SHOP: u8 = 11;
+
+pub const MAP_GOLDENROD_BIKE_SHOP: u8 = 4;
+
+pub const GOLDENROD_BIKE_SHOP_WIDTH: u8 = 4;
+
+pub const GOLDENROD_BIKE_SHOP_HEIGHT: u8 = 4;
+
+pub const GROUP_GOLDENROD_HAPPINESS_RATER: u8 = 11;
+
+pub const MAP_GOLDENROD_HAPPINESS_RATER: u8 = 5;
+
+pub const GOLDENROD_HAPPINESS_RATER_WIDTH: u8 = 4;
+
+pub const GOLDENROD_HAPPINESS_RATER_HEIGHT: u8 = 4;
+
+pub const GROUP_BILLS_FAMILYS_HOUSE: u8 = 11;
+
+pub const MAP_BILLS_FAMILYS_HOUSE: u8 = 6;
+
+pub const BILLS_FAMILYS_HOUSE_WIDTH: u8 = 4;
+
+pub const BILLS_FAMILYS_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_GOLDENROD_MAGNET_TRAIN_STATION: u8 = 11;
+
+pub const MAP_GOLDENROD_MAGNET_TRAIN_STATION: u8 = 7;
+
+pub const GOLDENROD_MAGNET_TRAIN_STATION_WIDTH: u8 = 10;
+
+pub const GOLDENROD_MAGNET_TRAIN_STATION_HEIGHT: u8 = 9;
+
+pub const GROUP_GOLDENROD_FLOWER_SHOP: u8 = 11;
+
+pub const MAP_GOLDENROD_FLOWER_SHOP: u8 = 8;
+
+pub const GOLDENROD_FLOWER_SHOP_WIDTH: u8 = 4;
+
+pub const GOLDENROD_FLOWER_SHOP_HEIGHT: u8 = 4;
+
+pub const GROUP_GOLDENROD_PP_SPEECH_HOUSE: u8 = 11;
+
+pub const MAP_GOLDENROD_PP_SPEECH_HOUSE: u8 = 9;
+
+pub const GOLDENROD_PP_SPEECH_HOUSE_WIDTH: u8 = 4;
+
+pub const GOLDENROD_PP_SPEECH_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_GOLDENROD_NAME_RATER: u8 = 11;
+
+pub const MAP_GOLDENROD_NAME_RATER: u8 = 10;
+
+pub const GOLDENROD_NAME_RATER_WIDTH: u8 = 4;
+
+pub const GOLDENROD_NAME_RATER_HEIGHT: u8 = 4;
+
+pub const GROUP_GOLDENROD_DEPT_STORE_1F: u8 = 11;
+
+pub const MAP_GOLDENROD_DEPT_STORE_1F: u8 = 11;
+
+pub const GOLDENROD_DEPT_STORE_1F_WIDTH: u8 = 8;
+
+pub const GOLDENROD_DEPT_STORE_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_GOLDENROD_DEPT_STORE_2F: u8 = 11;
+
+pub const MAP_GOLDENROD_DEPT_STORE_2F: u8 = 12;
+
+pub const GOLDENROD_DEPT_STORE_2F_WIDTH: u8 = 8;
+
+pub const GOLDENROD_DEPT_STORE_2F_HEIGHT: u8 = 4;
+
+pub const GROUP_GOLDENROD_DEPT_STORE_3F: u8 = 11;
+
+pub const MAP_GOLDENROD_DEPT_STORE_3F: u8 = 13;
+
+pub const GOLDENROD_DEPT_STORE_3F_WIDTH: u8 = 8;
+
+pub const GOLDENROD_DEPT_STORE_3F_HEIGHT: u8 = 4;
+
+pub const GROUP_GOLDENROD_DEPT_STORE_4F: u8 = 11;
+
+pub const MAP_GOLDENROD_DEPT_STORE_4F: u8 = 14;
+
+pub const GOLDENROD_DEPT_STORE_4F_WIDTH: u8 = 8;
+
+pub const GOLDENROD_DEPT_STORE_4F_HEIGHT: u8 = 4;
+
+pub const GROUP_GOLDENROD_DEPT_STORE_5F: u8 = 11;
+
+pub const MAP_GOLDENROD_DEPT_STORE_5F: u8 = 15;
+
+pub const GOLDENROD_DEPT_STORE_5F_WIDTH: u8 = 8;
+
+pub const GOLDENROD_DEPT_STORE_5F_HEIGHT: u8 = 4;
+
+pub const GROUP_GOLDENROD_DEPT_STORE_6F: u8 = 11;
+
+pub const MAP_GOLDENROD_DEPT_STORE_6F: u8 = 16;
+
+pub const GOLDENROD_DEPT_STORE_6F_WIDTH: u8 = 8;
+
+pub const GOLDENROD_DEPT_STORE_6F_HEIGHT: u8 = 4;
+
+pub const GROUP_GOLDENROD_DEPT_STORE_ELEVATOR: u8 = 11;
+
+pub const MAP_GOLDENROD_DEPT_STORE_ELEVATOR: u8 = 17;
+
+pub const GOLDENROD_DEPT_STORE_ELEVATOR_WIDTH: u8 = 2;
+
+pub const GOLDENROD_DEPT_STORE_ELEVATOR_HEIGHT: u8 = 2;
+
+pub const GROUP_GOLDENROD_DEPT_STORE_ROOF: u8 = 11;
+
+pub const MAP_GOLDENROD_DEPT_STORE_ROOF: u8 = 18;
+
+pub const GOLDENROD_DEPT_STORE_ROOF_WIDTH: u8 = 8;
+
+pub const GOLDENROD_DEPT_STORE_ROOF_HEIGHT: u8 = 4;
+
+pub const GROUP_GOLDENROD_GAME_CORNER: u8 = 11;
+
+pub const MAP_GOLDENROD_GAME_CORNER: u8 = 19;
+
+pub const GOLDENROD_GAME_CORNER_WIDTH: u8 = 10;
+
+pub const GOLDENROD_GAME_CORNER_HEIGHT: u8 = 7;
+
+pub const GROUP_GOLDENROD_POKECENTER_1F: u8 = 11;
+
+pub const MAP_GOLDENROD_POKECENTER_1F: u8 = 20;
+
+pub const GOLDENROD_POKECENTER_1F_WIDTH: u8 = 5;
+
+pub const GOLDENROD_POKECENTER_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_POKECOM_CENTER_ADMIN_OFFICE_MOBILE: u8 = 11;
+
+pub const MAP_POKECOM_CENTER_ADMIN_OFFICE_MOBILE: u8 = 21;
+
+pub const POKECOM_CENTER_ADMIN_OFFICE_MOBILE_WIDTH: u8 = 16;
+
+pub const POKECOM_CENTER_ADMIN_OFFICE_MOBILE_HEIGHT: u8 = 16;
+
+pub const GROUP_ILEX_FOREST_AZALEA_GATE: u8 = 11;
+
+pub const MAP_ILEX_FOREST_AZALEA_GATE: u8 = 22;
+
+pub const ILEX_FOREST_AZALEA_GATE_WIDTH: u8 = 5;
+
+pub const ILEX_FOREST_AZALEA_GATE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_34_ILEX_FOREST_GATE: u8 = 11;
+
+pub const MAP_ROUTE_34_ILEX_FOREST_GATE: u8 = 23;
+
+pub const ROUTE_34_ILEX_FOREST_GATE_WIDTH: u8 = 5;
+
+pub const ROUTE_34_ILEX_FOREST_GATE_HEIGHT: u8 = 4;
+
+pub const GROUP_DAY_CARE: u8 = 11;
+
+pub const MAP_DAY_CARE: u8 = 24;
+
+pub const DAY_CARE_WIDTH: u8 = 5;
+
+pub const DAY_CARE_HEIGHT: u8 = 4;
+
+pub const NUM_GOLDENROD_MAPS: u8 = 24;
+
+pub const MAPGROUP_VERMILION: u8 = 11;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_ROUTE_6: u8 = 12;
+
+pub const MAP_ROUTE_6: u8 = 1;
+
+pub const ROUTE_6_WIDTH: u8 = 10;
+
+pub const ROUTE_6_HEIGHT: u8 = 9;
+
+pub const GROUP_ROUTE_11: u8 = 12;
+
+pub const MAP_ROUTE_11: u8 = 2;
+
+pub const ROUTE_11_WIDTH: u8 = 20;
+
+pub const ROUTE_11_HEIGHT: u8 = 9;
+
+pub const GROUP_VERMILION_CITY: u8 = 12;
+
+pub const MAP_VERMILION_CITY: u8 = 3;
+
+pub const VERMILION_CITY_WIDTH: u8 = 20;
+
+pub const VERMILION_CITY_HEIGHT: u8 = 18;
+
+pub const GROUP_VERMILION_FISHING_SPEECH_HOUSE: u8 = 12;
+
+pub const MAP_VERMILION_FISHING_SPEECH_HOUSE: u8 = 4;
+
+pub const VERMILION_FISHING_SPEECH_HOUSE_WIDTH: u8 = 4;
+
+pub const VERMILION_FISHING_SPEECH_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_VERMILION_POKECENTER_1F: u8 = 12;
+
+pub const MAP_VERMILION_POKECENTER_1F: u8 = 5;
+
+pub const VERMILION_POKECENTER_1F_WIDTH: u8 = 5;
+
+pub const VERMILION_POKECENTER_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_VERMILION_POKECENTER_2F_BETA: u8 = 12;
+
+pub const MAP_VERMILION_POKECENTER_2F_BETA: u8 = 6;
+
+pub const VERMILION_POKECENTER_2F_BETA_WIDTH: u8 = 8;
+
+pub const VERMILION_POKECENTER_2F_BETA_HEIGHT: u8 = 4;
+
+pub const GROUP_POKEMON_FAN_CLUB: u8 = 12;
+
+pub const MAP_POKEMON_FAN_CLUB: u8 = 7;
+
+pub const POKEMON_FAN_CLUB_WIDTH: u8 = 5;
+
+pub const POKEMON_FAN_CLUB_HEIGHT: u8 = 4;
+
+pub const GROUP_VERMILION_MAGNET_TRAIN_SPEECH_HOUSE: u8 = 12;
+
+pub const MAP_VERMILION_MAGNET_TRAIN_SPEECH_HOUSE: u8 = 8;
+
+pub const VERMILION_MAGNET_TRAIN_SPEECH_HOUSE_WIDTH: u8 = 4;
+
+pub const VERMILION_MAGNET_TRAIN_SPEECH_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_VERMILION_MART: u8 = 12;
+
+pub const MAP_VERMILION_MART: u8 = 9;
+
+pub const VERMILION_MART_WIDTH: u8 = 6;
+
+pub const VERMILION_MART_HEIGHT: u8 = 4;
+
+pub const GROUP_VERMILION_DIGLETTS_CAVE_SPEECH_HOUSE: u8 = 12;
+
+pub const MAP_VERMILION_DIGLETTS_CAVE_SPEECH_HOUSE: u8 = 10;
+
+pub const VERMILION_DIGLETTS_CAVE_SPEECH_HOUSE_WIDTH: u8 = 4;
+
+pub const VERMILION_DIGLETTS_CAVE_SPEECH_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_VERMILION_GYM: u8 = 12;
+
+pub const MAP_VERMILION_GYM: u8 = 11;
+
+pub const VERMILION_GYM_WIDTH: u8 = 5;
+
+pub const VERMILION_GYM_HEIGHT: u8 = 9;
+
+pub const GROUP_ROUTE_6_SAFFRON_GATE: u8 = 12;
+
+pub const MAP_ROUTE_6_SAFFRON_GATE: u8 = 12;
+
+pub const ROUTE_6_SAFFRON_GATE_WIDTH: u8 = 5;
+
+pub const ROUTE_6_SAFFRON_GATE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_6_UNDERGROUND_PATH_ENTRANCE: u8 = 12;
+
+pub const MAP_ROUTE_6_UNDERGROUND_PATH_ENTRANCE: u8 = 13;
+
+pub const ROUTE_6_UNDERGROUND_PATH_ENTRANCE_WIDTH: u8 = 4;
+
+pub const ROUTE_6_UNDERGROUND_PATH_ENTRANCE_HEIGHT: u8 = 4;
+
+pub const NUM_VERMILION_MAPS: u8 = 13;
+
+pub const MAPGROUP_PALLET: u8 = 12;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_ROUTE_1: u8 = 13;
+
+pub const MAP_ROUTE_1: u8 = 1;
+
+pub const ROUTE_1_WIDTH: u8 = 10;
+
+pub const ROUTE_1_HEIGHT: u8 = 18;
+
+pub const GROUP_PALLET_TOWN: u8 = 13;
+
+pub const MAP_PALLET_TOWN: u8 = 2;
+
+pub const PALLET_TOWN_WIDTH: u8 = 10;
+
+pub const PALLET_TOWN_HEIGHT: u8 = 9;
+
+pub const GROUP_REDS_HOUSE_1F: u8 = 13;
+
+pub const MAP_REDS_HOUSE_1F: u8 = 3;
+
+pub const REDS_HOUSE_1F_WIDTH: u8 = 4;
+
+pub const REDS_HOUSE_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_REDS_HOUSE_2F: u8 = 13;
+
+pub const MAP_REDS_HOUSE_2F: u8 = 4;
+
+pub const REDS_HOUSE_2F_WIDTH: u8 = 4;
+
+pub const REDS_HOUSE_2F_HEIGHT: u8 = 4;
+
+pub const GROUP_BLUES_HOUSE: u8 = 13;
+
+pub const MAP_BLUES_HOUSE: u8 = 5;
+
+pub const BLUES_HOUSE_WIDTH: u8 = 4;
+
+pub const BLUES_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_OAKS_LAB: u8 = 13;
+
+pub const MAP_OAKS_LAB: u8 = 6;
+
+pub const OAKS_LAB_WIDTH: u8 = 5;
+
+pub const OAKS_LAB_HEIGHT: u8 = 6;
+
+pub const NUM_PALLET_MAPS: u8 = 6;
+
+pub const MAPGROUP_PEWTER: u8 = 13;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_ROUTE_3: u8 = 14;
+
+pub const MAP_ROUTE_3: u8 = 1;
+
+pub const ROUTE_3_WIDTH: u8 = 30;
+
+pub const ROUTE_3_HEIGHT: u8 = 9;
+
+pub const GROUP_PEWTER_CITY: u8 = 14;
+
+pub const MAP_PEWTER_CITY: u8 = 2;
+
+pub const PEWTER_CITY_WIDTH: u8 = 20;
+
+pub const PEWTER_CITY_HEIGHT: u8 = 18;
+
+pub const GROUP_PEWTER_NIDORAN_SPEECH_HOUSE: u8 = 14;
+
+pub const MAP_PEWTER_NIDORAN_SPEECH_HOUSE: u8 = 3;
+
+pub const PEWTER_NIDORAN_SPEECH_HOUSE_WIDTH: u8 = 4;
+
+pub const PEWTER_NIDORAN_SPEECH_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_PEWTER_GYM: u8 = 14;
+
+pub const MAP_PEWTER_GYM: u8 = 4;
+
+pub const PEWTER_GYM_WIDTH: u8 = 5;
+
+pub const PEWTER_GYM_HEIGHT: u8 = 7;
+
+pub const GROUP_PEWTER_MART: u8 = 14;
+
+pub const MAP_PEWTER_MART: u8 = 5;
+
+pub const PEWTER_MART_WIDTH: u8 = 6;
+
+pub const PEWTER_MART_HEIGHT: u8 = 4;
+
+pub const GROUP_PEWTER_POKECENTER_1F: u8 = 14;
+
+pub const MAP_PEWTER_POKECENTER_1F: u8 = 6;
+
+pub const PEWTER_POKECENTER_1F_WIDTH: u8 = 5;
+
+pub const PEWTER_POKECENTER_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_PEWTER_POKECENTER_2F_BETA: u8 = 14;
+
+pub const MAP_PEWTER_POKECENTER_2F_BETA: u8 = 7;
+
+pub const PEWTER_POKECENTER_2F_BETA_WIDTH: u8 = 8;
+
+pub const PEWTER_POKECENTER_2F_BETA_HEIGHT: u8 = 4;
+
+pub const GROUP_PEWTER_SNOOZE_SPEECH_HOUSE: u8 = 14;
+
+pub const MAP_PEWTER_SNOOZE_SPEECH_HOUSE: u8 = 8;
+
+pub const PEWTER_SNOOZE_SPEECH_HOUSE_WIDTH: u8 = 4;
+
+pub const PEWTER_SNOOZE_SPEECH_HOUSE_HEIGHT: u8 = 4;
+
+pub const NUM_PEWTER_MAPS: u8 = 8;
+
+pub const MAPGROUP_FAST_SHIP: u8 = 14;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_OLIVINE_PORT: u8 = 15;
+
+pub const MAP_OLIVINE_PORT: u8 = 1;
+
+pub const OLIVINE_PORT_WIDTH: u8 = 10;
+
+pub const OLIVINE_PORT_HEIGHT: u8 = 18;
+
+pub const GROUP_VERMILION_PORT: u8 = 15;
+
+pub const MAP_VERMILION_PORT: u8 = 2;
+
+pub const VERMILION_PORT_WIDTH: u8 = 10;
+
+pub const VERMILION_PORT_HEIGHT: u8 = 18;
+
+pub const GROUP_FAST_SHIP_1F: u8 = 15;
+
+pub const MAP_FAST_SHIP_1F: u8 = 3;
+
+pub const FAST_SHIP_1F_WIDTH: u8 = 16;
+
+pub const FAST_SHIP_1F_HEIGHT: u8 = 9;
+
+pub const GROUP_FAST_SHIP_CABINS_NNW_NNE_NE: u8 = 15;
+
+pub const MAP_FAST_SHIP_CABINS_NNW_NNE_NE: u8 = 4;
+
+pub const FAST_SHIP_CABINS_NNW_NNE_NE_WIDTH: u8 = 4;
+
+pub const FAST_SHIP_CABINS_NNW_NNE_NE_HEIGHT: u8 = 16;
+
+pub const GROUP_FAST_SHIP_CABINS_SW_SSW_NW: u8 = 15;
+
+pub const MAP_FAST_SHIP_CABINS_SW_SSW_NW: u8 = 5;
+
+pub const FAST_SHIP_CABINS_SW_SSW_NW_WIDTH: u8 = 4;
+
+pub const FAST_SHIP_CABINS_SW_SSW_NW_HEIGHT: u8 = 16;
+
+pub const GROUP_FAST_SHIP_CABINS_SE_SSE_CAPTAINS_CABIN: u8 = 15;
+
+pub const MAP_FAST_SHIP_CABINS_SE_SSE_CAPTAINS_CABIN: u8 = 6;
+
+pub const FAST_SHIP_CABINS_SE_SSE_CAPTAINS_CABIN_WIDTH: u8 = 5;
+
+pub const FAST_SHIP_CABINS_SE_SSE_CAPTAINS_CABIN_HEIGHT: u8 = 17;
+
+pub const GROUP_FAST_SHIP_B1F: u8 = 15;
+
+pub const MAP_FAST_SHIP_B1F: u8 = 7;
+
+pub const FAST_SHIP_B1F_WIDTH: u8 = 16;
+
+pub const FAST_SHIP_B1F_HEIGHT: u8 = 8;
+
+pub const GROUP_OLIVINE_PORT_PASSAGE: u8 = 15;
+
+pub const MAP_OLIVINE_PORT_PASSAGE: u8 = 8;
+
+pub const OLIVINE_PORT_PASSAGE_WIDTH: u8 = 10;
+
+pub const OLIVINE_PORT_PASSAGE_HEIGHT: u8 = 9;
+
+pub const GROUP_VERMILION_PORT_PASSAGE: u8 = 15;
+
+pub const MAP_VERMILION_PORT_PASSAGE: u8 = 9;
+
+pub const VERMILION_PORT_PASSAGE_WIDTH: u8 = 10;
+
+pub const VERMILION_PORT_PASSAGE_HEIGHT: u8 = 9;
+
+pub const GROUP_MOUNT_MOON_SQUARE: u8 = 15;
+
+pub const MAP_MOUNT_MOON_SQUARE: u8 = 10;
+
+pub const MOUNT_MOON_SQUARE_WIDTH: u8 = 15;
+
+pub const MOUNT_MOON_SQUARE_HEIGHT: u8 = 9;
+
+pub const GROUP_MOUNT_MOON_GIFT_SHOP: u8 = 15;
+
+pub const MAP_MOUNT_MOON_GIFT_SHOP: u8 = 11;
+
+pub const MOUNT_MOON_GIFT_SHOP_WIDTH: u8 = 4;
+
+pub const MOUNT_MOON_GIFT_SHOP_HEIGHT: u8 = 4;
+
+pub const GROUP_TIN_TOWER_ROOF: u8 = 15;
+
+pub const MAP_TIN_TOWER_ROOF: u8 = 12;
+
+pub const TIN_TOWER_ROOF_WIDTH: u8 = 10;
+
+pub const TIN_TOWER_ROOF_HEIGHT: u8 = 9;
+
+pub const NUM_FAST_SHIP_MAPS: u8 = 12;
+
+pub const MAPGROUP_INDIGO: u8 = 15;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_ROUTE_23: u8 = 16;
+
+pub const MAP_ROUTE_23: u8 = 1;
+
+pub const ROUTE_23_WIDTH: u8 = 10;
+
+pub const ROUTE_23_HEIGHT: u8 = 9;
+
+pub const GROUP_INDIGO_PLATEAU_POKECENTER_1F: u8 = 16;
+
+pub const MAP_INDIGO_PLATEAU_POKECENTER_1F: u8 = 2;
+
+pub const INDIGO_PLATEAU_POKECENTER_1F_WIDTH: u8 = 9;
+
+pub const INDIGO_PLATEAU_POKECENTER_1F_HEIGHT: u8 = 7;
+
+pub const GROUP_WILLS_ROOM: u8 = 16;
+
+pub const MAP_WILLS_ROOM: u8 = 3;
+
+pub const WILLS_ROOM_WIDTH: u8 = 5;
+
+pub const WILLS_ROOM_HEIGHT: u8 = 9;
+
+pub const GROUP_KOGAS_ROOM: u8 = 16;
+
+pub const MAP_KOGAS_ROOM: u8 = 4;
+
+pub const KOGAS_ROOM_WIDTH: u8 = 5;
+
+pub const KOGAS_ROOM_HEIGHT: u8 = 9;
+
+pub const GROUP_BRUNOS_ROOM: u8 = 16;
+
+pub const MAP_BRUNOS_ROOM: u8 = 5;
+
+pub const BRUNOS_ROOM_WIDTH: u8 = 5;
+
+pub const BRUNOS_ROOM_HEIGHT: u8 = 9;
+
+pub const GROUP_KARENS_ROOM: u8 = 16;
+
+pub const MAP_KARENS_ROOM: u8 = 6;
+
+pub const KARENS_ROOM_WIDTH: u8 = 5;
+
+pub const KARENS_ROOM_HEIGHT: u8 = 9;
+
+pub const GROUP_LANCES_ROOM: u8 = 16;
+
+pub const MAP_LANCES_ROOM: u8 = 7;
+
+pub const LANCES_ROOM_WIDTH: u8 = 5;
+
+pub const LANCES_ROOM_HEIGHT: u8 = 12;
+
+pub const GROUP_HALL_OF_FAME: u8 = 16;
+
+pub const MAP_HALL_OF_FAME: u8 = 8;
+
+pub const HALL_OF_FAME_WIDTH: u8 = 5;
+
+pub const HALL_OF_FAME_HEIGHT: u8 = 7;
+
+pub const NUM_INDIGO_MAPS: u8 = 8;
+
+pub const MAPGROUP_FUCHSIA: u8 = 16;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_ROUTE_13: u8 = 17;
+
+pub const MAP_ROUTE_13: u8 = 1;
+
+pub const ROUTE_13_WIDTH: u8 = 30;
+
+pub const ROUTE_13_HEIGHT: u8 = 9;
+
+pub const GROUP_ROUTE_14: u8 = 17;
+
+pub const MAP_ROUTE_14: u8 = 2;
+
+pub const ROUTE_14_WIDTH: u8 = 10;
+
+pub const ROUTE_14_HEIGHT: u8 = 18;
+
+pub const GROUP_ROUTE_15: u8 = 17;
+
+pub const MAP_ROUTE_15: u8 = 3;
+
+pub const ROUTE_15_WIDTH: u8 = 20;
+
+pub const ROUTE_15_HEIGHT: u8 = 9;
+
+pub const GROUP_ROUTE_18: u8 = 17;
+
+pub const MAP_ROUTE_18: u8 = 4;
+
+pub const ROUTE_18_WIDTH: u8 = 10;
+
+pub const ROUTE_18_HEIGHT: u8 = 9;
+
+pub const GROUP_FUCHSIA_CITY: u8 = 17;
+
+pub const MAP_FUCHSIA_CITY: u8 = 5;
+
+pub const FUCHSIA_CITY_WIDTH: u8 = 20;
+
+pub const FUCHSIA_CITY_HEIGHT: u8 = 18;
+
+pub const GROUP_FUCHSIA_MART: u8 = 17;
+
+pub const MAP_FUCHSIA_MART: u8 = 6;
+
+pub const FUCHSIA_MART_WIDTH: u8 = 6;
+
+pub const FUCHSIA_MART_HEIGHT: u8 = 4;
+
+pub const GROUP_SAFARI_ZONE_MAIN_OFFICE: u8 = 17;
+
+pub const MAP_SAFARI_ZONE_MAIN_OFFICE: u8 = 7;
+
+pub const SAFARI_ZONE_MAIN_OFFICE_WIDTH: u8 = 4;
+
+pub const SAFARI_ZONE_MAIN_OFFICE_HEIGHT: u8 = 4;
+
+pub const GROUP_FUCHSIA_GYM: u8 = 17;
+
+pub const MAP_FUCHSIA_GYM: u8 = 8;
+
+pub const FUCHSIA_GYM_WIDTH: u8 = 5;
+
+pub const FUCHSIA_GYM_HEIGHT: u8 = 9;
+
+pub const GROUP_BILLS_OLDER_SISTERS_HOUSE: u8 = 17;
+
+pub const MAP_BILLS_OLDER_SISTERS_HOUSE: u8 = 9;
+
+pub const BILLS_OLDER_SISTERS_HOUSE_WIDTH: u8 = 4;
+
+pub const BILLS_OLDER_SISTERS_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_FUCHSIA_POKECENTER_1F: u8 = 17;
+
+pub const MAP_FUCHSIA_POKECENTER_1F: u8 = 10;
+
+pub const FUCHSIA_POKECENTER_1F_WIDTH: u8 = 5;
+
+pub const FUCHSIA_POKECENTER_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_FUCHSIA_POKECENTER_2F_BETA: u8 = 17;
+
+pub const MAP_FUCHSIA_POKECENTER_2F_BETA: u8 = 11;
+
+pub const FUCHSIA_POKECENTER_2F_BETA_WIDTH: u8 = 8;
+
+pub const FUCHSIA_POKECENTER_2F_BETA_HEIGHT: u8 = 4;
+
+pub const GROUP_SAFARI_ZONE_WARDENS_HOME: u8 = 17;
+
+pub const MAP_SAFARI_ZONE_WARDENS_HOME: u8 = 12;
+
+pub const SAFARI_ZONE_WARDENS_HOME_WIDTH: u8 = 5;
+
+pub const SAFARI_ZONE_WARDENS_HOME_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_15_FUCHSIA_GATE: u8 = 17;
+
+pub const MAP_ROUTE_15_FUCHSIA_GATE: u8 = 13;
+
+pub const ROUTE_15_FUCHSIA_GATE_WIDTH: u8 = 5;
+
+pub const ROUTE_15_FUCHSIA_GATE_HEIGHT: u8 = 4;
+
+pub const NUM_FUCHSIA_MAPS: u8 = 13;
+
+pub const MAPGROUP_LAVENDER: u8 = 17;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_ROUTE_8: u8 = 18;
+
+pub const MAP_ROUTE_8: u8 = 1;
+
+pub const ROUTE_8_WIDTH: u8 = 20;
+
+pub const ROUTE_8_HEIGHT: u8 = 9;
+
+pub const GROUP_ROUTE_12: u8 = 18;
+
+pub const MAP_ROUTE_12: u8 = 2;
+
+pub const ROUTE_12_WIDTH: u8 = 10;
+
+pub const ROUTE_12_HEIGHT: u8 = 27;
+
+pub const GROUP_ROUTE_10_SOUTH: u8 = 18;
+
+pub const MAP_ROUTE_10_SOUTH: u8 = 3;
+
+pub const ROUTE_10_SOUTH_WIDTH: u8 = 10;
+
+pub const ROUTE_10_SOUTH_HEIGHT: u8 = 9;
+
+pub const GROUP_LAVENDER_TOWN: u8 = 18;
+
+pub const MAP_LAVENDER_TOWN: u8 = 4;
+
+pub const LAVENDER_TOWN_WIDTH: u8 = 10;
+
+pub const LAVENDER_TOWN_HEIGHT: u8 = 9;
+
+pub const GROUP_LAVENDER_POKECENTER_1F: u8 = 18;
+
+pub const MAP_LAVENDER_POKECENTER_1F: u8 = 5;
+
+pub const LAVENDER_POKECENTER_1F_WIDTH: u8 = 5;
+
+pub const LAVENDER_POKECENTER_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_LAVENDER_POKECENTER_2F_BETA: u8 = 18;
+
+pub const MAP_LAVENDER_POKECENTER_2F_BETA: u8 = 6;
+
+pub const LAVENDER_POKECENTER_2F_BETA_WIDTH: u8 = 8;
+
+pub const LAVENDER_POKECENTER_2F_BETA_HEIGHT: u8 = 4;
+
+pub const GROUP_MR_FUJIS_HOUSE: u8 = 18;
+
+pub const MAP_MR_FUJIS_HOUSE: u8 = 7;
+
+pub const MR_FUJIS_HOUSE_WIDTH: u8 = 5;
+
+pub const MR_FUJIS_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_LAVENDER_SPEECH_HOUSE: u8 = 18;
+
+pub const MAP_LAVENDER_SPEECH_HOUSE: u8 = 8;
+
+pub const LAVENDER_SPEECH_HOUSE_WIDTH: u8 = 4;
+
+pub const LAVENDER_SPEECH_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_LAVENDER_NAME_RATER: u8 = 18;
+
+pub const MAP_LAVENDER_NAME_RATER: u8 = 9;
+
+pub const LAVENDER_NAME_RATER_WIDTH: u8 = 4;
+
+pub const LAVENDER_NAME_RATER_HEIGHT: u8 = 4;
+
+pub const GROUP_LAVENDER_MART: u8 = 18;
+
+pub const MAP_LAVENDER_MART: u8 = 10;
+
+pub const LAVENDER_MART_WIDTH: u8 = 6;
+
+pub const LAVENDER_MART_HEIGHT: u8 = 4;
+
+pub const GROUP_SOUL_HOUSE: u8 = 18;
+
+pub const MAP_SOUL_HOUSE: u8 = 11;
+
+pub const SOUL_HOUSE_WIDTH: u8 = 5;
+
+pub const SOUL_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_LAV_RADIO_TOWER_1F: u8 = 18;
+
+pub const MAP_LAV_RADIO_TOWER_1F: u8 = 12;
+
+pub const LAV_RADIO_TOWER_1F_WIDTH: u8 = 10;
+
+pub const LAV_RADIO_TOWER_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_8_SAFFRON_GATE: u8 = 18;
+
+pub const MAP_ROUTE_8_SAFFRON_GATE: u8 = 13;
+
+pub const ROUTE_8_SAFFRON_GATE_WIDTH: u8 = 5;
+
+pub const ROUTE_8_SAFFRON_GATE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_12_SUPER_ROD_HOUSE: u8 = 18;
+
+pub const MAP_ROUTE_12_SUPER_ROD_HOUSE: u8 = 14;
+
+pub const ROUTE_12_SUPER_ROD_HOUSE_WIDTH: u8 = 4;
+
+pub const ROUTE_12_SUPER_ROD_HOUSE_HEIGHT: u8 = 4;
+
+pub const NUM_LAVENDER_MAPS: u8 = 14;
+
+pub const MAPGROUP_SILVER: u8 = 18;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_ROUTE_28: u8 = 19;
+
+pub const MAP_ROUTE_28: u8 = 1;
+
+pub const ROUTE_28_WIDTH: u8 = 20;
+
+pub const ROUTE_28_HEIGHT: u8 = 9;
+
+pub const GROUP_SILVER_CAVE_OUTSIDE: u8 = 19;
+
+pub const MAP_SILVER_CAVE_OUTSIDE: u8 = 2;
+
+pub const SILVER_CAVE_OUTSIDE_WIDTH: u8 = 20;
+
+pub const SILVER_CAVE_OUTSIDE_HEIGHT: u8 = 18;
+
+pub const GROUP_SILVER_CAVE_POKECENTER_1F: u8 = 19;
+
+pub const MAP_SILVER_CAVE_POKECENTER_1F: u8 = 3;
+
+pub const SILVER_CAVE_POKECENTER_1F_WIDTH: u8 = 5;
+
+pub const SILVER_CAVE_POKECENTER_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_28_STEEL_WING_HOUSE: u8 = 19;
+
+pub const MAP_ROUTE_28_STEEL_WING_HOUSE: u8 = 4;
+
+pub const ROUTE_28_STEEL_WING_HOUSE_WIDTH: u8 = 4;
+
+pub const ROUTE_28_STEEL_WING_HOUSE_HEIGHT: u8 = 4;
+
+pub const NUM_SILVER_MAPS: u8 = 4;
+
+pub const MAPGROUP_CABLE_CLUB: u8 = 19;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_POKECENTER_2F: u8 = 20;
+
+pub const MAP_POKECENTER_2F: u8 = 1;
+
+pub const POKECENTER_2F_WIDTH: u8 = 8;
+
+pub const POKECENTER_2F_HEIGHT: u8 = 4;
+
+pub const GROUP_TRADE_CENTER: u8 = 20;
+
+pub const MAP_TRADE_CENTER: u8 = 2;
+
+pub const TRADE_CENTER_WIDTH: u8 = 5;
+
+pub const TRADE_CENTER_HEIGHT: u8 = 4;
+
+pub const GROUP_COLOSSEUM: u8 = 20;
+
+pub const MAP_COLOSSEUM: u8 = 3;
+
+pub const COLOSSEUM_WIDTH: u8 = 5;
+
+pub const COLOSSEUM_HEIGHT: u8 = 4;
+
+pub const GROUP_TIME_CAPSULE: u8 = 20;
+
+pub const MAP_TIME_CAPSULE: u8 = 4;
+
+pub const TIME_CAPSULE_WIDTH: u8 = 5;
+
+pub const TIME_CAPSULE_HEIGHT: u8 = 4;
+
+pub const GROUP_MOBILE_TRADE_ROOM: u8 = 20;
+
+pub const MAP_MOBILE_TRADE_ROOM: u8 = 5;
+
+pub const MOBILE_TRADE_ROOM_WIDTH: u8 = 5;
+
+pub const MOBILE_TRADE_ROOM_HEIGHT: u8 = 4;
+
+pub const GROUP_MOBILE_BATTLE_ROOM: u8 = 20;
+
+pub const MAP_MOBILE_BATTLE_ROOM: u8 = 6;
+
+pub const MOBILE_BATTLE_ROOM_WIDTH: u8 = 5;
+
+pub const MOBILE_BATTLE_ROOM_HEIGHT: u8 = 4;
+
+pub const NUM_CABLE_CLUB_MAPS: u8 = 6;
+
+pub const MAPGROUP_CELADON: u8 = 20;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_ROUTE_7: u8 = 21;
+
+pub const MAP_ROUTE_7: u8 = 1;
+
+pub const ROUTE_7_WIDTH: u8 = 10;
+
+pub const ROUTE_7_HEIGHT: u8 = 9;
+
+pub const GROUP_ROUTE_16: u8 = 21;
+
+pub const MAP_ROUTE_16: u8 = 2;
+
+pub const ROUTE_16_WIDTH: u8 = 10;
+
+pub const ROUTE_16_HEIGHT: u8 = 9;
+
+pub const GROUP_ROUTE_17: u8 = 21;
+
+pub const MAP_ROUTE_17: u8 = 3;
+
+pub const ROUTE_17_WIDTH: u8 = 10;
+
+pub const ROUTE_17_HEIGHT: u8 = 45;
+
+pub const GROUP_CELADON_CITY: u8 = 21;
+
+pub const MAP_CELADON_CITY: u8 = 4;
+
+pub const CELADON_CITY_WIDTH: u8 = 20;
+
+pub const CELADON_CITY_HEIGHT: u8 = 18;
+
+pub const GROUP_CELADON_DEPT_STORE_1F: u8 = 21;
+
+pub const MAP_CELADON_DEPT_STORE_1F: u8 = 5;
+
+pub const CELADON_DEPT_STORE_1F_WIDTH: u8 = 8;
+
+pub const CELADON_DEPT_STORE_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_CELADON_DEPT_STORE_2F: u8 = 21;
+
+pub const MAP_CELADON_DEPT_STORE_2F: u8 = 6;
+
+pub const CELADON_DEPT_STORE_2F_WIDTH: u8 = 8;
+
+pub const CELADON_DEPT_STORE_2F_HEIGHT: u8 = 4;
+
+pub const GROUP_CELADON_DEPT_STORE_3F: u8 = 21;
+
+pub const MAP_CELADON_DEPT_STORE_3F: u8 = 7;
+
+pub const CELADON_DEPT_STORE_3F_WIDTH: u8 = 8;
+
+pub const CELADON_DEPT_STORE_3F_HEIGHT: u8 = 4;
+
+pub const GROUP_CELADON_DEPT_STORE_4F: u8 = 21;
+
+pub const MAP_CELADON_DEPT_STORE_4F: u8 = 8;
+
+pub const CELADON_DEPT_STORE_4F_WIDTH: u8 = 8;
+
+pub const CELADON_DEPT_STORE_4F_HEIGHT: u8 = 4;
+
+pub const GROUP_CELADON_DEPT_STORE_5F: u8 = 21;
+
+pub const MAP_CELADON_DEPT_STORE_5F: u8 = 9;
+
+pub const CELADON_DEPT_STORE_5F_WIDTH: u8 = 8;
+
+pub const CELADON_DEPT_STORE_5F_HEIGHT: u8 = 4;
+
+pub const GROUP_CELADON_DEPT_STORE_6F: u8 = 21;
+
+pub const MAP_CELADON_DEPT_STORE_6F: u8 = 10;
+
+pub const CELADON_DEPT_STORE_6F_WIDTH: u8 = 8;
+
+pub const CELADON_DEPT_STORE_6F_HEIGHT: u8 = 4;
+
+pub const GROUP_CELADON_DEPT_STORE_ELEVATOR: u8 = 21;
+
+pub const MAP_CELADON_DEPT_STORE_ELEVATOR: u8 = 11;
+
+pub const CELADON_DEPT_STORE_ELEVATOR_WIDTH: u8 = 2;
+
+pub const CELADON_DEPT_STORE_ELEVATOR_HEIGHT: u8 = 2;
+
+pub const GROUP_CELADON_MANSION_1F: u8 = 21;
+
+pub const MAP_CELADON_MANSION_1F: u8 = 12;
+
+pub const CELADON_MANSION_1F_WIDTH: u8 = 4;
+
+pub const CELADON_MANSION_1F_HEIGHT: u8 = 5;
+
+pub const GROUP_CELADON_MANSION_2F: u8 = 21;
+
+pub const MAP_CELADON_MANSION_2F: u8 = 13;
+
+pub const CELADON_MANSION_2F_WIDTH: u8 = 4;
+
+pub const CELADON_MANSION_2F_HEIGHT: u8 = 5;
+
+pub const GROUP_CELADON_MANSION_3F: u8 = 21;
+
+pub const MAP_CELADON_MANSION_3F: u8 = 14;
+
+pub const CELADON_MANSION_3F_WIDTH: u8 = 4;
+
+pub const CELADON_MANSION_3F_HEIGHT: u8 = 5;
+
+pub const GROUP_CELADON_MANSION_ROOF: u8 = 21;
+
+pub const MAP_CELADON_MANSION_ROOF: u8 = 15;
+
+pub const CELADON_MANSION_ROOF_WIDTH: u8 = 4;
+
+pub const CELADON_MANSION_ROOF_HEIGHT: u8 = 5;
+
+pub const GROUP_CELADON_MANSION_ROOF_HOUSE: u8 = 21;
+
+pub const MAP_CELADON_MANSION_ROOF_HOUSE: u8 = 16;
+
+pub const CELADON_MANSION_ROOF_HOUSE_WIDTH: u8 = 4;
+
+pub const CELADON_MANSION_ROOF_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_CELADON_POKECENTER_1F: u8 = 21;
+
+pub const MAP_CELADON_POKECENTER_1F: u8 = 17;
+
+pub const CELADON_POKECENTER_1F_WIDTH: u8 = 5;
+
+pub const CELADON_POKECENTER_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_CELADON_POKECENTER_2F_BETA: u8 = 21;
+
+pub const MAP_CELADON_POKECENTER_2F_BETA: u8 = 18;
+
+pub const CELADON_POKECENTER_2F_BETA_WIDTH: u8 = 8;
+
+pub const CELADON_POKECENTER_2F_BETA_HEIGHT: u8 = 4;
+
+pub const GROUP_CELADON_GAME_CORNER: u8 = 21;
+
+pub const MAP_CELADON_GAME_CORNER: u8 = 19;
+
+pub const CELADON_GAME_CORNER_WIDTH: u8 = 10;
+
+pub const CELADON_GAME_CORNER_HEIGHT: u8 = 7;
+
+pub const GROUP_CELADON_GAME_CORNER_PRIZE_ROOM: u8 = 21;
+
+pub const MAP_CELADON_GAME_CORNER_PRIZE_ROOM: u8 = 20;
+
+pub const CELADON_GAME_CORNER_PRIZE_ROOM_WIDTH: u8 = 3;
+
+pub const CELADON_GAME_CORNER_PRIZE_ROOM_HEIGHT: u8 = 3;
+
+pub const GROUP_CELADON_GYM: u8 = 21;
+
+pub const MAP_CELADON_GYM: u8 = 21;
+
+pub const CELADON_GYM_WIDTH: u8 = 5;
+
+pub const CELADON_GYM_HEIGHT: u8 = 9;
+
+pub const GROUP_CELADON_CAFE: u8 = 21;
+
+pub const MAP_CELADON_CAFE: u8 = 22;
+
+pub const CELADON_CAFE_WIDTH: u8 = 6;
+
+pub const CELADON_CAFE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_16_FUCHSIA_SPEECH_HOUSE: u8 = 21;
+
+pub const MAP_ROUTE_16_FUCHSIA_SPEECH_HOUSE: u8 = 23;
+
+pub const ROUTE_16_FUCHSIA_SPEECH_HOUSE_WIDTH: u8 = 4;
+
+pub const ROUTE_16_FUCHSIA_SPEECH_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_16_GATE: u8 = 21;
+
+pub const MAP_ROUTE_16_GATE: u8 = 24;
+
+pub const ROUTE_16_GATE_WIDTH: u8 = 5;
+
+pub const ROUTE_16_GATE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_7_SAFFRON_GATE: u8 = 21;
+
+pub const MAP_ROUTE_7_SAFFRON_GATE: u8 = 25;
+
+pub const ROUTE_7_SAFFRON_GATE_WIDTH: u8 = 5;
+
+pub const ROUTE_7_SAFFRON_GATE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_17_ROUTE_18_GATE: u8 = 21;
+
+pub const MAP_ROUTE_17_ROUTE_18_GATE: u8 = 26;
+
+pub const ROUTE_17_ROUTE_18_GATE_WIDTH: u8 = 5;
+
+pub const ROUTE_17_ROUTE_18_GATE_HEIGHT: u8 = 4;
+
+pub const NUM_CELADON_MAPS: u8 = 26;
+
+pub const MAPGROUP_CIANWOOD: u8 = 21;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_ROUTE_40: u8 = 22;
+
+pub const MAP_ROUTE_40: u8 = 1;
+
+pub const ROUTE_40_WIDTH: u8 = 10;
+
+pub const ROUTE_40_HEIGHT: u8 = 18;
+
+pub const GROUP_ROUTE_41: u8 = 22;
+
+pub const MAP_ROUTE_41: u8 = 2;
+
+pub const ROUTE_41_WIDTH: u8 = 25;
+
+pub const ROUTE_41_HEIGHT: u8 = 27;
+
+pub const GROUP_CIANWOOD_CITY: u8 = 22;
+
+pub const MAP_CIANWOOD_CITY: u8 = 3;
+
+pub const CIANWOOD_CITY_WIDTH: u8 = 15;
+
+pub const CIANWOOD_CITY_HEIGHT: u8 = 27;
+
+pub const GROUP_MANIAS_HOUSE: u8 = 22;
+
+pub const MAP_MANIAS_HOUSE: u8 = 4;
+
+pub const MANIAS_HOUSE_WIDTH: u8 = 4;
+
+pub const MANIAS_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_CIANWOOD_GYM: u8 = 22;
+
+pub const MAP_CIANWOOD_GYM: u8 = 5;
+
+pub const CIANWOOD_GYM_WIDTH: u8 = 5;
+
+pub const CIANWOOD_GYM_HEIGHT: u8 = 9;
+
+pub const GROUP_CIANWOOD_POKECENTER_1F: u8 = 22;
+
+pub const MAP_CIANWOOD_POKECENTER_1F: u8 = 6;
+
+pub const CIANWOOD_POKECENTER_1F_WIDTH: u8 = 5;
+
+pub const CIANWOOD_POKECENTER_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_CIANWOOD_PHARMACY: u8 = 22;
+
+pub const MAP_CIANWOOD_PHARMACY: u8 = 7;
+
+pub const CIANWOOD_PHARMACY_WIDTH: u8 = 4;
+
+pub const CIANWOOD_PHARMACY_HEIGHT: u8 = 4;
+
+pub const GROUP_CIANWOOD_PHOTO_STUDIO: u8 = 22;
+
+pub const MAP_CIANWOOD_PHOTO_STUDIO: u8 = 8;
+
+pub const CIANWOOD_PHOTO_STUDIO_WIDTH: u8 = 4;
+
+pub const CIANWOOD_PHOTO_STUDIO_HEIGHT: u8 = 4;
+
+pub const GROUP_CIANWOOD_LUGIA_SPEECH_HOUSE: u8 = 22;
+
+pub const MAP_CIANWOOD_LUGIA_SPEECH_HOUSE: u8 = 9;
+
+pub const CIANWOOD_LUGIA_SPEECH_HOUSE_WIDTH: u8 = 4;
+
+pub const CIANWOOD_LUGIA_SPEECH_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_POKE_SEERS_HOUSE: u8 = 22;
+
+pub const MAP_POKE_SEERS_HOUSE: u8 = 10;
+
+pub const POKE_SEERS_HOUSE_WIDTH: u8 = 4;
+
+pub const POKE_SEERS_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_BATTLE_TOWER_1F: u8 = 22;
+
+pub const MAP_BATTLE_TOWER_1F: u8 = 11;
+
+pub const BATTLE_TOWER_1F_WIDTH: u8 = 8;
+
+pub const BATTLE_TOWER_1F_HEIGHT: u8 = 5;
+
+pub const GROUP_BATTLE_TOWER_BATTLE_ROOM: u8 = 22;
+
+pub const MAP_BATTLE_TOWER_BATTLE_ROOM: u8 = 12;
+
+pub const BATTLE_TOWER_BATTLE_ROOM_WIDTH: u8 = 4;
+
+pub const BATTLE_TOWER_BATTLE_ROOM_HEIGHT: u8 = 4;
+
+pub const GROUP_BATTLE_TOWER_ELEVATOR: u8 = 22;
+
+pub const MAP_BATTLE_TOWER_ELEVATOR: u8 = 13;
+
+pub const BATTLE_TOWER_ELEVATOR_WIDTH: u8 = 2;
+
+pub const BATTLE_TOWER_ELEVATOR_HEIGHT: u8 = 2;
+
+pub const GROUP_BATTLE_TOWER_HALLWAY: u8 = 22;
+
+pub const MAP_BATTLE_TOWER_HALLWAY: u8 = 14;
+
+pub const BATTLE_TOWER_HALLWAY_WIDTH: u8 = 11;
+
+pub const BATTLE_TOWER_HALLWAY_HEIGHT: u8 = 2;
+
+pub const GROUP_ROUTE_40_BATTLE_TOWER_GATE: u8 = 22;
+
+pub const MAP_ROUTE_40_BATTLE_TOWER_GATE: u8 = 15;
+
+pub const ROUTE_40_BATTLE_TOWER_GATE_WIDTH: u8 = 5;
+
+pub const ROUTE_40_BATTLE_TOWER_GATE_HEIGHT: u8 = 4;
+
+pub const GROUP_BATTLE_TOWER_OUTSIDE: u8 = 22;
+
+pub const MAP_BATTLE_TOWER_OUTSIDE: u8 = 16;
+
+pub const BATTLE_TOWER_OUTSIDE_WIDTH: u8 = 10;
+
+pub const BATTLE_TOWER_OUTSIDE_HEIGHT: u8 = 14;
+
+pub const NUM_CIANWOOD_MAPS: u8 = 16;
+
+pub const MAPGROUP_VIRIDIAN: u8 = 22;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_ROUTE_2: u8 = 23;
+
+pub const MAP_ROUTE_2: u8 = 1;
+
+pub const ROUTE_2_WIDTH: u8 = 10;
+
+pub const ROUTE_2_HEIGHT: u8 = 27;
+
+pub const GROUP_ROUTE_22: u8 = 23;
+
+pub const MAP_ROUTE_22: u8 = 2;
+
+pub const ROUTE_22_WIDTH: u8 = 20;
+
+pub const ROUTE_22_HEIGHT: u8 = 9;
+
+pub const GROUP_VIRIDIAN_CITY: u8 = 23;
+
+pub const MAP_VIRIDIAN_CITY: u8 = 3;
+
+pub const VIRIDIAN_CITY_WIDTH: u8 = 20;
+
+pub const VIRIDIAN_CITY_HEIGHT: u8 = 18;
+
+pub const GROUP_VIRIDIAN_GYM: u8 = 23;
+
+pub const MAP_VIRIDIAN_GYM: u8 = 4;
+
+pub const VIRIDIAN_GYM_WIDTH: u8 = 5;
+
+pub const VIRIDIAN_GYM_HEIGHT: u8 = 9;
+
+pub const GROUP_VIRIDIAN_NICKNAME_SPEECH_HOUSE: u8 = 23;
+
+pub const MAP_VIRIDIAN_NICKNAME_SPEECH_HOUSE: u8 = 5;
+
+pub const VIRIDIAN_NICKNAME_SPEECH_HOUSE_WIDTH: u8 = 4;
+
+pub const VIRIDIAN_NICKNAME_SPEECH_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_TRAINER_HOUSE_1F: u8 = 23;
+
+pub const MAP_TRAINER_HOUSE_1F: u8 = 6;
+
+pub const TRAINER_HOUSE_1F_WIDTH: u8 = 5;
+
+pub const TRAINER_HOUSE_1F_HEIGHT: u8 = 7;
+
+pub const GROUP_TRAINER_HOUSE_B1F: u8 = 23;
+
+pub const MAP_TRAINER_HOUSE_B1F: u8 = 7;
+
+pub const TRAINER_HOUSE_B1F_WIDTH: u8 = 5;
+
+pub const TRAINER_HOUSE_B1F_HEIGHT: u8 = 8;
+
+pub const GROUP_VIRIDIAN_MART: u8 = 23;
+
+pub const MAP_VIRIDIAN_MART: u8 = 8;
+
+pub const VIRIDIAN_MART_WIDTH: u8 = 6;
+
+pub const VIRIDIAN_MART_HEIGHT: u8 = 4;
+
+pub const GROUP_VIRIDIAN_POKECENTER_1F: u8 = 23;
+
+pub const MAP_VIRIDIAN_POKECENTER_1F: u8 = 9;
+
+pub const VIRIDIAN_POKECENTER_1F_WIDTH: u8 = 5;
+
+pub const VIRIDIAN_POKECENTER_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_VIRIDIAN_POKECENTER_2F_BETA: u8 = 23;
+
+pub const MAP_VIRIDIAN_POKECENTER_2F_BETA: u8 = 10;
+
+pub const VIRIDIAN_POKECENTER_2F_BETA_WIDTH: u8 = 8;
+
+pub const VIRIDIAN_POKECENTER_2F_BETA_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_2_NUGGET_HOUSE: u8 = 23;
+
+pub const MAP_ROUTE_2_NUGGET_HOUSE: u8 = 11;
+
+pub const ROUTE_2_NUGGET_HOUSE_WIDTH: u8 = 4;
+
+pub const ROUTE_2_NUGGET_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_2_GATE: u8 = 23;
+
+pub const MAP_ROUTE_2_GATE: u8 = 12;
+
+pub const ROUTE_2_GATE_WIDTH: u8 = 5;
+
+pub const ROUTE_2_GATE_HEIGHT: u8 = 4;
+
+pub const GROUP_VICTORY_ROAD_GATE: u8 = 23;
+
+pub const MAP_VICTORY_ROAD_GATE: u8 = 13;
+
+pub const VICTORY_ROAD_GATE_WIDTH: u8 = 10;
+
+pub const VICTORY_ROAD_GATE_HEIGHT: u8 = 9;
+
+pub const NUM_VIRIDIAN_MAPS: u8 = 13;
+
+pub const MAPGROUP_NEW_BARK: u8 = 23;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_ROUTE_26: u8 = 24;
+
+pub const MAP_ROUTE_26: u8 = 1;
+
+pub const ROUTE_26_WIDTH: u8 = 10;
+
+pub const ROUTE_26_HEIGHT: u8 = 54;
+
+pub const GROUP_ROUTE_27: u8 = 24;
+
+pub const MAP_ROUTE_27: u8 = 2;
+
+pub const ROUTE_27_WIDTH: u8 = 40;
+
+pub const ROUTE_27_HEIGHT: u8 = 9;
+
+pub const GROUP_ROUTE_29: u8 = 24;
+
+pub const MAP_ROUTE_29: u8 = 3;
+
+pub const ROUTE_29_WIDTH: u8 = 30;
+
+pub const ROUTE_29_HEIGHT: u8 = 9;
+
+pub const GROUP_NEW_BARK_TOWN: u8 = 24;
+
+pub const MAP_NEW_BARK_TOWN: u8 = 4;
+
+pub const NEW_BARK_TOWN_WIDTH: u8 = 10;
+
+pub const NEW_BARK_TOWN_HEIGHT: u8 = 9;
+
+pub const GROUP_ELMS_LAB: u8 = 24;
+
+pub const MAP_ELMS_LAB: u8 = 5;
+
+pub const ELMS_LAB_WIDTH: u8 = 5;
+
+pub const ELMS_LAB_HEIGHT: u8 = 6;
+
+pub const GROUP_PLAYERS_HOUSE_1F: u8 = 24;
+
+pub const MAP_PLAYERS_HOUSE_1F: u8 = 6;
+
+pub const PLAYERS_HOUSE_1F_WIDTH: u8 = 5;
+
+pub const PLAYERS_HOUSE_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_PLAYERS_HOUSE_2F: u8 = 24;
+
+pub const MAP_PLAYERS_HOUSE_2F: u8 = 7;
+
+pub const PLAYERS_HOUSE_2F_WIDTH: u8 = 4;
+
+pub const PLAYERS_HOUSE_2F_HEIGHT: u8 = 3;
+
+pub const GROUP_PLAYERS_NEIGHBORS_HOUSE: u8 = 24;
+
+pub const MAP_PLAYERS_NEIGHBORS_HOUSE: u8 = 8;
+
+pub const PLAYERS_NEIGHBORS_HOUSE_WIDTH: u8 = 4;
+
+pub const PLAYERS_NEIGHBORS_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_ELMS_HOUSE: u8 = 24;
+
+pub const MAP_ELMS_HOUSE: u8 = 9;
+
+pub const ELMS_HOUSE_WIDTH: u8 = 4;
+
+pub const ELMS_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_26_HEAL_HOUSE: u8 = 24;
+
+pub const MAP_ROUTE_26_HEAL_HOUSE: u8 = 10;
+
+pub const ROUTE_26_HEAL_HOUSE_WIDTH: u8 = 4;
+
+pub const ROUTE_26_HEAL_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_DAY_OF_WEEK_SIBLINGS_HOUSE: u8 = 24;
+
+pub const MAP_DAY_OF_WEEK_SIBLINGS_HOUSE: u8 = 11;
+
+pub const DAY_OF_WEEK_SIBLINGS_HOUSE_WIDTH: u8 = 4;
+
+pub const DAY_OF_WEEK_SIBLINGS_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_27_SANDSTORM_HOUSE: u8 = 24;
+
+pub const MAP_ROUTE_27_SANDSTORM_HOUSE: u8 = 12;
+
+pub const ROUTE_27_SANDSTORM_HOUSE_WIDTH: u8 = 4;
+
+pub const ROUTE_27_SANDSTORM_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_29_ROUTE_46_GATE: u8 = 24;
+
+pub const MAP_ROUTE_29_ROUTE_46_GATE: u8 = 13;
+
+pub const ROUTE_29_ROUTE_46_GATE_WIDTH: u8 = 5;
+
+pub const ROUTE_29_ROUTE_46_GATE_HEIGHT: u8 = 4;
+
+pub const NUM_NEW_BARK_MAPS: u8 = 13;
+
+pub const MAPGROUP_SAFFRON: u8 = 24;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_ROUTE_5: u8 = 25;
+
+pub const MAP_ROUTE_5: u8 = 1;
+
+pub const ROUTE_5_WIDTH: u8 = 10;
+
+pub const ROUTE_5_HEIGHT: u8 = 9;
+
+pub const GROUP_SAFFRON_CITY: u8 = 25;
+
+pub const MAP_SAFFRON_CITY: u8 = 2;
+
+pub const SAFFRON_CITY_WIDTH: u8 = 20;
+
+pub const SAFFRON_CITY_HEIGHT: u8 = 18;
+
+pub const GROUP_FIGHTING_DOJO: u8 = 25;
+
+pub const MAP_FIGHTING_DOJO: u8 = 3;
+
+pub const FIGHTING_DOJO_WIDTH: u8 = 5;
+
+pub const FIGHTING_DOJO_HEIGHT: u8 = 6;
+
+pub const GROUP_SAFFRON_GYM: u8 = 25;
+
+pub const MAP_SAFFRON_GYM: u8 = 4;
+
+pub const SAFFRON_GYM_WIDTH: u8 = 10;
+
+pub const SAFFRON_GYM_HEIGHT: u8 = 9;
+
+pub const GROUP_SAFFRON_MART: u8 = 25;
+
+pub const MAP_SAFFRON_MART: u8 = 5;
+
+pub const SAFFRON_MART_WIDTH: u8 = 6;
+
+pub const SAFFRON_MART_HEIGHT: u8 = 4;
+
+pub const GROUP_SAFFRON_POKECENTER_1F: u8 = 25;
+
+pub const MAP_SAFFRON_POKECENTER_1F: u8 = 6;
+
+pub const SAFFRON_POKECENTER_1F_WIDTH: u8 = 5;
+
+pub const SAFFRON_POKECENTER_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_SAFFRON_POKECENTER_2F_BETA: u8 = 25;
+
+pub const MAP_SAFFRON_POKECENTER_2F_BETA: u8 = 7;
+
+pub const SAFFRON_POKECENTER_2F_BETA_WIDTH: u8 = 8;
+
+pub const SAFFRON_POKECENTER_2F_BETA_HEIGHT: u8 = 4;
+
+pub const GROUP_MR_PSYCHICS_HOUSE: u8 = 25;
+
+pub const MAP_MR_PSYCHICS_HOUSE: u8 = 8;
+
+pub const MR_PSYCHICS_HOUSE_WIDTH: u8 = 4;
+
+pub const MR_PSYCHICS_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_SAFFRON_MAGNET_TRAIN_STATION: u8 = 25;
+
+pub const MAP_SAFFRON_MAGNET_TRAIN_STATION: u8 = 9;
+
+pub const SAFFRON_MAGNET_TRAIN_STATION_WIDTH: u8 = 10;
+
+pub const SAFFRON_MAGNET_TRAIN_STATION_HEIGHT: u8 = 9;
+
+pub const GROUP_SILPH_CO_1F: u8 = 25;
+
+pub const MAP_SILPH_CO_1F: u8 = 10;
+
+pub const SILPH_CO_1F_WIDTH: u8 = 8;
+
+pub const SILPH_CO_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_COPYCATS_HOUSE_1F: u8 = 25;
+
+pub const MAP_COPYCATS_HOUSE_1F: u8 = 11;
+
+pub const COPYCATS_HOUSE_1F_WIDTH: u8 = 4;
+
+pub const COPYCATS_HOUSE_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_COPYCATS_HOUSE_2F: u8 = 25;
+
+pub const MAP_COPYCATS_HOUSE_2F: u8 = 12;
+
+pub const COPYCATS_HOUSE_2F_WIDTH: u8 = 5;
+
+pub const COPYCATS_HOUSE_2F_HEIGHT: u8 = 3;
+
+pub const GROUP_ROUTE_5_UNDERGROUND_PATH_ENTRANCE: u8 = 25;
+
+pub const MAP_ROUTE_5_UNDERGROUND_PATH_ENTRANCE: u8 = 13;
+
+pub const ROUTE_5_UNDERGROUND_PATH_ENTRANCE_WIDTH: u8 = 4;
+
+pub const ROUTE_5_UNDERGROUND_PATH_ENTRANCE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_5_SAFFRON_GATE: u8 = 25;
+
+pub const MAP_ROUTE_5_SAFFRON_GATE: u8 = 14;
+
+pub const ROUTE_5_SAFFRON_GATE_WIDTH: u8 = 5;
+
+pub const ROUTE_5_SAFFRON_GATE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_5_CLEANSE_TAG_HOUSE: u8 = 25;
+
+pub const MAP_ROUTE_5_CLEANSE_TAG_HOUSE: u8 = 15;
+
+pub const ROUTE_5_CLEANSE_TAG_HOUSE_WIDTH: u8 = 4;
+
+pub const ROUTE_5_CLEANSE_TAG_HOUSE_HEIGHT: u8 = 4;
+
+pub const NUM_SAFFRON_MAPS: u8 = 15;
+
+pub const MAPGROUP_CHERRYGROVE: u8 = 25;
+
+// duplicate assembler constant _MAP_VALUE_
+
+pub const GROUP_ROUTE_30: u8 = 26;
+
+pub const MAP_ROUTE_30: u8 = 1;
+
+pub const ROUTE_30_WIDTH: u8 = 10;
+
+pub const ROUTE_30_HEIGHT: u8 = 27;
+
+pub const GROUP_ROUTE_31: u8 = 26;
+
+pub const MAP_ROUTE_31: u8 = 2;
+
+pub const ROUTE_31_WIDTH: u8 = 20;
+
+pub const ROUTE_31_HEIGHT: u8 = 9;
+
+pub const GROUP_CHERRYGROVE_CITY: u8 = 26;
+
+pub const MAP_CHERRYGROVE_CITY: u8 = 3;
+
+pub const CHERRYGROVE_CITY_WIDTH: u8 = 20;
+
+pub const CHERRYGROVE_CITY_HEIGHT: u8 = 9;
+
+pub const GROUP_CHERRYGROVE_MART: u8 = 26;
+
+pub const MAP_CHERRYGROVE_MART: u8 = 4;
+
+pub const CHERRYGROVE_MART_WIDTH: u8 = 6;
+
+pub const CHERRYGROVE_MART_HEIGHT: u8 = 4;
+
+pub const GROUP_CHERRYGROVE_POKECENTER_1F: u8 = 26;
+
+pub const MAP_CHERRYGROVE_POKECENTER_1F: u8 = 5;
+
+pub const CHERRYGROVE_POKECENTER_1F_WIDTH: u8 = 5;
+
+pub const CHERRYGROVE_POKECENTER_1F_HEIGHT: u8 = 4;
+
+pub const GROUP_CHERRYGROVE_GYM_SPEECH_HOUSE: u8 = 26;
+
+pub const MAP_CHERRYGROVE_GYM_SPEECH_HOUSE: u8 = 6;
+
+pub const CHERRYGROVE_GYM_SPEECH_HOUSE_WIDTH: u8 = 4;
+
+pub const CHERRYGROVE_GYM_SPEECH_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_GUIDE_GENTS_HOUSE: u8 = 26;
+
+pub const MAP_GUIDE_GENTS_HOUSE: u8 = 7;
+
+pub const GUIDE_GENTS_HOUSE_WIDTH: u8 = 4;
+
+pub const GUIDE_GENTS_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_CHERRYGROVE_EVOLUTION_SPEECH_HOUSE: u8 = 26;
+
+pub const MAP_CHERRYGROVE_EVOLUTION_SPEECH_HOUSE: u8 = 8;
+
+pub const CHERRYGROVE_EVOLUTION_SPEECH_HOUSE_WIDTH: u8 = 4;
+
+pub const CHERRYGROVE_EVOLUTION_SPEECH_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_30_BERRY_HOUSE: u8 = 26;
+
+pub const MAP_ROUTE_30_BERRY_HOUSE: u8 = 9;
+
+pub const ROUTE_30_BERRY_HOUSE_WIDTH: u8 = 4;
+
+pub const ROUTE_30_BERRY_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_MR_POKEMONS_HOUSE: u8 = 26;
+
+pub const MAP_MR_POKEMONS_HOUSE: u8 = 10;
+
+pub const MR_POKEMONS_HOUSE_WIDTH: u8 = 4;
+
+pub const MR_POKEMONS_HOUSE_HEIGHT: u8 = 4;
+
+pub const GROUP_ROUTE_31_VIOLET_GATE: u8 = 26;
+
+pub const MAP_ROUTE_31_VIOLET_GATE: u8 = 11;
+
+pub const ROUTE_31_VIOLET_GATE_WIDTH: u8 = 5;
+
+pub const ROUTE_31_VIOLET_GATE_HEIGHT: u8 = 4;
+
+pub const NUM_CHERRYGROVE_MAPS: u8 = 11;
+
+pub const NUM_MAP_GROUPS: u8 = 26;
+

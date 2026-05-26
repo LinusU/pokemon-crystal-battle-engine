@@ -1,0 +1,50 @@
+use crate::runtime::Cpu;
+
+pub(crate) fn draw_kris_pack_gfx(cpu: &mut Cpu) {
+    cpu.pc = 0x4e81;
+    cpu.set_hl(0x4e93);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    let lhs = cpu.hl();
+    let rhs = cpu.de();
+    let (result, carry) = lhs.overflowing_add(rhs);
+    cpu.flag_n = false;
+    cpu.flag_h = (lhs & 0x0fff) + (rhs & 0x0fff) > 0x0fff;
+    cpu.flag_c = carry;
+    cpu.set_hl(result);
+    cpu.pc += 1;
+    cpu.cycle(8);
+    let lhs = cpu.hl();
+    let rhs = cpu.de();
+    let (result, carry) = lhs.overflowing_add(rhs);
+    cpu.flag_n = false;
+    cpu.flag_h = (lhs & 0x0fff) + (rhs & 0x0fff) > 0x0fff;
+    cpu.flag_c = carry;
+    cpu.set_hl(result);
+    cpu.pc += 1;
+    cpu.cycle(8);
+    cpu.a = cpu.read_byte(cpu.hl());
+    cpu.set_hl(cpu.hl().wrapping_add(1));
+    cpu.pc += 1;
+    cpu.cycle(8);
+    cpu.e = cpu.a;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.d = cpu.read_byte(cpu.hl());
+    cpu.pc += 1;
+    cpu.cycle(8);
+    cpu.set_hl({ const N: i32 = ((0x9000 as i32) + ((crate::defs::TILE_SIZE as u16 as i32) * (0x50 as i32))); N as u16 });
+    cpu.pc += 3;
+    cpu.cycle(12);
+    cpu.set_bc({ const N: i32 = ((((0x12 as i32) & (0xff as i32)) << (8 as i32)) | ((15 as i32) & (0xff as i32))); N as u16 });
+    cpu.pc += 3;
+    cpu.cycle(12);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::gfx::request2bpp(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.pc = cpu.pop_word();
+    cpu.cycle(16);
+}
+

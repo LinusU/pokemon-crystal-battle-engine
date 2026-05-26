@@ -1,0 +1,8 @@
+[package]
+name = "rgb2rust-output"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+glium = "0.34"
+winit = "0.29"

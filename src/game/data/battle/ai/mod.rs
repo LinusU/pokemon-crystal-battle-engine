@@ -1,0 +1,10 @@
+pub mod constant_damage_effects;
+pub mod encore_moves;
+pub mod rain_dance_moves;
+pub mod reckless_moves;
+pub mod residual_moves;
+pub mod risky_effects;
+pub mod stall_moves;
+pub mod status_only_effects;
+pub mod sunny_day_moves;
+pub mod useful_moves;

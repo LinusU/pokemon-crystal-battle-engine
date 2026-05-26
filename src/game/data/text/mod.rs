@@ -1,0 +1,11 @@
+pub mod battle;
+pub mod common;
+pub mod common_1;
+pub mod common_2;
+pub mod common_3;
+pub mod mail_input_chars;
+pub mod name_input_chars;
+pub mod std_text;
+pub mod unused_dakutens;
+pub mod unused_gen1_trainer_names;
+pub mod unused_sweet_honey;

@@ -1,0 +1,11 @@
+pub mod mobile_adapters;
+pub mod mobile_password;
+pub mod mobile_splash;
+pub mod mobile_trade_bg;
+pub mod mobile_trade_lights;
+pub mod mobile_trade_ob1;
+pub mod mobile_trade_ob2;
+pub mod pichu_border_bg;
+pub mod pichu_border_ob;
+pub mod pokemon_news;
+pub mod unused_mobile_pulses;

@@ -1,0 +1,12 @@
+pub mod bug_contest_flags;
+pub mod bug_contest_winners;
+pub mod elevator_floors;
+pub mod engine_flags;
+pub mod happiness_changes;
+pub mod happiness_probabilities;
+pub mod magikarp_lengths;
+pub mod npc_trades;
+pub mod odd_eggs;
+pub mod pokedex_ratings;
+pub mod special_pointers;
+pub mod unown_walls;

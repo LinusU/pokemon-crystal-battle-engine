@@ -1,0 +1,73 @@
+use crate::runtime::Cpu;
+
+pub(crate) fn empty_all_sram_banks(cpu: &mut Cpu) {
+    cpu.pc = 0x4f1f;
+    cpu.a = 0;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    empty_all_sram_banks_empty_bank(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.a = 1;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    empty_all_sram_banks_empty_bank(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.a = 2;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    empty_all_sram_banks_empty_bank(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.a = 3;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    empty_all_sram_banks_empty_bank(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.pc = cpu.pop_word();
+    cpu.cycle(16);
+}
+
+pub(crate) fn empty_all_sram_banks_empty_bank(cpu: &mut Cpu) {
+    cpu.pc = 0x4f34;
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::sram::open_sram(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.set_hl(0xa000);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    cpu.set_bc(0x2000);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    cpu.a = 0;
+    cpu.flag_z = true;
+    cpu.flag_n = false;
+    cpu.flag_h = false;
+    cpu.flag_c = false;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::copy::byte_fill(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::sram::close_sram(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.pc = cpu.pop_word();
+    cpu.cycle(16);
+}

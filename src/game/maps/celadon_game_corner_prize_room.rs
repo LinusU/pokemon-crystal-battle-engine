@@ -1,0 +1,48 @@
+use crate::runtime::Cpu;
+
+pub const CELADONGAMECORNERPRIZEROOM_TM32_COINS: u16 = 1500;
+
+pub const CELADONGAMECORNERPRIZEROOM_TM29_COINS: u16 = 3500;
+
+pub const CELADONGAMECORNERPRIZEROOM_TM15_COINS: u16 = 7500;
+
+pub const CELADONGAMECORNERPRIZEROOM_PIKACHU_COINS: u16 = 2222;
+
+pub const CELADONGAMECORNERPRIZEROOM_PORYGON_COINS: u16 = 5555;
+
+pub const CELADONGAMECORNERPRIZEROOM_LARVITAR_COINS: u16 = 8888;
+
+pub const CONST_VALUE: u8 = 2;
+
+pub const CONST_INC: u8 = 1;
+
+pub const CELADONGAMECORNERPRIZEROOM_GENTLEMAN: u8 = 2;
+
+pub const CELADONGAMECORNERPRIZEROOM_PHARMACIST: u8 = 3;
+
+// duplicate assembler constant CONST_VALUE
+
+// duplicate assembler constant CONST_INC
+
+pub const _NUM_SCENE_SCRIPTS_U469: u8 = 0;
+
+pub const _NUM_CALLBACKS_U470: u8 = 0;
+
+pub const MAP_CALLBACK_1: u8 = 0;
+
+pub const MAP_CALLBACK_2: u8 = 0;
+
+pub const MAP_CALLBACK_3: u8 = 0;
+
+pub const MAP_CALLBACK_4: u8 = 0;
+
+pub const MAP_CALLBACK_5: u8 = 0;
+
+pub const _NUM_WARP_EVENTS_U471: u8 = 0;
+
+pub const _NUM_COORD_EVENTS_U472: u8 = 0;
+
+pub const _NUM_BG_EVENTS_U473: u8 = 0;
+
+pub const _NUM_OBJECT_EVENTS_U474: u8 = 0;
+

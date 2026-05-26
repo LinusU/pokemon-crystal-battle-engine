@@ -1,0 +1,9 @@
+pub mod credits;
+pub mod evolution_animation;
+pub mod gbc_only;
+pub mod init_hof_credits;
+pub mod intro;
+pub mod splash;
+pub mod title;
+pub mod trade_animation;
+pub mod unused_title;

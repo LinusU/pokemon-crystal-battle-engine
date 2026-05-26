@@ -1,0 +1,14 @@
+pub mod animations;
+pub mod critical_hit_moves;
+pub mod descriptions;
+pub mod effects;
+pub mod effects_pointers;
+pub mod effects_priorities;
+pub mod flail_reversal_power;
+pub mod grammar;
+pub mod magnitude_power;
+pub mod metronome_exception_moves;
+pub mod moves;
+pub mod names;
+pub mod present_power;
+pub mod tmhm_moves;

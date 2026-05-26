@@ -1,0 +1,52 @@
+use crate::runtime::Cpu;
+
+pub const CONST_VALUE: u8 = 2;
+
+pub const CONST_INC: u8 = 1;
+
+pub const ROUTE43_SUPER_NERD1: u8 = 2;
+
+pub const ROUTE43_SUPER_NERD2: u8 = 3;
+
+pub const ROUTE43_SUPER_NERD3: u8 = 4;
+
+pub const ROUTE43_FISHER: u8 = 5;
+
+pub const ROUTE43_LASS: u8 = 6;
+
+pub const ROUTE43_YOUNGSTER: u8 = 7;
+
+pub const ROUTE43_FRUIT_TREE: u8 = 8;
+
+pub const ROUTE43_POKE_BALL: u8 = 9;
+
+// duplicate assembler constant CONST_VALUE
+
+// duplicate assembler constant CONST_INC
+
+pub const _NUM_SCENE_SCRIPTS_U1921: u8 = 0;
+
+pub const _NUM_CALLBACKS_U1922: u8 = 0;
+
+pub const MAP_CALLBACK_1: u8 = 0;
+
+pub const MAP_CALLBACK_2: u8 = 0;
+
+pub const MAP_CALLBACK_3: u8 = 0;
+
+pub const MAP_CALLBACK_4: u8 = 0;
+
+pub const MAP_CALLBACK_5: u8 = 0;
+
+pub const X: u8 = 5;
+
+// duplicate assembler constant MAP_CALLBACK_5
+
+pub const _NUM_WARP_EVENTS_U1923: u8 = 0;
+
+pub const _NUM_COORD_EVENTS_U1924: u8 = 0;
+
+pub const _NUM_BG_EVENTS_U1925: u8 = 0;
+
+pub const _NUM_OBJECT_EVENTS_U1926: u8 = 0;
+

@@ -1,0 +1,14 @@
+pub mod delete_save;
+pub mod empty_sram;
+pub mod init_gender;
+pub mod intro_menu;
+pub mod main_menu;
+pub mod menu;
+pub mod menu_2;
+pub mod naming_screen;
+pub mod options_menu;
+pub mod save;
+pub mod savemenu_copytilemapatonce;
+pub mod scrolling_menu;
+pub mod start_menu;
+pub mod trainer_card;

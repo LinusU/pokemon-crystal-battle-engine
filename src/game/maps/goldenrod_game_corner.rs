@@ -1,0 +1,72 @@
+use crate::runtime::Cpu;
+
+pub const GOLDENRODGAMECORNER_TM25_COINS: u16 = 5500;
+
+pub const GOLDENRODGAMECORNER_TM14_COINS: u16 = 5500;
+
+pub const GOLDENRODGAMECORNER_TM38_COINS: u16 = 5500;
+
+pub const GOLDENRODGAMECORNER_ABRA_COINS: u8 = 100;
+
+pub const GOLDENRODGAMECORNER_CUBONE_COINS: u16 = 800;
+
+pub const GOLDENRODGAMECORNER_WOBBUFFET_COINS: u16 = 1500;
+
+pub const CONST_VALUE: u8 = 2;
+
+pub const CONST_INC: u8 = 1;
+
+pub const GOLDENRODGAMECORNER_CLERK: u8 = 2;
+
+pub const GOLDENRODGAMECORNER_RECEPTIONIST1: u8 = 3;
+
+pub const GOLDENRODGAMECORNER_RECEPTIONIST2: u8 = 4;
+
+pub const GOLDENRODGAMECORNER_PHARMACIST1: u8 = 5;
+
+pub const GOLDENRODGAMECORNER_PHARMACIST2: u8 = 6;
+
+pub const GOLDENRODGAMECORNER_POKEFAN_M1: u8 = 7;
+
+pub const GOLDENRODGAMECORNER_COOLTRAINER_M: u8 = 8;
+
+pub const GOLDENRODGAMECORNER_POKEFAN_F: u8 = 9;
+
+pub const GOLDENRODGAMECORNER_COOLTRAINER_F: u8 = 10;
+
+pub const GOLDENRODGAMECORNER_GENTLEMAN: u8 = 11;
+
+pub const GOLDENRODGAMECORNER_POKEFAN_M2: u8 = 12;
+
+pub const GOLDENRODGAMECORNER_MOVETUTOR: u8 = 13;
+
+// duplicate assembler constant CONST_VALUE
+
+// duplicate assembler constant CONST_INC
+
+pub const _NUM_SCENE_SCRIPTS_U931: u8 = 0;
+
+pub const _NUM_CALLBACKS_U932: u8 = 0;
+
+pub const MAP_CALLBACK_1: u8 = 0;
+
+pub const MAP_CALLBACK_2: u8 = 0;
+
+pub const MAP_CALLBACK_3: u8 = 0;
+
+pub const MAP_CALLBACK_4: u8 = 0;
+
+pub const MAP_CALLBACK_5: u8 = 0;
+
+pub const X: u8 = 2;
+
+// duplicate assembler constant MAP_CALLBACK_2
+
+pub const _NUM_WARP_EVENTS_U933: u8 = 0;
+
+pub const _NUM_COORD_EVENTS_U934: u8 = 0;
+
+pub const _NUM_BG_EVENTS_U935: u8 = 0;
+
+pub const _NUM_OBJECT_EVENTS_U936: u8 = 0;
+

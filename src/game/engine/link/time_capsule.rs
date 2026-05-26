@@ -1,0 +1,606 @@
+use crate::runtime::Cpu;
+
+pub(crate) fn validate_ot_trademon(cpu: &mut Cpu) {
+    cpu.pc = 0x757e;
+    cpu.a = cpu.read_byte(0xd003);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    cpu.set_hl(0xd288);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::battle::get_party_location(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.push_word(cpu.hl());
+    cpu.pc += 1;
+    cpu.cycle(16);
+    cpu.a = cpu.read_byte(0xd003);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    let value = cpu.a;
+    let result = value.wrapping_add(1);
+    cpu.flag_z = result == 0;
+    cpu.flag_n = false;
+    cpu.flag_h = (value & 0x0f) + 1 > 0x0f;
+    cpu.a = result;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.c = cpu.a;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.b = 0;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.set_hl(0xd280);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    let lhs = cpu.hl();
+    let rhs = cpu.bc();
+    let (result, carry) = lhs.overflowing_add(rhs);
+    cpu.flag_n = false;
+    cpu.flag_h = (lhs & 0x0fff) + (rhs & 0x0fff) > 0x0fff;
+    cpu.flag_c = carry;
+    cpu.set_hl(result);
+    cpu.pc += 1;
+    cpu.cycle(8);
+    cpu.a = cpu.read_byte(cpu.hl());
+    cpu.pc += 1;
+    cpu.cycle(8);
+    let value = cpu.pop_word();
+    cpu.set_hl(value);
+    cpu.pc += 1;
+    cpu.cycle(12);
+    let value = crate::defs::EGG as u8;
+    let lhs = cpu.a;
+    let (result, carry) = lhs.overflowing_sub(value);
+    cpu.flag_z = result == 0;
+    cpu.flag_n = true;
+    cpu.flag_h = (lhs & 0x0f) < (value & 0x0f);
+    cpu.flag_c = carry;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    if cpu.flag_z {
+        cpu.cycle(12);
+        become validate_ot_trademon_matching_or_egg(cpu);
+    }
+    cpu.pc += 2;
+    cpu.cycle(8);
+    let value = cpu.read_byte(cpu.hl());
+    let lhs = cpu.a;
+    let (result, carry) = lhs.overflowing_sub(value);
+    cpu.flag_z = result == 0;
+    cpu.flag_n = true;
+    cpu.flag_h = (lhs & 0x0f) < (value & 0x0f);
+    cpu.flag_c = carry;
+    cpu.pc += 1;
+    cpu.cycle(8);
+    if !cpu.flag_z {
+        cpu.cycle(12);
+        become validate_ot_trademon_abnormal(cpu);
+    }
+    cpu.pc += 2;
+    cpu.cycle(8);
+    become validate_ot_trademon_matching_or_egg(cpu);
+}
+
+pub(crate) fn validate_ot_trademon_matching_or_egg(cpu: &mut Cpu) {
+    cpu.pc = 0x759c;
+    cpu.b = cpu.h;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.c = cpu.l;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.set_hl(crate::defs::MON_LEVEL as u16);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    let lhs = cpu.hl();
+    let rhs = cpu.bc();
+    let (result, carry) = lhs.overflowing_add(rhs);
+    cpu.flag_n = false;
+    cpu.flag_h = (lhs & 0x0fff) + (rhs & 0x0fff) > 0x0fff;
+    cpu.flag_c = carry;
+    cpu.set_hl(result);
+    cpu.pc += 1;
+    cpu.cycle(8);
+    cpu.a = cpu.read_byte(cpu.hl());
+    cpu.pc += 1;
+    cpu.cycle(8);
+    let value = { let value = ((crate::defs::MAX_LEVEL as i32) + (1 as i32)); if value < 0 { i8::try_from(value).expect("n8 expression out of range") as u8 } else { u8::try_from(value).expect("n8 expression out of range") } };
+    let lhs = cpu.a;
+    let (result, carry) = lhs.overflowing_sub(value);
+    cpu.flag_z = result == 0;
+    cpu.flag_n = true;
+    cpu.flag_h = (lhs & 0x0f) < (value & 0x0f);
+    cpu.flag_c = carry;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    if !cpu.flag_c {
+        cpu.cycle(12);
+        become validate_ot_trademon_abnormal(cpu);
+    }
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.a = cpu.read_byte(0xc2dc);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    let value = crate::defs::LINK_TIMECAPSULE as u8;
+    let lhs = cpu.a;
+    let (result, carry) = lhs.overflowing_sub(value);
+    cpu.flag_z = result == 0;
+    cpu.flag_n = true;
+    cpu.flag_h = (lhs & 0x0f) < (value & 0x0f);
+    cpu.flag_c = carry;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    if !cpu.flag_z {
+        cpu.cycle(12);
+        become validate_ot_trademon_normal(cpu);
+    }
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.set_hl(0xd281);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    cpu.a = cpu.read_byte(0xd003);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    cpu.c = cpu.a;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.b = 0;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    let lhs = cpu.hl();
+    let rhs = cpu.bc();
+    let (result, carry) = lhs.overflowing_add(rhs);
+    cpu.flag_n = false;
+    cpu.flag_h = (lhs & 0x0fff) + (rhs & 0x0fff) > 0x0fff;
+    cpu.flag_c = carry;
+    cpu.set_hl(result);
+    cpu.pc += 1;
+    cpu.cycle(8);
+    cpu.a = cpu.read_byte(cpu.hl());
+    cpu.pc += 1;
+    cpu.cycle(8);
+    let value = crate::defs::MAGNEMITE as u8;
+    let lhs = cpu.a;
+    let (result, carry) = lhs.overflowing_sub(value);
+    cpu.flag_z = result == 0;
+    cpu.flag_n = true;
+    cpu.flag_h = (lhs & 0x0f) < (value & 0x0f);
+    cpu.flag_c = carry;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    if cpu.flag_z {
+        cpu.cycle(12);
+        become validate_ot_trademon_normal(cpu);
+    }
+    cpu.pc += 2;
+    cpu.cycle(8);
+    let value = crate::defs::MAGNETON as u8;
+    let lhs = cpu.a;
+    let (result, carry) = lhs.overflowing_sub(value);
+    cpu.flag_z = result == 0;
+    cpu.flag_n = true;
+    cpu.flag_h = (lhs & 0x0f) < (value & 0x0f);
+    cpu.flag_c = carry;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    if cpu.flag_z {
+        cpu.cycle(12);
+        become validate_ot_trademon_normal(cpu);
+    }
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.write_byte(0xcf60, cpu.a);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::pokemon::get_base_data(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.set_hl(0xcbea);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    let lhs = cpu.hl();
+    let rhs = cpu.bc();
+    let (result, carry) = lhs.overflowing_add(rhs);
+    cpu.flag_n = false;
+    cpu.flag_h = (lhs & 0x0fff) + (rhs & 0x0fff) > 0x0fff;
+    cpu.flag_c = carry;
+    cpu.set_hl(result);
+    cpu.pc += 1;
+    cpu.cycle(8);
+    let lhs = cpu.hl();
+    let rhs = cpu.bc();
+    let (result, carry) = lhs.overflowing_add(rhs);
+    cpu.flag_n = false;
+    cpu.flag_h = (lhs & 0x0fff) + (rhs & 0x0fff) > 0x0fff;
+    cpu.flag_c = carry;
+    cpu.set_hl(result);
+    cpu.pc += 1;
+    cpu.cycle(8);
+    cpu.a = cpu.read_byte(0xd23d);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    let value = cpu.read_byte(cpu.hl());
+    let lhs = cpu.a;
+    let (result, carry) = lhs.overflowing_sub(value);
+    cpu.flag_z = result == 0;
+    cpu.flag_n = true;
+    cpu.flag_h = (lhs & 0x0f) < (value & 0x0f);
+    cpu.flag_c = carry;
+    cpu.pc += 1;
+    cpu.cycle(8);
+    if !cpu.flag_z {
+        cpu.cycle(12);
+        become validate_ot_trademon_abnormal(cpu);
+    }
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.set_hl(cpu.hl().wrapping_add(1));
+    cpu.pc += 1;
+    cpu.cycle(8);
+    cpu.a = cpu.read_byte(0xd23e);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    let value = cpu.read_byte(cpu.hl());
+    let lhs = cpu.a;
+    let (result, carry) = lhs.overflowing_sub(value);
+    cpu.flag_z = result == 0;
+    cpu.flag_n = true;
+    cpu.flag_h = (lhs & 0x0f) < (value & 0x0f);
+    cpu.flag_c = carry;
+    cpu.pc += 1;
+    cpu.cycle(8);
+    if !cpu.flag_z {
+        cpu.cycle(12);
+        become validate_ot_trademon_abnormal(cpu);
+    }
+    cpu.pc += 2;
+    cpu.cycle(8);
+    become validate_ot_trademon_normal(cpu);
+}
+
+pub(crate) fn validate_ot_trademon_normal(cpu: &mut Cpu) {
+    cpu.pc = 0x75d9;
+    let value = cpu.a;
+    cpu.a &= value;
+    cpu.flag_z = cpu.a == 0;
+    cpu.flag_n = false;
+    cpu.flag_h = true;
+    cpu.flag_c = false;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.pc = cpu.pop_word();
+    cpu.cycle(16);
+}
+
+pub(crate) fn validate_ot_trademon_abnormal(cpu: &mut Cpu) {
+    cpu.pc = 0x75db;
+    cpu.flag_n = false;
+    cpu.flag_h = false;
+    cpu.flag_c = true;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.pc = cpu.pop_word();
+    cpu.cycle(16);
+}
+
+pub(crate) fn check_any_other_alive_mons_for_trade(cpu: &mut Cpu) {
+    cpu.pc = 0x75dd;
+    cpu.a = cpu.read_byte(0xd002);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    cpu.d = cpu.a;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.a = cpu.read_byte(0xdcd7);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    cpu.b = cpu.a;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.c = 0;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    become check_any_other_alive_mons_for_trade_loop(cpu);
+}
+
+pub(crate) fn check_any_other_alive_mons_for_trade_loop(cpu: &mut Cpu) {
+    cpu.pc = 0x75e7;
+    cpu.a = cpu.c;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    let value = cpu.d;
+    let lhs = cpu.a;
+    let (result, carry) = lhs.overflowing_sub(value);
+    cpu.flag_z = result == 0;
+    cpu.flag_n = true;
+    cpu.flag_h = (lhs & 0x0f) < (value & 0x0f);
+    cpu.flag_c = carry;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    if cpu.flag_z {
+        cpu.cycle(12);
+        become check_any_other_alive_mons_for_trade_next(cpu);
+    }
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.push_word(cpu.bc());
+    cpu.pc += 1;
+    cpu.cycle(16);
+    cpu.a = cpu.c;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.set_hl(0xdd01);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::battle::get_party_location(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    let value = cpu.pop_word();
+    cpu.set_bc(value);
+    cpu.pc += 1;
+    cpu.cycle(12);
+    cpu.a = cpu.read_byte(cpu.hl());
+    cpu.set_hl(cpu.hl().wrapping_add(1));
+    cpu.pc += 1;
+    cpu.cycle(8);
+    let value = cpu.read_byte(cpu.hl());
+    cpu.a |= value;
+    cpu.flag_z = cpu.a == 0;
+    cpu.flag_n = false;
+    cpu.flag_h = false;
+    cpu.flag_c = false;
+    cpu.pc += 1;
+    cpu.cycle(8);
+    if !cpu.flag_z {
+        cpu.cycle(12);
+        become check_any_other_alive_mons_for_trade_done(cpu);
+    }
+    cpu.pc += 2;
+    cpu.cycle(8);
+    become check_any_other_alive_mons_for_trade_next(cpu);
+}
+
+pub(crate) fn check_any_other_alive_mons_for_trade_next(cpu: &mut Cpu) {
+    cpu.pc = 0x75f8;
+    let value = cpu.c;
+    let result = value.wrapping_add(1);
+    cpu.flag_z = result == 0;
+    cpu.flag_n = false;
+    cpu.flag_h = (value & 0x0f) + 1 > 0x0f;
+    cpu.c = result;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    let value = cpu.b;
+    let result = value.wrapping_sub(1);
+    cpu.flag_z = result == 0;
+    cpu.flag_n = true;
+    cpu.flag_h = (value & 0x0f) == 0;
+    cpu.b = result;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    if !cpu.flag_z {
+        cpu.cycle(12);
+        become check_any_other_alive_mons_for_trade_loop(cpu);
+    }
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.a = cpu.read_byte(0xd003);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    cpu.set_hl(0xd2aa);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::battle::get_party_location(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.a = cpu.read_byte(cpu.hl());
+    cpu.set_hl(cpu.hl().wrapping_add(1));
+    cpu.pc += 1;
+    cpu.cycle(8);
+    let value = cpu.read_byte(cpu.hl());
+    cpu.a |= value;
+    cpu.flag_z = cpu.a == 0;
+    cpu.flag_n = false;
+    cpu.flag_h = false;
+    cpu.flag_c = false;
+    cpu.pc += 1;
+    cpu.cycle(8);
+    if !cpu.flag_z {
+        cpu.cycle(12);
+        become check_any_other_alive_mons_for_trade_done(cpu);
+    }
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.flag_n = false;
+    cpu.flag_h = false;
+    cpu.flag_c = true;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.pc = cpu.pop_word();
+    cpu.cycle(16);
+}
+
+pub(crate) fn check_any_other_alive_mons_for_trade_done(cpu: &mut Cpu) {
+    cpu.pc = 0x760b;
+    let value = cpu.a;
+    cpu.a &= value;
+    cpu.flag_z = cpu.a == 0;
+    cpu.flag_n = false;
+    cpu.flag_h = true;
+    cpu.flag_c = false;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.pc = cpu.pop_word();
+    cpu.cycle(16);
+}
+
+pub(crate) fn place_trade_partner_names_and_party(cpu: &mut Cpu) {
+    cpu.pc = 0x760d;
+    cpu.set_hl({ const N: i32 = ((((0 as i32) * (crate::defs::SCREEN_WIDTH as u16 as i32)) + (4 as i32)) + (0xc4a0 as i32)); N as u16 });
+    cpu.pc += 3;
+    cpu.cycle(12);
+    cpu.set_de(0xd47d);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::text::place_string(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.a = 0x14;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.write_byte(cpu.bc(), cpu.a);
+    cpu.pc += 1;
+    cpu.cycle(8);
+    cpu.set_hl({ const N: i32 = ((((8 as i32) * (crate::defs::SCREEN_WIDTH as u16 as i32)) + (4 as i32)) + (0xc4a0 as i32)); N as u16 });
+    cpu.pc += 3;
+    cpu.cycle(12);
+    cpu.set_de(0xd26b);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::text::place_string(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.a = 0x14;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    cpu.write_byte(cpu.bc(), cpu.a);
+    cpu.pc += 1;
+    cpu.cycle(8);
+    cpu.set_hl({ const N: i32 = ((((1 as i32) * (crate::defs::SCREEN_WIDTH as u16 as i32)) + (7 as i32)) + (0xc4a0 as i32)); N as u16 });
+    cpu.pc += 3;
+    cpu.cycle(12);
+    cpu.set_de(0xdcd8);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    place_trade_partner_names_and_party_place_species_names(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    cpu.set_hl({ const N: i32 = ((((9 as i32) * (crate::defs::SCREEN_WIDTH as u16 as i32)) + (7 as i32)) + (0xc4a0 as i32)); N as u16 });
+    cpu.pc += 3;
+    cpu.cycle(12);
+    cpu.set_de(0xd281);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    become place_trade_partner_names_and_party_place_species_names(cpu);
+}
+
+pub(crate) fn place_trade_partner_names_and_party_place_species_names(cpu: &mut Cpu) {
+    cpu.pc = 0x7634;
+    cpu.c = 0;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    become place_trade_partner_names_and_party_loop(cpu);
+}
+
+pub(crate) fn place_trade_partner_names_and_party_loop(cpu: &mut Cpu) {
+    cpu.pc = 0x7636;
+    cpu.a = cpu.read_byte(cpu.de());
+    cpu.pc += 1;
+    cpu.cycle(8);
+    let value = -1i16 as u8;
+    let lhs = cpu.a;
+    let (result, carry) = lhs.overflowing_sub(value);
+    cpu.flag_z = result == 0;
+    cpu.flag_n = true;
+    cpu.flag_h = (lhs & 0x0f) < (value & 0x0f);
+    cpu.flag_c = carry;
+    cpu.pc += 2;
+    cpu.cycle(8);
+    if cpu.flag_z {
+        cpu.pc = cpu.pop_word();
+        cpu.cycle(20);
+        return;
+    }
+    cpu.pc += 1;
+    cpu.cycle(8);
+    cpu.write_byte(0xd265, cpu.a);
+    cpu.pc += 3;
+    cpu.cycle(16);
+    cpu.push_word(cpu.bc());
+    cpu.pc += 1;
+    cpu.cycle(16);
+    cpu.push_word(cpu.hl());
+    cpu.pc += 1;
+    cpu.cycle(16);
+    cpu.push_word(cpu.de());
+    cpu.pc += 1;
+    cpu.cycle(16);
+    cpu.push_word(cpu.hl());
+    cpu.pc += 1;
+    cpu.cycle(16);
+    cpu.a = cpu.c;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.write_byte(0xffb3, cpu.a);
+    cpu.pc += 2;
+    cpu.cycle(12);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::names::get_pokemon_name(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    let value = cpu.pop_word();
+    cpu.set_hl(value);
+    cpu.pc += 1;
+    cpu.cycle(12);
+    let next_pc = cpu.pc + 3;
+    cpu.push_word(next_pc);
+    cpu.cycle(24);
+    crate::game::home::text::place_string(cpu);
+    assert_eq!(cpu.pc, next_pc);
+    let value = cpu.pop_word();
+    cpu.set_de(value);
+    cpu.pc += 1;
+    cpu.cycle(12);
+    cpu.set_de(cpu.de().wrapping_add(1));
+    cpu.pc += 1;
+    cpu.cycle(8);
+    let value = cpu.pop_word();
+    cpu.set_hl(value);
+    cpu.pc += 1;
+    cpu.cycle(12);
+    cpu.set_bc(crate::defs::SCREEN_WIDTH as u16);
+    cpu.pc += 3;
+    cpu.cycle(12);
+    let lhs = cpu.hl();
+    let rhs = cpu.bc();
+    let (result, carry) = lhs.overflowing_add(rhs);
+    cpu.flag_n = false;
+    cpu.flag_h = (lhs & 0x0fff) + (rhs & 0x0fff) > 0x0fff;
+    cpu.flag_c = carry;
+    cpu.set_hl(result);
+    cpu.pc += 1;
+    cpu.cycle(8);
+    let value = cpu.pop_word();
+    cpu.set_bc(value);
+    cpu.pc += 1;
+    cpu.cycle(12);
+    let value = cpu.c;
+    let result = value.wrapping_add(1);
+    cpu.flag_z = result == 0;
+    cpu.flag_n = false;
+    cpu.flag_h = (value & 0x0f) + 1 > 0x0f;
+    cpu.c = result;
+    cpu.pc += 1;
+    cpu.cycle(4);
+    cpu.cycle(12);
+    become place_trade_partner_names_and_party_loop(cpu);
+}

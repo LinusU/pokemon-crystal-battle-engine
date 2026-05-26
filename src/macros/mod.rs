@@ -1,0 +1,12 @@
+pub mod scripts;
+pub mod asserts;
+pub mod code;
+pub mod coords;
+pub mod data;
+pub mod farcall;
+pub mod gfx;
+pub mod legacy;
+pub mod predef;
+pub mod r#const;
+pub mod ram;
+pub mod vc;
