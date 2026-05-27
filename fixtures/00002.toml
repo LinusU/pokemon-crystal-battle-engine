@@ -1,0 +1,404 @@
+[recording]
+source_scenario = "random"
+seed = "0xdbe31cafe286bff6"
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "PHANPY"
+expect.player.active.level = 50
+expect.player.active.hp = 163
+expect.player.active.max_hp = 163
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 9, 15]
+expect.player.party = [{ species = "PHANPY", level = 50, hp = 163, max_hp = 163, status = "none" }, { species = "SNEASEL", level = 51, hp = 131, max_hp = 131, status = "none" }, { species = "FLAREON", level = 44, hp = 114, max_hp = 114, status = "none" }, { species = "MEWTWO", level = 43, hp = 156, max_hp = 156, status = "none" }, { species = "PINECO", level = 42, hp = 97, max_hp = 97, status = "none" }, { species = "BULBASAUR", level = 46, hp = 105, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GYARADOS"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 147
+expect.enemy.active.max_hp = 147
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 4, 15, 5]
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 147, max_hp = 147, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "PHANPY"
+expect.player.active.level = 50
+expect.player.active.hp = 0
+expect.player.active.max_hp = 163
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 9, 15]
+expect.player.party = [{ species = "PHANPY", level = 50, hp = 0, max_hp = 163, status = "none" }, { species = "SNEASEL", level = 51, hp = 131, max_hp = 131, status = "none" }, { species = "FLAREON", level = 44, hp = 114, max_hp = 114, status = "none" }, { species = "MEWTWO", level = 43, hp = 156, max_hp = 156, status = "none" }, { species = "PINECO", level = 42, hp = 97, max_hp = 97, status = "none" }, { species = "BULBASAUR", level = 46, hp = 105, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GYARADOS"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 147
+expect.enemy.active.max_hp = 147
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 4, 14, 5]
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 147, max_hp = 147, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 5
+expect.player.active_slot = 5
+expect.player.active.species = "BULBASAUR"
+expect.player.active.level = 46
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 5, 10]
+expect.player.party = [{ species = "PHANPY", level = 50, hp = 0, max_hp = 163, status = "none" }, { species = "SNEASEL", level = 51, hp = 131, max_hp = 131, status = "none" }, { species = "FLAREON", level = 44, hp = 114, max_hp = 114, status = "none" }, { species = "MEWTWO", level = 43, hp = 156, max_hp = 156, status = "none" }, { species = "PINECO", level = 42, hp = 97, max_hp = 97, status = "none" }, { species = "BULBASAUR", level = 46, hp = 105, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GYARADOS"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 147
+expect.enemy.active.max_hp = 147
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 4, 14, 5]
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 147, max_hp = 147, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 5
+expect.player.active.species = "BULBASAUR"
+expect.player.active.level = 46
+expect.player.active.hp = 0
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 5, 10]
+expect.player.party = [{ species = "PHANPY", level = 50, hp = 0, max_hp = 163, status = "none" }, { species = "SNEASEL", level = 51, hp = 131, max_hp = 131, status = "none" }, { species = "FLAREON", level = 44, hp = 114, max_hp = 114, status = "none" }, { species = "MEWTWO", level = 43, hp = 156, max_hp = 156, status = "none" }, { species = "PINECO", level = 42, hp = 97, max_hp = 97, status = "none" }, { species = "BULBASAUR", level = 46, hp = 0, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GYARADOS"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 147
+expect.enemy.active.max_hp = 147
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 4, 14, 4]
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 147, max_hp = 147, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 4
+expect.player.active_slot = 4
+expect.player.active.species = "PINECO"
+expect.player.active.level = 42
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 10, 5]
+expect.player.party = [{ species = "PHANPY", level = 50, hp = 0, max_hp = 163, status = "none" }, { species = "SNEASEL", level = 51, hp = 131, max_hp = 131, status = "none" }, { species = "FLAREON", level = 44, hp = 114, max_hp = 114, status = "none" }, { species = "MEWTWO", level = 43, hp = 156, max_hp = 156, status = "none" }, { species = "PINECO", level = 42, hp = 97, max_hp = 97, status = "none" }, { species = "BULBASAUR", level = 46, hp = 0, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GYARADOS"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 147
+expect.enemy.active.max_hp = 147
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 4, 14, 4]
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 147, max_hp = 147, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 4
+expect.player.active.species = "PINECO"
+expect.player.active.level = 42
+expect.player.active.hp = 91
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 40, 10, 5]
+expect.player.party = [{ species = "PHANPY", level = 50, hp = 0, max_hp = 163, status = "none" }, { species = "SNEASEL", level = 51, hp = 131, max_hp = 131, status = "none" }, { species = "FLAREON", level = 44, hp = 114, max_hp = 114, status = "none" }, { species = "MEWTWO", level = 43, hp = 156, max_hp = 156, status = "none" }, { species = "PINECO", level = 42, hp = 91, max_hp = 97, status = "none" }, { species = "BULBASAUR", level = 46, hp = 0, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GYARADOS"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 147
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 4, 14, 4]
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 147, max_hp = 147, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 4
+expect.player.active.species = "PINECO"
+expect.player.active.level = 42
+expect.player.active.hp = 0
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 40, 10, 5]
+expect.player.party = [{ species = "PHANPY", level = 50, hp = 0, max_hp = 163, status = "none" }, { species = "SNEASEL", level = 51, hp = 131, max_hp = 131, status = "none" }, { species = "FLAREON", level = 44, hp = 114, max_hp = 114, status = "none" }, { species = "MEWTWO", level = 43, hp = 156, max_hp = 156, status = "none" }, { species = "PINECO", level = 42, hp = 0, max_hp = 97, status = "none" }, { species = "BULBASAUR", level = 46, hp = 0, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GYARADOS"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 147
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 4, 13, 4]
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 147, max_hp = 147, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "MEWTWO"
+expect.player.active.level = 43
+expect.player.active.hp = 156
+expect.player.active.max_hp = 156
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 30, 20, 10]
+expect.player.party = [{ species = "PHANPY", level = 50, hp = 0, max_hp = 163, status = "none" }, { species = "SNEASEL", level = 51, hp = 131, max_hp = 131, status = "none" }, { species = "FLAREON", level = 44, hp = 114, max_hp = 114, status = "none" }, { species = "MEWTWO", level = 43, hp = 156, max_hp = 156, status = "none" }, { species = "PINECO", level = 42, hp = 0, max_hp = 97, status = "none" }, { species = "BULBASAUR", level = 46, hp = 0, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GYARADOS"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 147
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 4, 13, 4]
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 147, max_hp = 147, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "MEWTWO"
+expect.player.active.level = 43
+expect.player.active.hp = 156
+expect.player.active.max_hp = 156
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 30, 20, 9]
+expect.player.party = [{ species = "PHANPY", level = 50, hp = 0, max_hp = 163, status = "none" }, { species = "SNEASEL", level = 51, hp = 131, max_hp = 131, status = "none" }, { species = "FLAREON", level = 44, hp = 114, max_hp = 114, status = "none" }, { species = "MEWTWO", level = 43, hp = 156, max_hp = 156, status = "none" }, { species = "PINECO", level = 42, hp = 0, max_hp = 97, status = "none" }, { species = "BULBASAUR", level = 46, hp = 0, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GYARADOS"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 147
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 3, 13, 4]
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 147, max_hp = 147, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 3
+expect.player.active.species = "MEWTWO"
+expect.player.active.level = 43
+expect.player.active.hp = 94
+expect.player.active.max_hp = 156
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 30, 19, 9]
+expect.player.party = [{ species = "PHANPY", level = 50, hp = 0, max_hp = 163, status = "none" }, { species = "SNEASEL", level = 51, hp = 131, max_hp = 131, status = "none" }, { species = "FLAREON", level = 44, hp = 114, max_hp = 114, status = "none" }, { species = "MEWTWO", level = 43, hp = 94, max_hp = 156, status = "none" }, { species = "PINECO", level = 42, hp = 0, max_hp = 97, status = "none" }, { species = "BULBASAUR", level = 46, hp = 0, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GYARADOS"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 93
+expect.enemy.active.max_hp = 147
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 3, 12, 4]
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 147, max_hp = 147, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 3
+expect.player.active.species = "MEWTWO"
+expect.player.active.level = 43
+expect.player.active.hp = 20
+expect.player.active.max_hp = 156
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 30, 18, 9]
+expect.player.party = [{ species = "PHANPY", level = 50, hp = 0, max_hp = 163, status = "none" }, { species = "SNEASEL", level = 51, hp = 131, max_hp = 131, status = "none" }, { species = "FLAREON", level = 44, hp = 114, max_hp = 114, status = "none" }, { species = "MEWTWO", level = 43, hp = 20, max_hp = 156, status = "none" }, { species = "PINECO", level = 42, hp = 0, max_hp = 97, status = "none" }, { species = "BULBASAUR", level = 46, hp = 0, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GYARADOS"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 66
+expect.enemy.active.max_hp = 147
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 3, 12, 3]
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 147, max_hp = 147, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 3
+expect.player.active.species = "MEWTWO"
+expect.player.active.level = 43
+expect.player.active.hp = 20
+expect.player.active.max_hp = 156
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 30, 17, 9]
+expect.player.party = [{ species = "PHANPY", level = 50, hp = 0, max_hp = 163, status = "none" }, { species = "SNEASEL", level = 51, hp = 131, max_hp = 131, status = "none" }, { species = "FLAREON", level = 44, hp = 114, max_hp = 114, status = "none" }, { species = "MEWTWO", level = 43, hp = 20, max_hp = 156, status = "none" }, { species = "PINECO", level = 42, hp = 0, max_hp = 97, status = "none" }, { species = "BULBASAUR", level = 46, hp = 0, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GYARADOS"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 40
+expect.enemy.active.max_hp = 147
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 3, 12, 3]
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 147, max_hp = 147, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 3
+expect.player.active.species = "MEWTWO"
+expect.player.active.level = 43
+expect.player.active.hp = 0
+expect.player.active.max_hp = 156
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 30, 16, 9]
+expect.player.party = [{ species = "PHANPY", level = 50, hp = 0, max_hp = 163, status = "none" }, { species = "SNEASEL", level = 51, hp = 131, max_hp = 131, status = "none" }, { species = "FLAREON", level = 44, hp = 114, max_hp = 114, status = "none" }, { species = "MEWTWO", level = 43, hp = 0, max_hp = 156, status = "none" }, { species = "PINECO", level = 42, hp = 0, max_hp = 97, status = "none" }, { species = "BULBASAUR", level = 46, hp = 0, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GYARADOS"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 12
+expect.enemy.active.max_hp = 147
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 3, 12, 2]
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 147, max_hp = 147, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNEASEL"
+expect.player.active.level = 51
+expect.player.active.hp = 131
+expect.player.active.max_hp = 131
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 15, 30, 20]
+expect.player.party = [{ species = "PHANPY", level = 50, hp = 0, max_hp = 163, status = "none" }, { species = "SNEASEL", level = 51, hp = 131, max_hp = 131, status = "none" }, { species = "FLAREON", level = 44, hp = 114, max_hp = 114, status = "none" }, { species = "MEWTWO", level = 43, hp = 0, max_hp = 156, status = "none" }, { species = "PINECO", level = 42, hp = 0, max_hp = 97, status = "none" }, { species = "BULBASAUR", level = 46, hp = 0, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GYARADOS"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 12
+expect.enemy.active.max_hp = 147
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 3, 12, 2]
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 147, max_hp = 147, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNEASEL"
+expect.player.active.level = 51
+expect.player.active.hp = 131
+expect.player.active.max_hp = 131
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 15, 30, 20]
+expect.player.party = [{ species = "PHANPY", level = 50, hp = 0, max_hp = 163, status = "none" }, { species = "SNEASEL", level = 51, hp = 131, max_hp = 131, status = "none" }, { species = "FLAREON", level = 44, hp = 114, max_hp = 114, status = "none" }, { species = "MEWTWO", level = 43, hp = 0, max_hp = 156, status = "none" }, { species = "PINECO", level = 42, hp = 0, max_hp = 97, status = "none" }, { species = "BULBASAUR", level = 46, hp = 0, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CHARIZARD"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 137
+expect.enemy.active.max_hp = 137
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 35, 20, 5]
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 0, max_hp = 147, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 1
+expect.player.active.species = "SNEASEL"
+expect.player.active.level = 51
+expect.player.active.hp = 131
+expect.player.active.max_hp = 131
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 15, 30, 20]
+expect.player.party = [{ species = "PHANPY", level = 50, hp = 0, max_hp = 163, status = "none" }, { species = "SNEASEL", level = 51, hp = 131, max_hp = 131, status = "none" }, { species = "FLAREON", level = 44, hp = 114, max_hp = 114, status = "none" }, { species = "MEWTWO", level = 43, hp = 0, max_hp = 156, status = "none" }, { species = "PINECO", level = 42, hp = 0, max_hp = 97, status = "none" }, { species = "BULBASAUR", level = 46, hp = 0, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CHARIZARD"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 137
+expect.enemy.active.max_hp = 137
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 35, 20, 5]
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 0, max_hp = 147, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNEASEL"
+expect.player.active.level = 51
+expect.player.active.hp = 0
+expect.player.active.max_hp = 131
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 15, 30, 20]
+expect.player.party = [{ species = "PHANPY", level = 50, hp = 0, max_hp = 163, status = "none" }, { species = "SNEASEL", level = 51, hp = 0, max_hp = 131, status = "none" }, { species = "FLAREON", level = 44, hp = 114, max_hp = 114, status = "none" }, { species = "MEWTWO", level = 43, hp = 0, max_hp = 156, status = "none" }, { species = "PINECO", level = 42, hp = 0, max_hp = 97, status = "none" }, { species = "BULBASAUR", level = 46, hp = 0, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CHARIZARD"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 115
+expect.enemy.active.max_hp = 137
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 35, 20, 5]
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 0, max_hp = 147, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "FLAREON"
+expect.player.active.level = 44
+expect.player.active.hp = 114
+expect.player.active.max_hp = 114
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 25, 15, 20]
+expect.player.party = [{ species = "PHANPY", level = 50, hp = 0, max_hp = 163, status = "none" }, { species = "SNEASEL", level = 51, hp = 0, max_hp = 131, status = "none" }, { species = "FLAREON", level = 44, hp = 114, max_hp = 114, status = "none" }, { species = "MEWTWO", level = 43, hp = 0, max_hp = 156, status = "none" }, { species = "PINECO", level = 42, hp = 0, max_hp = 97, status = "none" }, { species = "BULBASAUR", level = 46, hp = 0, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CHARIZARD"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 115
+expect.enemy.active.max_hp = 137
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 35, 20, 5]
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 0, max_hp = 147, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "FLAREON"
+expect.player.active.level = 44
+expect.player.active.hp = 64
+expect.player.active.max_hp = 114
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 25, 15, 19]
+expect.player.party = [{ species = "PHANPY", level = 50, hp = 0, max_hp = 163, status = "none" }, { species = "SNEASEL", level = 51, hp = 0, max_hp = 131, status = "none" }, { species = "FLAREON", level = 44, hp = 64, max_hp = 114, status = "none" }, { species = "MEWTWO", level = 43, hp = 0, max_hp = 156, status = "none" }, { species = "PINECO", level = 42, hp = 0, max_hp = 97, status = "none" }, { species = "BULBASAUR", level = 46, hp = 0, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CHARIZARD"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 102
+expect.enemy.active.max_hp = 137
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 34, 20, 5]
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 0, max_hp = 147, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 2
+expect.player.active.species = "FLAREON"
+expect.player.active.level = 44
+expect.player.active.hp = 0
+expect.player.active.max_hp = 114
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 25, 15, 19]
+expect.player.party = [{ species = "PHANPY", level = 50, hp = 0, max_hp = 163, status = "none" }, { species = "SNEASEL", level = 51, hp = 0, max_hp = 131, status = "none" }, { species = "FLAREON", level = 44, hp = 0, max_hp = 114, status = "none" }, { species = "MEWTWO", level = 43, hp = 0, max_hp = 156, status = "none" }, { species = "PINECO", level = 42, hp = 0, max_hp = 97, status = "none" }, { species = "BULBASAUR", level = 46, hp = 0, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CHARIZARD"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 102
+expect.enemy.active.max_hp = 137
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 34, 20, 4]
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 0, max_hp = 147, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none" }]
+expect.battle.outcome = "loss"

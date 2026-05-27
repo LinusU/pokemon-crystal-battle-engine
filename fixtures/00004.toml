@@ -1,0 +1,107 @@
+[recording]
+source_scenario = "random"
+seed = "0x6738338eded79053"
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "AZUMARILL"
+expect.player.active.level = 28
+expect.player.active.hp = 71
+expect.player.active.max_hp = 95
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 25, 19, 20]
+expect.player.party = [{ species = "AZUMARILL", level = 28, hp = 71, max_hp = 95, status = "none" }, { species = "SWINUB", level = 30, hp = 74, max_hp = 74, status = "none" }, { species = "STARMIE", level = 32, hp = 83, max_hp = 83, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "DEWGONG"
+expect.enemy.active.level = 29
+expect.enemy.active.hp = 95
+expect.enemy.active.max_hp = 95
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 20, 10]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "DEWGONG", level = 29, hp = 95, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "AZUMARILL"
+expect.player.active.level = 28
+expect.player.active.hp = 55
+expect.player.active.max_hp = 95
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 25, 19, 20]
+expect.player.party = [{ species = "AZUMARILL", level = 28, hp = 55, max_hp = 95, status = "none" }, { species = "SWINUB", level = 30, hp = 74, max_hp = 74, status = "none" }, { species = "STARMIE", level = 32, hp = 83, max_hp = 83, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 31
+expect.enemy.active.hp = 107
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 20, 30, 5]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "DEWGONG", level = 29, hp = 0, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "AZUMARILL"
+expect.player.active.level = 28
+expect.player.active.hp = 55
+expect.player.active.max_hp = 95
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 25, 19, 20]
+expect.player.party = [{ species = "AZUMARILL", level = 28, hp = 55, max_hp = 95, status = "none" }, { species = "SWINUB", level = 30, hp = 74, max_hp = 74, status = "none" }, { species = "STARMIE", level = 32, hp = 83, max_hp = 83, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 31
+expect.enemy.active.hp = 9
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 20, 29, 5]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "DEWGONG", level = 29, hp = 0, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "AZUMARILL"
+expect.player.active.level = 28
+expect.player.active.hp = 55
+expect.player.active.max_hp = 95
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 25, 19, 19]
+expect.player.party = [{ species = "AZUMARILL", level = 28, hp = 55, max_hp = 95, status = "none" }, { species = "SWINUB", level = 30, hp = 74, max_hp = 74, status = "none" }, { species = "STARMIE", level = 32, hp = 83, max_hp = 83, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 31
+expect.enemy.active.hp = 72
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 20, 29, 5]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "DEWGONG", level = 29, hp = 0, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "AZUMARILL"
+expect.player.active.level = 28
+expect.player.active.hp = 55
+expect.player.active.max_hp = 95
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 25, 19, 18]
+expect.player.party = [{ species = "AZUMARILL", level = 28, hp = 55, max_hp = 95, status = "none" }, { species = "SWINUB", level = 30, hp = 74, max_hp = 74, status = "none" }, { species = "STARMIE", level = 32, hp = 83, max_hp = 83, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 31
+expect.enemy.active.hp = 30
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 19, 29, 5]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "DEWGONG", level = 29, hp = 0, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3

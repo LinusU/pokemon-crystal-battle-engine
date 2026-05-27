@@ -818,6 +818,22 @@ pub fn check_trainer_flag(cpu: &mut Cpu) {
 }
 
 pub fn print_win_loss_text(cpu: &mut Cpu) {
+    // HARNESS-PATCH: bail out when there's no win/loss text to print. In the
+    // real game, the overworld map script's `winlosstext` command (dispatch
+    // 0x64, see `script_winlosstext`) writes a text pointer into
+    // wWinTextPointer (0xd047) / wLossTextPointer (0xd049) and the bank into
+    // wMapScriptsBank (0xd1a3) before the trainer battle starts. The
+    // bootstrap skips the entire overworld, so all three are zero and the
+    // text engine would dereference a null pointer + execute the boot code
+    // as if it were text commands. A zero high byte can never happen in
+    // normal play (texts live in ROM banks ≥ 1), so this is precise — it
+    // only fires when the harness is driving the battle.
+    // See docs/transpiled_code.md.
+    if cpu.read_byte(0xd047) == 0 && cpu.read_byte(0xd048) == 0 {
+        cpu.pc = cpu.pop_word();
+        cpu.cycle(16);
+        return;
+    }
     cpu.pc = 0x3718;
     cpu.a = cpu.read_byte(0xd230);
     cpu.pc += 3;

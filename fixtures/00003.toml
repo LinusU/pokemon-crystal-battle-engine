@@ -1,0 +1,384 @@
+[recording]
+source_scenario = "random"
+seed = "0xdde1761a00306723"
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "DIGLETT"
+expect.player.active.level = 26
+expect.player.active.hp = 47
+expect.player.active.max_hp = 47
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 30, 9, 15]
+expect.player.party = [{ species = "DIGLETT", level = 26, hp = 47, max_hp = 47, status = "none" }, { species = "GRAVELER", level = 23, hp = 65, max_hp = 65, status = "none" }, { species = "SMEARGLE", level = 20, hp = 55, max_hp = 55, status = "none" }, { species = "AIPOM", level = 23, hp = 64, max_hp = 64, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 53, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "DIGLETT"
+expect.player.active.level = 26
+expect.player.active.hp = 47
+expect.player.active.max_hp = 47
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 30, 9, 15]
+expect.player.party = [{ species = "DIGLETT", level = 26, hp = 47, max_hp = 47, status = "none" }, { species = "GRAVELER", level = 23, hp = 65, max_hp = 65, status = "none" }, { species = "SMEARGLE", level = 20, hp = 55, max_hp = 55, status = "none" }, { species = "AIPOM", level = 23, hp = 64, max_hp = 64, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 53, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "DIGLETT"
+expect.player.active.level = 26
+expect.player.active.hp = 47
+expect.player.active.max_hp = 47
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 30, 8, 15]
+expect.player.party = [{ species = "DIGLETT", level = 26, hp = 47, max_hp = 47, status = "none" }, { species = "GRAVELER", level = 23, hp = 65, max_hp = 65, status = "none" }, { species = "SMEARGLE", level = 20, hp = 55, max_hp = 55, status = "none" }, { species = "AIPOM", level = 23, hp = 64, max_hp = 64, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 5, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "DIGLETT"
+expect.player.active.level = 26
+expect.player.active.hp = 47
+expect.player.active.max_hp = 47
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 30, 8, 15]
+expect.player.party = [{ species = "DIGLETT", level = 26, hp = 47, max_hp = 47, status = "none" }, { species = "GRAVELER", level = 23, hp = 65, max_hp = 65, status = "none" }, { species = "SMEARGLE", level = 20, hp = 55, max_hp = 55, status = "none" }, { species = "AIPOM", level = 23, hp = 64, max_hp = 64, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 5, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "DIGLETT"
+expect.player.active.level = 26
+expect.player.active.hp = 0
+expect.player.active.max_hp = 47
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 30, 8, 15]
+expect.player.party = [{ species = "DIGLETT", level = 26, hp = 0, max_hp = 47, status = "none" }, { species = "GRAVELER", level = 23, hp = 65, max_hp = 65, status = "none" }, { species = "SMEARGLE", level = 20, hp = 55, max_hp = 55, status = "none" }, { species = "AIPOM", level = 23, hp = 64, max_hp = 64, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 14, 5, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "GRAVELER"
+expect.player.active.level = 23
+expect.player.active.hp = 65
+expect.player.active.max_hp = 65
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 15, 30, 5]
+expect.player.party = [{ species = "DIGLETT", level = 26, hp = 0, max_hp = 47, status = "none" }, { species = "GRAVELER", level = 23, hp = 65, max_hp = 65, status = "none" }, { species = "SMEARGLE", level = 20, hp = 55, max_hp = 55, status = "none" }, { species = "AIPOM", level = 23, hp = 64, max_hp = 64, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 14, 5, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "GRAVELER"
+expect.player.active.level = 23
+expect.player.active.hp = 0
+expect.player.active.max_hp = 65
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 15, 30, 4]
+expect.player.party = [{ species = "DIGLETT", level = 26, hp = 0, max_hp = 47, status = "none" }, { species = "GRAVELER", level = 23, hp = 0, max_hp = 65, status = "none" }, { species = "SMEARGLE", level = 20, hp = 55, max_hp = 55, status = "none" }, { species = "AIPOM", level = 23, hp = 64, max_hp = 64, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 14, 5, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "AIPOM"
+expect.player.active.level = 23
+expect.player.active.hp = 64
+expect.player.active.max_hp = 64
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 15, 40, 15]
+expect.player.party = [{ species = "DIGLETT", level = 26, hp = 0, max_hp = 47, status = "none" }, { species = "GRAVELER", level = 23, hp = 0, max_hp = 65, status = "none" }, { species = "SMEARGLE", level = 20, hp = 55, max_hp = 55, status = "none" }, { species = "AIPOM", level = 23, hp = 64, max_hp = 64, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 14, 5, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "AIPOM"
+expect.player.active.level = 23
+expect.player.active.hp = 64
+expect.player.active.max_hp = 64
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 14, 40, 15]
+expect.player.party = [{ species = "DIGLETT", level = 26, hp = 0, max_hp = 47, status = "none" }, { species = "GRAVELER", level = 23, hp = 0, max_hp = 65, status = "none" }, { species = "SMEARGLE", level = 20, hp = 55, max_hp = 55, status = "none" }, { species = "AIPOM", level = 23, hp = 64, max_hp = 64, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 14, 5, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "AIPOM"
+expect.player.active.level = 23
+expect.player.active.hp = 64
+expect.player.active.max_hp = 64
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 14, 40, 14]
+expect.player.party = [{ species = "DIGLETT", level = 26, hp = 0, max_hp = 47, status = "none" }, { species = "GRAVELER", level = 23, hp = 0, max_hp = 65, status = "none" }, { species = "SMEARGLE", level = 20, hp = 55, max_hp = 55, status = "none" }, { species = "AIPOM", level = 23, hp = 64, max_hp = 64, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 14, 4, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 3
+expect.player.active.species = "AIPOM"
+expect.player.active.level = 23
+expect.player.active.hp = 64
+expect.player.active.max_hp = 64
+expect.player.active.status = "sleep"
+expect.player.active.pp = [30, 14, 40, 14]
+expect.player.party = [{ species = "DIGLETT", level = 26, hp = 0, max_hp = 47, status = "none" }, { species = "GRAVELER", level = 23, hp = 0, max_hp = 65, status = "none" }, { species = "SMEARGLE", level = 20, hp = 55, max_hp = 55, status = "none" }, { species = "AIPOM", level = 23, hp = 64, max_hp = 64, status = "sleep" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 14, 4, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "AIPOM"
+expect.player.active.level = 23
+expect.player.active.hp = 64
+expect.player.active.max_hp = 64
+expect.player.active.status = "sleep"
+expect.player.active.pp = [30, 14, 40, 14]
+expect.player.party = [{ species = "DIGLETT", level = 26, hp = 0, max_hp = 47, status = "none" }, { species = "GRAVELER", level = 23, hp = 0, max_hp = 65, status = "none" }, { species = "SMEARGLE", level = 20, hp = 55, max_hp = 55, status = "none" }, { species = "AIPOM", level = 23, hp = 64, max_hp = 64, status = "sleep" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 14, 4, 14]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "AIPOM"
+expect.player.active.level = 23
+expect.player.active.hp = 17
+expect.player.active.max_hp = 64
+expect.player.active.status = "sleep"
+expect.player.active.pp = [30, 14, 40, 14]
+expect.player.party = [{ species = "DIGLETT", level = 26, hp = 0, max_hp = 47, status = "none" }, { species = "GRAVELER", level = 23, hp = 0, max_hp = 65, status = "none" }, { species = "SMEARGLE", level = 20, hp = 55, max_hp = 55, status = "none" }, { species = "AIPOM", level = 23, hp = 17, max_hp = 64, status = "sleep" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 14, 4, 13]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "AIPOM"
+expect.player.active.level = 23
+expect.player.active.hp = 0
+expect.player.active.max_hp = 64
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 14, 40, 14]
+expect.player.party = [{ species = "DIGLETT", level = 26, hp = 0, max_hp = 47, status = "none" }, { species = "GRAVELER", level = 23, hp = 0, max_hp = 65, status = "none" }, { species = "SMEARGLE", level = 20, hp = 55, max_hp = 55, status = "none" }, { species = "AIPOM", level = 23, hp = 0, max_hp = 64, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 14, 4, 12]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SMEARGLE"
+expect.player.active.level = 20
+expect.player.active.hp = 55
+expect.player.active.max_hp = 55
+expect.player.active.status = "none"
+expect.player.active.pp = [1, 0, 0, 0]
+expect.player.party = [{ species = "DIGLETT", level = 26, hp = 0, max_hp = 47, status = "none" }, { species = "GRAVELER", level = 23, hp = 0, max_hp = 65, status = "none" }, { species = "SMEARGLE", level = 20, hp = 55, max_hp = 55, status = "none" }, { species = "AIPOM", level = 23, hp = 0, max_hp = 64, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 14, 4, 12]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "SMEARGLE"
+expect.player.active.level = 20
+expect.player.active.hp = 55
+expect.player.active.max_hp = 55
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 0, 0, 0]
+expect.player.party = [{ species = "DIGLETT", level = 26, hp = 0, max_hp = 47, status = "none" }, { species = "GRAVELER", level = 23, hp = 0, max_hp = 65, status = "none" }, { species = "SMEARGLE", level = 20, hp = 55, max_hp = 55, status = "none" }, { species = "AIPOM", level = 23, hp = 0, max_hp = 64, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [16, 14, 4, 12]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "SMEARGLE"
+expect.player.active.level = 20
+expect.player.active.hp = 55
+expect.player.active.max_hp = 55
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 0, 0, 0]
+expect.player.party = [{ species = "DIGLETT", level = 26, hp = 0, max_hp = 47, status = "none" }, { species = "GRAVELER", level = 23, hp = 0, max_hp = 65, status = "none" }, { species = "SMEARGLE", level = 20, hp = 55, max_hp = 55, status = "none" }, { species = "AIPOM", level = 23, hp = 0, max_hp = 64, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 14, 4, 12]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "SMEARGLE"
+expect.player.active.level = 20
+expect.player.active.hp = 55
+expect.player.active.max_hp = 55
+expect.player.active.status = "sleep"
+expect.player.active.pp = [19, 0, 0, 0]
+expect.player.party = [{ species = "DIGLETT", level = 26, hp = 0, max_hp = 47, status = "none" }, { species = "GRAVELER", level = 23, hp = 0, max_hp = 65, status = "none" }, { species = "SMEARGLE", level = 20, hp = 55, max_hp = 55, status = "sleep" }, { species = "AIPOM", level = 23, hp = 0, max_hp = 64, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 14, 4, 12]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "SMEARGLE"
+expect.player.active.level = 20
+expect.player.active.hp = 0
+expect.player.active.max_hp = 55
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 0, 0, 0]
+expect.player.party = [{ species = "DIGLETT", level = 26, hp = 0, max_hp = 47, status = "none" }, { species = "GRAVELER", level = 23, hp = 0, max_hp = 65, status = "none" }, { species = "SMEARGLE", level = 20, hp = 0, max_hp = 55, status = "none" }, { species = "AIPOM", level = 23, hp = 0, max_hp = 64, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 14, 4, 11]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+expect.battle.outcome = "loss"
