@@ -22,6 +22,7 @@ use crate::defs;
 use crate::runtime::Cpu;
 
 use super::names;
+use super::player::{self, PromptSite, StepKind};
 use super::recorder::{self, Step};
 
 // ---------------------------------------------------------------------------
@@ -80,13 +81,33 @@ enum Action {
     Run,
 }
 
-/// CLI patch at `battle_menu`. Reads battle state from WRAM, prompts the user
-/// for an action, dispatches it (writing WRAM and either returning to caller
-/// or tail-calling into an engine sub-routine via `become`).
+/// CLI patch at `battle_menu`. Reads battle state from WRAM, either consumes
+/// the next playback step or prompts the user for an action, then dispatches
+/// it (writing WRAM and either returning to caller or tail-calling into an
+/// engine sub-routine via `become`).
 pub fn handle_battle_menu(cpu: &mut Cpu) {
     loop {
         print_battle_state(cpu);
-        let action = prompt_action(cpu);
+        let action = if let Some(step) = player::consume(
+            cpu,
+            PromptSite::BattleMenu,
+            &[StepKind::Move, StepKind::Switch, StepKind::Item, StepKind::Run],
+        ) {
+            // Playback path: turn the step back into the same `Action` the
+            // stdin path would produce. Item targets come from the step
+            // itself — `prompt_item_target` is bypassed.
+            match step {
+                Step::Move { slot } => Action::Move(slot),
+                Step::Switch { slot } => Action::Switch(slot),
+                Step::Item { id, target } => Action::Item { id, target },
+                Step::Run => Action::Run,
+                // `consume`'s `accepts` filter rules these out — unreachable
+                // in well-formed scripts and reported by `consume` otherwise.
+                Step::ForcedSwitch { .. } | Step::OfferSwitch { .. } => unreachable!(),
+            }
+        } else {
+            prompt_action(cpu)
+        };
         match action {
             Action::Move(slot) => {
                 cpu.cli_pending_move = Some(slot);
@@ -142,6 +163,15 @@ pub fn handle_battle_menu(cpu: &mut Cpu) {
 /// (Disable / No-PP). The normal player-action path stashes `cli_pending_move`
 /// in [`handle_battle_menu`], so this prompt is rare.
 pub fn handle_move_selection(cpu: &mut Cpu) -> u8 {
+    if let Some(Step::Move { slot }) =
+        player::consume(cpu, PromptSite::MoveSelection, &[StepKind::Move])
+    {
+        // Re-record on the playback path too so a re-recording (record +
+        // play simultaneously) carries the same shape as the original.
+        recorder::record(cpu, Step::Move { slot });
+        return slot;
+    }
+
     let species = cpu.read_byte(W_BATTLE_MON_SPECIES);
     println!(
         "\n[move] {} (Lv {}) — pick a move:",
@@ -166,6 +196,13 @@ pub fn handle_move_selection(cpu: &mut Cpu) -> u8 {
 /// CLI patch at `force_pick_party_mon_in_battle`. Returns the chosen alive,
 /// non-current party slot.
 pub fn handle_forced_switch(cpu: &mut Cpu) -> u8 {
+    if let Some(Step::ForcedSwitch { slot }) =
+        player::consume(cpu, PromptSite::ForcedSwitch, &[StepKind::ForcedSwitch])
+    {
+        recorder::record(cpu, Step::ForcedSwitch { slot });
+        return slot;
+    }
+
     print_battle_state(cpu);
     println!("\n[forced switch] your active Pokémon fainted — choose the next:");
     let current = cpu.read_byte(W_CUR_BATTLE_MON);
@@ -189,6 +226,13 @@ pub fn handle_forced_switch(cpu: &mut Cpu) -> u8 {
 /// CLI patch at `offer_switch` (trainer about to send in another mon). Returns
 /// `None` if the player keeps the current mon, `Some(slot)` to swap.
 pub fn handle_offer_switch(cpu: &mut Cpu) -> Option<u8> {
+    if let Some(Step::OfferSwitch { keep, slot }) =
+        player::consume(cpu, PromptSite::OfferSwitch, &[StepKind::OfferSwitch])
+    {
+        recorder::record(cpu, Step::OfferSwitch { keep, slot });
+        return if keep { None } else { slot };
+    }
+
     print_battle_state(cpu);
     let current = cpu.read_byte(W_CUR_BATTLE_MON);
     let current_species = read_party_species(cpu, current);

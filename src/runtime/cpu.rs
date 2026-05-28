@@ -41,6 +41,12 @@ pub struct Cpu {
     /// CLI prompt fires. Wrapped in `RefCell` so the immutable-borrow CLI
     /// read sites can record without an `&mut Cpu` upgrade dance.
     pub recorder: Option<std::cell::RefCell<std::io::BufWriter<std::fs::File>>>,
+    /// Pre-parsed playback script. When `Some`, the CLI driver consumes one
+    /// step per decision point *before* reading stdin — see
+    /// [`crate::bootstrap::player`]. Wrapped in `RefCell` for the same
+    /// reason as `recorder`: the CLI prompt sites that see this take `&Cpu`,
+    /// not `&mut Cpu`.
+    pub player: Option<std::cell::RefCell<crate::bootstrap::player::Player>>,
     mbc: Mbc,
     wram: [u8; WRAM_SIZE],
     zram: [u8; ZRAM_SIZE],
@@ -99,6 +105,7 @@ impl Default for Cpu {
             skip_intro_to_battle: false,
             cli_pending_move: None,
             recorder: None,
+            player: None,
             mbc: Mbc::new(crate::rom::ROM),
             wram: [0; WRAM_SIZE],
             zram: [0; ZRAM_SIZE],

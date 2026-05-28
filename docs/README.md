@@ -14,6 +14,7 @@ The transpiled code is in `src/game/`, `src/dispatch.rs`, `src/defs.rs`. We avoi
 - ⬜ Per-mon overrides (moves, DVs, items) and per-trainer overrides for the enemy party and `wEnemyTrainerItem1`/`Item2`.
 - ✅ CLI-driven actions — every in-battle menu (action / move / forced switch / "switch out enemy mon" prompt) is a numbered list on stdin. See [`src/bootstrap/cli.rs`](../src/bootstrap/cli.rs).
 - ✅ Recording with `--record <out.toml>` — every CLI decision (plus the resolved seed) is appended as a `[[step]]` block to a TOML file for later replay. See [TOML schema](toml_schema.md#recording----record-path).
+- ✅ Playback with `--play <recording.toml>` — drives the battle from a recorded `[[step]]` list with no stdin prompts; the recording's seed and `source_scenario` are authoritative. See [TOML schema](toml_schema.md#playback----play-path).
 - ⬜ Headless mode (skip glium/winit, just iterate the state machine).
 - ⬜ A typed `step(action) -> Outcome` API. The CLI driver already sits at the action chokepoints; lifting it into a library surface is mostly relayout.
 

@@ -101,6 +101,20 @@ The `seed` field is always the *resolved* value: if the scenario omitted `seed =
 
 `kind` is one of: `move`, `switch`, `item`, `run`, `forced_switch`, `offer_switch`. For `offer_switch`, the keep-current case writes `keep = true`; the swap-in case writes `slot = N` instead.
 
+## Playback — `--play <path>`
+
+Pass `--play <recording.toml>` and the harness drives the battle from a previous run's `[[step]]` list instead of stdin:
+
+```sh
+cargo run -- --play /tmp/run.toml
+```
+
+The recording's `[recording] seed` always wins — replay uses that value to seed the RNG even if the loaded scenario carries its own `seed = ...`. The scenario path comes from the recording's `source_scenario` header by default; pass a positional `scratch/other.toml` to override (useful for re-running the same script against an edited scenario). `--record` and `--play` can be combined to re-record an edited playback.
+
+Each CLI prompt site consumes one step in order. The match is strict on `kind`: if the recorded action doesn't fit the current prompt site, the harness prints a clear stderr message naming the step index, the recorded `kind`, the prompt site, and the accepted kinds, then exits with status 2. The same exit-2 path fires when the step list is exhausted before the battle ends — playback never silently substitutes.
+
+See [`src/bootstrap/player.rs`](../src/bootstrap/player.rs).
+
 ### `[[player_party]]` — one or more
 
 | Field | Type | Required | Notes |

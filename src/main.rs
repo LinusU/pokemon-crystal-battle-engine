@@ -16,12 +16,33 @@ fn main() {
         Ok(p) => p,
         Err(e) => {
             eprintln!("error: {e}");
-            eprintln!("usage: {} [<scenario.toml>] [--record <out.toml>]", args[0]);
+            eprintln!(
+                "usage: {} [<scenario.toml>] [--record <out.toml>] [--play <recording.toml>]",
+                args[0],
+            );
             std::process::exit(1);
         }
     };
 
-    let battle_config = match cli_args.scenario.as_deref() {
+    // `--play` recovers the scenario path from the recording header when the
+    // user didn't pass one positionally. The recording's resolved seed always
+    // wins over any `seed = ...` on the scenario.
+    let playback_recording = cli_args.play.as_deref().map(|p| match bootstrap::player::load(p) {
+        Ok(rec) => rec,
+        Err(e) => {
+            eprintln!("error: {e}");
+            std::process::exit(1);
+        }
+    });
+
+    let scenario_path: Option<String> = cli_args.scenario.clone().or_else(|| {
+        playback_recording
+            .as_ref()
+            .and_then(|rec| rec.source_scenario.as_ref())
+            .map(|p| p.to_string_lossy().into_owned())
+    });
+
+    let battle_config = match scenario_path.as_deref() {
         Some(path) => match bootstrap::load_battle(std::path::Path::new(path)) {
             Ok(cfg) => Some(cfg),
             Err(e) => {
@@ -29,10 +50,19 @@ fn main() {
                 std::process::exit(1);
             }
         },
-        None => None,
+        None => {
+            if playback_recording.is_some() {
+                eprintln!(
+                    "error: --play recording has no `source_scenario` field — pass a scenario.toml positionally"
+                );
+                std::process::exit(1);
+            }
+            None
+        }
     };
     let record_path = cli_args.record;
-    let source_scenario = cli_args.scenario;
+    let source_scenario = scenario_path;
+    let playback_recording = playback_recording;
 
     let scale = 4;
     let (sender, receiver) = mpsc::sync_channel(1);
@@ -56,7 +86,14 @@ fn main() {
 
     let mut render_options = RenderOptions::default();
     let cpu_thread = thread::spawn(move || {
-        run_game(sender, keypad_receiver, battle_config, record_path, source_scenario)
+        run_game(
+            sender,
+            keypad_receiver,
+            battle_config,
+            record_path,
+            source_scenario,
+            playback_recording,
+        )
     });
 
     event_loop.set_control_flow(winit::event_loop::ControlFlow::Poll);
@@ -151,6 +188,7 @@ fn run_game(
     battle_config: Option<BattleConfig>,
     record_path: Option<std::path::PathBuf>,
     source_scenario: Option<String>,
+    playback: Option<rgb2rust_output::bootstrap::player::Recording>,
 ) {
     let mut cpu = rgb2rust_output::runtime::Cpu::new_cgb(Some(update_screen), Some(keypad_events));
     cpu.interrupt_vectors = rgb2rust_output::interrupt_vectors();
@@ -158,9 +196,15 @@ fn run_game(
     match battle_config {
         Some(config) => {
             let source_scenario_path = source_scenario.as_ref().map(std::path::Path::new);
+            let (seed_override, playback_steps) = match playback {
+                Some(rec) => (Some(rec.seed), Some(rec.steps)),
+                None => (None, None),
+            };
             let options = RunOptions {
                 record_path: record_path.as_deref(),
                 source_scenario: source_scenario_path,
+                seed_override,
+                playback: playback_steps,
             };
             if let Err(e) = bootstrap::run_with(&mut cpu, &config, options) {
                 eprintln!("battle bootstrap failed: {e}");
@@ -176,17 +220,20 @@ fn run_game(
     }
 }
 
-/// Argv parser for `[<scenario.toml>] [--record <out.toml>]`. The first
-/// non-flag positional is the scenario path. Order of `--record` relative to
-/// the positional is irrelevant.
+/// Argv parser for `[<scenario.toml>] [--record <out.toml>] [--play <rec.toml>]`.
+/// The first non-flag positional is the scenario path. Flag order is
+/// irrelevant. `--play` may be passed with or without a positional scenario —
+/// when absent, the recording's `source_scenario` header is used instead.
 struct CliArgs {
     scenario: Option<String>,
     record: Option<std::path::PathBuf>,
+    play: Option<std::path::PathBuf>,
 }
 
 fn parse_cli_args(args: &[String]) -> Result<CliArgs, String> {
     let mut scenario: Option<String> = None;
     let mut record: Option<std::path::PathBuf> = None;
+    let mut play: Option<std::path::PathBuf> = None;
     let mut i = 0;
     while i < args.len() {
         let arg = &args[i];
@@ -196,6 +243,13 @@ fn parse_cli_args(args: &[String]) -> Result<CliArgs, String> {
                     .get(i + 1)
                     .ok_or_else(|| "--record requires a path argument".to_string())?;
                 record = Some(std::path::PathBuf::from(path));
+                i += 2;
+            }
+            "--play" => {
+                let path = args
+                    .get(i + 1)
+                    .ok_or_else(|| "--play requires a path argument".to_string())?;
+                play = Some(std::path::PathBuf::from(path));
                 i += 2;
             }
             other if other.starts_with("--") => {
@@ -210,7 +264,7 @@ fn parse_cli_args(args: &[String]) -> Result<CliArgs, String> {
             }
         }
     }
-    Ok(CliArgs { scenario, record })
+    Ok(CliArgs { scenario, record, play })
 }
 
 fn recalculate_screen<T>(

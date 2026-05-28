@@ -11,6 +11,7 @@
 pub mod cli;
 pub mod items;
 pub mod names;
+pub mod player;
 pub mod recorder;
 pub mod species;
 pub mod trainers;
@@ -338,8 +339,9 @@ pub fn run(cpu: &mut Cpu, config: &BattleConfig) -> Result<(), String> {
 }
 
 /// Runtime knobs for [`run`] that don't belong on the scenario TOML —
-/// today just the optional `--record` target path and the source scenario
-/// path used for the recording header. Both default to `None`.
+/// today the optional `--record` target path, the source scenario path used
+/// for the recording header, and the parsed `--play` recording. All default
+/// to `None`.
 #[derive(Default)]
 pub struct RunOptions<'a> {
     /// If `Some`, every player decision is appended as a `[[step]]` block
@@ -348,6 +350,14 @@ pub struct RunOptions<'a> {
     /// If `Some`, written into the recording header as `source_scenario`
     /// so the recorded file documents what it was driven from.
     pub source_scenario: Option<&'a std::path::Path>,
+    /// If `Some`, the seed is forced to this value (the recording's
+    /// resolved seed) instead of whatever the scenario carries. Set by
+    /// `--play` so playback is bit-identical to the original run.
+    pub seed_override: Option<u64>,
+    /// If `Some`, the parsed playback step list is installed before any CLI
+    /// prompt fires; each prompt site consumes one step instead of reading
+    /// stdin. See [`player`].
+    pub playback: Option<Vec<recorder::Step>>,
 }
 
 pub fn run_with(
@@ -355,7 +365,13 @@ pub fn run_with(
     config: &BattleConfig,
     options: RunOptions<'_>,
 ) -> Result<(), String> {
-    let seed = resolve_seed(config.battle.seed);
+    let seed = match options.seed_override {
+        Some(s) => {
+            eprintln!("battle: using seed 0x{s:016x} from recording");
+            s
+        }
+        None => resolve_seed(config.battle.seed),
+    };
     cpu.seed_rng(seed);
 
     // Install the recorder *after* the seed is resolved so the resolved
@@ -363,6 +379,13 @@ pub fn run_with(
     if let Some(path) = options.record_path {
         recorder::install(cpu, path, seed, options.source_scenario)?;
         eprintln!("battle: recording to {}", path.display());
+    }
+
+    // Install playback before any CLI prompt fires. Recording + playback can
+    // both be installed at once — useful for re-recording an edited replay.
+    if let Some(steps) = options.playback {
+        eprintln!("battle: replaying {} step(s)", steps.len());
+        player::install(cpu, steps);
     }
 
     cpu.skip_intro_to_battle = true;
