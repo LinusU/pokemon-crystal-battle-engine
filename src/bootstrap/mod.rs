@@ -11,6 +11,7 @@
 pub mod cli;
 pub mod items;
 pub mod names;
+pub mod recorder;
 pub mod species;
 pub mod trainers;
 
@@ -333,8 +334,36 @@ fn launch_trainer_battle(cpu: &mut Cpu, config: &BattleConfig) -> Result<(), Str
 /// Drive the boot to the post-init "ready" state and then launch whatever
 /// battle the config describes. Blocks for the duration of the battle.
 pub fn run(cpu: &mut Cpu, config: &BattleConfig) -> Result<(), String> {
+    run_with(cpu, config, RunOptions::default())
+}
+
+/// Runtime knobs for [`run`] that don't belong on the scenario TOML —
+/// today just the optional `--record` target path and the source scenario
+/// path used for the recording header. Both default to `None`.
+#[derive(Default)]
+pub struct RunOptions<'a> {
+    /// If `Some`, every player decision is appended as a `[[step]]` block
+    /// to the file at this path. See [`recorder`].
+    pub record_path: Option<&'a std::path::Path>,
+    /// If `Some`, written into the recording header as `source_scenario`
+    /// so the recorded file documents what it was driven from.
+    pub source_scenario: Option<&'a std::path::Path>,
+}
+
+pub fn run_with(
+    cpu: &mut Cpu,
+    config: &BattleConfig,
+    options: RunOptions<'_>,
+) -> Result<(), String> {
     let seed = resolve_seed(config.battle.seed);
     cpu.seed_rng(seed);
+
+    // Install the recorder *after* the seed is resolved so the resolved
+    // value lands in the header even when the scenario omitted `seed = ...`.
+    if let Some(path) = options.record_path {
+        recorder::install(cpu, path, seed, options.source_scenario)?;
+        eprintln!("battle: recording to {}", path.display());
+    }
 
     cpu.skip_intro_to_battle = true;
     let entry = crate::entry_routine();

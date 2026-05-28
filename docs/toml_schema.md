@@ -60,6 +60,47 @@ For trainer battles the enemy party and the trainer's AI items are loaded from R
 
 The battle is always driven from the terminal — see [`src/bootstrap/cli.rs`](../src/bootstrap/cli.rs). All in-battle menus (action / move / forced switch / "switch out enemy mon" prompt) become numbered lists on stdin; "press A to continue" waits are auto-advanced. The glium window still renders. Items currently support Potion-class (healing, status heals, revives) only — balls and X-items are not yet wired through.
 
+## Recording — `--record <path>`
+
+Pass `--record <out.toml>` on the command line and the harness appends every player decision to that file as it happens:
+
+```sh
+cargo run -- scratch/cli.toml --record /tmp/run.toml
+```
+
+The recording is a separate TOML document — not the scenario schema. It starts with a `[recording]` header and then one `[[step]]` table per decision the CLI driver resolves. Each step is flushed to disk immediately, so a mid-battle crash still leaves a usable script.
+
+```toml
+[recording]
+source_scenario = "scratch/cli.toml"   # if the run was driven from a TOML file
+seed = "0x0000000000c0ffee"            # always present; the resolved seed
+
+[[step]]
+kind = "move"
+slot = 0
+
+[[step]]
+kind = "switch"
+slot = 1
+
+[[step]]
+kind = "item"
+id = 18
+target = 0
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+
+[[step]]
+kind = "offer_switch"
+keep = true
+```
+
+The `seed` field is always the *resolved* value: if the scenario omitted `seed = ...`, the harness draws one from system entropy and writes that resolved value into the recording so a later replay reproduces the run bit-for-bit.
+
+`kind` is one of: `move`, `switch`, `item`, `run`, `forced_switch`, `offer_switch`. For `offer_switch`, the keep-current case writes `keep = true`; the swap-in case writes `slot = N` instead.
+
 ### `[[player_party]]` — one or more
 
 | Field | Type | Required | Notes |

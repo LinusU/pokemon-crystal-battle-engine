@@ -22,6 +22,7 @@ use crate::defs;
 use crate::runtime::Cpu;
 
 use super::names;
+use super::recorder::{self, Step};
 
 // ---------------------------------------------------------------------------
 // WRAM addresses. Source of truth: scratch/pokecrystal/pokecrystal.sym.
@@ -91,6 +92,7 @@ pub fn handle_battle_menu(cpu: &mut Cpu) {
                 cpu.cli_pending_move = Some(slot);
                 cpu.write_byte(W_BATTLE_PLAYER_ACTION, defs::BATTLEPLAYERACTION_USEMOVE);
                 cpu.write_byte(W_BATTLE_MENU_CURSOR_POSITION, 1);
+                recorder::record(cpu, Step::Move { slot });
                 // Tail-call battle_menu_fight: clears tilemap, sets and-a-a flags, returns.
                 return crate::game::engine::battle::core::battle_menu_fight(cpu);
             }
@@ -111,6 +113,7 @@ pub fn handle_battle_menu(cpu: &mut Cpu) {
                 cpu.write_byte(W_CUR_PARTY_MON, slot);
                 cpu.write_byte(W_CUR_BATTLE_MON, slot);
                 cpu.write_byte(W_BATTLE_MENU_CURSOR_POSITION, 2);
+                recorder::record(cpu, Step::Switch { slot });
                 // `player_switch` does its own enemy-action parse + switch
                 // animation, and ends by returning to whoever called us.
                 return crate::game::engine::battle::core::player_switch(cpu);
@@ -119,6 +122,7 @@ pub fn handle_battle_menu(cpu: &mut Cpu) {
                 apply_item(cpu, id, target);
                 cpu.write_byte(W_BATTLE_PLAYER_ACTION, defs::BATTLEPLAYERACTION_USEITEM);
                 cpu.write_byte(W_BATTLE_MENU_CURSOR_POSITION, 3);
+                recorder::record(cpu, Step::Item { id, target });
                 // Normal return: caller is `battle_turn_loop1`, which then
                 // checks wBattleEnded and continues the turn.
                 cpu.pc = cpu.pop_word();
@@ -127,6 +131,7 @@ pub fn handle_battle_menu(cpu: &mut Cpu) {
             }
             Action::Run => {
                 cpu.write_byte(W_BATTLE_MENU_CURSOR_POSITION, 4);
+                recorder::record(cpu, Step::Run);
                 return crate::game::engine::battle::core::battle_menu_run(cpu);
             }
         }
@@ -150,7 +155,12 @@ pub fn handle_move_selection(cpu: &mut Cpu) -> u8 {
         println!("  {}) {} (PP {pp})", idx + 1, move_name(move_id));
     }
     let pick = prompt_index("> ", slots.len());
-    slots[pick]
+    let slot = slots[pick];
+    // Standalone re-pick from `move_selection_screen` (Disable / no-PP path).
+    // Same shape as the action-menu Move so playback doesn't need to know
+    // which prompt site produced it.
+    recorder::record(cpu, Step::Move { slot });
+    slot
 }
 
 /// CLI patch at `force_pick_party_mon_in_battle`. Returns the chosen alive,
@@ -164,13 +174,16 @@ pub fn handle_forced_switch(cpu: &mut Cpu) -> u8 {
         // Shouldn't happen — the engine only enters this path with surviving
         // mons. Fall back to slot 0 to make the failure visible.
         eprintln!("WARN: no alive party slots; defaulting to slot 0");
+        recorder::record(cpu, Step::ForcedSwitch { slot: 0 });
         return 0;
     }
     for (idx, slot) in options.iter().enumerate() {
         print_party_slot_line(cpu, *slot, idx + 1);
     }
     let pick = prompt_index("> ", options.len());
-    options[pick]
+    let slot = options[pick];
+    recorder::record(cpu, Step::ForcedSwitch { slot });
+    slot
 }
 
 /// CLI patch at `offer_switch` (trainer about to send in another mon). Returns
@@ -189,9 +202,12 @@ pub fn handle_offer_switch(cpu: &mut Cpu) -> Option<u8> {
     }
     let pick = prompt_index("> ", 1 + options.len());
     if pick == 0 {
+        recorder::record(cpu, Step::OfferSwitch { keep: true, slot: None });
         None
     } else {
-        Some(options[pick - 1])
+        let slot = options[pick - 1];
+        recorder::record(cpu, Step::OfferSwitch { keep: false, slot: Some(slot) });
+        Some(slot)
     }
 }
 

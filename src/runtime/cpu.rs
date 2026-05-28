@@ -34,6 +34,13 @@ pub struct Cpu {
     /// both the action and the move pick even though the engine re-enters
     /// `move_selection_screen` separately.
     pub cli_pending_move: Option<u8>,
+    /// Open recording file. When `Some`, the CLI driver appends one
+    /// `[[step]]` block per resolved decision and flushes after each write
+    /// so a mid-battle crash still leaves a usable recording. The header
+    /// (resolved seed etc.) is written by `bootstrap::run` before any
+    /// CLI prompt fires. Wrapped in `RefCell` so the immutable-borrow CLI
+    /// read sites can record without an `&mut Cpu` upgrade dance.
+    pub recorder: Option<std::cell::RefCell<std::io::BufWriter<std::fs::File>>>,
     mbc: Mbc,
     wram: [u8; WRAM_SIZE],
     zram: [u8; ZRAM_SIZE],
@@ -91,6 +98,7 @@ impl Default for Cpu {
             keypad: Keypad::default(),
             skip_intro_to_battle: false,
             cli_pending_move: None,
+            recorder: None,
             mbc: Mbc::new(crate::rom::ROM),
             wram: [0; WRAM_SIZE],
             zram: [0; ZRAM_SIZE],

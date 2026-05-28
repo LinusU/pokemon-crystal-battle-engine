@@ -2,7 +2,7 @@ use std::sync::mpsc::{self, Sender, SyncSender};
 use std::thread;
 use winit::platform::pump_events::EventLoopExtPumpEvents;
 
-use rgb2rust_output::bootstrap::{self, BattleConfig};
+use rgb2rust_output::bootstrap::{self, BattleConfig, RunOptions};
 use rgb2rust_output::runtime::{KeypadEvent, KeypadKey};
 
 #[derive(Default)]
@@ -11,8 +11,18 @@ struct RenderOptions {
 }
 
 fn main() {
-    let battle_config = match std::env::args().nth(1) {
-        Some(path) => match bootstrap::load_battle(std::path::Path::new(&path)) {
+    let args: Vec<String> = std::env::args().collect();
+    let cli_args = match parse_cli_args(&args[1..]) {
+        Ok(p) => p,
+        Err(e) => {
+            eprintln!("error: {e}");
+            eprintln!("usage: {} [<scenario.toml>] [--record <out.toml>]", args[0]);
+            std::process::exit(1);
+        }
+    };
+
+    let battle_config = match cli_args.scenario.as_deref() {
+        Some(path) => match bootstrap::load_battle(std::path::Path::new(path)) {
             Ok(cfg) => Some(cfg),
             Err(e) => {
                 eprintln!("error: {e}");
@@ -21,6 +31,8 @@ fn main() {
         },
         None => None,
     };
+    let record_path = cli_args.record;
+    let source_scenario = cli_args.scenario;
 
     let scale = 4;
     let (sender, receiver) = mpsc::sync_channel(1);
@@ -43,7 +55,9 @@ fn main() {
     .unwrap();
 
     let mut render_options = RenderOptions::default();
-    let cpu_thread = thread::spawn(move || run_game(sender, keypad_receiver, battle_config));
+    let cpu_thread = thread::spawn(move || {
+        run_game(sender, keypad_receiver, battle_config, record_path, source_scenario)
+    });
 
     event_loop.set_control_flow(winit::event_loop::ControlFlow::Poll);
     loop {
@@ -135,21 +149,68 @@ fn run_game(
     update_screen: SyncSender<Vec<u8>>,
     keypad_events: mpsc::Receiver<KeypadEvent>,
     battle_config: Option<BattleConfig>,
+    record_path: Option<std::path::PathBuf>,
+    source_scenario: Option<String>,
 ) {
     let mut cpu = rgb2rust_output::runtime::Cpu::new_cgb(Some(update_screen), Some(keypad_events));
     cpu.interrupt_vectors = rgb2rust_output::interrupt_vectors();
 
     match battle_config {
         Some(config) => {
-            if let Err(e) = bootstrap::run(&mut cpu, &config) {
+            let source_scenario_path = source_scenario.as_ref().map(std::path::Path::new);
+            let options = RunOptions {
+                record_path: record_path.as_deref(),
+                source_scenario: source_scenario_path,
+            };
+            if let Err(e) = bootstrap::run_with(&mut cpu, &config, options) {
                 eprintln!("battle bootstrap failed: {e}");
             }
         }
         None => {
+            if record_path.is_some() {
+                eprintln!("warning: --record requires a scenario TOML; ignoring");
+            }
             let routine = rgb2rust_output::entry_routine();
             (routine.func)(&mut cpu);
         }
     }
+}
+
+/// Argv parser for `[<scenario.toml>] [--record <out.toml>]`. The first
+/// non-flag positional is the scenario path. Order of `--record` relative to
+/// the positional is irrelevant.
+struct CliArgs {
+    scenario: Option<String>,
+    record: Option<std::path::PathBuf>,
+}
+
+fn parse_cli_args(args: &[String]) -> Result<CliArgs, String> {
+    let mut scenario: Option<String> = None;
+    let mut record: Option<std::path::PathBuf> = None;
+    let mut i = 0;
+    while i < args.len() {
+        let arg = &args[i];
+        match arg.as_str() {
+            "--record" => {
+                let path = args
+                    .get(i + 1)
+                    .ok_or_else(|| "--record requires a path argument".to_string())?;
+                record = Some(std::path::PathBuf::from(path));
+                i += 2;
+            }
+            other if other.starts_with("--") => {
+                return Err(format!("unknown flag: {other}"));
+            }
+            _ => {
+                if scenario.is_some() {
+                    return Err(format!("unexpected positional argument: {arg}"));
+                }
+                scenario = Some(arg.clone());
+                i += 1;
+            }
+        }
+    }
+    Ok(CliArgs { scenario, record })
 }
 
 fn recalculate_screen<T>(
