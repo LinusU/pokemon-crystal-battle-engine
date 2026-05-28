@@ -38,7 +38,8 @@ The CLI driver in [`src/bootstrap/cli.rs`](../src/bootstrap/cli.rs) reads battle
 | `0xc63c` | `wBattleMonHP` | 2 | Current HP of active player mon (big-endian). |
 | `0xc63e` | `wBattleMonMaxHP` | 2 | Max HP (big-endian). |
 | `0xc671` | `wEnemySubStatus5` | 1 | Bit `SUBSTATUS_CANT_RUN` blocks switching (Mean Look / Spider Web). |
-| `0xc6e3` | `wCurPlayerMove` | 1 | The move id the player picked this turn. |
+| `0xc6e3` | `wCurPlayerMove` | 1 | The move id the player picked this turn. Zeroed by the `offer_switch` patch on Accept (mirrors the asm) so `PursuitSwitch` can't read a stale value during the new mon's entrance. |
+| `0xc6e4` | `wCurEnemyMove` | 1 | The move id the enemy picked this turn. Same zero-on-Accept story as `wCurPlayerMove`. |
 | `0xc71a` | `wLastPlayerMon` | 1 | Party slot of the *outgoing* mon when a switch happens. |
 | `0xc730` | `wPlayerWrapCount` | 1 | Non-zero = Wrap/Whirlpool/Bind in progress; player can't switch. |
 | `0xcfa9` | `wMenuCursorY` | 1 | Generic cursor; the move-select path uses it as a 0-based slot index. |

@@ -14552,10 +14552,15 @@ pub(crate) fn offer_switch(cpu: &mut Cpu) {
     // N" and return the same contract the engine's offer_switch leaves:
     //   Keep  → flag_c = true, ret.
     //   Swap  → write wLastPlayerMon (0xc71a) = old wCurBattleMon, write
-    //           wCurBattleMon (0xd0d4) = new slot, a = 0, flag_z = true,
-    //           flag_c = false, ret.
-    // The caller (enemy_switch_skip) plays the switch animation after we
-    // return. See docs/transpiled_code.md.
+    //           wCurBattleMon (0xd0d4) = new slot, zero wCurPlayerMove
+    //           (0xc6e3) and wCurEnemyMove (0xc6e4) — the asm's Accept path
+    //           clears both before returning so a stale move id can't bleed
+    //           into `BattleMonEntrance`'s Pursuit check via `GetBattleVar
+    //           BATTLE_VARS_MOVE`. Then a = 0, flag_z = true, flag_c = false.
+    // The engine's screen cleanup (ClearPalettes / DelayFrame / _LoadHPBar)
+    // is intentionally skipped — those routines expect a party-menu overlay
+    // we never opened. The caller (`enemy_switch_skip`) plays the switch
+    // animation after we return. See docs/transpiled_code.md.
     match crate::bootstrap::cli::handle_offer_switch(cpu) {
         None => {
             cpu.flag_n = false;
@@ -14566,6 +14571,8 @@ pub(crate) fn offer_switch(cpu: &mut Cpu) {
             let old = cpu.read_byte(0xd0d4);
             cpu.write_byte(0xc71a, old);
             cpu.write_byte(0xd0d4, slot);
+            cpu.write_byte(0xc6e3, 0); // wCurPlayerMove
+            cpu.write_byte(0xc6e4, 0); // wCurEnemyMove
             cpu.a = 0;
             cpu.flag_z = true;
             cpu.flag_n = false;
