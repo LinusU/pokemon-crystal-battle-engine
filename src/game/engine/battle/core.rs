@@ -11306,6 +11306,22 @@ pub(crate) fn update_fainted_player_mon_got_param(cpu: &mut Cpu) {
 
 pub(crate) fn ask_use_next_pokemon(cpu: &mut Cpu) {
     cpu.pc = 0x51f8;
+    // HARNESS-PATCH: when the CLI driver owns input, auto-answer "Yes" to
+    // "Use next Pokémon?". The user's forced-switch is prompted by the
+    // separate patch in force_pick_party_mon_in_battle. The success contract
+    // (Yes branch) from ask_use_next_pokemon_loop: a = wMenuCursorY = 1,
+    // flag_z = false (a != 0), flag_c = false. See docs/transpiled_code.md.
+    if cpu.cli_mode {
+        cpu.write_byte(0xcfa9, 1);
+        cpu.a = 1;
+        cpu.flag_z = false;
+        cpu.flag_n = false;
+        cpu.flag_h = false;
+        cpu.flag_c = false;
+        cpu.pc = cpu.pop_word();
+        cpu.cycle(16);
+        return;
+    }
     let next_pc = cpu.pc + 3;
     cpu.push_word(next_pc);
     cpu.cycle(24);
@@ -12092,6 +12108,22 @@ pub(crate) fn switch_mon_already_out_notout(cpu: &mut Cpu) {
 
 pub(crate) fn force_pick_party_mon_in_battle(cpu: &mut Cpu) {
     cpu.pc = 0x5362;
+    // HARNESS-PATCH: when the CLI driver owns input, prompt the terminal for
+    // an alive non-current party slot, write it into wCurPartyMon (0xd109)
+    // and return the success contract that pick_party_mon_in_battle_loop
+    // produces (a=0, flag_z=true, flag_c=false). See docs/transpiled_code.md.
+    if cpu.cli_mode {
+        let slot = crate::bootstrap::cli::handle_forced_switch(cpu);
+        cpu.write_byte(0xd109, slot);
+        cpu.a = 0;
+        cpu.flag_z = true;
+        cpu.flag_n = false;
+        cpu.flag_h = false;
+        cpu.flag_c = false;
+        cpu.pc = cpu.pop_word();
+        cpu.cycle(16);
+        return;
+    }
     become force_pick_party_mon_in_battle_pick(cpu);
 }
 
@@ -14520,6 +14552,37 @@ pub(crate) fn check_whether_to_ask_switch_return_nc(cpu: &mut Cpu) {
 
 pub(crate) fn offer_switch(cpu: &mut Cpu) {
     cpu.pc = 0x574b;
+    // HARNESS-PATCH: when the CLI driver owns input, prompt the terminal for
+    // "Keep current / switch to slot N" and return the same contract the
+    // engine's offer_switch leaves:
+    //   Keep  → flag_c = true, ret.
+    //   Swap  → write wLastPlayerMon (0xc71a) = old wCurBattleMon, write
+    //           wCurBattleMon (0xd0d4) = new slot, a = 0, flag_z = true,
+    //           flag_c = false, ret.
+    // The caller (enemy_switch_skip) plays the switch animation after we
+    // return. See docs/transpiled_code.md.
+    if cpu.cli_mode {
+        match crate::bootstrap::cli::handle_offer_switch(cpu) {
+            None => {
+                cpu.flag_n = false;
+                cpu.flag_h = false;
+                cpu.flag_c = true;
+            }
+            Some(slot) => {
+                let old = cpu.read_byte(0xd0d4);
+                cpu.write_byte(0xc71a, old);
+                cpu.write_byte(0xd0d4, slot);
+                cpu.a = 0;
+                cpu.flag_z = true;
+                cpu.flag_n = false;
+                cpu.flag_h = false;
+                cpu.flag_c = false;
+            }
+        }
+        cpu.pc = cpu.pop_word();
+        cpu.cycle(16);
+        return;
+    }
     cpu.a = cpu.read_byte(0xd109);
     cpu.pc += 3;
     cpu.cycle(16);
@@ -19912,6 +19975,15 @@ pub(crate) fn battle_dummy_function(cpu: &mut Cpu) {
 
 pub(crate) fn battle_menu(cpu: &mut Cpu) {
     cpu.pc = 0x6139;
+    // HARNESS-PATCH: when the CLI driver owns input, replace the engine's
+    // multi-screen action menu (Fight/Pkmn/Pack/Run + submenus) with a single
+    // terminal prompt. The helper writes wBattlePlayerAction / wCurMoveNum /
+    // wCurPartyMon / wCurItem as appropriate and either returns to the
+    // caller or tail-calls into one of the engine's per-action sub-routines.
+    // See docs/transpiled_code.md and bootstrap::cli.
+    if cpu.cli_mode {
+        return crate::bootstrap::cli::handle_battle_menu(cpu);
+    }
     cpu.a = 0;
     cpu.flag_z = true;
     cpu.flag_n = false;
@@ -21842,6 +21914,33 @@ pub(crate) fn check_amulet_coin(cpu: &mut Cpu) {
 
 pub(crate) fn move_selection_screen(cpu: &mut Cpu) {
     cpu.pc = 0x64bc;
+    // HARNESS-PATCH: when the CLI driver owns input, write the success
+    // contract directly. The slot was stashed by the CLI action menu
+    // (cpu.cli_pending_move); if absent (engine re-enter after Disable /
+    // No-PP), we prompt the user for a move. The fields below mirror what
+    // move_selection_screen_use_move + _skip2 leave on a successful pick:
+    //   wMenuCursorY (0xcfa9)   = slot (0-based offset into wBattleMonMoves)
+    //   wCurMoveNum (0xd0d5)    = slot
+    //   wCurPlayerMove (0xc6e3) = move id at that slot
+    // Plus cpu.a = 0, flag_z = true, flag_c = false. See docs/transpiled_code.md.
+    if cpu.cli_mode {
+        let slot = match cpu.cli_pending_move.take() {
+            Some(s) => s,
+            None => crate::bootstrap::cli::handle_move_selection(cpu),
+        };
+        let move_id = cpu.read_byte(0xc62e + u16::from(slot));
+        cpu.write_byte(0xcfa9, slot);
+        cpu.write_byte(0xd0d5, slot);
+        cpu.write_byte(0xc6e3, move_id);
+        cpu.a = 0;
+        cpu.flag_z = true;
+        cpu.flag_n = false;
+        cpu.flag_h = false;
+        cpu.flag_c = false;
+        cpu.pc = cpu.pop_word();
+        cpu.cycle(16);
+        return;
+    }
     let next_pc = cpu.pc + 3;
     cpu.push_word(next_pc);
     cpu.cycle(24);

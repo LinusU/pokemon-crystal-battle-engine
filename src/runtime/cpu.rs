@@ -29,6 +29,16 @@ pub struct Cpu {
     /// (after `game_init`'s display init has run). The battle-engine harness
     /// uses this to take over before the game enters the intro/title sequence.
     pub skip_intro_to_battle: bool,
+    /// When true, harness patches at the battle input chokepoints
+    /// (`battle_menu`, `move_selection_screen`, `force_pick_party_mon_in_battle`,
+    /// `ask_use_next_pokemon`, `offer_switch`, `joy_wait_aor_b`) replace the
+    /// engine's menu UI with terminal prompts. See `bootstrap::cli`.
+    pub cli_mode: bool,
+    /// Move slot (0..3) stashed by the CLI action menu and consumed by the
+    /// CLI patch in `move_selection_screen`. Lets one terminal prompt cover
+    /// both the action and the move pick even though the engine re-enters
+    /// `move_selection_screen` separately.
+    pub cli_pending_move: Option<u8>,
     mbc: Mbc,
     wram: [u8; WRAM_SIZE],
     zram: [u8; ZRAM_SIZE],
@@ -85,6 +95,8 @@ impl Default for Cpu {
             gpu: Gpu::new_cgb(None),
             keypad: Keypad::default(),
             skip_intro_to_battle: false,
+            cli_mode: false,
+            cli_pending_move: None,
             mbc: Mbc::new(crate::rom::ROM),
             wram: [0; WRAM_SIZE],
             zram: [0; ZRAM_SIZE],

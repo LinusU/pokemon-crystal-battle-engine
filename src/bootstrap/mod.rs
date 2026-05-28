@@ -8,7 +8,9 @@
 //! Long-term, the same seeding logic feeds the headless state machine; the
 //! TOML + glium window in `main.rs` is just one consumer.
 
+pub mod cli;
 pub mod items;
+pub mod names;
 pub mod species;
 pub mod trainers;
 
@@ -40,6 +42,10 @@ pub struct BattleHeader {
     /// one from system entropy and logs it. Accepts decimal (`42`) or hex
     /// (`0xdeadbeef`) literals via TOML's integer parser.
     pub seed: Option<u64>,
+    /// When true, the harness drives the battle from stdin instead of the
+    /// keypad — see `bootstrap::cli`.
+    #[serde(default)]
+    pub cli: bool,
 }
 
 #[derive(Debug, Deserialize, Clone, Copy, PartialEq, Eq)]
@@ -333,6 +339,7 @@ fn launch_trainer_battle(cpu: &mut Cpu, config: &BattleConfig) -> Result<(), Str
 pub fn run(cpu: &mut Cpu, config: &BattleConfig) -> Result<(), String> {
     let seed = resolve_seed(config.battle.seed);
     cpu.seed_rng(seed);
+    cpu.cli_mode = config.battle.cli;
 
     cpu.skip_intro_to_battle = true;
     let entry = crate::entry_routine();

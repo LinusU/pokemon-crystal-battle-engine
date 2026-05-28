@@ -27,6 +27,30 @@ The ground truth for symbol addresses is `scratch/pokecrystal/pokecrystal.sym`, 
 | `0xd841` | `wTimeOfDayPal` | 1 | Palette id; saved/restored around `start_battle`. |
 | `0xdcd7` | `wPartyCount` | 1 | Party size, terminator-prefix list begins after. |
 | `0xdcdf` + N·48 | `wPartyMon{N}` | 48 | `party_struct` slot. Filled by `try_add_mon_to_party`. |
+
+## In-battle WRAM (read or written by the CLI driver)
+
+The CLI driver in [`src/bootstrap/cli.rs`](../src/bootstrap/cli.rs) reads battle state out of these addresses and writes the engine's "post-menu" state back into them when the player picks an action. The patches in [`src/game/engine/battle/core.rs`](../src/game/engine/battle/core.rs) (`battle_menu`, `move_selection_screen`, `force_pick_party_mon_in_battle`, `ask_use_next_pokemon`, `offer_switch`) target these same fields.
+
+| Address | Symbol | Bytes | Purpose |
+| --- | --- | --- | --- |
+| `0xc62c` | `wBattleMon` (struct start) | 32 | Active player mon: species, item, moves, PP, level, status, HP, MaxHP, stats, types. |
+| `0xc63c` | `wBattleMonHP` | 2 | Current HP of active player mon (big-endian). |
+| `0xc63e` | `wBattleMonMaxHP` | 2 | Max HP (big-endian). |
+| `0xc671` | `wEnemySubStatus5` | 1 | Bit `SUBSTATUS_CANT_RUN` blocks switching (Mean Look / Spider Web). |
+| `0xc6e3` | `wCurPlayerMove` | 1 | The move id the player picked this turn. |
+| `0xc71a` | `wLastPlayerMon` | 1 | Party slot of the *outgoing* mon when a switch happens. |
+| `0xc730` | `wPlayerWrapCount` | 1 | Non-zero = Wrap/Whirlpool/Bind in progress; player can't switch. |
+| `0xcfa9` | `wMenuCursorY` | 1 | Generic cursor; the move-select path uses it as a 0-based slot index. |
+| `0xd0d2` | `wBattleMenuCursorPosition` | 1 | 1=Fight, 2=Pkmn, 3=Pack, 4=Run. Read by `battle_menu_next` to dispatch. |
+| `0xd0d4` | `wCurBattleMon` | 1 | Party slot of the *active* player mon. |
+| `0xd0d5` | `wCurMoveNum` | 1 | The slot (0..3) of the chosen move. |
+| `0xd0ec` | `wBattlePlayerAction` | 1 | 0=`USEMOVE`, 1=`USEITEM`, 2=`SWITCH`. |
+| `0xd106` | `wCurItem` | 1 | Selected item id (for engine paths we hand off to). |
+| `0xd109` | `wCurPartyMon` | 1 | Selected party slot (switch target / item target). |
+| `0xd10c` | `wItemQuantityChange` | 1 | Engine bag bookkeeping; we keep it consistent. |
+| `0xd206` | `wEnemyMon` (struct start) | — | Same shape as `wBattleMon` for the opposing mon. |
+| `0xd216` | `wEnemyMonHP` | 2 | Big-endian. |
 | `0xd892` | `wNumItems` | 1+ | Bag pocket count; slot 1 = `0xff` terminator. |
 | `0xd8bc` | `wNumKeyItems` | 1+ | Key items pocket count + terminator. |
 | `0xd8d7` | `wNumBalls` | 1+ | Balls pocket count + terminator. |

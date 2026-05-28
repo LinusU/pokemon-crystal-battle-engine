@@ -84,9 +84,10 @@ fn main() {
             break;
         }
 
-        match receiver.recv() {
+        match receiver.recv_timeout(std::time::Duration::from_millis(16)) {
             Ok(data) => recalculate_screen(&display, &mut texture, &data, &render_options),
-            Err(_) => break,
+            Err(std::sync::mpsc::RecvTimeoutError::Timeout) => {}
+            Err(std::sync::mpsc::RecvTimeoutError::Disconnected) => break,
         }
     }
 
