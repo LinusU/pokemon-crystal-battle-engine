@@ -335,18 +335,16 @@ pub fn get_joypad(cpu: &mut Cpu) {
     cpu.write_byte(0xffa8, cpu.a);
     cpu.pc += 2;
     cpu.cycle(12);
-    // HARNESS-PATCH: pretend A was pressed every frame in CLI mode so text
-    // boxes auto-advance. Every text-wait loop in joypad.rs (joy_wait_aor_b,
+    // HARNESS-PATCH: pretend A was pressed every frame so text boxes
+    // auto-advance. Every text-wait loop in joypad.rs (joy_wait_aor_b,
     // simple_wait_press_aor_b, wait_press_aor_b_blink_cursor, prompt_button,
     // ...) reads either 0xffa7 (newly pressed) or 0xffa9 (joy_text_delay
     // output, which itself comes from 0xffa7 or 0xffa8). Setting both 0xffa7
     // and 0xffa8 to PAD_A makes the entire family fall through immediately.
     // The interactive menus that would mis-trigger on auto-A are all bypassed
     // by their own CLI patches. See docs/transpiled_code.md.
-    if cpu.cli_mode {
-        cpu.write_byte(0xffa7, crate::defs::PAD_A as u8);
-        cpu.write_byte(0xffa8, crate::defs::PAD_A as u8);
-    }
+    cpu.write_byte(0xffa7, crate::defs::PAD_A as u8);
+    cpu.write_byte(0xffa8, crate::defs::PAD_A as u8);
     become get_joypad_quit(cpu);
 }
 
@@ -735,28 +733,21 @@ pub(crate) fn joy_title_screen_input_keycombo(cpu: &mut Cpu) {
 
 pub fn joy_wait_aor_b(cpu: &mut Cpu) {
     cpu.pc = 0x0a36;
-    // HARNESS-PATCH: when the CLI driver owns input, skip the "press A/B"
-    // wait entirely so text-continue pauses don't stall the terminal-driven
-    // battle. The function would tail-call into joy_wait_aor_b_loop; instead
-    // we return to the caller. See docs/transpiled_code.md.
-    if cpu.cli_mode {
-        cpu.pc = cpu.pop_word();
-        cpu.cycle(16);
-        return;
-    }
-    become joy_wait_aor_b_loop(cpu);
+    // HARNESS-PATCH: the CLI driver owns input, so "press A/B" waits would
+    // stall forever. Return to the caller immediately. The original function
+    // tail-called into joy_wait_aor_b_loop. See docs/transpiled_code.md.
+    cpu.pc = cpu.pop_word();
+    cpu.cycle(16);
+    return;
 }
 
 pub(crate) fn joy_wait_aor_b_loop(cpu: &mut Cpu) {
     cpu.pc = 0x0a36;
     // HARNESS-PATCH: mirror of the gate at joy_wait_aor_b — some paths
-    // `become` straight into the loop and would otherwise stall the CLI
-    // driver. See docs/transpiled_code.md.
-    if cpu.cli_mode {
-        cpu.pc = cpu.pop_word();
-        cpu.cycle(16);
-        return;
-    }
+    // `become` straight into the loop. See docs/transpiled_code.md.
+    cpu.pc = cpu.pop_word();
+    cpu.cycle(16);
+    return;
     let next_pc = cpu.pc + 3;
     cpu.push_word(next_pc);
     cpu.cycle(24);

@@ -1,5 +1,6 @@
 //! Terminal-driven battle input. Replaces the engine's keypad menus with stdin
-//! prompts that read WRAM directly. Activated by `[battle] cli = true`.
+//! prompts that read WRAM directly. Always on — see the unconditional
+//! `HARNESS-PATCH` sites listed below.
 //!
 //! The HARNESS-PATCH sites that call into this module are:
 //!

@@ -12,7 +12,7 @@ The transpiled code is in `src/game/`, `src/dispatch.rs`, `src/defs.rs`. We avoi
 - ✅ Bag items via `[[player_items]]` — sorted into the engine's Items / Balls pockets.
 - ✅ Trainer battles via `[battle] type = "trainer_battle"`, `trainer = "Whitney"` — the engine loads the canonical party and AI items from ROM.
 - ⬜ Per-mon overrides (moves, DVs, items) and per-trainer overrides for the enemy party and `wEnemyTrainerItem1`/`Item2`.
-- ✅ CLI-driven actions via `[battle] cli = true` — every in-battle menu (action / move / forced switch / "switch out enemy mon" prompt) becomes a numbered list on stdin. See [`src/bootstrap/cli.rs`](../src/bootstrap/cli.rs) and [TOML schema](toml_schema.md).
+- ✅ CLI-driven actions — every in-battle menu (action / move / forced switch / "switch out enemy mon" prompt) is a numbered list on stdin. See [`src/bootstrap/cli.rs`](../src/bootstrap/cli.rs).
 - ⬜ Headless mode (skip glium/winit, just iterate the state machine).
 - ⬜ A typed `step(action) -> Outcome` API. The CLI driver already sits at the action chokepoints; lifting it into a library surface is mostly relayout.
 

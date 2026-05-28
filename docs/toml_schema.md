@@ -57,7 +57,8 @@ For trainer battles the enemy party and the trainer's AI items are loaded from R
 | `type` | string | yes | `"wild_encounter"` or `"trainer_battle"`. |
 | `trainer` | string | for `trainer_battle` | Trainer display name. Case- and punctuation-insensitive. Resolved via [`src/bootstrap/trainers.rs`](../src/bootstrap/trainers.rs) — today the 8 Johto + 8 Kanto gym leaders, Elite Four, Lance, Red, Blue, and Eusine. |
 | `seed` | integer | no | 64-bit seed for the deterministic battle RNG. Accepts decimal or hex (`0xdeadbeef`). If omitted, the harness picks one from system entropy and logs it on stderr so the same run can be replayed. See [`src/runtime/cpu.rs`](../src/runtime/cpu.rs) (`Cpu::seed_rng`) and the `HARNESS-PATCH` in [`src/game/home/random.rs`](../src/game/home/random.rs). |
-| `cli` | bool | no | When `true`, drive the battle from the terminal instead of the keypad — see [`src/bootstrap/cli.rs`](../src/bootstrap/cli.rs). All in-battle menus (action / move / forced switch / "switch out enemy mon" prompt) become numbered lists on stdin; "press A to continue" waits are auto-advanced. The glium window still renders. Items currently support Potion-class (healing, status heals, revives) only — balls and X-items are not yet wired through the CLI. |
+
+The battle is always driven from the terminal — see [`src/bootstrap/cli.rs`](../src/bootstrap/cli.rs). All in-battle menus (action / move / forced switch / "switch out enemy mon" prompt) become numbered lists on stdin; "press A to continue" waits are auto-advanced. The glium window still renders. Items currently support Potion-class (healing, status heals, revives) only — balls and X-items are not yet wired through.
 
 ### `[[player_party]]` — one or more
 
