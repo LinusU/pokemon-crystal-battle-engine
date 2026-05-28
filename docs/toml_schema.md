@@ -60,6 +60,28 @@ For trainer battles the enemy party and the trainer's AI items are loaded from R
 
 The battle is always driven from the terminal — see [`src/bootstrap/cli.rs`](../src/bootstrap/cli.rs). All in-battle menus (action / move / forced switch / "switch out enemy mon" prompt) become numbered lists on stdin; "press A to continue" waits are auto-advanced. The glium window still renders. Items currently support Potion-class (healing, status heals, revives) only — balls and X-items are not yet wired through.
 
+## Random battles — `--random` (and `--seed <n>`)
+
+Skip authoring a TOML and start a fresh randomized trainer battle:
+
+```sh
+cargo run -- --random                       # entropy seed, logged to stderr
+cargo run -- --random --seed 0xdead         # deterministic, hex or decimal
+cargo run -- --random --record /tmp/r.toml  # combine with recording
+```
+
+`--random` picks one trainer from [`src/bootstrap/trainers.rs`](../src/bootstrap/trainers.rs) and generates a player party scaled to that trainer's canonical level / count (party size ±1 clamped to 1..=6, levels ±10% clamped to 2..=100). The bag gets 2..=4 entries drawn from a curated `BATTLE_ITEMS` list (potions, status heals, X-items — see [`src/bootstrap/random.rs`](../src/bootstrap/random.rs)) at 1..=3 each. The chosen matchup is logged on stderr.
+
+The generator and the battle RNG are both keyed off the same `u64` — pass `--seed <n>` to pin it (accepts decimal `42` or hex `0xdeadbeef`); otherwise the harness draws one from system entropy and logs it so the run can be reproduced. Two invocations with the same `--seed` produce identical matchups and identical battle outcomes for the same choices.
+
+Mutual exclusions:
+
+- `--random` cannot be combined with a positional `scenario.toml` (you'd be saying "scenario X and also random" — error).
+- `--random` cannot be combined with `--play` (a recorded random run is replayed by passing the recording to `--play` *alone*; the playback path notices the `source_scenario = "random"` marker the recorder wrote and regenerates the scenario from the recording's seed).
+- `--seed` without `--random` is rejected — for scenario TOMLs the seed belongs in `[battle] seed = ...`.
+
+When `--random` is combined with `--record`, the recording's `[recording] source_scenario` is set to the literal string `"random"`. `--play` of such a recording re-generates the same matchup from the recording's seed; no TOML on disk is required.
+
 ## Recording — `--record <path>`
 
 Pass `--record <out.toml>` on the command line and the harness appends every player decision to that file as it happens:
@@ -110,6 +132,8 @@ cargo run -- --play /tmp/run.toml
 ```
 
 The recording's `[recording] seed` always wins — replay uses that value to seed the RNG even if the loaded scenario carries its own `seed = ...`. The scenario path comes from the recording's `source_scenario` header by default; pass a positional `scratch/other.toml` to override (useful for re-running the same script against an edited scenario). `--record` and `--play` can be combined to re-record an edited playback.
+
+If the recording's `source_scenario` is the literal string `"random"`, the scenario is regenerated from the recording's seed via `bootstrap::random::random_battle_config` rather than loaded from disk — see [Random battles](#random-battles----random-and---seed-n).
 
 Each CLI prompt site consumes one step in order. The match is strict on `kind`: if the recorded action doesn't fit the current prompt site, the harness prints a clear stderr message naming the step index, the recorded `kind`, the prompt site, and the accepted kinds, then exits with status 2. The same exit-2 path fires when the step list is exhausted before the battle ends — playback never silently substitutes.
 

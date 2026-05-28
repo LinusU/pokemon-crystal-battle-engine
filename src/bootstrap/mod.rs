@@ -12,6 +12,7 @@ pub mod cli;
 pub mod items;
 pub mod names;
 pub mod player;
+pub mod random;
 pub mod recorder;
 pub mod species;
 pub mod trainers;

@@ -10,6 +10,11 @@ struct RenderOptions {
     linear_interpolation: bool,
 }
 
+/// Marker the recorder writes into `source_scenario` for `--random` runs.
+/// On playback we look for this exact value and regenerate the scenario
+/// from the recording's seed instead of loading a TOML.
+const RANDOM_SCENARIO_MARKER: &str = "random";
+
 fn main() {
     let args: Vec<String> = std::env::args().collect();
     let cli_args = match parse_cli_args(&args[1..]) {
@@ -17,7 +22,7 @@ fn main() {
         Err(e) => {
             eprintln!("error: {e}");
             eprintln!(
-                "usage: {} [<scenario.toml>] [--record <out.toml>] [--play <recording.toml>]",
+                "usage: {} [<scenario.toml> | --random] [--seed <n>] [--record <out.toml>] [--play <recording.toml>]",
                 args[0],
             );
             std::process::exit(1);
@@ -26,7 +31,8 @@ fn main() {
 
     // `--play` recovers the scenario path from the recording header when the
     // user didn't pass one positionally. The recording's resolved seed always
-    // wins over any `seed = ...` on the scenario.
+    // wins over any `seed = ...` on the scenario. A `source_scenario =
+    // "random"` recording is regenerated from the recording's seed below.
     let playback_recording = cli_args.play.as_deref().map(|p| match bootstrap::player::load(p) {
         Ok(rec) => rec,
         Err(e) => {
@@ -35,33 +41,64 @@ fn main() {
         }
     });
 
-    let scenario_path: Option<String> = cli_args.scenario.clone().or_else(|| {
-        playback_recording
-            .as_ref()
-            .and_then(|rec| rec.source_scenario.as_ref())
-            .map(|p| p.to_string_lossy().into_owned())
-    });
+    let playback_is_random = playback_recording
+        .as_ref()
+        .and_then(|rec| rec.source_scenario.as_ref())
+        .map(|p| p.to_string_lossy() == RANDOM_SCENARIO_MARKER)
+        .unwrap_or(false);
 
-    let battle_config = match scenario_path.as_deref() {
-        Some(path) => match bootstrap::load_battle(std::path::Path::new(path)) {
-            Ok(cfg) => Some(cfg),
-            Err(e) => {
-                eprintln!("error: {e}");
-                std::process::exit(1);
+    let scenario_path: Option<String> = if cli_args.random || playback_is_random {
+        None
+    } else {
+        cli_args.scenario.clone().or_else(|| {
+            playback_recording
+                .as_ref()
+                .and_then(|rec| rec.source_scenario.as_ref())
+                .map(|p| p.to_string_lossy().into_owned())
+        })
+    };
+
+    let battle_config = if cli_args.random {
+        // Live `--random` run: resolve the seed up front (CLI > entropy) and
+        // build the scenario from it. The seed lives in `BattleHeader.seed`
+        // so the engine RNG keys off the same value as the matchup RNG.
+        let seed = cli_args.seed.unwrap_or_else(random_entropy_seed);
+        Some(bootstrap::random::random_battle_config(seed))
+    } else if playback_is_random {
+        // Replay of a `--random` run: regenerate from the recording's seed.
+        // `seed_override` below still forces the engine RNG to the recorded
+        // value, which is identical, so the run is bit-identical.
+        let seed = playback_recording
+            .as_ref()
+            .map(|r| r.seed)
+            .expect("playback_is_random implies a recording");
+        Some(bootstrap::random::random_battle_config(seed))
+    } else {
+        match scenario_path.as_deref() {
+            Some(path) => match bootstrap::load_battle(std::path::Path::new(path)) {
+                Ok(cfg) => Some(cfg),
+                Err(e) => {
+                    eprintln!("error: {e}");
+                    std::process::exit(1);
+                }
+            },
+            None => {
+                if playback_recording.is_some() {
+                    eprintln!(
+                        "error: --play recording has no `source_scenario` field — pass a scenario.toml positionally"
+                    );
+                    std::process::exit(1);
+                }
+                None
             }
-        },
-        None => {
-            if playback_recording.is_some() {
-                eprintln!(
-                    "error: --play recording has no `source_scenario` field — pass a scenario.toml positionally"
-                );
-                std::process::exit(1);
-            }
-            None
         }
     };
     let record_path = cli_args.record;
-    let source_scenario = scenario_path;
+    let source_scenario = if cli_args.random {
+        Some(RANDOM_SCENARIO_MARKER.to_string())
+    } else {
+        scenario_path
+    };
     let playback_recording = playback_recording;
 
     let scale = 4;
@@ -220,20 +257,28 @@ fn run_game(
     }
 }
 
-/// Argv parser for `[<scenario.toml>] [--record <out.toml>] [--play <rec.toml>]`.
+/// Argv parser for `[<scenario.toml> | --random] [--seed <n>] [--record <out.toml>] [--play <rec.toml>]`.
 /// The first non-flag positional is the scenario path. Flag order is
 /// irrelevant. `--play` may be passed with or without a positional scenario —
 /// when absent, the recording's `source_scenario` header is used instead.
+/// `--random` is mutually exclusive with a positional scenario.toml and with
+/// `--play` (a recorded random run is replayed by passing the recording to
+/// `--play`; the playback path detects the `source_scenario = "random"`
+/// marker and regenerates from the recorded seed).
 struct CliArgs {
     scenario: Option<String>,
     record: Option<std::path::PathBuf>,
     play: Option<std::path::PathBuf>,
+    random: bool,
+    seed: Option<u64>,
 }
 
 fn parse_cli_args(args: &[String]) -> Result<CliArgs, String> {
     let mut scenario: Option<String> = None;
     let mut record: Option<std::path::PathBuf> = None;
     let mut play: Option<std::path::PathBuf> = None;
+    let mut random = false;
+    let mut seed: Option<u64> = None;
     let mut i = 0;
     while i < args.len() {
         let arg = &args[i];
@@ -252,6 +297,19 @@ fn parse_cli_args(args: &[String]) -> Result<CliArgs, String> {
                 play = Some(std::path::PathBuf::from(path));
                 i += 2;
             }
+            "--random" => {
+                random = true;
+                i += 1;
+            }
+            "--seed" => {
+                let raw = args
+                    .get(i + 1)
+                    .ok_or_else(|| "--seed requires a number (decimal or 0x-hex)".to_string())?;
+                seed = Some(parse_seed_arg(raw).ok_or_else(|| {
+                    format!("--seed: could not parse {raw:?} (expected decimal or 0x-hex u64)")
+                })?);
+                i += 2;
+            }
             other if other.starts_with("--") => {
                 return Err(format!("unknown flag: {other}"));
             }
@@ -264,7 +322,51 @@ fn parse_cli_args(args: &[String]) -> Result<CliArgs, String> {
             }
         }
     }
-    Ok(CliArgs { scenario, record, play })
+    if random && scenario.is_some() {
+        return Err("--random cannot be combined with a scenario path".into());
+    }
+    if random && play.is_some() {
+        return Err(
+            "--random cannot be combined with --play — use `--play <recording.toml>` alone to replay a recorded random run".into(),
+        );
+    }
+    if seed.is_some() && play.is_some() {
+        return Err(
+            "--seed cannot be combined with --play — playback always uses the recording's seed".into(),
+        );
+    }
+    if seed.is_some() && !random {
+        return Err(
+            "--seed without --random has no effect — put `seed = ...` in the scenario TOML instead".into(),
+        );
+    }
+    Ok(CliArgs { scenario, record, play, random, seed })
+}
+
+/// Parse `--seed` as decimal or `0x...`/`0X...` hex. Accepts the same shape
+/// the recorder writes into `[recording] seed = "0x..."`.
+fn parse_seed_arg(raw: &str) -> Option<u64> {
+    let trimmed = raw.trim();
+    if let Some(rest) = trimmed.strip_prefix("0x").or_else(|| trimmed.strip_prefix("0X")) {
+        u64::from_str_radix(rest, 16).ok()
+    } else {
+        trimmed.parse::<u64>().ok()
+    }
+}
+
+/// Draw a u64 seed for `--random` runs from system entropy. Logged via the
+/// generator's own eprintln so the user can re-run with `--seed 0x<value>`.
+fn random_entropy_seed() -> u64 {
+    let nanos = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_nanos() as u64)
+        .unwrap_or(0);
+    let pid = std::process::id() as u64;
+    let mut seed = nanos ^ pid.wrapping_mul(0x9e37_79b9_7f4a_7c15);
+    if seed == 0 {
+        seed = 0x9e37_79b9_7f4a_7c15;
+    }
+    seed
 }
 
 fn recalculate_screen<T>(
