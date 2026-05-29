@@ -1,0 +1,384 @@
+[recording]
+source_scenario = "random"
+seed = "0x143e304f4ff55152"
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "DRAGONITE"
+expect.player.active.level = 26
+expect.player.active.hp = 51
+expect.player.active.max_hp = 83
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 19, 20, 10]
+expect.player.party = [{ species = "DRAGONITE", level = 26, hp = 51, max_hp = 83, status = "none" }, { species = "DELIBIRD", level = 27, hp = 68, max_hp = 68, status = "none" }, { species = "SEEL", level = 28, hp = 80, max_hp = 80, status = "none" }, { species = "PHANPY", level = 32, hp = 101, max_hp = 101, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SEEL"
+expect.enemy.active.level = 27
+expect.enemy.active.hp = 76
+expect.enemy.active.max_hp = 76
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [15, 14, 20, 10]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 76, max_hp = 76, status = "paralysis" }, { species = "DEWGONG", level = 29, hp = 95, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "DRAGONITE"
+expect.player.active.level = 26
+expect.player.active.hp = 51
+expect.player.active.max_hp = 83
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 19, 20, 9]
+expect.player.party = [{ species = "DRAGONITE", level = 26, hp = 51, max_hp = 83, status = "none" }, { species = "DELIBIRD", level = 27, hp = 68, max_hp = 68, status = "none" }, { species = "SEEL", level = 28, hp = 80, max_hp = 80, status = "none" }, { species = "PHANPY", level = 32, hp = 101, max_hp = 101, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SEEL"
+expect.enemy.active.level = 27
+expect.enemy.active.hp = 36
+expect.enemy.active.max_hp = 76
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [15, 14, 20, 10]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 76, max_hp = 76, status = "paralysis" }, { species = "DEWGONG", level = 29, hp = 95, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "DRAGONITE"
+expect.player.active.level = 26
+expect.player.active.hp = 51
+expect.player.active.max_hp = 83
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 19, 20, 8]
+expect.player.party = [{ species = "DRAGONITE", level = 26, hp = 51, max_hp = 83, status = "none" }, { species = "DELIBIRD", level = 27, hp = 68, max_hp = 68, status = "none" }, { species = "SEEL", level = 28, hp = 80, max_hp = 80, status = "none" }, { species = "PHANPY", level = 32, hp = 101, max_hp = 101, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "DEWGONG"
+expect.enemy.active.level = 29
+expect.enemy.active.hp = 95
+expect.enemy.active.max_hp = 95
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 20, 10]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "paralysis" }, { species = "DEWGONG", level = 29, hp = 95, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SEEL"
+expect.player.active.level = 28
+expect.player.active.hp = 80
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 40, 20, 10]
+expect.player.party = [{ species = "DRAGONITE", level = 26, hp = 51, max_hp = 83, status = "none" }, { species = "DELIBIRD", level = 27, hp = 68, max_hp = 68, status = "none" }, { species = "SEEL", level = 28, hp = 80, max_hp = 80, status = "none" }, { species = "PHANPY", level = 32, hp = 101, max_hp = 101, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "DEWGONG"
+expect.enemy.active.level = 29
+expect.enemy.active.hp = 95
+expect.enemy.active.max_hp = 95
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 20, 10]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "paralysis" }, { species = "DEWGONG", level = 29, hp = 95, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SEEL"
+expect.player.active.level = 28
+expect.player.active.hp = 59
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 40, 19, 10]
+expect.player.party = [{ species = "DRAGONITE", level = 26, hp = 51, max_hp = 83, status = "none" }, { species = "DELIBIRD", level = 27, hp = 68, max_hp = 68, status = "none" }, { species = "SEEL", level = 28, hp = 59, max_hp = 80, status = "none" }, { species = "PHANPY", level = 32, hp = 101, max_hp = 101, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "DEWGONG"
+expect.enemy.active.level = 29
+expect.enemy.active.hp = 94
+expect.enemy.active.max_hp = 95
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 15, 20, 10]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "paralysis" }, { species = "DEWGONG", level = 29, hp = 95, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "SEEL"
+expect.player.active.level = 28
+expect.player.active.hp = 39
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 40, 19, 10]
+expect.player.party = [{ species = "DRAGONITE", level = 26, hp = 51, max_hp = 83, status = "none" }, { species = "DELIBIRD", level = 27, hp = 68, max_hp = 68, status = "none" }, { species = "SEEL", level = 28, hp = 39, max_hp = 80, status = "none" }, { species = "PHANPY", level = 32, hp = 101, max_hp = 101, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "DEWGONG"
+expect.enemy.active.level = 29
+expect.enemy.active.hp = 83
+expect.enemy.active.max_hp = 95
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 15, 20, 10]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "paralysis" }, { species = "DEWGONG", level = 29, hp = 95, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "SEEL"
+expect.player.active.level = 28
+expect.player.active.hp = 0
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 40, 19, 10]
+expect.player.party = [{ species = "DRAGONITE", level = 26, hp = 51, max_hp = 83, status = "none" }, { species = "DELIBIRD", level = 27, hp = 68, max_hp = 68, status = "none" }, { species = "SEEL", level = 28, hp = 0, max_hp = 80, status = "none" }, { species = "PHANPY", level = 32, hp = 101, max_hp = 101, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "DEWGONG"
+expect.enemy.active.level = 29
+expect.enemy.active.hp = 83
+expect.enemy.active.max_hp = 95
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 15, 20, 10]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "paralysis" }, { species = "DEWGONG", level = 29, hp = 95, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "PHANPY"
+expect.player.active.level = 32
+expect.player.active.hp = 101
+expect.player.active.max_hp = 101
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 40, 15, 20]
+expect.player.party = [{ species = "DRAGONITE", level = 26, hp = 51, max_hp = 83, status = "none" }, { species = "DELIBIRD", level = 27, hp = 68, max_hp = 68, status = "none" }, { species = "SEEL", level = 28, hp = 0, max_hp = 80, status = "none" }, { species = "PHANPY", level = 32, hp = 101, max_hp = 101, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "DEWGONG"
+expect.enemy.active.level = 29
+expect.enemy.active.hp = 83
+expect.enemy.active.max_hp = 95
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 15, 20, 10]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "paralysis" }, { species = "DEWGONG", level = 29, hp = 95, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "PHANPY"
+expect.player.active.level = 32
+expect.player.active.hp = 25
+expect.player.active.max_hp = 101
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 40, 15, 19]
+expect.player.party = [{ species = "DRAGONITE", level = 26, hp = 51, max_hp = 83, status = "none" }, { species = "DELIBIRD", level = 27, hp = 68, max_hp = 68, status = "none" }, { species = "SEEL", level = 28, hp = 0, max_hp = 80, status = "none" }, { species = "PHANPY", level = 32, hp = 25, max_hp = 101, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "DEWGONG"
+expect.enemy.active.level = 29
+expect.enemy.active.hp = 63
+expect.enemy.active.max_hp = 95
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 15, 19, 10]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "paralysis" }, { species = "DEWGONG", level = 29, hp = 95, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 3
+expect.player.active.species = "PHANPY"
+expect.player.active.level = 32
+expect.player.active.hp = 0
+expect.player.active.max_hp = 101
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 40, 15, 19]
+expect.player.party = [{ species = "DRAGONITE", level = 26, hp = 51, max_hp = 83, status = "none" }, { species = "DELIBIRD", level = 27, hp = 68, max_hp = 68, status = "none" }, { species = "SEEL", level = 28, hp = 0, max_hp = 80, status = "none" }, { species = "PHANPY", level = 32, hp = 0, max_hp = 101, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "DEWGONG"
+expect.enemy.active.level = 29
+expect.enemy.active.hp = 63
+expect.enemy.active.max_hp = 95
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 15, 18, 10]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "paralysis" }, { species = "DEWGONG", level = 29, hp = 95, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "DRAGONITE"
+expect.player.active.level = 26
+expect.player.active.hp = 51
+expect.player.active.max_hp = 83
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 19, 20, 8]
+expect.player.party = [{ species = "DRAGONITE", level = 26, hp = 51, max_hp = 83, status = "none" }, { species = "DELIBIRD", level = 27, hp = 68, max_hp = 68, status = "none" }, { species = "SEEL", level = 28, hp = 0, max_hp = 80, status = "none" }, { species = "PHANPY", level = 32, hp = 0, max_hp = 101, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "DEWGONG"
+expect.enemy.active.level = 29
+expect.enemy.active.hp = 63
+expect.enemy.active.max_hp = 95
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 15, 18, 10]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "paralysis" }, { species = "DEWGONG", level = 29, hp = 95, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "DRAGONITE"
+expect.player.active.level = 26
+expect.player.active.hp = 51
+expect.player.active.max_hp = 83
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 18, 20, 8]
+expect.player.party = [{ species = "DRAGONITE", level = 26, hp = 51, max_hp = 83, status = "none" }, { species = "DELIBIRD", level = 27, hp = 68, max_hp = 68, status = "none" }, { species = "SEEL", level = 28, hp = 0, max_hp = 80, status = "none" }, { species = "PHANPY", level = 32, hp = 0, max_hp = 101, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "DEWGONG"
+expect.enemy.active.level = 29
+expect.enemy.active.hp = 63
+expect.enemy.active.max_hp = 95
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [12, 15, 18, 10]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "paralysis" }, { species = "DEWGONG", level = 29, hp = 63, max_hp = 95, status = "paralysis" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "DRAGONITE"
+expect.player.active.level = 26
+expect.player.active.hp = 51
+expect.player.active.max_hp = 83
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 18, 20, 7]
+expect.player.party = [{ species = "DRAGONITE", level = 26, hp = 51, max_hp = 83, status = "none" }, { species = "DELIBIRD", level = 27, hp = 68, max_hp = 68, status = "none" }, { species = "SEEL", level = 28, hp = 0, max_hp = 80, status = "none" }, { species = "PHANPY", level = 32, hp = 0, max_hp = 101, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "DEWGONG"
+expect.enemy.active.level = 29
+expect.enemy.active.hp = 23
+expect.enemy.active.max_hp = 95
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [12, 15, 18, 10]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "paralysis" }, { species = "DEWGONG", level = 29, hp = 63, max_hp = 95, status = "paralysis" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "DRAGONITE"
+expect.player.active.level = 26
+expect.player.active.hp = 51
+expect.player.active.max_hp = 83
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 18, 20, 6]
+expect.player.party = [{ species = "DRAGONITE", level = 26, hp = 51, max_hp = 83, status = "none" }, { species = "DELIBIRD", level = 27, hp = 68, max_hp = 68, status = "none" }, { species = "SEEL", level = 28, hp = 0, max_hp = 80, status = "none" }, { species = "PHANPY", level = 32, hp = 0, max_hp = 101, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 31
+expect.enemy.active.hp = 107
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 20, 30, 5]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "paralysis" }, { species = "DEWGONG", level = 29, hp = 0, max_hp = 95, status = "paralysis" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "DELIBIRD"
+expect.player.active.level = 27
+expect.player.active.hp = 68
+expect.player.active.max_hp = 68
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 0, 0, 0]
+expect.player.party = [{ species = "DRAGONITE", level = 26, hp = 51, max_hp = 83, status = "none" }, { species = "DELIBIRD", level = 27, hp = 68, max_hp = 68, status = "none" }, { species = "SEEL", level = 28, hp = 0, max_hp = 80, status = "none" }, { species = "PHANPY", level = 32, hp = 0, max_hp = 101, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 31
+expect.enemy.active.hp = 107
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 20, 30, 5]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "paralysis" }, { species = "DEWGONG", level = 29, hp = 0, max_hp = 95, status = "paralysis" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "DELIBIRD"
+expect.player.active.level = 27
+expect.player.active.hp = 1
+expect.player.active.max_hp = 68
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.party = [{ species = "DRAGONITE", level = 26, hp = 51, max_hp = 83, status = "none" }, { species = "DELIBIRD", level = 27, hp = 1, max_hp = 68, status = "none" }, { species = "SEEL", level = 28, hp = 0, max_hp = 80, status = "none" }, { species = "PHANPY", level = 32, hp = 0, max_hp = 101, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 31
+expect.enemy.active.hp = 107
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 20, 30, 4]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "paralysis" }, { species = "DEWGONG", level = 29, hp = 0, max_hp = 95, status = "paralysis" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "DELIBIRD"
+expect.player.active.level = 27
+expect.player.active.hp = 0
+expect.player.active.max_hp = 68
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.party = [{ species = "DRAGONITE", level = 26, hp = 51, max_hp = 83, status = "none" }, { species = "DELIBIRD", level = 27, hp = 0, max_hp = 68, status = "none" }, { species = "SEEL", level = 28, hp = 0, max_hp = 80, status = "none" }, { species = "PHANPY", level = 32, hp = 0, max_hp = 101, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 31
+expect.enemy.active.hp = 107
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 20, 30, 3]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "paralysis" }, { species = "DEWGONG", level = 29, hp = 0, max_hp = 95, status = "paralysis" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "DRAGONITE"
+expect.player.active.level = 26
+expect.player.active.hp = 51
+expect.player.active.max_hp = 83
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 18, 20, 6]
+expect.player.party = [{ species = "DRAGONITE", level = 26, hp = 51, max_hp = 83, status = "none" }, { species = "DELIBIRD", level = 27, hp = 0, max_hp = 68, status = "none" }, { species = "SEEL", level = 28, hp = 0, max_hp = 80, status = "none" }, { species = "PHANPY", level = 32, hp = 0, max_hp = 101, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 31
+expect.enemy.active.hp = 107
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 20, 30, 3]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "paralysis" }, { species = "DEWGONG", level = 29, hp = 0, max_hp = 95, status = "paralysis" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "DRAGONITE"
+expect.player.active.level = 26
+expect.player.active.hp = 0
+expect.player.active.max_hp = 83
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 17, 20, 6]
+expect.player.party = [{ species = "DRAGONITE", level = 26, hp = 0, max_hp = 83, status = "none" }, { species = "DELIBIRD", level = 27, hp = 0, max_hp = 68, status = "none" }, { species = "SEEL", level = 28, hp = 0, max_hp = 80, status = "none" }, { species = "PHANPY", level = 32, hp = 0, max_hp = 101, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 31
+expect.enemy.active.hp = 107
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 20, 30, 3]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "paralysis" }, { species = "DEWGONG", level = 29, hp = 0, max_hp = 95, status = "paralysis" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+expect.battle.outcome = "loss"

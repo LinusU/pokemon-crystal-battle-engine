@@ -81,11 +81,28 @@ enum Action {
     Run,
 }
 
+/// Snapshot the battle and hand it to the recorder and the player. Called at
+/// the top of every prompt site: the state observed here is the outcome of the
+/// previous decision — the exact state this decision will act at — so the
+/// recorder writes it as the previous step's `expect` block and the player
+/// asserts the previous step's recorded expectations against it.
+fn observe_decision_point(cpu: &Cpu) {
+    // Only the recorder and the player consume the snapshot — skip the read +
+    // allocation entirely on a plain interactive run with neither installed.
+    if cpu.recorder.is_none() && cpu.player.is_none() {
+        return;
+    }
+    let snapshot = super::snapshot::BattleSnapshot::read(cpu);
+    recorder::observe(cpu, &snapshot);
+    player::observe(cpu, &snapshot);
+}
+
 /// CLI patch at `battle_menu`. Reads battle state from WRAM, either consumes
 /// the next playback step or prompts the user for an action, then dispatches
 /// it (writing WRAM and either returning to caller or tail-calling into an
 /// engine sub-routine via `become`).
 pub fn handle_battle_menu(cpu: &mut Cpu) {
+    observe_decision_point(cpu);
     loop {
         print_battle_state(cpu);
         let action = if let Some(step) = player::consume(
@@ -163,6 +180,7 @@ pub fn handle_battle_menu(cpu: &mut Cpu) {
 /// (Disable / No-PP). The normal player-action path stashes `cli_pending_move`
 /// in [`handle_battle_menu`], so this prompt is rare.
 pub fn handle_move_selection(cpu: &mut Cpu) -> u8 {
+    observe_decision_point(cpu);
     if let Some(Step::Move { slot }) =
         player::consume(cpu, PromptSite::MoveSelection, &[StepKind::Move])
     {
@@ -196,6 +214,7 @@ pub fn handle_move_selection(cpu: &mut Cpu) -> u8 {
 /// CLI patch at `force_pick_party_mon_in_battle`. Returns the chosen alive,
 /// non-current party slot.
 pub fn handle_forced_switch(cpu: &mut Cpu) -> u8 {
+    observe_decision_point(cpu);
     if let Some(Step::ForcedSwitch { slot }) =
         player::consume(cpu, PromptSite::ForcedSwitch, &[StepKind::ForcedSwitch])
     {
@@ -226,6 +245,7 @@ pub fn handle_forced_switch(cpu: &mut Cpu) -> u8 {
 /// CLI patch at `offer_switch` (trainer about to send in another mon). Returns
 /// `None` if the player keeps the current mon, `Some(slot)` to swap.
 pub fn handle_offer_switch(cpu: &mut Cpu) -> Option<u8> {
+    observe_decision_point(cpu);
     if let Some(Step::OfferSwitch { keep, slot }) =
         player::consume(cpu, PromptSite::OfferSwitch, &[StepKind::OfferSwitch])
     {

@@ -35,12 +35,13 @@ pub struct Cpu {
     /// `move_selection_screen` separately.
     pub cli_pending_move: Option<u8>,
     /// Open recording file. When `Some`, the CLI driver appends one
-    /// `[[step]]` block per resolved decision and flushes after each write
-    /// so a mid-battle crash still leaves a usable recording. The header
+    /// `[[step]]` block per resolved decision (the action plus the `expect`
+    /// state it produced) and flushes after each write so a mid-battle crash
+    /// still leaves a usable recording. The header
     /// (resolved seed etc.) is written by `bootstrap::run` before any
     /// CLI prompt fires. Wrapped in `RefCell` so the immutable-borrow CLI
     /// read sites can record without an `&mut Cpu` upgrade dance.
-    pub recorder: Option<std::cell::RefCell<std::io::BufWriter<std::fs::File>>>,
+    pub recorder: Option<std::cell::RefCell<crate::bootstrap::recorder::Recorder>>,
     /// Pre-parsed playback script. When `Some`, the CLI driver consumes one
     /// step per decision point *before* reading stdin — see
     /// [`crate::bootstrap::player`]. Wrapped in `RefCell` for the same

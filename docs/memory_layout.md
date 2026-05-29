@@ -57,6 +57,28 @@ The CLI driver in [`src/bootstrap/cli.rs`](../src/bootstrap/cli.rs) reads battle
 | `0xd8d7` | `wNumBalls` | 1+ | Balls pocket count + terminator. |
 | `0xd8f1` | `wNumPCItems` | 1+ | PC items count + terminator. |
 
+## In-battle state read by the snapshot reader
+
+[`src/bootstrap/snapshot.rs`](../src/bootstrap/snapshot.rs) observes a comprehensive slice of battle state at each decision point and at battle end, for the recording's `expect.*` assertions (see [TOML schema](toml_schema.md#recording--assertions)). It is a pure reader — it never writes WRAM. In addition to the active-mon `wBattleMon` / `wEnemyMon` fields above, it reads:
+
+| Address | Symbol | Bytes | Purpose |
+| --- | --- | --- | --- |
+| `0xc62c` | `wBattleMonSpecies` | 1 | Active player mon species id. |
+| `0xc634` | `wBattleMonPP` | 4 | Active player mon PP, one per move slot. Low 6 bits = current PP; top 2 = PP Ups (masked off). |
+| `0xc639` | `wBattleMonLevel` | 1 | Active player mon level. |
+| `0xc63a` | `wBattleMonStatus` | 1 | Status byte. Bits 0–2 = sleep counter; bit 3 PSN, 4 BRN, 5 FRZ, 6 PAR, 7 TOX. |
+| `0xc663` | `wCurOTMon` | 1 | Party slot of the *active* enemy mon. |
+| `0xd206` | `wEnemyMonSpecies` | 1 | Active enemy mon species id. |
+| `0xd20e` | `wEnemyMonPP` | 4 | Active enemy mon PP (not asserted — invisible to the player). |
+| `0xd213` | `wEnemyMonLevel` | 1 | Active enemy mon level. |
+| `0xd214` | `wEnemyMonStatus` | 1 | Enemy status byte (same bit layout as player). |
+| `0xd218` | `wEnemyMonMaxHP` | 2 | Enemy max HP (big-endian). |
+| `0xd280` | `wOTPartyCount` | 1 | Enemy trainer party size. |
+| `0xd288` + N·48 | `wOTPartyMon{N}` | 48 | Enemy `party_struct` slots — same layout as `wPartyMon{N}`. |
+| `0xd0ee` | `wBattleResult` | 1 | Battle outcome. Low nibble: 0 = win, 1 = loss, else draw (`BATTLERESULT_BITMASK = 0xc0` carries CAUGHT_CELEBI / BOX_FULL, ignored). |
+
+`wCurBattleMon` (`0xd0d4`, player active slot) is listed in the in-battle table above. Per-slot party reads use the `party_struct` offsets below (species `+0`, level `+31`, status `+32`, HP `+34`, MaxHP `+36`) against both `wPartyMon1` (`0xdcdf`) and `wOTPartyMon1` (`0xd288`).
+
 ## Party struct (48 bytes, aka `PARTYMON_STRUCT_LENGTH`)
 
 Defined by the `party_struct` macro in `scratch/pokecrystal/macros/ram.asm`. Layout per slot:

@@ -14,6 +14,7 @@ pub mod names;
 pub mod player;
 pub mod random;
 pub mod recorder;
+pub mod snapshot;
 pub mod species;
 pub mod trainers;
 
@@ -357,8 +358,9 @@ pub struct RunOptions<'a> {
     pub seed_override: Option<u64>,
     /// If `Some`, the parsed playback step list is installed before any CLI
     /// prompt fires; each prompt site consumes one step instead of reading
-    /// stdin. See [`player`].
-    pub playback: Option<Vec<recorder::Step>>,
+    /// stdin, and the recorded `expect`s are asserted as the battle replays.
+    /// See [`player`].
+    pub playback: Option<Vec<player::PlayStep>>,
 }
 
 pub fn run_with(
@@ -396,6 +398,17 @@ pub fn run_with(
     match config.battle.kind {
         BattleKind::WildEncounter => launch_wild_encounter(cpu, config)?,
         BattleKind::TrainerBattle => launch_trainer_battle(cpu, config)?,
+    }
+
+    // The battle has ended. Capture the final state + outcome so the recorder
+    // closes out the last step's `expect` block and playback asserts the
+    // result. `wBattleMon` / `wEnemyMon` stay valid after `start_battle`
+    // returns, and `wBattleResult` now holds the WIN/LOSE/DRAW flag.
+    if cpu.recorder.is_some() || cpu.player.is_some() {
+        let final_snapshot = snapshot::BattleSnapshot::read(cpu);
+        let outcome = snapshot::read_outcome(cpu);
+        recorder::finalize(cpu, &final_snapshot, outcome);
+        player::finalize(cpu, &final_snapshot, outcome);
     }
     Ok(())
 }

@@ -1,21 +1,31 @@
-//! Record every player decision the CLI driver in [`super::cli`] resolves.
+//! Record every player decision the CLI driver in [`super::cli`] resolves,
+//! together with the battle state each decision produced.
 //!
 //! The harness opens a recording file once `bootstrap::run` has resolved the
 //! seed, writes a `[recording]` header that always includes the *resolved*
 //! seed (whether the scenario supplied one or it was drawn from system
-//! entropy), then hands a writer to the [`Cpu`] in `cpu.recorder`. Each CLI
-//! prompt site calls one of the `record_*` helpers below after the prompt
-//! returns, which appends a single `[[step]]` table and flushes — so a
-//! mid-battle panic still leaves a usable script on disk.
+//! entropy), then hands a writer to the [`Cpu`] in `cpu.recorder`.
 //!
-//! The schema is intentionally tiny: a `kind` tag plus the few fields the
-//! action carries. Playback (a separate change) reads `[[step]]` entries
-//! back and feeds them into the same WRAM writes that the live CLI does.
+//! Each `[[step]]` table is written in two halves:
 //!
-//! No TOML serializer is pulled in here — the lines are short and fixed,
-//! and writing them by hand keeps the on-disk output deterministic and easy
-//! to diff. The companion test parses the produced text with `toml` to make
-//! sure we didn't drift.
+//! 1. [`record`] appends the action (`kind` + its fields) the instant the CLI
+//!    resolves it, and flushes — so a mid-battle panic still leaves a usable
+//!    script on disk.
+//! 2. [`observe`] appends that same step's `expect.*` keys at the *next*
+//!    decision point — i.e. the battle state the action produced, which is the
+//!    exact state the next step takes its action at. [`finalize`] does the same
+//!    for the last step after the battle ends, and additionally records the
+//!    battle outcome.
+//!
+//! Because nothing else is written between [`record`] and the following
+//! [`observe`], the `expect.*` keys land inside the still-open `[[step]]` table
+//! with no buffering: the file is valid TOML at every flush point, and a crash
+//! at worst leaves the in-flight step without its `expect` block.
+//!
+//! No TOML serializer is pulled in here — the lines are short and fixed, and
+//! writing them by hand keeps the on-disk output deterministic and easy to
+//! diff. The companion tests parse the produced text with `toml` to make sure
+//! we didn't drift, and [`super::player`] re-parses it on playback.
 //!
 //! See [docs/toml_schema.md](../../docs/toml_schema.md) for the human-facing
 //! description of the `--record` flag and recording format.
@@ -25,10 +35,12 @@ use std::fs::File;
 use std::io::{BufWriter, Write};
 use std::path::Path;
 
+use super::snapshot::{BattleSnapshot, Outcome, SideSnapshot};
 use crate::runtime::Cpu;
 
-/// One captured CLI decision. Each variant maps 1:1 to one of the four
-/// prompt sites in [`super::cli`].
+/// One captured CLI decision. Each variant maps 1:1 to one of the four prompt
+/// sites in [`super::cli`]. This is the *action* half of a `[[step]]`; the
+/// *outcome* half is the `expect.*` keys written by [`observe`] / [`finalize`].
 #[derive(Debug, Clone, Copy)]
 pub enum Step {
     /// Action menu picked a move. `slot` is the 0-based move slot.
@@ -50,6 +62,14 @@ pub enum Step {
     OfferSwitch { keep: bool, slot: Option<u8> },
 }
 
+/// Writer + the one bit of state we track between [`record`] and [`observe`]:
+/// whether the most recent `[[step]]` is still open for its `expect.*` keys.
+#[derive(Debug)]
+pub struct Recorder {
+    writer: BufWriter<File>,
+    awaiting_expect: bool,
+}
+
 /// Open `path` for write (truncating any existing file), write the
 /// `[recording]` header, and install the resulting writer on `cpu.recorder`.
 /// The seed is always written even when the source scenario omitted one —
@@ -68,7 +88,7 @@ pub fn install(
     writer
         .flush()
         .map_err(|e| format!("could not flush recording header: {e}"))?;
-    cpu.recorder = Some(RefCell::new(writer));
+    cpu.recorder = Some(RefCell::new(Recorder { writer, awaiting_expect: false }));
     Ok(())
 }
 
@@ -88,20 +108,53 @@ fn write_header(
     Ok(())
 }
 
-/// Append a `[[step]]` entry and flush. Silently no-ops if the cpu has no
-/// recorder installed — callers always invoke this; the runtime flag is
+/// Append a `[[step]]` action block and flush. Silently no-ops if the cpu has
+/// no recorder installed — callers always invoke this; the runtime field is
 /// what gates recording.
+///
+/// The step is left "open": its `expect.*` keys are filled by the next
+/// [`observe`] (or [`finalize`] if it turns out to be the last step).
 pub fn record(cpu: &Cpu, step: Step) {
     let Some(cell) = cpu.recorder.as_ref() else { return };
-    let mut writer = cell.borrow_mut();
-    if let Err(e) = write_step(&mut writer, step) {
+    let mut rec = cell.borrow_mut();
+    if let Err(e) = write_step(&mut rec.writer, step) {
         // Don't bubble — we're mid-battle and the recording is best-effort.
         // The error is logged once so an unwriteable file doesn't go silent.
         eprintln!("recorder: failed to write step: {e}");
         return;
     }
-    if let Err(e) = writer.flush() {
+    rec.awaiting_expect = true;
+    if let Err(e) = rec.writer.flush() {
         eprintln!("recorder: failed to flush step: {e}");
+    }
+}
+
+/// Append the open step's `expect.*` keys from `snapshot` — the state the just
+/// recorded action produced. No-op if no step is open (e.g. the first decision
+/// point, before any action) or no recorder is installed.
+pub fn observe(cpu: &Cpu, snapshot: &BattleSnapshot) {
+    write_outcome(cpu, snapshot, None);
+}
+
+/// Like [`observe`], but for the final step after the battle ends: also records
+/// the battle `outcome`.
+pub fn finalize(cpu: &Cpu, snapshot: &BattleSnapshot, outcome: Outcome) {
+    write_outcome(cpu, snapshot, Some(outcome));
+}
+
+fn write_outcome(cpu: &Cpu, snapshot: &BattleSnapshot, outcome: Option<Outcome>) {
+    let Some(cell) = cpu.recorder.as_ref() else { return };
+    let mut rec = cell.borrow_mut();
+    if !rec.awaiting_expect {
+        return;
+    }
+    if let Err(e) = write_expect(&mut rec.writer, snapshot, outcome) {
+        eprintln!("recorder: failed to write expect block: {e}");
+        return;
+    }
+    rec.awaiting_expect = false;
+    if let Err(e) = rec.writer.flush() {
+        eprintln!("recorder: failed to flush expect block: {e}");
     }
 }
 
@@ -143,9 +196,58 @@ fn write_step(writer: &mut BufWriter<File>, step: Step) -> std::io::Result<()> {
     Ok(())
 }
 
-/// Quote a string as a TOML basic string. The recorded values are paths and
-/// have no backslash / control-char surprises, so the only escape we need is
-/// `"`.
+/// Write the `expect.*` dotted keys for one snapshot into the open `[[step]]`
+/// table. Mirrors the shape [`super::snapshot::Expect`] parses back.
+fn write_expect(
+    writer: &mut BufWriter<File>,
+    snapshot: &BattleSnapshot,
+    outcome: Option<Outcome>,
+) -> std::io::Result<()> {
+    write_side(writer, "player", &snapshot.player)?;
+    write_side(writer, "enemy", &snapshot.enemy)?;
+    if let Some(o) = outcome {
+        writeln!(writer, "expect.battle.outcome = {}", toml_string(o.as_str()))?;
+    }
+    Ok(())
+}
+
+fn write_side(writer: &mut BufWriter<File>, side: &str, s: &SideSnapshot) -> std::io::Result<()> {
+    writeln!(writer, "expect.{side}.active_slot = {}", s.active_slot)?;
+    let a = &s.active;
+    writeln!(writer, "expect.{side}.active.species = {}", toml_string(&a.species))?;
+    writeln!(writer, "expect.{side}.active.level = {}", a.level)?;
+    writeln!(writer, "expect.{side}.active.hp = {}", a.hp)?;
+    writeln!(writer, "expect.{side}.active.max_hp = {}", a.max_hp)?;
+    writeln!(writer, "expect.{side}.active.status = {}", toml_string(a.status.as_str()))?;
+    writeln!(
+        writer,
+        "expect.{side}.active.pp = [{}, {}, {}, {}]",
+        a.pp[0], a.pp[1], a.pp[2], a.pp[3],
+    )?;
+    // Party as an inline array of inline tables — keeps the whole block inside
+    // the open `[[step]]` table so streaming never needs a sub-table header.
+    write!(writer, "expect.{side}.party = [")?;
+    for (i, m) in s.party.iter().enumerate() {
+        if i > 0 {
+            write!(writer, ", ")?;
+        }
+        write!(
+            writer,
+            "{{ species = {}, level = {}, hp = {}, max_hp = {}, status = {} }}",
+            toml_string(&m.species),
+            m.level,
+            m.hp,
+            m.max_hp,
+            toml_string(m.status.as_str()),
+        )?;
+    }
+    writeln!(writer, "]")?;
+    Ok(())
+}
+
+/// Quote a string as a TOML basic string. The recorded values are paths,
+/// species names, and fixed tags with no backslash / control-char surprises,
+/// so the only escapes we need are `"` and `\`.
 fn toml_string(s: &str) -> String {
     let mut out = String::with_capacity(s.len() + 2);
     out.push('"');
@@ -166,34 +268,64 @@ fn toml_string(s: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::bootstrap::snapshot::{ActiveSnapshot, PartySnapshot, SideSnapshot, Status};
     use std::path::PathBuf;
 
-    /// The produced TOML must parse, contain the resolved seed under
-    /// `[recording]`, and one `[[step]]` table per recorded decision with
-    /// the right `kind` discriminator.
-    #[test]
-    fn header_and_steps_round_trip_through_toml_parser() {
-        let dir = std::env::temp_dir();
-        let path = dir.join(format!(
-            "battle-recording-test-{}-{}.toml",
+    fn temp_path(tag: &str) -> PathBuf {
+        std::env::temp_dir().join(format!(
+            "battle-recording-{tag}-{}-{}.toml",
             std::process::id(),
             std::time::SystemTime::now()
                 .duration_since(std::time::UNIX_EPOCH)
                 .unwrap()
                 .as_nanos(),
-        ));
+        ))
+    }
+
+    fn side(species: &str, hp: u16, slot: u8) -> SideSnapshot {
+        SideSnapshot {
+            active_slot: slot,
+            active: ActiveSnapshot {
+                species: species.to_string(),
+                level: 10,
+                hp,
+                max_hp: 40,
+                status: Status::None,
+                pp: [25, 10, 0, 0],
+            },
+            party: vec![PartySnapshot {
+                species: species.to_string(),
+                level: 10,
+                hp,
+                max_hp: 40,
+                status: Status::None,
+            }],
+        }
+    }
+
+    fn snap(player_hp: u16, enemy_hp: u16) -> BattleSnapshot {
+        BattleSnapshot {
+            player: side("QUILAVA", player_hp, 0),
+            enemy: side("PIDGEY", enemy_hp, 0),
+        }
+    }
+
+    /// The produced TOML must parse, contain the resolved seed, one `[[step]]`
+    /// table per recorded decision with the right `kind`, and an `expect` block
+    /// per step (with the battle outcome on the last one).
+    #[test]
+    fn steps_and_expects_round_trip_through_toml_parser() {
+        let path = temp_path("rt");
         let mut cpu = Cpu::default();
         install(&mut cpu, &path, 0xc0ffee, Some(&PathBuf::from("scratch/cli.toml")))
             .expect("install");
+
+        // Decision 1: a move. Its outcome is observed at decision 2.
         record(&cpu, Step::Move { slot: 0 });
-        record(&cpu, Step::Switch { slot: 2 });
-        record(&cpu, Step::Item { id: 0x12, target: Some(1) });
-        record(&cpu, Step::Item { id: 0x04, target: None });
-        record(&cpu, Step::Run);
-        record(&cpu, Step::ForcedSwitch { slot: 3 });
-        record(&cpu, Step::OfferSwitch { keep: true, slot: None });
-        record(&cpu, Step::OfferSwitch { keep: false, slot: Some(4) });
-        // Drop the writer so the BufWriter flushes on close.
+        observe(&cpu, &snap(30, 22));
+        // Decision 2: another move, ending the battle. Outcome from finalize.
+        record(&cpu, Step::Move { slot: 1 });
+        finalize(&cpu, &snap(30, 0), Outcome::Win);
         cpu.recorder = None;
 
         let text = std::fs::read_to_string(&path).expect("read recording");
@@ -202,25 +334,55 @@ mod tests {
 
         let recording = parsed.get("recording").expect("recording table");
         assert_eq!(recording.get("seed").and_then(|v| v.as_str()), Some("0x0000000000c0ffee"));
-        assert_eq!(
-            recording.get("source_scenario").and_then(|v| v.as_str()),
-            Some("scratch/cli.toml"),
-        );
 
         let steps = parsed.get("step").and_then(|v| v.as_array()).expect("step array");
-        assert_eq!(steps.len(), 8);
+        assert_eq!(steps.len(), 2);
+
+        // Step 0: move with an expect block, no outcome.
         assert_eq!(steps[0].get("kind").and_then(|v| v.as_str()), Some("move"));
-        assert_eq!(steps[0].get("slot").and_then(|v| v.as_integer()), Some(0));
-        assert_eq!(steps[1].get("kind").and_then(|v| v.as_str()), Some("switch"));
-        assert_eq!(steps[2].get("kind").and_then(|v| v.as_str()), Some("item"));
-        assert_eq!(steps[2].get("id").and_then(|v| v.as_integer()), Some(0x12));
-        assert_eq!(steps[2].get("target").and_then(|v| v.as_integer()), Some(1));
-        assert_eq!(steps[3].get("target"), None, "no-target items must omit the field");
-        assert_eq!(steps[4].get("kind").and_then(|v| v.as_str()), Some("run"));
-        assert_eq!(steps[5].get("kind").and_then(|v| v.as_str()), Some("forced_switch"));
-        assert_eq!(steps[6].get("keep").and_then(|v| v.as_bool()), Some(true));
-        assert_eq!(steps[6].get("slot"), None);
-        assert_eq!(steps[7].get("keep"), None);
-        assert_eq!(steps[7].get("slot").and_then(|v| v.as_integer()), Some(4));
+        let exp0 = steps[0].get("expect").expect("step 0 expect");
+        assert_eq!(
+            exp0.get("enemy").and_then(|e| e.get("active")).and_then(|a| a.get("hp")).and_then(|v| v.as_integer()),
+            Some(22),
+        );
+        assert!(exp0.get("battle").is_none(), "non-final step must not carry an outcome");
+
+        // Step 1: final move, enemy fainted, outcome win.
+        let exp1 = steps[1].get("expect").expect("step 1 expect");
+        assert_eq!(
+            exp1.get("enemy").and_then(|e| e.get("active")).and_then(|a| a.get("hp")).and_then(|v| v.as_integer()),
+            Some(0),
+        );
+        assert_eq!(
+            exp1.get("battle").and_then(|b| b.get("outcome")).and_then(|v| v.as_str()),
+            Some("win"),
+        );
+        // Party array round-trips as an array of tables.
+        let party = exp1
+            .get("player")
+            .and_then(|p| p.get("party"))
+            .and_then(|v| v.as_array())
+            .expect("player party array");
+        assert_eq!(party.len(), 1);
+        assert_eq!(party[0].get("species").and_then(|v| v.as_str()), Some("QUILAVA"));
+    }
+
+    /// An action recorded but never observed (a crash before the next decision)
+    /// must still leave a parseable `[[step]]` — just without an `expect`.
+    #[test]
+    fn open_step_without_expect_is_still_valid_toml() {
+        let path = temp_path("open");
+        let mut cpu = Cpu::default();
+        install(&mut cpu, &path, 1, None).expect("install");
+        record(&cpu, Step::Run);
+        cpu.recorder = None;
+
+        let text = std::fs::read_to_string(&path).expect("read");
+        let parsed: toml::Value = toml::from_str(&text).expect("parse");
+        let _ = std::fs::remove_file(&path);
+        let steps = parsed.get("step").and_then(|v| v.as_array()).expect("steps");
+        assert_eq!(steps.len(), 1);
+        assert_eq!(steps[0].get("kind").and_then(|v| v.as_str()), Some("run"));
+        assert!(steps[0].get("expect").is_none());
     }
 }

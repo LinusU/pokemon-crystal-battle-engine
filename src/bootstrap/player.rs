@@ -1,20 +1,27 @@
-//! Replay every player decision a previous run wrote out via [`super::recorder`].
+//! Replay every player decision a previous run wrote out via [`super::recorder`],
+//! and assert the battle state each decision produced.
 //!
 //! The harness opens a recording file once `bootstrap::run_with` has resolved
 //! the seed (the recording's resolved seed wins — see [`load`]), parses every
-//! `[[step]]` block into a [`Step`] from `super::recorder`, and hands the
-//! resulting cursor to the [`Cpu`] in `cpu.player`. Each CLI prompt site in
-//! [`super::cli`] consults `cpu.player` *before* falling back to stdin: if a
-//! step is queued the prompt is skipped, the recorded answer is replayed,
-//! and the rest of the engine never knows the difference.
+//! `[[step]]` block into a [`PlayStep`] (action + recorded [`Expect`]), and
+//! hands the resulting cursor to the [`Cpu`] in `cpu.player`. Each CLI prompt
+//! site in [`super::cli`] consults `cpu.player` *before* falling back to stdin:
+//! if a step is queued the prompt is skipped and the recorded answer replayed.
 //!
-//! Errors at consume-time are fatal — a mismatched `kind` or an exhausted
-//! script is treated as a corrupt replay, printed on stderr and turned into
-//! a non-zero process exit. We never silently substitute, because a replay
-//! that drifts is worse than one that stops.
+//! Two failure modes are surfaced loudly:
 //!
-//! The format is the one [`super::recorder`] writes, *verbatim*. The
-//! recording agent owns the schema; this module is a strict consumer.
+//! - **Structural drift** (a mismatched `kind` or an exhausted script) is fatal
+//!   at consume-time — printed on stderr, process exits with status 2. We never
+//!   silently substitute, because a replay that drifts is worse than one that
+//!   stops.
+//! - **Expectation mismatches** (the observed state disagrees with a recorded
+//!   `expect.*`) are collected as the battle replays — checked at the *next*
+//!   decision point for each step and at battle end for the last — then printed
+//!   together with a process exit of status 3. This is what makes a recording
+//!   usable as a regression fixture.
+//!
+//! The format is the one [`super::recorder`] writes, *verbatim*; this module is
+//! a strict consumer of it.
 //!
 //! See [docs/toml_schema.md](../../docs/toml_schema.md) for the human-facing
 //! description of the `--play` flag and the recording format.
@@ -27,8 +34,19 @@ use serde::Deserialize;
 use crate::runtime::Cpu;
 
 use super::recorder::Step;
+use super::snapshot::{self, BattleSnapshot, Expect, Outcome};
 
-/// Parsed `[recording]` header.
+/// One replayable step: the recorded action plus the tolerant expectations for
+/// the state it produced. The `expect` is empty for steps a recording omitted
+/// it on (e.g. the in-flight last step of a crashed run, or a hand-written
+/// script that only asserts some turns).
+#[derive(Debug, Clone)]
+pub struct PlayStep {
+    pub step: Step,
+    pub expect: Expect,
+}
+
+/// Parsed `[recording]` header plus its step list.
 #[derive(Debug, Clone)]
 pub struct Recording {
     /// Resolved RNG seed the original run used. Authoritative — overrides any
@@ -39,12 +57,11 @@ pub struct Recording {
     /// and items if no scenario positional arg is supplied.
     pub source_scenario: Option<PathBuf>,
     /// The full `[[step]]` list in order.
-    pub steps: Vec<Step>,
+    pub steps: Vec<PlayStep>,
 }
 
-/// Read `path` and parse the `[recording]` header plus every `[[step]]` block.
-/// The resolved seed and (optional) `source_scenario` are returned alongside
-/// the parsed step list; install the steps on the cpu with [`install`].
+/// Read `path` and parse the `[recording]` header plus every `[[step]]` block
+/// (action + `expect`). Install the steps on the cpu with [`install`].
 pub fn load(path: &Path) -> Result<Recording, String> {
     let text = std::fs::read_to_string(path)
         .map_err(|e| format!("could not read recording {}: {}", path.display(), e))?;
@@ -62,7 +79,7 @@ pub fn load(path: &Path) -> Result<Recording, String> {
     let mut steps = Vec::with_capacity(raw.step.len());
     for (idx, raw_step) in raw.step.into_iter().enumerate() {
         let step = raw_step
-            .into_step()
+            .into_play_step()
             .map_err(|e| format!("recording {}: step #{}: {}", path.display(), idx, e))?;
         steps.push(step);
     }
@@ -75,25 +92,31 @@ pub fn load(path: &Path) -> Result<Recording, String> {
 }
 
 /// Install the parsed step list on `cpu.player`. The cursor starts at the
-/// first step; each `next_*` call consumes one and advances. Co-exists with
+/// first step; each [`consume`] call consumes one and advances. Co-exists with
 /// [`super::recorder`] — installing both lets you re-record an edited replay.
-pub fn install(cpu: &mut Cpu, steps: Vec<Step>) {
-    cpu.player = Some(RefCell::new(Player { steps, cursor: 0 }));
+pub fn install(cpu: &mut Cpu, steps: Vec<PlayStep>) {
+    cpu.player = Some(RefCell::new(Player {
+        steps,
+        cursor: 0,
+        mismatches: Vec::new(),
+    }));
 }
 
-/// Stateful cursor over the recording's step list. One instance lives on the
-/// [`Cpu`] for the duration of the replayed battle.
+/// Stateful cursor over the recording's step list, plus the running tally of
+/// expectation mismatches. One instance lives on the [`Cpu`] for the duration
+/// of the replayed battle.
 #[derive(Debug)]
 pub struct Player {
-    steps: Vec<Step>,
+    steps: Vec<PlayStep>,
     cursor: usize,
+    mismatches: Vec<snapshot::Mismatch>,
 }
 
 impl Player {
-    /// Peek the next step without advancing. `None` when the recording is
+    /// Peek the next action without advancing. `None` when the recording is
     /// exhausted.
     pub fn peek(&self) -> Option<Step> {
-        self.steps.get(self.cursor).copied()
+        self.steps.get(self.cursor).map(|s| s.step)
     }
 }
 
@@ -118,8 +141,8 @@ impl PromptSite {
     }
 }
 
-/// If a recording is installed on `cpu`, consume the next step and return it.
-/// On underflow or kind mismatch this prints a clear stderr message and
+/// If a recording is installed on `cpu`, consume the next step and return its
+/// action. On underflow or kind mismatch this prints a clear stderr message and
 /// terminates the process with status 2 — silent substitution would let a
 /// drift go unnoticed.
 ///
@@ -129,7 +152,7 @@ pub fn consume(cpu: &Cpu, site: PromptSite, accepts: &[StepKind]) -> Option<Step
     let cell = cpu.player.as_ref()?;
     let mut player = cell.borrow_mut();
     let cursor = player.cursor;
-    let Some(step) = player.steps.get(cursor).copied() else {
+    let Some(step) = player.steps.get(cursor).map(|s| s.step) else {
         eprintln!(
             "playback: ran out of steps at decision #{} ({}) — recording is incomplete",
             cursor + 1,
@@ -152,6 +175,59 @@ pub fn consume(cpu: &Cpu, site: PromptSite, accepts: &[StepKind]) -> Option<Step
     }
     player.cursor += 1;
     Some(step)
+}
+
+/// Assert the *previous* step's recorded expectations against the current
+/// battle state. Called at the top of each CLI prompt site (the state there is
+/// the outcome of the previous decision). No-op if no recording is installed or
+/// we're at the first decision (no previous step yet).
+pub fn observe(cpu: &Cpu, snapshot: &BattleSnapshot) {
+    let Some(cell) = cpu.player.as_ref() else { return };
+    let mut player = cell.borrow_mut();
+    check_previous_step(&mut player, snapshot, None);
+}
+
+/// Assert the last consumed step's expectations against the final battle state
+/// and outcome, then print the verdict. Exits the process with status 3 if any
+/// expectation was violated. No-op if no recording is installed.
+pub fn finalize(cpu: &Cpu, snapshot: &BattleSnapshot, outcome: Outcome) {
+    let Some(cell) = cpu.player.as_ref() else { return };
+    let mut player = cell.borrow_mut();
+    check_previous_step(&mut player, snapshot, Some(outcome));
+
+    let step_count = player.cursor;
+    if player.mismatches.is_empty() {
+        eprintln!("playback: {step_count} step(s) replayed; all expectations held");
+        return;
+    }
+    eprintln!(
+        "playback: {} expectation mismatch(es) across {step_count} step(s):",
+        player.mismatches.len(),
+    );
+    for m in &player.mismatches {
+        eprintln!("  {}: expected {}, got {}", m.path, m.expected, m.actual);
+    }
+    std::process::exit(3);
+}
+
+/// Diff the step at `cursor - 1` (the most recently consumed one) against
+/// `snapshot`, tagging each mismatch with its step number. `outcome` is passed
+/// through to the diff so `expect.battle.outcome` is only checked at battle end.
+fn check_previous_step(player: &mut Player, snapshot: &BattleSnapshot, outcome: Option<Outcome>) {
+    let Player { steps, cursor, mismatches } = player;
+    if *cursor == 0 {
+        return;
+    }
+    let idx = *cursor - 1;
+    let expect = &steps[idx].expect;
+    if expect.is_empty() {
+        return;
+    }
+    let mut found = snapshot::diff(expect, snapshot, outcome);
+    for m in &mut found {
+        m.path = format!("step #{}: {}", idx + 1, m.path);
+    }
+    mismatches.append(&mut found);
 }
 
 fn site_str(site: PromptSite) -> &'static str {
@@ -211,7 +287,8 @@ impl StepExt for Step {
 //
 // We don't `#[derive(Deserialize)]` on [`Step`] directly — that type lives in
 // `recorder` and stays serializer-free on purpose (the recorder hand-writes
-// the lines). The shape here mirrors what the recorder emits.
+// the lines). The shape here mirrors what the recorder emits: the flat action
+// fields plus the nested `expect` table.
 
 #[derive(Debug, Deserialize)]
 struct RawRecording {
@@ -240,50 +317,44 @@ struct RawStep {
     target: Option<u8>,
     #[serde(default)]
     keep: Option<bool>,
+    #[serde(default)]
+    expect: Expect,
 }
 
 impl RawStep {
-    fn into_step(self) -> Result<Step, String> {
-        match self.kind.as_str() {
+    fn into_play_step(self) -> Result<PlayStep, String> {
+        let RawStep { kind, slot, id, target, keep, expect } = self;
+        let step = match kind.as_str() {
             "move" => {
-                let slot = self.slot.ok_or("`move` step needs `slot`")?;
-                Ok(Step::Move { slot })
+                let slot = slot.ok_or("`move` step needs `slot`")?;
+                Step::Move { slot }
             }
             "switch" => {
-                let slot = self.slot.ok_or("`switch` step needs `slot`")?;
-                Ok(Step::Switch { slot })
+                let slot = slot.ok_or("`switch` step needs `slot`")?;
+                Step::Switch { slot }
             }
             "item" => {
-                let id = self.id.ok_or("`item` step needs `id`")?;
-                Ok(Step::Item {
-                    id,
-                    target: self.target,
-                })
+                let id = id.ok_or("`item` step needs `id`")?;
+                Step::Item { id, target }
             }
-            "run" => Ok(Step::Run),
+            "run" => Step::Run,
             "forced_switch" => {
-                let slot = self.slot.ok_or("`forced_switch` step needs `slot`")?;
-                Ok(Step::ForcedSwitch { slot })
+                let slot = slot.ok_or("`forced_switch` step needs `slot`")?;
+                Step::ForcedSwitch { slot }
             }
             "offer_switch" => {
-                let keep = self.keep.unwrap_or(false);
+                let keep = keep.unwrap_or(false);
                 if keep {
-                    Ok(Step::OfferSwitch {
-                        keep: true,
-                        slot: None,
-                    })
+                    Step::OfferSwitch { keep: true, slot: None }
                 } else {
-                    let slot = self.slot.ok_or(
-                        "`offer_switch` step needs either `keep = true` or `slot = N`",
-                    )?;
-                    Ok(Step::OfferSwitch {
-                        keep: false,
-                        slot: Some(slot),
-                    })
+                    let slot = slot
+                        .ok_or("`offer_switch` step needs either `keep = true` or `slot = N`")?;
+                    Step::OfferSwitch { keep: false, slot: Some(slot) }
                 }
             }
-            other => Err(format!("unknown `kind = {other:?}`")),
-        }
+            other => return Err(format!("unknown `kind = {other:?}`")),
+        };
+        Ok(PlayStep { step, expect })
     }
 }
 
@@ -299,65 +370,75 @@ fn parse_seed(s: &str) -> Option<u64> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::bootstrap::snapshot::{ActiveSnapshot, PartySnapshot, SideSnapshot, Status};
 
-    /// Round-trip a recording from [`super::recorder`] through [`load`] to
-    /// make sure the parser accepts the exact text the recorder writes.
-    #[test]
-    fn load_matches_recorder_output() {
-        use super::super::recorder;
-
-        let dir = std::env::temp_dir();
-        let path = dir.join(format!(
-            "battle-playback-test-{}-{}.toml",
+    fn temp_path(tag: &str) -> PathBuf {
+        std::env::temp_dir().join(format!(
+            "battle-playback-{tag}-{}-{}.toml",
             std::process::id(),
             std::time::SystemTime::now()
                 .duration_since(std::time::UNIX_EPOCH)
                 .unwrap()
                 .as_nanos(),
-        ));
+        ))
+    }
 
+    /// Round-trip a recording from [`super::super::recorder`] through [`load`],
+    /// including the `expect` blocks the recorder now writes.
+    #[test]
+    fn load_matches_recorder_output() {
+        use super::super::recorder;
+
+        fn side(species: &str, hp: u16) -> SideSnapshot {
+            SideSnapshot {
+                active_slot: 0,
+                active: ActiveSnapshot {
+                    species: species.into(),
+                    level: 10,
+                    hp,
+                    max_hp: 40,
+                    status: Status::None,
+                    pp: [25, 0, 0, 0],
+                },
+                party: vec![PartySnapshot {
+                    species: species.into(),
+                    level: 10,
+                    hp,
+                    max_hp: 40,
+                    status: Status::None,
+                }],
+            }
+        }
+        let snap = |php, ehp| BattleSnapshot { player: side("QUILAVA", php), enemy: side("PIDGEY", ehp) };
+
+        let path = temp_path("rt");
         let mut cpu = Cpu::default();
         recorder::install(&mut cpu, &path, 0xc0ffee, Some(Path::new("scratch/cli.toml")))
             .expect("install recorder");
         recorder::record(&cpu, Step::Move { slot: 0 });
-        recorder::record(&cpu, Step::Switch { slot: 2 });
+        recorder::observe(&cpu, &snap(30, 22));
         recorder::record(&cpu, Step::Item { id: 0x12, target: Some(1) });
-        recorder::record(&cpu, Step::Item { id: 0x04, target: None });
-        recorder::record(&cpu, Step::Run);
-        recorder::record(&cpu, Step::ForcedSwitch { slot: 3 });
-        recorder::record(&cpu, Step::OfferSwitch { keep: true, slot: None });
-        recorder::record(&cpu, Step::OfferSwitch { keep: false, slot: Some(4) });
+        recorder::finalize(&cpu, &snap(30, 0), Outcome::Win);
         cpu.recorder = None;
 
         let recording = load(&path).expect("load recording");
         let _ = std::fs::remove_file(&path);
 
         assert_eq!(recording.seed, 0xc0ffee);
-        assert_eq!(
-            recording.source_scenario.as_deref(),
-            Some(Path::new("scratch/cli.toml")),
-        );
-        assert_eq!(recording.steps.len(), 8);
-        assert!(matches!(recording.steps[0], Step::Move { slot: 0 }));
-        assert!(matches!(recording.steps[1], Step::Switch { slot: 2 }));
-        assert!(matches!(
-            recording.steps[2],
-            Step::Item { id: 0x12, target: Some(1) }
-        ));
-        assert!(matches!(
-            recording.steps[3],
-            Step::Item { id: 0x04, target: None }
-        ));
-        assert!(matches!(recording.steps[4], Step::Run));
-        assert!(matches!(recording.steps[5], Step::ForcedSwitch { slot: 3 }));
-        assert!(matches!(
-            recording.steps[6],
-            Step::OfferSwitch { keep: true, slot: None }
-        ));
-        assert!(matches!(
-            recording.steps[7],
-            Step::OfferSwitch { keep: false, slot: Some(4) }
-        ));
+        assert_eq!(recording.source_scenario.as_deref(), Some(Path::new("scratch/cli.toml")));
+        assert_eq!(recording.steps.len(), 2);
+        assert!(matches!(recording.steps[0].step, Step::Move { slot: 0 }));
+        assert!(matches!(recording.steps[1].step, Step::Item { id: 0x12, target: Some(1) }));
+
+        // The first step's expect carries the observed enemy HP, no outcome.
+        let e0 = &recording.steps[0].expect;
+        assert_eq!(e0.enemy.as_ref().unwrap().active.as_ref().unwrap().hp, Some(22));
+        assert!(e0.battle.is_none());
+
+        // The last step carries the final state and the outcome.
+        let e1 = &recording.steps[1].expect;
+        assert_eq!(e1.enemy.as_ref().unwrap().active.as_ref().unwrap().hp, Some(0));
+        assert_eq!(e1.battle.as_ref().unwrap().outcome, Some(Outcome::Win));
     }
 
     #[test]
@@ -369,6 +450,24 @@ mod tests {
     }
 
     #[test]
+    fn steps_without_expect_parse_with_empty_expect() {
+        let text = r#"
+[recording]
+seed = "0x1"
+
+[[step]]
+kind = "move"
+slot = 2
+"#;
+        let path = temp_path("noexp");
+        std::fs::write(&path, text).unwrap();
+        let rec = load(&path).expect("load");
+        let _ = std::fs::remove_file(&path);
+        assert_eq!(rec.steps.len(), 1);
+        assert!(rec.steps[0].expect.is_empty());
+    }
+
+    #[test]
     fn unknown_kind_errors() {
         let text = r#"
 [recording]
@@ -377,14 +476,7 @@ seed = "0x1"
 [[step]]
 kind = "teleport"
 "#;
-        let path = std::env::temp_dir().join(format!(
-            "battle-playback-bad-{}-{}.toml",
-            std::process::id(),
-            std::time::SystemTime::now()
-                .duration_since(std::time::UNIX_EPOCH)
-                .unwrap()
-                .as_nanos(),
-        ));
+        let path = temp_path("bad");
         std::fs::write(&path, text).unwrap();
         let err = load(&path).unwrap_err();
         let _ = std::fs::remove_file(&path);
