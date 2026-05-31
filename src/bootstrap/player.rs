@@ -56,6 +56,11 @@ pub struct Recording {
     /// it appeared in the recording. Used by `--play` to load the same party
     /// and items if no scenario positional arg is supplied.
     pub source_scenario: Option<PathBuf>,
+    /// The matchup embedded in the recording (`[scenario.*]`), present for
+    /// generated (`--random`) runs. When set, `--play` reconstructs the battle
+    /// from this directly instead of loading `source_scenario` or re-running
+    /// the generator.
+    pub scenario: Option<super::BattleConfig>,
     /// The full `[[step]]` list in order.
     pub steps: Vec<PlayStep>,
 }
@@ -87,6 +92,7 @@ pub fn load(path: &Path) -> Result<Recording, String> {
     Ok(Recording {
         seed,
         source_scenario: raw.recording.source_scenario.map(PathBuf::from),
+        scenario: raw.scenario,
         steps,
     })
 }
@@ -293,6 +299,11 @@ impl StepExt for Step {
 #[derive(Debug, Deserialize)]
 struct RawRecording {
     recording: RawHeader,
+    /// The embedded matchup (`[scenario.*]`). Decodes straight into the same
+    /// [`BattleConfig`] the standalone scenario TOML uses. Absent for
+    /// recordings driven from a scenario file (those carry `source_scenario`).
+    #[serde(default)]
+    scenario: Option<super::BattleConfig>,
     #[serde(default)]
     step: Vec<RawStep>,
 }
@@ -413,7 +424,7 @@ mod tests {
 
         let path = temp_path("rt");
         let mut cpu = Cpu::default();
-        recorder::install(&mut cpu, &path, 0xc0ffee, Some(Path::new("scratch/cli.toml")))
+        recorder::install(&mut cpu, &path, 0xc0ffee, Some(Path::new("scratch/cli.toml")), None)
             .expect("install recorder");
         recorder::record(&cpu, Step::Move { slot: 0 });
         recorder::observe(&cpu, &snap(30, 22));
@@ -447,6 +458,79 @@ mod tests {
         assert_eq!(parse_seed("0X00000000000000FF"), Some(0xff));
         assert_eq!(parse_seed("42"), Some(42));
         assert_eq!(parse_seed("nonsense"), None);
+    }
+
+    /// An embedded `[scenario.*]` block written by the recorder must round-trip
+    /// back into `Recording.scenario` — this is what lets `--play` of a recorded
+    /// `--random` run reconstruct the matchup without re-running the generator.
+    #[test]
+    fn embedded_scenario_round_trips() {
+        use super::super::recorder;
+        use super::super::{BattleConfig, BattleHeader, BattleKind, ItemSpec, MonSpec};
+
+        fn side(species: &str) -> SideSnapshot {
+            SideSnapshot {
+                active_slot: 0,
+                active: ActiveSnapshot {
+                    species: species.into(),
+                    level: 20,
+                    hp: 0,
+                    max_hp: 60,
+                    status: Status::None,
+                    pp: [0, 0, 0, 0],
+                },
+                party: vec![PartySnapshot {
+                    species: species.into(),
+                    level: 20,
+                    hp: 0,
+                    max_hp: 60,
+                    status: Status::None,
+                }],
+            }
+        }
+
+        let config = BattleConfig {
+            battle: BattleHeader {
+                kind: BattleKind::TrainerBattle,
+                trainer: Some("Whitney".to_string()),
+                // Engine seed lives in the recording header, not here.
+                seed: None,
+            },
+            player_party: vec![
+                MonSpec { species: "QUILAVA".into(), level: 20 },
+                MonSpec { species: "GEODUDE".into(), level: 18 },
+            ],
+            enemy_party: vec![],
+            player_items: vec![ItemSpec { name: "Potion".into(), quantity: 3 }],
+            enemy_items: vec![],
+        };
+
+        let path = temp_path("scn");
+        let mut cpu = Cpu::default();
+        recorder::install(&mut cpu, &path, 0xc0ffee, None, Some(&config)).expect("install");
+        recorder::record(&cpu, Step::Move { slot: 0 });
+        recorder::finalize(
+            &cpu,
+            &BattleSnapshot { player: side("QUILAVA"), enemy: side("CLEFAIRY") },
+            Outcome::Win,
+        );
+        cpu.recorder = None;
+
+        let rec = load(&path).expect("load recording");
+        let _ = std::fs::remove_file(&path);
+
+        // The engine seed stays in the header; it is not duplicated in scenario.
+        assert_eq!(rec.seed, 0xc0ffee);
+        let scn = rec.scenario.expect("embedded scenario present");
+        assert!(scn.battle.seed.is_none());
+        assert!(matches!(scn.battle.kind, BattleKind::TrainerBattle));
+        assert_eq!(scn.battle.trainer.as_deref(), Some("Whitney"));
+        assert_eq!(scn.player_party.len(), 2);
+        assert_eq!(scn.player_party[0].species, "QUILAVA");
+        assert_eq!(scn.player_party[1].level, 18);
+        assert_eq!(scn.player_items.len(), 1);
+        assert_eq!(scn.player_items[0].name, "Potion");
+        assert_eq!(scn.player_items[0].quantity, 3);
     }
 
     #[test]

@@ -6,6 +6,11 @@
 //! seed (whether the scenario supplied one or it was drawn from system
 //! entropy), then hands a writer to the [`Cpu`] in `cpu.recorder`.
 //!
+//! For generated battles (`--random`) the header is followed by an embedded
+//! `[scenario.*]` block holding the resolved matchup, so the recording is
+//! self-contained and `--play` never has to re-run the generator — see
+//! [`write_scenario`] and [`super::player`].
+//!
 //! Each `[[step]]` table is written in two halves:
 //!
 //! 1. [`record`] appends the action (`kind` + its fields) the instant the CLI
@@ -36,6 +41,7 @@ use std::io::{BufWriter, Write};
 use std::path::Path;
 
 use super::snapshot::{BattleSnapshot, Outcome, SideSnapshot};
+use super::{BattleConfig, ItemSpec, MonSpec};
 use crate::runtime::Cpu;
 
 /// One captured CLI decision. Each variant maps 1:1 to one of the four prompt
@@ -74,17 +80,28 @@ pub struct Recorder {
 /// `[recording]` header, and install the resulting writer on `cpu.recorder`.
 /// The seed is always written even when the source scenario omitted one —
 /// it's the resolved value used to seed the RNG so a replay is bit-identical.
+///
+/// When `scenario` is `Some`, the *resolved* matchup is embedded as a
+/// `[scenario.*]` block right after the header. This makes recordings of
+/// generated battles (`--random`) self-contained: `--play` reconstructs the
+/// matchup from this block instead of re-running the generator, so the
+/// generator can change without ever invalidating the recording.
 pub fn install(
     cpu: &mut Cpu,
     path: &Path,
     seed: u64,
     source_scenario: Option<&Path>,
+    scenario: Option<&BattleConfig>,
 ) -> Result<(), String> {
     let file = File::create(path)
         .map_err(|e| format!("could not open recording file {}: {}", path.display(), e))?;
     let mut writer = BufWriter::new(file);
     write_header(&mut writer, seed, source_scenario)
         .map_err(|e| format!("could not write recording header: {e}"))?;
+    if let Some(config) = scenario {
+        write_scenario(&mut writer, config)
+            .map_err(|e| format!("could not write embedded scenario: {e}"))?;
+    }
     writer
         .flush()
         .map_err(|e| format!("could not flush recording header: {e}"))?;
@@ -105,6 +122,48 @@ fn write_header(
         writeln!(writer, "source_scenario = {}", toml_string(&p.to_string_lossy()))?;
     }
     writeln!(writer, "seed = \"0x{seed:016x}\"")?;
+    Ok(())
+}
+
+/// Embed the resolved matchup as a `[scenario.*]` block. The shape mirrors the
+/// standalone scenario TOML (`[battle]`, `[[player_party]]`, …) one level down
+/// under `scenario`, so [`super::player`] decodes it straight into a
+/// [`BattleConfig`]. The engine seed already lives in the `[recording]` header,
+/// so `seed` is intentionally omitted here — there is one source of truth.
+///
+/// Written once at install time, before any `[[step]]`, so the file stays valid
+/// TOML at every flush point.
+fn write_scenario(writer: &mut BufWriter<File>, config: &BattleConfig) -> std::io::Result<()> {
+    writeln!(writer)?;
+    writeln!(writer, "[scenario.battle]")?;
+    writeln!(writer, "type = {}", toml_string(config.battle.kind.as_str()))?;
+    if let Some(trainer) = &config.battle.trainer {
+        writeln!(writer, "trainer = {}", toml_string(trainer))?;
+    }
+    write_party(writer, "scenario.player_party", &config.player_party)?;
+    write_party(writer, "scenario.enemy_party", &config.enemy_party)?;
+    write_items(writer, "scenario.player_items", &config.player_items)?;
+    write_items(writer, "scenario.enemy_items", &config.enemy_items)?;
+    Ok(())
+}
+
+fn write_party(writer: &mut BufWriter<File>, table: &str, party: &[MonSpec]) -> std::io::Result<()> {
+    for mon in party {
+        writeln!(writer)?;
+        writeln!(writer, "[[{table}]]")?;
+        writeln!(writer, "species = {}", toml_string(&mon.species))?;
+        writeln!(writer, "level = {}", mon.level)?;
+    }
+    Ok(())
+}
+
+fn write_items(writer: &mut BufWriter<File>, table: &str, items: &[ItemSpec]) -> std::io::Result<()> {
+    for item in items {
+        writeln!(writer)?;
+        writeln!(writer, "[[{table}]]")?;
+        writeln!(writer, "name = {}", toml_string(&item.name))?;
+        writeln!(writer, "quantity = {}", item.quantity)?;
+    }
     Ok(())
 }
 
@@ -317,7 +376,7 @@ mod tests {
     fn steps_and_expects_round_trip_through_toml_parser() {
         let path = temp_path("rt");
         let mut cpu = Cpu::default();
-        install(&mut cpu, &path, 0xc0ffee, Some(&PathBuf::from("scratch/cli.toml")))
+        install(&mut cpu, &path, 0xc0ffee, Some(&PathBuf::from("scratch/cli.toml")), None)
             .expect("install");
 
         // Decision 1: a move. Its outcome is observed at decision 2.
@@ -373,7 +432,7 @@ mod tests {
     fn open_step_without_expect_is_still_valid_toml() {
         let path = temp_path("open");
         let mut cpu = Cpu::default();
-        install(&mut cpu, &path, 1, None).expect("install");
+        install(&mut cpu, &path, 1, None, None).expect("install");
         record(&cpu, Step::Run);
         cpu.recorder = None;
 

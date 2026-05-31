@@ -23,7 +23,7 @@ use serde::Deserialize;
 use crate::defs;
 use crate::runtime::Cpu;
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Clone, Deserialize)]
 pub struct BattleConfig {
     pub battle: BattleHeader,
     #[serde(default)]
@@ -36,7 +36,7 @@ pub struct BattleConfig {
     pub enemy_items: Vec<ItemSpec>,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Clone, Deserialize)]
 pub struct BattleHeader {
     #[serde(rename = "type")]
     pub kind: BattleKind,
@@ -55,13 +55,25 @@ pub enum BattleKind {
     TrainerBattle,
 }
 
-#[derive(Debug, Deserialize)]
+impl BattleKind {
+    /// The `[battle] type` string this kind deserializes from — the inverse of
+    /// the `snake_case` serde rename. Used by [`recorder`] to write an embedded
+    /// scenario block that [`load_battle`] / [`player`] can read straight back.
+    pub fn as_str(self) -> &'static str {
+        match self {
+            BattleKind::WildEncounter => "wild_encounter",
+            BattleKind::TrainerBattle => "trainer_battle",
+        }
+    }
+}
+
+#[derive(Debug, Clone, Deserialize)]
 pub struct MonSpec {
     pub species: String,
     pub level: u8,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Clone, Deserialize)]
 pub struct ItemSpec {
     pub name: String,
     pub quantity: u8,
@@ -352,6 +364,11 @@ pub struct RunOptions<'a> {
     /// If `Some`, written into the recording header as `source_scenario`
     /// so the recorded file documents what it was driven from.
     pub source_scenario: Option<&'a std::path::Path>,
+    /// If `true`, the resolved matchup is embedded in the recording as a
+    /// `[scenario.*]` block (see [`recorder::install`]). Set for generated
+    /// (`--random`) runs so the recording is self-contained and `--play`
+    /// reconstructs the matchup without re-running the generator.
+    pub embed_scenario: bool,
     /// If `Some`, the seed is forced to this value (the recording's
     /// resolved seed) instead of whatever the scenario carries. Set by
     /// `--play` so playback is bit-identical to the original run.
@@ -380,7 +397,8 @@ pub fn run_with(
     // Install the recorder *after* the seed is resolved so the resolved
     // value lands in the header even when the scenario omitted `seed = ...`.
     if let Some(path) = options.record_path {
-        recorder::install(cpu, path, seed, options.source_scenario)?;
+        let embedded = options.embed_scenario.then_some(config);
+        recorder::install(cpu, path, seed, options.source_scenario, embedded)?;
         eprintln!("battle: recording to {}", path.display());
     }
 

@@ -10,11 +10,6 @@ struct RenderOptions {
     linear_interpolation: bool,
 }
 
-/// Marker the recorder writes into `source_scenario` for `--random` runs.
-/// On playback we look for this exact value and regenerate the scenario
-/// from the recording's seed instead of loading a TOML.
-const RANDOM_SCENARIO_MARKER: &str = "random";
-
 fn main() {
     let args: Vec<String> = std::env::args().collect();
     let cli_args = match parse_cli_args(&args[1..]) {
@@ -29,10 +24,11 @@ fn main() {
         }
     };
 
-    // `--play` recovers the scenario path from the recording header when the
-    // user didn't pass one positionally. The recording's resolved seed always
-    // wins over any `seed = ...` on the scenario. A `source_scenario =
-    // "random"` recording is regenerated from the recording's seed below.
+    // `--play` recovers the matchup from the recording: a generated (`--random`)
+    // run carries an embedded `[scenario.*]` block we replay directly, while a
+    // scenario-file run carries a `source_scenario` path we reload (or the
+    // positional override). The recording's resolved seed always wins over any
+    // `seed = ...` on the scenario.
     let playback_recording = cli_args.play.as_deref().map(|p| match bootstrap::player::load(p) {
         Ok(rec) => rec,
         Err(e) => {
@@ -41,42 +37,40 @@ fn main() {
         }
     });
 
-    let playback_is_random = playback_recording
-        .as_ref()
-        .and_then(|rec| rec.source_scenario.as_ref())
-        .map(|p| p.to_string_lossy() == RANDOM_SCENARIO_MARKER)
-        .unwrap_or(false);
-
-    let scenario_path: Option<String> = if cli_args.random || playback_is_random {
-        None
+    // Resolve the battle config and, for recordings, the bookkeeping the header
+    // needs: `embed_scenario` (write the resolved matchup into the recording)
+    // and `source_scenario` (the file path it was driven from, for documentation
+    // only). Generated battles embed; file-driven battles record the path.
+    let mut embed_scenario = false;
+    let mut source_scenario: Option<String> = None;
+    let battle_config: Option<BattleConfig> = if cli_args.random {
+        // Live `--random` run: pick a base seed (CLI > entropy) and generate the
+        // matchup. The base seed splits into independent generation and engine
+        // seeds inside `random_battle_config` — the engine seed lands in
+        // `BattleHeader.seed`. Recording embeds the resolved matchup so playback
+        // never re-runs the generator.
+        let base_seed = cli_args.seed.unwrap_or_else(random_entropy_seed);
+        embed_scenario = true;
+        Some(bootstrap::random::random_battle_config(base_seed))
+    } else if let Some(scenario) = playback_recording.as_ref().and_then(|r| r.scenario.as_ref()) {
+        // Self-contained recording (e.g. a recorded `--random` run): replay the
+        // embedded matchup verbatim. `seed_override` below pins the engine seed.
+        Some(scenario.clone())
     } else {
-        cli_args.scenario.clone().or_else(|| {
+        // A scenario-file run, replayed or live. Resolve the path from the
+        // positional arg, else the recording's `source_scenario`.
+        let path = cli_args.scenario.clone().or_else(|| {
             playback_recording
                 .as_ref()
                 .and_then(|rec| rec.source_scenario.as_ref())
                 .map(|p| p.to_string_lossy().into_owned())
-        })
-    };
-
-    let battle_config = if cli_args.random {
-        // Live `--random` run: resolve the seed up front (CLI > entropy) and
-        // build the scenario from it. The seed lives in `BattleHeader.seed`
-        // so the engine RNG keys off the same value as the matchup RNG.
-        let seed = cli_args.seed.unwrap_or_else(random_entropy_seed);
-        Some(bootstrap::random::random_battle_config(seed))
-    } else if playback_is_random {
-        // Replay of a `--random` run: regenerate from the recording's seed.
-        // `seed_override` below still forces the engine RNG to the recorded
-        // value, which is identical, so the run is bit-identical.
-        let seed = playback_recording
-            .as_ref()
-            .map(|r| r.seed)
-            .expect("playback_is_random implies a recording");
-        Some(bootstrap::random::random_battle_config(seed))
-    } else {
-        match scenario_path.as_deref() {
-            Some(path) => match bootstrap::load_battle(std::path::Path::new(path)) {
-                Ok(cfg) => Some(cfg),
+        });
+        match path {
+            Some(path) => match bootstrap::load_battle(std::path::Path::new(&path)) {
+                Ok(cfg) => {
+                    source_scenario = Some(path);
+                    Some(cfg)
+                }
                 Err(e) => {
                     eprintln!("error: {e}");
                     std::process::exit(1);
@@ -85,7 +79,7 @@ fn main() {
             None => {
                 if playback_recording.is_some() {
                     eprintln!(
-                        "error: --play recording has no `source_scenario` field — pass a scenario.toml positionally"
+                        "error: --play recording has neither an embedded scenario nor a `source_scenario` — pass a scenario.toml positionally"
                     );
                     std::process::exit(1);
                 }
@@ -94,11 +88,6 @@ fn main() {
         }
     };
     let record_path = cli_args.record;
-    let source_scenario = if cli_args.random {
-        Some(RANDOM_SCENARIO_MARKER.to_string())
-    } else {
-        scenario_path
-    };
     let playback_recording = playback_recording;
 
     let scale = 4;
@@ -129,6 +118,7 @@ fn main() {
             battle_config,
             record_path,
             source_scenario,
+            embed_scenario,
             playback_recording,
         )
     });
@@ -225,6 +215,7 @@ fn run_game(
     battle_config: Option<BattleConfig>,
     record_path: Option<std::path::PathBuf>,
     source_scenario: Option<String>,
+    embed_scenario: bool,
     playback: Option<rgb2rust_output::bootstrap::player::Recording>,
 ) {
     let mut cpu = rgb2rust_output::runtime::Cpu::new_cgb(Some(update_screen), Some(keypad_events));
@@ -240,6 +231,7 @@ fn run_game(
             let options = RunOptions {
                 record_path: record_path.as_deref(),
                 source_scenario: source_scenario_path,
+                embed_scenario,
                 seed_override,
                 playback: playback_steps,
             };
@@ -260,11 +252,12 @@ fn run_game(
 /// Argv parser for `[<scenario.toml> | --random] [--seed <n>] [--record <out.toml>] [--play <rec.toml>]`.
 /// The first non-flag positional is the scenario path. Flag order is
 /// irrelevant. `--play` may be passed with or without a positional scenario —
-/// when absent, the recording's `source_scenario` header is used instead.
+/// when absent, the matchup is taken from the recording's embedded
+/// `[scenario.*]` block, falling back to its `source_scenario` header path.
 /// `--random` is mutually exclusive with a positional scenario.toml and with
 /// `--play` (a recorded random run is replayed by passing the recording to
-/// `--play`; the playback path detects the `source_scenario = "random"`
-/// marker and regenerates from the recorded seed).
+/// `--play` alone; the recording carries the resolved matchup, so no
+/// regeneration is needed).
 struct CliArgs {
     scenario: Option<String>,
     record: Option<std::path::PathBuf>,
