@@ -1,444 +1,600 @@
 [recording]
-source_scenario = "random"
-seed = "0x76d2c9c584be4281"
+seed = "0xa4a9b85e5fdccc2c"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Misty"
+
+[[scenario.player_party]]
+species = "PINSIR"
+level = 49
+
+[[scenario.player_party]]
+species = "KANGASKHAN"
+level = 45
+
+[[scenario.player_party]]
+species = "TANGELA"
+level = 44
+
+[[scenario.player_party]]
+species = "CATERPIE"
+level = 44
+
+[[scenario.player_party]]
+species = "SCYTHER"
+level = 44
+
+[[scenario.player_items]]
+name = "Full Restore"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Soda Pop"
+quantity = 2
 
 [[step]]
 kind = "move"
 slot = 1
 expect.player.active_slot = 0
-expect.player.active.species = "ALAKAZAM"
-expect.player.active.level = 21
-expect.player.active.hp = 57
-expect.player.active.max_hp = 57
+expect.player.active.species = "PINSIR"
+expect.player.active.level = 49
+expect.player.active.hp = 129
+expect.player.active.max_hp = 129
 expect.player.active.status = "none"
-expect.player.active.pp = [15, 24, 20, 20]
-expect.player.party = [{ species = "ALAKAZAM", level = 21, hp = 57, max_hp = 57, status = "none" }, { species = "UMBREON", level = 21, hp = 73, max_hp = 73, status = "none" }, { species = "JIGGLYPUFF", level = 26, hp = 96, max_hp = 96, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 55
-expect.enemy.active.max_hp = 64
+expect.player.active.pp = [30, 4, 25, 30]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 129, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 155, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 93, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "QUAGSIRE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 138
+expect.enemy.active.max_hp = 138
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [15, 19, 20, 25]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+expect.enemy.active.pp = [15, 20, 10, 5]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 138, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 175, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "PINSIR"
+expect.player.active.level = 49
+expect.player.active.hp = 129
+expect.player.active.max_hp = 129
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 4, 25, 30]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 129, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 155, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 93, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "QUAGSIRE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 138
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 20, 10, 5]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 138, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 175, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
 
 [[step]]
 kind = "move"
-slot = 3
+slot = 1
 expect.player.active_slot = 0
-expect.player.active.species = "ALAKAZAM"
-expect.player.active.level = 21
-expect.player.active.hp = 57
-expect.player.active.max_hp = 57
+expect.player.active.species = "PINSIR"
+expect.player.active.level = 49
+expect.player.active.hp = 129
+expect.player.active.max_hp = 129
 expect.player.active.status = "none"
-expect.player.active.pp = [15, 24, 20, 19]
-expect.player.party = [{ species = "ALAKAZAM", level = 21, hp = 57, max_hp = 57, status = "none" }, { species = "UMBREON", level = 21, hp = 73, max_hp = 73, status = "none" }, { species = "JIGGLYPUFF", level = 26, hp = 96, max_hp = 96, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 43
-expect.enemy.active.max_hp = 64
+expect.player.active.pp = [30, 3, 25, 30]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 129, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 155, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 93, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "QUAGSIRE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 138
+expect.enemy.active.max_hp = 138
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [15, 18, 20, 25]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+expect.enemy.active.pp = [15, 19, 10, 5]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 138, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 175, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "PINSIR"
+expect.player.active.level = 49
+expect.player.active.hp = 129
+expect.player.active.max_hp = 129
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 2, 25, 30]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 129, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 155, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 93, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "QUAGSIRE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 138
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 19, 10, 4]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 138, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 175, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "PINSIR"
+expect.player.active.level = 49
+expect.player.active.hp = 61
+expect.player.active.max_hp = 129
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 1, 25, 30]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 61, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 155, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 93, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "QUAGSIRE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 138
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 19, 10, 4]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 138, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 175, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "PINSIR"
+expect.player.active.level = 49
+expect.player.active.hp = 0
+expect.player.active.max_hp = 129
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 0, 25, 30]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 0, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 155, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 93, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "QUAGSIRE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 138
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 19, 10, 4]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 138, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 175, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "KANGASKHAN"
+expect.player.active.level = 45
+expect.player.active.hp = 155
+expect.player.active.max_hp = 155
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 10, 10]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 0, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 155, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 93, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "QUAGSIRE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 138
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 19, 10, 4]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 138, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 175, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
 
 [[step]]
 kind = "move"
 slot = 0
-expect.player.active_slot = 0
-expect.player.active.species = "ALAKAZAM"
-expect.player.active.level = 21
-expect.player.active.hp = 57
-expect.player.active.max_hp = 57
+expect.player.active_slot = 1
+expect.player.active.species = "KANGASKHAN"
+expect.player.active.level = 45
+expect.player.active.hp = 94
+expect.player.active.max_hp = 155
 expect.player.active.status = "none"
-expect.player.active.pp = [14, 24, 20, 19]
-expect.player.party = [{ species = "ALAKAZAM", level = 21, hp = 57, max_hp = 57, status = "none" }, { species = "UMBREON", level = 21, hp = 73, max_hp = 73, status = "none" }, { species = "JIGGLYPUFF", level = 26, hp = 96, max_hp = 96, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 43
-expect.enemy.active.max_hp = 64
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [15, 17, 20, 25]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 3
-expect.player.active_slot = 0
-expect.player.active.species = "ALAKAZAM"
-expect.player.active.level = 21
-expect.player.active.hp = 57
-expect.player.active.max_hp = 57
-expect.player.active.status = "sleep"
-expect.player.active.pp = [14, 24, 20, 18]
-expect.player.party = [{ species = "ALAKAZAM", level = 21, hp = 57, max_hp = 57, status = "sleep" }, { species = "UMBREON", level = 21, hp = 73, max_hp = 73, status = "none" }, { species = "JIGGLYPUFF", level = 26, hp = 96, max_hp = 96, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 31
-expect.enemy.active.max_hp = 64
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [15, 16, 20, 25]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 3
-expect.player.active_slot = 0
-expect.player.active.species = "ALAKAZAM"
-expect.player.active.level = 21
-expect.player.active.hp = 57
-expect.player.active.max_hp = 57
-expect.player.active.status = "sleep"
-expect.player.active.pp = [14, 24, 20, 18]
-expect.player.party = [{ species = "ALAKAZAM", level = 21, hp = 57, max_hp = 57, status = "sleep" }, { species = "UMBREON", level = 21, hp = 73, max_hp = 73, status = "none" }, { species = "JIGGLYPUFF", level = 26, hp = 96, max_hp = 96, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 31
-expect.enemy.active.max_hp = 64
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [14, 16, 20, 25]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 3
-expect.player.active_slot = 0
-expect.player.active.species = "ALAKAZAM"
-expect.player.active.level = 21
-expect.player.active.hp = 57
-expect.player.active.max_hp = 57
-expect.player.active.status = "none"
-expect.player.active.pp = [14, 24, 20, 17]
-expect.player.party = [{ species = "ALAKAZAM", level = 21, hp = 57, max_hp = 57, status = "none" }, { species = "UMBREON", level = 21, hp = 73, max_hp = 73, status = "none" }, { species = "JIGGLYPUFF", level = 26, hp = 96, max_hp = 96, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 20
-expect.enemy.active.max_hp = 64
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [13, 16, 20, 25]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 3
-expect.player.active_slot = 0
-expect.player.active.species = "ALAKAZAM"
-expect.player.active.level = 21
-expect.player.active.hp = 57
-expect.player.active.max_hp = 57
-expect.player.active.status = "none"
-expect.player.active.pp = [14, 24, 20, 16]
-expect.player.party = [{ species = "ALAKAZAM", level = 21, hp = 57, max_hp = 57, status = "none" }, { species = "UMBREON", level = 21, hp = 73, max_hp = 73, status = "none" }, { species = "JIGGLYPUFF", level = 26, hp = 96, max_hp = 96, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 8
-expect.enemy.active.max_hp = 64
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [13, 15, 20, 25]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 3
-expect.player.active_slot = 0
-expect.player.active.species = "ALAKAZAM"
-expect.player.active.level = 21
-expect.player.active.hp = 57
-expect.player.active.max_hp = 57
-expect.player.active.status = "none"
-expect.player.active.pp = [14, 24, 20, 15]
-expect.player.party = [{ species = "ALAKAZAM", level = 21, hp = 57, max_hp = 57, status = "none" }, { species = "UMBREON", level = 21, hp = 73, max_hp = 73, status = "none" }, { species = "JIGGLYPUFF", level = 26, hp = 96, max_hp = 96, status = "none" }]
+expect.player.active.pp = [19, 20, 10, 10]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 0, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 94, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 93, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
 expect.enemy.active_slot = 1
-expect.enemy.active.species = "HAUNTER"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 57
-expect.enemy.active.max_hp = 57
+expect.enemy.active.species = "QUAGSIRE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 27
+expect.enemy.active.max_hp = 138
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [30, 20, 5, 10]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+expect.enemy.active.pp = [12, 19, 10, 4]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 138, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 175, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "KANGASKHAN"
+expect.player.active.level = 45
+expect.player.active.hp = 36
+expect.player.active.max_hp = 155
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 20, 10, 10]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 0, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 36, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 93, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "QUAGSIRE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 27
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [11, 19, 10, 4]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 138, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 175, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 14
+target = 1
+expect.player.active_slot = 1
+expect.player.active.species = "KANGASKHAN"
+expect.player.active.level = 45
+expect.player.active.hp = 48
+expect.player.active.max_hp = 155
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 20, 10, 10]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 0, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 48, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 93, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "QUAGSIRE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 27
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [11, 19, 9, 4]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 138, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 175, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 14
+target = 1
+expect.player.active_slot = 1
+expect.player.active.species = "KANGASKHAN"
+expect.player.active.level = 45
+expect.player.active.hp = 104
+expect.player.active.max_hp = 155
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 20, 10, 10]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 0, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 104, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 93, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "QUAGSIRE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 27
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [11, 19, 8, 4]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 138, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 175, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "KANGASKHAN"
+expect.player.active.level = 45
+expect.player.active.hp = 104
+expect.player.active.max_hp = 155
+expect.player.active.status = "none"
+expect.player.active.pp = [17, 20, 10, 10]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 0, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 104, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 93, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "LAPRAS"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 175
+expect.enemy.active.max_hp = 175
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 5, 5, 5]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 0, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 175, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
 
 [[step]]
 kind = "offer_switch"
 keep = true
-expect.player.active_slot = 0
-expect.player.active.species = "ALAKAZAM"
-expect.player.active.level = 21
-expect.player.active.hp = 57
-expect.player.active.max_hp = 57
+expect.player.active_slot = 1
+expect.player.active.species = "KANGASKHAN"
+expect.player.active.level = 45
+expect.player.active.hp = 104
+expect.player.active.max_hp = 155
 expect.player.active.status = "none"
-expect.player.active.pp = [14, 24, 20, 15]
-expect.player.party = [{ species = "ALAKAZAM", level = 21, hp = 57, max_hp = 57, status = "none" }, { species = "UMBREON", level = 21, hp = 73, max_hp = 73, status = "none" }, { species = "JIGGLYPUFF", level = 26, hp = 96, max_hp = 96, status = "none" }]
-expect.enemy.active_slot = 1
-expect.enemy.active.species = "HAUNTER"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 57
-expect.enemy.active.max_hp = 57
+expect.player.active.pp = [17, 20, 10, 10]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 0, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 104, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 93, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "LAPRAS"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 175
+expect.enemy.active.max_hp = 175
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [30, 20, 5, 10]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+expect.enemy.active.pp = [15, 5, 5, 5]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 0, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 175, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
 
 [[step]]
 kind = "move"
-slot = 3
-expect.player.active_slot = 0
-expect.player.active.species = "ALAKAZAM"
-expect.player.active.level = 22
-expect.player.active.hp = 60
-expect.player.active.max_hp = 60
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "KANGASKHAN"
+expect.player.active.level = 45
+expect.player.active.hp = 43
+expect.player.active.max_hp = 155
 expect.player.active.status = "none"
-expect.player.active.pp = [14, 24, 20, 14]
-expect.player.party = [{ species = "ALAKAZAM", level = 22, hp = 60, max_hp = 60, status = "none" }, { species = "UMBREON", level = 21, hp = 73, max_hp = 73, status = "none" }, { species = "JIGGLYPUFF", level = 26, hp = 96, max_hp = 96, status = "none" }]
+expect.player.active.pp = [16, 20, 10, 10]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 0, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 43, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 93, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
 expect.enemy.active_slot = 2
-expect.enemy.active.species = "ELECTRODE"
-expect.enemy.active.level = 25
-expect.enemy.active.hp = 69
-expect.enemy.active.max_hp = 69
+expect.enemy.active.species = "LAPRAS"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 116
+expect.enemy.active.max_hp = 175
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [40, 20, 10, 20]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 0, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+expect.enemy.active.pp = [15, 5, 4, 5]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 0, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 175, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 14
+target = 1
+expect.player.active_slot = 1
+expect.player.active.species = "KANGASKHAN"
+expect.player.active.level = 45
+expect.player.active.hp = 85
+expect.player.active.max_hp = 155
+expect.player.active.status = "none"
+expect.player.active.pp = [16, 20, 10, 10]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 0, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 85, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 93, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "LAPRAS"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 116
+expect.enemy.active.max_hp = 175
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 5, 3, 5]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 0, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 175, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "KANGASKHAN"
+expect.player.active.level = 45
+expect.player.active.hp = 85
+expect.player.active.max_hp = 155
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 20, 10, 10]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 0, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 85, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 93, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "LAPRAS"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 58
+expect.enemy.active.max_hp = 175
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 4, 3, 5]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 0, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 175, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "KANGASKHAN"
+expect.player.active.level = 45
+expect.player.active.hp = 85
+expect.player.active.max_hp = 155
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 20, 10, 10]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 0, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 85, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 93, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "STARMIE"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 120
+expect.enemy.active.max_hp = 120
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 10, 20, 10]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 0, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 0, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
 
 [[step]]
 kind = "offer_switch"
 keep = true
-expect.player.active_slot = 0
-expect.player.active.species = "ALAKAZAM"
-expect.player.active.level = 22
-expect.player.active.hp = 60
-expect.player.active.max_hp = 60
+expect.player.active_slot = 1
+expect.player.active.species = "KANGASKHAN"
+expect.player.active.level = 45
+expect.player.active.hp = 85
+expect.player.active.max_hp = 155
 expect.player.active.status = "none"
-expect.player.active.pp = [14, 24, 20, 14]
-expect.player.party = [{ species = "ALAKAZAM", level = 22, hp = 60, max_hp = 60, status = "none" }, { species = "UMBREON", level = 21, hp = 73, max_hp = 73, status = "none" }, { species = "JIGGLYPUFF", level = 26, hp = 96, max_hp = 96, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "ELECTRODE"
-expect.enemy.active.level = 25
-expect.enemy.active.hp = 69
-expect.enemy.active.max_hp = 69
+expect.player.active.pp = [14, 20, 10, 10]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 0, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 85, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 93, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "STARMIE"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 120
+expect.enemy.active.max_hp = 120
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [40, 20, 10, 20]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 0, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+expect.enemy.active.pp = [15, 10, 20, 10]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 0, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 0, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
 
 [[step]]
 kind = "move"
-slot = 3
-expect.player.active_slot = 0
-expect.player.active.species = "ALAKAZAM"
-expect.player.active.level = 22
-expect.player.active.hp = 11
-expect.player.active.max_hp = 60
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "KANGASKHAN"
+expect.player.active.level = 45
+expect.player.active.hp = 85
+expect.player.active.max_hp = 155
 expect.player.active.status = "none"
-expect.player.active.pp = [14, 24, 20, 13]
-expect.player.party = [{ species = "ALAKAZAM", level = 22, hp = 11, max_hp = 60, status = "none" }, { species = "UMBREON", level = 21, hp = 73, max_hp = 73, status = "none" }, { species = "JIGGLYPUFF", level = 26, hp = 96, max_hp = 96, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "ELECTRODE"
-expect.enemy.active.level = 25
-expect.enemy.active.hp = 43
-expect.enemy.active.max_hp = 69
+expect.player.active.pp = [13, 20, 10, 10]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 0, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 85, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 93, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "STARMIE"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 72
+expect.enemy.active.max_hp = 120
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [40, 20, 9, 20]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 0, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+expect.enemy.active.pp = [15, 9, 20, 10]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 0, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 0, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
 
 [[step]]
 kind = "move"
-slot = 3
-expect.player.active_slot = 0
-expect.player.active.species = "ALAKAZAM"
-expect.player.active.level = 22
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "KANGASKHAN"
+expect.player.active.level = 45
 expect.player.active.hp = 0
-expect.player.active.max_hp = 60
+expect.player.active.max_hp = 155
 expect.player.active.status = "none"
-expect.player.active.pp = [14, 24, 20, 13]
-expect.player.party = [{ species = "ALAKAZAM", level = 22, hp = 0, max_hp = 60, status = "none" }, { species = "UMBREON", level = 21, hp = 73, max_hp = 73, status = "none" }, { species = "JIGGLYPUFF", level = 26, hp = 96, max_hp = 96, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "ELECTRODE"
-expect.enemy.active.level = 25
-expect.enemy.active.hp = 43
-expect.enemy.active.max_hp = 69
+expect.player.active.pp = [12, 20, 10, 10]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 0, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 0, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 93, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "STARMIE"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 72
+expect.enemy.active.max_hp = 120
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [40, 20, 8, 20]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 0, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "forced_switch"
-slot = 1
-expect.player.active_slot = 1
-expect.player.active.species = "UMBREON"
-expect.player.active.level = 21
-expect.player.active.hp = 73
-expect.player.active.max_hp = 73
-expect.player.active.status = "none"
-expect.player.active.pp = [35, 30, 15, 20]
-expect.player.party = [{ species = "ALAKAZAM", level = 22, hp = 0, max_hp = 60, status = "none" }, { species = "UMBREON", level = 21, hp = 73, max_hp = 73, status = "none" }, { species = "JIGGLYPUFF", level = 26, hp = 96, max_hp = 96, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "ELECTRODE"
-expect.enemy.active.level = 25
-expect.enemy.active.hp = 43
-expect.enemy.active.max_hp = 69
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [40, 20, 8, 20]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 0, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 3
-expect.player.active_slot = 1
-expect.player.active.species = "UMBREON"
-expect.player.active.level = 21
-expect.player.active.hp = 73
-expect.player.active.max_hp = 73
-expect.player.active.status = "none"
-expect.player.active.pp = [35, 30, 15, 19]
-expect.player.party = [{ species = "ALAKAZAM", level = 22, hp = 0, max_hp = 60, status = "none" }, { species = "UMBREON", level = 21, hp = 73, max_hp = 73, status = "none" }, { species = "JIGGLYPUFF", level = 26, hp = 96, max_hp = 96, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "ELECTRODE"
-expect.enemy.active.level = 25
-expect.enemy.active.hp = 34
-expect.enemy.active.max_hp = 69
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [40, 20, 7, 20]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 0, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 2
-expect.player.active_slot = 1
-expect.player.active.species = "UMBREON"
-expect.player.active.level = 21
-expect.player.active.hp = 73
-expect.player.active.max_hp = 73
-expect.player.active.status = "none"
-expect.player.active.pp = [35, 30, 14, 19]
-expect.player.party = [{ species = "ALAKAZAM", level = 22, hp = 0, max_hp = 60, status = "none" }, { species = "UMBREON", level = 21, hp = 73, max_hp = 73, status = "none" }, { species = "JIGGLYPUFF", level = 26, hp = 96, max_hp = 96, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "ELECTRODE"
-expect.enemy.active.level = 25
-expect.enemy.active.hp = 34
-expect.enemy.active.max_hp = 69
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [40, 20, 6, 20]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 0, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 3
-expect.player.active_slot = 1
-expect.player.active.species = "UMBREON"
-expect.player.active.level = 21
-expect.player.active.hp = 43
-expect.player.active.max_hp = 73
-expect.player.active.status = "none"
-expect.player.active.pp = [35, 30, 14, 18]
-expect.player.party = [{ species = "ALAKAZAM", level = 22, hp = 0, max_hp = 60, status = "none" }, { species = "UMBREON", level = 21, hp = 43, max_hp = 73, status = "none" }, { species = "JIGGLYPUFF", level = 26, hp = 96, max_hp = 96, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "ELECTRODE"
-expect.enemy.active.level = 25
-expect.enemy.active.hp = 26
-expect.enemy.active.max_hp = 69
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [40, 20, 5, 20]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 0, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 3
-expect.player.active_slot = 1
-expect.player.active.species = "UMBREON"
-expect.player.active.level = 21
-expect.player.active.hp = 43
-expect.player.active.max_hp = 73
-expect.player.active.status = "none"
-expect.player.active.pp = [35, 30, 14, 17]
-expect.player.party = [{ species = "ALAKAZAM", level = 22, hp = 0, max_hp = 60, status = "none" }, { species = "UMBREON", level = 21, hp = 43, max_hp = 73, status = "none" }, { species = "JIGGLYPUFF", level = 26, hp = 96, max_hp = 96, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "ELECTRODE"
-expect.enemy.active.level = 25
-expect.enemy.active.hp = 17
-expect.enemy.active.max_hp = 69
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [40, 20, 4, 20]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 0, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 3
-expect.player.active_slot = 1
-expect.player.active.species = "UMBREON"
-expect.player.active.level = 21
-expect.player.active.hp = 43
-expect.player.active.max_hp = 73
-expect.player.active.status = "none"
-expect.player.active.pp = [35, 30, 14, 16]
-expect.player.party = [{ species = "ALAKAZAM", level = 22, hp = 0, max_hp = 60, status = "none" }, { species = "UMBREON", level = 21, hp = 43, max_hp = 73, status = "none" }, { species = "JIGGLYPUFF", level = 26, hp = 96, max_hp = 96, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "ELECTRODE"
-expect.enemy.active.level = 25
-expect.enemy.active.hp = 9
-expect.enemy.active.max_hp = 69
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [40, 20, 3, 20]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 0, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 3
-expect.player.active_slot = 1
-expect.player.active.species = "UMBREON"
-expect.player.active.level = 21
-expect.player.active.hp = 0
-expect.player.active.max_hp = 73
-expect.player.active.status = "none"
-expect.player.active.pp = [35, 30, 14, 16]
-expect.player.party = [{ species = "ALAKAZAM", level = 22, hp = 0, max_hp = 60, status = "none" }, { species = "UMBREON", level = 21, hp = 0, max_hp = 73, status = "none" }, { species = "JIGGLYPUFF", level = 26, hp = 96, max_hp = 96, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "ELECTRODE"
-expect.enemy.active.level = 25
-expect.enemy.active.hp = 9
-expect.enemy.active.max_hp = 69
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [40, 20, 2, 20]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 0, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+expect.enemy.active.pp = [14, 9, 20, 10]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 0, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 0, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
 
 [[step]]
 kind = "forced_switch"
 slot = 2
 expect.player.active_slot = 2
-expect.player.active.species = "JIGGLYPUFF"
-expect.player.active.level = 26
-expect.player.active.hp = 96
-expect.player.active.max_hp = 96
+expect.player.active.species = "TANGELA"
+expect.player.active.level = 44
+expect.player.active.hp = 120
+expect.player.active.max_hp = 120
 expect.player.active.status = "none"
-expect.player.active.pp = [35, 20, 20, 10]
-expect.player.party = [{ species = "ALAKAZAM", level = 22, hp = 0, max_hp = 60, status = "none" }, { species = "UMBREON", level = 21, hp = 0, max_hp = 73, status = "none" }, { species = "JIGGLYPUFF", level = 26, hp = 96, max_hp = 96, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "ELECTRODE"
-expect.enemy.active.level = 25
-expect.enemy.active.hp = 9
-expect.enemy.active.max_hp = 69
+expect.player.active.pp = [20, 10, 30, 20]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 0, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 0, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 93, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "STARMIE"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 72
+expect.enemy.active.max_hp = 120
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [40, 20, 2, 20]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 0, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+expect.enemy.active.pp = [14, 9, 20, 10]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 0, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 0, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
 
 [[step]]
 kind = "move"
-slot = 3
+slot = 0
 expect.player.active_slot = 2
-expect.player.active.species = "JIGGLYPUFF"
-expect.player.active.level = 26
-expect.player.active.hp = 96
-expect.player.active.max_hp = 96
+expect.player.active.species = "TANGELA"
+expect.player.active.level = 44
+expect.player.active.hp = 0
+expect.player.active.max_hp = 120
 expect.player.active.status = "none"
-expect.player.active.pp = [35, 20, 20, 9]
-expect.player.party = [{ species = "ALAKAZAM", level = 22, hp = 0, max_hp = 60, status = "none" }, { species = "UMBREON", level = 21, hp = 0, max_hp = 73, status = "none" }, { species = "JIGGLYPUFF", level = 26, hp = 96, max_hp = 96, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "ELECTRODE"
-expect.enemy.active.level = 25
-expect.enemy.active.hp = 0
-expect.enemy.active.max_hp = 69
+expect.player.active.pp = [20, 10, 30, 20]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 0, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 0, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 0, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 93, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "STARMIE"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 72
+expect.enemy.active.max_hp = 120
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [40, 20, 1, 20]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 0, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
-expect.battle.outcome = "win"
+expect.enemy.active.pp = [14, 9, 20, 9]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 0, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 0, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "CATERPIE"
+expect.player.active.level = 44
+expect.player.active.hp = 93
+expect.player.active.max_hp = 93
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 40, 0, 0]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 0, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 0, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 0, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 93, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "STARMIE"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 72
+expect.enemy.active.max_hp = 120
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 9, 20, 9]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 0, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 0, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 3
+expect.player.active.species = "CATERPIE"
+expect.player.active.level = 44
+expect.player.active.hp = 0
+expect.player.active.max_hp = 93
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 40, 0, 0]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 0, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 0, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 0, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 0, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "STARMIE"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 72
+expect.enemy.active.max_hp = 120
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 9, 20, 9]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 0, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 0, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 4
+expect.player.active_slot = 4
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 127
+expect.player.active.max_hp = 127
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 20, 30]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 0, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 0, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 0, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 0, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 127, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "STARMIE"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 72
+expect.enemy.active.max_hp = 120
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 9, 20, 9]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 0, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 0, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 4
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 36
+expect.player.active.max_hp = 127
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 19, 30]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 0, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 0, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 0, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 0, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 36, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "STARMIE"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 41
+expect.enemy.active.max_hp = 120
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 9, 20, 8]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 0, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 0, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 47
+target = 4
+expect.player.active_slot = 4
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 3
+expect.player.active.max_hp = 127
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 19, 30]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 0, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 0, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 0, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 0, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 3, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "STARMIE"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 41
+expect.enemy.active.max_hp = 120
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 9, 20, 7]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 0, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 0, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 47
+target = 4
+expect.player.active_slot = 4
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 0
+expect.player.active.max_hp = 127
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 19, 30]
+expect.player.party = [{ species = "PINSIR", level = 49, hp = 0, max_hp = 129, status = "none" }, { species = "KANGASKHAN", level = 45, hp = 0, max_hp = 155, status = "none" }, { species = "TANGELA", level = 44, hp = 0, max_hp = 120, status = "none" }, { species = "CATERPIE", level = 44, hp = 0, max_hp = 93, status = "none" }, { species = "SCYTHER", level = 44, hp = 0, max_hp = 127, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "STARMIE"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 41
+expect.enemy.active.max_hp = 120
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 9, 20, 6]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 0, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 0, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 0, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+expect.battle.outcome = "loss"

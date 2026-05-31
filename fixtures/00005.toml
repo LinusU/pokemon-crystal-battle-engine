@@ -1,306 +1,268 @@
 [recording]
-source_scenario = "random"
-seed = "0x868374a2a5699242"
+seed = "0x2a6ddb0aa4b48875"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Falkner"
+
+[[scenario.player_party]]
+species = "TYROGUE"
+level = 8
+
+[[scenario.player_party]]
+species = "ABRA"
+level = 7
+
+[[scenario.player_items]]
+name = "X Accuracy"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Super Potion"
+quantity = 2
+
+[[scenario.player_items]]
+name = "X Special"
+quantity = 2
 
 [[step]]
 kind = "move"
-slot = 1
+slot = 0
 expect.player.active_slot = 0
-expect.player.active.species = "SANDSLASH"
-expect.player.active.level = 32
-expect.player.active.hp = 82
-expect.player.active.max_hp = 94
+expect.player.active.species = "TYROGUE"
+expect.player.active.level = 8
+expect.player.active.hp = 20
+expect.player.active.max_hp = 25
 expect.player.active.status = "none"
-expect.player.active.pp = [40, 14, 35, 20]
-expect.player.party = [{ species = "SANDSLASH", level = 32, hp = 82, max_hp = 94, status = "none" }, { species = "PIDGEOTTO", level = 31, hp = 85, max_hp = 85, status = "none" }]
+expect.player.active.pp = [34, 0, 0, 0]
+expect.player.party = [{ species = "TYROGUE", level = 8, hp = 20, max_hp = 25, status = "none" }, { species = "ABRA", level = 7, hp = 20, max_hp = 20, status = "none" }]
 expect.enemy.active_slot = 0
-expect.enemy.active.species = "PRIMEAPE"
-expect.enemy.active.level = 27
-expect.enemy.active.hp = 76
-expect.enemy.active.max_hp = 76
+expect.enemy.active.species = "PIDGEY"
+expect.enemy.active.level = 7
+expect.enemy.active.hp = 20
+expect.enemy.active.max_hp = 24
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [30, 20, 25, 14]
-expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 76, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+expect.enemy.active.pp = [34, 10, 0, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 24, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 32, max_hp = 32, status = "none" }]
 
 [[step]]
 kind = "move"
-slot = 3
+slot = 0
 expect.player.active_slot = 0
-expect.player.active.species = "SANDSLASH"
-expect.player.active.level = 32
-expect.player.active.hp = 70
-expect.player.active.max_hp = 94
+expect.player.active.species = "TYROGUE"
+expect.player.active.level = 8
+expect.player.active.hp = 15
+expect.player.active.max_hp = 25
 expect.player.active.status = "none"
-expect.player.active.pp = [40, 14, 35, 19]
-expect.player.party = [{ species = "SANDSLASH", level = 32, hp = 70, max_hp = 94, status = "none" }, { species = "PIDGEOTTO", level = 31, hp = 85, max_hp = 85, status = "none" }]
+expect.player.active.pp = [33, 0, 0, 0]
+expect.player.party = [{ species = "TYROGUE", level = 8, hp = 15, max_hp = 25, status = "none" }, { species = "ABRA", level = 7, hp = 20, max_hp = 20, status = "none" }]
 expect.enemy.active_slot = 0
-expect.enemy.active.species = "PRIMEAPE"
-expect.enemy.active.level = 27
-expect.enemy.active.hp = 42
-expect.enemy.active.max_hp = 76
+expect.enemy.active.species = "PIDGEY"
+expect.enemy.active.level = 7
+expect.enemy.active.hp = 16
+expect.enemy.active.max_hp = 24
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [30, 20, 25, 13]
-expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 76, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+expect.enemy.active.pp = [33, 10, 0, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 24, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 32, max_hp = 32, status = "none" }]
 
 [[step]]
 kind = "move"
-slot = 3
+slot = 0
 expect.player.active_slot = 0
-expect.player.active.species = "SANDSLASH"
-expect.player.active.level = 32
-expect.player.active.hp = 54
-expect.player.active.max_hp = 94
+expect.player.active.species = "TYROGUE"
+expect.player.active.level = 8
+expect.player.active.hp = 10
+expect.player.active.max_hp = 25
 expect.player.active.status = "none"
-expect.player.active.pp = [40, 14, 35, 18]
-expect.player.party = [{ species = "SANDSLASH", level = 32, hp = 54, max_hp = 94, status = "none" }, { species = "PIDGEOTTO", level = 31, hp = 85, max_hp = 85, status = "none" }]
+expect.player.active.pp = [32, 0, 0, 0]
+expect.player.party = [{ species = "TYROGUE", level = 8, hp = 10, max_hp = 25, status = "none" }, { species = "ABRA", level = 7, hp = 20, max_hp = 20, status = "none" }]
 expect.enemy.active_slot = 0
-expect.enemy.active.species = "PRIMEAPE"
-expect.enemy.active.level = 27
-expect.enemy.active.hp = 11
-expect.enemy.active.max_hp = 76
+expect.enemy.active.species = "PIDGEY"
+expect.enemy.active.level = 7
+expect.enemy.active.hp = 12
+expect.enemy.active.max_hp = 24
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [30, 20, 24, 13]
-expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 76, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+expect.enemy.active.pp = [32, 10, 0, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 24, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 32, max_hp = 32, status = "none" }]
 
 [[step]]
 kind = "move"
-slot = 3
+slot = 0
 expect.player.active_slot = 0
-expect.player.active.species = "SANDSLASH"
-expect.player.active.level = 32
-expect.player.active.hp = 37
-expect.player.active.max_hp = 94
+expect.player.active.species = "TYROGUE"
+expect.player.active.level = 8
+expect.player.active.hp = 5
+expect.player.active.max_hp = 25
 expect.player.active.status = "none"
-expect.player.active.pp = [40, 14, 35, 17]
-expect.player.party = [{ species = "SANDSLASH", level = 32, hp = 37, max_hp = 94, status = "none" }, { species = "PIDGEOTTO", level = 31, hp = 85, max_hp = 85, status = "none" }]
+expect.player.active.pp = [31, 0, 0, 0]
+expect.player.party = [{ species = "TYROGUE", level = 8, hp = 5, max_hp = 25, status = "none" }, { species = "ABRA", level = 7, hp = 20, max_hp = 20, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PIDGEY"
+expect.enemy.active.level = 7
+expect.enemy.active.hp = 8
+expect.enemy.active.max_hp = 24
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [31, 10, 0, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 24, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 32, max_hp = 32, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 17
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "TYROGUE"
+expect.player.active.level = 8
+expect.player.active.hp = 20
+expect.player.active.max_hp = 25
+expect.player.active.status = "none"
+expect.player.active.pp = [31, 0, 0, 0]
+expect.player.party = [{ species = "TYROGUE", level = 8, hp = 20, max_hp = 25, status = "none" }, { species = "ABRA", level = 7, hp = 20, max_hp = 20, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PIDGEY"
+expect.enemy.active.level = 7
+expect.enemy.active.hp = 8
+expect.enemy.active.max_hp = 24
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 10, 0, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 24, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 32, max_hp = 32, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "TYROGUE"
+expect.player.active.level = 8
+expect.player.active.hp = 15
+expect.player.active.max_hp = 25
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 0, 0, 0]
+expect.player.party = [{ species = "TYROGUE", level = 8, hp = 15, max_hp = 25, status = "none" }, { species = "ABRA", level = 7, hp = 20, max_hp = 20, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PIDGEY"
+expect.enemy.active.level = 7
+expect.enemy.active.hp = 4
+expect.enemy.active.max_hp = 24
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [29, 10, 0, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 24, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 32, max_hp = 32, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "TYROGUE"
+expect.player.active.level = 8
+expect.player.active.hp = 10
+expect.player.active.max_hp = 25
+expect.player.active.status = "none"
+expect.player.active.pp = [29, 0, 0, 0]
+expect.player.party = [{ species = "TYROGUE", level = 8, hp = 10, max_hp = 25, status = "none" }, { species = "ABRA", level = 7, hp = 20, max_hp = 20, status = "none" }]
 expect.enemy.active_slot = 1
-expect.enemy.active.species = "POLIWRATH"
-expect.enemy.active.level = 30
-expect.enemy.active.hp = 98
-expect.enemy.active.max_hp = 98
+expect.enemy.active.species = "PIDGEOTTO"
+expect.enemy.active.level = 9
+expect.enemy.active.hp = 32
+expect.enemy.active.max_hp = 32
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [20, 5, 15, 5]
-expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+expect.enemy.active.pp = [35, 10, 35, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 0, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 32, max_hp = 32, status = "none" }]
 
 [[step]]
 kind = "offer_switch"
 keep = true
 expect.player.active_slot = 0
-expect.player.active.species = "SANDSLASH"
-expect.player.active.level = 32
-expect.player.active.hp = 37
-expect.player.active.max_hp = 94
+expect.player.active.species = "TYROGUE"
+expect.player.active.level = 8
+expect.player.active.hp = 10
+expect.player.active.max_hp = 25
 expect.player.active.status = "none"
-expect.player.active.pp = [40, 14, 35, 17]
-expect.player.party = [{ species = "SANDSLASH", level = 32, hp = 37, max_hp = 94, status = "none" }, { species = "PIDGEOTTO", level = 31, hp = 85, max_hp = 85, status = "none" }]
+expect.player.active.pp = [29, 0, 0, 0]
+expect.player.party = [{ species = "TYROGUE", level = 8, hp = 10, max_hp = 25, status = "none" }, { species = "ABRA", level = 7, hp = 20, max_hp = 20, status = "none" }]
 expect.enemy.active_slot = 1
-expect.enemy.active.species = "POLIWRATH"
-expect.enemy.active.level = 30
-expect.enemy.active.hp = 98
-expect.enemy.active.max_hp = 98
+expect.enemy.active.species = "PIDGEOTTO"
+expect.enemy.active.level = 9
+expect.enemy.active.hp = 32
+expect.enemy.active.max_hp = 32
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [20, 5, 15, 5]
-expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+expect.enemy.active.pp = [35, 10, 35, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 0, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 32, max_hp = 32, status = "none" }]
 
 [[step]]
 kind = "move"
-slot = 1
+slot = 0
 expect.player.active_slot = 0
-expect.player.active.species = "SANDSLASH"
-expect.player.active.level = 32
+expect.player.active.species = "TYROGUE"
+expect.player.active.level = 8
 expect.player.active.hp = 0
-expect.player.active.max_hp = 94
+expect.player.active.max_hp = 25
 expect.player.active.status = "none"
-expect.player.active.pp = [40, 14, 35, 17]
-expect.player.party = [{ species = "SANDSLASH", level = 32, hp = 0, max_hp = 94, status = "none" }, { species = "PIDGEOTTO", level = 31, hp = 85, max_hp = 85, status = "none" }]
+expect.player.active.pp = [29, 0, 0, 0]
+expect.player.party = [{ species = "TYROGUE", level = 8, hp = 0, max_hp = 25, status = "none" }, { species = "ABRA", level = 7, hp = 20, max_hp = 20, status = "none" }]
 expect.enemy.active_slot = 1
-expect.enemy.active.species = "POLIWRATH"
-expect.enemy.active.level = 30
-expect.enemy.active.hp = 98
-expect.enemy.active.max_hp = 98
+expect.enemy.active.species = "PIDGEOTTO"
+expect.enemy.active.level = 9
+expect.enemy.active.hp = 32
+expect.enemy.active.max_hp = 32
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [20, 5, 14, 5]
-expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+expect.enemy.active.pp = [35, 10, 34, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 0, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 32, max_hp = 32, status = "none" }]
 
 [[step]]
 kind = "forced_switch"
 slot = 1
 expect.player.active_slot = 1
-expect.player.active.species = "PIDGEOTTO"
-expect.player.active.level = 31
-expect.player.active.hp = 85
-expect.player.active.max_hp = 85
+expect.player.active.species = "ABRA"
+expect.player.active.level = 7
+expect.player.active.hp = 20
+expect.player.active.max_hp = 20
 expect.player.active.status = "none"
-expect.player.active.pp = [15, 35, 30, 20]
-expect.player.party = [{ species = "SANDSLASH", level = 32, hp = 0, max_hp = 94, status = "none" }, { species = "PIDGEOTTO", level = 31, hp = 85, max_hp = 85, status = "none" }]
+expect.player.active.pp = [20, 0, 0, 0]
+expect.player.party = [{ species = "TYROGUE", level = 8, hp = 0, max_hp = 25, status = "none" }, { species = "ABRA", level = 7, hp = 20, max_hp = 20, status = "none" }]
 expect.enemy.active_slot = 1
-expect.enemy.active.species = "POLIWRATH"
-expect.enemy.active.level = 30
-expect.enemy.active.hp = 98
-expect.enemy.active.max_hp = 98
+expect.enemy.active.species = "PIDGEOTTO"
+expect.enemy.active.level = 9
+expect.enemy.active.hp = 32
+expect.enemy.active.max_hp = 32
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [20, 5, 14, 5]
-expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+expect.enemy.active.pp = [35, 10, 34, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 0, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 32, max_hp = 32, status = "none" }]
 
 [[step]]
 kind = "move"
 slot = 0
 expect.player.active_slot = 1
-expect.player.active.species = "PIDGEOTTO"
-expect.player.active.level = 31
-expect.player.active.hp = 85
-expect.player.active.max_hp = 85
+expect.player.active.species = "ABRA"
+expect.player.active.level = 7
+expect.player.active.hp = 7
+expect.player.active.max_hp = 20
 expect.player.active.status = "none"
-expect.player.active.pp = [14, 35, 30, 20]
-expect.player.party = [{ species = "SANDSLASH", level = 32, hp = 0, max_hp = 94, status = "none" }, { species = "PIDGEOTTO", level = 31, hp = 85, max_hp = 85, status = "none" }]
+expect.player.active.pp = [19, 0, 0, 0]
+expect.player.party = [{ species = "TYROGUE", level = 8, hp = 0, max_hp = 25, status = "none" }, { species = "ABRA", level = 7, hp = 7, max_hp = 20, status = "none" }]
 expect.enemy.active_slot = 1
-expect.enemy.active.species = "POLIWRATH"
-expect.enemy.active.level = 30
-expect.enemy.active.hp = 98
-expect.enemy.active.max_hp = 98
+expect.enemy.active.species = "PIDGEOTTO"
+expect.enemy.active.level = 9
+expect.enemy.active.hp = 32
+expect.enemy.active.max_hp = 32
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [19, 5, 14, 5]
-expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+expect.enemy.active.pp = [35, 10, 33, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 0, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 32, max_hp = 32, status = "none" }]
 
 [[step]]
 kind = "move"
-slot = 2
+slot = 0
 expect.player.active_slot = 1
-expect.player.active.species = "PIDGEOTTO"
-expect.player.active.level = 31
-expect.player.active.hp = 85
-expect.player.active.max_hp = 85
+expect.player.active.species = "ABRA"
+expect.player.active.level = 7
+expect.player.active.hp = 0
+expect.player.active.max_hp = 20
 expect.player.active.status = "none"
-expect.player.active.pp = [14, 35, 29, 20]
-expect.player.party = [{ species = "SANDSLASH", level = 32, hp = 0, max_hp = 94, status = "none" }, { species = "PIDGEOTTO", level = 31, hp = 85, max_hp = 85, status = "none" }]
+expect.player.active.pp = [19, 0, 0, 0]
+expect.player.party = [{ species = "TYROGUE", level = 8, hp = 0, max_hp = 25, status = "none" }, { species = "ABRA", level = 7, hp = 0, max_hp = 20, status = "none" }]
 expect.enemy.active_slot = 1
-expect.enemy.active.species = "POLIWRATH"
-expect.enemy.active.level = 30
-expect.enemy.active.hp = 85
-expect.enemy.active.max_hp = 98
+expect.enemy.active.species = "PIDGEOTTO"
+expect.enemy.active.level = 9
+expect.enemy.active.hp = 32
+expect.enemy.active.max_hp = 32
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [18, 5, 14, 5]
-expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 1
-expect.player.active_slot = 1
-expect.player.active.species = "PIDGEOTTO"
-expect.player.active.level = 31
-expect.player.active.hp = 85
-expect.player.active.max_hp = 85
-expect.player.active.status = "none"
-expect.player.active.pp = [14, 34, 29, 20]
-expect.player.party = [{ species = "SANDSLASH", level = 32, hp = 0, max_hp = 94, status = "none" }, { species = "PIDGEOTTO", level = 31, hp = 85, max_hp = 85, status = "none" }]
-expect.enemy.active_slot = 1
-expect.enemy.active.species = "POLIWRATH"
-expect.enemy.active.level = 30
-expect.enemy.active.hp = 56
-expect.enemy.active.max_hp = 98
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [18, 4, 14, 5]
-expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 1
-expect.player.active_slot = 1
-expect.player.active.species = "PIDGEOTTO"
-expect.player.active.level = 31
-expect.player.active.hp = 85
-expect.player.active.max_hp = 85
-expect.player.active.status = "sleep"
-expect.player.active.pp = [14, 33, 29, 20]
-expect.player.party = [{ species = "SANDSLASH", level = 32, hp = 0, max_hp = 94, status = "none" }, { species = "PIDGEOTTO", level = 31, hp = 85, max_hp = 85, status = "sleep" }]
-expect.enemy.active_slot = 1
-expect.enemy.active.species = "POLIWRATH"
-expect.enemy.active.level = 30
-expect.enemy.active.hp = 28
-expect.enemy.active.max_hp = 98
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [17, 4, 14, 5]
-expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
-
-[[step]]
-kind = "item"
-id = 14
-target = 1
-expect.player.active_slot = 1
-expect.player.active.species = "PIDGEOTTO"
-expect.player.active.level = 31
-expect.player.active.hp = 85
-expect.player.active.max_hp = 85
-expect.player.active.status = "none"
-expect.player.active.pp = [14, 33, 29, 20]
-expect.player.party = [{ species = "SANDSLASH", level = 32, hp = 0, max_hp = 94, status = "none" }, { species = "PIDGEOTTO", level = 31, hp = 85, max_hp = 85, status = "none" }]
-expect.enemy.active_slot = 1
-expect.enemy.active.species = "POLIWRATH"
-expect.enemy.active.level = 30
-expect.enemy.active.hp = 28
-expect.enemy.active.max_hp = 98
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [17, 4, 14, 4]
-expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 1
-expect.player.active_slot = 1
-expect.player.active.species = "PIDGEOTTO"
-expect.player.active.level = 31
-expect.player.active.hp = 85
-expect.player.active.max_hp = 85
-expect.player.active.status = "sleep"
-expect.player.active.pp = [14, 32, 29, 20]
-expect.player.party = [{ species = "SANDSLASH", level = 32, hp = 0, max_hp = 94, status = "none" }, { species = "PIDGEOTTO", level = 31, hp = 85, max_hp = 85, status = "sleep" }]
-expect.enemy.active_slot = 1
-expect.enemy.active.species = "POLIWRATH"
-expect.enemy.active.level = 30
-expect.enemy.active.hp = 1
-expect.enemy.active.max_hp = 98
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [16, 4, 14, 4]
-expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
-
-[[step]]
-kind = "item"
-id = 14
-target = 1
-expect.player.active_slot = 1
-expect.player.active.species = "PIDGEOTTO"
-expect.player.active.level = 31
-expect.player.active.hp = 24
-expect.player.active.max_hp = 85
-expect.player.active.status = "none"
-expect.player.active.pp = [14, 32, 29, 20]
-expect.player.party = [{ species = "SANDSLASH", level = 32, hp = 0, max_hp = 94, status = "none" }, { species = "PIDGEOTTO", level = 31, hp = 24, max_hp = 85, status = "none" }]
-expect.enemy.active_slot = 1
-expect.enemy.active.species = "POLIWRATH"
-expect.enemy.active.level = 30
-expect.enemy.active.hp = 1
-expect.enemy.active.max_hp = 98
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [16, 4, 14, 3]
-expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 2
-expect.player.active_slot = 1
-expect.player.active.species = "PIDGEOTTO"
-expect.player.active.level = 31
-expect.player.active.hp = 24
-expect.player.active.max_hp = 85
-expect.player.active.status = "none"
-expect.player.active.pp = [14, 32, 28, 20]
-expect.player.party = [{ species = "SANDSLASH", level = 32, hp = 0, max_hp = 94, status = "none" }, { species = "PIDGEOTTO", level = 31, hp = 24, max_hp = 85, status = "none" }]
-expect.enemy.active_slot = 1
-expect.enemy.active.species = "POLIWRATH"
-expect.enemy.active.level = 30
-expect.enemy.active.hp = 0
-expect.enemy.active.max_hp = 98
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [16, 4, 14, 3]
-expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 0, max_hp = 98, status = "none" }]
-expect.battle.outcome = "win"
+expect.enemy.active.pp = [35, 10, 32, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 0, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 32, max_hp = 32, status = "none" }]
+expect.battle.outcome = "loss"

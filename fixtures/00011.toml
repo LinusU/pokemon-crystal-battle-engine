@@ -1,164 +1,514 @@
 [recording]
-source_scenario = "random"
-seed = "0xa7fcce86d7df1f13"
+seed = "0x9fefbae6b6cb6c20"
 
-[[step]]
-kind = "move"
-slot = 3
-expect.player.active_slot = 0
-expect.player.active.species = "NIDORINO"
-expect.player.active.level = 42
-expect.player.active.hp = 103
-expect.player.active.max_hp = 103
-expect.player.active.status = "none"
-expect.player.active.pp = [30, 35, 30, 19]
-expect.player.party = [{ species = "NIDORINO", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "MEOWTH", level = 51, hp = 112, max_hp = 112, status = "none" }, { species = "DODUO", level = 43, hp = 91, max_hp = 91, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "MAGCARGO"
-expect.enemy.active.level = 45
-expect.enemy.active.hp = 103
-expect.enemy.active.max_hp = 107
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [9, 20, 15, 10]
-expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 107, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Erika"
 
-[[step]]
-kind = "move"
-slot = 0
-expect.player.active_slot = 0
-expect.player.active.species = "NIDORINO"
-expect.player.active.level = 42
-expect.player.active.hp = 103
-expect.player.active.max_hp = 103
-expect.player.active.status = "none"
-expect.player.active.pp = [29, 35, 30, 19]
-expect.player.party = [{ species = "NIDORINO", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "MEOWTH", level = 51, hp = 112, max_hp = 112, status = "none" }, { species = "DODUO", level = 43, hp = 91, max_hp = 91, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "MAGCARGO"
-expect.enemy.active.level = 45
-expect.enemy.active.hp = 80
-expect.enemy.active.max_hp = 107
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [8, 20, 15, 10]
-expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 107, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+[[scenario.player_party]]
+species = "OCTILLERY"
+level = 44
+
+[[scenario.player_party]]
+species = "CROCONAW"
+level = 43
+
+[[scenario.player_party]]
+species = "SUNKERN"
+level = 44
+
+[[scenario.player_party]]
+species = "PIDGEOT"
+level = 45
+
+[[scenario.player_items]]
+name = "Soda Pop"
+quantity = 2
+
+[[scenario.player_items]]
+name = "Potion"
+quantity = 1
 
 [[step]]
 kind = "move"
 slot = 0
 expect.player.active_slot = 0
-expect.player.active.species = "NIDORINO"
-expect.player.active.level = 42
-expect.player.active.hp = 103
-expect.player.active.max_hp = 103
+expect.player.active.species = "OCTILLERY"
+expect.player.active.level = 44
+expect.player.active.hp = 120
+expect.player.active.max_hp = 132
 expect.player.active.status = "none"
-expect.player.active.pp = [28, 35, 30, 19]
-expect.player.party = [{ species = "NIDORINO", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "MEOWTH", level = 51, hp = 112, max_hp = 112, status = "none" }, { species = "DODUO", level = 43, hp = 91, max_hp = 91, status = "none" }]
+expect.player.active.pp = [19, 20, 10, 30]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 120, max_hp = 132, status = "none" }, { species = "CROCONAW", level = 43, hp = 112, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 84, max_hp = 84, status = "none" }, { species = "PIDGEOT", level = 45, hp = 136, max_hp = 136, status = "none" }]
 expect.enemy.active_slot = 0
-expect.enemy.active.species = "MAGCARGO"
-expect.enemy.active.level = 45
-expect.enemy.active.hp = 63
-expect.enemy.active.max_hp = 107
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 4
+expect.enemy.active.max_hp = 113
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [7, 20, 15, 10]
-expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 107, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+expect.enemy.active.pp = [10, 19, 5, 15]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
 
 [[step]]
 kind = "move"
-slot = 0
+slot = 1
 expect.player.active_slot = 0
-expect.player.active.species = "NIDORINO"
-expect.player.active.level = 42
+expect.player.active.species = "OCTILLERY"
+expect.player.active.level = 44
+expect.player.active.hp = 112
+expect.player.active.max_hp = 132
+expect.player.active.status = "sleep"
+expect.player.active.pp = [19, 20, 10, 30]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 112, max_hp = 132, status = "sleep" }, { species = "CROCONAW", level = 43, hp = 112, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 84, max_hp = 84, status = "none" }, { species = "PIDGEOT", level = 45, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 4
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 19, 5, 14]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "OCTILLERY"
+expect.player.active.level = 44
+expect.player.active.hp = 38
+expect.player.active.max_hp = 132
+expect.player.active.status = "sleep"
+expect.player.active.pp = [19, 20, 10, 30]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 38, max_hp = 132, status = "sleep" }, { species = "CROCONAW", level = 43, hp = 112, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 84, max_hp = 84, status = "none" }, { species = "PIDGEOT", level = 45, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 41
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 19, 4, 14]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 47
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "OCTILLERY"
+expect.player.active.level = 44
 expect.player.active.hp = 0
-expect.player.active.max_hp = 103
+expect.player.active.max_hp = 132
 expect.player.active.status = "none"
-expect.player.active.pp = [27, 35, 30, 19]
-expect.player.party = [{ species = "NIDORINO", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "MEOWTH", level = 51, hp = 112, max_hp = 112, status = "none" }, { species = "DODUO", level = 43, hp = 91, max_hp = 91, status = "none" }]
+expect.player.active.pp = [19, 20, 10, 30]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 0, max_hp = 132, status = "none" }, { species = "CROCONAW", level = 43, hp = 112, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 84, max_hp = 84, status = "none" }, { species = "PIDGEOT", level = 45, hp = 136, max_hp = 136, status = "none" }]
 expect.enemy.active_slot = 0
-expect.enemy.active.species = "MAGCARGO"
-expect.enemy.active.level = 45
-expect.enemy.active.hp = 49
-expect.enemy.active.max_hp = 107
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 90
+expect.enemy.active.max_hp = 113
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [7, 20, 15, 9]
-expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 107, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
-
-[[step]]
-kind = "forced_switch"
-slot = 2
-expect.player.active_slot = 2
-expect.player.active.species = "DODUO"
-expect.player.active.level = 43
-expect.player.active.hp = 91
-expect.player.active.max_hp = 91
-expect.player.active.status = "none"
-expect.player.active.pp = [10, 20, 20, 30]
-expect.player.party = [{ species = "NIDORINO", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "MEOWTH", level = 51, hp = 112, max_hp = 112, status = "none" }, { species = "DODUO", level = 43, hp = 91, max_hp = 91, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "MAGCARGO"
-expect.enemy.active.level = 45
-expect.enemy.active.hp = 49
-expect.enemy.active.max_hp = 107
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [7, 20, 15, 9]
-expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 107, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 0
-expect.player.active_slot = 2
-expect.player.active.species = "DODUO"
-expect.player.active.level = 43
-expect.player.active.hp = 0
-expect.player.active.max_hp = 91
-expect.player.active.status = "none"
-expect.player.active.pp = [9, 20, 20, 30]
-expect.player.party = [{ species = "NIDORINO", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "MEOWTH", level = 51, hp = 112, max_hp = 112, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 91, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "MAGCARGO"
-expect.enemy.active.level = 45
-expect.enemy.active.hp = 44
-expect.enemy.active.max_hp = 107
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [7, 20, 15, 8]
-expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 107, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+expect.enemy.active.pp = [10, 19, 3, 14]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
 
 [[step]]
 kind = "forced_switch"
 slot = 1
 expect.player.active_slot = 1
-expect.player.active.species = "MEOWTH"
-expect.player.active.level = 51
+expect.player.active.species = "CROCONAW"
+expect.player.active.level = 43
 expect.player.active.hp = 112
 expect.player.active.max_hp = 112
 expect.player.active.status = "none"
-expect.player.active.pp = [20, 40, 15, 20]
-expect.player.party = [{ species = "NIDORINO", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "MEOWTH", level = 51, hp = 112, max_hp = 112, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 91, status = "none" }]
+expect.player.active.pp = [25, 25, 10, 20]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 0, max_hp = 132, status = "none" }, { species = "CROCONAW", level = 43, hp = 112, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 84, max_hp = 84, status = "none" }, { species = "PIDGEOT", level = 45, hp = 136, max_hp = 136, status = "none" }]
 expect.enemy.active_slot = 0
-expect.enemy.active.species = "MAGCARGO"
-expect.enemy.active.level = 45
-expect.enemy.active.hp = 44
-expect.enemy.active.max_hp = 107
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 90
+expect.enemy.active.max_hp = 113
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [7, 20, 15, 8]
-expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 107, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+expect.enemy.active.pp = [10, 19, 3, 14]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
 
 [[step]]
 kind = "move"
-slot = 0
+slot = 3
 expect.player.active_slot = 1
-expect.player.active.species = "MEOWTH"
-expect.player.active.level = 51
+expect.player.active.species = "CROCONAW"
+expect.player.active.level = 43
+expect.player.active.hp = 20
+expect.player.active.max_hp = 112
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 25, 10, 19]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 0, max_hp = 132, status = "none" }, { species = "CROCONAW", level = 43, hp = 20, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 84, max_hp = 84, status = "none" }, { species = "PIDGEOT", level = 45, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 95
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 19, 2, 14]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 47
+target = 1
+expect.player.active_slot = 1
+expect.player.active.species = "CROCONAW"
+expect.player.active.level = 43
 expect.player.active.hp = 0
 expect.player.active.max_hp = 112
 expect.player.active.status = "none"
-expect.player.active.pp = [19, 40, 15, 20]
-expect.player.party = [{ species = "NIDORINO", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "MEOWTH", level = 51, hp = 0, max_hp = 112, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 91, status = "none" }]
+expect.player.active.pp = [25, 25, 10, 19]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 0, max_hp = 132, status = "none" }, { species = "CROCONAW", level = 43, hp = 0, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 84, max_hp = 84, status = "none" }, { species = "PIDGEOT", level = 45, hp = 136, max_hp = 136, status = "none" }]
 expect.enemy.active_slot = 0
-expect.enemy.active.species = "MAGCARGO"
-expect.enemy.active.level = 45
-expect.enemy.active.hp = 25
-expect.enemy.active.max_hp = 107
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 113
+expect.enemy.active.max_hp = 113
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [7, 20, 15, 7]
-expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 107, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+expect.enemy.active.pp = [10, 19, 1, 14]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SUNKERN"
+expect.player.active.level = 44
+expect.player.active.hp = 84
+expect.player.active.max_hp = 84
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 10, 5, 5]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 0, max_hp = 132, status = "none" }, { species = "CROCONAW", level = 43, hp = 0, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 84, max_hp = 84, status = "none" }, { species = "PIDGEOT", level = 45, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 113
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 19, 1, 14]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 2
+expect.player.active.species = "SUNKERN"
+expect.player.active.level = 44
+expect.player.active.hp = 76
+expect.player.active.max_hp = 84
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 9, 5, 5]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 0, max_hp = 132, status = "none" }, { species = "CROCONAW", level = 43, hp = 0, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 76, max_hp = 84, status = "none" }, { species = "PIDGEOT", level = 45, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 104
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 18, 1, 14]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 2
+expect.player.active.species = "SUNKERN"
+expect.player.active.level = 44
+expect.player.active.hp = 38
+expect.player.active.max_hp = 84
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 8, 5, 5]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 0, max_hp = 132, status = "none" }, { species = "CROCONAW", level = 43, hp = 0, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 38, max_hp = 84, status = "none" }, { species = "PIDGEOT", level = 45, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 104
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 18, 0, 14]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 2
+expect.player.active.species = "SUNKERN"
+expect.player.active.level = 44
+expect.player.active.hp = 37
+expect.player.active.max_hp = 84
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 7, 5, 5]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 0, max_hp = 132, status = "none" }, { species = "CROCONAW", level = 43, hp = 0, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 37, max_hp = 84, status = "none" }, { species = "PIDGEOT", level = 45, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 95
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 18, 0, 13]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 2
+expect.player.active.species = "SUNKERN"
+expect.player.active.level = 44
+expect.player.active.hp = 32
+expect.player.active.max_hp = 84
+expect.player.active.status = "sleep"
+expect.player.active.pp = [40, 7, 5, 5]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 0, max_hp = 132, status = "none" }, { species = "CROCONAW", level = 43, hp = 0, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 32, max_hp = 84, status = "sleep" }, { species = "PIDGEOT", level = 45, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 95
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 18, 0, 12]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 2
+expect.player.active.species = "SUNKERN"
+expect.player.active.level = 44
+expect.player.active.hp = 4
+expect.player.active.max_hp = 84
+expect.player.active.status = "sleep"
+expect.player.active.pp = [40, 7, 5, 5]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 0, max_hp = 132, status = "none" }, { species = "CROCONAW", level = 43, hp = 0, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 4, max_hp = 84, status = "sleep" }, { species = "PIDGEOT", level = 45, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 95
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 18, 0, 12]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 18
+target = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SUNKERN"
+expect.player.active.level = 44
+expect.player.active.hp = 2
+expect.player.active.max_hp = 84
+expect.player.active.status = "sleep"
+expect.player.active.pp = [40, 7, 5, 5]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 0, max_hp = 132, status = "none" }, { species = "CROCONAW", level = 43, hp = 0, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 2, max_hp = 84, status = "sleep" }, { species = "PIDGEOT", level = 45, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 95
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 18, 0, 12]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 2
+expect.player.active.species = "SUNKERN"
+expect.player.active.level = 44
+expect.player.active.hp = 0
+expect.player.active.max_hp = 84
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 7, 5, 5]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 0, max_hp = 132, status = "none" }, { species = "CROCONAW", level = 43, hp = 0, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 0, max_hp = 84, status = "none" }, { species = "PIDGEOT", level = 45, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 95
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 17, 0, 12]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "PIDGEOT"
+expect.player.active.level = 45
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 20, 35]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 0, max_hp = 132, status = "none" }, { species = "CROCONAW", level = 43, hp = 0, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 0, max_hp = 84, status = "none" }, { species = "PIDGEOT", level = 45, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 95
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 17, 0, 12]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "PIDGEOT"
+expect.player.active.level = 45
+expect.player.active.hp = 124
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 20, 34]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 0, max_hp = 132, status = "none" }, { species = "CROCONAW", level = 43, hp = 0, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 0, max_hp = 84, status = "none" }, { species = "PIDGEOT", level = 45, hp = 124, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 43
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 16, 0, 12]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "PIDGEOT"
+expect.player.active.level = 45
+expect.player.active.hp = 124
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 20, 33]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 0, max_hp = 132, status = "none" }, { species = "CROCONAW", level = 43, hp = 0, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 0, max_hp = 84, status = "none" }, { species = "PIDGEOT", level = 45, hp = 124, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "VICTREEBEL"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 136
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 5, 30, 25]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "PIDGEOT"
+expect.player.active.level = 45
+expect.player.active.hp = 124
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 20, 32]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 0, max_hp = 132, status = "none" }, { species = "CROCONAW", level = 43, hp = 0, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 0, max_hp = 84, status = "none" }, { species = "PIDGEOT", level = 45, hp = 124, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "VICTREEBEL"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 58
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [4, 5, 30, 25]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "PIDGEOT"
+expect.player.active.level = 45
+expect.player.active.hp = 124
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 20, 31]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 0, max_hp = 132, status = "none" }, { species = "CROCONAW", level = 43, hp = 0, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 0, max_hp = 84, status = "none" }, { species = "PIDGEOT", level = 45, hp = 124, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "BELLOSSOM"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 132
+expect.enemy.active.max_hp = 132
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 5, 20, 10]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 0, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "PIDGEOT"
+expect.player.active.level = 45
+expect.player.active.hp = 75
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 20, 30]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 0, max_hp = 132, status = "none" }, { species = "CROCONAW", level = 43, hp = 0, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 0, max_hp = 84, status = "none" }, { species = "PIDGEOT", level = 45, hp = 75, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "BELLOSSOM"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 132
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 5, 20, 9]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 0, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "PIDGEOT"
+expect.player.active.level = 45
+expect.player.active.hp = 24
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 20, 29]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 0, max_hp = 132, status = "none" }, { species = "CROCONAW", level = 43, hp = 0, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 0, max_hp = 84, status = "none" }, { species = "PIDGEOT", level = 45, hp = 24, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "BELLOSSOM"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 13
+expect.enemy.active.max_hp = 132
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 5, 20, 8]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 0, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "PIDGEOT"
+expect.player.active.level = 45
+expect.player.active.hp = 24
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 20, 28]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 0, max_hp = 132, status = "none" }, { species = "CROCONAW", level = 43, hp = 0, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 0, max_hp = 84, status = "none" }, { species = "PIDGEOT", level = 45, hp = 24, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "BELLOSSOM"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 67
+expect.enemy.active.max_hp = 132
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 5, 20, 8]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 0, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "PIDGEOT"
+expect.player.active.level = 45
+expect.player.active.hp = 0
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 20, 27]
+expect.player.party = [{ species = "OCTILLERY", level = 44, hp = 0, max_hp = 132, status = "none" }, { species = "CROCONAW", level = 43, hp = 0, max_hp = 112, status = "none" }, { species = "SUNKERN", level = 44, hp = 0, max_hp = 84, status = "none" }, { species = "PIDGEOT", level = 45, hp = 0, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "BELLOSSOM"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 6
+expect.enemy.active.max_hp = 132
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 5, 19, 8]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 0, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
 expect.battle.outcome = "loss"
