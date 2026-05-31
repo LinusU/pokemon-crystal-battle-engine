@@ -331,10 +331,13 @@ fn prompt_action(cpu: &Cpu) -> Action {
         ));
     }
 
-    // Items pocket — only the ones the CLI knows how to apply directly. Balls
-    // and other items go through the engine's bag UI, which we currently bypass.
+    // Items pocket — only the ones the CLI knows how to apply directly, and
+    // only when they'd actually do something to some party mon. The real game
+    // refuses the rest ("It wouldn't have any effect"), so we don't surface
+    // them as choices. Balls and other items go through the engine's bag UI,
+    // which we currently bypass.
     for (id, qty) in read_pocket(cpu, W_NUM_ITEMS) {
-        if !item_supported(id) {
+        if item_valid_targets(cpu, id).is_empty() {
             continue;
         }
         entries.push((
@@ -355,27 +358,27 @@ fn prompt_action(cpu: &Cpu) -> Action {
     let pick = prompt_index("> ", entries.len());
     let mut chosen = entries[pick].1;
 
-    // Some items need a target prompt. We handle this here so the action menu
-    // shows one line per item (not one line per item×target).
-    if let Action::Item { id, target: _ } = chosen {
-        if item_needs_target(id) {
-            let target_slot = prompt_item_target(cpu, id);
-            chosen = Action::Item {
-                id,
-                target: Some(target_slot),
-            };
-        }
+    // Every directly-usable item targets one party mon. We prompt for it here
+    // so the action menu shows one line per item (not one line per item×target).
+    if let Action::Item { id, .. } = chosen {
+        let target_slot = prompt_item_target(cpu, id);
+        chosen = Action::Item {
+            id,
+            target: Some(target_slot),
+        };
     }
     chosen
 }
 
 fn prompt_item_target(cpu: &Cpu, id: u8) -> u8 {
     println!("\n[item] use {} on which Pokémon?", item_display(id));
-    let n = cpu.read_byte(W_PARTY_COUNT);
-    let mut options: Vec<u8> = Vec::new();
-    for slot in 0..n {
-        options.push(slot);
-        print_party_slot_line(cpu, slot, slot as usize + 1);
+    // Only mons the item can actually affect — a full-HP mon for a Potion, a
+    // living mon for a Revive, etc. are omitted (the game would just say "It
+    // wouldn't have any effect"). Non-empty because the action menu only offers
+    // an item once at least one slot qualifies.
+    let options = item_valid_targets(cpu, id);
+    for (idx, slot) in options.iter().enumerate() {
+        print_party_slot_line(cpu, *slot, idx + 1);
     }
     let pick = prompt_index("> ", options.len());
     options[pick]
@@ -447,30 +450,81 @@ fn check_can_switch(cpu: &Cpu, target: u8) -> Result<(), String> {
 // via `battle_menu_pack_ball` — but [`apply_item`] is only invoked for the
 // direct-apply types; balls take the path inside [`handle_battle_menu`].
 
-fn item_supported(id: u8) -> bool {
-    matches!(
-        id,
-        0x12 | 0x11 | 0x10 | 0x0f | 0x0e
-        | 0x2e | 0x2f | 0x30
-        | 0x48
-        | 0x79 | 0x7a
-        | 0x27 | 0x28
-        | 0x09 | 0x0a | 0x0b | 0x0c | 0x0d | 0x26
-    )
+/// What a battle-usable item does, abstracted over the specific item id. The
+/// single source of truth for which items the CLI applies directly, which party
+/// mons a given item can affect, and the status mask [`apply_item`] clears.
+/// Items not classified here aren't offered in the action menu (balls, X-items,
+/// evolution stones, ...).
+#[derive(Debug, Clone, Copy)]
+enum ItemEffect {
+    /// Restores HP — only affects a living mon below max HP.
+    Hp,
+    /// Revives a fainted mon (HP == 0).
+    Revive,
+    /// Clears the given status bits — only affects a living, statused mon.
+    Status(u8),
+    /// Full Restore: HP plus every status — affects a living mon that's hurt or
+    /// statused.
+    FullRestore,
 }
 
-fn item_needs_target(id: u8) -> bool {
-    matches!(
-        id,
-        // HP-restoring items that target one party mon.
-        0x12 | 0x11 | 0x10 | 0x0f | 0x0e // Potion, Super, Hyper, Max, Full Restore
-        | 0x2e | 0x2f | 0x30             // Fresh Water, Soda Pop, Lemonade
-        | 0x48                            // Moomoo Milk
-        | 0x79 | 0x7a                     // Energypowder, Energy Root
-        | 0x27 | 0x28                     // Revive, Max Revive
+impl ItemEffect {
+    /// Would applying this item to a mon with these vitals change anything?
+    /// Mirrors the game's "It wouldn't have any effect" guard, so the CLI only
+    /// offers items — and target slots — that actually do something.
+    fn affects(self, hp: u16, max_hp: u16, status: u8) -> bool {
+        match self {
+            ItemEffect::Hp => hp != 0 && hp < max_hp,
+            ItemEffect::Revive => hp == 0,
+            ItemEffect::Status(mask) => hp != 0 && status & mask != 0,
+            ItemEffect::FullRestore => hp != 0 && (hp < max_hp || status != 0),
+        }
+    }
+}
+
+/// Classify an item id into the effect the CLI knows how to apply, or `None`
+/// for items we don't surface in the action menu. Status masks follow
+/// `scratch/pokecrystal/data/items/heal_status.asm`.
+fn item_effect(id: u8) -> Option<ItemEffect> {
+    Some(match id {
+        // HP-restoring: Potion, Super, Hyper, Max, drinks, Moomoo Milk, herbs.
+        0x12 | 0x11 | 0x10 | 0x0f | 0x2e | 0x2f | 0x30 | 0x48 | 0x79 | 0x7a => {
+            ItemEffect::Hp
+        }
+        // Revive, Max Revive.
+        0x27 | 0x28 => ItemEffect::Revive,
+        // Full Restore — HP plus all status.
+        0x0e => ItemEffect::FullRestore,
         // Status heals.
-        | 0x09 | 0x0a | 0x0b | 0x0c | 0x0d | 0x26
-    )
+        0x09 => ItemEffect::Status(1 << defs::PSN as u8), // Antidote — poison
+        0x0a => ItemEffect::Status(1 << defs::BRN as u8), // Burn Heal
+        0x0b => ItemEffect::Status(1 << defs::FRZ as u8), // Ice Heal
+        0x0c => ItemEffect::Status(defs::SLP_MASK),       // Awakening — sleep counter
+        0x0d => ItemEffect::Status(1 << defs::PAR as u8), // Parlyz Heal
+        0x26 => ItemEffect::Status(0xff),                 // Full Heal — any status
+        _ => return None,
+    })
+}
+
+/// Party slots the item would actually affect right now. Empty means the game
+/// would refuse it ("It wouldn't have any effect"), so we neither offer the
+/// item nor list a target for it. Drives both the action menu and the target
+/// prompt.
+fn item_valid_targets(cpu: &Cpu, id: u8) -> Vec<u8> {
+    let Some(effect) = item_effect(id) else {
+        return Vec::new();
+    };
+    let n = cpu.read_byte(W_PARTY_COUNT);
+    (0..n)
+        .filter(|&slot| {
+            let base = party_slot_addr(slot);
+            effect.affects(
+                read_word_be(cpu, base + PARTY_OFFSET_HP),
+                read_word_be(cpu, base + PARTY_OFFSET_MAX_HP),
+                cpu.read_byte(base + PARTY_OFFSET_STATUS),
+            )
+        })
+        .collect()
 }
 
 fn apply_item(cpu: &mut Cpu, id: u8, target: Option<u8>) {
@@ -670,4 +724,61 @@ fn status_suffix(status: u8) -> String {
         return String::new();
     }
     format!(" [{}]", tags.join(","))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn effect(id: u8) -> ItemEffect {
+        item_effect(id).expect("item should be classified")
+    }
+
+    #[test]
+    fn hp_items_need_a_hurt_living_mon() {
+        let potion = effect(0x12);
+        assert!(!potion.affects(20, 20, 0), "full HP — no effect");
+        assert!(potion.affects(10, 20, 0), "below max — heals");
+        assert!(!potion.affects(0, 20, 0), "fainted — Potion can't revive");
+    }
+
+    #[test]
+    fn revives_need_a_fainted_mon() {
+        let revive = effect(0x27);
+        assert!(revive.affects(0, 20, 0), "fainted — revives");
+        assert!(!revive.affects(10, 20, 0), "alive — no effect");
+        assert!(!revive.affects(20, 20, 0), "full HP — no effect");
+    }
+
+    #[test]
+    fn status_heals_match_their_condition() {
+        let antidote = effect(0x09);
+        let psn = 1 << defs::PSN as u8;
+        let par = 1 << defs::PAR as u8;
+        assert!(antidote.affects(20, 20, psn), "poisoned — cures even at full HP");
+        assert!(!antidote.affects(20, 20, par), "paralyzed only — Antidote does nothing");
+        assert!(!antidote.affects(20, 20, 0), "no status — no effect");
+        assert!(!antidote.affects(0, 20, psn), "fainted — no effect");
+
+        let full_heal = effect(0x26);
+        assert!(full_heal.affects(20, 20, par), "any status — cures");
+        assert!(!full_heal.affects(20, 20, 0), "no status — no effect");
+    }
+
+    #[test]
+    fn full_restore_covers_hp_or_status() {
+        let fr = effect(0x0e);
+        let brn = 1 << defs::BRN as u8;
+        assert!(fr.affects(10, 20, 0), "hurt only — works");
+        assert!(fr.affects(20, 20, brn), "statused only — works");
+        assert!(!fr.affects(20, 20, 0), "full HP and clean — no effect");
+        assert!(!fr.affects(0, 20, 0), "fainted — no effect");
+    }
+
+    #[test]
+    fn unsupported_items_are_unclassified() {
+        assert!(item_effect(0x01).is_none(), "Master Ball");
+        assert!(item_effect(0x20).is_none(), "Rare Candy");
+        assert!(item_effect(0x31).is_none(), "X Attack");
+    }
 }
