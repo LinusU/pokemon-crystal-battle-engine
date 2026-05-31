@@ -1,0 +1,308 @@
+[recording]
+seed = "0x03c9fdb05710c15d"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "KINGDRA"
+level = 17
+
+[[scenario.player_party]]
+species = "HAUNTER"
+level = 17
+
+[[scenario.player_items]]
+name = "Fresh Water"
+quantity = 1
+
+[[scenario.player_items]]
+name = "Elixer"
+quantity = 1
+
+[[scenario.player_items]]
+name = "Ether"
+quantity = 2
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "KINGDRA"
+expect.player.active.level = 17
+expect.player.active.hp = 44
+expect.player.active.max_hp = 55
+expect.player.active.status = "none"
+expect.player.active.pp = [29, 20, 30, 25]
+expect.player.party = [{ species = "KINGDRA", level = 17, hp = 44, max_hp = 55, status = "none" }, { species = "HAUNTER", level = 17, hp = 44, max_hp = 44, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 45
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 10, 5, 10]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "KINGDRA"
+expect.player.active.level = 17
+expect.player.active.hp = 36
+expect.player.active.max_hp = 55
+expect.player.active.status = "none"
+expect.player.active.pp = [28, 20, 30, 25]
+expect.player.party = [{ species = "KINGDRA", level = 17, hp = 36, max_hp = 55, status = "none" }, { species = "HAUNTER", level = 17, hp = 44, max_hp = 44, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 38
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 10, 5, 10]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "KINGDRA"
+expect.player.active.level = 17
+expect.player.active.hp = 23
+expect.player.active.max_hp = 55
+expect.player.active.status = "none"
+expect.player.active.pp = [27, 20, 30, 25]
+expect.player.party = [{ species = "KINGDRA", level = 17, hp = 23, max_hp = 55, status = "none" }, { species = "HAUNTER", level = 17, hp = 44, max_hp = 44, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 29
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 10, 5, 9]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "KINGDRA"
+expect.player.active.level = 17
+expect.player.active.hp = 17
+expect.player.active.max_hp = 55
+expect.player.active.status = "none"
+expect.player.active.pp = [26, 20, 30, 25]
+expect.player.party = [{ species = "KINGDRA", level = 17, hp = 17, max_hp = 55, status = "none" }, { species = "HAUNTER", level = 17, hp = 44, max_hp = 44, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 21
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 10, 5, 9]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 46
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "KINGDRA"
+expect.player.active.level = 17
+expect.player.active.hp = 52
+expect.player.active.max_hp = 55
+expect.player.active.status = "none"
+expect.player.active.pp = [26, 20, 30, 25]
+expect.player.party = [{ species = "KINGDRA", level = 17, hp = 52, max_hp = 55, status = "none" }, { species = "HAUNTER", level = 17, hp = 44, max_hp = 44, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 21
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 10, 5, 8]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "KINGDRA"
+expect.player.active.level = 17
+expect.player.active.hp = 49
+expect.player.active.max_hp = 55
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 30, 25]
+expect.player.party = [{ species = "KINGDRA", level = 17, hp = 49, max_hp = 55, status = "none" }, { species = "HAUNTER", level = 17, hp = 44, max_hp = 44, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 14
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 10, 5, 7]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "KINGDRA"
+expect.player.active.level = 17
+expect.player.active.hp = 37
+expect.player.active.max_hp = 55
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 20, 30, 25]
+expect.player.party = [{ species = "KINGDRA", level = 17, hp = 37, max_hp = 55, status = "none" }, { species = "HAUNTER", level = 17, hp = 44, max_hp = 44, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 7
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 10, 5, 6]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "KINGDRA"
+expect.player.active.level = 17
+expect.player.active.hp = 37
+expect.player.active.max_hp = 55
+expect.player.active.status = "none"
+expect.player.active.pp = [23, 20, 30, 25]
+expect.player.party = [{ species = "KINGDRA", level = 17, hp = 37, max_hp = 55, status = "none" }, { species = "HAUNTER", level = 17, hp = 44, max_hp = 44, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 20
+expect.enemy.active.hp = 68
+expect.enemy.active.max_hp = 68
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 20, 10]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 0, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "KINGDRA"
+expect.player.active.level = 17
+expect.player.active.hp = 37
+expect.player.active.max_hp = 55
+expect.player.active.status = "none"
+expect.player.active.pp = [23, 20, 30, 25]
+expect.player.party = [{ species = "KINGDRA", level = 17, hp = 37, max_hp = 55, status = "none" }, { species = "HAUNTER", level = 17, hp = 44, max_hp = 44, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 20
+expect.enemy.active.hp = 68
+expect.enemy.active.max_hp = 68
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 20, 10]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 0, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "KINGDRA"
+expect.player.active.level = 17
+expect.player.active.hp = 30
+expect.player.active.max_hp = 55
+expect.player.active.status = "none"
+expect.player.active.pp = [22, 20, 30, 25]
+expect.player.party = [{ species = "KINGDRA", level = 17, hp = 30, max_hp = 55, status = "none" }, { species = "HAUNTER", level = 17, hp = 44, max_hp = 44, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 20
+expect.enemy.active.hp = 62
+expect.enemy.active.max_hp = 68
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 15, 20, 10]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 0, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "KINGDRA"
+expect.player.active.level = 17
+expect.player.active.hp = 16
+expect.player.active.max_hp = 55
+expect.player.active.status = "none"
+expect.player.active.pp = [21, 20, 30, 25]
+expect.player.party = [{ species = "KINGDRA", level = 17, hp = 16, max_hp = 55, status = "none" }, { species = "HAUNTER", level = 17, hp = 44, max_hp = 44, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 20
+expect.enemy.active.hp = 56
+expect.enemy.active.max_hp = 68
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 15, 20, 10]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 0, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "KINGDRA"
+expect.player.active.level = 17
+expect.player.active.hp = 0
+expect.player.active.max_hp = 55
+expect.player.active.status = "none"
+expect.player.active.pp = [21, 20, 30, 25]
+expect.player.party = [{ species = "KINGDRA", level = 17, hp = 0, max_hp = 55, status = "none" }, { species = "HAUNTER", level = 17, hp = 44, max_hp = 44, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 20
+expect.enemy.active.hp = 56
+expect.enemy.active.max_hp = 68
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 15, 20, 10]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 0, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 17
+expect.player.active.hp = 44
+expect.player.active.max_hp = 44
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 10, 5, 10]
+expect.player.party = [{ species = "KINGDRA", level = 17, hp = 0, max_hp = 55, status = "none" }, { species = "HAUNTER", level = 17, hp = 44, max_hp = 44, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 20
+expect.enemy.active.hp = 56
+expect.enemy.active.max_hp = 68
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 15, 20, 10]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 0, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 17
+expect.player.active.hp = 0
+expect.player.active.max_hp = 44
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 10, 5, 10]
+expect.player.party = [{ species = "KINGDRA", level = 17, hp = 0, max_hp = 55, status = "none" }, { species = "HAUNTER", level = 17, hp = 0, max_hp = 44, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 20
+expect.enemy.active.hp = 56
+expect.enemy.active.max_hp = 68
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 15, 20, 10]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 0, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+expect.battle.outcome = "loss"

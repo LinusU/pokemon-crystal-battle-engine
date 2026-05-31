@@ -1,0 +1,621 @@
+[recording]
+seed = "0xb0eee84a9eff47a0"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Morty"
+
+[[scenario.player_party]]
+species = "WOBBUFFET"
+level = 21
+
+[[scenario.player_party]]
+species = "XATU"
+level = 22
+
+[[scenario.player_party]]
+species = "VAPOREON"
+level = 24
+
+[[scenario.player_party]]
+species = "CROCONAW"
+level = 25
+
+[[scenario.player_items]]
+name = "Burn Heal"
+quantity = 1
+
+[[scenario.player_items]]
+name = "X Defend"
+quantity = 1
+
+[[scenario.player_items]]
+name = "Max Elixer"
+quantity = 2
+
+[[scenario.player_items]]
+name = "Fresh Water"
+quantity = 2
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "WOBBUFFET"
+expect.player.active.level = 21
+expect.player.active.hp = 85
+expect.player.active.max_hp = 113
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 20, 25, 5]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 85, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 61, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 102, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GASTLY"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 23
+expect.enemy.active.max_hp = 46
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 10, 5, 9]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 23, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 53, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "WOBBUFFET"
+expect.player.active.level = 21
+expect.player.active.hp = 46
+expect.player.active.max_hp = 113
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [18, 20, 25, 5]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 46, max_hp = 113, status = "paralysis" }, { species = "XATU", level = 22, hp = 61, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 102, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GASTLY"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 23
+expect.enemy.active.max_hp = 46
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [29, 10, 5, 9]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 23, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 53, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "WOBBUFFET"
+expect.player.active.level = 21
+expect.player.active.hp = 7
+expect.player.active.max_hp = 113
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [18, 20, 25, 5]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 7, max_hp = 113, status = "paralysis" }, { species = "XATU", level = 22, hp = 61, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 102, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GASTLY"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 23
+expect.enemy.active.max_hp = 46
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [28, 10, 5, 9]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 23, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 53, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 46
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "WOBBUFFET"
+expect.player.active.level = 21
+expect.player.active.hp = 19
+expect.player.active.max_hp = 113
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [18, 20, 25, 5]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 19, max_hp = 113, status = "paralysis" }, { species = "XATU", level = 22, hp = 61, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 102, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GASTLY"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 23
+expect.enemy.active.max_hp = 46
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [27, 10, 5, 9]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 23, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 53, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 46
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "WOBBUFFET"
+expect.player.active.level = 21
+expect.player.active.hp = 30
+expect.player.active.max_hp = 113
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [18, 20, 25, 5]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 30, max_hp = 113, status = "paralysis" }, { species = "XATU", level = 22, hp = 61, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 102, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GASTLY"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 23
+expect.enemy.active.max_hp = 46
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [26, 10, 5, 9]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 23, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 53, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "WOBBUFFET"
+expect.player.active.level = 21
+expect.player.active.hp = 0
+expect.player.active.max_hp = 113
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 20, 25, 5]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 61, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 102, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GASTLY"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 23
+expect.enemy.active.max_hp = 46
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 10, 5, 9]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 23, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 53, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "XATU"
+expect.player.active.level = 22
+expect.player.active.hp = 61
+expect.player.active.max_hp = 61
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 15, 20]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 61, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 102, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GASTLY"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 23
+expect.enemy.active.max_hp = 46
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 10, 5, 9]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 23, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 53, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "XATU"
+expect.player.active.level = 22
+expect.player.active.hp = 50
+expect.player.active.max_hp = 61
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 14, 20]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 50, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 102, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GASTLY"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 1
+expect.enemy.active.max_hp = 46
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [24, 10, 5, 9]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 23, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 53, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "XATU"
+expect.player.active.level = 22
+expect.player.active.hp = 50
+expect.player.active.max_hp = 61
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 13, 20]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 50, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 102, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 53, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 1
+expect.player.active.species = "XATU"
+expect.player.active.level = 22
+expect.player.active.hp = 50
+expect.player.active.max_hp = 61
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 13, 20]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 50, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 102, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 53, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "XATU"
+expect.player.active.level = 22
+expect.player.active.hp = 50
+expect.player.active.max_hp = 61
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 12, 20]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 50, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 102, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 5
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 9, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 5, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "XATU"
+expect.player.active.level = 22
+expect.player.active.hp = 50
+expect.player.active.max_hp = 61
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 11, 20]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 50, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 102, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 5, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 1
+expect.player.active.species = "XATU"
+expect.player.active.level = 22
+expect.player.active.hp = 50
+expect.player.active.max_hp = 61
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 11, 20]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 50, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 102, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 5, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "XATU"
+expect.player.active.level = 22
+expect.player.active.hp = 0
+expect.player.active.max_hp = 61
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 11, 20]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 0, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 102, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 14, 5, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "VAPOREON"
+expect.player.active.level = 24
+expect.player.active.hp = 102
+expect.player.active.max_hp = 102
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 15, 25, 30]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 0, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 102, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 14, 5, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "VAPOREON"
+expect.player.active.level = 24
+expect.player.active.hp = 102
+expect.player.active.max_hp = 102
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 15, 25, 29]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 0, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 102, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 14, 5, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "VAPOREON"
+expect.player.active.level = 24
+expect.player.active.hp = 102
+expect.player.active.max_hp = 102
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 15, 25, 28]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 0, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 102, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 14, 5, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "VAPOREON"
+expect.player.active.level = 24
+expect.player.active.hp = 102
+expect.player.active.max_hp = 102
+expect.player.active.status = "sleep"
+expect.player.active.pp = [30, 15, 25, 27]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 0, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 102, max_hp = 102, status = "sleep" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 14, 5, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "VAPOREON"
+expect.player.active.level = 24
+expect.player.active.hp = 71
+expect.player.active.max_hp = 102
+expect.player.active.status = "sleep"
+expect.player.active.pp = [30, 15, 25, 27]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 0, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 71, max_hp = 102, status = "sleep" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 14, 5, 14]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "VAPOREON"
+expect.player.active.level = 24
+expect.player.active.hp = 71
+expect.player.active.max_hp = 102
+expect.player.active.status = "sleep"
+expect.player.active.pp = [30, 15, 25, 27]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 0, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 71, max_hp = 102, status = "sleep" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 14, 4, 14]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "VAPOREON"
+expect.player.active.level = 24
+expect.player.active.hp = 40
+expect.player.active.max_hp = 102
+expect.player.active.status = "sleep"
+expect.player.active.pp = [30, 15, 25, 27]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 0, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 40, max_hp = 102, status = "sleep" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 14, 4, 13]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "VAPOREON"
+expect.player.active.level = 24
+expect.player.active.hp = 9
+expect.player.active.max_hp = 102
+expect.player.active.status = "sleep"
+expect.player.active.pp = [30, 15, 25, 27]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 0, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 9, max_hp = 102, status = "sleep" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 14, 4, 12]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "VAPOREON"
+expect.player.active.level = 24
+expect.player.active.hp = 0
+expect.player.active.max_hp = 102
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 15, 25, 27]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 0, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 0, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 14, 4, 11]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "CROCONAW"
+expect.player.active.level = 25
+expect.player.active.hp = 73
+expect.player.active.max_hp = 73
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 25, 25]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 0, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 0, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 14, 4, 11]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "CROCONAW"
+expect.player.active.level = 25
+expect.player.active.hp = 73
+expect.player.active.max_hp = 73
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 25, 24]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 0, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 0, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 44
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [16, 14, 4, 11]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "CROCONAW"
+expect.player.active.level = 25
+expect.player.active.hp = 73
+expect.player.active.max_hp = 73
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 25, 23]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 0, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 0, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 20
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 14, 4, 11]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "CROCONAW"
+expect.player.active.level = 25
+expect.player.active.hp = 73
+expect.player.active.max_hp = 73
+expect.player.active.status = "sleep"
+expect.player.active.pp = [30, 20, 25, 23]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 0, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 0, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 73, max_hp = 73, status = "sleep" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 20
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 14, 4, 11]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "CROCONAW"
+expect.player.active.level = 25
+expect.player.active.hp = 33
+expect.player.active.max_hp = 73
+expect.player.active.status = "sleep"
+expect.player.active.pp = [30, 20, 25, 23]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 0, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 0, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 33, max_hp = 73, status = "sleep" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 40
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 14, 4, 10]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "CROCONAW"
+expect.player.active.level = 25
+expect.player.active.hp = 0
+expect.player.active.max_hp = 73
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 25, 23]
+expect.player.party = [{ species = "WOBBUFFET", level = 21, hp = 0, max_hp = 113, status = "none" }, { species = "XATU", level = 22, hp = 0, max_hp = 61, status = "none" }, { species = "VAPOREON", level = 24, hp = 0, max_hp = 102, status = "none" }, { species = "CROCONAW", level = 25, hp = 0, max_hp = 73, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 56
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 14, 4, 9]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+expect.battle.outcome = "loss"

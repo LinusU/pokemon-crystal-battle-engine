@@ -1,0 +1,195 @@
+[recording]
+seed = "0xd7fc1bdef4d94d80"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "PORYGON"
+level = 17
+
+[[scenario.player_party]]
+species = "WEEZING"
+level = 18
+
+[[scenario.player_party]]
+species = "CYNDAQUIL"
+level = 21
+
+[[scenario.player_items]]
+name = "Max Elixer"
+quantity = 2
+
+[[scenario.player_items]]
+name = "Awakening"
+quantity = 1
+
+[[scenario.player_items]]
+name = "Potion"
+quantity = 2
+
+[[scenario.player_items]]
+name = "Antidote"
+quantity = 2
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "PORYGON"
+expect.player.active.level = 17
+expect.player.active.hp = 41
+expect.player.active.max_hp = 51
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 30, 19]
+expect.player.party = [{ species = "PORYGON", level = 17, hp = 41, max_hp = 51, status = "none" }, { species = "WEEZING", level = 18, hp = 53, max_hp = 53, status = "none" }, { species = "CYNDAQUIL", level = 21, hp = 52, max_hp = 52, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 40
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 10, 5, 10]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "PORYGON"
+expect.player.active.level = 17
+expect.player.active.hp = 41
+expect.player.active.max_hp = 51
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 30, 18]
+expect.player.party = [{ species = "PORYGON", level = 17, hp = 41, max_hp = 51, status = "none" }, { species = "WEEZING", level = 18, hp = 53, max_hp = 53, status = "none" }, { species = "CYNDAQUIL", level = 21, hp = 52, max_hp = 52, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 27
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 10, 5, 10]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "PORYGON"
+expect.player.active.level = 17
+expect.player.active.hp = 28
+expect.player.active.max_hp = 51
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 30, 17]
+expect.player.party = [{ species = "PORYGON", level = 17, hp = 28, max_hp = 51, status = "none" }, { species = "WEEZING", level = 18, hp = 53, max_hp = 53, status = "none" }, { species = "CYNDAQUIL", level = 21, hp = 52, max_hp = 52, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 3
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 10, 5, 9]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "PORYGON"
+expect.player.active.level = 17
+expect.player.active.hp = 18
+expect.player.active.max_hp = 51
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 30, 16]
+expect.player.party = [{ species = "PORYGON", level = 17, hp = 18, max_hp = 51, status = "none" }, { species = "WEEZING", level = 18, hp = 53, max_hp = 53, status = "none" }, { species = "CYNDAQUIL", level = 21, hp = 52, max_hp = 52, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 20
+expect.enemy.active.hp = 68
+expect.enemy.active.max_hp = 68
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 20, 10]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 0, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "PORYGON"
+expect.player.active.level = 17
+expect.player.active.hp = 18
+expect.player.active.max_hp = 51
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 30, 16]
+expect.player.party = [{ species = "PORYGON", level = 17, hp = 18, max_hp = 51, status = "none" }, { species = "WEEZING", level = 18, hp = 53, max_hp = 53, status = "none" }, { species = "CYNDAQUIL", level = 21, hp = 52, max_hp = 52, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 20
+expect.enemy.active.hp = 68
+expect.enemy.active.max_hp = 68
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 20, 10]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 0, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "PORYGON"
+expect.player.active.level = 17
+expect.player.active.hp = 0
+expect.player.active.max_hp = 51
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 30, 16]
+expect.player.party = [{ species = "PORYGON", level = 17, hp = 0, max_hp = 51, status = "none" }, { species = "WEEZING", level = 18, hp = 53, max_hp = 53, status = "none" }, { species = "CYNDAQUIL", level = 21, hp = 52, max_hp = 52, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 20
+expect.enemy.active.hp = 68
+expect.enemy.active.max_hp = 68
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 19, 10]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 0, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "WEEZING"
+expect.player.active.level = 18
+expect.player.active.hp = 53
+expect.player.active.max_hp = 53
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 35, 20, 5]
+expect.player.party = [{ species = "PORYGON", level = 17, hp = 0, max_hp = 51, status = "none" }, { species = "WEEZING", level = 18, hp = 53, max_hp = 53, status = "none" }, { species = "CYNDAQUIL", level = 21, hp = 52, max_hp = 52, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 20
+expect.enemy.active.hp = 68
+expect.enemy.active.max_hp = 68
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 19, 10]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 0, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "WEEZING"
+expect.player.active.level = 18
+expect.player.active.hp = 0
+expect.player.active.max_hp = 53
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 35, 20, 4]
+expect.player.party = [{ species = "PORYGON", level = 17, hp = 0, max_hp = 51, status = "none" }, { species = "WEEZING", level = 18, hp = 0, max_hp = 53, status = "none" }, { species = "CYNDAQUIL", level = 21, hp = 52, max_hp = 52, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 20
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 68
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 15, 19, 10]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 0, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 0, max_hp = 68, status = "none" }]
+expect.battle.outcome = "win"

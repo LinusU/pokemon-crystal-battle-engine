@@ -1,0 +1,269 @@
+[recording]
+seed = "0x1e1456802aa1f19c"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Jasmine"
+
+[[scenario.player_party]]
+species = "NINETALES"
+level = 36
+
+[[scenario.player_party]]
+species = "SPINARAK"
+level = 31
+
+[[scenario.player_party]]
+species = "MURKROW"
+level = 29
+
+[[scenario.player_items]]
+name = "X Speed"
+quantity = 2
+
+[[scenario.player_items]]
+name = "Fresh Water"
+quantity = 3
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "NINETALES"
+expect.player.active.level = 36
+expect.player.active.hp = 108
+expect.player.active.max_hp = 108
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [25, 29, 10, 25]
+expect.player.party = [{ species = "NINETALES", level = 36, hp = 108, max_hp = 108, status = "paralysis" }, { species = "SPINARAK", level = 31, hp = 67, max_hp = 67, status = "none" }, { species = "MURKROW", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 52
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 20, 20, 19]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "NINETALES"
+expect.player.active.level = 36
+expect.player.active.hp = 108
+expect.player.active.max_hp = 108
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [25, 29, 10, 25]
+expect.player.party = [{ species = "NINETALES", level = 36, hp = 108, max_hp = 108, status = "paralysis" }, { species = "SPINARAK", level = 31, hp = 67, max_hp = 67, status = "none" }, { species = "MURKROW", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 52
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 19, 20, 19]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "NINETALES"
+expect.player.active.level = 36
+expect.player.active.hp = 108
+expect.player.active.max_hp = 108
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [25, 29, 10, 25]
+expect.player.party = [{ species = "NINETALES", level = 36, hp = 108, max_hp = 108, status = "paralysis" }, { species = "SPINARAK", level = 31, hp = 67, max_hp = 67, status = "none" }, { species = "MURKROW", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 52
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 18, 20, 19]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "NINETALES"
+expect.player.active.level = 36
+expect.player.active.hp = 40
+expect.player.active.max_hp = 108
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [25, 29, 10, 25]
+expect.player.party = [{ species = "NINETALES", level = 36, hp = 40, max_hp = 108, status = "paralysis" }, { species = "SPINARAK", level = 31, hp = 67, max_hp = 67, status = "none" }, { species = "MURKROW", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 52
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 18, 20, 19]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "NINETALES"
+expect.player.active.level = 36
+expect.player.active.hp = 10
+expect.player.active.max_hp = 108
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [25, 28, 10, 25]
+expect.player.party = [{ species = "NINETALES", level = 36, hp = 10, max_hp = 108, status = "paralysis" }, { species = "SPINARAK", level = 31, hp = 67, max_hp = 67, status = "none" }, { species = "MURKROW", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 45
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 18, 20, 19]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 46
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "NINETALES"
+expect.player.active.level = 36
+expect.player.active.hp = 30
+expect.player.active.max_hp = 108
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [25, 28, 10, 25]
+expect.player.party = [{ species = "NINETALES", level = 36, hp = 30, max_hp = 108, status = "paralysis" }, { species = "SPINARAK", level = 31, hp = 67, max_hp = 67, status = "none" }, { species = "MURKROW", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 45
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 18, 20, 19]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 46
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "NINETALES"
+expect.player.active.level = 36
+expect.player.active.hp = 48
+expect.player.active.max_hp = 108
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [25, 28, 10, 25]
+expect.player.party = [{ species = "NINETALES", level = 36, hp = 48, max_hp = 108, status = "paralysis" }, { species = "SPINARAK", level = 31, hp = 67, max_hp = 67, status = "none" }, { species = "MURKROW", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 45
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [11, 18, 20, 19]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "NINETALES"
+expect.player.active.level = 36
+expect.player.active.hp = 0
+expect.player.active.max_hp = 108
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 27, 10, 25]
+expect.player.party = [{ species = "NINETALES", level = 36, hp = 0, max_hp = 108, status = "none" }, { species = "SPINARAK", level = 31, hp = 67, max_hp = 67, status = "none" }, { species = "MURKROW", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 38
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 18, 20, 19]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SPINARAK"
+expect.player.active.level = 31
+expect.player.active.hp = 67
+expect.player.active.max_hp = 67
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 15, 15, 15]
+expect.player.party = [{ species = "NINETALES", level = 36, hp = 0, max_hp = 108, status = "none" }, { species = "SPINARAK", level = 31, hp = 67, max_hp = 67, status = "none" }, { species = "MURKROW", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 38
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 18, 20, 19]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SPINARAK"
+expect.player.active.level = 31
+expect.player.active.hp = 0
+expect.player.active.max_hp = 67
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 15, 15, 15]
+expect.player.party = [{ species = "NINETALES", level = 36, hp = 0, max_hp = 108, status = "none" }, { species = "SPINARAK", level = 31, hp = 0, max_hp = 67, status = "none" }, { species = "MURKROW", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 38
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 18, 20, 19]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "MURKROW"
+expect.player.active.level = 29
+expect.player.active.hp = 74
+expect.player.active.max_hp = 74
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 20, 30, 15]
+expect.player.party = [{ species = "NINETALES", level = 36, hp = 0, max_hp = 108, status = "none" }, { species = "SPINARAK", level = 31, hp = 0, max_hp = 67, status = "none" }, { species = "MURKROW", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 38
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 18, 20, 19]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "MURKROW"
+expect.player.active.level = 29
+expect.player.active.hp = 0
+expect.player.active.max_hp = 74
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 20, 30, 14]
+expect.player.party = [{ species = "NINETALES", level = 36, hp = 0, max_hp = 108, status = "none" }, { species = "SPINARAK", level = 31, hp = 0, max_hp = 67, status = "none" }, { species = "MURKROW", level = 29, hp = 0, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 9
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 18, 20, 19]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+expect.battle.outcome = "loss"

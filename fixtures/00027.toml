@@ -1,0 +1,682 @@
+[recording]
+seed = "0x42daf1cd7576f232"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Bruno"
+
+[[scenario.player_party]]
+species = "PARAS"
+level = 42
+
+[[scenario.player_party]]
+species = "KINGLER"
+level = 40
+
+[[scenario.player_party]]
+species = "NIDORAN_F"
+level = 39
+
+[[scenario.player_party]]
+species = "SLOWKING"
+level = 41
+
+[[scenario.player_party]]
+species = "YANMA"
+level = 48
+
+[[scenario.player_items]]
+name = "X Accuracy"
+quantity = 1
+
+[[scenario.player_items]]
+name = "Potion"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Elixer"
+quantity = 2
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "PARAS"
+expect.player.active.level = 42
+expect.player.active.hp = 62
+expect.player.active.max_hp = 88
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 15, 19, 40]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 62, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 97, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 94, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 132, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 86
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 29, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "PARAS"
+expect.player.active.level = 42
+expect.player.active.hp = 35
+expect.player.active.max_hp = 88
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 15, 18, 40]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 35, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 97, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 94, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 132, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 68
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 28, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "PARAS"
+expect.player.active.level = 42
+expect.player.active.hp = 9
+expect.player.active.max_hp = 88
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 15, 17, 40]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 9, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 97, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 94, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 132, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 27, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 18
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "PARAS"
+expect.player.active.level = 42
+expect.player.active.hp = 2
+expect.player.active.max_hp = 88
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 15, 17, 40]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 2, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 97, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 94, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 132, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 26, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 18
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "PARAS"
+expect.player.active.level = 42
+expect.player.active.hp = 11
+expect.player.active.max_hp = 88
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 15, 17, 40]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 11, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 97, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 94, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 132, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 26, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 18
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "PARAS"
+expect.player.active.level = 42
+expect.player.active.hp = 21
+expect.player.active.max_hp = 88
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 15, 17, 40]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 21, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 97, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 94, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 132, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 26, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "PARAS"
+expect.player.active.level = 42
+expect.player.active.hp = 0
+expect.player.active.max_hp = 88
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 15, 17, 40]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 97, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 94, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 132, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 25, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "KINGLER"
+expect.player.active.level = 40
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 5, 10]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 97, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 94, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 132, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 25, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "KINGLER"
+expect.player.active.level = 40
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 4, 10]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 97, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 94, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 132, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 25, 9, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "KINGLER"
+expect.player.active.level = 40
+expect.player.active.hp = 79
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 3, 10]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 79, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 94, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 132, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 25, 9, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "KINGLER"
+expect.player.active.level = 40
+expect.player.active.hp = 79
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 2, 10]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 79, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 94, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 132, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 25, 8, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "KINGLER"
+expect.player.active.level = 40
+expect.player.active.hp = 62
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 1, 10]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 62, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 94, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 132, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 25, 8, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "KINGLER"
+expect.player.active.level = 40
+expect.player.active.hp = 62
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 0, 10]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 62, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 94, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 132, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 25, 7, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "KINGLER"
+expect.player.active.level = 40
+expect.player.active.hp = 44
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 19, 0, 10]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 44, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 94, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 132, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 6
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 25, 7, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "KINGLER"
+expect.player.active.level = 40
+expect.player.active.hp = 44
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 18, 0, 10]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 44, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 94, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 132, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 6
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 25, 6, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "KINGLER"
+expect.player.active.level = 40
+expect.player.active.hp = 10
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 17, 0, 10]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 10, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 94, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 132, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 15, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "NIDORAN_F"
+expect.player.active.level = 39
+expect.player.active.hp = 94
+expect.player.active.max_hp = 94
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 25, 15]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 10, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 94, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 132, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 15, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "NIDORAN_F"
+expect.player.active.level = 39
+expect.player.active.hp = 63
+expect.player.active.max_hp = 94
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 24, 15]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 10, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 63, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 132, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 100
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 14, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "NIDORAN_F"
+expect.player.active.level = 39
+expect.player.active.hp = 31
+expect.player.active.max_hp = 94
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 23, 15]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 10, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 31, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 132, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 97
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 13, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "NIDORAN_F"
+expect.player.active.level = 39
+expect.player.active.hp = 0
+expect.player.active.max_hp = 94
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 23, 15]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 10, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 0, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 132, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 97
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 12, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "SLOWKING"
+expect.player.active.level = 41
+expect.player.active.hp = 132
+expect.player.active.max_hp = 132
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 25, 20, 15]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 10, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 0, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 132, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 97
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 12, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "SLOWKING"
+expect.player.active.level = 41
+expect.player.active.hp = 106
+expect.player.active.max_hp = 132
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 25, 20, 14]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 10, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 0, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 106, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 77
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 15, 12, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "SLOWKING"
+expect.player.active.level = 41
+expect.player.active.hp = 81
+expect.player.active.max_hp = 132
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 25, 20, 13]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 10, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 0, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 81, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 55
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 15, 12, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "SLOWKING"
+expect.player.active.level = 41
+expect.player.active.hp = 56
+expect.player.active.max_hp = 132
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 25, 20, 12]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 10, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 0, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 56, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 32
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 15, 12, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "SLOWKING"
+expect.player.active.level = 41
+expect.player.active.hp = 29
+expect.player.active.max_hp = 132
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 25, 20, 11]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 10, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 0, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 29, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 12
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [11, 15, 12, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "SLOWKING"
+expect.player.active.level = 41
+expect.player.active.hp = 3
+expect.player.active.max_hp = 132
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 25, 20, 10]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 10, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 0, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 3, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 92
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+slot = 4
+expect.player.active_slot = 4
+expect.player.active.species = "YANMA"
+expect.player.active.level = 48
+expect.player.active.hp = 128
+expect.player.active.max_hp = 128
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 20, 35, 40]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 10, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 0, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 3, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 128, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 92
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 4
+expect.player.active.species = "YANMA"
+expect.player.active.level = 48
+expect.player.active.hp = 0
+expect.player.active.max_hp = 128
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 20, 34, 40]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 10, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 0, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 3, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 0, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 83
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 9]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "KINGLER"
+expect.player.active.level = 40
+expect.player.active.hp = 10
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 17, 0, 10]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 10, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 0, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 3, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 0, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 83
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 9]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "KINGLER"
+expect.player.active.level = 40
+expect.player.active.hp = 0
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 17, 0, 10]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 0, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 0, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 3, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 0, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 83
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 9, 10, 9]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "SLOWKING"
+expect.player.active.level = 41
+expect.player.active.hp = 3
+expect.player.active.max_hp = 132
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 25, 20, 10]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 0, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 0, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 3, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 0, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 83
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 9, 10, 9]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "SLOWKING"
+expect.player.active.level = 41
+expect.player.active.hp = 0
+expect.player.active.max_hp = 132
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 25, 20, 10]
+expect.player.party = [{ species = "PARAS", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "KINGLER", level = 40, hp = 0, max_hp = 97, status = "none" }, { species = "NIDORAN_F", level = 39, hp = 0, max_hp = 94, status = "none" }, { species = "SLOWKING", level = 41, hp = 0, max_hp = 132, status = "none" }, { species = "YANMA", level = 48, hp = 0, max_hp = 128, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 83
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 8, 10, 9]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+expect.battle.outcome = "loss"

@@ -1,0 +1,1138 @@
+[recording]
+seed = "0x25307bc196844f37"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Eusine"
+
+[[scenario.player_party]]
+species = "SQUIRTLE"
+level = 25
+
+[[scenario.player_party]]
+species = "QUAGSIRE"
+level = 24
+
+[[scenario.player_party]]
+species = "PILOSWINE"
+level = 24
+
+[[scenario.player_items]]
+name = "Super Potion"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Ether"
+quantity = 1
+
+[[scenario.player_items]]
+name = "X Accuracy"
+quantity = 2
+
+[[scenario.player_items]]
+name = "Moomoo Milk"
+quantity = 2
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SQUIRTLE"
+expect.player.active.level = 25
+expect.player.active.hp = 63
+expect.player.active.max_hp = 63
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 25, 24, 40]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 63, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 80, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "DROWZEE"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 45
+expect.enemy.active.max_hp = 64
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 19, 20, 25]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SQUIRTLE"
+expect.player.active.level = 25
+expect.player.active.hp = 63
+expect.player.active.max_hp = 63
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 25, 23, 40]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 63, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 80, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "DROWZEE"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 27
+expect.enemy.active.max_hp = 64
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 19, 20, 25]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SQUIRTLE"
+expect.player.active.level = 25
+expect.player.active.hp = 63
+expect.player.active.max_hp = 63
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 25, 22, 40]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 63, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 80, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "DROWZEE"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 9
+expect.enemy.active.max_hp = 64
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 18, 20, 25]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SQUIRTLE"
+expect.player.active.level = 25
+expect.player.active.hp = 63
+expect.player.active.max_hp = 63
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 25, 21, 40]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 63, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 80, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "ELECTRODE"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 20, 10, 20]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "SQUIRTLE"
+expect.player.active.level = 25
+expect.player.active.hp = 63
+expect.player.active.max_hp = 63
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 25, 21, 40]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 63, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 80, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "ELECTRODE"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 20, 10, 20]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SQUIRTLE"
+expect.player.active.level = 25
+expect.player.active.hp = 63
+expect.player.active.max_hp = 63
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 25, 20, 40]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 63, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 80, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "ELECTRODE"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 61
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 20, 9, 20]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SQUIRTLE"
+expect.player.active.level = 25
+expect.player.active.hp = 63
+expect.player.active.max_hp = 63
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 25, 19, 40]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 63, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 80, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "ELECTRODE"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 52
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 20, 8, 20]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SQUIRTLE"
+expect.player.active.level = 25
+expect.player.active.hp = 0
+expect.player.active.max_hp = 63
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 25, 19, 40]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 80, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "ELECTRODE"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 52
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 20, 7, 20]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 80
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 20, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 80, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "ELECTRODE"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 52
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 20, 7, 20]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 78
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 19, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 78, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "ELECTRODE"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 32
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 20, 7, 19]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 73
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 18, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 73, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "ELECTRODE"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 11
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 20, 7, 19]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 63
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 17, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 63, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 20, 5, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 63
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 17, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 63, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 20, 5, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 63
+expect.player.active.max_hp = 80
+expect.player.active.status = "sleep"
+expect.player.active.pp = [25, 30, 17, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 63, max_hp = 80, status = "sleep" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 19, 5, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 58
+expect.player.active.max_hp = 80
+expect.player.active.status = "sleep"
+expect.player.active.pp = [25, 30, 17, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 58, max_hp = 80, status = "sleep" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [29, 19, 5, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 58
+expect.player.active.max_hp = 80
+expect.player.active.status = "sleep"
+expect.player.active.pp = [25, 30, 17, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 58, max_hp = 80, status = "sleep" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [29, 19, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 53
+expect.player.active.max_hp = 80
+expect.player.active.status = "sleep"
+expect.player.active.pp = [25, 30, 17, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 53, max_hp = 80, status = "sleep" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [28, 19, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 48
+expect.player.active.max_hp = 80
+expect.player.active.status = "sleep"
+expect.player.active.pp = [25, 30, 17, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 48, max_hp = 80, status = "sleep" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [27, 19, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 43
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 16, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 43, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [26, 19, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 43
+expect.player.active.max_hp = 80
+expect.player.active.status = "sleep"
+expect.player.active.pp = [25, 30, 16, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 43, max_hp = 80, status = "sleep" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [26, 18, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 38
+expect.player.active.max_hp = 80
+expect.player.active.status = "sleep"
+expect.player.active.pp = [25, 30, 16, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 38, max_hp = 80, status = "sleep" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 18, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 33
+expect.player.active.max_hp = 80
+expect.player.active.status = "sleep"
+expect.player.active.pp = [25, 30, 16, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 33, max_hp = 80, status = "sleep" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [24, 18, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 28
+expect.player.active.max_hp = 80
+expect.player.active.status = "sleep"
+expect.player.active.pp = [25, 30, 16, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 28, max_hp = 80, status = "sleep" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [23, 18, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 23
+expect.player.active.max_hp = 80
+expect.player.active.status = "sleep"
+expect.player.active.pp = [25, 30, 16, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 23, max_hp = 80, status = "sleep" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [22, 18, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 72
+target = 1
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 74
+expect.player.active.max_hp = 80
+expect.player.active.status = "sleep"
+expect.player.active.pp = [25, 30, 16, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 74, max_hp = 80, status = "sleep" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [21, 18, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 69
+expect.player.active.max_hp = 80
+expect.player.active.status = "sleep"
+expect.player.active.pp = [25, 30, 16, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 69, max_hp = 80, status = "sleep" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 18, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 64
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 15, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 64, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 18, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 64
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 14, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 64, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 17, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 59
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 13, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 59, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 17, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 54
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 12, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 54, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 17, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 54
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 11, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 54, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 16, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 54
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 10, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 54, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 15, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 54
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 9, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 54, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 14, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 46
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 8, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 46, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [16, 14, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 46
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 7, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 46, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [16, 13, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 41
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 6, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 41, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 13, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 41
+expect.player.active.max_hp = 80
+expect.player.active.status = "sleep"
+expect.player.active.pp = [25, 30, 6, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 41, max_hp = 80, status = "sleep" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 12, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 36
+expect.player.active.max_hp = 80
+expect.player.active.status = "sleep"
+expect.player.active.pp = [25, 30, 6, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 36, max_hp = 80, status = "sleep" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 12, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 31
+expect.player.active.max_hp = 80
+expect.player.active.status = "sleep"
+expect.player.active.pp = [25, 30, 6, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 31, max_hp = 80, status = "sleep" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 12, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 26
+expect.player.active.max_hp = 80
+expect.player.active.status = "sleep"
+expect.player.active.pp = [25, 30, 6, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 26, max_hp = 80, status = "sleep" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 12, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 72
+target = 1
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 75
+expect.player.active.max_hp = 80
+expect.player.active.status = "sleep"
+expect.player.active.pp = [25, 30, 6, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 75, max_hp = 80, status = "sleep" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [11, 12, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 67
+expect.player.active.max_hp = 80
+expect.player.active.status = "sleep"
+expect.player.active.pp = [25, 30, 6, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 67, max_hp = 80, status = "sleep" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 12, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 62
+expect.player.active.max_hp = 80
+expect.player.active.status = "sleep"
+expect.player.active.pp = [25, 30, 6, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 62, max_hp = 80, status = "sleep" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 12, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 57
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 5, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 57, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 12, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 57
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 4, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 57, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 11, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 52
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 3, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 52, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 11, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 52
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 2, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 52, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 10, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 44
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 1, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 44, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [6, 10, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 39
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 0, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 39, max_hp = 80, status = "none" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 10, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 34
+expect.player.active.max_hp = 80
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [24, 30, 0, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 34, max_hp = 80, status = "paralysis" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 42
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [4, 10, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 29
+expect.player.active.max_hp = 80
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [24, 30, 0, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 29, max_hp = 80, status = "paralysis" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 42
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [3, 10, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 24
+expect.player.active.max_hp = 80
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [23, 30, 0, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 24, max_hp = 80, status = "paralysis" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 25
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [2, 10, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 17
+target = 1
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 69
+expect.player.active.max_hp = 80
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [23, 30, 0, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 69, max_hp = 80, status = "paralysis" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 25
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [1, 10, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 62
+expect.player.active.max_hp = 80
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [22, 30, 0, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 62, max_hp = 80, status = "paralysis" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 9
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 10, 4, 10]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 24
+expect.player.active.hp = 62
+expect.player.active.max_hp = 80
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [22, 30, 0, 20]
+expect.player.party = [{ species = "SQUIRTLE", level = 25, hp = 0, max_hp = 63, status = "none" }, { species = "QUAGSIRE", level = 24, hp = 62, max_hp = 80, status = "paralysis" }, { species = "PILOSWINE", level = 24, hp = 85, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 10, 4, 9]
+expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 0, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 0, max_hp = 69, status = "none" }]
+expect.battle.outcome = "win"

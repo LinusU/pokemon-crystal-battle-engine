@@ -1,0 +1,600 @@
+[recording]
+seed = "0x0654dbf6abd45630"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Morty"
+
+[[scenario.player_party]]
+species = "CHARMANDER"
+level = 22
+
+[[scenario.player_party]]
+species = "TAUROS"
+level = 20
+
+[[scenario.player_party]]
+species = "LANTURN"
+level = 25
+
+[[scenario.player_party]]
+species = "MAROWAK"
+level = 26
+
+[[scenario.player_items]]
+name = "Max Potion"
+quantity = 1
+
+[[scenario.player_items]]
+name = "Elixer"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Ether"
+quantity = 1
+
+[[scenario.player_items]]
+name = "Dire Hit"
+quantity = 2
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "CHARMANDER"
+expect.player.active.level = 22
+expect.player.active.hp = 42
+expect.player.active.max_hp = 55
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 24, 20, 20]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 42, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 62, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 101, max_hp = 101, status = "none" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GASTLY"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 4
+expect.enemy.active.max_hp = 46
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 10, 5, 9]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 23, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 53, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "CHARMANDER"
+expect.player.active.level = 22
+expect.player.active.hp = 36
+expect.player.active.max_hp = 55
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 23, 20, 20]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 36, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 62, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 101, max_hp = 101, status = "none" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 53, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "CHARMANDER"
+expect.player.active.level = 22
+expect.player.active.hp = 36
+expect.player.active.max_hp = 55
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 23, 20, 20]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 36, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 62, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 101, max_hp = 101, status = "none" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 53, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "CHARMANDER"
+expect.player.active.level = 22
+expect.player.active.hp = 2
+expect.player.active.max_hp = 55
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 22, 20, 20]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 2, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 62, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 101, max_hp = 101, status = "none" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 40
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "burn"
+expect.enemy.active.pp = [20, 10, 10, 14]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 40, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 15
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHARMANDER"
+expect.player.active.level = 22
+expect.player.active.hp = 21
+expect.player.active.max_hp = 55
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 22, 20, 20]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 21, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 62, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 101, max_hp = 101, status = "none" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "burn"
+expect.enemy.active.pp = [20, 10, 10, 13]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 40, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "CHARMANDER"
+expect.player.active.level = 22
+expect.player.active.hp = 0
+expect.player.active.max_hp = 55
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 22, 20, 20]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 0, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 62, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 101, max_hp = 101, status = "none" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "burn"
+expect.enemy.active.pp = [20, 10, 10, 12]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 40, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "TAUROS"
+expect.player.active.level = 20
+expect.player.active.hp = 62
+expect.player.active.max_hp = 62
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 25, 10]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 0, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 62, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 101, max_hp = 101, status = "none" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "burn"
+expect.enemy.active.pp = [20, 10, 10, 12]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 40, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "TAUROS"
+expect.player.active.level = 20
+expect.player.active.hp = 62
+expect.player.active.max_hp = 62
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 24, 10]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 0, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 62, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 101, max_hp = 101, status = "none" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 2
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "burn"
+expect.enemy.active.pp = [20, 10, 9, 12]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 8, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "TAUROS"
+expect.player.active.level = 20
+expect.player.active.hp = 47
+expect.player.active.max_hp = 62
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 23, 10]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 0, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 47, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 101, max_hp = 101, status = "none" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 5, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 1
+expect.player.active.species = "TAUROS"
+expect.player.active.level = 20
+expect.player.active.hp = 47
+expect.player.active.max_hp = 62
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 23, 10]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 0, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 47, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 101, max_hp = 101, status = "none" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 5, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "TAUROS"
+expect.player.active.level = 20
+expect.player.active.hp = 32
+expect.player.active.max_hp = 62
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 22, 10]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 0, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 32, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 101, max_hp = 101, status = "none" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 15, 5, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "TAUROS"
+expect.player.active.level = 20
+expect.player.active.hp = 17
+expect.player.active.max_hp = 62
+expect.player.active.status = "sleep"
+expect.player.active.pp = [30, 20, 22, 10]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 0, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 17, max_hp = 62, status = "sleep" }, { species = "LANTURN", level = 25, hp = 101, max_hp = 101, status = "none" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 15, 5, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "TAUROS"
+expect.player.active.level = 20
+expect.player.active.hp = 0
+expect.player.active.max_hp = 62
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 22, 10]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 0, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 0, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 101, max_hp = 101, status = "none" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 15, 5, 14]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "LANTURN"
+expect.player.active.level = 25
+expect.player.active.hp = 101
+expect.player.active.max_hp = 101
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 15, 25, 20]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 0, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 0, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 101, max_hp = 101, status = "none" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 15, 5, 14]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "LANTURN"
+expect.player.active.level = 25
+expect.player.active.hp = 101
+expect.player.active.max_hp = 101
+expect.player.active.status = "sleep"
+expect.player.active.pp = [20, 15, 25, 20]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 0, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 0, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 101, max_hp = 101, status = "sleep" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 15, 5, 14]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "LANTURN"
+expect.player.active.level = 25
+expect.player.active.hp = 66
+expect.player.active.max_hp = 101
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 15, 25, 19]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 0, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 0, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 66, max_hp = 101, status = "none" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 46
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [17, 15, 5, 13]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 46, max_hp = 69, status = "paralysis" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "LANTURN"
+expect.player.active.level = 25
+expect.player.active.hp = 66
+expect.player.active.max_hp = 101
+expect.player.active.status = "sleep"
+expect.player.active.pp = [20, 15, 25, 18]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 0, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 0, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 66, max_hp = 101, status = "sleep" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 21
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [16, 15, 5, 13]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 46, max_hp = 69, status = "paralysis" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "LANTURN"
+expect.player.active.level = 25
+expect.player.active.hp = 66
+expect.player.active.max_hp = 101
+expect.player.active.status = "sleep"
+expect.player.active.pp = [20, 15, 25, 18]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 0, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 0, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 66, max_hp = 101, status = "sleep" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 21
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [16, 15, 5, 13]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 46, max_hp = 69, status = "paralysis" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "LANTURN"
+expect.player.active.level = 25
+expect.player.active.hp = 66
+expect.player.active.max_hp = 101
+expect.player.active.status = "sleep"
+expect.player.active.pp = [20, 15, 25, 18]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 0, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 0, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 66, max_hp = 101, status = "sleep" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 21
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [16, 15, 5, 13]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 46, max_hp = 69, status = "paralysis" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "LANTURN"
+expect.player.active.level = 25
+expect.player.active.hp = 66
+expect.player.active.max_hp = 101
+expect.player.active.status = "sleep"
+expect.player.active.pp = [20, 15, 25, 18]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 0, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 0, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 66, max_hp = 101, status = "sleep" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 21
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [16, 15, 5, 13]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 46, max_hp = 69, status = "paralysis" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "LANTURN"
+expect.player.active.level = 25
+expect.player.active.hp = 66
+expect.player.active.max_hp = 101
+expect.player.active.status = "sleep"
+expect.player.active.pp = [20, 15, 25, 18]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 0, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 0, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 66, max_hp = 101, status = "sleep" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 21
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [16, 15, 5, 13]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 46, max_hp = 69, status = "paralysis" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "LANTURN"
+expect.player.active.level = 25
+expect.player.active.hp = 31
+expect.player.active.max_hp = 101
+expect.player.active.status = "sleep"
+expect.player.active.pp = [20, 15, 25, 18]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 0, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 0, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 31, max_hp = 101, status = "sleep" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 38
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [16, 15, 5, 12]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 46, max_hp = 69, status = "paralysis" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "LANTURN"
+expect.player.active.level = 25
+expect.player.active.hp = 0
+expect.player.active.max_hp = 101
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 15, 25, 18]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 0, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 0, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 0, max_hp = 101, status = "none" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [16, 15, 5, 11]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 46, max_hp = 69, status = "paralysis" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "MAROWAK"
+expect.player.active.level = 26
+expect.player.active.hp = 71
+expect.player.active.max_hp = 71
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 30, 30, 10]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 0, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 0, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 0, max_hp = 101, status = "none" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [16, 15, 5, 11]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 46, max_hp = 69, status = "paralysis" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 3
+expect.player.active.species = "MAROWAK"
+expect.player.active.level = 26
+expect.player.active.hp = 71
+expect.player.active.max_hp = 71
+expect.player.active.status = "sleep"
+expect.player.active.pp = [14, 30, 30, 10]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 0, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 0, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 0, max_hp = 101, status = "none" }, { species = "MAROWAK", level = 26, hp = 71, max_hp = 71, status = "sleep" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [15, 15, 5, 11]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 46, max_hp = 69, status = "paralysis" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 3
+expect.player.active.species = "MAROWAK"
+expect.player.active.level = 26
+expect.player.active.hp = 34
+expect.player.active.max_hp = 71
+expect.player.active.status = "sleep"
+expect.player.active.pp = [14, 30, 30, 10]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 0, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 0, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 0, max_hp = 101, status = "none" }, { species = "MAROWAK", level = 26, hp = 34, max_hp = 71, status = "sleep" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [15, 15, 5, 10]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 46, max_hp = 69, status = "paralysis" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 3
+expect.player.active.species = "MAROWAK"
+expect.player.active.level = 26
+expect.player.active.hp = 1
+expect.player.active.max_hp = 71
+expect.player.active.status = "sleep"
+expect.player.active.pp = [14, 30, 30, 10]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 0, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 0, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 0, max_hp = 101, status = "none" }, { species = "MAROWAK", level = 26, hp = 1, max_hp = 71, status = "sleep" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [15, 15, 5, 9]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 46, max_hp = 69, status = "paralysis" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 3
+expect.player.active.species = "MAROWAK"
+expect.player.active.level = 26
+expect.player.active.hp = 0
+expect.player.active.max_hp = 71
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 30, 30, 10]
+expect.player.party = [{ species = "CHARMANDER", level = 22, hp = 0, max_hp = 55, status = "none" }, { species = "TAUROS", level = 20, hp = 0, max_hp = 62, status = "none" }, { species = "LANTURN", level = 25, hp = 0, max_hp = 101, status = "none" }, { species = "MAROWAK", level = 26, hp = 0, max_hp = 71, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [15, 15, 5, 8]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "burn" }, { species = "GENGAR", level = 25, hp = 46, max_hp = 69, status = "paralysis" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+expect.battle.outcome = "loss"

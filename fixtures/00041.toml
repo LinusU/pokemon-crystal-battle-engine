@@ -1,0 +1,277 @@
+[recording]
+seed = "0xd3c702af3b700ff3"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Falkner"
+
+[[scenario.player_party]]
+species = "RATTATA"
+level = 8
+
+[[scenario.player_party]]
+species = "TAUROS"
+level = 9
+
+[[scenario.player_party]]
+species = "ODDISH"
+level = 8
+
+[[scenario.player_items]]
+name = "Full Heal"
+quantity = 1
+
+[[scenario.player_items]]
+name = "Parlyz Heal"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Ether"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Hyper Potion"
+quantity = 2
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "RATTATA"
+expect.player.active.level = 8
+expect.player.active.hp = 17
+expect.player.active.max_hp = 22
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 29, 0]
+expect.player.party = [{ species = "RATTATA", level = 8, hp = 17, max_hp = 22, status = "none" }, { species = "TAUROS", level = 9, hp = 32, max_hp = 32, status = "none" }, { species = "ODDISH", level = 8, hp = 27, max_hp = 27, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PIDGEY"
+expect.enemy.active.level = 7
+expect.enemy.active.hp = 16
+expect.enemy.active.max_hp = 24
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [34, 10, 0, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 24, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 32, max_hp = 32, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "RATTATA"
+expect.player.active.level = 8
+expect.player.active.hp = 12
+expect.player.active.max_hp = 22
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 28, 0]
+expect.player.party = [{ species = "RATTATA", level = 8, hp = 12, max_hp = 22, status = "none" }, { species = "TAUROS", level = 9, hp = 32, max_hp = 32, status = "none" }, { species = "ODDISH", level = 8, hp = 27, max_hp = 27, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PIDGEY"
+expect.enemy.active.level = 7
+expect.enemy.active.hp = 6
+expect.enemy.active.max_hp = 24
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [33, 10, 0, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 24, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 32, max_hp = 32, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "RATTATA"
+expect.player.active.level = 8
+expect.player.active.hp = 12
+expect.player.active.max_hp = 22
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 27, 0]
+expect.player.party = [{ species = "RATTATA", level = 8, hp = 12, max_hp = 22, status = "none" }, { species = "TAUROS", level = 9, hp = 32, max_hp = 32, status = "none" }, { species = "ODDISH", level = 8, hp = 27, max_hp = 27, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "PIDGEOTTO"
+expect.enemy.active.level = 9
+expect.enemy.active.hp = 32
+expect.enemy.active.max_hp = 32
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 10, 35, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 0, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 32, max_hp = 32, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "RATTATA"
+expect.player.active.level = 8
+expect.player.active.hp = 12
+expect.player.active.max_hp = 22
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 27, 0]
+expect.player.party = [{ species = "RATTATA", level = 8, hp = 12, max_hp = 22, status = "none" }, { species = "TAUROS", level = 9, hp = 32, max_hp = 32, status = "none" }, { species = "ODDISH", level = 8, hp = 27, max_hp = 27, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "PIDGEOTTO"
+expect.enemy.active.level = 9
+expect.enemy.active.hp = 32
+expect.enemy.active.max_hp = 32
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 10, 35, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 0, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 32, max_hp = 32, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "RATTATA"
+expect.player.active.level = 8
+expect.player.active.hp = 3
+expect.player.active.max_hp = 22
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 26, 0]
+expect.player.party = [{ species = "RATTATA", level = 8, hp = 3, max_hp = 22, status = "none" }, { species = "TAUROS", level = 9, hp = 32, max_hp = 32, status = "none" }, { species = "ODDISH", level = 8, hp = 27, max_hp = 27, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "PIDGEOTTO"
+expect.enemy.active.level = 9
+expect.enemy.active.hp = 26
+expect.enemy.active.max_hp = 32
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 10, 34, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 0, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 32, max_hp = 32, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 16
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RATTATA"
+expect.player.active.level = 8
+expect.player.active.hp = 13
+expect.player.active.max_hp = 22
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 26, 0]
+expect.player.party = [{ species = "RATTATA", level = 8, hp = 13, max_hp = 22, status = "none" }, { species = "TAUROS", level = 9, hp = 32, max_hp = 32, status = "none" }, { species = "ODDISH", level = 8, hp = 27, max_hp = 27, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "PIDGEOTTO"
+expect.enemy.active.level = 9
+expect.enemy.active.hp = 26
+expect.enemy.active.max_hp = 32
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 10, 33, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 0, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 32, max_hp = 32, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "RATTATA"
+expect.player.active.level = 8
+expect.player.active.hp = 4
+expect.player.active.max_hp = 22
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 25, 0]
+expect.player.party = [{ species = "RATTATA", level = 8, hp = 4, max_hp = 22, status = "none" }, { species = "TAUROS", level = 9, hp = 32, max_hp = 32, status = "none" }, { species = "ODDISH", level = 8, hp = 27, max_hp = 27, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "PIDGEOTTO"
+expect.enemy.active.level = 9
+expect.enemy.active.hp = 16
+expect.enemy.active.max_hp = 32
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 10, 32, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 0, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 32, max_hp = 32, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 16
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RATTATA"
+expect.player.active.level = 8
+expect.player.active.hp = 13
+expect.player.active.max_hp = 22
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 25, 0]
+expect.player.party = [{ species = "RATTATA", level = 8, hp = 13, max_hp = 22, status = "none" }, { species = "TAUROS", level = 9, hp = 32, max_hp = 32, status = "none" }, { species = "ODDISH", level = 8, hp = 27, max_hp = 27, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "PIDGEOTTO"
+expect.enemy.active.level = 9
+expect.enemy.active.hp = 16
+expect.enemy.active.max_hp = 32
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 10, 31, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 0, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 32, max_hp = 32, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "RATTATA"
+expect.player.active.level = 8
+expect.player.active.hp = 4
+expect.player.active.max_hp = 22
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 24, 0]
+expect.player.party = [{ species = "RATTATA", level = 8, hp = 4, max_hp = 22, status = "none" }, { species = "TAUROS", level = 9, hp = 32, max_hp = 32, status = "none" }, { species = "ODDISH", level = 8, hp = 27, max_hp = 27, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "PIDGEOTTO"
+expect.enemy.active.level = 9
+expect.enemy.active.hp = 10
+expect.enemy.active.max_hp = 32
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 10, 30, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 0, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 32, max_hp = 32, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "RATTATA"
+expect.player.active.level = 8
+expect.player.active.hp = 0
+expect.player.active.max_hp = 22
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 23, 0]
+expect.player.party = [{ species = "RATTATA", level = 8, hp = 0, max_hp = 22, status = "none" }, { species = "TAUROS", level = 9, hp = 32, max_hp = 32, status = "none" }, { species = "ODDISH", level = 8, hp = 27, max_hp = 27, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "PIDGEOTTO"
+expect.enemy.active.level = 9
+expect.enemy.active.hp = 4
+expect.enemy.active.max_hp = 32
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 10, 29, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 0, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 32, max_hp = 32, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "TAUROS"
+expect.player.active.level = 9
+expect.player.active.hp = 32
+expect.player.active.max_hp = 32
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 20, 0]
+expect.player.party = [{ species = "RATTATA", level = 8, hp = 0, max_hp = 22, status = "none" }, { species = "TAUROS", level = 9, hp = 32, max_hp = 32, status = "none" }, { species = "ODDISH", level = 8, hp = 27, max_hp = 27, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "PIDGEOTTO"
+expect.enemy.active.level = 9
+expect.enemy.active.hp = 4
+expect.enemy.active.max_hp = 32
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 10, 29, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 0, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 32, max_hp = 32, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "TAUROS"
+expect.player.active.level = 9
+expect.player.active.hp = 32
+expect.player.active.max_hp = 32
+expect.player.active.status = "none"
+expect.player.active.pp = [34, 30, 20, 0]
+expect.player.party = [{ species = "RATTATA", level = 8, hp = 0, max_hp = 22, status = "none" }, { species = "TAUROS", level = 9, hp = 32, max_hp = 32, status = "none" }, { species = "ODDISH", level = 8, hp = 27, max_hp = 27, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "PIDGEOTTO"
+expect.enemy.active.level = 9
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 32
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 10, 29, 0]
+expect.enemy.party = [{ species = "PIDGEY", level = 7, hp = 0, max_hp = 24, status = "none" }, { species = "PIDGEOTTO", level = 9, hp = 0, max_hp = 32, status = "none" }]
+expect.battle.outcome = "win"

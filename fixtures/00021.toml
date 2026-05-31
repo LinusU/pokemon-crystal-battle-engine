@@ -1,0 +1,436 @@
+[recording]
+seed = "0xbb1c23ad79672ff6"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Karen"
+
+[[scenario.player_party]]
+species = "NATU"
+level = 45
+
+[[scenario.player_party]]
+species = "CROBAT"
+level = 42
+
+[[scenario.player_party]]
+species = "ARTICUNO"
+level = 42
+
+[[scenario.player_party]]
+species = "DUGTRIO"
+level = 39
+
+[[scenario.player_items]]
+name = "Max Ether"
+quantity = 3
+
+[[scenario.player_items]]
+name = "X Attack"
+quantity = 2
+
+[[scenario.player_items]]
+name = "Revive"
+quantity = 1
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "NATU"
+expect.player.active.level = 45
+expect.player.active.hp = 102
+expect.player.active.max_hp = 102
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 20, 15, 10]
+expect.player.party = [{ species = "NATU", level = 45, hp = 102, max_hp = 102, status = "none" }, { species = "CROBAT", level = 42, hp = 133, max_hp = 133, status = "none" }, { species = "ARTICUNO", level = 42, hp = 136, max_hp = 136, status = "none" }, { species = "DUGTRIO", level = 39, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 144
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 10, 20, 5]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "NATU"
+expect.player.active.level = 45
+expect.player.active.hp = 33
+expect.player.active.max_hp = 102
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 20, 14, 10]
+expect.player.party = [{ species = "NATU", level = 45, hp = 33, max_hp = 102, status = "none" }, { species = "CROBAT", level = 42, hp = 133, max_hp = 133, status = "none" }, { species = "ARTICUNO", level = 42, hp = 136, max_hp = 136, status = "none" }, { species = "DUGTRIO", level = 39, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 144
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 10, 19, 5]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 39
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "NATU"
+expect.player.active.level = 45
+expect.player.active.hp = 0
+expect.player.active.max_hp = 102
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 20, 14, 10]
+expect.player.party = [{ species = "NATU", level = 45, hp = 0, max_hp = 102, status = "none" }, { species = "CROBAT", level = 42, hp = 133, max_hp = 133, status = "none" }, { species = "ARTICUNO", level = 42, hp = 136, max_hp = 136, status = "none" }, { species = "DUGTRIO", level = 39, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 144
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 10, 18, 5]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "CROBAT"
+expect.player.active.level = 42
+expect.player.active.hp = 133
+expect.player.active.max_hp = 133
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 10, 35, 5]
+expect.player.party = [{ species = "NATU", level = 45, hp = 0, max_hp = 102, status = "none" }, { species = "CROBAT", level = 42, hp = 133, max_hp = 133, status = "none" }, { species = "ARTICUNO", level = 42, hp = 136, max_hp = 136, status = "none" }, { species = "DUGTRIO", level = 39, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 144
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 10, 18, 5]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "CROBAT"
+expect.player.active.level = 42
+expect.player.active.hp = 133
+expect.player.active.max_hp = 133
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 10, 34, 5]
+expect.player.party = [{ species = "NATU", level = 45, hp = 0, max_hp = 102, status = "none" }, { species = "CROBAT", level = 42, hp = 133, max_hp = 133, status = "none" }, { species = "ARTICUNO", level = 42, hp = 136, max_hp = 136, status = "none" }, { species = "DUGTRIO", level = 39, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 102
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 10, 18, 5]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 102, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "CROBAT"
+expect.player.active.level = 42
+expect.player.active.hp = 133
+expect.player.active.max_hp = 133
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 10, 33, 5]
+expect.player.party = [{ species = "NATU", level = 45, hp = 0, max_hp = 102, status = "none" }, { species = "CROBAT", level = 42, hp = 133, max_hp = 133, status = "none" }, { species = "ARTICUNO", level = 42, hp = 136, max_hp = 136, status = "none" }, { species = "DUGTRIO", level = 39, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 102
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 9, 18, 5]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 102, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "CROBAT"
+expect.player.active.level = 42
+expect.player.active.hp = 87
+expect.player.active.max_hp = 133
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 10, 33, 5]
+expect.player.party = [{ species = "NATU", level = 45, hp = 0, max_hp = 102, status = "none" }, { species = "CROBAT", level = 42, hp = 87, max_hp = 133, status = "none" }, { species = "ARTICUNO", level = 42, hp = 136, max_hp = 136, status = "none" }, { species = "DUGTRIO", level = 39, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 102
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 9, 17, 5]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 102, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "CROBAT"
+expect.player.active.level = 42
+expect.player.active.hp = 57
+expect.player.active.max_hp = 133
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 10, 32, 5]
+expect.player.party = [{ species = "NATU", level = 45, hp = 0, max_hp = 102, status = "none" }, { species = "CROBAT", level = 42, hp = 57, max_hp = 133, status = "none" }, { species = "ARTICUNO", level = 42, hp = 136, max_hp = 136, status = "none" }, { species = "DUGTRIO", level = 39, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 102
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 9, 16, 5]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 102, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "CROBAT"
+expect.player.active.level = 42
+expect.player.active.hp = 29
+expect.player.active.max_hp = 133
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 10, 31, 5]
+expect.player.party = [{ species = "NATU", level = 45, hp = 0, max_hp = 102, status = "none" }, { species = "CROBAT", level = 42, hp = 29, max_hp = 133, status = "none" }, { species = "ARTICUNO", level = 42, hp = 136, max_hp = 136, status = "none" }, { species = "DUGTRIO", level = 39, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 79
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 9, 15, 5]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 102, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "CROBAT"
+expect.player.active.level = 42
+expect.player.active.hp = 1
+expect.player.active.max_hp = 133
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 10, 30, 5]
+expect.player.party = [{ species = "NATU", level = 45, hp = 0, max_hp = 102, status = "none" }, { species = "CROBAT", level = 42, hp = 1, max_hp = 133, status = "none" }, { species = "ARTICUNO", level = 42, hp = 136, max_hp = 136, status = "none" }, { species = "DUGTRIO", level = 39, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 56
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 9, 14, 5]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 102, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "CROBAT"
+expect.player.active.level = 42
+expect.player.active.hp = 0
+expect.player.active.max_hp = 133
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 10, 29, 5]
+expect.player.party = [{ species = "NATU", level = 45, hp = 0, max_hp = 102, status = "none" }, { species = "CROBAT", level = 42, hp = 0, max_hp = 133, status = "none" }, { species = "ARTICUNO", level = 42, hp = 136, max_hp = 136, status = "none" }, { species = "DUGTRIO", level = 39, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 35
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 9, 13, 5]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 102, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "ARTICUNO"
+expect.player.active.level = 42
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 30, 5]
+expect.player.party = [{ species = "NATU", level = 45, hp = 0, max_hp = 102, status = "none" }, { species = "CROBAT", level = 42, hp = 0, max_hp = 133, status = "none" }, { species = "ARTICUNO", level = 42, hp = 136, max_hp = 136, status = "none" }, { species = "DUGTRIO", level = 39, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 35
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 9, 13, 5]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 102, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "ARTICUNO"
+expect.player.active.level = 42
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 30, 30, 5]
+expect.player.party = [{ species = "NATU", level = 45, hp = 0, max_hp = 102, status = "none" }, { species = "CROBAT", level = 42, hp = 0, max_hp = 133, status = "none" }, { species = "ARTICUNO", level = 42, hp = 136, max_hp = 136, status = "none" }, { species = "DUGTRIO", level = 39, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 18
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 9, 13, 5]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 102, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "ARTICUNO"
+expect.player.active.level = 42
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [23, 30, 30, 5]
+expect.player.party = [{ species = "NATU", level = 45, hp = 0, max_hp = 102, status = "none" }, { species = "CROBAT", level = 42, hp = 0, max_hp = 133, status = "none" }, { species = "ARTICUNO", level = 42, hp = 136, max_hp = 136, status = "none" }, { species = "DUGTRIO", level = 39, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 2
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "freeze"
+expect.enemy.active.pp = [12, 9, 13, 5]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 2, max_hp = 144, status = "freeze" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "ARTICUNO"
+expect.player.active.level = 42
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [22, 30, 30, 5]
+expect.player.party = [{ species = "NATU", level = 45, hp = 0, max_hp = 102, status = "none" }, { species = "CROBAT", level = 42, hp = 0, max_hp = 133, status = "none" }, { species = "ARTICUNO", level = 42, hp = 136, max_hp = 136, status = "none" }, { species = "DUGTRIO", level = 39, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 141
+expect.enemy.active.max_hp = 141
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 15, 15]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 0, max_hp = 144, status = "freeze" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 2
+expect.player.active.species = "ARTICUNO"
+expect.player.active.level = 42
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [22, 30, 30, 5]
+expect.player.party = [{ species = "NATU", level = 45, hp = 0, max_hp = 102, status = "none" }, { species = "CROBAT", level = 42, hp = 0, max_hp = 133, status = "none" }, { species = "ARTICUNO", level = 42, hp = 136, max_hp = 136, status = "none" }, { species = "DUGTRIO", level = 39, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 141
+expect.enemy.active.max_hp = 141
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 15, 15]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 0, max_hp = 144, status = "freeze" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "ARTICUNO"
+expect.player.active.level = 42
+expect.player.active.hp = 30
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [21, 30, 30, 5]
+expect.player.party = [{ species = "NATU", level = 45, hp = 0, max_hp = 102, status = "none" }, { species = "CROBAT", level = 42, hp = 0, max_hp = 133, status = "none" }, { species = "ARTICUNO", level = 42, hp = 30, max_hp = 136, status = "none" }, { species = "DUGTRIO", level = 39, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 141
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 14, 15]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 0, max_hp = 144, status = "freeze" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "ARTICUNO"
+expect.player.active.level = 42
+expect.player.active.hp = 0
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [21, 30, 30, 5]
+expect.player.party = [{ species = "NATU", level = 45, hp = 0, max_hp = 102, status = "none" }, { species = "CROBAT", level = 42, hp = 0, max_hp = 133, status = "none" }, { species = "ARTICUNO", level = 42, hp = 0, max_hp = 136, status = "none" }, { species = "DUGTRIO", level = 39, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 141
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 13, 15]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 0, max_hp = 144, status = "freeze" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "DUGTRIO"
+expect.player.active.level = 39
+expect.player.active.hp = 81
+expect.player.active.max_hp = 81
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 10, 15, 20]
+expect.player.party = [{ species = "NATU", level = 45, hp = 0, max_hp = 102, status = "none" }, { species = "CROBAT", level = 42, hp = 0, max_hp = 133, status = "none" }, { species = "ARTICUNO", level = 42, hp = 0, max_hp = 136, status = "none" }, { species = "DUGTRIO", level = 39, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 141
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 13, 15]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 0, max_hp = 144, status = "freeze" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 3
+expect.player.active.species = "DUGTRIO"
+expect.player.active.level = 39
+expect.player.active.hp = 0
+expect.player.active.max_hp = 81
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 10, 15, 20]
+expect.player.party = [{ species = "NATU", level = 45, hp = 0, max_hp = 102, status = "none" }, { species = "CROBAT", level = 42, hp = 0, max_hp = 133, status = "none" }, { species = "ARTICUNO", level = 42, hp = 0, max_hp = 136, status = "none" }, { species = "DUGTRIO", level = 39, hp = 0, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 141
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 12, 15]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 0, max_hp = 144, status = "freeze" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+expect.battle.outcome = "loss"

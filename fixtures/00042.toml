@@ -1,0 +1,734 @@
+[recording]
+seed = "0xc8ddbbbeab9cba1b"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Jasmine"
+
+[[scenario.player_party]]
+species = "PORYGON"
+level = 30
+
+[[scenario.player_party]]
+species = "NIDORINA"
+level = 36
+
+[[scenario.player_party]]
+species = "SPINARAK"
+level = 30
+
+[[scenario.player_party]]
+species = "GOLDUCK"
+level = 31
+
+[[scenario.player_items]]
+name = "Dire Hit"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Lemonade"
+quantity = 3
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "PORYGON"
+expect.player.active.level = 30
+expect.player.active.hp = 32
+expect.player.active.max_hp = 79
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 19, 20, 30]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 32, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 97, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 71, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 47
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 20, 20, 20]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "PORYGON"
+expect.player.active.level = 30
+expect.player.active.hp = 0
+expect.player.active.max_hp = 79
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 19, 20, 30]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 97, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 71, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 47
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 20, 20, 20]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "NIDORINA"
+expect.player.active.level = 36
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 30, 25]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 97, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 71, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 47
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 20, 20, 20]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDORINA"
+expect.player.active.level = 36
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 30, 24]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 97, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 71, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 22
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 20, 20, 20]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDORINA"
+expect.player.active.level = 36
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 30, 23]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 97, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 71, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 10
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 20, 20, 19]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDORINA"
+expect.player.active.level = 36
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 30, 22]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 97, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 71, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 59
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 20, 20, 20]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 1
+expect.player.active.species = "NIDORINA"
+expect.player.active.level = 36
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 30, 22]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 97, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 71, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 59
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 20, 20, 20]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDORINA"
+expect.player.active.level = 36
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [30, 35, 30, 21]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 97, max_hp = 97, status = "paralysis" }, { species = "SPINARAK", level = 30, hp = 71, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 48
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 20, 20, 19]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDORINA"
+expect.player.active.level = 36
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [30, 35, 30, 20]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 97, max_hp = 97, status = "paralysis" }, { species = "SPINARAK", level = 30, hp = 71, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 36
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 19, 20, 19]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDORINA"
+expect.player.active.level = 36
+expect.player.active.hp = 37
+expect.player.active.max_hp = 97
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [30, 35, 30, 20]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 37, max_hp = 97, status = "paralysis" }, { species = "SPINARAK", level = 30, hp = 71, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 36
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 19, 20, 19]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDORINA"
+expect.player.active.level = 36
+expect.player.active.hp = 0
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 30, 20]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 71, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 36
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 19, 20, 19]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SPINARAK"
+expect.player.active.level = 30
+expect.player.active.hp = 71
+expect.player.active.max_hp = 71
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 15, 15, 15]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 71, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 36
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 19, 20, 19]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 2
+expect.player.active.species = "SPINARAK"
+expect.player.active.level = 30
+expect.player.active.hp = 0
+expect.player.active.max_hp = 71
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 15, 15, 15]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 0, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 36
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 19, 20, 19]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 31
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 25, 40, 10]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 0, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 36
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 19, 20, 19]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 31
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 24, 40, 10]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 0, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 97, max_hp = 97, status = "paralysis" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 23
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 19, 20, 18]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 31
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 23, 40, 10]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 0, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 97, max_hp = 97, status = "paralysis" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MAGNEMITE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 11
+expect.enemy.active.max_hp = 59
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 18, 20, 18]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 59, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 31
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 22, 40, 10]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 0, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 97, max_hp = 97, status = "paralysis" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 5, 15, 15]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 31
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 21, 40, 10]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 0, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 97, max_hp = 97, status = "paralysis" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 95
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 4, 15, 15]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 31
+expect.player.active.hp = 71
+expect.player.active.max_hp = 97
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 20, 40, 10]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 0, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 71, max_hp = 97, status = "paralysis" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 86
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 4, 15, 14]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 31
+expect.player.active.hp = 71
+expect.player.active.max_hp = 97
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 20, 40, 10]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 0, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 71, max_hp = 97, status = "paralysis" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 86
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 4, 15, 13]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 31
+expect.player.active.hp = 43
+expect.player.active.max_hp = 97
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 20, 40, 10]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 0, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 43, max_hp = 97, status = "paralysis" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 86
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 4, 15, 12]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 31
+expect.player.active.hp = 18
+expect.player.active.max_hp = 97
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 20, 40, 10]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 0, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 18, max_hp = 97, status = "paralysis" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 86
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 4, 15, 11]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 48
+target = 3
+expect.player.active_slot = 3
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 31
+expect.player.active.hp = 41
+expect.player.active.max_hp = 97
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 20, 40, 10]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 0, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 41, max_hp = 97, status = "paralysis" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 86
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 4, 15, 10]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 31
+expect.player.active.hp = 14
+expect.player.active.max_hp = 97
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 19, 40, 10]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 0, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 14, max_hp = 97, status = "paralysis" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 78
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 4, 15, 9]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 48
+target = 3
+expect.player.active_slot = 3
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 31
+expect.player.active.hp = 52
+expect.player.active.max_hp = 97
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 19, 40, 10]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 0, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 52, max_hp = 97, status = "paralysis" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 78
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 4, 15, 8]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 31
+expect.player.active.hp = 52
+expect.player.active.max_hp = 97
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 18, 40, 10]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 0, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 52, max_hp = 97, status = "paralysis" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 70
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 3, 15, 8]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 31
+expect.player.active.hp = 52
+expect.player.active.max_hp = 97
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 17, 40, 10]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 0, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 52, max_hp = 97, status = "paralysis" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 62
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 3, 15, 7]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 31
+expect.player.active.hp = 52
+expect.player.active.max_hp = 97
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 16, 40, 10]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 0, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 52, max_hp = 97, status = "paralysis" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 54
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 3, 15, 6]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 31
+expect.player.active.hp = 52
+expect.player.active.max_hp = 97
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 15, 40, 10]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 0, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 52, max_hp = 97, status = "paralysis" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 45
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 3, 15, 5]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 31
+expect.player.active.hp = 13
+expect.player.active.max_hp = 97
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 14, 40, 10]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 0, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 13, max_hp = 97, status = "paralysis" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 36
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 3, 15, 4]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 48
+target = 3
+expect.player.active_slot = 3
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 31
+expect.player.active.hp = 53
+expect.player.active.max_hp = 97
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 14, 40, 10]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 0, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 53, max_hp = 97, status = "paralysis" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 36
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 3, 15, 3]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 31
+expect.player.active.hp = 53
+expect.player.active.max_hp = 97
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 13, 40, 10]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 0, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 53, max_hp = 97, status = "paralysis" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 94
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 3, 15, 3]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 31
+expect.player.active.hp = 53
+expect.player.active.max_hp = 97
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 12, 40, 10]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 0, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 53, max_hp = 97, status = "paralysis" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 85
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 2, 15, 3]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 31
+expect.player.active.hp = 15
+expect.player.active.max_hp = 97
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 11, 40, 10]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 0, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 15, max_hp = 97, status = "paralysis" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 77
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 2, 15, 2]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 31
+expect.player.active.hp = 0
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 11, 40, 10]
+expect.player.party = [{ species = "PORYGON", level = 30, hp = 0, max_hp = 79, status = "none" }, { species = "NIDORINA", level = 36, hp = 0, max_hp = 97, status = "none" }, { species = "SPINARAK", level = 30, hp = 0, max_hp = 71, status = "none" }, { species = "GOLDUCK", level = 31, hp = 0, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 77
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 2, 15, 1]
+expect.enemy.party = [{ species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "MAGNEMITE", level = 30, hp = 0, max_hp = 59, status = "none" }, { species = "STEELIX", level = 35, hp = 103, max_hp = 103, status = "none" }]
+expect.battle.outcome = "loss"

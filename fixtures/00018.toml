@@ -1,0 +1,171 @@
+[recording]
+seed = "0x89fb848f1e821272"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Misty"
+
+[[scenario.player_party]]
+species = "SNUBBULL"
+level = 41
+
+[[scenario.player_party]]
+species = "MAGIKARP"
+level = 42
+
+[[scenario.player_party]]
+species = "TYROGUE"
+level = 42
+
+[[scenario.player_party]]
+species = "RATTATA"
+level = 42
+
+[[scenario.player_items]]
+name = "Guard Spec"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Ice Heal"
+quantity = 3
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNUBBULL"
+expect.player.active.level = 41
+expect.player.active.hp = 0
+expect.player.active.max_hp = 103
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 30, 20, 20]
+expect.player.party = [{ species = "SNUBBULL", level = 41, hp = 0, max_hp = 103, status = "none" }, { species = "MAGIKARP", level = 42, hp = 80, max_hp = 80, status = "none" }, { species = "TYROGUE", level = 42, hp = 82, max_hp = 82, status = "none" }, { species = "RATTATA", level = 42, hp = 83, max_hp = 83, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GOLDUCK"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 125
+expect.enemy.active.max_hp = 125
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 20, 10, 10]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 125, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 138, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 175, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "MAGIKARP"
+expect.player.active.level = 42
+expect.player.active.hp = 80
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 35, 15, 0]
+expect.player.party = [{ species = "SNUBBULL", level = 41, hp = 0, max_hp = 103, status = "none" }, { species = "MAGIKARP", level = 42, hp = 80, max_hp = 80, status = "none" }, { species = "TYROGUE", level = 42, hp = 82, max_hp = 82, status = "none" }, { species = "RATTATA", level = 42, hp = 83, max_hp = 83, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GOLDUCK"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 125
+expect.enemy.active.max_hp = 125
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 20, 10, 10]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 125, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 138, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 175, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "MAGIKARP"
+expect.player.active.level = 42
+expect.player.active.hp = 0
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 35, 15, 0]
+expect.player.party = [{ species = "SNUBBULL", level = 41, hp = 0, max_hp = 103, status = "none" }, { species = "MAGIKARP", level = 42, hp = 0, max_hp = 80, status = "none" }, { species = "TYROGUE", level = 42, hp = 82, max_hp = 82, status = "none" }, { species = "RATTATA", level = 42, hp = 83, max_hp = 83, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GOLDUCK"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 125
+expect.enemy.active.max_hp = 125
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 20, 10, 9]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 125, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 138, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 175, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "TYROGUE"
+expect.player.active.level = 42
+expect.player.active.hp = 82
+expect.player.active.max_hp = 82
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 0, 0, 0]
+expect.player.party = [{ species = "SNUBBULL", level = 41, hp = 0, max_hp = 103, status = "none" }, { species = "MAGIKARP", level = 42, hp = 0, max_hp = 80, status = "none" }, { species = "TYROGUE", level = 42, hp = 82, max_hp = 82, status = "none" }, { species = "RATTATA", level = 42, hp = 83, max_hp = 83, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GOLDUCK"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 125
+expect.enemy.active.max_hp = 125
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 20, 10, 9]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 125, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 138, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 175, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "TYROGUE"
+expect.player.active.level = 42
+expect.player.active.hp = 0
+expect.player.active.max_hp = 82
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 0, 0, 0]
+expect.player.party = [{ species = "SNUBBULL", level = 41, hp = 0, max_hp = 103, status = "none" }, { species = "MAGIKARP", level = 42, hp = 0, max_hp = 80, status = "none" }, { species = "TYROGUE", level = 42, hp = 0, max_hp = 82, status = "none" }, { species = "RATTATA", level = 42, hp = 83, max_hp = 83, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GOLDUCK"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 125
+expect.enemy.active.max_hp = 125
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 20, 10, 8]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 125, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 138, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 175, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "RATTATA"
+expect.player.active.level = 42
+expect.player.active.hp = 83
+expect.player.active.max_hp = 83
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 30, 20, 10]
+expect.player.party = [{ species = "SNUBBULL", level = 41, hp = 0, max_hp = 103, status = "none" }, { species = "MAGIKARP", level = 42, hp = 0, max_hp = 80, status = "none" }, { species = "TYROGUE", level = 42, hp = 0, max_hp = 82, status = "none" }, { species = "RATTATA", level = 42, hp = 83, max_hp = 83, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GOLDUCK"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 125
+expect.enemy.active.max_hp = 125
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 20, 10, 8]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 125, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 138, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 175, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 3
+expect.player.active.species = "RATTATA"
+expect.player.active.level = 42
+expect.player.active.hp = 0
+expect.player.active.max_hp = 83
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 30, 20, 10]
+expect.player.party = [{ species = "SNUBBULL", level = 41, hp = 0, max_hp = 103, status = "none" }, { species = "MAGIKARP", level = 42, hp = 0, max_hp = 80, status = "none" }, { species = "TYROGUE", level = 42, hp = 0, max_hp = 82, status = "none" }, { species = "RATTATA", level = 42, hp = 0, max_hp = 83, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GOLDUCK"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 125
+expect.enemy.active.max_hp = 125
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 20, 10, 8]
+expect.enemy.party = [{ species = "GOLDUCK", level = 42, hp = 125, max_hp = 125, status = "none" }, { species = "QUAGSIRE", level = 42, hp = 138, max_hp = 138, status = "none" }, { species = "LAPRAS", level = 44, hp = 175, max_hp = 175, status = "none" }, { species = "STARMIE", level = 47, hp = 120, max_hp = 120, status = "none" }]
+expect.battle.outcome = "loss"

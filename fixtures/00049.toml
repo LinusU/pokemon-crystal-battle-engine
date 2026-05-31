@@ -1,0 +1,754 @@
+[recording]
+seed = "0x3abac8d22d5e874a"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Erika"
+
+[[scenario.player_party]]
+species = "ONIX"
+level = 44
+
+[[scenario.player_party]]
+species = "DELIBIRD"
+level = 41
+
+[[scenario.player_party]]
+species = "SCYTHER"
+level = 44
+
+[[scenario.player_items]]
+name = "Hyper Potion"
+quantity = 3
+
+[[scenario.player_items]]
+name = "X Speed"
+quantity = 1
+
+[[scenario.player_items]]
+name = "Max Elixer"
+quantity = 2
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "ONIX"
+expect.player.active.level = 44
+expect.player.active.hp = 0
+expect.player.active.max_hp = 98
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 10, 19]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 91, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 120, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 113
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 4, 15]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "DELIBIRD"
+expect.player.active.level = 41
+expect.player.active.hp = 91
+expect.player.active.max_hp = 91
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 0, 0, 0]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 91, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 120, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 113
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 4, 15]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "DELIBIRD"
+expect.player.active.level = 41
+expect.player.active.hp = 91
+expect.player.active.max_hp = 91
+expect.player.active.status = "sleep"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 91, max_hp = 91, status = "sleep" }, { species = "SCYTHER", level = 44, hp = 120, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 113
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 4, 14]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "DELIBIRD"
+expect.player.active.level = 41
+expect.player.active.hp = 71
+expect.player.active.max_hp = 91
+expect.player.active.status = "sleep"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 71, max_hp = 91, status = "sleep" }, { species = "SCYTHER", level = 44, hp = 120, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 113
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 20, 4, 14]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "DELIBIRD"
+expect.player.active.level = 41
+expect.player.active.hp = 49
+expect.player.active.max_hp = 91
+expect.player.active.status = "sleep"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 49, max_hp = 91, status = "sleep" }, { species = "SCYTHER", level = 44, hp = 120, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 113
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 20, 4, 14]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "DELIBIRD"
+expect.player.active.level = 41
+expect.player.active.hp = 29
+expect.player.active.max_hp = 91
+expect.player.active.status = "sleep"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 29, max_hp = 91, status = "sleep" }, { species = "SCYTHER", level = 44, hp = 120, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 113
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 20, 4, 14]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 16
+target = 1
+expect.player.active_slot = 1
+expect.player.active.species = "DELIBIRD"
+expect.player.active.level = 41
+expect.player.active.hp = 57
+expect.player.active.max_hp = 91
+expect.player.active.status = "sleep"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 57, max_hp = 91, status = "sleep" }, { species = "SCYTHER", level = 44, hp = 120, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 113
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 20, 3, 14]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "DELIBIRD"
+expect.player.active.level = 41
+expect.player.active.hp = 21
+expect.player.active.max_hp = 91
+expect.player.active.status = "sleep"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 21, max_hp = 91, status = "sleep" }, { species = "SCYTHER", level = 44, hp = 120, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 113
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 20, 2, 14]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 16
+target = 1
+expect.player.active_slot = 1
+expect.player.active.species = "DELIBIRD"
+expect.player.active.level = 41
+expect.player.active.hp = 55
+expect.player.active.max_hp = 91
+expect.player.active.status = "sleep"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 55, max_hp = 91, status = "sleep" }, { species = "SCYTHER", level = 44, hp = 120, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 113
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 20, 1, 14]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "DELIBIRD"
+expect.player.active.level = 41
+expect.player.active.hp = 33
+expect.player.active.max_hp = 91
+expect.player.active.status = "sleep"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 33, max_hp = 91, status = "sleep" }, { species = "SCYTHER", level = 44, hp = 120, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 113
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [6, 20, 1, 14]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "DELIBIRD"
+expect.player.active.level = 41
+expect.player.active.hp = 0
+expect.player.active.max_hp = 91
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 120, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 113
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [6, 20, 0, 14]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 120
+expect.player.active.max_hp = 120
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 20, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 120, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 113
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [6, 20, 0, 14]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 109
+expect.player.active.max_hp = 120
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 19, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 109, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 89
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [6, 19, 0, 14]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 102
+expect.player.active.max_hp = 120
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 18, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 102, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 64
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [6, 19, 0, 13]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 95
+expect.player.active.max_hp = 120
+expect.player.active.status = "sleep"
+expect.player.active.pp = [30, 35, 17, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 95, max_hp = 120, status = "sleep" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 39
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [6, 19, 0, 12]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 91
+expect.player.active.max_hp = 120
+expect.player.active.status = "sleep"
+expect.player.active.pp = [30, 35, 17, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 91, max_hp = 120, status = "sleep" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 39
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [6, 18, 0, 12]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 87
+expect.player.active.max_hp = 120
+expect.player.active.status = "sleep"
+expect.player.active.pp = [30, 35, 17, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 87, max_hp = 120, status = "sleep" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 39
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 18, 0, 12]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 83
+expect.player.active.max_hp = 120
+expect.player.active.status = "sleep"
+expect.player.active.pp = [30, 35, 17, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 83, max_hp = 120, status = "sleep" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 39
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [4, 18, 0, 12]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 79
+expect.player.active.max_hp = 120
+expect.player.active.status = "sleep"
+expect.player.active.pp = [30, 35, 17, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 79, max_hp = 120, status = "sleep" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 39
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [3, 18, 0, 12]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 75
+expect.player.active.max_hp = 120
+expect.player.active.status = "sleep"
+expect.player.active.pp = [30, 35, 17, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 75, max_hp = 120, status = "sleep" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 39
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [2, 18, 0, 12]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 71
+expect.player.active.max_hp = 120
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 16, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 71, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 14
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [1, 18, 0, 12]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 71
+expect.player.active.max_hp = 120
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 15, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 71, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "VICTREEBEL"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 136
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 5, 30, 25]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 71
+expect.player.active.max_hp = 120
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 14, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 71, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "VICTREEBEL"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 66
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [4, 5, 30, 25]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 71
+expect.player.active.max_hp = 120
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 13, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 71, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "BELLOSSOM"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 132
+expect.enemy.active.max_hp = 132
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 5, 20, 10]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 0, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 61
+expect.player.active.max_hp = 120
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 12, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 61, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "BELLOSSOM"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 72
+expect.enemy.active.max_hp = 132
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 5, 19, 10]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 0, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 51
+expect.player.active.max_hp = 120
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 11, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 51, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "BELLOSSOM"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 44
+expect.enemy.active.max_hp = 132
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 5, 19, 10]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 0, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 41
+expect.player.active.max_hp = 120
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 10, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 41, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "BELLOSSOM"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 15
+expect.enemy.active.max_hp = 132
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 5, 19, 10]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 0, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 16
+target = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 120
+expect.player.active.max_hp = 120
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 10, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 120, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "BELLOSSOM"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 132
+expect.enemy.active.max_hp = 132
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 5, 19, 10]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 0, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 120
+expect.player.active.max_hp = 120
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 9, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 120, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "BELLOSSOM"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 101
+expect.enemy.active.max_hp = 132
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [4, 5, 19, 10]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 0, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 120
+expect.player.active.max_hp = 120
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 8, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 120, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "BELLOSSOM"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 56
+expect.enemy.active.max_hp = 132
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [4, 5, 19, 10]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 0, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 103
+expect.player.active.max_hp = 120
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 7, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 103, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "BELLOSSOM"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 26
+expect.enemy.active.max_hp = 132
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [4, 5, 19, 9]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 0, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 103
+expect.player.active.max_hp = 120
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 6, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 103, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "JUMPLUFF"
+expect.enemy.active.level = 41
+expect.enemy.active.hp = 119
+expect.enemy.active.max_hp = 119
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 10, 40, 5]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 0, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 0, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 103
+expect.player.active.max_hp = 120
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 5, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 103, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "JUMPLUFF"
+expect.enemy.active.level = 41
+expect.enemy.active.hp = 81
+expect.enemy.active.max_hp = 119
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 9, 40, 5]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 0, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 0, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 83
+expect.player.active.max_hp = 120
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 4, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 83, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "JUMPLUFF"
+expect.enemy.active.level = 41
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 119
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 9, 40, 4]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 0, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 0, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 44
+expect.player.active.hp = 63
+expect.player.active.max_hp = 120
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 3, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 44, hp = 63, max_hp = 120, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "JUMPLUFF"
+expect.enemy.active.level = 41
+expect.enemy.active.hp = 33
+expect.enemy.active.max_hp = 119
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 9, 40, 3]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 0, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 0, max_hp = 132, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 45
+expect.player.active.hp = 67
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 2, 30]
+expect.player.party = [{ species = "ONIX", level = 44, hp = 0, max_hp = 98, status = "none" }, { species = "DELIBIRD", level = 41, hp = 0, max_hp = 91, status = "none" }, { species = "SCYTHER", level = 45, hp = 67, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "JUMPLUFF"
+expect.enemy.active.level = 41
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 119
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 9, 40, 3]
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none" }, { species = "JUMPLUFF", level = 41, hp = 0, max_hp = 119, status = "none" }, { species = "VICTREEBEL", level = 46, hp = 0, max_hp = 136, status = "none" }, { species = "BELLOSSOM", level = 46, hp = 0, max_hp = 132, status = "none" }]
+expect.battle.outcome = "win"

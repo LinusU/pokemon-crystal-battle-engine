@@ -1,0 +1,513 @@
+[recording]
+seed = "0x2d2945c88a670cfe"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Red"
+
+[[scenario.player_party]]
+species = "PONYTA"
+level = 70
+
+[[scenario.player_party]]
+species = "DIGLETT"
+level = 80
+
+[[scenario.player_party]]
+species = "HERACROSS"
+level = 73
+
+[[scenario.player_party]]
+species = "DONPHAN"
+level = 79
+
+[[scenario.player_party]]
+species = "STANTLER"
+level = 79
+
+[[scenario.player_party]]
+species = "SMOOCHUM"
+level = 76
+
+[[scenario.player_items]]
+name = "Full Restore"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Fresh Water"
+quantity = 2
+
+[[scenario.player_items]]
+name = "X Special"
+quantity = 2
+
+[[scenario.player_items]]
+name = "Max Potion"
+quantity = 1
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "PONYTA"
+expect.player.active.level = 70
+expect.player.active.hp = 169
+expect.player.active.max_hp = 169
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 20, 30, 4]
+expect.player.party = [{ species = "PONYTA", level = 70, hp = 169, max_hp = 169, status = "none" }, { species = "DIGLETT", level = 80, hp = 118, max_hp = 118, status = "none" }, { species = "HERACROSS", level = 73, hp = 201, max_hp = 201, status = "none" }, { species = "DONPHAN", level = 79, hp = 254, max_hp = 254, status = "none" }, { species = "STANTLER", level = 79, hp = 213, max_hp = 213, status = "none" }, { species = "SMOOCHUM", level = 76, hp = 168, max_hp = 168, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PIKACHU"
+expect.enemy.active.level = 81
+expect.enemy.active.hp = 51
+expect.enemy.active.max_hp = 170
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 30, 15, 10]
+expect.enemy.party = [{ species = "PIKACHU", level = 81, hp = 170, max_hp = 170, status = "none" }, { species = "ESPEON", level = 73, hp = 198, max_hp = 198, status = "none" }, { species = "SNORLAX", level = 75, hp = 346, max_hp = 346, status = "none" }, { species = "VENUSAUR", level = 77, hp = 231, max_hp = 231, status = "none" }, { species = "CHARIZARD", level = 77, hp = 228, max_hp = 228, status = "none" }, { species = "BLASTOISE", level = 77, hp = 230, max_hp = 230, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "PONYTA"
+expect.player.active.level = 70
+expect.player.active.hp = 169
+expect.player.active.max_hp = 169
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 20, 30, 3]
+expect.player.party = [{ species = "PONYTA", level = 70, hp = 169, max_hp = 169, status = "none" }, { species = "DIGLETT", level = 80, hp = 118, max_hp = 118, status = "none" }, { species = "HERACROSS", level = 73, hp = 201, max_hp = 201, status = "none" }, { species = "DONPHAN", level = 79, hp = 254, max_hp = 254, status = "none" }, { species = "STANTLER", level = 79, hp = 213, max_hp = 213, status = "none" }, { species = "SMOOCHUM", level = 76, hp = 168, max_hp = 168, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PIKACHU"
+expect.enemy.active.level = 81
+expect.enemy.active.hp = 51
+expect.enemy.active.max_hp = 170
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 30, 15, 9]
+expect.enemy.party = [{ species = "PIKACHU", level = 81, hp = 170, max_hp = 170, status = "none" }, { species = "ESPEON", level = 73, hp = 198, max_hp = 198, status = "none" }, { species = "SNORLAX", level = 75, hp = 346, max_hp = 346, status = "none" }, { species = "VENUSAUR", level = 77, hp = 231, max_hp = 231, status = "none" }, { species = "CHARIZARD", level = 77, hp = 228, max_hp = 228, status = "none" }, { species = "BLASTOISE", level = 77, hp = 230, max_hp = 230, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "PONYTA"
+expect.player.active.level = 70
+expect.player.active.hp = 55
+expect.player.active.max_hp = 169
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 20, 30, 2]
+expect.player.party = [{ species = "PONYTA", level = 70, hp = 55, max_hp = 169, status = "none" }, { species = "DIGLETT", level = 80, hp = 118, max_hp = 118, status = "none" }, { species = "HERACROSS", level = 73, hp = 201, max_hp = 201, status = "none" }, { species = "DONPHAN", level = 79, hp = 254, max_hp = 254, status = "none" }, { species = "STANTLER", level = 79, hp = 213, max_hp = 213, status = "none" }, { species = "SMOOCHUM", level = 76, hp = 168, max_hp = 168, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ESPEON"
+expect.enemy.active.level = 73
+expect.enemy.active.hp = 198
+expect.enemy.active.max_hp = 198
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 20, 10]
+expect.enemy.party = [{ species = "PIKACHU", level = 81, hp = 0, max_hp = 170, status = "none" }, { species = "ESPEON", level = 73, hp = 198, max_hp = 198, status = "none" }, { species = "SNORLAX", level = 75, hp = 346, max_hp = 346, status = "none" }, { species = "VENUSAUR", level = 77, hp = 231, max_hp = 231, status = "none" }, { species = "CHARIZARD", level = 77, hp = 228, max_hp = 228, status = "none" }, { species = "BLASTOISE", level = 77, hp = 230, max_hp = 230, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "PONYTA"
+expect.player.active.level = 70
+expect.player.active.hp = 55
+expect.player.active.max_hp = 169
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 20, 30, 2]
+expect.player.party = [{ species = "PONYTA", level = 70, hp = 55, max_hp = 169, status = "none" }, { species = "DIGLETT", level = 80, hp = 118, max_hp = 118, status = "none" }, { species = "HERACROSS", level = 73, hp = 201, max_hp = 201, status = "none" }, { species = "DONPHAN", level = 79, hp = 254, max_hp = 254, status = "none" }, { species = "STANTLER", level = 79, hp = 213, max_hp = 213, status = "none" }, { species = "SMOOCHUM", level = 76, hp = 168, max_hp = 168, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ESPEON"
+expect.enemy.active.level = 73
+expect.enemy.active.hp = 198
+expect.enemy.active.max_hp = 198
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 20, 10]
+expect.enemy.party = [{ species = "PIKACHU", level = 81, hp = 0, max_hp = 170, status = "none" }, { species = "ESPEON", level = 73, hp = 198, max_hp = 198, status = "none" }, { species = "SNORLAX", level = 75, hp = 346, max_hp = 346, status = "none" }, { species = "VENUSAUR", level = 77, hp = 231, max_hp = 231, status = "none" }, { species = "CHARIZARD", level = 77, hp = 228, max_hp = 228, status = "none" }, { species = "BLASTOISE", level = 77, hp = 230, max_hp = 230, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 14
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "PONYTA"
+expect.player.active.level = 70
+expect.player.active.hp = 29
+expect.player.active.max_hp = 169
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 20, 30, 2]
+expect.player.party = [{ species = "PONYTA", level = 70, hp = 29, max_hp = 169, status = "none" }, { species = "DIGLETT", level = 80, hp = 118, max_hp = 118, status = "none" }, { species = "HERACROSS", level = 73, hp = 201, max_hp = 201, status = "none" }, { species = "DONPHAN", level = 79, hp = 254, max_hp = 254, status = "none" }, { species = "STANTLER", level = 79, hp = 213, max_hp = 213, status = "none" }, { species = "SMOOCHUM", level = 76, hp = 168, max_hp = 168, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ESPEON"
+expect.enemy.active.level = 73
+expect.enemy.active.hp = 198
+expect.enemy.active.max_hp = 198
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 20, 9]
+expect.enemy.party = [{ species = "PIKACHU", level = 81, hp = 0, max_hp = 170, status = "none" }, { species = "ESPEON", level = 73, hp = 198, max_hp = 198, status = "none" }, { species = "SNORLAX", level = 75, hp = 346, max_hp = 346, status = "none" }, { species = "VENUSAUR", level = 77, hp = 231, max_hp = 231, status = "none" }, { species = "CHARIZARD", level = 77, hp = 228, max_hp = 228, status = "none" }, { species = "BLASTOISE", level = 77, hp = 230, max_hp = 230, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 14
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "PONYTA"
+expect.player.active.level = 70
+expect.player.active.hp = 30
+expect.player.active.max_hp = 169
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 20, 30, 2]
+expect.player.party = [{ species = "PONYTA", level = 70, hp = 30, max_hp = 169, status = "none" }, { species = "DIGLETT", level = 80, hp = 118, max_hp = 118, status = "none" }, { species = "HERACROSS", level = 73, hp = 201, max_hp = 201, status = "none" }, { species = "DONPHAN", level = 79, hp = 254, max_hp = 254, status = "none" }, { species = "STANTLER", level = 79, hp = 213, max_hp = 213, status = "none" }, { species = "SMOOCHUM", level = 76, hp = 168, max_hp = 168, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ESPEON"
+expect.enemy.active.level = 73
+expect.enemy.active.hp = 198
+expect.enemy.active.max_hp = 198
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 20, 8]
+expect.enemy.party = [{ species = "PIKACHU", level = 81, hp = 0, max_hp = 170, status = "none" }, { species = "ESPEON", level = 73, hp = 198, max_hp = 198, status = "none" }, { species = "SNORLAX", level = 75, hp = 346, max_hp = 346, status = "none" }, { species = "VENUSAUR", level = 77, hp = 231, max_hp = 231, status = "none" }, { species = "CHARIZARD", level = 77, hp = 228, max_hp = 228, status = "none" }, { species = "BLASTOISE", level = 77, hp = 230, max_hp = 230, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 14
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "PONYTA"
+expect.player.active.level = 70
+expect.player.active.hp = 30
+expect.player.active.max_hp = 169
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 20, 30, 2]
+expect.player.party = [{ species = "PONYTA", level = 70, hp = 30, max_hp = 169, status = "none" }, { species = "DIGLETT", level = 80, hp = 118, max_hp = 118, status = "none" }, { species = "HERACROSS", level = 73, hp = 201, max_hp = 201, status = "none" }, { species = "DONPHAN", level = 79, hp = 254, max_hp = 254, status = "none" }, { species = "STANTLER", level = 79, hp = 213, max_hp = 213, status = "none" }, { species = "SMOOCHUM", level = 76, hp = 168, max_hp = 168, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ESPEON"
+expect.enemy.active.level = 73
+expect.enemy.active.hp = 198
+expect.enemy.active.max_hp = 198
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 20, 7]
+expect.enemy.party = [{ species = "PIKACHU", level = 81, hp = 0, max_hp = 170, status = "none" }, { species = "ESPEON", level = 73, hp = 198, max_hp = 198, status = "none" }, { species = "SNORLAX", level = 75, hp = 346, max_hp = 346, status = "none" }, { species = "VENUSAUR", level = 77, hp = 231, max_hp = 231, status = "none" }, { species = "CHARIZARD", level = 77, hp = 228, max_hp = 228, status = "none" }, { species = "BLASTOISE", level = 77, hp = 230, max_hp = 230, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 15
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "PONYTA"
+expect.player.active.level = 70
+expect.player.active.hp = 14
+expect.player.active.max_hp = 169
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 20, 30, 2]
+expect.player.party = [{ species = "PONYTA", level = 70, hp = 14, max_hp = 169, status = "none" }, { species = "DIGLETT", level = 80, hp = 118, max_hp = 118, status = "none" }, { species = "HERACROSS", level = 73, hp = 201, max_hp = 201, status = "none" }, { species = "DONPHAN", level = 79, hp = 254, max_hp = 254, status = "none" }, { species = "STANTLER", level = 79, hp = 213, max_hp = 213, status = "none" }, { species = "SMOOCHUM", level = 76, hp = 168, max_hp = 168, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ESPEON"
+expect.enemy.active.level = 73
+expect.enemy.active.hp = 198
+expect.enemy.active.max_hp = 198
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 20, 6]
+expect.enemy.party = [{ species = "PIKACHU", level = 81, hp = 0, max_hp = 170, status = "none" }, { species = "ESPEON", level = 73, hp = 198, max_hp = 198, status = "none" }, { species = "SNORLAX", level = 75, hp = 346, max_hp = 346, status = "none" }, { species = "VENUSAUR", level = 77, hp = 231, max_hp = 231, status = "none" }, { species = "CHARIZARD", level = 77, hp = 228, max_hp = 228, status = "none" }, { species = "BLASTOISE", level = 77, hp = 230, max_hp = 230, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 46
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "PONYTA"
+expect.player.active.level = 70
+expect.player.active.hp = 0
+expect.player.active.max_hp = 169
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 20, 30, 2]
+expect.player.party = [{ species = "PONYTA", level = 70, hp = 0, max_hp = 169, status = "none" }, { species = "DIGLETT", level = 80, hp = 118, max_hp = 118, status = "none" }, { species = "HERACROSS", level = 73, hp = 201, max_hp = 201, status = "none" }, { species = "DONPHAN", level = 79, hp = 254, max_hp = 254, status = "none" }, { species = "STANTLER", level = 79, hp = 213, max_hp = 213, status = "none" }, { species = "SMOOCHUM", level = 76, hp = 168, max_hp = 168, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ESPEON"
+expect.enemy.active.level = 73
+expect.enemy.active.hp = 198
+expect.enemy.active.max_hp = 198
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 20, 5]
+expect.enemy.party = [{ species = "PIKACHU", level = 81, hp = 0, max_hp = 170, status = "none" }, { species = "ESPEON", level = 73, hp = 198, max_hp = 198, status = "none" }, { species = "SNORLAX", level = 75, hp = 346, max_hp = 346, status = "none" }, { species = "VENUSAUR", level = 77, hp = 231, max_hp = 231, status = "none" }, { species = "CHARIZARD", level = 77, hp = 228, max_hp = 228, status = "none" }, { species = "BLASTOISE", level = 77, hp = 230, max_hp = 230, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "DIGLETT"
+expect.player.active.level = 80
+expect.player.active.hp = 118
+expect.player.active.max_hp = 118
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 20, 10, 5]
+expect.player.party = [{ species = "PONYTA", level = 70, hp = 0, max_hp = 169, status = "none" }, { species = "DIGLETT", level = 80, hp = 118, max_hp = 118, status = "none" }, { species = "HERACROSS", level = 73, hp = 201, max_hp = 201, status = "none" }, { species = "DONPHAN", level = 79, hp = 254, max_hp = 254, status = "none" }, { species = "STANTLER", level = 79, hp = 213, max_hp = 213, status = "none" }, { species = "SMOOCHUM", level = 76, hp = 168, max_hp = 168, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ESPEON"
+expect.enemy.active.level = 73
+expect.enemy.active.hp = 198
+expect.enemy.active.max_hp = 198
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 20, 5]
+expect.enemy.party = [{ species = "PIKACHU", level = 81, hp = 0, max_hp = 170, status = "none" }, { species = "ESPEON", level = 73, hp = 198, max_hp = 198, status = "none" }, { species = "SNORLAX", level = 75, hp = 346, max_hp = 346, status = "none" }, { species = "VENUSAUR", level = 77, hp = 231, max_hp = 231, status = "none" }, { species = "CHARIZARD", level = 77, hp = 228, max_hp = 228, status = "none" }, { species = "BLASTOISE", level = 77, hp = 230, max_hp = 230, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "DIGLETT"
+expect.player.active.level = 80
+expect.player.active.hp = 0
+expect.player.active.max_hp = 118
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 20, 10, 5]
+expect.player.party = [{ species = "PONYTA", level = 70, hp = 0, max_hp = 169, status = "none" }, { species = "DIGLETT", level = 80, hp = 0, max_hp = 118, status = "none" }, { species = "HERACROSS", level = 73, hp = 201, max_hp = 201, status = "none" }, { species = "DONPHAN", level = 79, hp = 254, max_hp = 254, status = "none" }, { species = "STANTLER", level = 79, hp = 213, max_hp = 213, status = "none" }, { species = "SMOOCHUM", level = 76, hp = 168, max_hp = 168, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ESPEON"
+expect.enemy.active.level = 73
+expect.enemy.active.hp = 198
+expect.enemy.active.max_hp = 198
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 20, 4]
+expect.enemy.party = [{ species = "PIKACHU", level = 81, hp = 0, max_hp = 170, status = "none" }, { species = "ESPEON", level = 73, hp = 198, max_hp = 198, status = "none" }, { species = "SNORLAX", level = 75, hp = 346, max_hp = 346, status = "none" }, { species = "VENUSAUR", level = 77, hp = 231, max_hp = 231, status = "none" }, { species = "CHARIZARD", level = 77, hp = 228, max_hp = 228, status = "none" }, { species = "BLASTOISE", level = 77, hp = 230, max_hp = 230, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "HERACROSS"
+expect.player.active.level = 73
+expect.player.active.hp = 201
+expect.player.active.max_hp = 201
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 15, 10]
+expect.player.party = [{ species = "PONYTA", level = 70, hp = 0, max_hp = 169, status = "none" }, { species = "DIGLETT", level = 80, hp = 0, max_hp = 118, status = "none" }, { species = "HERACROSS", level = 73, hp = 201, max_hp = 201, status = "none" }, { species = "DONPHAN", level = 79, hp = 254, max_hp = 254, status = "none" }, { species = "STANTLER", level = 79, hp = 213, max_hp = 213, status = "none" }, { species = "SMOOCHUM", level = 76, hp = 168, max_hp = 168, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ESPEON"
+expect.enemy.active.level = 73
+expect.enemy.active.hp = 198
+expect.enemy.active.max_hp = 198
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 20, 4]
+expect.enemy.party = [{ species = "PIKACHU", level = 81, hp = 0, max_hp = 170, status = "none" }, { species = "ESPEON", level = 73, hp = 198, max_hp = 198, status = "none" }, { species = "SNORLAX", level = 75, hp = 346, max_hp = 346, status = "none" }, { species = "VENUSAUR", level = 77, hp = 231, max_hp = 231, status = "none" }, { species = "CHARIZARD", level = 77, hp = 228, max_hp = 228, status = "none" }, { species = "BLASTOISE", level = 77, hp = 230, max_hp = 230, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "HERACROSS"
+expect.player.active.level = 73
+expect.player.active.hp = 0
+expect.player.active.max_hp = 201
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 15, 10]
+expect.player.party = [{ species = "PONYTA", level = 70, hp = 0, max_hp = 169, status = "none" }, { species = "DIGLETT", level = 80, hp = 0, max_hp = 118, status = "none" }, { species = "HERACROSS", level = 73, hp = 0, max_hp = 201, status = "none" }, { species = "DONPHAN", level = 79, hp = 254, max_hp = 254, status = "none" }, { species = "STANTLER", level = 79, hp = 213, max_hp = 213, status = "none" }, { species = "SMOOCHUM", level = 76, hp = 168, max_hp = 168, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ESPEON"
+expect.enemy.active.level = 73
+expect.enemy.active.hp = 198
+expect.enemy.active.max_hp = 198
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 20, 3]
+expect.enemy.party = [{ species = "PIKACHU", level = 81, hp = 0, max_hp = 170, status = "none" }, { species = "ESPEON", level = 73, hp = 198, max_hp = 198, status = "none" }, { species = "SNORLAX", level = 75, hp = 346, max_hp = 346, status = "none" }, { species = "VENUSAUR", level = 77, hp = 231, max_hp = 231, status = "none" }, { species = "CHARIZARD", level = 77, hp = 228, max_hp = 228, status = "none" }, { species = "BLASTOISE", level = 77, hp = 230, max_hp = 230, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "DONPHAN"
+expect.player.active.level = 79
+expect.player.active.hp = 254
+expect.player.active.max_hp = 254
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 40, 10]
+expect.player.party = [{ species = "PONYTA", level = 70, hp = 0, max_hp = 169, status = "none" }, { species = "DIGLETT", level = 80, hp = 0, max_hp = 118, status = "none" }, { species = "HERACROSS", level = 73, hp = 0, max_hp = 201, status = "none" }, { species = "DONPHAN", level = 79, hp = 254, max_hp = 254, status = "none" }, { species = "STANTLER", level = 79, hp = 213, max_hp = 213, status = "none" }, { species = "SMOOCHUM", level = 76, hp = 168, max_hp = 168, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ESPEON"
+expect.enemy.active.level = 73
+expect.enemy.active.hp = 198
+expect.enemy.active.max_hp = 198
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 20, 3]
+expect.enemy.party = [{ species = "PIKACHU", level = 81, hp = 0, max_hp = 170, status = "none" }, { species = "ESPEON", level = 73, hp = 198, max_hp = 198, status = "none" }, { species = "SNORLAX", level = 75, hp = 346, max_hp = 346, status = "none" }, { species = "VENUSAUR", level = 77, hp = 231, max_hp = 231, status = "none" }, { species = "CHARIZARD", level = 77, hp = 228, max_hp = 228, status = "none" }, { species = "BLASTOISE", level = 77, hp = 230, max_hp = 230, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "DONPHAN"
+expect.player.active.level = 79
+expect.player.active.hp = 254
+expect.player.active.max_hp = 254
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 40, 9]
+expect.player.party = [{ species = "PONYTA", level = 70, hp = 0, max_hp = 169, status = "none" }, { species = "DIGLETT", level = 80, hp = 0, max_hp = 118, status = "none" }, { species = "HERACROSS", level = 73, hp = 0, max_hp = 201, status = "none" }, { species = "DONPHAN", level = 79, hp = 254, max_hp = 254, status = "none" }, { species = "STANTLER", level = 79, hp = 213, max_hp = 213, status = "none" }, { species = "SMOOCHUM", level = 76, hp = 168, max_hp = 168, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ESPEON"
+expect.enemy.active.level = 73
+expect.enemy.active.hp = 109
+expect.enemy.active.max_hp = 198
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 19, 20, 3]
+expect.enemy.party = [{ species = "PIKACHU", level = 81, hp = 0, max_hp = 170, status = "none" }, { species = "ESPEON", level = 73, hp = 198, max_hp = 198, status = "none" }, { species = "SNORLAX", level = 75, hp = 346, max_hp = 346, status = "none" }, { species = "VENUSAUR", level = 77, hp = 231, max_hp = 231, status = "none" }, { species = "CHARIZARD", level = 77, hp = 228, max_hp = 228, status = "none" }, { species = "BLASTOISE", level = 77, hp = 230, max_hp = 230, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "DONPHAN"
+expect.player.active.level = 79
+expect.player.active.hp = 89
+expect.player.active.max_hp = 254
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 40, 8]
+expect.player.party = [{ species = "PONYTA", level = 70, hp = 0, max_hp = 169, status = "none" }, { species = "DIGLETT", level = 80, hp = 0, max_hp = 118, status = "none" }, { species = "HERACROSS", level = 73, hp = 0, max_hp = 201, status = "none" }, { species = "DONPHAN", level = 79, hp = 89, max_hp = 254, status = "none" }, { species = "STANTLER", level = 79, hp = 213, max_hp = 213, status = "none" }, { species = "SMOOCHUM", level = 76, hp = 168, max_hp = 168, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ESPEON"
+expect.enemy.active.level = 73
+expect.enemy.active.hp = 26
+expect.enemy.active.max_hp = 198
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 19, 20, 2]
+expect.enemy.party = [{ species = "PIKACHU", level = 81, hp = 0, max_hp = 170, status = "none" }, { species = "ESPEON", level = 73, hp = 198, max_hp = 198, status = "none" }, { species = "SNORLAX", level = 75, hp = 346, max_hp = 346, status = "none" }, { species = "VENUSAUR", level = 77, hp = 231, max_hp = 231, status = "none" }, { species = "CHARIZARD", level = 77, hp = 228, max_hp = 228, status = "none" }, { species = "BLASTOISE", level = 77, hp = 230, max_hp = 230, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "DONPHAN"
+expect.player.active.level = 79
+expect.player.active.hp = 0
+expect.player.active.max_hp = 254
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 40, 8]
+expect.player.party = [{ species = "PONYTA", level = 70, hp = 0, max_hp = 169, status = "none" }, { species = "DIGLETT", level = 80, hp = 0, max_hp = 118, status = "none" }, { species = "HERACROSS", level = 73, hp = 0, max_hp = 201, status = "none" }, { species = "DONPHAN", level = 79, hp = 0, max_hp = 254, status = "none" }, { species = "STANTLER", level = 79, hp = 213, max_hp = 213, status = "none" }, { species = "SMOOCHUM", level = 76, hp = 168, max_hp = 168, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ESPEON"
+expect.enemy.active.level = 73
+expect.enemy.active.hp = 26
+expect.enemy.active.max_hp = 198
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 19, 20, 1]
+expect.enemy.party = [{ species = "PIKACHU", level = 81, hp = 0, max_hp = 170, status = "none" }, { species = "ESPEON", level = 73, hp = 198, max_hp = 198, status = "none" }, { species = "SNORLAX", level = 75, hp = 346, max_hp = 346, status = "none" }, { species = "VENUSAUR", level = 77, hp = 231, max_hp = 231, status = "none" }, { species = "CHARIZARD", level = 77, hp = 228, max_hp = 228, status = "none" }, { species = "BLASTOISE", level = 77, hp = 230, max_hp = 230, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 4
+expect.player.active_slot = 4
+expect.player.active.species = "STANTLER"
+expect.player.active.level = 79
+expect.player.active.hp = 213
+expect.player.active.max_hp = 213
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 15, 20, 10]
+expect.player.party = [{ species = "PONYTA", level = 70, hp = 0, max_hp = 169, status = "none" }, { species = "DIGLETT", level = 80, hp = 0, max_hp = 118, status = "none" }, { species = "HERACROSS", level = 73, hp = 0, max_hp = 201, status = "none" }, { species = "DONPHAN", level = 79, hp = 0, max_hp = 254, status = "none" }, { species = "STANTLER", level = 79, hp = 213, max_hp = 213, status = "none" }, { species = "SMOOCHUM", level = 76, hp = 168, max_hp = 168, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ESPEON"
+expect.enemy.active.level = 73
+expect.enemy.active.hp = 26
+expect.enemy.active.max_hp = 198
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 19, 20, 1]
+expect.enemy.party = [{ species = "PIKACHU", level = 81, hp = 0, max_hp = 170, status = "none" }, { species = "ESPEON", level = 73, hp = 198, max_hp = 198, status = "none" }, { species = "SNORLAX", level = 75, hp = 346, max_hp = 346, status = "none" }, { species = "VENUSAUR", level = 77, hp = 231, max_hp = 231, status = "none" }, { species = "CHARIZARD", level = 77, hp = 228, max_hp = 228, status = "none" }, { species = "BLASTOISE", level = 77, hp = 230, max_hp = 230, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 4
+expect.player.active.species = "STANTLER"
+expect.player.active.level = 79
+expect.player.active.hp = 70
+expect.player.active.max_hp = 213
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 15, 19, 10]
+expect.player.party = [{ species = "PONYTA", level = 70, hp = 0, max_hp = 169, status = "none" }, { species = "DIGLETT", level = 80, hp = 0, max_hp = 118, status = "none" }, { species = "HERACROSS", level = 73, hp = 0, max_hp = 201, status = "none" }, { species = "DONPHAN", level = 79, hp = 0, max_hp = 254, status = "none" }, { species = "STANTLER", level = 79, hp = 70, max_hp = 213, status = "none" }, { species = "SMOOCHUM", level = 76, hp = 168, max_hp = 168, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "SNORLAX"
+expect.enemy.active.level = 75
+expect.enemy.active.hp = 346
+expect.enemy.active.max_hp = 346
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 10, 15]
+expect.enemy.party = [{ species = "PIKACHU", level = 81, hp = 0, max_hp = 170, status = "none" }, { species = "ESPEON", level = 73, hp = 0, max_hp = 198, status = "none" }, { species = "SNORLAX", level = 75, hp = 346, max_hp = 346, status = "none" }, { species = "VENUSAUR", level = 77, hp = 231, max_hp = 231, status = "none" }, { species = "CHARIZARD", level = 77, hp = 228, max_hp = 228, status = "none" }, { species = "BLASTOISE", level = 77, hp = 230, max_hp = 230, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 4
+expect.player.active.species = "STANTLER"
+expect.player.active.level = 79
+expect.player.active.hp = 70
+expect.player.active.max_hp = 213
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 15, 19, 10]
+expect.player.party = [{ species = "PONYTA", level = 70, hp = 0, max_hp = 169, status = "none" }, { species = "DIGLETT", level = 80, hp = 0, max_hp = 118, status = "none" }, { species = "HERACROSS", level = 73, hp = 0, max_hp = 201, status = "none" }, { species = "DONPHAN", level = 79, hp = 0, max_hp = 254, status = "none" }, { species = "STANTLER", level = 79, hp = 70, max_hp = 213, status = "none" }, { species = "SMOOCHUM", level = 76, hp = 168, max_hp = 168, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "SNORLAX"
+expect.enemy.active.level = 75
+expect.enemy.active.hp = 346
+expect.enemy.active.max_hp = 346
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 10, 15]
+expect.enemy.party = [{ species = "PIKACHU", level = 81, hp = 0, max_hp = 170, status = "none" }, { species = "ESPEON", level = 73, hp = 0, max_hp = 198, status = "none" }, { species = "SNORLAX", level = 75, hp = 346, max_hp = 346, status = "none" }, { species = "VENUSAUR", level = 77, hp = 231, max_hp = 231, status = "none" }, { species = "CHARIZARD", level = 77, hp = 228, max_hp = 228, status = "none" }, { species = "BLASTOISE", level = 77, hp = 230, max_hp = 230, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 46
+target = 4
+expect.player.active_slot = 4
+expect.player.active.species = "STANTLER"
+expect.player.active.level = 79
+expect.player.active.hp = 0
+expect.player.active.max_hp = 213
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 15, 19, 10]
+expect.player.party = [{ species = "PONYTA", level = 70, hp = 0, max_hp = 169, status = "none" }, { species = "DIGLETT", level = 80, hp = 0, max_hp = 118, status = "none" }, { species = "HERACROSS", level = 73, hp = 0, max_hp = 201, status = "none" }, { species = "DONPHAN", level = 79, hp = 0, max_hp = 254, status = "none" }, { species = "STANTLER", level = 79, hp = 0, max_hp = 213, status = "none" }, { species = "SMOOCHUM", level = 76, hp = 168, max_hp = 168, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "SNORLAX"
+expect.enemy.active.level = 75
+expect.enemy.active.hp = 346
+expect.enemy.active.max_hp = 346
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 10, 14]
+expect.enemy.party = [{ species = "PIKACHU", level = 81, hp = 0, max_hp = 170, status = "none" }, { species = "ESPEON", level = 73, hp = 0, max_hp = 198, status = "none" }, { species = "SNORLAX", level = 75, hp = 346, max_hp = 346, status = "none" }, { species = "VENUSAUR", level = 77, hp = 231, max_hp = 231, status = "none" }, { species = "CHARIZARD", level = 77, hp = 228, max_hp = 228, status = "none" }, { species = "BLASTOISE", level = 77, hp = 230, max_hp = 230, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 5
+expect.player.active_slot = 5
+expect.player.active.species = "SMOOCHUM"
+expect.player.active.level = 76
+expect.player.active.hp = 168
+expect.player.active.max_hp = 168
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 10, 5, 5]
+expect.player.party = [{ species = "PONYTA", level = 70, hp = 0, max_hp = 169, status = "none" }, { species = "DIGLETT", level = 80, hp = 0, max_hp = 118, status = "none" }, { species = "HERACROSS", level = 73, hp = 0, max_hp = 201, status = "none" }, { species = "DONPHAN", level = 79, hp = 0, max_hp = 254, status = "none" }, { species = "STANTLER", level = 79, hp = 0, max_hp = 213, status = "none" }, { species = "SMOOCHUM", level = 76, hp = 168, max_hp = 168, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "SNORLAX"
+expect.enemy.active.level = 75
+expect.enemy.active.hp = 346
+expect.enemy.active.max_hp = 346
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 10, 14]
+expect.enemy.party = [{ species = "PIKACHU", level = 81, hp = 0, max_hp = 170, status = "none" }, { species = "ESPEON", level = 73, hp = 0, max_hp = 198, status = "none" }, { species = "SNORLAX", level = 75, hp = 346, max_hp = 346, status = "none" }, { species = "VENUSAUR", level = 77, hp = 231, max_hp = 231, status = "none" }, { species = "CHARIZARD", level = 77, hp = 228, max_hp = 228, status = "none" }, { species = "BLASTOISE", level = 77, hp = 230, max_hp = 230, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 5
+expect.player.active.species = "SMOOCHUM"
+expect.player.active.level = 76
+expect.player.active.hp = 0
+expect.player.active.max_hp = 168
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 10, 5, 4]
+expect.player.party = [{ species = "PONYTA", level = 70, hp = 0, max_hp = 169, status = "none" }, { species = "DIGLETT", level = 80, hp = 0, max_hp = 118, status = "none" }, { species = "HERACROSS", level = 73, hp = 0, max_hp = 201, status = "none" }, { species = "DONPHAN", level = 79, hp = 0, max_hp = 254, status = "none" }, { species = "STANTLER", level = 79, hp = 0, max_hp = 213, status = "none" }, { species = "SMOOCHUM", level = 76, hp = 0, max_hp = 168, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "SNORLAX"
+expect.enemy.active.level = 75
+expect.enemy.active.hp = 272
+expect.enemy.active.max_hp = 346
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 10, 13]
+expect.enemy.party = [{ species = "PIKACHU", level = 81, hp = 0, max_hp = 170, status = "none" }, { species = "ESPEON", level = 73, hp = 0, max_hp = 198, status = "none" }, { species = "SNORLAX", level = 75, hp = 346, max_hp = 346, status = "none" }, { species = "VENUSAUR", level = 77, hp = 231, max_hp = 231, status = "none" }, { species = "CHARIZARD", level = 77, hp = 228, max_hp = 228, status = "none" }, { species = "BLASTOISE", level = 77, hp = 230, max_hp = 230, status = "none" }]
+expect.battle.outcome = "loss"

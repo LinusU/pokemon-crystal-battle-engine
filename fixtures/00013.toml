@@ -1,0 +1,365 @@
+[recording]
+seed = "0x4cf10649f84f9cd9"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Chuck"
+
+[[scenario.player_party]]
+species = "MEWTWO"
+level = 26
+
+[[scenario.player_party]]
+species = "CLEFFA"
+level = 29
+
+[[scenario.player_items]]
+name = "Elixer"
+quantity = 2
+
+[[scenario.player_items]]
+name = "Super Potion"
+quantity = 2
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "MEWTWO"
+expect.player.active.level = 26
+expect.player.active.hp = 94
+expect.player.active.max_hp = 94
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 30, 19]
+expect.player.party = [{ species = "MEWTWO", level = 26, hp = 94, max_hp = 94, status = "none" }, { species = "CLEFFA", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PRIMEAPE"
+expect.enemy.active.level = 27
+expect.enemy.active.hp = 54
+expect.enemy.active.max_hp = 76
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [29, 20, 25, 15]
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 76, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "MEWTWO"
+expect.player.active.level = 26
+expect.player.active.hp = 82
+expect.player.active.max_hp = 94
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 30, 18]
+expect.player.party = [{ species = "MEWTWO", level = 26, hp = 82, max_hp = 94, status = "none" }, { species = "CLEFFA", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PRIMEAPE"
+expect.enemy.active.level = 27
+expect.enemy.active.hp = 33
+expect.enemy.active.max_hp = 76
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [29, 20, 25, 14]
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 76, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "MEWTWO"
+expect.player.active.level = 26
+expect.player.active.hp = 73
+expect.player.active.max_hp = 94
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 30, 17]
+expect.player.party = [{ species = "MEWTWO", level = 26, hp = 73, max_hp = 94, status = "none" }, { species = "CLEFFA", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PRIMEAPE"
+expect.enemy.active.level = 27
+expect.enemy.active.hp = 11
+expect.enemy.active.max_hp = 76
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [29, 20, 24, 14]
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 76, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "MEWTWO"
+expect.player.active.level = 26
+expect.player.active.hp = 73
+expect.player.active.max_hp = 94
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 30, 16]
+expect.player.party = [{ species = "MEWTWO", level = 26, hp = 73, max_hp = 94, status = "none" }, { species = "CLEFFA", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 98
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 5, 15, 5]
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "MEWTWO"
+expect.player.active.level = 26
+expect.player.active.hp = 73
+expect.player.active.max_hp = 94
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 30, 16]
+expect.player.party = [{ species = "MEWTWO", level = 26, hp = 73, max_hp = 94, status = "none" }, { species = "CLEFFA", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 98
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 5, 15, 5]
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "MEWTWO"
+expect.player.active.level = 26
+expect.player.active.hp = 73
+expect.player.active.max_hp = 94
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 30, 15]
+expect.player.party = [{ species = "MEWTWO", level = 26, hp = 73, max_hp = 94, status = "none" }, { species = "CLEFFA", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 5, 15, 5]
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "MEWTWO"
+expect.player.active.level = 26
+expect.player.active.hp = 39
+expect.player.active.max_hp = 94
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 30, 14]
+expect.player.party = [{ species = "MEWTWO", level = 26, hp = 39, max_hp = 94, status = "none" }, { species = "CLEFFA", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 5, 14, 5]
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "MEWTWO"
+expect.player.active.level = 26
+expect.player.active.hp = 5
+expect.player.active.max_hp = 94
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 30, 13]
+expect.player.party = [{ species = "MEWTWO", level = 26, hp = 5, max_hp = 94, status = "none" }, { species = "CLEFFA", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 56
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 5, 13, 5]
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 17
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MEWTWO"
+expect.player.active.level = 26
+expect.player.active.hp = 24
+expect.player.active.max_hp = 94
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 30, 13]
+expect.player.party = [{ species = "MEWTWO", level = 26, hp = 24, max_hp = 94, status = "none" }, { species = "CLEFFA", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 56
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 5, 12, 5]
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 17
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MEWTWO"
+expect.player.active.level = 26
+expect.player.active.hp = 40
+expect.player.active.max_hp = 94
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 30, 13]
+expect.player.party = [{ species = "MEWTWO", level = 26, hp = 40, max_hp = 94, status = "none" }, { species = "CLEFFA", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 56
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 5, 11, 5]
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "MEWTWO"
+expect.player.active.level = 26
+expect.player.active.hp = 40
+expect.player.active.max_hp = 94
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 30, 12]
+expect.player.party = [{ species = "MEWTWO", level = 26, hp = 40, max_hp = 94, status = "none" }, { species = "CLEFFA", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 41
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 5, 11, 5]
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "MEWTWO"
+expect.player.active.level = 26
+expect.player.active.hp = 40
+expect.player.active.max_hp = 94
+expect.player.active.status = "sleep"
+expect.player.active.pp = [25, 20, 30, 11]
+expect.player.party = [{ species = "MEWTWO", level = 26, hp = 40, max_hp = 94, status = "sleep" }, { species = "CLEFFA", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 27
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 5, 11, 5]
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "MEWTWO"
+expect.player.active.level = 26
+expect.player.active.hp = 8
+expect.player.active.max_hp = 94
+expect.player.active.status = "sleep"
+expect.player.active.pp = [25, 20, 30, 11]
+expect.player.party = [{ species = "MEWTWO", level = 26, hp = 8, max_hp = 94, status = "sleep" }, { species = "CLEFFA", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 27
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 5, 10, 5]
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "MEWTWO"
+expect.player.active.level = 26
+expect.player.active.hp = 0
+expect.player.active.max_hp = 94
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 30, 11]
+expect.player.party = [{ species = "MEWTWO", level = 26, hp = 0, max_hp = 94, status = "none" }, { species = "CLEFFA", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 27
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 5, 9, 5]
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "CLEFFA"
+expect.player.active.level = 29
+expect.player.active.hp = 74
+expect.player.active.max_hp = 74
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 5, 15, 10]
+expect.player.party = [{ species = "MEWTWO", level = 26, hp = 0, max_hp = 94, status = "none" }, { species = "CLEFFA", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 27
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 5, 9, 5]
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "CLEFFA"
+expect.player.active.level = 29
+expect.player.active.hp = 74
+expect.player.active.max_hp = 74
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 5, 15, 9]
+expect.player.party = [{ species = "MEWTWO", level = 26, hp = 0, max_hp = 94, status = "none" }, { species = "CLEFFA", level = 29, hp = 74, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 27
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 5, 9, 4]
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "CLEFFA"
+expect.player.active.level = 29
+expect.player.active.hp = 0
+expect.player.active.max_hp = 74
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 5, 15, 9]
+expect.player.party = [{ species = "MEWTWO", level = 26, hp = 0, max_hp = 94, status = "none" }, { species = "CLEFFA", level = 29, hp = 0, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 27
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 5, 9, 3]
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none" }]
+expect.battle.outcome = "loss"

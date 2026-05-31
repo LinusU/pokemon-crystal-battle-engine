@@ -1,0 +1,191 @@
+[recording]
+seed = "0x1f10130b44159aa9"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Blaine"
+
+[[scenario.player_party]]
+species = "WOOPER"
+level = 49
+
+[[scenario.player_party]]
+species = "ABRA"
+level = 50
+
+[[scenario.player_party]]
+species = "TOGEPI"
+level = 42
+
+[[scenario.player_items]]
+name = "Ice Heal"
+quantity = 3
+
+[[scenario.player_items]]
+name = "X Special"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Hyper Potion"
+quantity = 2
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "WOOPER"
+expect.player.active.level = 49
+expect.player.active.hp = 47
+expect.player.active.max_hp = 119
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 9, 5]
+expect.player.party = [{ species = "WOOPER", level = 49, hp = 47, max_hp = 119, status = "none" }, { species = "ABRA", level = 50, hp = 85, max_hp = 85, status = "none" }, { species = "TOGEPI", level = 42, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MAGMAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 120
+expect.enemy.active.max_hp = 120
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 5, 10]
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "WOOPER"
+expect.player.active.level = 49
+expect.player.active.hp = 47
+expect.player.active.max_hp = 119
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 9, 5]
+expect.player.party = [{ species = "WOOPER", level = 49, hp = 47, max_hp = 119, status = "none" }, { species = "ABRA", level = 50, hp = 85, max_hp = 85, status = "none" }, { species = "TOGEPI", level = 42, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MAGMAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 120
+expect.enemy.active.max_hp = 120
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 5, 10]
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "WOOPER"
+expect.player.active.level = 49
+expect.player.active.hp = 0
+expect.player.active.max_hp = 119
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 9, 5]
+expect.player.party = [{ species = "WOOPER", level = 49, hp = 0, max_hp = 119, status = "none" }, { species = "ABRA", level = 50, hp = 85, max_hp = 85, status = "none" }, { species = "TOGEPI", level = 42, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MAGMAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 120
+expect.enemy.active.max_hp = 120
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 14, 5, 10]
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "ABRA"
+expect.player.active.level = 50
+expect.player.active.hp = 85
+expect.player.active.max_hp = 85
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 0, 0, 0]
+expect.player.party = [{ species = "WOOPER", level = 49, hp = 0, max_hp = 119, status = "none" }, { species = "ABRA", level = 50, hp = 85, max_hp = 85, status = "none" }, { species = "TOGEPI", level = 42, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MAGMAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 120
+expect.enemy.active.max_hp = 120
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 14, 5, 10]
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "ABRA"
+expect.player.active.level = 50
+expect.player.active.hp = 85
+expect.player.active.max_hp = 85
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 0, 0, 0]
+expect.player.party = [{ species = "WOOPER", level = 49, hp = 0, max_hp = 119, status = "none" }, { species = "ABRA", level = 50, hp = 85, max_hp = 85, status = "none" }, { species = "TOGEPI", level = 42, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MAGMAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 120
+expect.enemy.active.max_hp = 120
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 14, 4, 10]
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "ABRA"
+expect.player.active.level = 50
+expect.player.active.hp = 0
+expect.player.active.max_hp = 85
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 0, 0, 0]
+expect.player.party = [{ species = "WOOPER", level = 49, hp = 0, max_hp = 119, status = "none" }, { species = "ABRA", level = 50, hp = 0, max_hp = 85, status = "none" }, { species = "TOGEPI", level = 42, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MAGMAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 120
+expect.enemy.active.max_hp = 120
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 13, 4, 10]
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "TOGEPI"
+expect.player.active.level = 42
+expect.player.active.hp = 81
+expect.player.active.max_hp = 81
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 5, 25, 15]
+expect.player.party = [{ species = "WOOPER", level = 49, hp = 0, max_hp = 119, status = "none" }, { species = "ABRA", level = 50, hp = 0, max_hp = 85, status = "none" }, { species = "TOGEPI", level = 42, hp = 81, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MAGMAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 120
+expect.enemy.active.max_hp = 120
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 13, 4, 10]
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "TOGEPI"
+expect.player.active.level = 42
+expect.player.active.hp = 0
+expect.player.active.max_hp = 81
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 5, 25, 15]
+expect.player.party = [{ species = "WOOPER", level = 49, hp = 0, max_hp = 119, status = "none" }, { species = "ABRA", level = 50, hp = 0, max_hp = 85, status = "none" }, { species = "TOGEPI", level = 42, hp = 0, max_hp = 81, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MAGMAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 120
+expect.enemy.active.max_hp = 120
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 12, 4, 10]
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+expect.battle.outcome = "loss"

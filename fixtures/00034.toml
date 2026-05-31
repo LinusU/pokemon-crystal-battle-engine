@@ -1,0 +1,567 @@
+[recording]
+seed = "0xa7b168328e68e03b"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Karen"
+
+[[scenario.player_party]]
+species = "KAKUNA"
+level = 42
+
+[[scenario.player_party]]
+species = "TOGEPI"
+level = 46
+
+[[scenario.player_party]]
+species = "WEEPINBELL"
+level = 41
+
+[[scenario.player_party]]
+species = "HOPPIP"
+level = 42
+
+[[scenario.player_party]]
+species = "WOBBUFFET"
+level = 39
+
+[[scenario.player_party]]
+species = "ONIX"
+level = 47
+
+[[scenario.player_items]]
+name = "X Accuracy"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Burn Heal"
+quantity = 2
+
+[[scenario.player_items]]
+name = "Ice Heal"
+quantity = 2
+
+[[scenario.player_items]]
+name = "Dire Hit"
+quantity = 3
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "KAKUNA"
+expect.player.active.level = 42
+expect.player.active.hp = 94
+expect.player.active.max_hp = 94
+expect.player.active.status = "none"
+expect.player.active.pp = [29, 0, 0, 0]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 94, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 88, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 114, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 208, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 90, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 144
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 10, 20, 5]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "KAKUNA"
+expect.player.active.level = 42
+expect.player.active.hp = 94
+expect.player.active.max_hp = 94
+expect.player.active.status = "none"
+expect.player.active.pp = [28, 0, 0, 0]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 94, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 88, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 114, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 208, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 90, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 144
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 10, 20, 4]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "KAKUNA"
+expect.player.active.level = 42
+expect.player.active.hp = 88
+expect.player.active.max_hp = 94
+expect.player.active.status = "none"
+expect.player.active.pp = [28, 0, 0, 0]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 88, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 88, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 114, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 208, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 90, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 144
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 9, 20, 4]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "KAKUNA"
+expect.player.active.level = 42
+expect.player.active.hp = 3
+expect.player.active.max_hp = 94
+expect.player.active.status = "none"
+expect.player.active.pp = [27, 0, 0, 0]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 3, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 88, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 114, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 208, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 90, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 144
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 9, 19, 4]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "KAKUNA"
+expect.player.active.level = 42
+expect.player.active.hp = 0
+expect.player.active.max_hp = 94
+expect.player.active.status = "none"
+expect.player.active.pp = [27, 0, 0, 0]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 0, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 88, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 114, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 208, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 90, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 144
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 9, 18, 4]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "TOGEPI"
+expect.player.active.level = 46
+expect.player.active.hp = 88
+expect.player.active.max_hp = 88
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 5, 25, 15]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 0, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 88, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 114, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 208, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 90, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 144
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 9, 18, 4]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "TOGEPI"
+expect.player.active.level = 46
+expect.player.active.hp = 83
+expect.player.active.max_hp = 88
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 5, 25, 14]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 0, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 83, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 114, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 208, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 90, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 122
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 9, 18, 4]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "TOGEPI"
+expect.player.active.level = 46
+expect.player.active.hp = 47
+expect.player.active.max_hp = 88
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 5, 25, 13]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 0, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 47, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 114, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 208, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 90, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 98
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 9, 17, 4]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "TOGEPI"
+expect.player.active.level = 46
+expect.player.active.hp = 38
+expect.player.active.max_hp = 88
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 5, 25, 13]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 0, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 38, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 114, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 208, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 90, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 98
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 8, 17, 4]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "TOGEPI"
+expect.player.active.level = 46
+expect.player.active.hp = 0
+expect.player.active.max_hp = 88
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 5, 25, 13]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 0, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 0, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 114, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 208, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 90, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 98
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 8, 16, 4]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "WEEPINBELL"
+expect.player.active.level = 41
+expect.player.active.hp = 114
+expect.player.active.max_hp = 114
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 30, 20]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 0, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 0, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 114, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 208, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 90, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 98
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 8, 16, 4]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "WEEPINBELL"
+expect.player.active.level = 41
+expect.player.active.hp = 114
+expect.player.active.max_hp = 114
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 29, 20]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 0, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 0, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 114, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 208, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 90, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 80
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 8, 16, 4]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "WEEPINBELL"
+expect.player.active.level = 41
+expect.player.active.hp = 68
+expect.player.active.max_hp = 114
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 28, 20]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 0, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 0, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 68, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 208, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 90, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 62
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 8, 15, 4]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "WEEPINBELL"
+expect.player.active.level = 41
+expect.player.active.hp = 24
+expect.player.active.max_hp = 114
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 27, 20]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 0, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 0, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 24, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 208, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 90, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 44
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 8, 14, 4]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "WEEPINBELL"
+expect.player.active.level = 41
+expect.player.active.hp = 0
+expect.player.active.max_hp = 114
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 27, 20]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 0, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 0, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 0, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 208, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 90, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 44
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 8, 13, 4]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "HOPPIP"
+expect.player.active.level = 42
+expect.player.active.hp = 88
+expect.player.active.max_hp = 88
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 40, 10]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 0, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 0, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 0, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 208, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 90, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 44
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 8, 13, 4]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "HOPPIP"
+expect.player.active.level = 42
+expect.player.active.hp = 88
+expect.player.active.max_hp = 88
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 9, 40, 10]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 0, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 0, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 0, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 208, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 90, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 44
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [11, 8, 13, 4]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "HOPPIP"
+expect.player.active.level = 42
+expect.player.active.hp = 88
+expect.player.active.max_hp = 88
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 8, 40, 10]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 0, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 0, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 0, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 208, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 90, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 26
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 8, 13, 4]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "HOPPIP"
+expect.player.active.level = 42
+expect.player.active.hp = 43
+expect.player.active.max_hp = 88
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 7, 40, 10]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 0, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 0, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 0, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 43, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 208, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 90, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 8
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 8, 12, 4]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "HOPPIP"
+expect.player.active.level = 42
+expect.player.active.hp = 15
+expect.player.active.max_hp = 88
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 7, 40, 10]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 0, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 0, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 0, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 15, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 208, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 90, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 141
+expect.enemy.active.max_hp = 141
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 15, 15]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 0, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+slot = 4
+expect.player.active_slot = 4
+expect.player.active.species = "WOBBUFFET"
+expect.player.active.level = 39
+expect.player.active.hp = 208
+expect.player.active.max_hp = 208
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 25, 5]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 0, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 0, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 0, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 15, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 208, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 90, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 141
+expect.enemy.active.max_hp = 141
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 15, 15]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 0, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 4
+expect.player.active.species = "WOBBUFFET"
+expect.player.active.level = 39
+expect.player.active.hp = 0
+expect.player.active.max_hp = 208
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 25, 5]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 0, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 0, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 0, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 15, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 0, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 90, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 141
+expect.enemy.active.max_hp = 141
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 15, 14]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 0, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 5
+expect.player.active_slot = 5
+expect.player.active.species = "ONIX"
+expect.player.active.level = 47
+expect.player.active.hp = 90
+expect.player.active.max_hp = 90
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 10, 20]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 0, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 0, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 0, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 15, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 0, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 90, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 141
+expect.enemy.active.max_hp = 141
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 15, 14]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 0, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 5
+expect.player.active.species = "ONIX"
+expect.player.active.level = 47
+expect.player.active.hp = 0
+expect.player.active.max_hp = 90
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 10, 20]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 0, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 0, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 0, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 15, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 0, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 0, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 141
+expect.enemy.active.max_hp = 141
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 15, 13]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 0, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "HOPPIP"
+expect.player.active.level = 42
+expect.player.active.hp = 15
+expect.player.active.max_hp = 88
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 7, 40, 10]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 0, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 0, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 0, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 15, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 0, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 0, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 141
+expect.enemy.active.max_hp = 141
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 15, 13]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 0, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "HOPPIP"
+expect.player.active.level = 42
+expect.player.active.hp = 0
+expect.player.active.max_hp = 88
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 7, 40, 10]
+expect.player.party = [{ species = "KAKUNA", level = 42, hp = 0, max_hp = 94, status = "none" }, { species = "TOGEPI", level = 46, hp = 0, max_hp = 88, status = "none" }, { species = "WEEPINBELL", level = 41, hp = 0, max_hp = 114, status = "none" }, { species = "HOPPIP", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "WOBBUFFET", level = 39, hp = 0, max_hp = 208, status = "none" }, { species = "ONIX", level = 47, hp = 0, max_hp = 90, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 141
+expect.enemy.active.max_hp = 141
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 14, 13]
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 0, max_hp = 144, status = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none" }]
+expect.battle.outcome = "loss"

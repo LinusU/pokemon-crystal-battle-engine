@@ -1,0 +1,845 @@
+[recording]
+seed = "0xe6be73f084293369"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Bruno"
+
+[[scenario.player_party]]
+species = "HOOTHOOT"
+level = 48
+
+[[scenario.player_party]]
+species = "POLIWRATH"
+level = 39
+
+[[scenario.player_party]]
+species = "WEEZING"
+level = 44
+
+[[scenario.player_party]]
+species = "CLEFFA"
+level = 43
+
+[[scenario.player_items]]
+name = "Hyper Potion"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Awakening"
+quantity = 1
+
+[[scenario.player_items]]
+name = "Max Potion"
+quantity = 1
+
+[[scenario.player_items]]
+name = "Fresh Water"
+quantity = 2
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "HOOTHOOT"
+expect.player.active.level = 48
+expect.player.active.hp = 130
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 25, 14]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 130, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 124, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "HOOTHOOT"
+expect.player.active.level = 48
+expect.player.active.hp = 99
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 25, 13]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 99, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 124, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 29, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "HOOTHOOT"
+expect.player.active.level = 48
+expect.player.active.hp = 67
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 25, 12]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 67, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 124, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 28, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "HOOTHOOT"
+expect.player.active.level = 48
+expect.player.active.hp = 35
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 25, 11]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 35, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 124, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 27, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 15
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HOOTHOOT"
+expect.player.active.level = 48
+expect.player.active.hp = 101
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 25, 11]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 101, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 124, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 26, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "HOOTHOOT"
+expect.player.active.level = 48
+expect.player.active.hp = 71
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 25, 10]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 71, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 124, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 25, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "HOOTHOOT"
+expect.player.active.level = 48
+expect.player.active.hp = 40
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 25, 9]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 40, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 124, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 24, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 16
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HOOTHOOT"
+expect.player.active.level = 48
+expect.player.active.hp = 101
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 25, 9]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 101, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 124, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 23, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "HOOTHOOT"
+expect.player.active.level = 48
+expect.player.active.hp = 72
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 25, 8]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 72, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 124, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 22, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "HOOTHOOT"
+expect.player.active.level = 48
+expect.player.active.hp = 43
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 25, 7]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 43, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 124, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 21, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 16
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HOOTHOOT"
+expect.player.active.level = 48
+expect.player.active.hp = 101
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 25, 7]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 101, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 124, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "HOOTHOOT"
+expect.player.active.level = 48
+expect.player.active.hp = 68
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 25, 6]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 68, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 124, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 19, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "HOOTHOOT"
+expect.player.active.level = 48
+expect.player.active.hp = 35
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 25, 5]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 35, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 124, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 18, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 16
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HOOTHOOT"
+expect.player.active.level = 48
+expect.player.active.hp = 101
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 25, 5]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 101, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 124, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 17, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "HOOTHOOT"
+expect.player.active.level = 48
+expect.player.active.hp = 69
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 25, 4]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 69, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 124, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 16, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "HOOTHOOT"
+expect.player.active.level = 48
+expect.player.active.hp = 40
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 25, 3]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 40, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 124, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 46
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HOOTHOOT"
+expect.player.active.level = 48
+expect.player.active.hp = 60
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 25, 3]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 60, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 124, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 14, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "HOOTHOOT"
+expect.player.active.level = 48
+expect.player.active.hp = 27
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 25, 2]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 27, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 124, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 13, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 46
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HOOTHOOT"
+expect.player.active.level = 48
+expect.player.active.hp = 48
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 25, 2]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 48, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 124, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 12, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "HOOTHOOT"
+expect.player.active.level = 48
+expect.player.active.hp = 16
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 25, 1]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 16, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 124, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 11, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "HOOTHOOT"
+expect.player.active.level = 48
+expect.player.active.hp = 0
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 25, 1]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 0, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 124, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "POLIWRATH"
+expect.player.active.level = 39
+expect.player.active.hp = 124
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 10, 25]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 0, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 124, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "POLIWRATH"
+expect.player.active.level = 39
+expect.player.active.hp = 124
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 10, 24]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 0, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 124, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 9, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "POLIWRATH"
+expect.player.active.level = 39
+expect.player.active.hp = 99
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 10, 23]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 0, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 99, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 9, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "POLIWRATH"
+expect.player.active.level = 39
+expect.player.active.hp = 99
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 10, 22]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 0, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 99, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 8, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "POLIWRATH"
+expect.player.active.level = 39
+expect.player.active.hp = 68
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 10, 21]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 0, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 68, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 8, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "POLIWRATH"
+expect.player.active.level = 39
+expect.player.active.hp = 68
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 10, 20]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 0, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 68, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 7, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "POLIWRATH"
+expect.player.active.level = 39
+expect.player.active.hp = 46
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 10, 19]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 0, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 46, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 7, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "POLIWRATH"
+expect.player.active.level = 39
+expect.player.active.hp = 46
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 10, 18]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 0, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 46, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 6, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "POLIWRATH"
+expect.player.active.level = 39
+expect.player.active.hp = 16
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 10, 17]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 0, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 16, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 42
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 6, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "POLIWRATH"
+expect.player.active.level = 39
+expect.player.active.hp = 16
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 10, 16]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 0, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 16, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 42
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 5, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "POLIWRATH"
+expect.player.active.level = 39
+expect.player.active.hp = 0
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 10, 16]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 0, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 0, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 42
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 5, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "WEEZING"
+expect.player.active.level = 44
+expect.player.active.hp = 119
+expect.player.active.max_hp = 119
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 30, 5]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 0, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 0, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 42
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 5, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "WEEZING"
+expect.player.active.level = 44
+expect.player.active.hp = 119
+expect.player.active.max_hp = 119
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 20, 30, 5]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 0, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 0, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 119, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 42
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 4, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "WEEZING"
+expect.player.active.level = 44
+expect.player.active.hp = 82
+expect.player.active.max_hp = 119
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 20, 30, 5]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 0, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 0, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 82, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 92
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 2
+expect.player.active.species = "WEEZING"
+expect.player.active.level = 44
+expect.player.active.hp = 82
+expect.player.active.max_hp = 119
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 20, 30, 5]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 0, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 0, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 82, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 92
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "WEEZING"
+expect.player.active.level = 44
+expect.player.active.hp = 28
+expect.player.active.max_hp = 119
+expect.player.active.status = "none"
+expect.player.active.pp = [17, 20, 30, 5]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 0, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 0, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 28, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 87
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "poison"
+expect.enemy.active.pp = [20, 9, 10, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 87, max_hp = 92, status = "poison" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "WEEZING"
+expect.player.active.level = 44
+expect.player.active.hp = 0
+expect.player.active.max_hp = 119
+expect.player.active.status = "none"
+expect.player.active.pp = [17, 20, 30, 5]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 0, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 0, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 0, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 87
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "poison"
+expect.enemy.active.pp = [20, 8, 10, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 87, max_hp = 92, status = "poison" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "CLEFFA"
+expect.player.active.level = 43
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 5, 15, 10]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 0, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 0, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 0, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 97, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 87
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "poison"
+expect.enemy.active.pp = [20, 8, 10, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 87, max_hp = 92, status = "poison" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "CLEFFA"
+expect.player.active.level = 43
+expect.player.active.hp = 0
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 5, 15, 10]
+expect.player.party = [{ species = "HOOTHOOT", level = 48, hp = 0, max_hp = 130, status = "none" }, { species = "POLIWRATH", level = 39, hp = 0, max_hp = 124, status = "none" }, { species = "WEEZING", level = 44, hp = 0, max_hp = 119, status = "none" }, { species = "CLEFFA", level = 43, hp = 0, max_hp = 97, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 87
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "poison"
+expect.enemy.active.pp = [20, 7, 10, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 87, max_hp = 92, status = "poison" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+expect.battle.outcome = "loss"

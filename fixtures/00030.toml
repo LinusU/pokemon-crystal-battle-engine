@@ -1,0 +1,484 @@
+[recording]
+seed = "0xa551e3ad12a94a3a"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Lt. Surge"
+
+[[scenario.player_party]]
+species = "KADABRA"
+level = 37
+
+[[scenario.player_party]]
+species = "DODUO"
+level = 43
+
+[[scenario.player_party]]
+species = "HITMONLEE"
+level = 41
+
+[[scenario.player_party]]
+species = "MAGIKARP"
+level = 47
+
+[[scenario.player_party]]
+species = "KABUTOPS"
+level = 41
+
+[[scenario.player_party]]
+species = "CUBONE"
+level = 42
+
+[[scenario.player_items]]
+name = "Max Ether"
+quantity = 2
+
+[[scenario.player_items]]
+name = "Full Restore"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Guard Spec"
+quantity = 2
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "KADABRA"
+expect.player.active.level = 37
+expect.player.active.hp = 78
+expect.player.active.max_hp = 78
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 19, 20, 15]
+expect.player.party = [{ species = "KADABRA", level = 37, hp = 78, max_hp = 78, status = "none" }, { species = "DODUO", level = 43, hp = 88, max_hp = 88, status = "none" }, { species = "HITMONLEE", level = 41, hp = 96, max_hp = 96, status = "none" }, { species = "MAGIKARP", level = 47, hp = 75, max_hp = 75, status = "none" }, { species = "KABUTOPS", level = 41, hp = 110, max_hp = 110, status = "none" }, { species = "CUBONE", level = 42, hp = 105, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RAICHU"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 79
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 15, 9]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 113, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "KADABRA"
+expect.player.active.level = 37
+expect.player.active.hp = 78
+expect.player.active.max_hp = 78
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 18, 20, 15]
+expect.player.party = [{ species = "KADABRA", level = 37, hp = 78, max_hp = 78, status = "none" }, { species = "DODUO", level = 43, hp = 88, max_hp = 88, status = "none" }, { species = "HITMONLEE", level = 41, hp = 96, max_hp = 96, status = "none" }, { species = "MAGIKARP", level = 47, hp = 75, max_hp = 75, status = "none" }, { species = "KABUTOPS", level = 41, hp = 110, max_hp = 110, status = "none" }, { species = "CUBONE", level = 42, hp = 105, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RAICHU"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 43
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 15, 8]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 113, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "KADABRA"
+expect.player.active.level = 37
+expect.player.active.hp = 0
+expect.player.active.max_hp = 78
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 18, 20, 15]
+expect.player.party = [{ species = "KADABRA", level = 37, hp = 0, max_hp = 78, status = "none" }, { species = "DODUO", level = 43, hp = 88, max_hp = 88, status = "none" }, { species = "HITMONLEE", level = 41, hp = 96, max_hp = 96, status = "none" }, { species = "MAGIKARP", level = 47, hp = 75, max_hp = 75, status = "none" }, { species = "KABUTOPS", level = 41, hp = 110, max_hp = 110, status = "none" }, { species = "CUBONE", level = 42, hp = 105, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RAICHU"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 43
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 15, 7]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 113, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "DODUO"
+expect.player.active.level = 43
+expect.player.active.hp = 88
+expect.player.active.max_hp = 88
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 20, 20, 30]
+expect.player.party = [{ species = "KADABRA", level = 37, hp = 0, max_hp = 78, status = "none" }, { species = "DODUO", level = 43, hp = 88, max_hp = 88, status = "none" }, { species = "HITMONLEE", level = 41, hp = 96, max_hp = 96, status = "none" }, { species = "MAGIKARP", level = 47, hp = 75, max_hp = 75, status = "none" }, { species = "KABUTOPS", level = 41, hp = 110, max_hp = 110, status = "none" }, { species = "CUBONE", level = 42, hp = 105, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RAICHU"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 43
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 15, 7]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 113, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "DODUO"
+expect.player.active.level = 43
+expect.player.active.hp = 0
+expect.player.active.max_hp = 88
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 20, 20, 30]
+expect.player.party = [{ species = "KADABRA", level = 37, hp = 0, max_hp = 78, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 88, status = "none" }, { species = "HITMONLEE", level = 41, hp = 96, max_hp = 96, status = "none" }, { species = "MAGIKARP", level = 47, hp = 75, max_hp = 75, status = "none" }, { species = "KABUTOPS", level = 41, hp = 110, max_hp = 110, status = "none" }, { species = "CUBONE", level = 42, hp = 105, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RAICHU"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 43
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 15, 6]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 113, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "HITMONLEE"
+expect.player.active.level = 41
+expect.player.active.hp = 96
+expect.player.active.max_hp = 96
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 5, 40, 10]
+expect.player.party = [{ species = "KADABRA", level = 37, hp = 0, max_hp = 78, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 88, status = "none" }, { species = "HITMONLEE", level = 41, hp = 96, max_hp = 96, status = "none" }, { species = "MAGIKARP", level = 47, hp = 75, max_hp = 75, status = "none" }, { species = "KABUTOPS", level = 41, hp = 110, max_hp = 110, status = "none" }, { species = "CUBONE", level = 42, hp = 105, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RAICHU"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 43
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 15, 6]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 113, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "HITMONLEE"
+expect.player.active.level = 41
+expect.player.active.hp = 34
+expect.player.active.max_hp = 96
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 5, 40, 10]
+expect.player.party = [{ species = "KADABRA", level = 37, hp = 0, max_hp = 78, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 88, status = "none" }, { species = "HITMONLEE", level = 41, hp = 34, max_hp = 96, status = "none" }, { species = "MAGIKARP", level = 47, hp = 75, max_hp = 75, status = "none" }, { species = "KABUTOPS", level = 41, hp = 110, max_hp = 110, status = "none" }, { species = "CUBONE", level = 42, hp = 105, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 30, 10]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 2
+expect.player.active.species = "HITMONLEE"
+expect.player.active.level = 41
+expect.player.active.hp = 34
+expect.player.active.max_hp = 96
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 5, 40, 10]
+expect.player.party = [{ species = "KADABRA", level = 37, hp = 0, max_hp = 78, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 88, status = "none" }, { species = "HITMONLEE", level = 41, hp = 34, max_hp = 96, status = "none" }, { species = "MAGIKARP", level = 47, hp = 75, max_hp = 75, status = "none" }, { species = "KABUTOPS", level = 41, hp = 110, max_hp = 110, status = "none" }, { species = "CUBONE", level = 42, hp = 105, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 30, 10]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "HITMONLEE"
+expect.player.active.level = 41
+expect.player.active.hp = 0
+expect.player.active.max_hp = 96
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 5, 40, 10]
+expect.player.party = [{ species = "KADABRA", level = 37, hp = 0, max_hp = 78, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 88, status = "none" }, { species = "HITMONLEE", level = 41, hp = 0, max_hp = 96, status = "none" }, { species = "MAGIKARP", level = 47, hp = 75, max_hp = 75, status = "none" }, { species = "KABUTOPS", level = 41, hp = 110, max_hp = 110, status = "none" }, { species = "CUBONE", level = 42, hp = 105, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 30, 9]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "MAGIKARP"
+expect.player.active.level = 47
+expect.player.active.hp = 75
+expect.player.active.max_hp = 75
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 35, 15, 0]
+expect.player.party = [{ species = "KADABRA", level = 37, hp = 0, max_hp = 78, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 88, status = "none" }, { species = "HITMONLEE", level = 41, hp = 0, max_hp = 96, status = "none" }, { species = "MAGIKARP", level = 47, hp = 75, max_hp = 75, status = "none" }, { species = "KABUTOPS", level = 41, hp = 110, max_hp = 110, status = "none" }, { species = "CUBONE", level = 42, hp = 105, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 30, 9]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 3
+expect.player.active.species = "MAGIKARP"
+expect.player.active.level = 47
+expect.player.active.hp = 0
+expect.player.active.max_hp = 75
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 35, 15, 0]
+expect.player.party = [{ species = "KADABRA", level = 37, hp = 0, max_hp = 78, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 88, status = "none" }, { species = "HITMONLEE", level = 41, hp = 0, max_hp = 96, status = "none" }, { species = "MAGIKARP", level = 47, hp = 0, max_hp = 75, status = "none" }, { species = "KABUTOPS", level = 41, hp = 110, max_hp = 110, status = "none" }, { species = "CUBONE", level = 42, hp = 105, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 30, 8]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 4
+expect.player.active_slot = 4
+expect.player.active.species = "KABUTOPS"
+expect.player.active.level = 41
+expect.player.active.hp = 110
+expect.player.active.max_hp = 110
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 15, 10, 20]
+expect.player.party = [{ species = "KADABRA", level = 37, hp = 0, max_hp = 78, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 88, status = "none" }, { species = "HITMONLEE", level = 41, hp = 0, max_hp = 96, status = "none" }, { species = "MAGIKARP", level = 47, hp = 0, max_hp = 75, status = "none" }, { species = "KABUTOPS", level = 41, hp = 110, max_hp = 110, status = "none" }, { species = "CUBONE", level = 42, hp = 105, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 30, 8]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 4
+expect.player.active.species = "KABUTOPS"
+expect.player.active.level = 41
+expect.player.active.hp = 110
+expect.player.active.max_hp = 110
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 15, 10, 19]
+expect.player.party = [{ species = "KADABRA", level = 37, hp = 0, max_hp = 78, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 88, status = "none" }, { species = "HITMONLEE", level = 41, hp = 0, max_hp = 96, status = "none" }, { species = "MAGIKARP", level = 47, hp = 0, max_hp = 75, status = "none" }, { species = "KABUTOPS", level = 41, hp = 110, max_hp = 110, status = "none" }, { species = "CUBONE", level = 42, hp = 105, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 86
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 30, 7]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 4
+expect.player.active.species = "KABUTOPS"
+expect.player.active.level = 41
+expect.player.active.hp = 0
+expect.player.active.max_hp = 110
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 15, 10, 19]
+expect.player.party = [{ species = "KADABRA", level = 37, hp = 0, max_hp = 78, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 88, status = "none" }, { species = "HITMONLEE", level = 41, hp = 0, max_hp = 96, status = "none" }, { species = "MAGIKARP", level = 47, hp = 0, max_hp = 75, status = "none" }, { species = "KABUTOPS", level = 41, hp = 0, max_hp = 110, status = "none" }, { species = "CUBONE", level = 42, hp = 105, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 86
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 30, 6]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 5
+expect.player.active_slot = 5
+expect.player.active.species = "CUBONE"
+expect.player.active.level = 42
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 20, 10]
+expect.player.party = [{ species = "KADABRA", level = 37, hp = 0, max_hp = 78, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 88, status = "none" }, { species = "HITMONLEE", level = 41, hp = 0, max_hp = 96, status = "none" }, { species = "MAGIKARP", level = 47, hp = 0, max_hp = 75, status = "none" }, { species = "KABUTOPS", level = 41, hp = 0, max_hp = 110, status = "none" }, { species = "CUBONE", level = 42, hp = 105, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 86
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 30, 6]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 5
+expect.player.active.species = "CUBONE"
+expect.player.active.level = 42
+expect.player.active.hp = 71
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 19, 10]
+expect.player.party = [{ species = "KADABRA", level = 37, hp = 0, max_hp = 78, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 88, status = "none" }, { species = "HITMONLEE", level = 41, hp = 0, max_hp = 96, status = "none" }, { species = "MAGIKARP", level = 47, hp = 0, max_hp = 75, status = "none" }, { species = "KABUTOPS", level = 41, hp = 0, max_hp = 110, status = "none" }, { species = "CUBONE", level = 42, hp = 71, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [28, 15, 30, 6]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 5
+expect.player.active.species = "CUBONE"
+expect.player.active.level = 42
+expect.player.active.hp = 44
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 19, 10]
+expect.player.party = [{ species = "KADABRA", level = 37, hp = 0, max_hp = 78, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 88, status = "none" }, { species = "HITMONLEE", level = 41, hp = 0, max_hp = 96, status = "none" }, { species = "MAGIKARP", level = 47, hp = 0, max_hp = 75, status = "none" }, { species = "KABUTOPS", level = 41, hp = 0, max_hp = 110, status = "none" }, { species = "CUBONE", level = 42, hp = 44, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [27, 15, 30, 6]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 5
+expect.player.active.species = "CUBONE"
+expect.player.active.level = 42
+expect.player.active.hp = 29
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 18, 10]
+expect.player.party = [{ species = "KADABRA", level = 37, hp = 0, max_hp = 78, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 88, status = "none" }, { species = "HITMONLEE", level = 41, hp = 0, max_hp = 96, status = "none" }, { species = "MAGIKARP", level = 47, hp = 0, max_hp = 75, status = "none" }, { species = "KABUTOPS", level = 41, hp = 0, max_hp = 110, status = "none" }, { species = "CUBONE", level = 42, hp = 29, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 98
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [26, 15, 30, 6]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 14
+target = 5
+expect.player.active_slot = 5
+expect.player.active.species = "CUBONE"
+expect.player.active.level = 42
+expect.player.active.hp = 89
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 18, 10]
+expect.player.party = [{ species = "KADABRA", level = 37, hp = 0, max_hp = 78, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 88, status = "none" }, { species = "HITMONLEE", level = 41, hp = 0, max_hp = 96, status = "none" }, { species = "MAGIKARP", level = 47, hp = 0, max_hp = 75, status = "none" }, { species = "KABUTOPS", level = 41, hp = 0, max_hp = 110, status = "none" }, { species = "CUBONE", level = 42, hp = 89, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 98
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 15, 30, 6]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 5
+expect.player.active.species = "CUBONE"
+expect.player.active.level = 42
+expect.player.active.hp = 64
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 18, 10]
+expect.player.party = [{ species = "KADABRA", level = 37, hp = 0, max_hp = 78, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 88, status = "none" }, { species = "HITMONLEE", level = 41, hp = 0, max_hp = 96, status = "none" }, { species = "MAGIKARP", level = 47, hp = 0, max_hp = 75, status = "none" }, { species = "KABUTOPS", level = 41, hp = 0, max_hp = 110, status = "none" }, { species = "CUBONE", level = 42, hp = 64, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 98
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [24, 15, 30, 6]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 5
+expect.player.active.species = "CUBONE"
+expect.player.active.level = 42
+expect.player.active.hp = 39
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 18, 10]
+expect.player.party = [{ species = "KADABRA", level = 37, hp = 0, max_hp = 78, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 88, status = "none" }, { species = "HITMONLEE", level = 41, hp = 0, max_hp = 96, status = "none" }, { species = "MAGIKARP", level = 47, hp = 0, max_hp = 75, status = "none" }, { species = "KABUTOPS", level = 41, hp = 0, max_hp = 110, status = "none" }, { species = "CUBONE", level = 42, hp = 39, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 98
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [23, 15, 30, 6]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 5
+expect.player.active.species = "CUBONE"
+expect.player.active.level = 42
+expect.player.active.hp = 0
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 17, 10]
+expect.player.party = [{ species = "KADABRA", level = 37, hp = 0, max_hp = 78, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 88, status = "none" }, { species = "HITMONLEE", level = 41, hp = 0, max_hp = 96, status = "none" }, { species = "MAGIKARP", level = 47, hp = 0, max_hp = 75, status = "none" }, { species = "KABUTOPS", level = 41, hp = 0, max_hp = 110, status = "none" }, { species = "CUBONE", level = 42, hp = 0, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 44
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 30, 6]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+expect.battle.outcome = "loss"

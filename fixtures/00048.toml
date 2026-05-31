@@ -1,0 +1,564 @@
+[recording]
+seed = "0xe445011a2a669e35"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Bruno"
+
+[[scenario.player_party]]
+species = "NOCTOWL"
+level = 43
+
+[[scenario.player_party]]
+species = "ENTEI"
+level = 42
+
+[[scenario.player_party]]
+species = "RHYHORN"
+level = 48
+
+[[scenario.player_party]]
+species = "VILEPLUME"
+level = 39
+
+[[scenario.player_party]]
+species = "FLAAFFY"
+level = 40
+
+[[scenario.player_items]]
+name = "Guard Spec"
+quantity = 2
+
+[[scenario.player_items]]
+name = "Max Potion"
+quantity = 1
+
+[[scenario.player_items]]
+name = "Parlyz Heal"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Full Heal"
+quantity = 3
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "NOCTOWL"
+expect.player.active.level = 43
+expect.player.active.hp = 119
+expect.player.active.max_hp = 151
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 19, 25]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 119, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 149, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 149, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 115, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 109, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 29, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "NOCTOWL"
+expect.player.active.level = 43
+expect.player.active.hp = 87
+expect.player.active.max_hp = 151
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 18, 25]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 87, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 149, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 149, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 115, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 109, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 38
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 28, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "NOCTOWL"
+expect.player.active.level = 43
+expect.player.active.hp = 55
+expect.player.active.max_hp = 151
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 17, 25]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 55, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 149, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 149, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 115, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 109, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 9
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 27, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "NOCTOWL"
+expect.player.active.level = 43
+expect.player.active.hp = 26
+expect.player.active.max_hp = 151
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 16, 25]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 26, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 149, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 149, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 115, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 109, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 92
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "ENTEI"
+expect.player.active.level = 42
+expect.player.active.hp = 149
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 15, 20]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 26, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 149, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 149, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 115, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 109, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 92
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "ENTEI"
+expect.player.active.level = 42
+expect.player.active.hp = 136
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 15, 19]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 26, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 136, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 149, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 115, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 109, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 10, 10, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "ENTEI"
+expect.player.active.level = 42
+expect.player.active.hp = 109
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 15, 18]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 26, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 109, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 149, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 115, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 109, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 76
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 10, 9, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "ENTEI"
+expect.player.active.level = 42
+expect.player.active.hp = 0
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 15, 17]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 26, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 149, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 115, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 109, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 9, 9, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "RHYHORN"
+expect.player.active.level = 48
+expect.player.active.hp = 149
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 10, 5]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 26, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 149, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 115, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 109, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 9, 9, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "RHYHORN"
+expect.player.active.level = 48
+expect.player.active.hp = 149
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 10, 4]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 26, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 149, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 115, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 109, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 30, 20, 40]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 2
+expect.player.active.species = "RHYHORN"
+expect.player.active.level = 48
+expect.player.active.hp = 149
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 10, 4]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 26, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 149, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 115, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 109, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 91
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 30, 20, 40]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "RHYHORN"
+expect.player.active.level = 48
+expect.player.active.hp = 47
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 10, 3]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 26, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 47, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 115, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 109, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 79
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 30, 19, 40]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 15
+target = 0
+expect.player.active_slot = 2
+expect.player.active.species = "RHYHORN"
+expect.player.active.level = 48
+expect.player.active.hp = 47
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 10, 3]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 151, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 47, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 115, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 109, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 67
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 30, 18, 40]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "RHYHORN"
+expect.player.active.level = 48
+expect.player.active.hp = 47
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 10, 2]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 151, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 47, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 115, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 109, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 15, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 2
+expect.player.active.species = "RHYHORN"
+expect.player.active.level = 48
+expect.player.active.hp = 47
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 10, 2]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 151, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 47, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 115, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 109, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 15, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "RHYHORN"
+expect.player.active.level = 48
+expect.player.active.hp = 0
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 10, 2]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 151, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 0, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 115, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 109, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 14, 15, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "NOCTOWL"
+expect.player.active.level = 43
+expect.player.active.hp = 151
+expect.player.active.max_hp = 151
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 16, 25]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 151, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 0, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 115, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 109, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 14, 15, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "NOCTOWL"
+expect.player.active.level = 43
+expect.player.active.hp = 90
+expect.player.active.max_hp = 151
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 15, 25]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 90, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 0, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 115, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 109, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 14, 15, 29]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "NOCTOWL"
+expect.player.active.level = 43
+expect.player.active.hp = 37
+expect.player.active.max_hp = 151
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 14, 25]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 37, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 0, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 115, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 109, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 148
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 40, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "VILEPLUME"
+expect.player.active.level = 39
+expect.player.active.hp = 115
+expect.player.active.max_hp = 115
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 30, 20]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 37, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 0, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 115, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 109, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 148
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 40, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "VILEPLUME"
+expect.player.active.level = 39
+expect.player.active.hp = 8
+expect.player.active.max_hp = 115
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 30, 19]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 37, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 0, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 8, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 109, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 116
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 40, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "VILEPLUME"
+expect.player.active.level = 39
+expect.player.active.hp = 0
+expect.player.active.max_hp = 115
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 30, 18]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 37, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 0, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 0, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 109, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 81
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [6, 40, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 4
+expect.player.active_slot = 4
+expect.player.active.species = "FLAAFFY"
+expect.player.active.level = 40
+expect.player.active.hp = 109
+expect.player.active.max_hp = 109
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 40, 30]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 37, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 0, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 0, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 109, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 81
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [6, 40, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 4
+expect.player.active.species = "FLAAFFY"
+expect.player.active.level = 40
+expect.player.active.hp = 0
+expect.player.active.max_hp = 109
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 40, 30]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 37, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 0, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 0, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 0, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 81
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [6, 40, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "NOCTOWL"
+expect.player.active.level = 43
+expect.player.active.hp = 37
+expect.player.active.max_hp = 151
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 14, 25]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 37, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 0, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 0, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 0, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 81
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [6, 40, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "NOCTOWL"
+expect.player.active.level = 43
+expect.player.active.hp = 0
+expect.player.active.max_hp = 151
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 14, 25]
+expect.player.party = [{ species = "NOCTOWL", level = 43, hp = 0, max_hp = 151, status = "none" }, { species = "ENTEI", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "RHYHORN", level = 48, hp = 0, max_hp = 149, status = "none" }, { species = "VILEPLUME", level = 39, hp = 0, max_hp = 115, status = "none" }, { species = "FLAAFFY", level = 40, hp = 0, max_hp = 109, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 81
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 40, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+expect.battle.outcome = "loss"

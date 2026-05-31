@@ -1,0 +1,654 @@
+[recording]
+seed = "0xca651b1a34f04323"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Koga"
+
+[[scenario.player_party]]
+species = "MOLTRES"
+level = 46
+
+[[scenario.player_party]]
+species = "QUAGSIRE"
+level = 46
+
+[[scenario.player_party]]
+species = "KABUTO"
+level = 38
+
+[[scenario.player_party]]
+species = "GYARADOS"
+level = 45
+
+[[scenario.player_items]]
+name = "Burn Heal"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Lemonade"
+quantity = 3
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MOLTRES"
+expect.player.active.level = 46
+expect.player.active.hp = 149
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 15, 30, 10]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 149, max_hp = 149, status = "none" }, { species = "QUAGSIRE", level = 46, hp = 146, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 72, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "MUK"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 149
+expect.enemy.active.max_hp = 149
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 40, 10, 10]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 149, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "MOLTRES"
+expect.player.active.level = 46
+expect.player.active.hp = 149
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 15, 30, 10]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 149, max_hp = 149, status = "none" }, { species = "QUAGSIRE", level = 46, hp = 146, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 72, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "MUK"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 149
+expect.enemy.active.max_hp = 149
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 40, 10, 10]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 149, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MOLTRES"
+expect.player.active.level = 46
+expect.player.active.hp = 149
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [23, 15, 30, 10]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 149, max_hp = 149, status = "none" }, { species = "QUAGSIRE", level = 46, hp = 146, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 72, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "MUK"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 117
+expect.enemy.active.max_hp = 149
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 40, 10, 10]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 149, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MOLTRES"
+expect.player.active.level = 46
+expect.player.active.hp = 149
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [22, 15, 30, 10]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 149, max_hp = 149, status = "none" }, { species = "QUAGSIRE", level = 46, hp = 146, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 72, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "MUK"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 87
+expect.enemy.active.max_hp = 149
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 39, 10, 10]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 149, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MOLTRES"
+expect.player.active.level = 46
+expect.player.active.hp = 149
+expect.player.active.max_hp = 149
+expect.player.active.status = "poison"
+expect.player.active.pp = [21, 15, 30, 10]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 149, max_hp = 149, status = "poison" }, { species = "QUAGSIRE", level = 46, hp = 146, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 72, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "MUK"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 149
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 39, 10, 9]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 149, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MOLTRES"
+expect.player.active.level = 46
+expect.player.active.hp = 88
+expect.player.active.max_hp = 149
+expect.player.active.status = "poison"
+expect.player.active.pp = [20, 15, 30, 10]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 88, max_hp = 149, status = "poison" }, { species = "QUAGSIRE", level = 46, hp = 146, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 72, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "MUK"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 27
+expect.enemy.active.max_hp = 149
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 39, 9, 9]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 149, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MOLTRES"
+expect.player.active.level = 46
+expect.player.active.hp = 88
+expect.player.active.max_hp = 149
+expect.player.active.status = "poison"
+expect.player.active.pp = [19, 15, 30, 10]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 88, max_hp = 149, status = "poison" }, { species = "QUAGSIRE", level = 46, hp = 146, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 72, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 138
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 30, 35, 10]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "MOLTRES"
+expect.player.active.level = 46
+expect.player.active.hp = 88
+expect.player.active.max_hp = 149
+expect.player.active.status = "poison"
+expect.player.active.pp = [19, 15, 30, 10]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 88, max_hp = 149, status = "poison" }, { species = "QUAGSIRE", level = 46, hp = 146, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 72, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 138
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 30, 35, 10]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MOLTRES"
+expect.player.active.level = 46
+expect.player.active.hp = 70
+expect.player.active.max_hp = 149
+expect.player.active.status = "poison"
+expect.player.active.pp = [18, 15, 30, 10]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 70, max_hp = 149, status = "poison" }, { species = "QUAGSIRE", level = 46, hp = 146, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 72, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 138
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 30, 35, 10]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MOLTRES"
+expect.player.active.level = 46
+expect.player.active.hp = 5
+expect.player.active.max_hp = 149
+expect.player.active.status = "poison"
+expect.player.active.pp = [17, 15, 30, 10]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 5, max_hp = 149, status = "poison" }, { species = "QUAGSIRE", level = 46, hp = 146, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 72, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 106
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 30, 34, 10]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 48
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MOLTRES"
+expect.player.active.level = 46
+expect.player.active.hp = 12
+expect.player.active.max_hp = 149
+expect.player.active.status = "poison"
+expect.player.active.pp = [17, 15, 30, 10]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 12, max_hp = 149, status = "poison" }, { species = "QUAGSIRE", level = 46, hp = 146, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 72, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 106
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 30, 33, 10]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 48
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MOLTRES"
+expect.player.active.level = 46
+expect.player.active.hp = 14
+expect.player.active.max_hp = 149
+expect.player.active.status = "poison"
+expect.player.active.pp = [17, 15, 30, 10]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 14, max_hp = 149, status = "poison" }, { species = "QUAGSIRE", level = 46, hp = 146, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 72, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 106
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 30, 32, 10]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 48
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MOLTRES"
+expect.player.active.level = 46
+expect.player.active.hp = 7
+expect.player.active.max_hp = 149
+expect.player.active.status = "poison"
+expect.player.active.pp = [17, 15, 30, 10]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 7, max_hp = 149, status = "poison" }, { species = "QUAGSIRE", level = 46, hp = 146, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 72, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 106
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 30, 31, 10]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MOLTRES"
+expect.player.active.level = 46
+expect.player.active.hp = 0
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [17, 15, 30, 10]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 0, max_hp = 149, status = "none" }, { species = "QUAGSIRE", level = 46, hp = 146, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 72, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 106
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 30, 30, 10]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 46
+expect.player.active.hp = 146
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 20, 10]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 0, max_hp = 149, status = "none" }, { species = "QUAGSIRE", level = 46, hp = 146, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 72, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 106
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 30, 30, 10]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 46
+expect.player.active.hp = 137
+expect.player.active.max_hp = 146
+expect.player.active.status = "poison"
+expect.player.active.pp = [30, 20, 20, 9]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 0, max_hp = 149, status = "none" }, { species = "QUAGSIRE", level = 46, hp = 137, max_hp = 146, status = "poison" }, { species = "KABUTO", level = 38, hp = 72, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 106
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 30, 30, 9]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 46
+expect.player.active.hp = 119
+expect.player.active.max_hp = 146
+expect.player.active.status = "poison"
+expect.player.active.pp = [30, 20, 20, 8]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 0, max_hp = 149, status = "none" }, { species = "QUAGSIRE", level = 46, hp = 119, max_hp = 146, status = "poison" }, { species = "KABUTO", level = 38, hp = 72, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 106
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 30, 30, 9]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 46
+expect.player.active.hp = 92
+expect.player.active.max_hp = 146
+expect.player.active.status = "poison"
+expect.player.active.pp = [30, 20, 20, 7]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 0, max_hp = 149, status = "none" }, { species = "QUAGSIRE", level = 46, hp = 92, max_hp = 146, status = "poison" }, { species = "KABUTO", level = 38, hp = 72, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 106
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 30, 30, 9]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 46
+expect.player.active.hp = 23
+expect.player.active.max_hp = 146
+expect.player.active.status = "poison"
+expect.player.active.pp = [30, 20, 20, 6]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 0, max_hp = 149, status = "none" }, { species = "QUAGSIRE", level = 46, hp = 23, max_hp = 146, status = "poison" }, { species = "KABUTO", level = 38, hp = 72, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 106
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 30, 29, 9]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "QUAGSIRE"
+expect.player.active.level = 46
+expect.player.active.hp = 0
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 20, 6]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 0, max_hp = 149, status = "none" }, { species = "QUAGSIRE", level = 46, hp = 0, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 72, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 106
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 30, 28, 9]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "KABUTO"
+expect.player.active.level = 38
+expect.player.active.hp = 72
+expect.player.active.max_hp = 72
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 30, 15, 10]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 0, max_hp = 149, status = "none" }, { species = "QUAGSIRE", level = 46, hp = 0, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 72, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 106
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 30, 28, 9]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "KABUTO"
+expect.player.active.level = 38
+expect.player.active.hp = 68
+expect.player.active.max_hp = 72
+expect.player.active.status = "poison"
+expect.player.active.pp = [19, 30, 15, 10]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 0, max_hp = 149, status = "none" }, { species = "QUAGSIRE", level = 46, hp = 0, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 68, max_hp = 72, status = "poison" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 106
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 30, 28, 8]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "KABUTO"
+expect.player.active.level = 38
+expect.player.active.hp = 60
+expect.player.active.max_hp = 72
+expect.player.active.status = "poison"
+expect.player.active.pp = [18, 30, 15, 10]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 0, max_hp = 149, status = "none" }, { species = "QUAGSIRE", level = 46, hp = 0, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 60, max_hp = 72, status = "poison" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 106
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [11, 30, 28, 8]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "KABUTO"
+expect.player.active.level = 38
+expect.player.active.hp = 48
+expect.player.active.max_hp = 72
+expect.player.active.status = "poison"
+expect.player.active.pp = [17, 30, 15, 10]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 0, max_hp = 149, status = "none" }, { species = "QUAGSIRE", level = 46, hp = 0, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 48, max_hp = 72, status = "poison" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 106
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 30, 28, 8]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "KABUTO"
+expect.player.active.level = 38
+expect.player.active.hp = 32
+expect.player.active.max_hp = 72
+expect.player.active.status = "poison"
+expect.player.active.pp = [16, 30, 15, 10]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 0, max_hp = 149, status = "none" }, { species = "QUAGSIRE", level = 46, hp = 0, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 32, max_hp = 72, status = "poison" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 106
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 30, 28, 8]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "KABUTO"
+expect.player.active.level = 38
+expect.player.active.hp = 0
+expect.player.active.max_hp = 72
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 30, 15, 10]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 0, max_hp = 149, status = "none" }, { species = "QUAGSIRE", level = 46, hp = 0, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 105
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 30, 27, 8]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "GYARADOS"
+expect.player.active.level = 45
+expect.player.active.hp = 145
+expect.player.active.max_hp = 145
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 5, 5]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 0, max_hp = 149, status = "none" }, { species = "QUAGSIRE", level = 46, hp = 0, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 145, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 105
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 30, 27, 8]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 3
+expect.player.active.species = "GYARADOS"
+expect.player.active.level = 45
+expect.player.active.hp = 104
+expect.player.active.max_hp = 145
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 4, 5]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 0, max_hp = 149, status = "none" }, { species = "QUAGSIRE", level = 46, hp = 0, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 104, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 105
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 30, 26, 8]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 3
+expect.player.active.species = "GYARADOS"
+expect.player.active.level = 45
+expect.player.active.hp = 63
+expect.player.active.max_hp = 145
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 3, 5]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 0, max_hp = 149, status = "none" }, { species = "QUAGSIRE", level = 46, hp = 0, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 63, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 30, 25, 8]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 3
+expect.player.active.species = "GYARADOS"
+expect.player.active.level = 45
+expect.player.active.hp = 24
+expect.player.active.max_hp = 145
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 2, 5]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 0, max_hp = 149, status = "none" }, { species = "QUAGSIRE", level = 46, hp = 0, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 24, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 30, 24, 8]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 3
+expect.player.active.species = "GYARADOS"
+expect.player.active.level = 45
+expect.player.active.hp = 0
+expect.player.active.max_hp = 145
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 2, 5]
+expect.player.party = [{ species = "MOLTRES", level = 46, hp = 0, max_hp = 149, status = "none" }, { species = "QUAGSIRE", level = 46, hp = 0, max_hp = 146, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 72, status = "none" }, { species = "GYARADOS", level = 45, hp = 0, max_hp = 145, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 138
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 30, 23, 8]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "none" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 0, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+expect.battle.outcome = "loss"

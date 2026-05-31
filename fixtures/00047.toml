@@ -1,0 +1,664 @@
+[recording]
+seed = "0xf86afb754ede362b"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Lt. Surge"
+
+[[scenario.player_party]]
+species = "SKIPLOOM"
+level = 37
+
+[[scenario.player_party]]
+species = "YANMA"
+level = 37
+
+[[scenario.player_party]]
+species = "ESPEON"
+level = 47
+
+[[scenario.player_party]]
+species = "ARCANINE"
+level = 43
+
+[[scenario.player_party]]
+species = "PSYDUCK"
+level = 47
+
+[[scenario.player_party]]
+species = "CHIKORITA"
+level = 46
+
+[[scenario.player_items]]
+name = "Max Ether"
+quantity = 1
+
+[[scenario.player_items]]
+name = "Fresh Water"
+quantity = 1
+
+[[scenario.player_items]]
+name = "Ether"
+quantity = 2
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "SKIPLOOM"
+expect.player.active.level = 37
+expect.player.active.hp = 0
+expect.player.active.max_hp = 88
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 40, 10]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 99, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 130, max_hp = 130, status = "none" }, { species = "ARCANINE", level = 43, hp = 137, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 105, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 99, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RAICHU"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 113
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 15, 9]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 113, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "YANMA"
+expect.player.active.level = 37
+expect.player.active.hp = 99
+expect.player.active.max_hp = 99
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 5, 20, 35]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 99, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 130, max_hp = 130, status = "none" }, { species = "ARCANINE", level = 43, hp = 137, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 105, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 99, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RAICHU"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 113
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 15, 9]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 113, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "YANMA"
+expect.player.active.level = 37
+expect.player.active.hp = 0
+expect.player.active.max_hp = 99
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 5, 20, 35]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 130, max_hp = 130, status = "none" }, { species = "ARCANINE", level = 43, hp = 137, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 105, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 99, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RAICHU"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 113
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 15, 8]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 113, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "ESPEON"
+expect.player.active.level = 47
+expect.player.active.hp = 130
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 10, 10]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 130, max_hp = 130, status = "none" }, { species = "ARCANINE", level = 43, hp = 137, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 105, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 99, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RAICHU"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 113
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 15, 8]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 113, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "ESPEON"
+expect.player.active.level = 47
+expect.player.active.hp = 71
+expect.player.active.max_hp = 130
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 20, 10, 9]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 71, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 137, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 105, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 99, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RAICHU"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 30
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 15, 7]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 113, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "ESPEON"
+expect.player.active.level = 47
+expect.player.active.hp = 18
+expect.player.active.max_hp = 130
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 20, 10, 8]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 18, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 137, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 105, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 99, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ELECTRODE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 104
+expect.enemy.active.max_hp = 104
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 15, 20, 5]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "ARCANINE"
+expect.player.active.level = 43
+expect.player.active.hp = 137
+expect.player.active.max_hp = 137
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 30, 20, 25]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 18, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 137, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 105, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 99, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ELECTRODE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 104
+expect.enemy.active.max_hp = 104
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 15, 20, 5]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 3
+expect.player.active.species = "ARCANINE"
+expect.player.active.level = 43
+expect.player.active.hp = 124
+expect.player.active.max_hp = 137
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 30, 19, 25]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 18, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 124, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 105, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 99, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ELECTRODE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 52
+expect.enemy.active.max_hp = 104
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 14, 20, 5]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 3
+expect.player.active.species = "ARCANINE"
+expect.player.active.level = 43
+expect.player.active.hp = 19
+expect.player.active.max_hp = 137
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 30, 19, 25]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 18, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 19, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 105, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 99, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ELECTRODE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 104
+expect.enemy.active.max_hp = 104
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 15, 20, 5]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+slot = 4
+expect.player.active_slot = 4
+expect.player.active.species = "PSYDUCK"
+expect.player.active.level = 47
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 40, 10, 15]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 18, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 19, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 105, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 99, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ELECTRODE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 104
+expect.enemy.active.max_hp = 104
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 15, 20, 5]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 4
+expect.player.active.species = "PSYDUCK"
+expect.player.active.level = 47
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 40, 10, 15]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 18, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 19, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 105, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 99, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ELECTRODE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 85
+expect.enemy.active.max_hp = 104
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 14, 20, 5]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 4
+expect.player.active.species = "PSYDUCK"
+expect.player.active.level = 47
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [23, 40, 10, 15]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 18, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 19, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 105, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 99, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ELECTRODE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 66
+expect.enemy.active.max_hp = 104
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 13, 20, 5]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 4
+expect.player.active.species = "PSYDUCK"
+expect.player.active.level = 47
+expect.player.active.hp = 0
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [23, 40, 10, 15]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 18, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 19, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 0, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 99, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ELECTRODE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 104
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 13, 20, 4]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 5
+expect.player.active_slot = 5
+expect.player.active.species = "CHIKORITA"
+expect.player.active.level = 46
+expect.player.active.hp = 99
+expect.player.active.max_hp = 99
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 15, 30, 25]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 18, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 19, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 0, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 99, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "MAGNETON"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 96
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 15, 20, 5]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 5
+expect.player.active.species = "CHIKORITA"
+expect.player.active.level = 46
+expect.player.active.hp = 99
+expect.player.active.max_hp = 99
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 14, 30, 25]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 18, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 19, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 0, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 99, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "MAGNETON"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 96
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 14, 20, 5]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 5
+expect.player.active.species = "CHIKORITA"
+expect.player.active.level = 46
+expect.player.active.hp = 59
+expect.player.active.max_hp = 99
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [5, 14, 30, 25]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 18, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 19, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 0, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 59, max_hp = 99, status = "paralysis" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "MAGNETON"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 96
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 14, 20, 4]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 5
+expect.player.active.species = "CHIKORITA"
+expect.player.active.level = 46
+expect.player.active.hp = 17
+expect.player.active.max_hp = 99
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [5, 13, 30, 25]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 18, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 19, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 0, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 17, max_hp = 99, status = "paralysis" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "MAGNETON"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 96
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 14, 20, 3]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 46
+target = 2
+expect.player.active_slot = 5
+expect.player.active.species = "CHIKORITA"
+expect.player.active.level = 46
+expect.player.active.hp = 17
+expect.player.active.max_hp = 99
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [5, 13, 30, 25]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 68, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 19, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 0, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 17, max_hp = 99, status = "paralysis" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "MAGNETON"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 96
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 14, 20, 2]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 5
+expect.player.active.species = "CHIKORITA"
+expect.player.active.level = 46
+expect.player.active.hp = 17
+expect.player.active.max_hp = 99
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [5, 12, 30, 25]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 68, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 19, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 0, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 17, max_hp = 99, status = "paralysis" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "MAGNETON"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 85
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 14, 20, 1]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 5
+expect.player.active.species = "CHIKORITA"
+expect.player.active.level = 46
+expect.player.active.hp = 17
+expect.player.active.max_hp = 99
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [5, 12, 30, 25]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 68, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 19, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 0, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 17, max_hp = 99, status = "paralysis" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "MAGNETON"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 85
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 14, 20, 0]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 5
+expect.player.active.species = "CHIKORITA"
+expect.player.active.level = 46
+expect.player.active.hp = 0
+expect.player.active.max_hp = 99
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 12, 30, 25]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 68, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 19, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 0, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 0, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "MAGNETON"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 85
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 14, 19, 0]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "ESPEON"
+expect.player.active.level = 47
+expect.player.active.hp = 68
+expect.player.active.max_hp = 130
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 20, 10, 8]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 68, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 19, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 0, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 0, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "MAGNETON"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 85
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 14, 19, 0]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "ESPEON"
+expect.player.active.level = 47
+expect.player.active.hp = 68
+expect.player.active.max_hp = 130
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 20, 10, 7]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 68, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 19, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 0, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 0, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "MAGNETON"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 33
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [4, 14, 19, 0]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "ESPEON"
+expect.player.active.level = 47
+expect.player.active.hp = 51
+expect.player.active.max_hp = 130
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 20, 10, 7]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 51, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 19, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 0, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 0, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "MAGNETON"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 33
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [4, 14, 18, 0]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "ESPEON"
+expect.player.active.level = 47
+expect.player.active.hp = 51
+expect.player.active.max_hp = 130
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 20, 10, 6]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 51, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 19, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 0, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 0, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "MAGNETON"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 33
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [3, 14, 18, 0]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "ESPEON"
+expect.player.active.level = 47
+expect.player.active.hp = 33
+expect.player.active.max_hp = 130
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 20, 10, 5]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 33, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 19, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 0, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 0, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "MAGNETON"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 33
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [3, 14, 17, 0]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "ESPEON"
+expect.player.active.level = 47
+expect.player.active.hp = 33
+expect.player.active.max_hp = 130
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 20, 10, 4]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 33, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 19, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 0, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 0, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 30, 10]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 0, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 2
+expect.player.active.species = "ESPEON"
+expect.player.active.level = 47
+expect.player.active.hp = 33
+expect.player.active.max_hp = 130
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 20, 10, 4]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 33, max_hp = 130, status = "paralysis" }, { species = "ARCANINE", level = 43, hp = 19, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 0, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 0, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 30, 10]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 0, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "ESPEON"
+expect.player.active.level = 47
+expect.player.active.hp = 0
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 10, 4]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 0, max_hp = 130, status = "none" }, { species = "ARCANINE", level = 43, hp = 19, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 0, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 0, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 30, 9]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 0, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "ARCANINE"
+expect.player.active.level = 43
+expect.player.active.hp = 19
+expect.player.active.max_hp = 137
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 30, 19, 25]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 0, max_hp = 130, status = "none" }, { species = "ARCANINE", level = 43, hp = 19, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 0, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 0, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 30, 9]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 0, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 3
+expect.player.active.species = "ARCANINE"
+expect.player.active.level = 43
+expect.player.active.hp = 0
+expect.player.active.max_hp = 137
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 30, 19, 25]
+expect.player.party = [{ species = "SKIPLOOM", level = 37, hp = 0, max_hp = 88, status = "none" }, { species = "YANMA", level = 37, hp = 0, max_hp = 99, status = "none" }, { species = "ESPEON", level = 47, hp = 0, max_hp = 130, status = "none" }, { species = "ARCANINE", level = 43, hp = 0, max_hp = 137, status = "none" }, { species = "PSYDUCK", level = 47, hp = 0, max_hp = 105, status = "none" }, { species = "CHIKORITA", level = 46, hp = 0, max_hp = 99, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 30, 8]
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "MAGNETON", level = 40, hp = 0, max_hp = 96, status = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none" }]
+expect.battle.outcome = "loss"

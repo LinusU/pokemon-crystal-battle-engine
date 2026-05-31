@@ -1,0 +1,597 @@
+[recording]
+seed = "0xb3c851883f285e83"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Morty"
+
+[[scenario.player_party]]
+species = "PERSIAN"
+level = 23
+
+[[scenario.player_party]]
+species = "CHARIZARD"
+level = 20
+
+[[scenario.player_party]]
+species = "REMORAID"
+level = 22
+
+[[scenario.player_party]]
+species = "SNEASEL"
+level = 21
+
+[[scenario.player_items]]
+name = "Ether"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Fresh Water"
+quantity = 1
+
+[[scenario.player_items]]
+name = "Hyper Potion"
+quantity = 1
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "PERSIAN"
+expect.player.active.level = 23
+expect.player.active.hp = 66
+expect.player.active.max_hp = 66
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 40, 24, 20]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 66, max_hp = 66, status = "none" }, { species = "CHARIZARD", level = 20, hp = 61, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GASTLY"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 6
+expect.enemy.active.max_hp = 46
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 10, 5, 10]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 46, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 53, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "PERSIAN"
+expect.player.active.level = 23
+expect.player.active.hp = 66
+expect.player.active.max_hp = 66
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 40, 23, 20]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 66, max_hp = 66, status = "none" }, { species = "CHARIZARD", level = 20, hp = 61, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 53, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "PERSIAN"
+expect.player.active.level = 23
+expect.player.active.hp = 66
+expect.player.active.max_hp = 66
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 40, 23, 20]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 66, max_hp = 66, status = "none" }, { species = "CHARIZARD", level = 20, hp = 61, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 53, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "PERSIAN"
+expect.player.active.level = 23
+expect.player.active.hp = 66
+expect.player.active.max_hp = 66
+expect.player.active.status = "sleep"
+expect.player.active.pp = [35, 40, 22, 20]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 66, max_hp = 66, status = "sleep" }, { species = "CHARIZARD", level = 20, hp = 61, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 19
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 10, 10, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 53, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "PERSIAN"
+expect.player.active.level = 23
+expect.player.active.hp = 66
+expect.player.active.max_hp = 66
+expect.player.active.status = "sleep"
+expect.player.active.pp = [35, 40, 22, 20]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 66, max_hp = 66, status = "sleep" }, { species = "CHARIZARD", level = 20, hp = 61, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 19
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 5, 10, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 53, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "PERSIAN"
+expect.player.active.level = 23
+expect.player.active.hp = 32
+expect.player.active.max_hp = 66
+expect.player.active.status = "sleep"
+expect.player.active.pp = [35, 40, 22, 20]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 32, max_hp = 66, status = "sleep" }, { species = "CHARIZARD", level = 20, hp = 61, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 19
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 4, 10, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 53, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "PERSIAN"
+expect.player.active.level = 23
+expect.player.active.hp = 14
+expect.player.active.max_hp = 66
+expect.player.active.status = "sleep"
+expect.player.active.pp = [35, 40, 22, 20]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 14, max_hp = 66, status = "sleep" }, { species = "CHARIZARD", level = 20, hp = 61, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 19
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 3, 10, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 53, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 16
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "PERSIAN"
+expect.player.active.level = 23
+expect.player.active.hp = 49
+expect.player.active.max_hp = 66
+expect.player.active.status = "sleep"
+expect.player.active.pp = [35, 40, 22, 20]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 49, max_hp = 66, status = "sleep" }, { species = "CHARIZARD", level = 20, hp = 61, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 21
+expect.enemy.active.hp = 19
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 2, 10, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 53, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "PERSIAN"
+expect.player.active.level = 23
+expect.player.active.hp = 49
+expect.player.active.max_hp = 66
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 40, 21, 20]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 49, max_hp = 66, status = "none" }, { species = "CHARIZARD", level = 20, hp = 61, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 5, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "PERSIAN"
+expect.player.active.level = 23
+expect.player.active.hp = 49
+expect.player.active.max_hp = 66
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 40, 21, 20]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 49, max_hp = 66, status = "none" }, { species = "CHARIZARD", level = 20, hp = 61, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 5, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "PERSIAN"
+expect.player.active.level = 23
+expect.player.active.hp = 49
+expect.player.active.max_hp = 66
+expect.player.active.status = "sleep"
+expect.player.active.pp = [35, 40, 21, 20]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 49, max_hp = 66, status = "sleep" }, { species = "CHARIZARD", level = 20, hp = 61, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 15, 5, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "PERSIAN"
+expect.player.active.level = 23
+expect.player.active.hp = 3
+expect.player.active.max_hp = 66
+expect.player.active.status = "sleep"
+expect.player.active.pp = [35, 40, 21, 20]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 3, max_hp = 66, status = "sleep" }, { species = "CHARIZARD", level = 20, hp = 61, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 15, 5, 14]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 46
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "PERSIAN"
+expect.player.active.level = 23
+expect.player.active.hp = 9
+expect.player.active.max_hp = 66
+expect.player.active.status = "sleep"
+expect.player.active.pp = [35, 40, 21, 20]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 9, max_hp = 66, status = "sleep" }, { species = "CHARIZARD", level = 20, hp = 61, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 15, 5, 13]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "PERSIAN"
+expect.player.active.level = 23
+expect.player.active.hp = 0
+expect.player.active.max_hp = 66
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 40, 21, 20]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 0, max_hp = 66, status = "none" }, { species = "CHARIZARD", level = 20, hp = 61, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 15, 5, 12]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "CHARIZARD"
+expect.player.active.level = 20
+expect.player.active.hp = 61
+expect.player.active.max_hp = 61
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 25, 20, 20]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 0, max_hp = 66, status = "none" }, { species = "CHARIZARD", level = 20, hp = 61, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 15, 5, 12]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "CHARIZARD"
+expect.player.active.level = 20
+expect.player.active.hp = 61
+expect.player.active.max_hp = 61
+expect.player.active.status = "sleep"
+expect.player.active.pp = [40, 25, 20, 20]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 0, max_hp = 66, status = "none" }, { species = "CHARIZARD", level = 20, hp = 61, max_hp = 61, status = "sleep" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 15, 5, 12]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "CHARIZARD"
+expect.player.active.level = 20
+expect.player.active.hp = 20
+expect.player.active.max_hp = 61
+expect.player.active.status = "sleep"
+expect.player.active.pp = [40, 25, 20, 20]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 0, max_hp = 66, status = "none" }, { species = "CHARIZARD", level = 20, hp = 20, max_hp = 61, status = "sleep" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 15, 5, 11]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "CHARIZARD"
+expect.player.active.level = 20
+expect.player.active.hp = 0
+expect.player.active.max_hp = 61
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 25, 20, 20]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 0, max_hp = 66, status = "none" }, { species = "CHARIZARD", level = 20, hp = 0, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 15, 5, 10]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "REMORAID"
+expect.player.active.level = 22
+expect.player.active.hp = 52
+expect.player.active.max_hp = 52
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 20, 20, 20]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 0, max_hp = 66, status = "none" }, { species = "CHARIZARD", level = 20, hp = 0, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 15, 5, 10]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 2
+expect.player.active.species = "REMORAID"
+expect.player.active.level = 22
+expect.player.active.hp = 52
+expect.player.active.max_hp = 52
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 19, 20, 20]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 0, max_hp = 66, status = "none" }, { species = "CHARIZARD", level = 20, hp = 0, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 50
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 15, 5, 10]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "REMORAID"
+expect.player.active.level = 22
+expect.player.active.hp = 52
+expect.player.active.max_hp = 52
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 19, 19, 20]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 0, max_hp = 66, status = "none" }, { species = "CHARIZARD", level = 20, hp = 0, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 40
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [16, 15, 5, 10]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "REMORAID"
+expect.player.active.level = 22
+expect.player.active.hp = 52
+expect.player.active.max_hp = 52
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 19, 19, 19]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 0, max_hp = 66, status = "none" }, { species = "CHARIZARD", level = 20, hp = 0, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 26
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 5, 10]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 2
+expect.player.active.species = "REMORAID"
+expect.player.active.level = 22
+expect.player.active.hp = 52
+expect.player.active.max_hp = 52
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 18, 19, 19]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 0, max_hp = 66, status = "none" }, { species = "CHARIZARD", level = 20, hp = 0, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 5
+expect.enemy.active.max_hp = 69
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 15, 5, 10]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "REMORAID"
+expect.player.active.level = 22
+expect.player.active.hp = 52
+expect.player.active.max_hp = 52
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 18, 18, 19]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 0, max_hp = 66, status = "none" }, { species = "CHARIZARD", level = 20, hp = 0, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 5, 10, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 0, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 2
+expect.player.active.species = "REMORAID"
+expect.player.active.level = 22
+expect.player.active.hp = 52
+expect.player.active.max_hp = 52
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 18, 18, 19]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 0, max_hp = 66, status = "none" }, { species = "CHARIZARD", level = 20, hp = 0, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 5, 10, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 0, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "REMORAID"
+expect.player.active.level = 22
+expect.player.active.hp = 52
+expect.player.active.max_hp = 52
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 18, 18, 18]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 0, max_hp = 66, status = "none" }, { species = "CHARIZARD", level = 20, hp = 0, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 52, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 37
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 4, 10, 15]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 0, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 2
+expect.player.active.species = "REMORAID"
+expect.player.active.level = 22
+expect.player.active.hp = 29
+expect.player.active.max_hp = 52
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 17, 18, 18]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 0, max_hp = 66, status = "none" }, { species = "CHARIZARD", level = 20, hp = 0, max_hp = 61, status = "none" }, { species = "REMORAID", level = 22, hp = 29, max_hp = 52, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 9
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 4, 10, 14]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 0, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "REMORAID"
+expect.player.active.level = 23
+expect.player.active.hp = 9
+expect.player.active.max_hp = 55
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 17, 17, 18]
+expect.player.party = [{ species = "PERSIAN", level = 23, hp = 0, max_hp = 66, status = "none" }, { species = "CHARIZARD", level = 20, hp = 0, max_hp = 61, status = "none" }, { species = "REMORAID", level = 23, hp = 9, max_hp = 55, status = "none" }, { species = "SNEASEL", level = 21, hp = 54, max_hp = 54, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 57
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 4, 10, 13]
+expect.enemy.party = [{ species = "GASTLY", level = 21, hp = 0, max_hp = 46, status = "none" }, { species = "HAUNTER", level = 21, hp = 0, max_hp = 53, status = "none" }, { species = "GENGAR", level = 25, hp = 0, max_hp = 69, status = "none" }, { species = "HAUNTER", level = 23, hp = 0, max_hp = 57, status = "none" }]
+expect.battle.outcome = "win"
