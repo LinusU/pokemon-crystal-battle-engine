@@ -531,15 +531,10 @@ fn apply_item(cpu: &mut Cpu, id: u8, target: Option<u8>) {
     let slot = target.unwrap_or_else(|| cpu.read_byte(W_CUR_BATTLE_MON));
     let base = party_slot_addr(slot);
 
-    // Status heals first.
-    match id {
-        0x09 => clear_status_bits(cpu, slot, 0b1111_1000),                 // Antidote: PSN
-        0x0a => clear_status_bits(cpu, slot, 1 << defs::BRN as u8),       // Burn Heal
-        0x0b => clear_status_bits(cpu, slot, 1 << defs::FRZ as u8),       // Ice Heal
-        0x0c => clear_status_bits(cpu, slot, 0b0000_0111),                 // Awakening: SLP counter
-        0x0d => clear_status_bits(cpu, slot, 1 << defs::PAR as u8),       // Parlyz Heal
-        0x26 => clear_status_bits(cpu, slot, 0xff),                       // Full Heal
-        _ => {}
+    // Status heals first. Full Restore (a separate effect) clears all status as
+    // part of its HP arm below.
+    if let Some(ItemEffect::Status(mask)) = item_effect(id) {
+        clear_status_bits(cpu, slot, mask);
     }
 
     // Healing.
