@@ -1,0 +1,1004 @@
+[recording]
+source_scenario = "random"
+seed = "0x88108705150dfc8b"
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "SHELLDER"
+expect.player.active.level = 40
+expect.player.active.hp = 58
+expect.player.active.max_hp = 83
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 19, 10, 30]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 58, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 125, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 114, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 93
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 30, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SHELLDER"
+expect.player.active.level = 40
+expect.player.active.hp = 34
+expect.player.active.max_hp = 83
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 19, 10, 30]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 34, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 125, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 114, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 93
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 30, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SHELLDER"
+expect.player.active.level = 40
+expect.player.active.hp = 34
+expect.player.active.max_hp = 83
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 19, 9, 30]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 34, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 125, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 114, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 93
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 30, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "SHELLDER"
+expect.player.active.level = 40
+expect.player.active.hp = 8
+expect.player.active.max_hp = 83
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 18, 9, 30]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 8, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 125, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 114, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 83
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [16, 30, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SHELLDER"
+expect.player.active.level = 40
+expect.player.active.hp = 8
+expect.player.active.max_hp = 83
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 18, 8, 30]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 8, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 125, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 114, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 83
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 30, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SHELLDER"
+expect.player.active.level = 40
+expect.player.active.hp = 0
+expect.player.active.max_hp = 83
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 18, 8, 30]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 125, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 114, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 83
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 30, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 4
+expect.player.active_slot = 4
+expect.player.active.species = "SKARMORY"
+expect.player.active.level = 42
+expect.player.active.hp = 114
+expect.player.active.max_hp = 114
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 20, 30, 20]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 125, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 114, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 83
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 30, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 4
+expect.player.active.species = "SKARMORY"
+expect.player.active.level = 42
+expect.player.active.hp = 109
+expect.player.active.max_hp = 114
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 19, 30, 20]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 125, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 109, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 64
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 29, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 4
+expect.player.active.species = "SKARMORY"
+expect.player.active.level = 42
+expect.player.active.hp = 104
+expect.player.active.max_hp = 114
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 18, 30, 20]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 125, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 104, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 45
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 28, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 4
+expect.player.active.species = "SKARMORY"
+expect.player.active.level = 42
+expect.player.active.hp = 99
+expect.player.active.max_hp = 114
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 17, 30, 20]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 125, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 99, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 25
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 27, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 4
+expect.player.active.species = "SKARMORY"
+expect.player.active.level = 42
+expect.player.active.hp = 94
+expect.player.active.max_hp = 114
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 16, 30, 20]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 125, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 94, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 4
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 26, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 4
+expect.player.active.species = "SKARMORY"
+expect.player.active.level = 42
+expect.player.active.hp = 89
+expect.player.active.max_hp = 114
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 15, 30, 20]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 125, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 89, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 15, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 4
+expect.player.active.species = "SKARMORY"
+expect.player.active.level = 42
+expect.player.active.hp = 89
+expect.player.active.max_hp = 114
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 15, 30, 20]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 125, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 89, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 15, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 4
+expect.player.active.species = "SKARMORY"
+expect.player.active.level = 42
+expect.player.active.hp = 54
+expect.player.active.max_hp = 114
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 14, 30, 20]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 125, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 54, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 83
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 14, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 4
+expect.player.active.species = "SKARMORY"
+expect.player.active.level = 42
+expect.player.active.hp = 19
+expect.player.active.max_hp = 114
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 14, 30, 19]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 125, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 19, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 83
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 13, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 4
+expect.player.active.species = "SKARMORY"
+expect.player.active.level = 42
+expect.player.active.hp = 0
+expect.player.active.max_hp = 114
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 14, 30, 19]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 125, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 83
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 12, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "NINETALES"
+expect.player.active.level = 45
+expect.player.active.hp = 125
+expect.player.active.max_hp = 125
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 10, 25, 15]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 125, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 83
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 12, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "NINETALES"
+expect.player.active.level = 45
+expect.player.active.hp = 99
+expect.player.active.max_hp = 125
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 10, 25, 14]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 99, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 64
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 12, 29]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "NINETALES"
+expect.player.active.level = 45
+expect.player.active.hp = 74
+expect.player.active.max_hp = 125
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 10, 25, 13]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 74, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 58
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 12, 28]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "NINETALES"
+expect.player.active.level = 45
+expect.player.active.hp = 47
+expect.player.active.max_hp = 125
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 9, 25, 13]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 47, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 52
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 12, 27]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 3
+expect.player.active.species = "NINETALES"
+expect.player.active.level = 45
+expect.player.active.hp = 47
+expect.player.active.max_hp = 125
+expect.player.active.status = "none"
+expect.player.active.pp = [29, 9, 25, 13]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 47, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 17
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 12, 27]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 3
+expect.player.active.species = "NINETALES"
+expect.player.active.level = 45
+expect.player.active.hp = 21
+expect.player.active.max_hp = 125
+expect.player.active.status = "none"
+expect.player.active.pp = [28, 9, 25, 13]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 21, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 2
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 12, 26]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 3
+expect.player.active.species = "NINETALES"
+expect.player.active.level = 45
+expect.player.active.hp = 21
+expect.player.active.max_hp = 125
+expect.player.active.status = "none"
+expect.player.active.pp = [27, 9, 25, 13]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 21, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 92
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 3
+expect.player.active.species = "NINETALES"
+expect.player.active.level = 45
+expect.player.active.hp = 21
+expect.player.active.max_hp = 125
+expect.player.active.status = "none"
+expect.player.active.pp = [27, 9, 25, 13]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 21, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 92
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "NINETALES"
+expect.player.active.level = 45
+expect.player.active.hp = 0
+expect.player.active.max_hp = 125
+expect.player.active.status = "none"
+expect.player.active.pp = [27, 9, 25, 12]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 92
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 9, 10, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "JUMPLUFF"
+expect.player.active.level = 38
+expect.player.active.hp = 113
+expect.player.active.max_hp = 113
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 15, 10, 40]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 92
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 9, 10, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 2
+expect.player.active.species = "JUMPLUFF"
+expect.player.active.level = 38
+expect.player.active.hp = 113
+expect.player.active.max_hp = 113
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 14, 10, 40]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 92
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [20, 9, 10, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "JUMPLUFF"
+expect.player.active.level = 38
+expect.player.active.hp = 113
+expect.player.active.max_hp = 113
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 14, 9, 40]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 81
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [20, 9, 10, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "KABUTO"
+expect.player.active.level = 38
+expect.player.active.hp = 79
+expect.player.active.max_hp = 79
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 30, 15, 10]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 70
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [20, 9, 10, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "KABUTO"
+expect.player.active.level = 38
+expect.player.active.hp = 79
+expect.player.active.max_hp = 79
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 30, 15, 10]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 8
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [20, 9, 10, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "KABUTO"
+expect.player.active.level = 38
+expect.player.active.hp = 79
+expect.player.active.max_hp = 79
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 30, 15, 10]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 30, 20, 40]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 1
+expect.player.active.species = "KABUTO"
+expect.player.active.level = 38
+expect.player.active.hp = 79
+expect.player.active.max_hp = 79
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 30, 15, 10]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 79, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 30, 20, 40]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "KABUTO"
+expect.player.active.level = 38
+expect.player.active.hp = 0
+expect.player.active.max_hp = 79
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 30, 15, 10]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 30, 19, 40]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "JUMPLUFF"
+expect.player.active.level = 38
+expect.player.active.hp = 113
+expect.player.active.max_hp = 113
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 14, 9, 40]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 113, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 30, 19, 40]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 2
+expect.player.active.species = "JUMPLUFF"
+expect.player.active.level = 38
+expect.player.active.hp = 84
+expect.player.active.max_hp = 113
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 13, 9, 40]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 84, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 29, 19, 40]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 2
+expect.player.active.species = "JUMPLUFF"
+expect.player.active.level = 38
+expect.player.active.hp = 84
+expect.player.active.max_hp = 113
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 12, 9, 40]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 84, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [15, 29, 19, 40]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "sleep" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "JUMPLUFF"
+expect.player.active.level = 38
+expect.player.active.hp = 84
+expect.player.active.max_hp = 113
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 12, 8, 40]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 84, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [15, 29, 19, 40]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "sleep" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "JUMPLUFF"
+expect.player.active.level = 38
+expect.player.active.hp = 44
+expect.player.active.max_hp = 113
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 12, 7, 40]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 44, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 29, 18, 40]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 2
+expect.player.active.species = "JUMPLUFF"
+expect.player.active.level = 38
+expect.player.active.hp = 44
+expect.player.active.max_hp = 113
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 11, 7, 40]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 44, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [15, 29, 18, 40]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "sleep" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "JUMPLUFF"
+expect.player.active.level = 38
+expect.player.active.hp = 56
+expect.player.active.max_hp = 113
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 11, 6, 40]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 56, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 91
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [15, 29, 18, 40]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "sleep" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "JUMPLUFF"
+expect.player.active.level = 38
+expect.player.active.hp = 68
+expect.player.active.max_hp = 113
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 11, 6, 39]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 68, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 79
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [15, 29, 18, 40]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "sleep" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 2
+expect.player.active.species = "JUMPLUFF"
+expect.player.active.level = 38
+expect.player.active.hp = 80
+expect.player.active.max_hp = 113
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 10, 6, 39]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 80, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 67
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [15, 29, 18, 40]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "sleep" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 2
+expect.player.active.species = "JUMPLUFF"
+expect.player.active.level = 38
+expect.player.active.hp = 92
+expect.player.active.max_hp = 113
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 9, 6, 39]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 92, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 55
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [15, 29, 18, 40]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "sleep" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 2
+expect.player.active.species = "JUMPLUFF"
+expect.player.active.level = 38
+expect.player.active.hp = 104
+expect.player.active.max_hp = 113
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 8, 6, 39]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 104, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 43
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [15, 29, 18, 40]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "sleep" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 2
+expect.player.active.species = "JUMPLUFF"
+expect.player.active.level = 38
+expect.player.active.hp = 86
+expect.player.active.max_hp = 113
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 7, 6, 39]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 86, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 31
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 28, 18, 40]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 43, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 2
+expect.player.active.species = "JUMPLUFF"
+expect.player.active.level = 38
+expect.player.active.hp = 98
+expect.player.active.max_hp = 113
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 6, 6, 39]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 98, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 19
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [15, 28, 18, 40]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 31, max_hp = 103, status = "sleep" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 2
+expect.player.active.species = "JUMPLUFF"
+expect.player.active.level = 38
+expect.player.active.hp = 110
+expect.player.active.max_hp = 113
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 5, 6, 39]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 110, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 7
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [15, 28, 18, 40]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 31, max_hp = 103, status = "sleep" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 2
+expect.player.active.species = "JUMPLUFF"
+expect.player.active.level = 38
+expect.player.active.hp = 79
+expect.player.active.max_hp = 113
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 4, 6, 39]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 79, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 148
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 40, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 2
+expect.player.active.species = "JUMPLUFF"
+expect.player.active.level = 38
+expect.player.active.hp = 79
+expect.player.active.max_hp = 113
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 3, 6, 39]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 79, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 148
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [10, 40, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "sleep" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "JUMPLUFF"
+expect.player.active.level = 38
+expect.player.active.hp = 0
+expect.player.active.max_hp = 113
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 3, 5, 39]
+expect.player.party = [{ species = "SHELLDER", level = 40, hp = 0, max_hp = 83, status = "none" }, { species = "KABUTO", level = 38, hp = 0, max_hp = 79, status = "none" }, { species = "JUMPLUFF", level = 38, hp = 0, max_hp = 113, status = "none" }, { species = "NINETALES", level = 45, hp = 0, max_hp = 125, status = "none" }, { species = "SKARMORY", level = 42, hp = 0, max_hp = 114, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 148
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 40, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "sleep" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+expect.battle.outcome = "loss"

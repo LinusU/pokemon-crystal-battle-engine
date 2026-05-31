@@ -1,0 +1,164 @@
+[recording]
+source_scenario = "random"
+seed = "0xa7fcce86d7df1f13"
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "NIDORINO"
+expect.player.active.level = 42
+expect.player.active.hp = 103
+expect.player.active.max_hp = 103
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 30, 19]
+expect.player.party = [{ species = "NIDORINO", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "MEOWTH", level = 51, hp = 112, max_hp = 112, status = "none" }, { species = "DODUO", level = 43, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGCARGO"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 20, 15, 10]
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 107, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "NIDORINO"
+expect.player.active.level = 42
+expect.player.active.hp = 103
+expect.player.active.max_hp = 103
+expect.player.active.status = "none"
+expect.player.active.pp = [29, 35, 30, 19]
+expect.player.party = [{ species = "NIDORINO", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "MEOWTH", level = 51, hp = 112, max_hp = 112, status = "none" }, { species = "DODUO", level = 43, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGCARGO"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 80
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 20, 15, 10]
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 107, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "NIDORINO"
+expect.player.active.level = 42
+expect.player.active.hp = 103
+expect.player.active.max_hp = 103
+expect.player.active.status = "none"
+expect.player.active.pp = [28, 35, 30, 19]
+expect.player.party = [{ species = "NIDORINO", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "MEOWTH", level = 51, hp = 112, max_hp = 112, status = "none" }, { species = "DODUO", level = 43, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGCARGO"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 63
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 20, 15, 10]
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 107, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "NIDORINO"
+expect.player.active.level = 42
+expect.player.active.hp = 0
+expect.player.active.max_hp = 103
+expect.player.active.status = "none"
+expect.player.active.pp = [27, 35, 30, 19]
+expect.player.party = [{ species = "NIDORINO", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "MEOWTH", level = 51, hp = 112, max_hp = 112, status = "none" }, { species = "DODUO", level = 43, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGCARGO"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 49
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 20, 15, 9]
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 107, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "DODUO"
+expect.player.active.level = 43
+expect.player.active.hp = 91
+expect.player.active.max_hp = 91
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 20, 20, 30]
+expect.player.party = [{ species = "NIDORINO", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "MEOWTH", level = 51, hp = 112, max_hp = 112, status = "none" }, { species = "DODUO", level = 43, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGCARGO"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 49
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 20, 15, 9]
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 107, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "DODUO"
+expect.player.active.level = 43
+expect.player.active.hp = 0
+expect.player.active.max_hp = 91
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 20, 20, 30]
+expect.player.party = [{ species = "NIDORINO", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "MEOWTH", level = 51, hp = 112, max_hp = 112, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGCARGO"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 44
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 20, 15, 8]
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 107, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "MEOWTH"
+expect.player.active.level = 51
+expect.player.active.hp = 112
+expect.player.active.max_hp = 112
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 15, 20]
+expect.player.party = [{ species = "NIDORINO", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "MEOWTH", level = 51, hp = 112, max_hp = 112, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGCARGO"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 44
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 20, 15, 8]
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 107, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "MEOWTH"
+expect.player.active.level = 51
+expect.player.active.hp = 0
+expect.player.active.max_hp = 112
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 40, 15, 20]
+expect.player.party = [{ species = "NIDORINO", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "MEOWTH", level = 51, hp = 0, max_hp = 112, status = "none" }, { species = "DODUO", level = 43, hp = 0, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGCARGO"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 25
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 20, 15, 7]
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 107, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+expect.battle.outcome = "loss"

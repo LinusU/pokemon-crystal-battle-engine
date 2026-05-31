@@ -1,0 +1,464 @@
+[recording]
+source_scenario = "random"
+seed = "0xd51332e754ff1182"
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 40
+expect.player.active.hp = 128
+expect.player.active.max_hp = 128
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 25, 10, 20]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 128, max_hp = 128, status = "none" }, { species = "CHARMELEON", level = 48, hp = 126, max_hp = 126, status = "none" }, { species = "FORRETRESS", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "STARYU", level = 46, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 87
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 9, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 40
+expect.player.active.hp = 108
+expect.player.active.max_hp = 128
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 25, 10, 19]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 108, max_hp = 128, status = "none" }, { species = "CHARMELEON", level = 48, hp = 126, max_hp = 126, status = "none" }, { species = "FORRETRESS", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "STARYU", level = 46, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 87
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 9, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 40
+expect.player.active.hp = 108
+expect.player.active.max_hp = 128
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 25, 10, 18]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 108, max_hp = 128, status = "none" }, { species = "CHARMELEON", level = 48, hp = 126, max_hp = 126, status = "none" }, { species = "FORRETRESS", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "STARYU", level = 46, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 60
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 8, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 40
+expect.player.active.hp = 86
+expect.player.active.max_hp = 128
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 25, 10, 17]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 86, max_hp = 128, status = "none" }, { species = "CHARMELEON", level = 48, hp = 126, max_hp = 126, status = "none" }, { species = "FORRETRESS", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "STARYU", level = 46, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 60
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 8, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 40
+expect.player.active.hp = 86
+expect.player.active.max_hp = 128
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 25, 10, 16]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 86, max_hp = 128, status = "none" }, { species = "CHARMELEON", level = 48, hp = 126, max_hp = 126, status = "none" }, { species = "FORRETRESS", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "STARYU", level = 46, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 12
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 7, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 40
+expect.player.active.hp = 64
+expect.player.active.max_hp = 128
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 25, 10, 15]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 64, max_hp = 128, status = "none" }, { species = "CHARMELEON", level = 48, hp = 126, max_hp = 126, status = "none" }, { species = "FORRETRESS", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "STARYU", level = 46, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 12
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 7, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 40
+expect.player.active.hp = 64
+expect.player.active.max_hp = 128
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 25, 10, 14]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 64, max_hp = 128, status = "none" }, { species = "CHARMELEON", level = 48, hp = 126, max_hp = 126, status = "none" }, { species = "FORRETRESS", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "STARYU", level = 46, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 15, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 40
+expect.player.active.hp = 64
+expect.player.active.max_hp = 128
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 25, 10, 14]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 64, max_hp = 128, status = "none" }, { species = "CHARMELEON", level = 48, hp = 126, max_hp = 126, status = "none" }, { species = "FORRETRESS", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "STARYU", level = 46, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 15, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 40
+expect.player.active.hp = 33
+expect.player.active.max_hp = 128
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 24, 10, 14]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 33, max_hp = 128, status = "none" }, { species = "CHARMELEON", level = 48, hp = 126, max_hp = 126, status = "none" }, { species = "FORRETRESS", level = 41, hp = 119, max_hp = 119, status = "none" }, { species = "STARYU", level = 46, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 96
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 15, 15, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "FORRETRESS"
+expect.player.active.level = 41
+expect.player.active.hp = 99
+expect.player.active.max_hp = 119
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 10, 5]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 33, max_hp = 128, status = "none" }, { species = "CHARMELEON", level = 48, hp = 126, max_hp = 126, status = "none" }, { species = "FORRETRESS", level = 41, hp = 99, max_hp = 119, status = "none" }, { species = "STARYU", level = 46, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 96
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 15, 15, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "FORRETRESS"
+expect.player.active.level = 41
+expect.player.active.hp = 0
+expect.player.active.max_hp = 119
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 10, 4]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 33, max_hp = 128, status = "none" }, { species = "CHARMELEON", level = 48, hp = 126, max_hp = 126, status = "none" }, { species = "FORRETRESS", level = 41, hp = 0, max_hp = 119, status = "none" }, { species = "STARYU", level = 46, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 15, 14, 30]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "CHARMELEON"
+expect.player.active.level = 48
+expect.player.active.hp = 126
+expect.player.active.max_hp = 126
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 15, 20, 10]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 33, max_hp = 128, status = "none" }, { species = "CHARMELEON", level = 48, hp = 126, max_hp = 126, status = "none" }, { species = "FORRETRESS", level = 41, hp = 0, max_hp = 119, status = "none" }, { species = "STARYU", level = 46, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 92
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "CHARMELEON"
+expect.player.active.level = 48
+expect.player.active.hp = 114
+expect.player.active.max_hp = 126
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 15, 20, 9]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 33, max_hp = 128, status = "none" }, { species = "CHARMELEON", level = 48, hp = 114, max_hp = 126, status = "none" }, { species = "FORRETRESS", level = 41, hp = 0, max_hp = 119, status = "none" }, { species = "STARYU", level = 46, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 52
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 10, 10, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "CHARMELEON"
+expect.player.active.level = 48
+expect.player.active.hp = 92
+expect.player.active.max_hp = 126
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 15, 20, 8]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 33, max_hp = 128, status = "none" }, { species = "CHARMELEON", level = 48, hp = 92, max_hp = 126, status = "none" }, { species = "FORRETRESS", level = 41, hp = 0, max_hp = 119, status = "none" }, { species = "STARYU", level = 46, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 12
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 10, 9, 10]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "CHARMELEON"
+expect.player.active.level = 48
+expect.player.active.hp = 92
+expect.player.active.max_hp = 126
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 15, 20, 7]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 33, max_hp = 128, status = "none" }, { species = "CHARMELEON", level = 48, hp = 92, max_hp = 126, status = "none" }, { species = "FORRETRESS", level = 41, hp = 0, max_hp = 119, status = "none" }, { species = "STARYU", level = 46, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 148
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 40, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 1
+expect.player.active.species = "CHARMELEON"
+expect.player.active.level = 48
+expect.player.active.hp = 77
+expect.player.active.max_hp = 126
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 15, 20, 7]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 33, max_hp = 128, status = "none" }, { species = "CHARMELEON", level = 48, hp = 77, max_hp = 126, status = "none" }, { species = "FORRETRESS", level = 41, hp = 0, max_hp = 119, status = "none" }, { species = "STARYU", level = 46, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 130
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 40, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "CHARMELEON"
+expect.player.active.level = 48
+expect.player.active.hp = 0
+expect.player.active.max_hp = 126
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 15, 20, 6]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 33, max_hp = 128, status = "none" }, { species = "CHARMELEON", level = 48, hp = 0, max_hp = 126, status = "none" }, { species = "FORRETRESS", level = 41, hp = 0, max_hp = 119, status = "none" }, { species = "STARYU", level = 46, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 90
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 40, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 40
+expect.player.active.hp = 17
+expect.player.active.max_hp = 128
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 24, 10, 14]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 17, max_hp = 128, status = "none" }, { species = "CHARMELEON", level = 48, hp = 0, max_hp = 126, status = "none" }, { species = "FORRETRESS", level = 41, hp = 0, max_hp = 119, status = "none" }, { species = "STARYU", level = 46, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 72
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 40, 10, 5]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 40
+expect.player.active.hp = 0
+expect.player.active.max_hp = 128
+expect.player.active.status = "none"
+expect.player.active.pp = [23, 24, 10, 14]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 0, max_hp = 128, status = "none" }, { species = "CHARMELEON", level = 48, hp = 0, max_hp = 126, status = "none" }, { species = "FORRETRESS", level = 41, hp = 0, max_hp = 119, status = "none" }, { species = "STARYU", level = 46, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 56
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 40, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "STARYU"
+expect.player.active.level = 46
+expect.player.active.hp = 80
+expect.player.active.max_hp = 91
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 20, 30]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 0, max_hp = 128, status = "none" }, { species = "CHARMELEON", level = 48, hp = 0, max_hp = 126, status = "none" }, { species = "FORRETRESS", level = 41, hp = 0, max_hp = 119, status = "none" }, { species = "STARYU", level = 46, hp = 80, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 38
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 40, 10, 4]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 3
+expect.player.active.species = "STARYU"
+expect.player.active.level = 46
+expect.player.active.hp = 80
+expect.player.active.max_hp = 91
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 20, 20, 30]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 0, max_hp = 128, status = "none" }, { species = "CHARMELEON", level = 48, hp = 0, max_hp = 126, status = "none" }, { species = "FORRETRESS", level = 41, hp = 0, max_hp = 119, status = "none" }, { species = "STARYU", level = 46, hp = 80, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 25
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 40, 10, 3]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 3
+expect.player.active.species = "STARYU"
+expect.player.active.level = 46
+expect.player.active.hp = 80
+expect.player.active.max_hp = 91
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 19, 20, 30]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 0, max_hp = 128, status = "none" }, { species = "CHARMELEON", level = 48, hp = 0, max_hp = 126, status = "none" }, { species = "FORRETRESS", level = 41, hp = 0, max_hp = 119, status = "none" }, { species = "STARYU", level = 46, hp = 80, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 113
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 40, 10, 3]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 3
+expect.player.active.species = "STARYU"
+expect.player.active.level = 46
+expect.player.active.hp = 0
+expect.player.active.max_hp = 91
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 19, 19, 30]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 0, max_hp = 128, status = "none" }, { species = "CHARMELEON", level = 48, hp = 0, max_hp = 126, status = "none" }, { species = "FORRETRESS", level = 41, hp = 0, max_hp = 119, status = "none" }, { species = "STARYU", level = 46, hp = 0, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 113
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 40, 10, 2]
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none" }]
+expect.battle.outcome = "loss"
