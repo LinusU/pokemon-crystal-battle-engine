@@ -487,10 +487,10 @@ impl ItemEffect {
 /// `scratch/pokecrystal/data/items/heal_status.asm`.
 fn item_effect(id: u8) -> Option<ItemEffect> {
     Some(match id {
-        // HP-restoring: Potion, Super, Hyper, Max, drinks, Moomoo Milk, herbs.
-        0x12 | 0x11 | 0x10 | 0x0f | 0x2e | 0x2f | 0x30 | 0x48 | 0x79 | 0x7a => {
-            ItemEffect::Hp
-        }
+        // HP-restoring: Potion, Super, Hyper, Max, drinks, Moomoo Milk, herbs,
+        // berries, Berry Juice, RageCandyBar.
+        0x12 | 0x11 | 0x10 | 0x0f | 0x2e | 0x2f | 0x30 | 0x48 | 0x79 | 0x7a | 0xad
+        | 0xae | 0x8b | 0x72 => ItemEffect::Hp,
         // Revive, Max Revive.
         0x27 | 0x28 => ItemEffect::Revive,
         // Full Restore — HP plus all status.
@@ -555,6 +555,10 @@ fn apply_item(cpu: &mut Cpu, id: u8, target: Option<u8>) {
         0x48 => Some(100),                             // Moomoo Milk
         0x79 => Some(50),                              // Energypowder
         0x7a => Some(200),                             // Energy Root
+        0xad => Some(10),                              // Berry
+        0xae => Some(30),                              // Gold Berry
+        0x8b => Some(20),                              // Berry Juice
+        0x72 => Some(20),                              // RageCandyBar
         0x27 if cur_hp == 0 => Some(max_hp / 2),       // Revive
         0x28 if cur_hp == 0 => Some(max_hp),           // Max Revive
         _ => None,
@@ -735,6 +739,16 @@ mod tests {
         assert!(!potion.affects(20, 20, 0), "full HP — no effect");
         assert!(potion.affects(10, 20, 0), "below max — heals");
         assert!(!potion.affects(0, 20, 0), "fainted — Potion can't revive");
+    }
+
+    #[test]
+    fn berries_and_treats_restore_hp() {
+        // Berry, Gold Berry, Berry Juice, RageCandyBar all classify as HP heals.
+        for id in [0xad, 0xae, 0x8b, 0x72] {
+            assert!(matches!(effect(id), ItemEffect::Hp), "item {id:#x} heals HP");
+            assert!(effect(id).affects(10, 20, 0), "below max — heals");
+            assert!(!effect(id).affects(20, 20, 0), "full HP — no effect");
+        }
     }
 
     #[test]
