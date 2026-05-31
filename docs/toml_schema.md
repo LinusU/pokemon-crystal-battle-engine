@@ -72,15 +72,17 @@ cargo run -- --random --record /tmp/r.toml  # combine with recording
 
 `--random` picks one trainer from [`src/bootstrap/trainers.rs`](../src/bootstrap/trainers.rs) and generates a player party scaled to that trainer's canonical level / count (party size ±1 clamped to 1..=6, levels ±10% clamped to 2..=100). The bag gets 2..=4 entries drawn from a curated `BATTLE_ITEMS` list (potions, status heals, X-items — see [`src/bootstrap/random.rs`](../src/bootstrap/random.rs)) at 1..=3 each. The chosen matchup is logged on stderr.
 
-The generator and the battle RNG are both keyed off the same `u64` — pass `--seed <n>` to pin it (accepts decimal `42` or hex `0xdeadbeef`); otherwise the harness draws one from system entropy and logs it so the run can be reproduced. Two invocations with the same `--seed` produce identical matchups and identical battle outcomes for the same choices.
+Pass `--seed <n>` to make the run reproducible (accepts decimal `42` or hex `0xdeadbeef`); otherwise the harness draws a base seed from system entropy and logs it. Two invocations with the same `--seed` produce identical matchups and identical battle outcomes for the same choices.
+
+The base seed is split into **two independent seeds**: one drives matchup generation (trainer / party / items), the other drives the battle engine RNG (damage, crits, AI). They are never the same number, so the generator and the engine never share RNG state — changing how matchups are generated cannot perturb a battle's dynamics, and vice versa. This split also fixes a selection bias: feeding small or sequential seeds straight into the generator used to make trainer selection cluster onto a handful of trainers; mixing the base seed first spreads it across the whole roster. See [`src/bootstrap/random.rs`](../src/bootstrap/random.rs).
 
 Mutual exclusions:
 
 - `--random` cannot be combined with a positional `scenario.toml` (you'd be saying "scenario X and also random" — error).
-- `--random` cannot be combined with `--play` (a recorded random run is replayed by passing the recording to `--play` *alone*; the playback path notices the `source_scenario = "random"` marker the recorder wrote and regenerates the scenario from the recording's seed).
+- `--random` cannot be combined with `--play` (a recorded random run is replayed by passing the recording to `--play` *alone*; the recording carries the resolved matchup, so no regeneration is needed).
 - `--seed` without `--random` is rejected — for scenario TOMLs the seed belongs in `[battle] seed = ...`.
 
-When `--random` is combined with `--record`, the recording's `[recording] source_scenario` is set to the literal string `"random"`. `--play` of such a recording re-generates the same matchup from the recording's seed; no TOML on disk is required.
+When `--random` is combined with `--record`, the recorder embeds the *resolved* matchup in the recording as a `[scenario.*]` block (see [Recording](#recording----record-path)). `--play` of such a recording reconstructs the battle from that block — it never re-runs the generator — so the generator can change freely without invalidating the recording. No TOML on disk is required.
 
 ## Recording — `--record <path>`
 
@@ -91,6 +93,25 @@ cargo run -- scratch/cli.toml --record /tmp/run.toml
 ```
 
 The recording is a separate TOML document — not the scenario schema. It starts with a `[recording]` header and then one `[[step]]` table per decision the CLI driver resolves. Each step is flushed to disk immediately, so a mid-battle crash still leaves a usable script.
+
+For a generated (`--random`) run the header is followed by an embedded `[scenario.*]` block that mirrors the standalone scenario schema one level down (`[scenario.battle]`, `[[scenario.player_party]]`, `[[scenario.player_items]]`, …). It holds the *resolved* matchup so `--play` can reconstruct the battle without re-running the generator. The engine seed stays in `[recording] seed`, so it is intentionally omitted from the embedded `[scenario.battle]`:
+
+```toml
+[recording]
+seed = "0x48416938ef0dcf6f"      # the engine seed
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Karen"
+
+[[scenario.player_party]]
+species = "ARBOK"
+level = 39
+
+[[scenario.player_items]]
+name = "Fresh Water"
+quantity = 1
+```
 
 Each `[[step]]` table has two halves:
 
@@ -163,9 +184,9 @@ Pass `--play <recording.toml>` and the harness drives the battle from a previous
 cargo run -- --play /tmp/run.toml
 ```
 
-The recording's `[recording] seed` always wins — replay uses that value to seed the RNG even if the loaded scenario carries its own `seed = ...`. The scenario path comes from the recording's `source_scenario` header by default; pass a positional `scratch/other.toml` to override (useful for re-running the same script against an edited scenario). `--record` and `--play` can be combined to re-record an edited playback.
+The recording's `[recording] seed` always wins — replay uses that value to seed the engine RNG even if the loaded scenario carries its own `seed = ...`. The matchup comes from the recording's embedded `[scenario.*]` block when present (recorded `--random` runs); otherwise it's loaded from the `source_scenario` header path. Pass a positional `scratch/other.toml` to override (useful for re-running the same script against an edited scenario). `--record` and `--play` can be combined to re-record an edited playback.
 
-If the recording's `source_scenario` is the literal string `"random"`, the scenario is regenerated from the recording's seed via `bootstrap::random::random_battle_config` rather than loaded from disk — see [Random battles](#random-battles----random-and---seed-n).
+A recorded `--random` run carries its resolved matchup in the embedded `[scenario.*]` block, so playback reconstructs it directly — the generator is never re-run. This means the matchup generator can change without invalidating existing recordings.
 
 Each CLI prompt site consumes one step in order. The match is strict on `kind`: if the recorded action doesn't fit the current prompt site, the harness prints a clear stderr message naming the step index, the recorded `kind`, the prompt site, and the accepted kinds, then exits with status 2. The same exit-2 path fires when the step list is exhausted before the battle ends — playback never silently substitutes.
 
