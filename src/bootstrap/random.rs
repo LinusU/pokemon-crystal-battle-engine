@@ -1,18 +1,49 @@
 //! Generate a randomized trainer battle from a seed.
 //!
 //! The output is a regular [`BattleConfig`] that flows through the normal
-//! `run_with` path, so `--record` captures the resolved team into the
-//! recording header (with `source_scenario = "random"`) and `--play` can
-//! reproduce the same matchup by re-generating from the recorded seed —
-//! see [`super::random_battle_config`] callers in `src/main.rs`.
+//! `run_with` path. When recorded, `--record` writes the *resolved* matchup
+//! into the recording as an embedded `[scenario.*]` block, and `--play`
+//! replays that concrete matchup directly — it never re-runs this generator.
+//! That decoupling is deliberate: the matchup generator can change freely
+//! (e.g. to improve trainer spread) without invalidating any recorded fixture.
 //!
-//! Deterministic: the same `seed` always produces the same trainer, party,
-//! and items. The seed is also stored in `BattleHeader.seed`, so the engine
-//! RNG (which the battle outcome depends on) ends up keyed off the same
-//! number — two `--random --seed 0xdead` invocations produce identical runs
-//! end-to-end.
+//! ## Two independent seeds
+//!
+//! A single user-facing base seed (`--seed`, else system entropy) is split
+//! into two *independent* seeds via domain-separated [`splitmix64`]:
+//!
+//! - the **generation seed** drives trainer / party / item selection here, and
+//! - the **engine seed** is stored in `BattleHeader.seed` and drives the
+//!   battle RNG (damage, crits, AI) downstream.
+//!
+//! They are never the same number, so changing how a matchup is generated has
+//! no effect on the engine's RNG stream, and vice versa — the battle engine
+//! stays stable and predictable. Reproducibility is preserved: the same base
+//! seed always yields the same matchup *and* the same engine seed, so two
+//! `--random --seed 0xdead` invocations still produce identical runs.
+//!
+//! `splitmix64` also fixes a real bias: feeding small or sequential base seeds
+//! straight into the xorshift generator made its first output cluster, so a
+//! seed-swept corpus (`--seed 0,1,2,…`) drew the same handful of trainers.
+//! Mixing the base before use spreads the selection across all trainers.
 
 use super::{BattleConfig, BattleHeader, BattleKind, ItemSpec, MonSpec, species, trainers};
+
+/// Domain salts that split one base seed into two independent streams. Any two
+/// distinct constants work; these are arbitrary 64-bit odd values.
+const GEN_DOMAIN: u64 = 0x9e37_79b9_7f4a_7c15;
+const ENGINE_DOMAIN: u64 = 0xd1b5_4a32_d192_ed03;
+
+/// SplitMix64 finalizer — the standard high-quality mixer used to derive
+/// well-distributed seeds from a counter or structured input. Used here to
+/// turn a base seed (possibly small or sequential) into the generation and
+/// engine seeds without correlation between them.
+fn splitmix64(seed: u64) -> u64 {
+    let mut z = seed.wrapping_add(0x9e37_79b9_7f4a_7c15);
+    z = (z ^ (z >> 30)).wrapping_mul(0xbf58_476d_1ce4_e5b9);
+    z = (z ^ (z >> 27)).wrapping_mul(0x94d0_49bb_1331_11eb);
+    z ^ (z >> 31)
+}
 
 /// Items the player can actually press "use" on in a trainer battle. Held
 /// items, balls, evolution stones, valuables, berries, permanent stat
@@ -28,17 +59,22 @@ const BATTLE_ITEMS: &[&str] = &[
     "Dire Hit", "Guard Spec",
 ];
 
-/// Build a random trainer battle keyed off `seed` and log the chosen matchup
+/// Build a random trainer battle from a `base_seed` and log the chosen matchup
 /// to stderr so the run is debuggable even when not recording. The trainer
 /// is drawn from [`trainers::all`]; player party size is the trainer's
 /// canonical count ±1 (clamped to 1..=6); each player mon's level is the
 /// trainer's average ±10% (clamped to 2..=100). Items are 2..=4 entries
 /// drawn from [`BATTLE_ITEMS`] at 1..=3 each.
 ///
-/// The returned `BattleConfig` carries `seed` in its header so the engine
-/// RNG also seeds from the same value — making the whole run reproducible.
-pub fn random_battle_config(seed: u64) -> BattleConfig {
-    let mut rng = Rng::from_seed(seed);
+/// `base_seed` (the user's `--seed`, or system entropy) is split into two
+/// independent seeds: the generation seed drives the selection below, and the
+/// engine seed is stored in `BattleHeader.seed`. The two are decoupled — see
+/// the module docs — so the same `base_seed` reproduces the whole run while
+/// the matchup generator and the battle RNG never share state.
+pub fn random_battle_config(base_seed: u64) -> BattleConfig {
+    let gen_seed = splitmix64(base_seed ^ GEN_DOMAIN);
+    let engine_seed = splitmix64(base_seed ^ ENGINE_DOMAIN);
+    let mut rng = Rng::from_seed(gen_seed);
 
     let trainers_list = trainers::all();
     let trainer = &trainers_list[rng.below(trainers_list.len() as u64) as usize];
@@ -73,7 +109,7 @@ pub fn random_battle_config(seed: u64) -> BattleConfig {
     }
 
     eprintln!(
-        "random battle: seed 0x{seed:016x} — vs {} — {} mon(s), levels {}..={}",
+        "random battle: seed 0x{base_seed:016x} — vs {} — {} mon(s), levels {}..={}",
         trainer.name, count, lvl_lo, lvl_hi,
     );
     for mon in &player_party {
@@ -87,10 +123,10 @@ pub fn random_battle_config(seed: u64) -> BattleConfig {
         battle: BattleHeader {
             kind: BattleKind::TrainerBattle,
             trainer: Some(trainer.name.to_string()),
-            // Pin the seed into the header so `resolve_seed` returns it and
-            // the engine RNG matches the matchup RNG. `run_with` honours
-            // `seed_override` ahead of this for the `--play` path.
-            seed: Some(seed),
+            // The *engine* seed (independent of the generation seed used
+            // above). `resolve_seed` returns it so the battle RNG keys off it;
+            // `run_with` honours `seed_override` ahead of this for `--play`.
+            seed: Some(engine_seed),
         },
         player_party,
         enemy_party: Vec::new(),
@@ -145,7 +181,8 @@ mod tests {
         for seed in [1u64, 0xdead, 0xc0ffee, 0xffff_ffff_ffff_ffff, 42, 0x9e37_79b9_7f4a_7c15] {
             let cfg = random_battle_config(seed);
             assert!(matches!(cfg.battle.kind, BattleKind::TrainerBattle));
-            assert_eq!(cfg.battle.seed, Some(seed));
+            // The header carries the *engine* seed, not the base seed.
+            assert_eq!(cfg.battle.seed, Some(splitmix64(seed ^ ENGINE_DOMAIN)));
             let trainer_name = cfg.battle.trainer.as_deref().expect("trainer set");
             assert!(trainers::lookup(trainer_name).is_some(), "unknown trainer {trainer_name}");
             assert!(!cfg.player_party.is_empty() && cfg.player_party.len() <= 6);
@@ -170,12 +207,32 @@ mod tests {
         }
     }
 
+    /// The engine seed in the header must be decoupled from the base seed: a
+    /// different number, derived independently of the generation seed. This is
+    /// what keeps the battle RNG from sharing state with the matchup generator.
+    #[test]
+    fn engine_seed_is_decoupled_from_base() {
+        for base in [0u64, 1, 2, 0xdead, 0xc0ffee] {
+            let cfg = random_battle_config(base);
+            let engine = cfg.battle.seed.expect("engine seed set");
+            assert_ne!(engine, base, "engine seed must not equal the base seed");
+            assert_ne!(
+                engine,
+                splitmix64(base ^ GEN_DOMAIN),
+                "engine seed must differ from the generation seed",
+            );
+            // Deterministic: same base -> same engine seed.
+            assert_eq!(engine, splitmix64(base ^ ENGINE_DOMAIN));
+        }
+    }
+
     /// Same seed -> same matchup. This is the contract `--seed` relies on.
     #[test]
     fn same_seed_same_matchup() {
         let a = random_battle_config(0xdead_beef);
         let b = random_battle_config(0xdead_beef);
         assert_eq!(a.battle.trainer, b.battle.trainer);
+        assert_eq!(a.battle.seed, b.battle.seed);
         assert_eq!(a.player_party.len(), b.player_party.len());
         for (ma, mb) in a.player_party.iter().zip(b.player_party.iter()) {
             assert_eq!(ma.species, mb.species);
@@ -205,5 +262,26 @@ mod tests {
             || a.player_party.first().map(|m| &m.species)
                 != c.player_party.first().map(|m| &m.species);
         assert!(diff_ab || diff_ac, "generator is not spreading across seeds");
+    }
+
+    /// Regression for the trainer-clustering bug: a seed sweep (`--seed 0,1,2,…`,
+    /// the natural way to build a corpus) must draw from across the trainer
+    /// roster, not collapse onto a handful. Before the `splitmix64` seeding,
+    /// seeds 0..100 hit only ~5 trainers with one taking the majority.
+    #[test]
+    fn sequential_seeds_spread_across_trainers() {
+        use std::collections::HashSet;
+        let roster = trainers::all().len();
+        let seen: HashSet<String> = (0u64..100)
+            .map(|s| random_battle_config(s).battle.trainer.expect("trainer set"))
+            .collect();
+        // With splitmix64 seeding the spread is near-uniform; require comfortably
+        // more than half the roster so the test is robust but still catches a
+        // regression to clustering.
+        assert!(
+            seen.len() >= roster * 3 / 4,
+            "only {} of {roster} trainers appeared across seeds 0..100 — selection is clustering",
+            seen.len(),
+        );
     }
 }
