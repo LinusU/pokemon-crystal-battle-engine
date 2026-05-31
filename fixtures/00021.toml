@@ -3,7 +3,7 @@ seed = "0xbb1c23ad79672ff6"
 
 [scenario.battle]
 type = "trainer_battle"
-trainer = "Karen"
+trainer = "KAREN_1"
 
 [[scenario.player_party]]
 species = "NATU"

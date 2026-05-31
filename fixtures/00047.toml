@@ -3,7 +3,7 @@ seed = "0xf86afb754ede362b"
 
 [scenario.battle]
 type = "trainer_battle"
-trainer = "Lt. Surge"
+trainer = "LT_SURGE_1"
 
 [[scenario.player_party]]
 species = "SKIPLOOM"

@@ -3,7 +3,7 @@ seed = "0xaa07ae6e6cf2dd14"
 
 [scenario.battle]
 type = "trainer_battle"
-trainer = "Eusine"
+trainer = "MYSTICALMAN_1"
 
 [[scenario.player_party]]
 species = "POLIWHIRL"

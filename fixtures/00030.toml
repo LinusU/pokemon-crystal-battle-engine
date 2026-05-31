@@ -3,7 +3,7 @@ seed = "0xa551e3ad12a94a3a"
 
 [scenario.battle]
 type = "trainer_battle"
-trainer = "Lt. Surge"
+trainer = "LT_SURGE_1"
 
 [[scenario.player_party]]
 species = "KADABRA"
