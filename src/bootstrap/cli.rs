@@ -21,6 +21,7 @@ use std::io::{BufRead, Write};
 use crate::defs;
 use crate::runtime::Cpu;
 
+use super::move_pp;
 use super::names;
 use super::player::{self, PromptSite, StepKind};
 use super::recorder::{self, Step};
@@ -65,9 +66,14 @@ const W_ENEMY_MON_MAX_HP: u16 = 0xd218;
 const W_ENEMY_MON_STATUS: u16 = 0xd214;
 
 // Party struct field offsets (see docs/memory_layout.md).
+const PARTY_OFFSET_MOVES: u16 = 2;
+const PARTY_OFFSET_PP: u16 = 23;
 const PARTY_OFFSET_STATUS: u16 = 32;
 const PARTY_OFFSET_HP: u16 = 34;
 const PARTY_OFFSET_MAX_HP: u16 = 36;
+
+// A party mon (and the active battle-mon mirror) holds 4 move + 4 PP slots.
+const MOVE_SLOTS: u16 = 4;
 
 // ---------------------------------------------------------------------------
 
@@ -466,18 +472,30 @@ enum ItemEffect {
     /// Full Restore: HP plus every status — affects a living mon that's hurt or
     /// statused.
     FullRestore,
+    /// Restores PP to every move of the target. `amount: Some(n)` adds `n` PP to
+    /// each move (capped at max PP); `amount: None` (Max Elixer) restores every
+    /// move to full. Unlike the vitals-based effects, whether this "would have an
+    /// effect" depends on per-move PP, so [`ItemEffect::affects`] can't decide
+    /// it — PP targeting is special-cased in [`item_valid_targets`].
+    PpAll { amount: Option<u8> },
 }
 
 impl ItemEffect {
     /// Would applying this item to a mon with these vitals change anything?
     /// Mirrors the game's "It wouldn't have any effect" guard, so the CLI only
     /// offers items — and target slots — that actually do something.
+    ///
+    /// This only sees HP/status, which is enough for every effect EXCEPT
+    /// [`ItemEffect::PpAll`] (PP isn't a vital). PP items never reach this method
+    /// — [`item_valid_targets`] handles them with a per-move PP check — so this
+    /// arm returns `false` defensively.
     fn affects(self, hp: u16, max_hp: u16, status: u8) -> bool {
         match self {
             ItemEffect::Hp => hp != 0 && hp < max_hp,
             ItemEffect::Revive => hp == 0,
             ItemEffect::Status(mask) => hp != 0 && status & mask != 0,
             ItemEffect::FullRestore => hp != 0 && (hp < max_hp || status != 0),
+            ItemEffect::PpAll { .. } => false,
         }
     }
 }
@@ -495,6 +513,11 @@ fn item_effect(id: u8) -> Option<ItemEffect> {
         0x27 | 0x28 | 0x7c => ItemEffect::Revive,
         // Full Restore — HP plus all status.
         0x0e => ItemEffect::FullRestore,
+        // Whole-party PP restore. Elixer adds 10 PP to every move; Max Elixer
+        // refills every move. See `RestorePP` in
+        // `scratch/pokecrystal/engine/items/item_effects.asm`.
+        0x41 => ItemEffect::PpAll { amount: Some(10) }, // Elixer
+        0x15 => ItemEffect::PpAll { amount: None },     // Max Elixer
         // Status heals.
         0x09 => ItemEffect::Status(1 << defs::PSN as u8), // Antidote — poison
         0x0a => ItemEffect::Status(1 << defs::BRN as u8), // Burn Heal
@@ -524,15 +547,36 @@ fn item_valid_targets(cpu: &Cpu, id: u8) -> Vec<u8> {
     };
     let n = cpu.read_byte(W_PARTY_COUNT);
     (0..n)
-        .filter(|&slot| {
-            let base = party_slot_addr(slot);
-            effect.affects(
-                read_word_be(cpu, base + PARTY_OFFSET_HP),
-                read_word_be(cpu, base + PARTY_OFFSET_MAX_HP),
-                cpu.read_byte(base + PARTY_OFFSET_STATUS),
-            )
+        .filter(|&slot| match effect {
+            // PP isn't a vital, so `affects` can't judge PP items. A PP restore
+            // applies to any mon — alive or fainted (the game lets you Elixer a
+            // fainted mon) — that has at least one move below its max PP.
+            ItemEffect::PpAll { .. } => slot_has_restorable_pp(cpu, slot),
+            _ => {
+                let base = party_slot_addr(slot);
+                effect.affects(
+                    read_word_be(cpu, base + PARTY_OFFSET_HP),
+                    read_word_be(cpu, base + PARTY_OFFSET_MAX_HP),
+                    cpu.read_byte(base + PARTY_OFFSET_STATUS),
+                )
+            }
         })
         .collect()
+}
+
+/// Does any of `slot`'s 4 move slots hold a move whose current PP is below its
+/// max PP? Drives PP-item targeting (the game's "It wouldn't have any effect"
+/// guard for Elixer/Max Elixer).
+fn slot_has_restorable_pp(cpu: &Cpu, slot: u8) -> bool {
+    let base = party_slot_addr(slot);
+    (0..MOVE_SLOTS).any(|i| {
+        let move_id = cpu.read_byte(base + PARTY_OFFSET_MOVES + i);
+        if move_id == 0 {
+            return false;
+        }
+        let pp_byte = cpu.read_byte(base + PARTY_OFFSET_PP + i);
+        move_pp::current_pp(pp_byte) < move_pp::max_pp(move_id, pp_byte)
+    })
 }
 
 fn apply_item(cpu: &mut Cpu, id: u8, target: Option<u8>) {
@@ -582,12 +626,62 @@ fn apply_item(cpu: &mut Cpu, id: u8, target: Option<u8>) {
         }
     }
 
+    // Whole-party PP restore (Elixer / Max Elixer).
+    if let Some(ItemEffect::PpAll { amount }) = item_effect(id) {
+        restore_pp_all(cpu, slot, amount);
+    }
+
     // Decrement the bag count.
     decrement_pocket_item(cpu, W_NUM_ITEMS, id);
 
     // Make the engine see the item selection (some downstream code reads these).
     cpu.write_byte(W_CUR_ITEM, id);
     cpu.write_byte(W_ITEM_QUANTITY_CHANGE, 1);
+}
+
+/// Restore PP on every move of `slot`. `amount = Some(n)` adds `n` PP per move
+/// (capped at max PP); `amount = None` (Max Elixer) sets each move to full. The
+/// PP-Up bits (top 2) are preserved. Mirrors `RestorePP`
+/// (`scratch/pokecrystal/engine/items/item_effects.asm`): the new PP is
+/// `(orig & PP_UP_MASK) | min(cur + n, max)`.
+///
+/// If `slot` is the active battle mon, the matching `wBattleMonPP` slot is
+/// mirrored too — but only for moves the active mon actually has (the game's
+/// `BattleRestorePP` matches by move id), so a transformed/sketched layout is
+/// handled by id rather than by position.
+fn restore_pp_all(cpu: &mut Cpu, slot: u8, amount: Option<u8>) {
+    let base = party_slot_addr(slot);
+    let is_active = slot == cpu.read_byte(W_CUR_BATTLE_MON);
+
+    for i in 0..MOVE_SLOTS {
+        let move_id = cpu.read_byte(base + PARTY_OFFSET_MOVES + i);
+        if move_id == 0 {
+            continue;
+        }
+        let pp_byte = cpu.read_byte(base + PARTY_OFFSET_PP + i);
+        let max = move_pp::max_pp(move_id, pp_byte);
+        let new_pp = match amount {
+            Some(n) => move_pp::current_pp(pp_byte).saturating_add(n).min(max),
+            None => max,
+        };
+        let new_byte = move_pp::pp_up_bits(pp_byte) | new_pp;
+        cpu.write_byte(base + PARTY_OFFSET_PP + i, new_byte);
+
+        if is_active {
+            mirror_battle_mon_pp(cpu, move_id, new_byte);
+        }
+    }
+}
+
+/// Copy a restored PP byte into the active mon's `wBattleMonPP` slot whose
+/// `wBattleMonMoves` entry matches `move_id`.
+fn mirror_battle_mon_pp(cpu: &mut Cpu, move_id: u8, pp_byte: u8) {
+    for j in 0..MOVE_SLOTS {
+        if cpu.read_byte(W_BATTLE_MON_MOVES + j) == move_id {
+            cpu.write_byte(W_BATTLE_MON_PP + j, pp_byte);
+            return;
+        }
+    }
 }
 
 fn clear_status_bits(cpu: &mut Cpu, slot: u8, mask: u8) {
@@ -833,5 +927,31 @@ mod tests {
         assert!(item_effect(0x01).is_none(), "Master Ball");
         assert!(item_effect(0x20).is_none(), "Rare Candy");
         assert!(item_effect(0x31).is_none(), "X Attack");
+    }
+
+    #[test]
+    fn pp_items_classify_as_pp_all() {
+        // Elixer adds 10 PP to every move.
+        assert!(
+            matches!(effect(0x41), ItemEffect::PpAll { amount: Some(10) }),
+            "Elixer adds 10 PP to all moves",
+        );
+        // Max Elixer refills every move (no fixed amount).
+        assert!(
+            matches!(effect(0x15), ItemEffect::PpAll { amount: None }),
+            "Max Elixer fully restores all moves",
+        );
+    }
+
+    #[test]
+    fn pp_all_is_not_judged_by_vitals() {
+        // PP isn't a vital, so the HP/status `affects` guard never claims a PP
+        // item has an effect — `item_valid_targets` decides via per-move PP.
+        // (A full-HP, unstatused mon must still be a valid Elixer target if its
+        // moves are below max PP.)
+        let elixer = effect(0x41);
+        assert!(!elixer.affects(20, 20, 0), "full HP/clean — vitals say no");
+        assert!(!elixer.affects(0, 20, 0), "fainted — vitals say no");
+        assert!(!elixer.affects(10, 20, 1), "hurt+statused — vitals still say no");
     }
 }

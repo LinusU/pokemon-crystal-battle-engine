@@ -10,6 +10,7 @@
 
 pub mod cli;
 pub mod items;
+pub mod move_pp;
 pub mod names;
 pub mod player;
 pub mod random;
