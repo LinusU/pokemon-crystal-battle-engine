@@ -502,6 +502,14 @@ fn item_effect(id: u8) -> Option<ItemEffect> {
         0x0c => ItemEffect::Status(defs::SLP_MASK),       // Awakening — sleep counter
         0x0d => ItemEffect::Status(1 << defs::PAR as u8), // Parlyz Heal
         0x26 => ItemEffect::Status(0xff),                 // Full Heal — any status
+        0x4a => ItemEffect::Status(1 << defs::PSN as u8), // PSNCureBerry — poison
+        0x4e => ItemEffect::Status(1 << defs::PAR as u8), // PRZCureBerry — paralysis
+        0x4f => ItemEffect::Status(1 << defs::FRZ as u8), // Burnt Berry — freeze
+        0x50 => ItemEffect::Status(1 << defs::BRN as u8), // Ice Berry — burn
+        0x54 => ItemEffect::Status(defs::SLP_MASK),       // Mint Berry — sleep counter
+        // TODO(confusion): MiracleBerry also clears confusion on the active mon.
+        0x6d => ItemEffect::Status(0xff),                 // MiracleBerry — any status
+        0x7b => ItemEffect::Status(0xff),                 // Heal Powder — any status
         _ => return None,
     })
 }
@@ -772,6 +780,33 @@ mod tests {
         let full_heal = effect(0x26);
         assert!(full_heal.affects(20, 20, par), "any status — cures");
         assert!(!full_heal.affects(20, 20, 0), "no status — no effect");
+    }
+
+    #[test]
+    fn curing_berries_match_their_status() {
+        let psn = 1 << defs::PSN as u8;
+        let par = 1 << defs::PAR as u8;
+        let frz = 1 << defs::FRZ as u8;
+        let brn = 1 << defs::BRN as u8;
+        let slp = defs::SLP_MASK;
+
+        // Each single-status berry cures its own status and nothing else.
+        for (id, own, other) in [
+            (0x4a, psn, par), // PSNCureBerry — poison
+            (0x4e, par, psn), // PRZCureBerry — paralysis
+            (0x4f, frz, brn), // Burnt Berry — freeze
+            (0x50, brn, frz), // Ice Berry — burn
+            (0x54, slp, psn), // Mint Berry — sleep
+        ] {
+            assert!(effect(id).affects(20, 20, own), "item {id:#x} cures its status");
+            assert!(!effect(id).affects(20, 20, other), "item {id:#x} ignores others");
+        }
+
+        // MiracleBerry and Heal Powder clear any status.
+        for id in [0x6d, 0x7b] {
+            assert!(effect(id).affects(20, 20, par), "item {id:#x} cures any status");
+            assert!(!effect(id).affects(20, 20, 0), "item {id:#x} no status — no effect");
+        }
     }
 
     #[test]
