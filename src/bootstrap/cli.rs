@@ -491,8 +491,8 @@ fn item_effect(id: u8) -> Option<ItemEffect> {
         // berries, Berry Juice, RageCandyBar.
         0x12 | 0x11 | 0x10 | 0x0f | 0x2e | 0x2f | 0x30 | 0x48 | 0x79 | 0x7a | 0xad
         | 0xae | 0x8b | 0x72 => ItemEffect::Hp,
-        // Revive, Max Revive.
-        0x27 | 0x28 => ItemEffect::Revive,
+        // Revive, Max Revive, Revival Herb.
+        0x27 | 0x28 | 0x7c => ItemEffect::Revive,
         // Full Restore — HP plus all status.
         0x0e => ItemEffect::FullRestore,
         // Status heals.
@@ -568,7 +568,7 @@ fn apply_item(cpu: &mut Cpu, id: u8, target: Option<u8>) {
         0x8b => Some(20),                              // Berry Juice
         0x72 => Some(20),                              // RageCandyBar
         0x27 if cur_hp == 0 => Some(max_hp / 2),       // Revive
-        0x28 if cur_hp == 0 => Some(max_hp),           // Max Revive
+        0x28 | 0x7c if cur_hp == 0 => Some(max_hp),     // Max Revive, Revival Herb
         _ => None,
     };
 
@@ -765,6 +765,15 @@ mod tests {
         assert!(revive.affects(0, 20, 0), "fainted — revives");
         assert!(!revive.affects(10, 20, 0), "alive — no effect");
         assert!(!revive.affects(20, 20, 0), "full HP — no effect");
+    }
+
+    #[test]
+    fn revival_herb_revives_a_fainted_mon() {
+        let herb = effect(0x7c);
+        assert!(matches!(herb, ItemEffect::Revive), "Revival Herb revives");
+        assert!(herb.affects(0, 20, 0), "fainted — revives");
+        assert!(!herb.affects(10, 20, 0), "alive — no effect");
+        assert!(!herb.affects(20, 20, 0), "full HP — no effect");
     }
 
     #[test]
