@@ -268,19 +268,22 @@ mod tests {
     /// the natural way to build a corpus) must draw from across the trainer
     /// roster, not collapse onto a handful. Before the `splitmix64` seeding,
     /// seeds 0..100 hit only ~5 trainers with one taking the majority.
+    ///
+    /// The roster is now the whole game (hundreds of trainers), so a 100-seed
+    /// sweep can't cover most of it — instead we assert the draws are nearly
+    /// *distinct*. With near-uniform selection, 100 seeds yield ~90 unique
+    /// trainers; clustering would collapse that to a handful, so a floor of 70
+    /// is robust but still catches a regression.
     #[test]
     fn sequential_seeds_spread_across_trainers() {
         use std::collections::HashSet;
-        let roster = trainers::all().len();
-        let seen: HashSet<String> = (0u64..100)
+        const SEEDS: u64 = 100;
+        let seen: HashSet<String> = (0..SEEDS)
             .map(|s| random_battle_config(s).battle.trainer.expect("trainer set"))
             .collect();
-        // With splitmix64 seeding the spread is near-uniform; require comfortably
-        // more than half the roster so the test is robust but still catches a
-        // regression to clustering.
         assert!(
-            seen.len() >= roster * 3 / 4,
-            "only {} of {roster} trainers appeared across seeds 0..100 — selection is clustering",
+            seen.len() >= 70,
+            "only {} distinct trainers across seeds 0..{SEEDS} — selection is clustering",
             seen.len(),
         );
     }

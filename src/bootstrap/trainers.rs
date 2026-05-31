@@ -6,8 +6,16 @@
 //! per-class list of trainer instances). The constants we resolve to are
 //! exported in `src/defs.rs`.
 //!
-//! Only the unique trainers — gym leaders, Elite Four, Champion, Red, Blue,
-//! and the Eusine cameo — are listed today. Extend as needed.
+//! Two tables back this module:
+//!
+//! - [`trainers_data::ALL`](super::trainers_data::ALL) — every battleable
+//!   trainer instance in the game (generated from `parties.asm`), keyed by a
+//!   `CLASS_id` slug. [`all`] returns it, so `--random` can draw the whole cast.
+//! - [`ALIASES`] — the curated friendly names (gym leaders, Elite Four,
+//!   Champion, Red, Blue, the Eusine cameo) so a user can write
+//!   `trainer = "Whitney"` and older recordings keep resolving.
+//!
+//! [`lookup`] checks the aliases first, then falls back to the full roster.
 
 use crate::defs;
 
@@ -23,7 +31,12 @@ pub struct TrainerDef {
     pub party_count: u8,
 }
 
-const TRAINERS: &[TrainerDef] = &[
+/// Curated friendly names for the unique trainers. These are *aliases* on top
+/// of [`trainers_data::ALL`](super::trainers_data::ALL): each resolves to the
+/// same `(class, id)` as the corresponding `CLASS_id` slug there, but lets
+/// callers (and older recordings) use a human name like `"Whitney"` or
+/// `"Lance"`. [`lookup`] consults this list before the full roster.
+const ALIASES: &[TrainerDef] = &[
     // Johto gym leaders
     TrainerDef { name: "Falkner",  class: defs::FALKNER,  id: defs::FALKNER1,  avg_level:  8, party_count: 2 },
     TrainerDef { name: "Bugsy",    class: defs::BUGSY,    id: defs::BUGSY1,    avg_level: 15, party_count: 3 },
@@ -56,18 +69,22 @@ const TRAINERS: &[TrainerDef] = &[
     TrainerDef { name: "Eusine",   class: defs::MYSTICALMAN, id: defs::EUSINE, avg_level: 24, party_count: 3 },
 ];
 
-/// All harness-supported unique trainers, in the order they're declared above.
+/// Every battleable trainer instance in the game, in ROM order.
 /// `bootstrap::random` picks one of these uniformly when `--random` is set.
 pub fn all() -> &'static [TrainerDef] {
-    TRAINERS
+    super::trainers_data::ALL
 }
 
 /// Resolve a trainer name to `(class, id)`. Case-insensitive and ignores
 /// punctuation, so `"Whitney"`, `"WHITNEY"`, `"lt surge"`, and `"Lt. Surge"`
-/// all match.
+/// all match the curated aliases, while `"YOUNGSTER_1"` and `"youngster 1"`
+/// match the generated full roster. Aliases win on conflict.
 pub fn lookup(name: &str) -> Option<&'static TrainerDef> {
     let normalized = normalize(name);
-    TRAINERS.iter().find(|t| normalize(t.name) == normalized)
+    ALIASES
+        .iter()
+        .chain(super::trainers_data::ALL)
+        .find(|t| normalize(t.name) == normalized)
 }
 
 fn normalize(s: &str) -> String {
@@ -109,5 +126,68 @@ mod tests {
     #[test]
     fn unknown_trainer() {
         assert!(lookup("Giovanni").is_none());
+    }
+
+    /// The full roster must be present and every entry self-consistent: a
+    /// well-formed `(class, id)`, plausible party stats, a unique slug, and a
+    /// name that round-trips through `lookup` back to the same `(class, id)`.
+    #[test]
+    fn roster_is_complete_and_well_formed() {
+        use std::collections::HashSet;
+        let roster = all();
+        // The game has 541 battleable trainer instances; guard against a
+        // truncated or empty generated table without pinning the exact count.
+        assert!(roster.len() >= 500, "roster shrank to {} entries", roster.len());
+
+        let mut slugs = HashSet::new();
+        for t in roster {
+            assert!(slugs.insert(t.name), "duplicate trainer slug {}", t.name);
+            assert!(t.class >= defs::FALKNER, "bad class for {}", t.name);
+            assert!(t.id >= 1, "bad id for {}", t.name);
+            assert!(t.party_count >= 1 && t.party_count <= 6, "bad party_count for {}", t.name);
+            assert!(t.avg_level >= 1 && t.avg_level <= 100, "bad avg_level for {}", t.name);
+            let resolved = lookup(t.name).expect("roster slug must resolve");
+            assert_eq!((resolved.class, resolved.id), (t.class, t.id), "{} drifted", t.name);
+        }
+    }
+
+    /// A generic, non-unique trainer (one of many Youngsters) is selectable —
+    /// the whole point of widening `--random` past the curated uniques.
+    #[test]
+    fn generic_trainer_selectable() {
+        let t = lookup("YOUNGSTER_1").expect("youngster 1 in roster");
+        assert_eq!(t.class, defs::YOUNGSTER);
+        assert_eq!(t.id, 1);
+        assert!(lookup("youngster 1").is_some(), "normalization should accept spaces");
+    }
+
+    /// Every curated alias must point at a real roster entry, and the friendly
+    /// name and that entry's slug must resolve to the *same* `(class, id)`.
+    /// Since a trainer name's only battle effect is the `(class, id)` written to
+    /// WRAM, this is what guarantees relabeling a recording's trainer from the
+    /// friendly name to its roster slug (e.g. `"Lance"` -> `"CHAMPION_1"`)
+    /// leaves the battle byte-identical. Ties the two tables together.
+    #[test]
+    fn aliases_match_the_roster() {
+        for alias in ALIASES {
+            let found = all()
+                .iter()
+                .find(|t| (t.class, t.id) == (alias.class, alias.id));
+            let found = found.unwrap_or_else(|| {
+                panic!(
+                    "alias {} -> (class {}, id {}) has no roster entry",
+                    alias.name, alias.class, alias.id,
+                )
+            });
+            // The slug must round-trip to the same identity as the friendly name.
+            let via_slug = lookup(found.name).expect("slug resolves");
+            let via_alias = lookup(alias.name).expect("alias resolves");
+            assert_eq!(
+                (via_slug.class, via_slug.id),
+                (via_alias.class, via_alias.id),
+                "alias {} and slug {} disagree",
+                alias.name, found.name,
+            );
+        }
     }
 }

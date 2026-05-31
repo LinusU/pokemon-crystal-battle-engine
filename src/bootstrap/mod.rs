@@ -17,6 +17,7 @@ pub mod recorder;
 pub mod snapshot;
 pub mod species;
 pub mod trainers;
+pub mod trainers_data;
 
 use serde::Deserialize;
 
