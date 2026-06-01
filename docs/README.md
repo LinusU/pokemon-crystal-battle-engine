@@ -10,6 +10,7 @@ The transpiled code is in `src/game/`, `src/dispatch.rs`, `src/defs.rs`. We avoi
 - ✅ TOML-driven launch: `cargo run -- scratch/first.toml` skips the title/intro and starts a battle.
 - ✅ Wild encounters supported with `[battle] type = "wild_encounter"`, one player party, one enemy mon.
 - ✅ Bag items via `[[player_items]]` — sorted into the engine's Items / Balls pockets.
+- ✅ Every battle-usable item works from the action menu: HP/status/PP heals, revives, X-items, Dire Hit, Guard Spec, confusion cure. In wild battles you can also throw a Poké Ball to **catch** the wild mon (the caught mon joins the party, `outcome = "caught"`) or use a Poké Doll to escape (`outcome = "draw"`).
 - ✅ Trainer battles via `[battle] type = "trainer_battle"`, `trainer = "Whitney"` — the engine loads the canonical party and AI items from ROM.
 - ⬜ Per-mon overrides (moves, DVs, items) and per-trainer overrides for the enemy party and `wEnemyTrainerItem1`/`Item2`.
 - ✅ CLI-driven actions — every in-battle menu (action / move / forced switch / "switch out enemy mon" prompt) is a numbered list on stdin. See [`src/bootstrap/cli.rs`](../src/bootstrap/cli.rs).
