@@ -255,7 +255,10 @@ pub fn handle_battle_menu(cpu: &mut Cpu) {
             // stdin path would produce. Item targets come from the step
             // itself — `prompt_item_target` is bypassed.
             match step {
-                Step::Move { slot } => Action::Move(slot),
+                Step::Move { slot } => {
+                    assert_recorded_move_legal(cpu, slot);
+                    Action::Move(slot)
+                }
                 Step::Switch { slot } => Action::Switch(slot),
                 // A ball is recorded as an `item` step (different pocket, same
                 // representation), so route a ball id back to the ball path —
@@ -393,6 +396,7 @@ pub fn handle_move_selection(cpu: &mut Cpu) -> u8 {
     if let Some(Step::Move { slot }) =
         player::consume(cpu, PromptSite::MoveSelection, &[StepKind::Move])
     {
+        assert_recorded_move_legal(cpu, slot);
         // Re-record on the playback path too so a re-recording (record +
         // play simultaneously) carries the same shape as the original.
         recorder::record(cpu, Step::Move { slot });
@@ -1447,6 +1451,49 @@ fn move_options(cpu: &Cpu) -> Vec<u8> {
     out
 }
 
+/// Why a recorded `move` slot could not have been legally chosen, if any.
+/// `None` means the slot is selectable (it's in [`move_options`]). The string
+/// is a human-readable reason for the diagnostic.
+fn illegal_move_reason(cpu: &Cpu, slot: u8) -> Option<String> {
+    if move_options(cpu).contains(&slot) {
+        return None;
+    }
+    let move_id = cpu.read_byte(W_BATTLE_MON_MOVES + u16::from(slot));
+    let pp = cpu.read_byte(W_BATTLE_MON_PP + u16::from(slot)) & defs::PP_MASK;
+    let disabled_slot = (cpu.read_byte(W_PLAYER_DISABLE_COUNT) >> 4).wrapping_sub(1);
+    let why = if move_id == 0 {
+        "no move in that slot".to_string()
+    } else if slot == disabled_slot {
+        "Disabled".to_string()
+    } else if pp == 0 {
+        "no PP left".to_string()
+    } else {
+        "not selectable".to_string()
+    };
+    Some(format!("slot {slot} ({}) is {why}", move_name(move_id)))
+}
+
+/// During playback, a recorded `move` step must name a slot the player could
+/// legally have chosen at this decision point — the same set the engine's move
+/// menu would offer ([`move_options`]: a real move, with PP, not Disabled). A
+/// recording that selects an illegal move (e.g. one Disabled by the enemy,
+/// captured before `move_options` filtered Disable) encodes play the real game
+/// forbids, so fail loudly to get it regenerated rather than silently replaying
+/// impossible moves. No-op outside playback: the live menu only ever offers
+/// legal slots, so recording can't produce one.
+fn assert_recorded_move_legal(cpu: &Cpu, slot: u8) {
+    if cpu.player.is_none() {
+        return;
+    }
+    if let Some(reason) = illegal_move_reason(cpu, slot) {
+        eprintln!(
+            "playback: illegal move — recorded {reason}; selectable slots were {:?}",
+            move_options(cpu),
+        );
+        std::process::exit(2);
+    }
+}
+
 fn alive_party_slots(cpu: &Cpu, exclude: Option<u8>) -> Vec<u8> {
     let n = cpu.read_byte(W_PARTY_COUNT);
     let mut out = Vec::with_capacity(n as usize);
@@ -1948,5 +1995,26 @@ mod tests {
         // Counter cleared (Disable expired): the move is selectable again.
         cpu.write_byte(W_PLAYER_DISABLE_COUNT, 0);
         assert_eq!(move_options(&cpu), vec![0, 1, 2, 3]);
+    }
+
+    #[test]
+    fn illegal_move_reason_flags_unselectable_slots() {
+        let mut cpu = Cpu::new_cgb(None, None);
+        // slot 0: real move, full PP. slot 1: real move, 0 PP. slot 2: real
+        // move, full PP (we'll Disable it). slot 3: empty.
+        cpu.write_byte(W_BATTLE_MON_MOVES + 0, 1);
+        cpu.write_byte(W_BATTLE_MON_PP + 0, 10);
+        cpu.write_byte(W_BATTLE_MON_MOVES + 1, 2);
+        cpu.write_byte(W_BATTLE_MON_PP + 1, 0);
+        cpu.write_byte(W_BATTLE_MON_MOVES + 2, 3);
+        cpu.write_byte(W_BATTLE_MON_PP + 2, 10);
+        cpu.write_byte(W_BATTLE_MON_MOVES + 3, 0);
+        // Disable slot 2 (1-based slot 3 in the high nibble).
+        cpu.write_byte(W_PLAYER_DISABLE_COUNT, 0x34);
+
+        assert_eq!(illegal_move_reason(&cpu, 0), None, "real move with PP is legal");
+        assert!(illegal_move_reason(&cpu, 1).unwrap().contains("no PP left"));
+        assert!(illegal_move_reason(&cpu, 2).unwrap().contains("Disabled"));
+        assert!(illegal_move_reason(&cpu, 3).unwrap().contains("no move in that slot"));
     }
 }
