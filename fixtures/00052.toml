@@ -1,0 +1,44 @@
+[recording]
+source_scenario = "fixtures/00052.scenario.toml"
+seed = "0x0000000000005252"
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "QUILAVA"
+expect.player.active.level = 20
+expect.player.active.hp = 54
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [34, 30, 20, 25]
+expect.player.party = [{ species = "QUILAVA", level = 20, hp = 54, max_hp = 57, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PIDGEY"
+expect.enemy.active.level = 12
+expect.enemy.active.hp = 13
+expect.enemy.active.max_hp = 31
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [34, 15, 35, 0]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "QUILAVA"
+expect.player.active.level = 20
+expect.player.active.hp = 54
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [33, 30, 20, 25]
+expect.player.party = [{ species = "QUILAVA", level = 20, hp = 54, max_hp = 57, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PIDGEY"
+expect.enemy.active.level = 12
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 31
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [34, 15, 35, 0]
+expect.enemy.party = []
+expect.battle.outcome = "win"

@@ -1,0 +1,11 @@
+[battle]
+type = "wild_encounter"
+seed = 0x0000000000005151
+
+[[player_party]]
+species = "Feraligatr"
+level = 50
+
+[[enemy_party]]
+species = "Pidgey"
+level = 5

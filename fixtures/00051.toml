@@ -1,0 +1,24 @@
+[recording]
+source_scenario = "fixtures/00051.scenario.toml"
+seed = "0x0000000000005151"
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 50
+expect.player.active.hp = 155
+expect.player.active.max_hp = 155
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 10, 20, 40]
+expect.player.party = [{ species = "FERALIGATR", level = 50, hp = 155, max_hp = 155, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PIDGEY"
+expect.enemy.active.level = 5
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 20
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 15, 0, 0]
+expect.enemy.party = []
+expect.battle.outcome = "win"

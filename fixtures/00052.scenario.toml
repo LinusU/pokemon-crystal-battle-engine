@@ -1,0 +1,11 @@
+[battle]
+type = "wild_encounter"
+seed = 0x0000000000005252
+
+[[player_party]]
+species = "Quilava"
+level = 20
+
+[[enemy_party]]
+species = "Pidgey"
+level = 12
