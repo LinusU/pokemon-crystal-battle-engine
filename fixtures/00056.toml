@@ -1,0 +1,79 @@
+[recording]
+seed = "0xe4cae4b7dbd91684"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "SKIER_1"
+
+[[scenario.player_party]]
+species = "ELECTRODE"
+level = 29
+
+[[scenario.player_items]]
+name = "Lemonade"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Burn Heal"
+quantity = 3
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "ELECTRODE"
+expect.player.active.level = 29
+expect.player.active.hp = 66
+expect.player.active.max_hp = 74
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 19, 5, 20]
+expect.player.party = [{ species = "ELECTRODE", level = 29, hp = 66, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 28
+expect.enemy.active.hp = 58
+expect.enemy.active.max_hp = 78
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 25, 9, 15]
+expect.enemy.party = [{ species = "JYNX", level = 28, hp = 78, max_hp = 78, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "ELECTRODE"
+expect.player.active.level = 29
+expect.player.active.hp = 31
+expect.player.active.max_hp = 74
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 18, 5, 20]
+expect.player.party = [{ species = "ELECTRODE", level = 29, hp = 31, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 28
+expect.enemy.active.hp = 38
+expect.enemy.active.max_hp = 78
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 25, 9, 14]
+expect.enemy.party = [{ species = "JYNX", level = 28, hp = 78, max_hp = 78, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "ELECTRODE"
+expect.player.active.level = 29
+expect.player.active.hp = 0
+expect.player.active.max_hp = 74
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 17, 5, 20]
+expect.player.party = [{ species = "ELECTRODE", level = 29, hp = 0, max_hp = 74, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 28
+expect.enemy.active.hp = 18
+expect.enemy.active.max_hp = 78
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 25, 9, 13]
+expect.enemy.party = [{ species = "JYNX", level = 28, hp = 78, max_hp = 78, status = "none" }]
+expect.battle.outcome = "loss"

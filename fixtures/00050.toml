@@ -1,551 +1,119 @@
 [recording]
-seed = "0x43ef6e90350d09a4"
+seed = "0x4913c9489cb7cdd5"
 
 [scenario.battle]
 type = "trainer_battle"
-trainer = "MYSTICALMAN_1"
+trainer = "POKEFANF_1"
 
 [[scenario.player_party]]
-species = "MURKROW"
-level = 23
-
-[[scenario.player_party]]
-species = "GOLBAT"
-level = 23
-
-[[scenario.player_items]]
-name = "X Special"
-quantity = 3
-
-[[scenario.player_items]]
-name = "Full Restore"
-quantity = 2
-
-[[scenario.player_items]]
-name = "Parlyz Heal"
-quantity = 3
+species = "EKANS"
+level = 16
 
 [[scenario.player_items]]
 name = "Dire Hit"
 quantity = 1
 
+[[scenario.player_items]]
+name = "X Defend"
+quantity = 1
+
 [[step]]
 kind = "move"
-slot = 1
+slot = 3
 expect.player.active_slot = 0
-expect.player.active.species = "MURKROW"
-expect.player.active.level = 23
-expect.player.active.hp = 61
-expect.player.active.max_hp = 61
+expect.player.active.species = "EKANS"
+expect.player.active.level = 16
+expect.player.active.hp = 38
+expect.player.active.max_hp = 38
 expect.player.active.status = "none"
-expect.player.active.pp = [35, 19, 30, 0]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 61, max_hp = 61, status = "none" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
+expect.player.active.pp = [20, 30, 35, 24]
+expect.player.party = [{ species = "EKANS", level = 16, hp = 38, max_hp = 38, status = "none" }]
 expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 38
-expect.enemy.active.max_hp = 64
+expect.enemy.active.species = "SNUBBULL"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 30
+expect.enemy.active.max_hp = 41
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [15, 20, 19, 25]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+expect.enemy.active.pp = [10, 29, 20, 25]
+expect.enemy.party = [{ species = "SNUBBULL", level = 14, hp = 41, max_hp = 41, status = "none" }]
 
 [[step]]
 kind = "move"
-slot = 1
+slot = 3
 expect.player.active_slot = 0
-expect.player.active.species = "MURKROW"
-expect.player.active.level = 23
-expect.player.active.hp = 61
-expect.player.active.max_hp = 61
-expect.player.active.status = "sleep"
-expect.player.active.pp = [35, 19, 30, 0]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 61, max_hp = 61, status = "sleep" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 38
-expect.enemy.active.max_hp = 64
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [15, 19, 19, 25]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 1
-expect.player.active_slot = 0
-expect.player.active.species = "MURKROW"
-expect.player.active.level = 23
-expect.player.active.hp = 61
-expect.player.active.max_hp = 61
-expect.player.active.status = "sleep"
-expect.player.active.pp = [35, 19, 30, 0]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 61, max_hp = 61, status = "sleep" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 38
-expect.enemy.active.max_hp = 64
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [14, 19, 19, 25]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 1
-expect.player.active_slot = 0
-expect.player.active.species = "MURKROW"
-expect.player.active.level = 23
-expect.player.active.hp = 61
-expect.player.active.max_hp = 61
-expect.player.active.status = "sleep"
-expect.player.active.pp = [35, 19, 30, 0]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 61, max_hp = 61, status = "sleep" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 38
-expect.enemy.active.max_hp = 64
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [13, 19, 19, 25]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 1
-expect.player.active_slot = 0
-expect.player.active.species = "MURKROW"
-expect.player.active.level = 23
-expect.player.active.hp = 61
-expect.player.active.max_hp = 61
-expect.player.active.status = "sleep"
-expect.player.active.pp = [35, 19, 30, 0]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 61, max_hp = 61, status = "sleep" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 38
-expect.enemy.active.max_hp = 64
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [12, 19, 19, 25]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 1
-expect.player.active_slot = 0
-expect.player.active.species = "MURKROW"
-expect.player.active.level = 23
-expect.player.active.hp = 61
-expect.player.active.max_hp = 61
-expect.player.active.status = "sleep"
-expect.player.active.pp = [35, 19, 30, 0]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 61, max_hp = 61, status = "sleep" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 38
-expect.enemy.active.max_hp = 64
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [11, 19, 19, 25]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 1
-expect.player.active_slot = 0
-expect.player.active.species = "MURKROW"
-expect.player.active.level = 23
-expect.player.active.hp = 61
-expect.player.active.max_hp = 61
-expect.player.active.status = "sleep"
-expect.player.active.pp = [35, 19, 30, 0]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 61, max_hp = 61, status = "sleep" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 38
-expect.enemy.active.max_hp = 64
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [11, 19, 19, 24]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 1
-expect.player.active_slot = 0
-expect.player.active.species = "MURKROW"
-expect.player.active.level = 23
-expect.player.active.hp = 61
-expect.player.active.max_hp = 61
-expect.player.active.status = "sleep"
-expect.player.active.pp = [35, 19, 30, 0]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 61, max_hp = 61, status = "sleep" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 38
-expect.enemy.active.max_hp = 64
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [10, 19, 19, 24]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 1
-expect.player.active_slot = 0
-expect.player.active.species = "MURKROW"
-expect.player.active.level = 23
-expect.player.active.hp = 61
-expect.player.active.max_hp = 61
+expect.player.active.species = "EKANS"
+expect.player.active.level = 16
+expect.player.active.hp = 38
+expect.player.active.max_hp = 38
 expect.player.active.status = "none"
-expect.player.active.pp = [35, 19, 30, 0]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 61, max_hp = 61, status = "none" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
+expect.player.active.pp = [20, 30, 35, 23]
+expect.player.party = [{ species = "EKANS", level = 16, hp = 38, max_hp = 38, status = "none" }]
 expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 38
-expect.enemy.active.max_hp = 64
+expect.enemy.active.species = "SNUBBULL"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 30
+expect.enemy.active.max_hp = 41
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [9, 19, 19, 24]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+expect.enemy.active.pp = [10, 29, 20, 25]
+expect.enemy.party = [{ species = "SNUBBULL", level = 14, hp = 41, max_hp = 41, status = "none" }]
 
 [[step]]
 kind = "move"
-slot = 1
+slot = 3
 expect.player.active_slot = 0
-expect.player.active.species = "MURKROW"
-expect.player.active.level = 23
-expect.player.active.hp = 61
-expect.player.active.max_hp = 61
-expect.player.active.status = "sleep"
-expect.player.active.pp = [35, 19, 30, 0]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 61, max_hp = 61, status = "sleep" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 38
-expect.enemy.active.max_hp = 64
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [9, 18, 19, 24]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 1
-expect.player.active_slot = 0
-expect.player.active.species = "MURKROW"
-expect.player.active.level = 23
-expect.player.active.hp = 61
-expect.player.active.max_hp = 61
-expect.player.active.status = "sleep"
-expect.player.active.pp = [35, 19, 30, 0]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 61, max_hp = 61, status = "sleep" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 38
-expect.enemy.active.max_hp = 64
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [8, 18, 19, 24]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 1
-expect.player.active_slot = 0
-expect.player.active.species = "MURKROW"
-expect.player.active.level = 23
-expect.player.active.hp = 61
-expect.player.active.max_hp = 61
-expect.player.active.status = "sleep"
-expect.player.active.pp = [35, 19, 30, 0]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 61, max_hp = 61, status = "sleep" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 38
-expect.enemy.active.max_hp = 64
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [7, 18, 19, 24]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 1
-expect.player.active_slot = 0
-expect.player.active.species = "MURKROW"
-expect.player.active.level = 23
-expect.player.active.hp = 61
-expect.player.active.max_hp = 61
-expect.player.active.status = "sleep"
-expect.player.active.pp = [35, 19, 30, 0]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 61, max_hp = 61, status = "sleep" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 38
-expect.enemy.active.max_hp = 64
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [6, 18, 19, 24]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 1
-expect.player.active_slot = 0
-expect.player.active.species = "MURKROW"
-expect.player.active.level = 23
-expect.player.active.hp = 61
-expect.player.active.max_hp = 61
-expect.player.active.status = "sleep"
-expect.player.active.pp = [35, 19, 30, 0]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 61, max_hp = 61, status = "sleep" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 38
-expect.enemy.active.max_hp = 64
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [5, 18, 19, 24]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 1
-expect.player.active_slot = 0
-expect.player.active.species = "MURKROW"
-expect.player.active.level = 23
-expect.player.active.hp = 61
-expect.player.active.max_hp = 61
-expect.player.active.status = "sleep"
-expect.player.active.pp = [35, 19, 30, 0]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 61, max_hp = 61, status = "sleep" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 38
-expect.enemy.active.max_hp = 64
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [4, 18, 19, 24]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 1
-expect.player.active_slot = 0
-expect.player.active.species = "MURKROW"
-expect.player.active.level = 23
-expect.player.active.hp = 61
-expect.player.active.max_hp = 61
-expect.player.active.status = "sleep"
-expect.player.active.pp = [35, 19, 30, 0]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 61, max_hp = 61, status = "sleep" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 38
-expect.enemy.active.max_hp = 64
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [3, 18, 19, 24]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 1
-expect.player.active_slot = 0
-expect.player.active.species = "MURKROW"
-expect.player.active.level = 23
-expect.player.active.hp = 61
-expect.player.active.max_hp = 61
+expect.player.active.species = "EKANS"
+expect.player.active.level = 16
+expect.player.active.hp = 31
+expect.player.active.max_hp = 38
 expect.player.active.status = "none"
-expect.player.active.pp = [35, 19, 30, 0]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 61, max_hp = 61, status = "none" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
+expect.player.active.pp = [20, 30, 35, 22]
+expect.player.party = [{ species = "EKANS", level = 16, hp = 31, max_hp = 38, status = "none" }]
 expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 38
-expect.enemy.active.max_hp = 64
+expect.enemy.active.species = "SNUBBULL"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 20
+expect.enemy.active.max_hp = 41
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [2, 18, 19, 24]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+expect.enemy.active.pp = [10, 29, 20, 24]
+expect.enemy.party = [{ species = "SNUBBULL", level = 14, hp = 41, max_hp = 41, status = "none" }]
 
 [[step]]
 kind = "move"
-slot = 1
+slot = 3
 expect.player.active_slot = 0
-expect.player.active.species = "MURKROW"
-expect.player.active.level = 23
-expect.player.active.hp = 61
-expect.player.active.max_hp = 61
-expect.player.active.status = "sleep"
-expect.player.active.pp = [35, 19, 30, 0]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 61, max_hp = 61, status = "sleep" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
+expect.player.active.species = "EKANS"
+expect.player.active.level = 16
+expect.player.active.hp = 31
+expect.player.active.max_hp = 38
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 30, 35, 21]
+expect.player.party = [{ species = "EKANS", level = 16, hp = 31, max_hp = 38, status = "none" }]
 expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 38
-expect.enemy.active.max_hp = 64
+expect.enemy.active.species = "SNUBBULL"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 10
+expect.enemy.active.max_hp = 41
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [2, 17, 19, 24]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
+expect.enemy.active.pp = [10, 29, 19, 24]
+expect.enemy.party = [{ species = "SNUBBULL", level = 14, hp = 41, max_hp = 41, status = "none" }]
 
 [[step]]
 kind = "move"
-slot = 1
+slot = 3
 expect.player.active_slot = 0
-expect.player.active.species = "MURKROW"
-expect.player.active.level = 23
-expect.player.active.hp = 61
-expect.player.active.max_hp = 61
-expect.player.active.status = "sleep"
-expect.player.active.pp = [35, 19, 30, 0]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 61, max_hp = 61, status = "sleep" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
+expect.player.active.species = "EKANS"
+expect.player.active.level = 16
+expect.player.active.hp = 31
+expect.player.active.max_hp = 38
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 30, 35, 20]
+expect.player.party = [{ species = "EKANS", level = 16, hp = 31, max_hp = 38, status = "none" }]
 expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 38
-expect.enemy.active.max_hp = 64
+expect.enemy.active.species = "SNUBBULL"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 41
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [1, 17, 19, 24]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 1
-expect.player.active_slot = 0
-expect.player.active.species = "MURKROW"
-expect.player.active.level = 23
-expect.player.active.hp = 61
-expect.player.active.max_hp = 61
-expect.player.active.status = "none"
-expect.player.active.pp = [35, 19, 30, 0]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 61, max_hp = 61, status = "none" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "DROWZEE"
-expect.enemy.active.level = 23
-expect.enemy.active.hp = 38
-expect.enemy.active.max_hp = 64
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [0, 17, 19, 24]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 64, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 1
-expect.player.active_slot = 0
-expect.player.active.species = "MURKROW"
-expect.player.active.level = 23
-expect.player.active.hp = 61
-expect.player.active.max_hp = 61
-expect.player.active.status = "none"
-expect.player.active.pp = [35, 18, 30, 0]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 61, max_hp = 61, status = "none" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "ELECTRODE"
-expect.enemy.active.level = 25
-expect.enemy.active.hp = 69
-expect.enemy.active.max_hp = 69
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [40, 20, 10, 20]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "offer_switch"
-keep = true
-expect.player.active_slot = 0
-expect.player.active.species = "MURKROW"
-expect.player.active.level = 23
-expect.player.active.hp = 61
-expect.player.active.max_hp = 61
-expect.player.active.status = "none"
-expect.player.active.pp = [35, 18, 30, 0]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 61, max_hp = 61, status = "none" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "ELECTRODE"
-expect.enemy.active.level = 25
-expect.enemy.active.hp = 69
-expect.enemy.active.max_hp = 69
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [40, 20, 10, 20]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 1
-expect.player.active_slot = 0
-expect.player.active.species = "MURKROW"
-expect.player.active.level = 23
-expect.player.active.hp = 0
-expect.player.active.max_hp = 61
-expect.player.active.status = "none"
-expect.player.active.pp = [35, 18, 30, 0]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 0, max_hp = 61, status = "none" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "ELECTRODE"
-expect.enemy.active.level = 25
-expect.enemy.active.hp = 69
-expect.enemy.active.max_hp = 69
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [40, 20, 9, 20]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "forced_switch"
-slot = 1
-expect.player.active_slot = 1
-expect.player.active.species = "GOLBAT"
-expect.player.active.level = 23
-expect.player.active.hp = 67
-expect.player.active.max_hp = 67
-expect.player.active.status = "none"
-expect.player.active.pp = [15, 20, 25, 10]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 0, max_hp = 61, status = "none" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "ELECTRODE"
-expect.enemy.active.level = 25
-expect.enemy.active.hp = 69
-expect.enemy.active.max_hp = 69
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [40, 20, 9, 20]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 2
-expect.player.active_slot = 1
-expect.player.active.species = "GOLBAT"
-expect.player.active.level = 23
-expect.player.active.hp = 67
-expect.player.active.max_hp = 67
-expect.player.active.status = "none"
-expect.player.active.pp = [15, 20, 24, 10]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 0, max_hp = 61, status = "none" }, { species = "GOLBAT", level = 23, hp = 67, max_hp = 67, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "ELECTRODE"
-expect.enemy.active.level = 25
-expect.enemy.active.hp = 59
-expect.enemy.active.max_hp = 69
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [40, 20, 8, 20]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 2
-expect.player.active_slot = 1
-expect.player.active.species = "GOLBAT"
-expect.player.active.level = 23
-expect.player.active.hp = 0
-expect.player.active.max_hp = 67
-expect.player.active.status = "none"
-expect.player.active.pp = [15, 20, 24, 10]
-expect.player.party = [{ species = "MURKROW", level = 23, hp = 0, max_hp = 61, status = "none" }, { species = "GOLBAT", level = 23, hp = 0, max_hp = 67, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "ELECTRODE"
-expect.enemy.active.level = 25
-expect.enemy.active.hp = 59
-expect.enemy.active.max_hp = 69
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [40, 20, 7, 20]
-expect.enemy.party = [{ species = "DROWZEE", level = 23, hp = 0, max_hp = 64, status = "none" }, { species = "HAUNTER", level = 23, hp = 57, max_hp = 57, status = "none" }, { species = "ELECTRODE", level = 25, hp = 69, max_hp = 69, status = "none" }]
-expect.battle.outcome = "loss"
+expect.enemy.active.pp = [10, 29, 19, 24]
+expect.enemy.party = [{ species = "SNUBBULL", level = 14, hp = 0, max_hp = 41, status = "none" }]
+expect.battle.outcome = "win"
