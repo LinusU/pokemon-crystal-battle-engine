@@ -179,7 +179,14 @@ pub fn lookup(name: &str) -> Option<&'static ItemDef> {
 /// Reverse lookup — id to display name. Returns `None` for ids not in our
 /// table (key items, TMs, HMs, mail, unused slots).
 pub fn name_from_id(id: u8) -> Option<&'static str> {
-    ITEMS.iter().find(|d| d.id == id).map(|d| d.name)
+    lookup_id(id).map(|d| d.name)
+}
+
+/// Reverse lookup — id to the full [`ItemDef`] (name + pocket). Returns `None`
+/// for ids not in our table. Lets callers tell which pocket an id lives in
+/// (e.g. to decide whether an item id is a Poké Ball).
+pub fn lookup_id(id: u8) -> Option<&'static ItemDef> {
+    ITEMS.iter().find(|d| d.id == id)
 }
 
 fn normalize(s: &str) -> String {

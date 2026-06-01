@@ -107,6 +107,13 @@ const PARTY_STRUCT_LEN: u16 = 48;
 const W_NUM_ITEMS: u16 = 0xd892;
 const W_NUM_BALLS: u16 = 0xd8d7;
 
+// `wBattleMode` — 0 = not in battle, 1 = wild, 2 = trainer (`WILD_BATTLE` /
+// `TRAINER_BATTLE` in `scratch/pokecrystal/constants/battle_constants.asm`).
+// We only offer Poké Balls in a wild battle (`offers_balls`); a thrown ball in
+// a trainer battle is refused by the real game ("The trainer blocked the BALL!").
+// `00:d22d wBattleMode` in `pokecrystal.sym`.
+const W_BATTLE_MODE: u16 = 0xd22d;
+
 const W_ENEMY_MON_SPECIES: u16 = 0xd206;
 const W_ENEMY_MON_LEVEL: u16 = 0xd213;
 const W_ENEMY_MON_HP: u16 = 0xd216;
@@ -144,7 +151,19 @@ enum Action {
     Move(u8),
     Switch(u8),
     Item { id: u8, target: Option<u8>, move_slot: Option<u8> },
+    /// Throw a Poké Ball from the Balls pocket. `id` is the ball item id. Only
+    /// offered in wild battles (see [`offers_balls`]). For now this just consumes
+    /// the turn without catching — see the dispatch in [`handle_battle_menu`].
+    Ball { id: u8 },
     Run,
+}
+
+/// Whether the action menu should offer Poké Balls, given `wBattleMode`. Balls
+/// only make sense in a wild battle (`WILD_BATTLE` = 1); the real game refuses a
+/// ball in a trainer battle ("The trainer blocked the BALL!"), so we never list
+/// one there. Pure helper so the mode test is unit-testable without a `Cpu`.
+fn offers_balls(battle_mode: u8) -> bool {
+    battle_mode == defs::WILD_BATTLE
 }
 
 /// Snapshot the battle and hand it to the recorder and the player. Called at
@@ -182,6 +201,10 @@ pub fn handle_battle_menu(cpu: &mut Cpu) {
             match step {
                 Step::Move { slot } => Action::Move(slot),
                 Step::Switch { slot } => Action::Switch(slot),
+                // A ball is recorded as an `item` step (different pocket, same
+                // representation), so route a ball id back to the ball path —
+                // exactly as the stdin path would produce it.
+                Step::Item { id, .. } if is_ball_id(id) => Action::Ball { id },
                 Step::Item { id, target, move_slot } => Action::Item { id, target, move_slot },
                 Step::Run => Action::Run,
                 // `consume`'s `accepts` filter rules these out — unreachable
@@ -229,6 +252,24 @@ pub fn handle_battle_menu(cpu: &mut Cpu) {
                 recorder::record(cpu, Step::Item { id, target, move_slot });
                 // Normal return: caller is `battle_turn_loop1`, which then
                 // checks wBattleEnded and continues the turn.
+                cpu.pc = cpu.pop_word();
+                cpu.cycle(16);
+                return;
+            }
+            Action::Ball { id } => {
+                // TODO(capture): drive the real PokeBallEffect — roll the catch
+                // formula, run the shake/catch animation, and on success move
+                // the wild mon into the party / box and end the battle. For now
+                // a thrown ball just consumes the turn without catching: we
+                // decrement the ball and burn the turn the same way an item does.
+                throw_ball(cpu, id);
+                cpu.write_byte(W_BATTLE_PLAYER_ACTION, defs::BATTLEPLAYERACTION_USEITEM);
+                cpu.write_byte(W_BATTLE_MENU_CURSOR_POSITION, 3);
+                // Recorded as an `item` step (a ball is just an item id from a
+                // different pocket) so playback needs no new step kind.
+                recorder::record(cpu, Step::Item { id, target: None, move_slot: None });
+                // Normal return: caller is `battle_turn_loop1`, which then
+                // checks wBattleEnded and continues the turn — same as an item.
                 cpu.pc = cpu.pop_word();
                 cpu.cycle(16);
                 return;
@@ -421,9 +462,18 @@ fn prompt_action(cpu: &Cpu) -> Action {
             Action::Item { id, target: None, move_slot: None },
         ));
     }
-    // Balls: not exposed yet — would require running the engine's catch
-    // routine in-band. Tracked alongside the "headless step API" work.
-    let _ = W_NUM_BALLS;
+    // Balls — only in a wild battle (a trainer blocks the ball). Each entry in
+    // the Balls pocket becomes a "Throw <ball> ×qty" action. The catch itself is
+    // still a stub (see `TODO(capture)` in `handle_battle_menu`'s `Action::Ball`
+    // arm): throwing currently just consumes the turn.
+    if offers_balls(cpu.read_byte(W_BATTLE_MODE)) {
+        for (id, qty) in read_pocket(cpu, W_NUM_BALLS) {
+            entries.push((
+                format!("Throw {} ×{qty}", item_display(id)),
+                Action::Ball { id },
+            ));
+        }
+    }
 
     entries.push(("Run".to_string(), Action::Run));
 
@@ -793,6 +843,15 @@ fn is_single_move_pp_item(id: u8) -> bool {
     matches!(item_effect(id), Some(ItemEffect::PpOne { .. }))
 }
 
+/// Whether `id` lives in the Balls pocket (Poké Ball / Great Ball / the Apricorn
+/// balls / Master Ball / …). A ball is just an item id from a different pocket,
+/// so it's recorded as an `item` step; this lets the dispatch route it to the
+/// ball path (decrement the Balls pocket, throw it) rather than the party-target
+/// item path. Source: the `Pocket::Ball` rows in [`super::items`].
+fn is_ball_id(id: u8) -> bool {
+    matches!(super::items::lookup_id(id), Some(d) if d.pocket == super::items::Pocket::Ball)
+}
+
 /// Whether `id` is an active-mon item (acts on the active battler, takes no
 /// party target) AND is usable right now: Bitter Berry only while the active mon
 /// is confused; an X-item only while its stat stage is below `MAX_STAT_LEVEL`
@@ -825,6 +884,17 @@ fn read_stat_level(cpu: &Cpu, stat: u8) -> u8 {
 /// CLI) doesn't offer it.
 fn stat_level_can_raise(cpu: &Cpu, stat: u8) -> bool {
     read_stat_level(cpu, stat) < MAX_STAT_LEVEL
+}
+
+/// Throw a Poké Ball: decrement it from the Balls pocket (`W_NUM_BALLS`, not the
+/// Items pocket — a ball lives in `BALL_POCKET`) and record the selection in the
+/// engine's item WRAM, mirroring [`apply_item`]'s tail. The capture roll itself
+/// is not driven yet (see `TODO(capture)` at the call site), so this currently
+/// just consumes the ball and the turn.
+fn throw_ball(cpu: &mut Cpu, id: u8) {
+    decrement_pocket_item(cpu, W_NUM_BALLS, id);
+    cpu.write_byte(W_CUR_ITEM, id);
+    cpu.write_byte(W_ITEM_QUANTITY_CHANGE, 1);
 }
 
 fn apply_item(cpu: &mut Cpu, id: u8, target: Option<u8>, move_slot: Option<u8>) {
@@ -1547,6 +1617,35 @@ mod tests {
         // other bits intact.
         let with_other = 0x80 | (1 << 6); // CONFUSED + FLYING
         assert_eq!(with_other & !SUBSTATUS_CONFUSED_MASK, 1 << 6);
+    }
+
+    /// Balls are offered only in a wild battle (`wBattleMode == WILD_BATTLE`).
+    /// A trainer battle (or the not-in-battle 0 value) never lists a ball — the
+    /// real game refuses it ("The trainer blocked the BALL!").
+    #[test]
+    fn balls_offered_only_in_wild_battles() {
+        assert_eq!(defs::WILD_BATTLE, 1);
+        assert_eq!(defs::TRAINER_BATTLE, 2);
+        assert!(offers_balls(defs::WILD_BATTLE), "wild — balls offered");
+        assert!(!offers_balls(defs::TRAINER_BATTLE), "trainer — balls blocked");
+        assert!(!offers_balls(0), "not in battle — no balls");
+    }
+
+    /// `is_ball_id` is true for exactly the Balls-pocket ids and false for
+    /// Items-pocket ids (and unknown ids), so a ball routes to the ball path
+    /// while a normal item routes to `apply_item`.
+    #[test]
+    fn ball_ids_are_recognized() {
+        // Poké Ball, Great Ball, Ultra Ball, Master Ball, an Apricorn ball.
+        for id in [0x05, 0x04, 0x02, 0x01, 0xa0] {
+            assert!(is_ball_id(id), "item {id:#x} is a ball");
+        }
+        // Potion, Full Restore, X Attack, Ether — Items pocket, not balls.
+        for id in [0x12, 0x0e, 0x31, 0x3f] {
+            assert!(!is_ball_id(id), "item {id:#x} is not a ball");
+        }
+        // An id our table doesn't know isn't a ball.
+        assert!(!is_ball_id(0x00), "unknown id is not a ball");
     }
 
     #[test]
