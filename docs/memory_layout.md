@@ -80,6 +80,7 @@ The CLI driver in [`src/bootstrap/cli.rs`](../src/bootstrap/cli.rs) reads battle
 | `0xd280` | `wOTPartyCount` | 1 | Enemy trainer party size. |
 | `0xd288` + N·48 | `wOTPartyMon{N}` | 48 | Enemy `party_struct` slots — same layout as `wPartyMon{N}`. |
 | `0xd0ee` | `wBattleResult` | 1 | Battle outcome. Low nibble: 0 = win, 1 = loss, else draw (`BATTLERESULT_BITMASK = 0xc0` carries CAUGHT_CELEBI / BOX_FULL, ignored). |
+| `0xd232` | `wForcedSwitch` | 1 | Non-zero ends the turn loop (`battle_turn_loop1` quits when set). `PokeDollEffect` sets it to 1 to end a wild battle as an escape (a DRAW); the CLI Poké Doll path replicates that. |
 
 `wCurBattleMon` (`0xd0d4`, player active slot) is listed in the in-battle table above. Per-slot party reads use the `party_struct` offsets below (species `+0`, level `+31`, status `+32`, HP `+34`, MaxHP `+36`) against both `wPartyMon1` (`0xdcdf`) and `wOTPartyMon1` (`0xd288`).
 

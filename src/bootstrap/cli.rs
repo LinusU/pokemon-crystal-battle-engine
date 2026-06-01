@@ -116,8 +116,20 @@ const W_WILD_MON: u16 = 0xc64e;
 // non-zero. The capture path sets it so the battle ends after a catch.
 const W_BATTLE_ENDED: u16 = 0xc734;
 // `wBattleResult` (0xd0ee): low nibble is WIN/LOSS/DRAW; the high two bits carry
-// the CAUGHT_CELEBI / BOX_FULL flags. The catch path masks it to WIN.
+// the CAUGHT_CELEBI / BOX_FULL flags. The catch path masks it to WIN; the Poké
+// Doll path masks it to DRAW.
 const W_BATTLE_RESULT: u16 = 0xd0ee;
+// `wForcedSwitch` (0xd232): the turn loop (`battle_turn_loop1`) quits when this
+// is non-zero. `PokeDollEffect` sets it to TRUE to end a wild battle as an
+// escape, the same signal the engine uses when the player flees. `01:d232
+// wForcedSwitch` in `pokecrystal.sym`.
+const W_FORCED_SWITCH: u16 = 0xd232;
+
+// Poké Doll item id (`POKE_DOLL` in `scratch/pokecrystal/constants/item_constants.asm`).
+// In a wild battle it ends the battle immediately as an escape (a DRAW); in a
+// trainer battle it does nothing (and we never offer it there). See
+// `PokeDollEffect` in `scratch/pokecrystal/engine/items/item_effects.asm`.
+const POKE_DOLL_ID: u8 = 0x25;
 
 // `PokeBallEffect` lives in ROM bank 0x03 (`03:68a2 PokeBallEffect` in
 // pokecrystal.sym). `battle_menu` (the routine this CLI module patches) runs in
@@ -173,6 +185,12 @@ enum Action {
     /// offered in wild battles (see [`offers_balls`]). For now this just consumes
     /// the turn without catching — see the dispatch in [`handle_battle_menu`].
     Ball { id: u8 },
+    /// Use a guaranteed-escape item from the Items pocket (the Poké Doll). Only
+    /// offered in wild battles (see [`offers_escape_item`]): it ends the battle
+    /// immediately as a DRAW. In a trainer battle the real game's `PokeDollEffect`
+    /// is a no-op, so we never list it there. `id` is the item id. See the
+    /// dispatch in [`handle_battle_menu`].
+    Escape { id: u8 },
     Run,
 }
 
@@ -182,6 +200,24 @@ enum Action {
 /// one there. Pure helper so the mode test is unit-testable without a `Cpu`.
 fn offers_balls(battle_mode: u8) -> bool {
     battle_mode == defs::WILD_BATTLE
+}
+
+/// Whether the action menu should offer the Poké Doll (a guaranteed escape),
+/// given `wBattleMode`. Like a ball, it only does anything in a wild battle
+/// (`WILD_BATTLE` = 1): `PokeDollEffect` is a no-op in a trainer battle (it sets
+/// `wItemEffectSucceeded = 0` and returns), so we never list it there. Pure
+/// helper so the mode test is unit-testable without a `Cpu`.
+fn offers_escape_item(battle_mode: u8) -> bool {
+    battle_mode == defs::WILD_BATTLE
+}
+
+/// Whether `id` is a guaranteed-escape item (the Poké Doll) — an Items-pocket
+/// item that ends a wild battle as an escape rather than healing a party mon. It
+/// takes no party target and isn't classified by [`item_effect`], so the
+/// item-offering loop in [`prompt_action`] routes it to its own [`Action::Escape`]
+/// branch (and playback routes the recorded item id back the same way).
+fn is_escape_item_id(id: u8) -> bool {
+    id == POKE_DOLL_ID
 }
 
 /// Snapshot the battle and hand it to the recorder and the player. Called at
@@ -223,6 +259,10 @@ pub fn handle_battle_menu(cpu: &mut Cpu) {
                 // representation), so route a ball id back to the ball path —
                 // exactly as the stdin path would produce it.
                 Step::Item { id, .. } if is_ball_id(id) => Action::Ball { id },
+                // The Poké Doll is recorded as an `item` step (same as a ball:
+                // an Items-pocket id with no party target), so route it back to
+                // the escape path exactly as the stdin path would.
+                Step::Item { id, .. } if is_escape_item_id(id) => Action::Escape { id },
                 Step::Item { id, target, move_slot } => Action::Item { id, target, move_slot },
                 Step::Run => Action::Run,
                 // `consume`'s `accepts` filter rules these out — unreachable
@@ -303,6 +343,23 @@ pub fn handle_battle_menu(cpu: &mut Cpu) {
                 // Broke free: the throw consumed the turn (the ball was tossed
                 // by the real routine). Return to `battle_turn_loop1` carry-clear
                 // — same contract as a healing item — so the enemy gets its turn.
+                cpu.flag_c = false;
+                cpu.pc = cpu.pop_word();
+                cpu.cycle(16);
+                return;
+            }
+            Action::Escape { id } => {
+                use_poke_doll(cpu, id);
+                cpu.write_byte(W_BATTLE_PLAYER_ACTION, defs::BATTLEPLAYERACTION_USEITEM);
+                cpu.write_byte(W_BATTLE_MENU_CURSOR_POSITION, 3);
+                // Recorded as an `item` step (a Poké Doll is just an Items-pocket
+                // id with no party target) so playback needs no new step kind.
+                recorder::record(cpu, Step::Item { id, target: None, move_slot: None });
+                // Return to `battle_turn_loop1` carry-clear. We don't take the
+                // first `jr c` quit (that's the catch path's contract); instead
+                // `use_poke_doll` set `wForcedSwitch`, which the loop's third
+                // guard (`ld a, [wForcedSwitch] / and a / jr nz, .quit`) checks —
+                // so the loop quits there, exactly as `PokeDollEffect` intends.
                 cpu.flag_c = false;
                 cpu.pc = cpu.pop_word();
                 cpu.cycle(16);
@@ -506,6 +563,20 @@ fn prompt_action(cpu: &Cpu) -> Action {
                 format!("Throw {} ×{qty}", item_display(id)),
                 Action::Ball { id },
             ));
+        }
+    }
+    // Poké Doll — a guaranteed escape, only in a wild battle (it's a no-op in a
+    // trainer battle). It lives in the Items pocket but takes no party target and
+    // isn't an `item_effect`, so it's offered here as a dedicated `Escape` action
+    // rather than through the party-target item loop above. `PokeDollEffect`.
+    if offers_escape_item(cpu.read_byte(W_BATTLE_MODE)) {
+        for (id, qty) in read_pocket(cpu, W_NUM_ITEMS) {
+            if is_escape_item_id(id) {
+                entries.push((
+                    format!("Use {} ×{qty} (escape)", item_display(id)),
+                    Action::Escape { id },
+                ));
+            }
         }
     }
 
@@ -954,6 +1025,41 @@ fn throw_ball(cpu: &mut Cpu, id: u8) -> bool {
     super::switch_bank(cpu, saved_bank);
 
     cpu.read_byte(W_WILD_MON) != 0
+}
+
+/// Mask `wBattleResult` down to a DRAW, preserving the CAUGHT_CELEBI / BOX_FULL
+/// high bits — the `and BATTLERESULT_BITMASK / or DRAW` that `PokeDollEffect`
+/// performs. Pure so it's unit-testable without a `Cpu`. `read_outcome` keys on
+/// the low nibble, so a DRAW (2) surfaces as `Outcome::Draw`.
+fn battle_result_as_draw(result: u8) -> u8 {
+    (result & defs::BATTLERESULT_BITMASK) | defs::DRAW
+}
+
+/// Use the Poké Doll (id `0x25`) in a wild battle: a guaranteed escape that ends
+/// the battle as a DRAW. We replicate the WILD branch of `PokeDollEffect`
+/// (`scratch/pokecrystal/engine/items/item_effects.asm` ~2096) directly rather
+/// than driving the transpiled `poke_doll_effect`: the real routine's effect is
+/// just two trivial WRAM writes, but it tail-calls `UseItemText`, whose
+/// `wait_press_aor_b_blink_cursor` joypad wait hangs headless (the same reason
+/// the heal path hand-applies its effect). So we do the two writes by hand — no
+/// transpiled patch needed.
+///
+/// The two writes, mirroring the asm exactly:
+///   - `wForcedSwitch` (0xd232) = 1 (TRUE) — `battle_turn_loop1` quits when this
+///     is non-zero, ending the battle as an escape.
+///   - `wBattleResult` (0xd0ee) = `(wBattleResult & BATTLERESULT_BITMASK) | DRAW`.
+///
+/// Then we consume one Poké Doll from the Items pocket (the asm reaches
+/// `TossItem` via `UseItemText`, which removes one) and set `wCurItem` /
+/// `wItemQuantityChange` like the heal path does. The caller ends the battle.
+fn use_poke_doll(cpu: &mut Cpu, id: u8) {
+    cpu.write_byte(W_FORCED_SWITCH, 1);
+    let result = cpu.read_byte(W_BATTLE_RESULT);
+    cpu.write_byte(W_BATTLE_RESULT, battle_result_as_draw(result));
+
+    decrement_pocket_item(cpu, W_NUM_ITEMS, id);
+    cpu.write_byte(W_CUR_ITEM, id);
+    cpu.write_byte(W_ITEM_QUANTITY_CHANGE, 1);
 }
 
 fn apply_item(cpu: &mut Cpu, id: u8, target: Option<u8>, move_slot: Option<u8>) {
@@ -1688,6 +1794,48 @@ mod tests {
         assert!(offers_balls(defs::WILD_BATTLE), "wild — balls offered");
         assert!(!offers_balls(defs::TRAINER_BATTLE), "trainer — balls blocked");
         assert!(!offers_balls(0), "not in battle — no balls");
+    }
+
+    /// The Poké Doll (a guaranteed escape) is offered only in a wild battle, the
+    /// same gate as a ball: `PokeDollEffect` is a no-op in a trainer battle. And
+    /// `is_escape_item_id` recognizes exactly the Poké Doll id — it is NOT a
+    /// classified `item_effect` (so the party-target item loop skips it) and NOT
+    /// a ball, so the two routing predicates never overlap.
+    #[test]
+    fn poke_doll_offered_only_in_wild_battles() {
+        assert_eq!(POKE_DOLL_ID, 0x25);
+        assert!(offers_escape_item(defs::WILD_BATTLE), "wild — Poké Doll offered");
+        assert!(!offers_escape_item(defs::TRAINER_BATTLE), "trainer — Poké Doll is a no-op");
+        assert!(!offers_escape_item(0), "not in battle — no Poké Doll");
+
+        assert!(is_escape_item_id(POKE_DOLL_ID), "the Poké Doll is the escape item");
+        // It's neither a classified party-target item nor a ball, so it routes
+        // only through the dedicated escape branch.
+        assert!(item_effect(POKE_DOLL_ID).is_none(), "Poké Doll has no party-heal effect");
+        assert!(!is_ball_id(POKE_DOLL_ID), "Poké Doll is not a ball");
+        // A Potion is not an escape item.
+        assert!(!is_escape_item_id(0x12), "Potion is not the escape item");
+    }
+
+    /// `battle_result_as_draw` mirrors `PokeDollEffect`'s `and BATTLERESULT_BITMASK
+    /// / or DRAW`: it forces the low nibble to DRAW (2) while preserving the
+    /// CAUGHT_CELEBI / BOX_FULL high bits. `read_outcome` keys on the low nibble,
+    /// so the result reads as `Outcome::Draw`.
+    #[test]
+    fn poke_doll_masks_result_to_draw() {
+        assert_eq!(defs::DRAW, 2);
+        assert_eq!(defs::BATTLERESULT_BITMASK, 0xc0);
+        // A fresh result (WIN, no flags) becomes DRAW.
+        assert_eq!(battle_result_as_draw(0x00), defs::DRAW);
+        // A prior LOSS low nibble is overwritten by DRAW.
+        assert_eq!(battle_result_as_draw(defs::LOSE), defs::DRAW);
+        // The high CAUGHT_CELEBI / BOX_FULL bits survive; the low nibble is DRAW.
+        assert_eq!(battle_result_as_draw(0xc0), 0xc0 | defs::DRAW);
+        assert_eq!(battle_result_as_draw(0x41), 0x40 | defs::DRAW);
+        // Any input's low nibble reads as Draw (2) under the outcome mask 0x0f.
+        for raw in [0x00u8, 0x01, 0x02, 0x40, 0x80, 0xc0, 0xff] {
+            assert_eq!(battle_result_as_draw(raw) & 0x0f, defs::DRAW);
+        }
     }
 
     /// `is_ball_id` is true for exactly the Balls-pocket ids and false for
