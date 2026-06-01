@@ -37,7 +37,10 @@ The CLI driver in [`src/bootstrap/cli.rs`](../src/bootstrap/cli.rs) reads battle
 | `0xc62c` | `wBattleMon` (struct start) | 32 | Active player mon: species, item, moves, PP, level, status, HP, MaxHP, stats, types. |
 | `0xc63c` | `wBattleMonHP` | 2 | Current HP of active player mon (big-endian). |
 | `0xc63e` | `wBattleMonMaxHP` | 2 | Max HP (big-endian). |
+| `0xc640` | `wBattleMonStats` (`wBattleMonAttack`…) | 10 | Active player mon BASE (stage-neutral) battle stats: 5 big-endian words Atk/Def/Spd/SpA/SpD. The multiplicand an X-item stat recompute starts from. |
 | `0xc66a` | `wPlayerSubStatus3` | 1 | Active player mon battle-only sub-statuses. Bit 7 `SUBSTATUS_CONFUSED`: gates the Bitter Berry / MiracleBerry confusion cure (cleared on use). |
+| `0xc6b6` | `wPlayerStats` (`wPlayerAttack`…) | 10 | Active player mon COMPUTED, stage-adjusted battle stats (same 5-word layout). What the damage routine reads — an X-item must rewrite this, not just the stat level, to affect damage. |
+| `0xc6cc` | `wPlayerStatLevels` (`wPlayerAtkLevel`…) | 8 | Per-stat stage levels (ATTACK=0…ABILITY=7); each an absolute level 1..=13, 7 neutral, 13 cap. An X-item raises one by 1 (capped at 13). |
 | `0xc671` | `wEnemySubStatus5` | 1 | Bit `SUBSTATUS_CANT_RUN` blocks switching (Mean Look / Spider Web). |
 | `0xc6e3` | `wCurPlayerMove` | 1 | The move id the player picked this turn. Zeroed by the `offer_switch` patch on Accept (mirrors the asm) so `PursuitSwitch` can't read a stale value during the new mon's entrance. |
 | `0xc6e4` | `wCurEnemyMove` | 1 | The move id the enemy picked this turn. Same zero-on-Accept story as `wCurPlayerMove`. |

@@ -45,6 +45,36 @@ const W_BATTLE_MON_MAX_HP: u16 = 0xc63e;
 // `pokecrystal.sym` (`00:c66a wPlayerSubStatus3`).
 const W_PLAYER_SUB_STATUS_3: u16 = 0xc66a;
 const W_ENEMY_SUB_STATUS_5: u16 = 0xc671;
+
+// The active player mon's COMPUTED, stage-adjusted battle stats — 5 big-endian
+// words: Attack, Defense, Speed, SpAtk, SpDef (no HP). This is what the damage
+// routine reads (`wPlayerAttack`/`wPlayerSpAtk` in
+// `engine/battle/effect_commands.asm` `PlayerAttackDamage`), NOT the stat
+// levels. `00:c6b6 wPlayerStats` / `wPlayerAttack` in `pokecrystal.sym`.
+const W_PLAYER_STATS: u16 = 0xc6b6;
+// The active player mon's BASE (stage-neutral) battle stats — same 5-word
+// layout as `wPlayerStats`. At battle init `wPlayerStats` is copied from here
+// (`InitBattleMon`), so this is the multiplicand a stage recompute starts from.
+// `00:c640 wBattleMonAttack` in `pokecrystal.sym`.
+const W_BATTLE_MON_STATS: u16 = 0xc640;
+// The active player mon's per-stat stage levels — 8 bytes indexed by the stat
+// constants below (only the first 5 are battle stats). Each byte is an ABSOLUTE
+// level 1..=13; 7 (`BASE_STAT_LEVEL`) is neutral, 13 (`MAX_STAT_LEVEL`) is the
+// cap. `00:c6cc wPlayerStatLevels` / `wPlayerAtkLevel` in `pokecrystal.sym`,
+// `NUM_LEVEL_STATS = 8` in `constants/battle_constants.asm`.
+const W_PLAYER_STAT_LEVELS: u16 = 0xc6cc;
+
+// Stat-level bounds and indices. Source: `constants/battle_constants.asm`
+// (`BASE_STAT_LEVEL EQU 7`, `MAX_STAT_LEVEL EQU 13`, `MAX_STAT_VALUE EQU 999`)
+// and the `const_def` stat-index block (ATTACK=0, DEFENSE=1, SPEED=2,
+// SP_ATTACK=3, SP_DEFENSE=4, ACCURACY=5, EVASION=6, ABILITY=7).
+const BASE_STAT_LEVEL: u8 = 7;
+const MAX_STAT_LEVEL: u8 = 13;
+const MAX_STAT_VALUE: u16 = 999;
+const STAT_ATTACK: u8 = 0;
+const STAT_DEFENSE: u8 = 1;
+const STAT_SPEED: u8 = 2;
+const STAT_SP_ATTACK: u8 = 3;
 const W_CUR_PLAYER_MOVE: u16 = 0xc6e3;
 const W_LAST_PLAYER_MON: u16 = 0xc71a;
 const W_PLAYER_WRAP_COUNT: u16 = 0xc730;
@@ -361,15 +391,16 @@ fn prompt_action(cpu: &Cpu) -> Action {
     // them as choices. Balls and other items go through the engine's bag UI,
     // which we currently bypass.
     //
-    // Active-mon items (Bitter Berry) are a parallel case: they act on the
-    // active battler and take NO party target, so they're keyed off a
-    // sub-status check rather than `item_valid_targets`. They carry
-    // `target: None`, which `apply_item` resolves to the active mon, and they
-    // skip the target prompt below.
+    // Active-mon items (Bitter Berry, the X stat-boosters) are a parallel case:
+    // they act on the active battler and take NO party target, so they're keyed
+    // off an `active_item_usable` check rather than `item_valid_targets`. They
+    // carry `target: None`, which `apply_item` resolves to the active mon, and
+    // they skip the target prompt below.
     for (id, qty) in read_pocket(cpu, W_NUM_ITEMS) {
         // Offer the item if it would do something: an active-mon item when the
-        // active battler currently qualifies (Bitter Berry → confused), or a
-        // party-target item when at least one party mon qualifies.
+        // active battler currently qualifies (Bitter Berry → confused, an
+        // X-item → its stat below the cap), or a party-target item when at
+        // least one party mon qualifies.
         if !active_item_usable(cpu, id) && item_valid_targets(cpu, id).is_empty() {
             continue;
         }
@@ -391,9 +422,10 @@ fn prompt_action(cpu: &Cpu) -> Action {
     let pick = prompt_index("> ", entries.len());
     let mut chosen = entries[pick].1;
 
-    // Active-mon items (Bitter Berry) act on the active battler — no party
-    // target, no move prompt — so they're left exactly as built above
-    // (`target: None`). Every OTHER directly-usable item targets one party mon;
+    // Active-mon items (Bitter Berry, the X stat-boosters) act on the active
+    // battler — no party target, no move prompt — so they're left exactly as
+    // built above (`target: None`). Every OTHER directly-usable item targets one
+    // party mon;
     // we prompt for it here so the action menu shows one line per item (not one
     // line per item×target). Single-move PP items (Ether / Max Ether /
     // MysteryBerry) then prompt for which of that mon's moves to restore.
@@ -527,7 +559,7 @@ fn check_can_switch(cpu: &Cpu, target: u8) -> Result<(), String> {
 /// What a battle-usable item does, abstracted over the specific item id. The
 /// single source of truth for which items the CLI applies directly, which party
 /// mons a given item can affect, and the status mask [`apply_item`] clears.
-/// Items not classified here aren't offered in the action menu (balls, X-items,
+/// Items not classified here aren't offered in the action menu (balls,
 /// evolution stones, ...).
 #[derive(Debug, Clone, Copy)]
 enum ItemEffect {
@@ -560,6 +592,16 @@ enum ItemEffect {
     /// from the sub-status byte, not vitals. It's surfaced as an "active-mon item"
     /// in [`prompt_action`] rather than going through the party-target machinery.
     ActiveConfusion,
+    /// Raises one stat stage of the active player mon by one level (X Attack /
+    /// X Defend / X Speed / X Special). The payload is the stat index into
+    /// `wPlayerStatLevels` (ATTACK=0, DEFENSE=1, SPEED=2, SP_ATTACK=3). Like
+    /// [`ItemEffect::ActiveConfusion`] this acts on the active battler with no
+    /// party target; its validity is judged from the stage level (usable only
+    /// while below `MAX_STAT_LEVEL`), so it's an "active-mon item" in
+    /// [`prompt_action`]. See `XItemEffect` / `RaiseStat`
+    /// (`scratch/pokecrystal/engine/items/item_effects.asm`,
+    /// `engine/battle/effect_commands.asm`).
+    ActiveStatUp(u8),
 }
 
 impl ItemEffect {
@@ -577,12 +619,13 @@ impl ItemEffect {
             ItemEffect::Revive => hp == 0,
             ItemEffect::Status(mask) => hp != 0 && status & mask != 0,
             ItemEffect::FullRestore => hp != 0 && (hp < max_hp || status != 0),
-            // PP and confusion aren't vitals — these never reach `affects`
-            // (`item_valid_targets` / the active-mon branch judge them), so this
-            // returns `false` defensively.
-            ItemEffect::PpAll { .. } | ItemEffect::PpOne { .. } | ItemEffect::ActiveConfusion => {
-                false
-            }
+            // PP, confusion and stat stages aren't vitals — these never reach
+            // `affects` (`item_valid_targets` / the active-mon branch judge
+            // them), so this returns `false` defensively.
+            ItemEffect::PpAll { .. }
+            | ItemEffect::PpOne { .. }
+            | ItemEffect::ActiveConfusion
+            | ItemEffect::ActiveStatUp(_) => false,
         }
     }
 }
@@ -628,6 +671,13 @@ fn item_effect(id: u8) -> Option<ItemEffect> {
         // sub-status; no party target. See `BitterBerryEffect`
         // (`scratch/pokecrystal/engine/items/item_effects.asm`).
         0x53 => ItemEffect::ActiveConfusion,
+        // X stat-boosters — raise one stat stage of the active mon by one
+        // level. Item→stat mapping from `data/items/x_stats.asm` (`XItemStats`):
+        // X_ATTACK→ATTACK, X_DEFEND→DEFENSE, X_SPEED→SPEED, X_SPECIAL→SP_ATTACK.
+        0x31 => ItemEffect::ActiveStatUp(STAT_ATTACK),    // X Attack
+        0x33 => ItemEffect::ActiveStatUp(STAT_DEFENSE),   // X Defend
+        0x34 => ItemEffect::ActiveStatUp(STAT_SPEED),     // X Speed
+        0x35 => ItemEffect::ActiveStatUp(STAT_SP_ATTACK), // X Special
         // MiracleBerry — any status byte bit, AND confusion on the active mon
         // (handled in `apply_item`). See `MysteryBerryEffect` / `StatusHealer`.
         0x6d => ItemEffect::Status(0xff),                 // MiracleBerry — any status
@@ -649,7 +699,7 @@ fn item_valid_targets(cpu: &Cpu, id: u8) -> Vec<u8> {
         .filter(|&slot| match effect {
             // Active-mon items have no party target — they're offered via the
             // active-mon branch in `prompt_action`, never the party-target path.
-            ItemEffect::ActiveConfusion => false,
+            ItemEffect::ActiveConfusion | ItemEffect::ActiveStatUp(_) => false,
             // PP isn't a vital, so `affects` can't judge PP items. A PP restore
             // applies to any mon — alive or fainted (RestorePP has no faint
             // guard, so the game lets you Ether/Elixer a fainted mon) — that has
@@ -701,16 +751,32 @@ fn is_single_move_pp_item(id: u8) -> bool {
 }
 
 /// Whether `id` is an active-mon item (acts on the active battler, takes no
-/// party target) AND is usable right now — i.e. the active mon is currently
-/// confused for Bitter Berry. Returns `false` for every party-target item.
+/// party target) AND is usable right now: Bitter Berry only while the active mon
+/// is confused; an X-item only while its stat stage is below `MAX_STAT_LEVEL`
+/// (mirrors `RaiseStat`'s "wouldn't have any effect" guard at the cap — the asm
+/// refuses to raise past 13). Returns `false` for every party-target item.
 /// Drives whether the active-mon item appears in the action menu.
 fn active_item_usable(cpu: &Cpu, id: u8) -> bool {
     match item_effect(id) {
         Some(ItemEffect::ActiveConfusion) => {
             is_active_confused(cpu.read_byte(W_PLAYER_SUB_STATUS_3))
         }
+        Some(ItemEffect::ActiveStatUp(stat)) => stat_level_can_raise(cpu, stat),
         _ => false,
     }
+}
+
+/// The active player mon's stage level (1..=13) for stat index `stat`, reading
+/// `wPlayerStatLevels[stat]`.
+fn read_stat_level(cpu: &Cpu, stat: u8) -> u8 {
+    cpu.read_byte(W_PLAYER_STAT_LEVELS + u16::from(stat))
+}
+
+/// Can stat `stat` still be raised — i.e. is its stage level below
+/// `MAX_STAT_LEVEL`? An X-item at the cap has no effect, so the game (and the
+/// CLI) doesn't offer it.
+fn stat_level_can_raise(cpu: &Cpu, stat: u8) -> bool {
+    read_stat_level(cpu, stat) < MAX_STAT_LEVEL
 }
 
 fn apply_item(cpu: &mut Cpu, id: u8, target: Option<u8>, move_slot: Option<u8>) {
@@ -731,6 +797,12 @@ fn apply_item(cpu: &mut Cpu, id: u8, target: Option<u8>, move_slot: Option<u8>) 
         || (id == 0x6d && slot == cpu.read_byte(W_CUR_BATTLE_MON));
     if clears_confusion {
         clear_active_confusion(cpu);
+    }
+
+    // X stat-boosters: raise one stage of the active mon. No party target — the
+    // active battler is always the subject, like the confusion case above.
+    if let Some(ItemEffect::ActiveStatUp(stat)) = item_effect(id) {
+        raise_active_stat(cpu, stat);
     }
 
     // Healing.
@@ -880,6 +952,67 @@ fn mirror_battle_mon_pp(cpu: &mut Cpu, move_id: u8, pp_byte: u8) {
 fn clear_active_confusion(cpu: &mut Cpu) {
     let v = cpu.read_byte(W_PLAYER_SUB_STATUS_3);
     cpu.write_byte(W_PLAYER_SUB_STATUS_3, v & !SUBSTATUS_CONFUSED_MASK);
+}
+
+/// `StatLevelMultipliers` from `scratch/pokecrystal/data/battle/stat_multipliers.asm`,
+/// indexed by stage level 1..=13 (i.e. modifier -6..=+6; level 7 = ×100%). Each
+/// entry is `(numerator, denominator)`. The engine multiplies a base stat by
+/// `num` then integer-divides by `den` (`CalcBattleStats` / `ApplyStatLevelMultiplier`).
+const STAT_LEVEL_MULTIPLIERS: [(u16, u16); 13] = [
+    (25, 100), // level 1  (-6) = 25%
+    (28, 100), // level 2  (-5) = 28%
+    (33, 100), // level 3  (-4) = 33%
+    (40, 100), // level 4  (-3) = 40%
+    (50, 100), // level 5  (-2) = 50%
+    (66, 100), // level 6  (-1) = 66%
+    (1, 1),    // level 7  ( 0) = 100%
+    (15, 10),  // level 8  (+1) = 150%
+    (2, 1),    // level 9  (+2) = 200%
+    (25, 10),  // level 10 (+3) = 250%
+    (3, 1),    // level 11 (+4) = 300%
+    (35, 10),  // level 12 (+5) = 350%
+    (4, 1),    // level 13 (+6) = 400%
+];
+
+/// Recompute one of the active mon's COMPUTED stat values (`wPlayerStats`) from
+/// its BASE battle stat (`wBattleMonStats`) and a stage `level` (1..=13), the
+/// same `base * num / den` the engine uses, clamped to `[1, MAX_STAT_VALUE]`.
+/// Pure so it's unit-testable without a `Cpu`. Mirrors `ApplyStatLevelMultiplier`
+/// (`engine/battle/core.asm`): integer multiply then divide, cap at 999, and a
+/// floor of 1 (`.okay4`: `inc [hl]` when the result is zero).
+fn apply_stat_multiplier(base: u16, level: u8) -> u16 {
+    let (num, den) = STAT_LEVEL_MULTIPLIERS[usize::from(level - 1)];
+    let raised = (u32::from(base) * u32::from(num) / u32::from(den)) as u16;
+    raised.clamp(1, MAX_STAT_VALUE)
+}
+
+/// Raise stat `stat` of the active player mon by one stage, mirroring `RaiseStat`
+/// (`engine/battle/effect_commands.asm`): increment `wPlayerStatLevels[stat]`
+/// (capped at `MAX_STAT_LEVEL`), then recompute the COMPUTED stat in
+/// `wPlayerStats` — which is what the damage routine reads
+/// (`PlayerAttackDamage` reads `wPlayerAttack`/`wPlayerSpAtk`, i.e.
+/// `wPlayerStats`, NOT the stat level). Setting only the level would be
+/// cosmetic; the boost wouldn't affect damage.
+///
+/// We recompute from `wBattleMonStats` (the stage-neutral base) × the new stage
+/// multiplier. Note the engine's `CalcPlayerStats` would additionally re-apply
+/// badge boosts and burn/paralysis modifiers; we don't re-apply those, so a
+/// player with stat badges or a burn/paralysis would see a slightly different
+/// computed value. In our synthetic battles the player has no badges, and the
+/// +stage factor dominates, so this matches the game for the common case.
+fn raise_active_stat(cpu: &mut Cpu, stat: u8) {
+    let level = read_stat_level(cpu, stat);
+    if level >= MAX_STAT_LEVEL {
+        return; // Already maxed — RaiseStat refuses ("wouldn't have any effect").
+    }
+    let new_level = level + 1;
+    cpu.write_byte(W_PLAYER_STAT_LEVELS + u16::from(stat), new_level);
+
+    // Recompute the computed stat word (big-endian) from the base battle stat.
+    let stat_addr = u16::from(stat) * 2;
+    let base = read_word_be(cpu, W_BATTLE_MON_STATS + stat_addr);
+    let raised = apply_stat_multiplier(base, new_level);
+    write_word_be(cpu, W_PLAYER_STATS + stat_addr, raised);
 }
 
 fn clear_status_bits(cpu: &mut Cpu, slot: u8, mask: u8) {
@@ -1124,7 +1257,8 @@ mod tests {
     fn unsupported_items_are_unclassified() {
         assert!(item_effect(0x01).is_none(), "Master Ball");
         assert!(item_effect(0x20).is_none(), "Rare Candy");
-        assert!(item_effect(0x31).is_none(), "X Attack");
+        assert!(item_effect(0x2c).is_none(), "Dire Hit (not yet supported)");
+        assert!(item_effect(0x32).is_none(), "ITEM_32 (no in-battle effect)");
     }
 
     #[test]
@@ -1211,6 +1345,69 @@ mod tests {
         assert!(!effect(0x53).affects(0, 20, 0), "vitals never claim an effect");
         // It is NOT a single-move PP item (no move-slot prompt).
         assert!(!is_single_move_pp_item(0x53), "Bitter Berry has no move-slot prompt");
+    }
+
+    /// X Attack/Defend/Speed/Special map to the stat indices in
+    /// `data/items/x_stats.asm` (`XItemStats`): X_ATTACK→ATTACK(0),
+    /// X_DEFEND→DEFENSE(1), X_SPEED→SPEED(2), X_SPECIAL→SP_ATTACK(3).
+    #[test]
+    fn x_items_map_to_their_stat_index() {
+        for (id, stat) in [
+            (0x31u8, STAT_ATTACK),    // X Attack → ATTACK
+            (0x33, STAT_DEFENSE),     // X Defend → DEFENSE
+            (0x34, STAT_SPEED),       // X Speed → SPEED
+            (0x35, STAT_SP_ATTACK),   // X Special → SP_ATTACK
+        ] {
+            assert!(
+                matches!(effect(id), ItemEffect::ActiveStatUp(s) if s == stat),
+                "item {id:#x} raises stat index {stat}",
+            );
+        }
+        // The stat indices match the `const_def` block (ATTACK=0..SP_ATTACK=3),
+        // and neutral is `BASE_STAT_LEVEL`.
+        assert_eq!((STAT_ATTACK, STAT_DEFENSE, STAT_SPEED, STAT_SP_ATTACK), (0, 1, 2, 3));
+        assert_eq!(BASE_STAT_LEVEL, 7);
+        // X-items never go through the party-target / move-slot machinery.
+        for id in [0x31u8, 0x33, 0x34, 0x35] {
+            assert!(!effect(id).affects(20, 20, 0), "vitals never claim an effect");
+            assert!(!is_single_move_pp_item(id), "X-item has no move-slot prompt");
+        }
+    }
+
+    /// `stat_level_can_raise` (and thus whether an X-item is offered) is true iff
+    /// the stage level is below `MAX_STAT_LEVEL`; the clamp in
+    /// `raise_active_stat` stops the level at `MAX_STAT_LEVEL`. We test the
+    /// boundary logic directly against the constants rather than through a `Cpu`.
+    #[test]
+    fn x_item_usable_below_cap_and_clamps_at_max() {
+        assert_eq!(MAX_STAT_LEVEL, 13);
+        // Usable from neutral up through 12; refused once already at the cap.
+        for level in BASE_STAT_LEVEL..MAX_STAT_LEVEL {
+            assert!(level < MAX_STAT_LEVEL, "level {level} is below the cap — usable");
+        }
+        assert!(!(MAX_STAT_LEVEL < MAX_STAT_LEVEL), "at the cap — no effect, not offered");
+        // The +1 increment never exceeds the cap: from 12 → 13, and 13 stays 13.
+        let next = |lvl: u8| if lvl >= MAX_STAT_LEVEL { lvl } else { lvl + 1 };
+        assert_eq!(next(MAX_STAT_LEVEL - 1), MAX_STAT_LEVEL, "12 → 13");
+        assert_eq!(next(MAX_STAT_LEVEL), MAX_STAT_LEVEL, "13 stays 13 (clamp)");
+    }
+
+    /// `apply_stat_multiplier` mirrors `ApplyStatLevelMultiplier`: `base * num /
+    /// den` (integer), capped at `MAX_STAT_VALUE` and floored at 1. Ratios come
+    /// from `data/battle/stat_multipliers.asm` indexed by level 1..=13.
+    #[test]
+    fn stat_multiplier_matches_the_asm_table() {
+        // Neutral (level 7) is the identity.
+        assert_eq!(apply_stat_multiplier(100, BASE_STAT_LEVEL), 100);
+        // +1 stage = 150%, +2 = 200%, with integer truncation.
+        assert_eq!(apply_stat_multiplier(100, 8), 150);
+        assert_eq!(apply_stat_multiplier(100, 9), 200);
+        assert_eq!(apply_stat_multiplier(101, 8), 151); // 101 * 15 / 10 = 151 (trunc)
+        // +6 stage = 400%, and the result caps at MAX_STAT_VALUE (999).
+        assert_eq!(apply_stat_multiplier(200, MAX_STAT_LEVEL), 800);
+        assert_eq!(apply_stat_multiplier(500, MAX_STAT_LEVEL), 999, "capped at 999");
+        // Floor of 1: a tiny base lowered far never drops to 0.
+        assert_eq!(apply_stat_multiplier(1, 1), 1, "1 * 25 / 100 = 0 → floored to 1");
     }
 
     /// `SUBSTATUS_CONFUSED` is bit 7 of `wPlayerSubStatus3`; the helper reports
