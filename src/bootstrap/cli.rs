@@ -1066,23 +1066,26 @@ fn throw_ball(cpu: &mut Cpu, id: u8) -> bool {
 /// no party target. Drives the dispatch in [`handle_battle_menu`]'s
 /// `Action::Item` arm to [`use_active_item_effect`].
 ///
-/// This covers the X stat-boosters and the in-battle sub-status setters (X
-/// Accuracy / Dire Hit / Guard Spec). Bitter Berry is still applied by the
-/// hand-rolled path in [`apply_item`].
+/// This covers all eight active-mon items: the X stat-boosters, the in-battle
+/// sub-status setters (X Accuracy / Dire Hit / Guard Spec), and Bitter Berry.
 fn is_active_effect_item(id: u8) -> bool {
     matches!(
         item_effect(id),
-        Some(ItemEffect::ActiveStatUp(_) | ItemEffect::ActiveSubStatusSet { .. })
+        Some(
+            ItemEffect::ActiveStatUp(_)
+                | ItemEffect::ActiveSubStatusSet { .. }
+                | ItemEffect::ActiveConfusion
+        )
     )
 }
 
 /// Drive the REAL transpiled effect routine for an active-mon battle item, so
 /// the authentic battle text prints (the hand-rolled path printed nothing). This
-/// is the [`throw_ball`] template applied to the X stat-boosters and the
-/// sub-status setters: their effect routines all live in ROM bank 0x03
+/// is the [`throw_ball`] template applied to the X stat-boosters, the sub-status
+/// setters, and Bitter Berry: their effect routines all live in ROM bank 0x03
 /// (`XItemEffect=03:74c5`, `XAccuracyEffect=03:7482`, `GuardSpecEffect=03:74ab`,
-/// `DireHitEffect=03:74b8` in pokecrystal.sym), so the same bank-switch +
-/// sentinel-push call discipline applies.
+/// `DireHitEffect=03:74b8`, `BitterBerryEffect=03:716a` in pokecrystal.sym), so
+/// the same bank-switch + sentinel-push call discipline applies.
 ///
 /// We do NOT decrement the bag ourselves: every one of these routines tails into
 /// `UseItemText` → `UseDisposableItem` → `TossItem`, which removes one of the
@@ -1122,6 +1125,7 @@ fn use_active_item_effect(cpu: &mut Cpu, id: u8) {
         0x21 => crate::game::engine::items::item_effects::x_accuracy_effect(cpu),
         0x29 => crate::game::engine::items::item_effects::guard_spec_effect(cpu),
         0x2c => crate::game::engine::items::item_effects::dire_hit_effect(cpu),
+        0x53 => crate::game::engine::items::item_effects::bitter_berry_effect(cpu),
         // `is_active_effect_item` gates the only caller, so no other id reaches
         // here.
         other => unreachable!("not an active-effect item: {other:#x}"),
@@ -1175,11 +1179,12 @@ fn apply_item(cpu: &mut Cpu, id: u8, target: Option<u8>, move_slot: Option<u8>) 
     }
 
     // Confusion is a battle-only sub-status on the active mon, separate from the
-    // status byte. Bitter Berry (`ActiveConfusion`, always the active mon) and
-    // MiracleBerry (when its chosen target IS the active slot) clear it. Mirrors
-    // `BitterBerryEffect`: `res SUBSTATUS_CONFUSED, [wPlayerSubStatus3]`.
-    let clears_confusion = matches!(item_effect(id), Some(ItemEffect::ActiveConfusion))
-        || (id == 0x6d && slot == cpu.read_byte(W_CUR_BATTLE_MON));
+    // status byte. MiracleBerry (when its chosen target IS the active slot)
+    // clears it. Mirrors `res SUBSTATUS_CONFUSED, [wPlayerSubStatus3]`. Bitter
+    // Berry (`ActiveConfusion`) is NOT handled here — it drives the real
+    // `BitterBerryEffect` via `use_active_item_effect` so its battle text prints,
+    // and never reaches `apply_item`.
+    let clears_confusion = id == 0x6d && slot == cpu.read_byte(W_CUR_BATTLE_MON);
     if clears_confusion {
         clear_active_confusion(cpu);
     }
@@ -1776,16 +1781,16 @@ mod tests {
         );
     }
 
-    /// `is_active_effect_item` selects the X stat-boosters and the sub-status
-    /// setters, which `handle_battle_menu` routes to `use_active_item_effect`
-    /// (driving the real effect routine for authentic text), and rejects
-    /// party-target items, balls, the Poké Doll, and unknown ids — which still go
-    /// through `apply_item` / the ball / escape paths.
+    /// `is_active_effect_item` selects exactly the eight active-mon items that
+    /// `handle_battle_menu` routes to `use_active_item_effect` (driving the real
+    /// engine effect routine for authentic text), and rejects party-target items,
+    /// balls, the Poké Doll, and unknown ids — which still go through `apply_item`
+    /// / the ball / escape paths.
     #[test]
-    fn is_active_effect_item_selects_the_x_stat_and_substatus_items() {
-        // The four X stat-boosters and the three sub-status setters (X Accuracy,
-        // Guard Spec, Dire Hit) drive their effect routine.
-        for id in [0x31u8, 0x33, 0x34, 0x35, 0x21, 0x29, 0x2c] {
+    fn is_active_effect_item_selects_the_eight_active_items() {
+        // The eight active-mon items: X stat-boosters, the sub-status setters,
+        // and Bitter Berry.
+        for id in [0x31u8, 0x33, 0x34, 0x35, 0x21, 0x29, 0x2c, 0x53] {
             assert!(is_active_effect_item(id), "item {id:#x} drives its effect routine");
         }
         // Party-target items (Potion 0x12, Full Restore 0x0e, Ether 0x3f,
