@@ -1498,6 +1498,20 @@ pub(crate) fn poke_ball_effect_not_celebi(cpu: &mut Cpu) {
 
 pub(crate) fn poke_ball_effect_skip_party_mon_friend_ball(cpu: &mut Cpu) {
     cpu.pc = 0x6af8;
+    // HARNESS-PATCH: skip the post-capture nickname prompt when running headless.
+    // By the time control reaches here the caught mon is already in the party —
+    // `poke_ball_effect_not_celebi` ran `TryAddMonToParty` (predef) + `SetCaughtData`
+    // and the Pokédex bookkeeping (`poke_ball_effect_transformed`) before tailing in.
+    // This routine is ONLY the UI tail: `AskGiveNicknameText` (PrintText) → `YesNoBox`
+    // → `NamingScreen` (far_call), all in the asm at engine/items/item_effects.asm
+    // `.SkipPartyMonFriendBall` (~asm:573-607). `YesNoBox`/`NamingScreen` are
+    // interactive menu loops that hang/garble a headless run (the auto-A in joypad.rs
+    // can't drive a free-text NamingScreen). PrintText itself is already safe headless
+    // (joypad auto-A advances text waits — see the joypad.rs patches), so the only
+    // thing we must avoid is the nickname menu. Jump straight to the asm's
+    // `.return_from_capture`, which ends the capture and tosses the ball
+    // (`TossItem`). See docs/transpiled_code.md.
+    become poke_ball_effect_return_from_capture(cpu);
     cpu.set_hl(0x6df5);
     cpu.pc += 3;
     cpu.cycle(12);
@@ -1713,6 +1727,20 @@ pub(crate) fn poke_ball_effect_skip_box_mon_friend_ball(cpu: &mut Cpu) {
     cpu.cycle(24);
     crate::game::home::sram::close_sram(cpu);
     assert_eq!(cpu.pc, next_pc);
+    // HARNESS-PATCH: skip the post-capture nickname prompt on the box-full
+    // (`.SendToPC`) path, the box analogue of the party-path skip above. The
+    // caught mon is already in the box — `poke_ball_effect_send_to_pc` ran
+    // `SendMonIntoBox` (predef) + `SetBoxMonCaughtData` before tailing in. The
+    // `close_sram` just above balances the `OpenSRAM` that `.SendToPC` left open,
+    // so we keep it; everything after it in the asm (`.SkipBoxMonNickname`,
+    // ~asm:634-665) is `AskGiveNicknameText` → `YesNoBox` → `NamingScreen`, the
+    // same interactive UI that hangs headless. Jump to `poke_ball_effect_skip_box_mon_nickname`
+    // (the asm's `.SkipBoxMonNickname` label), which copies the default species
+    // name, prints `BallSentToPCText`, and restores palettes/font — all headless-safe
+    // — then falls through to `.return_from_capture`. This path is never exercised by
+    // the current fixtures (party is never full), but is kept correct defensively.
+    // See docs/transpiled_code.md.
+    become poke_ball_effect_skip_box_mon_nickname(cpu);
     cpu.set_hl(0x6df5);
     cpu.pc += 3;
     cpu.cycle(12);
