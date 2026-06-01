@@ -1066,23 +1066,28 @@ fn throw_ball(cpu: &mut Cpu, id: u8) -> bool {
 /// no party target. Drives the dispatch in [`handle_battle_menu`]'s
 /// `Action::Item` arm to [`use_active_item_effect`].
 ///
-/// For now this is just the X stat-boosters (X Attack / Defend / Speed /
-/// Special). The other active-mon items (X Accuracy / Dire Hit / Guard Spec and
-/// Bitter Berry) are still applied by the hand-rolled path in [`apply_item`].
+/// This covers the X stat-boosters and the in-battle sub-status setters (X
+/// Accuracy / Dire Hit / Guard Spec). Bitter Berry is still applied by the
+/// hand-rolled path in [`apply_item`].
 fn is_active_effect_item(id: u8) -> bool {
-    matches!(item_effect(id), Some(ItemEffect::ActiveStatUp(_)))
+    matches!(
+        item_effect(id),
+        Some(ItemEffect::ActiveStatUp(_) | ItemEffect::ActiveSubStatusSet { .. })
+    )
 }
 
 /// Drive the REAL transpiled effect routine for an active-mon battle item, so
 /// the authentic battle text prints (the hand-rolled path printed nothing). This
-/// is the [`throw_ball`] template applied to the X stat-boosters: `XItemEffect`
-/// lives in ROM bank 0x03 (`XItemEffect=03:74c5` in pokecrystal.sym), so the
-/// same bank-switch + sentinel-push call discipline applies.
+/// is the [`throw_ball`] template applied to the X stat-boosters and the
+/// sub-status setters: their effect routines all live in ROM bank 0x03
+/// (`XItemEffect=03:74c5`, `XAccuracyEffect=03:7482`, `GuardSpecEffect=03:74ab`,
+/// `DireHitEffect=03:74b8` in pokecrystal.sym), so the same bank-switch +
+/// sentinel-push call discipline applies.
 ///
-/// We do NOT decrement the bag ourselves: `XItemEffect` tails into `UseItemText`
-/// → `UseDisposableItem` → `TossItem`, which removes one of the item identified
-/// by `wCurItem` from `wNumItems`. Decrementing here too would double-count (the
-/// same lesson the ball path learned).
+/// We do NOT decrement the bag ourselves: every one of these routines tails into
+/// `UseItemText` → `UseDisposableItem` → `TossItem`, which removes one of the
+/// item identified by `wCurItem` from `wNumItems`. Decrementing here too would
+/// double-count (the same lesson the ball path learned).
 ///
 /// `RaiseStat` (reached via `XItemEffect`'s `farcall RaiseStat`) increments the
 /// stage level in `wPlayerStatLevels` AND recomputes the COMPUTED stat in
@@ -1114,6 +1119,9 @@ fn use_active_item_effect(cpu: &mut Cpu, id: u8) {
         0x31 | 0x33 | 0x34 | 0x35 => {
             crate::game::engine::items::item_effects::x_item_effect(cpu)
         }
+        0x21 => crate::game::engine::items::item_effects::x_accuracy_effect(cpu),
+        0x29 => crate::game::engine::items::item_effects::guard_spec_effect(cpu),
+        0x2c => crate::game::engine::items::item_effects::dire_hit_effect(cpu),
         // `is_active_effect_item` gates the only caller, so no other id reaches
         // here.
         other => unreachable!("not an active-effect item: {other:#x}"),
@@ -1176,20 +1184,11 @@ fn apply_item(cpu: &mut Cpu, id: u8, target: Option<u8>, move_slot: Option<u8>) 
         clear_active_confusion(cpu);
     }
 
-    // NOTE: the X stat-boosters used to be applied here by a hand-rolled WRAM
-    // write (`raise_active_stat`). They now drive the real `XItemEffect` via
-    // `use_active_item_effect` (which prints the authentic text and recomputes
-    // the stat through `RaiseStat`/`CalcPlayerStats`), so they never reach
-    // `apply_item`.
-
-    // In-battle sub-status setters (X Accuracy / Guard Spec / Dire Hit): OR in
-    // one bit of `wPlayerSubStatus4` on the active mon, preserving the others.
-    // Mirrors `set mask, [wPlayerSubStatus4]` in the asm. No party target — the
-    // active battler is always the subject, like the cases above.
-    if let Some(ItemEffect::ActiveSubStatusSet { addr, mask }) = item_effect(id) {
-        let v = cpu.read_byte(addr);
-        cpu.write_byte(addr, v | mask);
-    }
+    // NOTE: the X stat-boosters and the in-battle sub-status setters (X Accuracy
+    // / Guard Spec / Dire Hit) used to be applied here by hand-rolled WRAM writes
+    // (`raise_active_stat` / a direct `wPlayerSubStatus4` OR). They now drive
+    // their real effect routine via `use_active_item_effect` (which prints the
+    // authentic text), so they never reach `apply_item`.
 
     // Healing.
     let max_hp = read_word_be(cpu, base + PARTY_OFFSET_MAX_HP);
@@ -1777,15 +1776,16 @@ mod tests {
         );
     }
 
-    /// `is_active_effect_item` selects the X stat-boosters, which
-    /// `handle_battle_menu` routes to `use_active_item_effect` (driving the real
-    /// `XItemEffect` for authentic text), and rejects party-target items, balls,
-    /// the Poké Doll, and unknown ids — which still go through `apply_item` / the
-    /// ball / escape paths.
+    /// `is_active_effect_item` selects the X stat-boosters and the sub-status
+    /// setters, which `handle_battle_menu` routes to `use_active_item_effect`
+    /// (driving the real effect routine for authentic text), and rejects
+    /// party-target items, balls, the Poké Doll, and unknown ids — which still go
+    /// through `apply_item` / the ball / escape paths.
     #[test]
-    fn is_active_effect_item_selects_the_x_stat_items() {
-        // The four X stat-boosters drive their effect routine.
-        for id in [0x31u8, 0x33, 0x34, 0x35] {
+    fn is_active_effect_item_selects_the_x_stat_and_substatus_items() {
+        // The four X stat-boosters and the three sub-status setters (X Accuracy,
+        // Guard Spec, Dire Hit) drive their effect routine.
+        for id in [0x31u8, 0x33, 0x34, 0x35, 0x21, 0x29, 0x2c] {
             assert!(is_active_effect_item(id), "item {id:#x} drives its effect routine");
         }
         // Party-target items (Potion 0x12, Full Restore 0x0e, Ether 0x3f,
