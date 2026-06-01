@@ -58,17 +58,6 @@ const SUBSTATUS_MIST_MASK: u8 = 1 << 1;
 const SUBSTATUS_FOCUS_ENERGY_MASK: u8 = 1 << 2;
 const W_ENEMY_SUB_STATUS_5: u16 = 0xc671;
 
-// The active player mon's COMPUTED, stage-adjusted battle stats — 5 big-endian
-// words: Attack, Defense, Speed, SpAtk, SpDef (no HP). This is what the damage
-// routine reads (`wPlayerAttack`/`wPlayerSpAtk` in
-// `engine/battle/effect_commands.asm` `PlayerAttackDamage`), NOT the stat
-// levels. `00:c6b6 wPlayerStats` / `wPlayerAttack` in `pokecrystal.sym`.
-const W_PLAYER_STATS: u16 = 0xc6b6;
-// The active player mon's BASE (stage-neutral) battle stats — same 5-word
-// layout as `wPlayerStats`. At battle init `wPlayerStats` is copied from here
-// (`InitBattleMon`), so this is the multiplicand a stage recompute starts from.
-// `00:c640 wBattleMonAttack` in `pokecrystal.sym`.
-const W_BATTLE_MON_STATS: u16 = 0xc640;
 // The active player mon's per-stat stage levels — 8 bytes indexed by the stat
 // constants below (only the first 5 are battle stats). Each byte is an ABSOLUTE
 // level 1..=13; 7 (`BASE_STAT_LEVEL`) is neutral, 13 (`MAX_STAT_LEVEL`) is the
@@ -77,12 +66,11 @@ const W_BATTLE_MON_STATS: u16 = 0xc640;
 const W_PLAYER_STAT_LEVELS: u16 = 0xc6cc;
 
 // Stat-level bounds and indices. Source: `constants/battle_constants.asm`
-// (`BASE_STAT_LEVEL EQU 7`, `MAX_STAT_LEVEL EQU 13`, `MAX_STAT_VALUE EQU 999`)
-// and the `const_def` stat-index block (ATTACK=0, DEFENSE=1, SPEED=2,
-// SP_ATTACK=3, SP_DEFENSE=4, ACCURACY=5, EVASION=6, ABILITY=7).
+// (`BASE_STAT_LEVEL EQU 7`, `MAX_STAT_LEVEL EQU 13`) and the `const_def`
+// stat-index block (ATTACK=0, DEFENSE=1, SPEED=2, SP_ATTACK=3, SP_DEFENSE=4,
+// ACCURACY=5, EVASION=6, ABILITY=7).
 const BASE_STAT_LEVEL: u8 = 7;
 const MAX_STAT_LEVEL: u8 = 13;
-const MAX_STAT_VALUE: u16 = 999;
 const STAT_ATTACK: u8 = 0;
 const STAT_DEFENSE: u8 = 1;
 const STAT_SPEED: u8 = 2;
@@ -139,6 +127,12 @@ const POKE_DOLL_ID: u8 = 0x25;
 // pokecrystal.sym). `battle_menu` (the routine this CLI module patches) runs in
 // bank 0x0f, so we save/switch/restore around the call.
 const BANK_POKE_BALL_EFFECT: u8 = 0x03;
+// The active-mon item effect routines (`XItemEffect`, `XAccuracyEffect`,
+// `GuardSpecEffect`, `DireHitEffect`, `BitterBerryEffect`) all live in ROM bank
+// 0x03 too (verified in pokecrystal.sym), so [`use_active_item_effect`] uses the
+// same save/switch/restore as the ball path. Same numeric value as
+// `BANK_POKE_BALL_EFFECT`; kept distinct for intent.
+const BANK_ITEM_EFFECTS: u8 = 0x03;
 const H_ROM_BANK: u16 = 0xff9d;
 
 // `wBattleMode` — 0 = not in battle, 1 = wild, 2 = trainer (`WILD_BATTLE` /
@@ -308,7 +302,16 @@ pub fn handle_battle_menu(cpu: &mut Cpu) {
                 return crate::game::engine::battle::core::player_switch(cpu);
             }
             Action::Item { id, target, move_slot } => {
-                apply_item(cpu, id, target, move_slot);
+                // Active-mon items (X stat-boosters, X Accuracy, Dire Hit, Guard
+                // Spec, Bitter Berry) drive their REAL effect routine so the
+                // authentic battle text prints; that routine also tosses the item
+                // itself, so we must NOT also decrement the bag. Every other item
+                // is applied by the hand-rolled `apply_item` (which decrements).
+                if is_active_effect_item(id) {
+                    use_active_item_effect(cpu, id);
+                } else {
+                    apply_item(cpu, id, target, move_slot);
+                }
                 cpu.write_byte(W_BATTLE_PLAYER_ACTION, defs::BATTLEPLAYERACTION_USEITEM);
                 cpu.write_byte(W_BATTLE_MENU_CURSOR_POSITION, 3);
                 recorder::record(cpu, Step::Item { id, target, move_slot });
@@ -1057,6 +1060,67 @@ fn throw_ball(cpu: &mut Cpu, id: u8) -> bool {
     cpu.read_byte(W_WILD_MON) != 0
 }
 
+/// Whether `id` is an "active-mon" battle item that drives a real transpiled
+/// effect routine (so the authentic battle-box text prints) rather than being
+/// applied by hand-rolled WRAM writes. These act on the active battler and take
+/// no party target. Drives the dispatch in [`handle_battle_menu`]'s
+/// `Action::Item` arm to [`use_active_item_effect`].
+///
+/// For now this is just the X stat-boosters (X Attack / Defend / Speed /
+/// Special). The other active-mon items (X Accuracy / Dire Hit / Guard Spec and
+/// Bitter Berry) are still applied by the hand-rolled path in [`apply_item`].
+fn is_active_effect_item(id: u8) -> bool {
+    matches!(item_effect(id), Some(ItemEffect::ActiveStatUp(_)))
+}
+
+/// Drive the REAL transpiled effect routine for an active-mon battle item, so
+/// the authentic battle text prints (the hand-rolled path printed nothing). This
+/// is the [`throw_ball`] template applied to the X stat-boosters: `XItemEffect`
+/// lives in ROM bank 0x03 (`XItemEffect=03:74c5` in pokecrystal.sym), so the
+/// same bank-switch + sentinel-push call discipline applies.
+///
+/// We do NOT decrement the bag ourselves: `XItemEffect` tails into `UseItemText`
+/// → `UseDisposableItem` → `TossItem`, which removes one of the item identified
+/// by `wCurItem` from `wNumItems`. Decrementing here too would double-count (the
+/// same lesson the ball path learned).
+///
+/// `RaiseStat` (reached via `XItemEffect`'s `farcall RaiseStat`) increments the
+/// stage level in `wPlayerStatLevels` AND recomputes the COMPUTED stat in
+/// `wPlayerStats` (via `CalcPlayerStats`), which is what the damage routine
+/// reads — so the boost actually affects damage, no hand-rolled recompute needed.
+fn use_active_item_effect(cpu: &mut Cpu, id: u8) {
+    // The effect routine reads `wCurItem` for the item id (X items dispatch on it
+    // via `XItemStats`; `UseDisposableItem`/`TossItem` toss it). It bumps the
+    // toss count from `wItemQuantityChange`, set to 1 — same as the ball path.
+    cpu.write_byte(W_CUR_ITEM, id);
+    cpu.write_byte(W_ITEM_QUANTITY_CHANGE, 1);
+
+    // `UseItemText` prints "<PLAYER> used the <name>." by reading the item name
+    // out of `wStringBuffer2`. The engine's `DoItemEffect` dispatcher fills that
+    // buffer before jumping to the effect; since we call the effect directly we
+    // must replicate that preamble or the name renders blank. Home-bank routines,
+    // so no switch yet — same as the ball path.
+    load_item_name(cpu, id);
+
+    // Save the current ROM bank, switch to the effect routine's bank (0x03), push
+    // a sentinel return address (each routine ends in a `ret` via TossItem), call
+    // the right routine by id, then restore the bank so the battle code that
+    // resumes sees bank 0x0f again.
+    let saved_bank = cpu.read_byte(H_ROM_BANK);
+    super::switch_bank(cpu, BANK_ITEM_EFFECTS);
+    let return_sentinel: u16 = 0xfffc;
+    cpu.push_word(return_sentinel);
+    match id {
+        0x31 | 0x33 | 0x34 | 0x35 => {
+            crate::game::engine::items::item_effects::x_item_effect(cpu)
+        }
+        // `is_active_effect_item` gates the only caller, so no other id reaches
+        // here.
+        other => unreachable!("not an active-effect item: {other:#x}"),
+    }
+    super::switch_bank(cpu, saved_bank);
+}
+
 /// Mask `wBattleResult` down to a DRAW, preserving the CAUGHT_CELEBI / BOX_FULL
 /// high bits — the `and BATTLERESULT_BITMASK / or DRAW` that `PokeDollEffect`
 /// performs. Pure so it's unit-testable without a `Cpu`. `read_outcome` keys on
@@ -1112,11 +1176,11 @@ fn apply_item(cpu: &mut Cpu, id: u8, target: Option<u8>, move_slot: Option<u8>) 
         clear_active_confusion(cpu);
     }
 
-    // X stat-boosters: raise one stage of the active mon. No party target — the
-    // active battler is always the subject, like the confusion case above.
-    if let Some(ItemEffect::ActiveStatUp(stat)) = item_effect(id) {
-        raise_active_stat(cpu, stat);
-    }
+    // NOTE: the X stat-boosters used to be applied here by a hand-rolled WRAM
+    // write (`raise_active_stat`). They now drive the real `XItemEffect` via
+    // `use_active_item_effect` (which prints the authentic text and recomputes
+    // the stat through `RaiseStat`/`CalcPlayerStats`), so they never reach
+    // `apply_item`.
 
     // In-battle sub-status setters (X Accuracy / Guard Spec / Dire Hit): OR in
     // one bit of `wPlayerSubStatus4` on the active mon, preserving the others.
@@ -1274,67 +1338,6 @@ fn mirror_battle_mon_pp(cpu: &mut Cpu, move_id: u8, pp_byte: u8) {
 fn clear_active_confusion(cpu: &mut Cpu) {
     let v = cpu.read_byte(W_PLAYER_SUB_STATUS_3);
     cpu.write_byte(W_PLAYER_SUB_STATUS_3, v & !SUBSTATUS_CONFUSED_MASK);
-}
-
-/// `StatLevelMultipliers` from `scratch/pokecrystal/data/battle/stat_multipliers.asm`,
-/// indexed by stage level 1..=13 (i.e. modifier -6..=+6; level 7 = ×100%). Each
-/// entry is `(numerator, denominator)`. The engine multiplies a base stat by
-/// `num` then integer-divides by `den` (`CalcBattleStats` / `ApplyStatLevelMultiplier`).
-const STAT_LEVEL_MULTIPLIERS: [(u16, u16); 13] = [
-    (25, 100), // level 1  (-6) = 25%
-    (28, 100), // level 2  (-5) = 28%
-    (33, 100), // level 3  (-4) = 33%
-    (40, 100), // level 4  (-3) = 40%
-    (50, 100), // level 5  (-2) = 50%
-    (66, 100), // level 6  (-1) = 66%
-    (1, 1),    // level 7  ( 0) = 100%
-    (15, 10),  // level 8  (+1) = 150%
-    (2, 1),    // level 9  (+2) = 200%
-    (25, 10),  // level 10 (+3) = 250%
-    (3, 1),    // level 11 (+4) = 300%
-    (35, 10),  // level 12 (+5) = 350%
-    (4, 1),    // level 13 (+6) = 400%
-];
-
-/// Recompute one of the active mon's COMPUTED stat values (`wPlayerStats`) from
-/// its BASE battle stat (`wBattleMonStats`) and a stage `level` (1..=13), the
-/// same `base * num / den` the engine uses, clamped to `[1, MAX_STAT_VALUE]`.
-/// Pure so it's unit-testable without a `Cpu`. Mirrors `ApplyStatLevelMultiplier`
-/// (`engine/battle/core.asm`): integer multiply then divide, cap at 999, and a
-/// floor of 1 (`.okay4`: `inc [hl]` when the result is zero).
-fn apply_stat_multiplier(base: u16, level: u8) -> u16 {
-    let (num, den) = STAT_LEVEL_MULTIPLIERS[usize::from(level - 1)];
-    let raised = (u32::from(base) * u32::from(num) / u32::from(den)) as u16;
-    raised.clamp(1, MAX_STAT_VALUE)
-}
-
-/// Raise stat `stat` of the active player mon by one stage, mirroring `RaiseStat`
-/// (`engine/battle/effect_commands.asm`): increment `wPlayerStatLevels[stat]`
-/// (capped at `MAX_STAT_LEVEL`), then recompute the COMPUTED stat in
-/// `wPlayerStats` — which is what the damage routine reads
-/// (`PlayerAttackDamage` reads `wPlayerAttack`/`wPlayerSpAtk`, i.e.
-/// `wPlayerStats`, NOT the stat level). Setting only the level would be
-/// cosmetic; the boost wouldn't affect damage.
-///
-/// We recompute from `wBattleMonStats` (the stage-neutral base) × the new stage
-/// multiplier. Note the engine's `CalcPlayerStats` would additionally re-apply
-/// badge boosts and burn/paralysis modifiers; we don't re-apply those, so a
-/// player with stat badges or a burn/paralysis would see a slightly different
-/// computed value. In our synthetic battles the player has no badges, and the
-/// +stage factor dominates, so this matches the game for the common case.
-fn raise_active_stat(cpu: &mut Cpu, stat: u8) {
-    let level = read_stat_level(cpu, stat);
-    if level >= MAX_STAT_LEVEL {
-        return; // Already maxed — RaiseStat refuses ("wouldn't have any effect").
-    }
-    let new_level = level + 1;
-    cpu.write_byte(W_PLAYER_STAT_LEVELS + u16::from(stat), new_level);
-
-    // Recompute the computed stat word (big-endian) from the base battle stat.
-    let stat_addr = u16::from(stat) * 2;
-    let base = read_word_be(cpu, W_BATTLE_MON_STATS + stat_addr);
-    let raised = apply_stat_multiplier(base, new_level);
-    write_word_be(cpu, W_PLAYER_STATS + stat_addr, raised);
 }
 
 fn clear_status_bits(cpu: &mut Cpu, slot: u8, mask: u8) {
@@ -1696,8 +1699,8 @@ mod tests {
     }
 
     /// `stat_level_can_raise` (and thus whether an X-item is offered) is true iff
-    /// the stage level is below `MAX_STAT_LEVEL`; the clamp in
-    /// `raise_active_stat` stops the level at `MAX_STAT_LEVEL`. We test the
+    /// the stage level is below `MAX_STAT_LEVEL`; the real `RaiseStat` (driven via
+    /// `use_active_item_effect`) refuses to raise past the cap. We test the
     /// boundary logic directly against the constants rather than through a `Cpu`.
     #[test]
     fn x_item_usable_below_cap_and_clamps_at_max() {
@@ -1774,22 +1777,23 @@ mod tests {
         );
     }
 
-    /// `apply_stat_multiplier` mirrors `ApplyStatLevelMultiplier`: `base * num /
-    /// den` (integer), capped at `MAX_STAT_VALUE` and floored at 1. Ratios come
-    /// from `data/battle/stat_multipliers.asm` indexed by level 1..=13.
+    /// `is_active_effect_item` selects the X stat-boosters, which
+    /// `handle_battle_menu` routes to `use_active_item_effect` (driving the real
+    /// `XItemEffect` for authentic text), and rejects party-target items, balls,
+    /// the Poké Doll, and unknown ids — which still go through `apply_item` / the
+    /// ball / escape paths.
     #[test]
-    fn stat_multiplier_matches_the_asm_table() {
-        // Neutral (level 7) is the identity.
-        assert_eq!(apply_stat_multiplier(100, BASE_STAT_LEVEL), 100);
-        // +1 stage = 150%, +2 = 200%, with integer truncation.
-        assert_eq!(apply_stat_multiplier(100, 8), 150);
-        assert_eq!(apply_stat_multiplier(100, 9), 200);
-        assert_eq!(apply_stat_multiplier(101, 8), 151); // 101 * 15 / 10 = 151 (trunc)
-        // +6 stage = 400%, and the result caps at MAX_STAT_VALUE (999).
-        assert_eq!(apply_stat_multiplier(200, MAX_STAT_LEVEL), 800);
-        assert_eq!(apply_stat_multiplier(500, MAX_STAT_LEVEL), 999, "capped at 999");
-        // Floor of 1: a tiny base lowered far never drops to 0.
-        assert_eq!(apply_stat_multiplier(1, 1), 1, "1 * 25 / 100 = 0 → floored to 1");
+    fn is_active_effect_item_selects_the_x_stat_items() {
+        // The four X stat-boosters drive their effect routine.
+        for id in [0x31u8, 0x33, 0x34, 0x35] {
+            assert!(is_active_effect_item(id), "item {id:#x} drives its effect routine");
+        }
+        // Party-target items (Potion 0x12, Full Restore 0x0e, Ether 0x3f,
+        // Antidote 0x09), a ball (Poké Ball 0x01), the Poké Doll (0x25), and an
+        // unknown id are NOT active-effect items.
+        for id in [0x12u8, 0x0e, 0x3f, 0x09, 0x01, 0x25, 0x00] {
+            assert!(!is_active_effect_item(id), "item {id:#x} is not an active-effect item");
+        }
     }
 
     /// `SUBSTATUS_CONFUSED` is bit 7 of `wPlayerSubStatus3`; the helper reports
