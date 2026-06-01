@@ -107,6 +107,24 @@ const PARTY_STRUCT_LEN: u16 = 48;
 const W_NUM_ITEMS: u16 = 0xd892;
 const W_NUM_BALLS: u16 = 0xd8d7;
 
+// Capture-path WRAM. Source: scratch/pokecrystal/pokecrystal.sym.
+// `wWildMon` (0xc64e): non-zero (the caught species) after a successful catch,
+// zero after a failed throw — this is what `BattleMenu_Pack.UseItem` keys on to
+// decide caught-vs-broke-free, and what we key on too.
+const W_WILD_MON: u16 = 0xc64e;
+// `wBattleEnded` (0xc734): the turn loop (`battle_turn_loop1`) quits when this is
+// non-zero. The capture path sets it so the battle ends after a catch.
+const W_BATTLE_ENDED: u16 = 0xc734;
+// `wBattleResult` (0xd0ee): low nibble is WIN/LOSS/DRAW; the high two bits carry
+// the CAUGHT_CELEBI / BOX_FULL flags. The catch path masks it to WIN.
+const W_BATTLE_RESULT: u16 = 0xd0ee;
+
+// `PokeBallEffect` lives in ROM bank 0x03 (`03:68a2 PokeBallEffect` in
+// pokecrystal.sym). `battle_menu` (the routine this CLI module patches) runs in
+// bank 0x0f, so we save/switch/restore around the call.
+const BANK_POKE_BALL_EFFECT: u8 = 0x03;
+const H_ROM_BANK: u16 = 0xff9d;
+
 // `wBattleMode` — 0 = not in battle, 1 = wild, 2 = trainer (`WILD_BATTLE` /
 // `TRAINER_BATTLE` in `scratch/pokecrystal/constants/battle_constants.asm`).
 // We only offer Poké Balls in a wild battle (`offers_balls`); a thrown ball in
@@ -257,19 +275,35 @@ pub fn handle_battle_menu(cpu: &mut Cpu) {
                 return;
             }
             Action::Ball { id } => {
-                // TODO(capture): drive the real PokeBallEffect — roll the catch
-                // formula, run the shake/catch animation, and on success move
-                // the wild mon into the party / box and end the battle. For now
-                // a thrown ball just consumes the turn without catching: we
-                // decrement the ball and burn the turn the same way an item does.
-                throw_ball(cpu, id);
+                let caught = throw_ball(cpu, id);
                 cpu.write_byte(W_BATTLE_PLAYER_ACTION, defs::BATTLEPLAYERACTION_USEITEM);
                 cpu.write_byte(W_BATTLE_MENU_CURSOR_POSITION, 3);
                 // Recorded as an `item` step (a ball is just an item id from a
                 // different pocket) so playback needs no new step kind.
                 recorder::record(cpu, Step::Item { id, target: None, move_slot: None });
-                // Normal return: caller is `battle_turn_loop1`, which then
-                // checks wBattleEnded and continues the turn — same as an item.
+                if caught {
+                    // Caught: end the battle the way the engine's
+                    // `BattleMenu_Pack.UseItem` → `.run` does (core.asm ~5043):
+                    // zero wWildMon, mask wBattleResult down to WIN, and return
+                    // carry-set so `battle_turn_loop1` quits (`call BattleMenu` /
+                    // `jr c, .quit`). We also set wBattleEnded for the loop's
+                    // second guard. The caught mon is already in the party (the
+                    // real routine ran TryAddMonToParty). The `caught_wild_mon`
+                    // flag makes `read_outcome` report `Outcome::Caught`.
+                    cpu.write_byte(W_WILD_MON, 0);
+                    let result = cpu.read_byte(W_BATTLE_RESULT) & defs::BATTLERESULT_BITMASK;
+                    cpu.write_byte(W_BATTLE_RESULT, result);
+                    cpu.write_byte(W_BATTLE_ENDED, 1);
+                    cpu.caught_wild_mon = true;
+                    cpu.flag_c = true;
+                    cpu.pc = cpu.pop_word();
+                    cpu.cycle(16);
+                    return;
+                }
+                // Broke free: the throw consumed the turn (the ball was tossed
+                // by the real routine). Return to `battle_turn_loop1` carry-clear
+                // — same contract as a healing item — so the enemy gets its turn.
+                cpu.flag_c = false;
                 cpu.pc = cpu.pop_word();
                 cpu.cycle(16);
                 return;
@@ -886,15 +920,40 @@ fn stat_level_can_raise(cpu: &Cpu, stat: u8) -> bool {
     read_stat_level(cpu, stat) < MAX_STAT_LEVEL
 }
 
-/// Throw a Poké Ball: decrement it from the Balls pocket (`W_NUM_BALLS`, not the
-/// Items pocket — a ball lives in `BALL_POCKET`) and record the selection in the
-/// engine's item WRAM, mirroring [`apply_item`]'s tail. The capture roll itself
-/// is not driven yet (see `TODO(capture)` at the call site), so this currently
-/// just consumes the ball and the turn.
-fn throw_ball(cpu: &mut Cpu, id: u8) {
-    decrement_pocket_item(cpu, W_NUM_BALLS, id);
+/// Throw a Poké Ball by driving the real transpiled catch routine
+/// (`poke_ball_effect`, ROM bank 0x03). The routine does the full catch math +
+/// RNG, runs the (headless-stubbed) throw animation, and on success loads the
+/// caught mon and adds it to the party via its own `TryAddMonToParty` predef.
+/// The nickname UI is skipped by the HARNESS-PATCH in
+/// `src/game/engine/items/item_effects.rs`.
+///
+/// We do NOT decrement the Balls pocket ourselves: the routine's `.toss` tail
+/// calls `TossItem`, which removes one ball. Decrementing here too would double-
+/// count.
+///
+/// Returns `true` if the wild mon was caught. The signal is `wWildMon`
+/// (`W_WILD_MON`): the routine writes the caught species there on success and
+/// leaves it zero on a failed throw — exactly what the engine's
+/// `BattleMenu_Pack.UseItem` keys on (core.asm `.UseItem`: `ld a, [wWildMon] /
+/// and a / jr nz, .run`).
+fn throw_ball(cpu: &mut Cpu, id: u8) -> bool {
+    // `PokeBallEffect` reads `wCurItem` for the ball id and `wBattleMode` for the
+    // wild/trainer check (already WILD here — balls are only offered in wild
+    // battles). It increments the toss count from `wItemQuantityChange`, set to 1.
     cpu.write_byte(W_CUR_ITEM, id);
     cpu.write_byte(W_ITEM_QUANTITY_CHANGE, 1);
+
+    // Save the current ROM bank, switch to PokeBallEffect's bank, push a sentinel
+    // return address (the routine ends in a `ret` via TossItem), call it, then
+    // restore the bank so the battle code that resumes sees bank 0x0f again.
+    let saved_bank = cpu.read_byte(H_ROM_BANK);
+    super::switch_bank(cpu, BANK_POKE_BALL_EFFECT);
+    let return_sentinel: u16 = 0xfffc;
+    cpu.push_word(return_sentinel);
+    crate::game::engine::items::item_effects::poke_ball_effect(cpu);
+    super::switch_bank(cpu, saved_bank);
+
+    cpu.read_byte(W_WILD_MON) != 0
 }
 
 fn apply_item(cpu: &mut Cpu, id: u8, target: Option<u8>, move_slot: Option<u8>) {

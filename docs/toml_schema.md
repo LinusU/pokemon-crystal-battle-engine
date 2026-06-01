@@ -58,7 +58,7 @@ For trainer battles the enemy party and the trainer's AI items are loaded from R
 | `trainer` | string | for `trainer_battle` | Trainer name. Case- and punctuation-insensitive. Resolved via [`src/bootstrap/trainers.rs`](../src/bootstrap/trainers.rs): every battleable trainer instance in the game is addressable by a `CLASS_id` slug (e.g. `"YOUNGSTER_1"`, `"lt_surge 1"`), and the unique trainers also accept friendly aliases (`"Whitney"`, `"Lance"`, `"Red"`, `"Blue"`, `"Eusine"`, …). |
 | `seed` | integer | no | 64-bit seed for the deterministic battle RNG. Accepts decimal or hex (`0xdeadbeef`). If omitted, the harness picks one from system entropy and logs it on stderr so the same run can be replayed. See [`src/runtime/cpu.rs`](../src/runtime/cpu.rs) (`Cpu::seed_rng`) and the `HARNESS-PATCH` in [`src/game/home/random.rs`](../src/game/home/random.rs). |
 
-The battle is always driven from the terminal — see [`src/bootstrap/cli.rs`](../src/bootstrap/cli.rs). All in-battle menus (action / move / forced switch / "switch out enemy mon" prompt) become numbered lists on stdin; "press A to continue" waits are auto-advanced. The glium window still renders. Items currently support Potion-class (healing, status heals, revives), PP restores, and the in-battle X-items. In a wild battle the action menu also lists each Poké Ball in the Balls pocket as a "Throw …" entry; throwing one currently just consumes the turn (the catch roll is not driven yet) and is recorded as an `item` step. Balls are never offered in a trainer battle.
+The battle is always driven from the terminal — see [`src/bootstrap/cli.rs`](../src/bootstrap/cli.rs). All in-battle menus (action / move / forced switch / "switch out enemy mon" prompt) become numbered lists on stdin; "press A to continue" waits are auto-advanced. The glium window still renders. Items currently support Potion-class (healing, status heals, revives), PP restores, and the in-battle X-items. In a wild battle the action menu also lists each Poké Ball in the Balls pocket as a "Throw …" entry, recorded as an `item` step. Throwing one drives the engine's real catch routine: on a successful catch the wild mon is added to the party and the battle ends with `outcome = "caught"`; on a failed throw the ball is consumed and the turn passes to the enemy. Balls are never offered in a trainer battle.
 
 ## Random battles — `--random` (and `--seed <n>`)
 
@@ -183,9 +183,9 @@ The captured shape, per step, mirrors [`src/bootstrap/snapshot.rs`](../src/boots
 | `expect.<side>.active.{species,level,hp,max_hp,status}` | The active mon's vitals. `status` is one of `none`, `sleep`, `poison`, `burn`, `freeze`, `paralysis`, `toxic`. |
 | `expect.<side>.active.pp` | A 4-element array of current PP (PP Ups masked off). Enemy PP isn't visible to the player, so the enemy's reads as `[0,0,0,0]`. |
 | `expect.<side>.party` | An array of inline tables, one per party slot in order: `{ species, level, hp, max_hp, status }`. Both the player's and the enemy's full parties are captured, so benched-mon changes (status spikes, healing) are asserted too. |
-| `expect.battle.outcome` | `win` / `loss` / `draw`. Written only on the final step (after the battle ends). |
+| `expect.battle.outcome` | `win` / `loss` / `draw` / `caught`. Written only on the final step (after the battle ends). `caught` is a wild-mon capture with a Poké Ball. |
 
-HP/Max-HP are decoded from the big-endian `wBattleMon` / `wEnemyMon` / `party_struct` fields; `outcome` from the low nibble of `wBattleResult`. See [Memory layout](memory_layout.md#in-battle-state-read-by-the-snapshot-reader).
+HP/Max-HP are decoded from the big-endian `wBattleMon` / `wEnemyMon` / `party_struct` fields; `outcome` from the low nibble of `wBattleResult` — except `caught`, which the engine reports as a WIN and the harness tracks via a side-channel set on the CLI capture path. See [Memory layout](memory_layout.md#in-battle-state-read-by-the-snapshot-reader).
 
 ## Playback — `--play <path>`
 

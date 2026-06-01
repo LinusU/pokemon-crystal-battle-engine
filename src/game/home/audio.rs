@@ -632,6 +632,19 @@ pub fn wait_play_sfx(cpu: &mut Cpu) {
 
 pub fn wait_sfx(cpu: &mut Cpu) {
     cpu.pc = 0x3c55;
+    // HARNESS-PATCH: don't block on sound-effect completion when running headless.
+    // `WaitSFX` (home/audio.asm) spins in `wait_sfx_wait` polling the SFX
+    // `SOUND_CHANNEL_ON` bits (0xc1cc / 0xc1fe) until the playing SFX finishes.
+    // In the capture flow `Text_GotchaMonWasCaught` (engine/items/item_effects.asm)
+    // calls `WaitSFX` and the catch-jingle / preceding SFX channel never clears in
+    // this harness, so the wait never returns and the battle hangs. There is no
+    // audio output to wait for, so returning immediately is always correct — the
+    // audio analogue of the joypad / vblank HARNESS-PATCHes. `hl` (the text-script
+    // pointer the callers stash here) is left untouched, matching the asm's `push hl`
+    // / `pop hl` round trip. See docs/transpiled_code.md.
+    cpu.pc = cpu.pop_word();
+    cpu.cycle(16);
+    return;
     cpu.push_word(cpu.hl());
     cpu.pc += 1;
     cpu.cycle(16);

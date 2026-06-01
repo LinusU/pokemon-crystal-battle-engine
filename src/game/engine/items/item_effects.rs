@@ -858,10 +858,29 @@ pub(crate) fn poke_ball_effect_not_kurt_ball(cpu: &mut Cpu) {
     cpu.pc += 2;
     cpu.cycle(8);
     let next_pc = cpu.pc + 3;
-    cpu.push_word(next_pc);
+    // HARNESS-PATCH: skip the ball-throw battle animation (`predef PlayBattleAnim`
+    // with `ANIM_THROW_POKE_BALL`; asm engine/items/item_effects.asm:406). Headless,
+    // its OAM-update loop (`battle_anim_oam_update_loop`) never terminates — the
+    // sprite slots it polls are serviced by the on-screen OAM pipeline we don't run.
+    // (Ordinary move animations take a different, terminating script and run fine, so
+    // this is scoped to the ball throw only, not PlayBattleAnim in general.) The
+    // authoritative catch result already lives in `wWildMon` (0xc64e), written by
+    // `.catch_without_fail` / `.fail_to_catch` BEFORE this call, and that is exactly
+    // what the code right below reads to branch to `.caught` vs the break-free path.
+    // The animation's only side effect on control flow is `wThrownBallWobbleCount`
+    // (0xd1eb): the break-free path (below) reads it to pick which "broke free" flavour
+    // text to print, treating 1..=4 as "escaped" and falling through to `.caught`
+    // otherwise. It was just zeroed (`xor a; ld [wThrownBallWobbleCount], a` above), so
+    // if we skipped the anim AND broke free it would wrongly fall through to `.caught`.
+    // To keep the catch/escape decision correct we set it to 1 ("broke free") on an
+    // escape; on a catch `wWildMon != 0` short-circuits to `.caught` and the value is
+    // ignored. Then skip the `predef` call (don't push/invoke), leaving PC where it
+    // would have returned. See docs/transpiled_code.md and bootstrap::cli.
+    if cpu.read_byte(0xc64e) == 0 {
+        cpu.write_byte(0xd1eb, 1);
+    }
+    cpu.pc = next_pc;
     cpu.cycle(24);
-    crate::game::home::predef::predef(cpu);
-    assert_eq!(cpu.pc, next_pc);
     cpu.a = cpu.read_byte(0xc64e);
     cpu.pc += 3;
     cpu.cycle(16);
@@ -3413,6 +3432,23 @@ pub(crate) fn text_gotcha_mon_was_caught_text_asm_0(cpu: &mut Cpu) {
 
 pub(crate) fn return_to_battle_use_ball(cpu: &mut Cpu) {
     cpu.pc = 0x6dfa;
+    // HARNESS-PATCH: no-op the post-pack-menu battle-screen redraw when running
+    // headless. `poke_ball_effect` calls this (asm `.room_in_party`,
+    // engine/items/item_effects.asm:235) to repaint the battle scene after the
+    // bag UI closes — its body (`_ReturnToBattle_UseBall`,
+    // engine/battle/returntobattle_useball.asm) is purely cosmetic
+    // (ClearBGPalettes / ClearTilemap / GetBattleMonBackpic / GetEnemyMonFrontpic /
+    // CloseWindow / LoadStandardMenuHeader / WaitBGMap / SetDefaultBGPAndOBP).
+    // The CLI driver's `battle_menu` patch never opens the engine's pack-menu
+    // window, so the `CloseWindow` inside spins forever in
+    // `error_cant_exit_menu_infinite_loop` (the window stack is empty). This is
+    // the same "skip UI cleanup that assumes an overlay we never opened" pattern
+    // as the `offer_switch` / `try_player_switch` patches in
+    // engine/battle/core.rs. Return immediately (the caller pushed our return
+    // address). See docs/transpiled_code.md and bootstrap::cli.
+    cpu.pc = cpu.pop_word();
+    cpu.cycle(16);
+    return;
     cpu.a = 0x09;
     cpu.pc += 2;
     cpu.cycle(8);

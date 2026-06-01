@@ -136,6 +136,11 @@ pub enum Outcome {
     Win,
     Loss,
     Draw,
+    /// The wild mon was caught with a Poké Ball. The engine reports a capture
+    /// as a plain WIN in `wBattleResult` (the catch path masks the result to
+    /// WIN — see `engine/battle/core.asm` `.run`), so this variant is driven by
+    /// the harness side-channel `cpu.caught_wild_mon`, not by WRAM.
+    Caught,
 }
 
 impl Outcome {
@@ -145,13 +150,22 @@ impl Outcome {
             Outcome::Win => "win",
             Outcome::Loss => "loss",
             Outcome::Draw => "draw",
+            Outcome::Caught => "caught",
         }
     }
 }
 
 /// Read the engine's battle outcome flag. Only meaningful once the battle has
 /// ended (i.e. after `start_battle` returns).
+///
+/// A capture is reported by the engine as a WIN (the catch path masks
+/// `wBattleResult` to WIN), so it is indistinguishable from a KO win in WRAM.
+/// The CLI capture path sets `cpu.caught_wild_mon` when a thrown ball succeeds;
+/// we check that side-channel first so a capture surfaces as `Outcome::Caught`.
 pub fn read_outcome(cpu: &Cpu) -> Outcome {
+    if cpu.caught_wild_mon {
+        return Outcome::Caught;
+    }
     match cpu.read_byte(W_BATTLE_RESULT) & BATTLE_RESULT_OUTCOME_MASK {
         0 => Outcome::Win,
         1 => Outcome::Loss,

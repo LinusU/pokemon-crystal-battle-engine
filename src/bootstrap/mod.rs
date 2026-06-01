@@ -142,7 +142,7 @@ const BANK_START_BATTLE: u8 = 0x0f;
 /// Mirror what the engine's `Bankswitch` routine does: update the in-HRAM
 /// shadow of the current bank (`hROMBank` = `0xff9d`) and the MBC bank-select
 /// register so subsequent ROM reads from 0x4000..0x7fff hit the right bank.
-fn switch_bank(cpu: &mut Cpu, bank: u8) {
+pub(crate) fn switch_bank(cpu: &mut Cpu, bank: u8) {
     cpu.write_byte(0xff9d, bank);
     cpu.write_byte(crate::defs::R_ROMB as u16, bank);
 }

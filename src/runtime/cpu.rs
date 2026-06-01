@@ -34,6 +34,14 @@ pub struct Cpu {
     /// both the action and the move pick even though the engine re-enters
     /// `move_selection_screen` separately.
     pub cli_pending_move: Option<u8>,
+    /// Set by the CLI capture path (`bootstrap::cli` `Action::Ball`) when a
+    /// thrown Poké Ball caught the wild mon. The engine reports a catch as a
+    /// plain WIN in `wBattleResult`, so there is no in-WRAM signal that
+    /// distinguishes "won by KO" from "won by capture". This flag is the
+    /// harness side-channel `snapshot::read_outcome` keys on to report
+    /// `Outcome::Caught`. Reset per battle is unnecessary — a fresh `Cpu` is
+    /// built for each run.
+    pub caught_wild_mon: bool,
     /// Open recording file. When `Some`, the CLI driver appends one
     /// `[[step]]` block per resolved decision (the action plus the `expect`
     /// state it produced) and flushes after each write so a mid-battle crash
@@ -105,6 +113,7 @@ impl Default for Cpu {
             keypad: Keypad::default(),
             skip_intro_to_battle: false,
             cli_pending_move: None,
+            caught_wild_mon: false,
             recorder: None,
             player: None,
             mbc: Mbc::new(crate::rom::ROM),
