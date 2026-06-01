@@ -38,6 +38,12 @@ const W_BATTLE_MON_STATUS: u16 = 0xc63a;
 const W_BATTLE_MON_HP: u16 = 0xc63c;
 const W_BATTLE_MON_MAX_HP: u16 = 0xc63e;
 
+// `wPlayerSubStatus3` holds the active player mon's battle-only sub-statuses.
+// Confusion (`SUBSTATUS_CONFUSED`, bit 7) lives here, NOT in the party/battle
+// status byte — it only exists on the active battler. See
+// `scratch/pokecrystal/constants/battle_constants.asm` (SubStatus3 bits) and
+// `pokecrystal.sym` (`00:c66a wPlayerSubStatus3`).
+const W_PLAYER_SUB_STATUS_3: u16 = 0xc66a;
 const W_ENEMY_SUB_STATUS_5: u16 = 0xc671;
 const W_CUR_PLAYER_MOVE: u16 = 0xc6e3;
 const W_LAST_PLAYER_MON: u16 = 0xc71a;
@@ -74,6 +80,18 @@ const PARTY_OFFSET_MAX_HP: u16 = 36;
 
 // A party mon (and the active battle-mon mirror) holds 4 move + 4 PP slots.
 const MOVE_SLOTS: u16 = 4;
+
+// Bit of `SUBSTATUS_CONFUSED` within `wPlayerSubStatus3`. The SubStatus3 bit
+// list in `constants/battle_constants.asm` is BIDE=0, RAMPAGE=1, IN_LOOP=2,
+// FLINCHED=3, CHARGED=4, UNDERGROUND=5, FLYING=6, CONFUSED=7, so the mask is
+// `1 << 7`.
+const SUBSTATUS_CONFUSED_MASK: u8 = 1 << 7;
+
+/// Is the active player mon confused, given its `wPlayerSubStatus3` byte?
+/// Pure helper so the bit test is unit-testable without a `Cpu`.
+fn is_active_confused(sub_status3: u8) -> bool {
+    sub_status3 & SUBSTATUS_CONFUSED_MASK != 0
+}
 
 // ---------------------------------------------------------------------------
 
@@ -342,8 +360,17 @@ fn prompt_action(cpu: &Cpu) -> Action {
     // refuses the rest ("It wouldn't have any effect"), so we don't surface
     // them as choices. Balls and other items go through the engine's bag UI,
     // which we currently bypass.
+    //
+    // Active-mon items (Bitter Berry) are a parallel case: they act on the
+    // active battler and take NO party target, so they're keyed off a
+    // sub-status check rather than `item_valid_targets`. They carry
+    // `target: None`, which `apply_item` resolves to the active mon, and they
+    // skip the target prompt below.
     for (id, qty) in read_pocket(cpu, W_NUM_ITEMS) {
-        if item_valid_targets(cpu, id).is_empty() {
+        // Offer the item if it would do something: an active-mon item when the
+        // active battler currently qualifies (Bitter Berry → confused), or a
+        // party-target item when at least one party mon qualifies.
+        if !active_item_usable(cpu, id) && item_valid_targets(cpu, id).is_empty() {
             continue;
         }
         entries.push((
@@ -364,11 +391,16 @@ fn prompt_action(cpu: &Cpu) -> Action {
     let pick = prompt_index("> ", entries.len());
     let mut chosen = entries[pick].1;
 
-    // Every directly-usable item targets one party mon. We prompt for it here
-    // so the action menu shows one line per item (not one line per item×target).
-    // Single-move PP items (Ether / Max Ether / MysteryBerry) then prompt for
-    // which of that mon's moves to restore.
+    // Active-mon items (Bitter Berry) act on the active battler — no party
+    // target, no move prompt — so they're left exactly as built above
+    // (`target: None`). Every OTHER directly-usable item targets one party mon;
+    // we prompt for it here so the action menu shows one line per item (not one
+    // line per item×target). Single-move PP items (Ether / Max Ether /
+    // MysteryBerry) then prompt for which of that mon's moves to restore.
     if let Action::Item { id, .. } = chosen {
+        if active_item_usable(cpu, id) {
+            return chosen;
+        }
         let target_slot = prompt_item_target(cpu, id);
         let move_slot = if is_single_move_pp_item(id) {
             Some(prompt_pp_move_slot(cpu, id, target_slot))
@@ -521,6 +553,13 @@ enum ItemEffect {
     /// per-move PP, so it's special-cased in [`item_valid_targets`] /
     /// [`ItemEffect::affects`] rather than judged by vitals.
     PpOne { amount: Option<u8> },
+    /// Clears `SUBSTATUS_CONFUSED` on the active player mon (Bitter Berry). Unlike
+    /// every other effect, confusion is a battle-only sub-status that lives in
+    /// `wPlayerSubStatus3`, not the party struct — so this item has NO party
+    /// target (it always acts on the active battler) and its validity is judged
+    /// from the sub-status byte, not vitals. It's surfaced as an "active-mon item"
+    /// in [`prompt_action`] rather than going through the party-target machinery.
+    ActiveConfusion,
 }
 
 impl ItemEffect {
@@ -538,7 +577,12 @@ impl ItemEffect {
             ItemEffect::Revive => hp == 0,
             ItemEffect::Status(mask) => hp != 0 && status & mask != 0,
             ItemEffect::FullRestore => hp != 0 && (hp < max_hp || status != 0),
-            ItemEffect::PpAll { .. } | ItemEffect::PpOne { .. } => false,
+            // PP and confusion aren't vitals — these never reach `affects`
+            // (`item_valid_targets` / the active-mon branch judge them), so this
+            // returns `false` defensively.
+            ItemEffect::PpAll { .. } | ItemEffect::PpOne { .. } | ItemEffect::ActiveConfusion => {
+                false
+            }
         }
     }
 }
@@ -580,7 +624,12 @@ fn item_effect(id: u8) -> Option<ItemEffect> {
         0x4f => ItemEffect::Status(1 << defs::FRZ as u8), // Burnt Berry — freeze
         0x50 => ItemEffect::Status(1 << defs::BRN as u8), // Ice Berry — burn
         0x54 => ItemEffect::Status(defs::SLP_MASK),       // Mint Berry — sleep counter
-        // TODO(confusion): MiracleBerry also clears confusion on the active mon.
+        // Bitter Berry — clears confusion on the active mon. Battle-only
+        // sub-status; no party target. See `BitterBerryEffect`
+        // (`scratch/pokecrystal/engine/items/item_effects.asm`).
+        0x53 => ItemEffect::ActiveConfusion,
+        // MiracleBerry — any status byte bit, AND confusion on the active mon
+        // (handled in `apply_item`). See `MysteryBerryEffect` / `StatusHealer`.
         0x6d => ItemEffect::Status(0xff),                 // MiracleBerry — any status
         0x7b => ItemEffect::Status(0xff),                 // Heal Powder — any status
         _ => return None,
@@ -598,6 +647,9 @@ fn item_valid_targets(cpu: &Cpu, id: u8) -> Vec<u8> {
     let n = cpu.read_byte(W_PARTY_COUNT);
     (0..n)
         .filter(|&slot| match effect {
+            // Active-mon items have no party target — they're offered via the
+            // active-mon branch in `prompt_action`, never the party-target path.
+            ItemEffect::ActiveConfusion => false,
             // PP isn't a vital, so `affects` can't judge PP items. A PP restore
             // applies to any mon — alive or fainted (RestorePP has no faint
             // guard, so the game lets you Ether/Elixer a fainted mon) — that has
@@ -648,6 +700,19 @@ fn is_single_move_pp_item(id: u8) -> bool {
     matches!(item_effect(id), Some(ItemEffect::PpOne { .. }))
 }
 
+/// Whether `id` is an active-mon item (acts on the active battler, takes no
+/// party target) AND is usable right now — i.e. the active mon is currently
+/// confused for Bitter Berry. Returns `false` for every party-target item.
+/// Drives whether the active-mon item appears in the action menu.
+fn active_item_usable(cpu: &Cpu, id: u8) -> bool {
+    match item_effect(id) {
+        Some(ItemEffect::ActiveConfusion) => {
+            is_active_confused(cpu.read_byte(W_PLAYER_SUB_STATUS_3))
+        }
+        _ => false,
+    }
+}
+
 fn apply_item(cpu: &mut Cpu, id: u8, target: Option<u8>, move_slot: Option<u8>) {
     let slot = target.unwrap_or_else(|| cpu.read_byte(W_CUR_BATTLE_MON));
     let base = party_slot_addr(slot);
@@ -656,6 +721,16 @@ fn apply_item(cpu: &mut Cpu, id: u8, target: Option<u8>, move_slot: Option<u8>) 
     // part of its HP arm below.
     if let Some(ItemEffect::Status(mask)) = item_effect(id) {
         clear_status_bits(cpu, slot, mask);
+    }
+
+    // Confusion is a battle-only sub-status on the active mon, separate from the
+    // status byte. Bitter Berry (`ActiveConfusion`, always the active mon) and
+    // MiracleBerry (when its chosen target IS the active slot) clear it. Mirrors
+    // `BitterBerryEffect`: `res SUBSTATUS_CONFUSED, [wPlayerSubStatus3]`.
+    let clears_confusion = matches!(item_effect(id), Some(ItemEffect::ActiveConfusion))
+        || (id == 0x6d && slot == cpu.read_byte(W_CUR_BATTLE_MON));
+    if clears_confusion {
+        clear_active_confusion(cpu);
     }
 
     // Healing.
@@ -795,6 +870,16 @@ fn mirror_battle_mon_pp(cpu: &mut Cpu, move_id: u8, pp_byte: u8) {
             return;
         }
     }
+}
+
+/// Clear `SUBSTATUS_CONFUSED` (bit 7) on the active player mon, mirroring
+/// `BitterBerryEffect` (`res SUBSTATUS_CONFUSED, [wPlayerSubStatus3]`). The asm
+/// clears ONLY the bit — it does not zero `wPlayerConfuseCount` — so neither do
+/// we. The natural confusion-decrement loop (`effect_commands.asm`) gates on the
+/// bit, so a now-stale counter is never read again unless confusion is re-set.
+fn clear_active_confusion(cpu: &mut Cpu) {
+    let v = cpu.read_byte(W_PLAYER_SUB_STATUS_3);
+    cpu.write_byte(W_PLAYER_SUB_STATUS_3, v & !SUBSTATUS_CONFUSED_MASK);
 }
 
 fn clear_status_bits(cpu: &mut Cpu, slot: u8, mask: u8) {
@@ -1112,6 +1197,42 @@ mod tests {
         assert_eq!(move_pp::max_pp(id, with_ups), 49);
         assert_eq!(restore(with_ups, Some(10)), 0x80 | 40);
         assert_eq!(restore(with_ups, None), 0x80 | 49);
+    }
+
+    #[test]
+    fn bitter_berry_is_an_active_confusion_item() {
+        // Bitter Berry (0x53) clears confusion on the active mon.
+        assert!(
+            matches!(effect(0x53), ItemEffect::ActiveConfusion),
+            "Bitter Berry is an active-mon confusion item",
+        );
+        // It's never judged by vitals and never offered as a party-target item.
+        assert!(!effect(0x53).affects(20, 20, 0), "vitals never claim an effect");
+        assert!(!effect(0x53).affects(0, 20, 0), "vitals never claim an effect");
+        // It is NOT a single-move PP item (no move-slot prompt).
+        assert!(!is_single_move_pp_item(0x53), "Bitter Berry has no move-slot prompt");
+    }
+
+    /// `SUBSTATUS_CONFUSED` is bit 7 of `wPlayerSubStatus3`; the helper reports
+    /// confusion iff that bit is set, ignoring the other SubStatus3 bits.
+    #[test]
+    fn confusion_mask_is_bit_7() {
+        assert_eq!(SUBSTATUS_CONFUSED_MASK, 0x80);
+        assert!(is_active_confused(0x80), "bit 7 set — confused");
+        assert!(is_active_confused(0xff), "all bits set — confused");
+        assert!(!is_active_confused(0x00), "no bits — not confused");
+        // Every other SubStatus3 bit (BIDE..FLYING = bits 0..6) without bit 7
+        // must NOT read as confused.
+        for bit in 0..7u8 {
+            assert!(
+                !is_active_confused(1 << bit),
+                "bit {bit} alone is not confusion",
+            );
+        }
+        // Clearing bit 7 mirrors `res SUBSTATUS_CONFUSED, [hl]` and leaves the
+        // other bits intact.
+        let with_other = 0x80 | (1 << 6); // CONFUSED + FLYING
+        assert_eq!(with_other & !SUBSTATUS_CONFUSED_MASK, 1 << 6);
     }
 
     #[test]
