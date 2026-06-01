@@ -44,6 +44,18 @@ const W_BATTLE_MON_MAX_HP: u16 = 0xc63e;
 // `scratch/pokecrystal/constants/battle_constants.asm` (SubStatus3 bits) and
 // `pokecrystal.sym` (`00:c66a wPlayerSubStatus3`).
 const W_PLAYER_SUB_STATUS_3: u16 = 0xc66a;
+// `wPlayerSubStatus4` holds another byte of the active player mon's battle-only
+// sub-statuses. The three in-battle "X" items that set a single bit here live in
+// this byte: X Accuracy (`SUBSTATUS_X_ACCURACY`, bit 0), Guard Spec
+// (`SUBSTATUS_MIST`, bit 1) and Dire Hit (`SUBSTATUS_FOCUS_ENERGY`, bit 2). The
+// SubStatus4 bit list in `scratch/pokecrystal/constants/battle_constants.asm`
+// (`const_def` from 0) is X_ACCURACY=0, MIST=1, FOCUS_ENERGY=2, then a
+// `const_skip`, SUBSTITUTE=4, RECHARGE=5, RAGE=6, LEECH_SEED=7 — so the masks
+// are `1 << 0`, `1 << 1`, `1 << 2`. `pokecrystal.sym`: `00:c66b wPlayerSubStatus4`.
+const W_PLAYER_SUB_STATUS_4: u16 = 0xc66b;
+const SUBSTATUS_X_ACCURACY_MASK: u8 = 1 << 0;
+const SUBSTATUS_MIST_MASK: u8 = 1 << 1;
+const SUBSTATUS_FOCUS_ENERGY_MASK: u8 = 1 << 2;
 const W_ENEMY_SUB_STATUS_5: u16 = 0xc671;
 
 // The active player mon's COMPUTED, stage-adjusted battle stats — 5 big-endian
@@ -602,6 +614,18 @@ enum ItemEffect {
     /// (`scratch/pokecrystal/engine/items/item_effects.asm`,
     /// `engine/battle/effect_commands.asm`).
     ActiveStatUp(u8),
+    /// Sets a single sub-status bit `mask` in the byte at `addr` on the active
+    /// player mon, refusing if it's already set (X Accuracy → `SUBSTATUS_X_ACCURACY`,
+    /// Guard Spec → `SUBSTATUS_MIST`, Dire Hit → `SUBSTATUS_FOCUS_ENERGY`, all in
+    /// `wPlayerSubStatus4`). Like [`ItemEffect::ActiveConfusion`] (which is the
+    /// inverse — a bit-CLEAR) this acts on the active battler with no party
+    /// target; its validity is judged from the sub-status byte (usable only while
+    /// the bit is CLEAR), so it's an "active-mon item" in [`prompt_action`]. See
+    /// `XAccuracyEffect` / `GuardSpecEffect` / `DireHitEffect`
+    /// (`scratch/pokecrystal/engine/items/item_effects.asm`), each literally a
+    /// `bit`/`set` of its mask in `wPlayerSubStatus4`. There is no separate Mist
+    /// timer in Gen II — Guard Spec just sets the MIST bit.
+    ActiveSubStatusSet { addr: u16, mask: u8 },
 }
 
 impl ItemEffect {
@@ -625,7 +649,8 @@ impl ItemEffect {
             ItemEffect::PpAll { .. }
             | ItemEffect::PpOne { .. }
             | ItemEffect::ActiveConfusion
-            | ItemEffect::ActiveStatUp(_) => false,
+            | ItemEffect::ActiveStatUp(_)
+            | ItemEffect::ActiveSubStatusSet { .. } => false,
         }
     }
 }
@@ -678,6 +703,22 @@ fn item_effect(id: u8) -> Option<ItemEffect> {
         0x33 => ItemEffect::ActiveStatUp(STAT_DEFENSE),   // X Defend
         0x34 => ItemEffect::ActiveStatUp(STAT_SPEED),     // X Speed
         0x35 => ItemEffect::ActiveStatUp(STAT_SP_ATTACK), // X Special
+        // In-battle sub-status setters — set one bit of `wPlayerSubStatus4` on
+        // the active mon, refusing if already set. See `XAccuracyEffect` /
+        // `GuardSpecEffect` / `DireHitEffect`
+        // (`scratch/pokecrystal/engine/items/item_effects.asm`).
+        0x21 => ItemEffect::ActiveSubStatusSet {
+            addr: W_PLAYER_SUB_STATUS_4,
+            mask: SUBSTATUS_X_ACCURACY_MASK,
+        }, // X Accuracy
+        0x29 => ItemEffect::ActiveSubStatusSet {
+            addr: W_PLAYER_SUB_STATUS_4,
+            mask: SUBSTATUS_MIST_MASK,
+        }, // Guard Spec (sets MIST — no separate timer in Gen II)
+        0x2c => ItemEffect::ActiveSubStatusSet {
+            addr: W_PLAYER_SUB_STATUS_4,
+            mask: SUBSTATUS_FOCUS_ENERGY_MASK,
+        }, // Dire Hit
         // MiracleBerry — any status byte bit, AND confusion on the active mon
         // (handled in `apply_item`). See `MysteryBerryEffect` / `StatusHealer`.
         0x6d => ItemEffect::Status(0xff),                 // MiracleBerry — any status
@@ -699,7 +740,9 @@ fn item_valid_targets(cpu: &Cpu, id: u8) -> Vec<u8> {
         .filter(|&slot| match effect {
             // Active-mon items have no party target — they're offered via the
             // active-mon branch in `prompt_action`, never the party-target path.
-            ItemEffect::ActiveConfusion | ItemEffect::ActiveStatUp(_) => false,
+            ItemEffect::ActiveConfusion
+            | ItemEffect::ActiveStatUp(_)
+            | ItemEffect::ActiveSubStatusSet { .. } => false,
             // PP isn't a vital, so `affects` can't judge PP items. A PP restore
             // applies to any mon — alive or fainted (RestorePP has no faint
             // guard, so the game lets you Ether/Elixer a fainted mon) — that has
@@ -762,6 +805,11 @@ fn active_item_usable(cpu: &Cpu, id: u8) -> bool {
             is_active_confused(cpu.read_byte(W_PLAYER_SUB_STATUS_3))
         }
         Some(ItemEffect::ActiveStatUp(stat)) => stat_level_can_raise(cpu, stat),
+        // Usable only while the bit is CLEAR — mirrors the asm's
+        // `bit mask, [hl] / jp nz, WontHaveAnyEffect` refusal once it's set.
+        Some(ItemEffect::ActiveSubStatusSet { addr, mask }) => {
+            cpu.read_byte(addr) & mask == 0
+        }
         _ => false,
     }
 }
@@ -803,6 +851,15 @@ fn apply_item(cpu: &mut Cpu, id: u8, target: Option<u8>, move_slot: Option<u8>) 
     // active battler is always the subject, like the confusion case above.
     if let Some(ItemEffect::ActiveStatUp(stat)) = item_effect(id) {
         raise_active_stat(cpu, stat);
+    }
+
+    // In-battle sub-status setters (X Accuracy / Guard Spec / Dire Hit): OR in
+    // one bit of `wPlayerSubStatus4` on the active mon, preserving the others.
+    // Mirrors `set mask, [wPlayerSubStatus4]` in the asm. No party target — the
+    // active battler is always the subject, like the cases above.
+    if let Some(ItemEffect::ActiveSubStatusSet { addr, mask }) = item_effect(id) {
+        let v = cpu.read_byte(addr);
+        cpu.write_byte(addr, v | mask);
     }
 
     // Healing.
@@ -1257,7 +1314,6 @@ mod tests {
     fn unsupported_items_are_unclassified() {
         assert!(item_effect(0x01).is_none(), "Master Ball");
         assert!(item_effect(0x20).is_none(), "Rare Candy");
-        assert!(item_effect(0x2c).is_none(), "Dire Hit (not yet supported)");
         assert!(item_effect(0x32).is_none(), "ITEM_32 (no in-battle effect)");
     }
 
@@ -1390,6 +1446,67 @@ mod tests {
         let next = |lvl: u8| if lvl >= MAX_STAT_LEVEL { lvl } else { lvl + 1 };
         assert_eq!(next(MAX_STAT_LEVEL - 1), MAX_STAT_LEVEL, "12 → 13");
         assert_eq!(next(MAX_STAT_LEVEL), MAX_STAT_LEVEL, "13 stays 13 (clamp)");
+    }
+
+    /// X Accuracy / Guard Spec / Dire Hit each set one bit of `wPlayerSubStatus4`
+    /// on the active mon. Item→(addr, mask) mapping from `XAccuracyEffect` /
+    /// `GuardSpecEffect` / `DireHitEffect` (`engine/items/item_effects.asm`) and
+    /// the SubStatus4 `const_def` (X_ACCURACY=0, MIST=1, FOCUS_ENERGY=2).
+    #[test]
+    fn substatus_set_items_map_to_addr_and_mask() {
+        // The masks are the first three SubStatus4 bits.
+        assert_eq!(SUBSTATUS_X_ACCURACY_MASK, 0x01);
+        assert_eq!(SUBSTATUS_MIST_MASK, 0x02);
+        assert_eq!(SUBSTATUS_FOCUS_ENERGY_MASK, 0x04);
+        for (id, mask) in [
+            (0x21u8, SUBSTATUS_X_ACCURACY_MASK),   // X Accuracy → X_ACCURACY
+            (0x29, SUBSTATUS_MIST_MASK),           // Guard Spec → MIST
+            (0x2c, SUBSTATUS_FOCUS_ENERGY_MASK),   // Dire Hit → FOCUS_ENERGY
+        ] {
+            assert!(
+                matches!(
+                    effect(id),
+                    ItemEffect::ActiveSubStatusSet { addr, mask: m }
+                        if addr == W_PLAYER_SUB_STATUS_4 && m == mask
+                ),
+                "item {id:#x} sets bit {mask:#x} of wPlayerSubStatus4",
+            );
+            // Never judged by vitals, never a single-move PP item.
+            assert!(!effect(id).affects(20, 20, 0), "vitals never claim an effect");
+            assert!(!effect(id).affects(0, 20, 0), "vitals never claim an effect");
+            assert!(!is_single_move_pp_item(id), "no move-slot prompt");
+        }
+    }
+
+    /// "Usable iff the bit is clear" and "applying ORs in the bit, preserving the
+    /// others" — the two halves of `bit`/`set mask, [wPlayerSubStatus4]`. Tested
+    /// against the masks directly (the same predicate `active_item_usable` and
+    /// `apply_item` use) so no `Cpu` is needed.
+    #[test]
+    fn substatus_set_usable_iff_clear_and_apply_preserves_others() {
+        let usable = |byte: u8, mask: u8| byte & mask == 0;
+        let apply = |byte: u8, mask: u8| byte | mask;
+        for mask in [
+            SUBSTATUS_X_ACCURACY_MASK,
+            SUBSTATUS_MIST_MASK,
+            SUBSTATUS_FOCUS_ENERGY_MASK,
+        ] {
+            // Clear → usable; once set → refused (hidden).
+            assert!(usable(0x00, mask), "bit clear — usable");
+            assert!(!usable(mask, mask), "bit already set — refused");
+            assert!(!usable(0xff, mask), "all bits set — refused");
+            // Applying sets the bit and leaves every OTHER bit untouched.
+            let other = 0xffu8 & !mask; // all the bits this item must not touch
+            assert_eq!(apply(other, mask), 0xff, "OR sets our bit, keeps the rest");
+            assert_eq!(apply(0x00, mask), mask, "from clear, only our bit is set");
+            // Re-applying when already set is a no-op (idempotent OR).
+            assert_eq!(apply(mask, mask), mask, "already set — unchanged");
+        }
+        // The three masks are distinct bits, so the items never interfere.
+        assert_eq!(
+            SUBSTATUS_X_ACCURACY_MASK | SUBSTATUS_MIST_MASK | SUBSTATUS_FOCUS_ENERGY_MASK,
+            0x07,
+        );
     }
 
     /// `apply_stat_multiplier` mirrors `ApplyStatLevelMultiplier`: `base * num /
