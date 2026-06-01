@@ -1,0 +1,15 @@
+[battle]
+type = "wild_encounter"
+seed = 0x0000000000005353
+
+[[player_party]]
+species = "Feraligatr"
+level = 50
+
+[[player_items]]
+name = "Master Ball"
+quantity = 1
+
+[[enemy_party]]
+species = "Pidgey"
+level = 5
