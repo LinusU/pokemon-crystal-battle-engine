@@ -99,6 +99,10 @@ const W_BATTLE_PLAYER_ACTION: u16 = 0xd0ec;
 const W_CUR_ITEM: u16 = 0xd106;
 const W_CUR_PARTY_MON: u16 = 0xd109;
 const W_ITEM_QUANTITY_CHANGE: u16 = 0xd10c;
+/// `wNamedObjectIndex` — the id `GetItemName` reads to fill `wStringBuffer2`,
+/// which "<PLAYER> used the …" prints from. Set by the engine's `DoItemEffect`
+/// preamble; we replicate it when driving an item routine directly.
+const W_NAMED_OBJECT_INDEX: u16 = 0xd265;
 
 const W_PARTY_COUNT: u16 = 0xdcd7;
 const W_PARTY_MON1: u16 = 0xdcdf;
@@ -1007,12 +1011,38 @@ fn stat_level_can_raise(cpu: &Cpu, stat: u8) -> bool {
 /// leaves it zero on a failed throw — exactly what the engine's
 /// `BattleMenu_Pack.UseItem` keys on (core.asm `.UseItem`: `ld a, [wWildMon] /
 /// and a / jr nz, .run`).
+/// Load `id`'s display name into `wStringBuffer2`, the way the engine's
+/// `DoItemEffect` does before invoking an item effect, so `UseItemText`'s
+/// "<PLAYER> used the <name>." prints the item name. Mirrors the preamble in
+/// the transpiled `_do_item_effect` (`wNamedObjectIndex` ← id, `GetItemName`,
+/// `CopyName1`). `GetItemName`/`CopyName1` are home-bank routines, callable
+/// without a bank switch.
+fn load_item_name(cpu: &mut Cpu, id: u8) {
+    // Both routines end in `ret` (`cpu.pc = pop_word()`), so push a sentinel
+    // return address before each call to keep the stack balanced — the same
+    // call discipline `_do_item_effect` uses.
+    cpu.write_byte(W_NAMED_OBJECT_INDEX, id);
+    let sentinel: u16 = 0xfffc;
+    cpu.push_word(sentinel);
+    crate::game::home::names::get_item_name(cpu);
+    cpu.push_word(sentinel);
+    crate::game::home::copy_name::copy_name1(cpu);
+}
+
 fn throw_ball(cpu: &mut Cpu, id: u8) -> bool {
     // `PokeBallEffect` reads `wCurItem` for the ball id and `wBattleMode` for the
     // wild/trainer check (already WILD here — balls are only offered in wild
     // battles). It increments the toss count from `wItemQuantityChange`, set to 1.
     cpu.write_byte(W_CUR_ITEM, id);
     cpu.write_byte(W_ITEM_QUANTITY_CHANGE, 1);
+
+    // `PokeBallEffect` prints "<PLAYER> used the <name>." via `UseItemText`,
+    // which reads the item name out of `wStringBuffer2`. Normally the engine's
+    // `DoItemEffect` dispatcher fills that buffer (set `wNamedObjectIndex`,
+    // `GetItemName`, `CopyName1`) before jumping to the effect; since we call the
+    // effect directly we must replicate that preamble or the name renders blank
+    // ("RED used the ."). Both routines live in the home bank, so no switch yet.
+    load_item_name(cpu, id);
 
     // Save the current ROM bank, switch to PokeBallEffect's bank, push a sentinel
     // return address (the routine ends in a `ret` via TossItem), call it, then
