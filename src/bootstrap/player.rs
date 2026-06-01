@@ -326,6 +326,12 @@ struct RawStep {
     id: Option<u8>,
     #[serde(default)]
     target: Option<u8>,
+    /// Single-move PP items (Ether / Max Ether / MysteryBerry) record the
+    /// 0-based move slot to restore. `move` is a Rust keyword, hence the rename.
+    /// Absent on older recordings and every non-PP-single item, where it parses
+    /// back as `None`.
+    #[serde(default, rename = "move")]
+    move_slot: Option<u8>,
     #[serde(default)]
     keep: Option<bool>,
     #[serde(default)]
@@ -334,7 +340,7 @@ struct RawStep {
 
 impl RawStep {
     fn into_play_step(self) -> Result<PlayStep, String> {
-        let RawStep { kind, slot, id, target, keep, expect } = self;
+        let RawStep { kind, slot, id, target, move_slot, keep, expect } = self;
         let step = match kind.as_str() {
             "move" => {
                 let slot = slot.ok_or("`move` step needs `slot`")?;
@@ -346,7 +352,7 @@ impl RawStep {
             }
             "item" => {
                 let id = id.ok_or("`item` step needs `id`")?;
-                Step::Item { id, target }
+                Step::Item { id, target, move_slot }
             }
             "run" => Step::Run,
             "forced_switch" => {
@@ -428,7 +434,7 @@ mod tests {
             .expect("install recorder");
         recorder::record(&cpu, Step::Move { slot: 0 });
         recorder::observe(&cpu, &snap(30, 22));
-        recorder::record(&cpu, Step::Item { id: 0x12, target: Some(1) });
+        recorder::record(&cpu, Step::Item { id: 0x12, target: Some(1), move_slot: None });
         recorder::finalize(&cpu, &snap(30, 0), Outcome::Win);
         cpu.recorder = None;
 
@@ -439,7 +445,10 @@ mod tests {
         assert_eq!(recording.source_scenario.as_deref(), Some(Path::new("scratch/cli.toml")));
         assert_eq!(recording.steps.len(), 2);
         assert!(matches!(recording.steps[0].step, Step::Move { slot: 0 }));
-        assert!(matches!(recording.steps[1].step, Step::Item { id: 0x12, target: Some(1) }));
+        assert!(matches!(
+            recording.steps[1].step,
+            Step::Item { id: 0x12, target: Some(1), move_slot: None }
+        ));
 
         // The first step's expect carries the observed enemy HP, no outcome.
         let e0 = &recording.steps[0].expect;
@@ -450,6 +459,70 @@ mod tests {
         let e1 = &recording.steps[1].expect;
         assert_eq!(e1.enemy.as_ref().unwrap().active.as_ref().unwrap().hp, Some(0));
         assert_eq!(e1.battle.as_ref().unwrap().outcome, Some(Outcome::Win));
+    }
+
+    /// A single-move PP item records a `move = N` key, which must round-trip
+    /// through the recorder and back into `Step::Item { move_slot: Some(N) }`.
+    #[test]
+    fn item_step_with_move_slot_round_trips() {
+        use super::super::recorder;
+
+        let text = r#"
+[recording]
+seed = "0x1"
+
+[[step]]
+kind = "item"
+id = 63
+target = 2
+move = 1
+"#;
+        let path = temp_path("movekey");
+        std::fs::write(&path, text).unwrap();
+        let rec = load(&path).expect("load");
+        let _ = std::fs::remove_file(&path);
+        assert_eq!(rec.steps.len(), 1);
+        assert!(matches!(
+            rec.steps[0].step,
+            Step::Item { id: 0x3f, target: Some(2), move_slot: Some(1) }
+        ));
+
+        // And the recorder writes a key the parser reads back identically.
+        let path = temp_path("movekey-rt");
+        let mut cpu = Cpu::default();
+        recorder::install(&mut cpu, &path, 1, None, None).expect("install");
+        recorder::record(&cpu, Step::Item { id: 0x40, target: Some(0), move_slot: Some(3) });
+        cpu.recorder = None;
+        let rec = load(&path).expect("load rt");
+        let _ = std::fs::remove_file(&path);
+        assert!(matches!(
+            rec.steps[0].step,
+            Step::Item { id: 0x40, target: Some(0), move_slot: Some(3) }
+        ));
+    }
+
+    /// CRITICAL backward-compat: an item step written before the `move` key
+    /// existed (no `move = N`) must still parse, with `move_slot = None`.
+    #[test]
+    fn item_step_without_move_key_parses_as_none() {
+        let text = r#"
+[recording]
+seed = "0x1"
+
+[[step]]
+kind = "item"
+id = 18
+target = 0
+"#;
+        let path = temp_path("nomovekey");
+        std::fs::write(&path, text).unwrap();
+        let rec = load(&path).expect("load");
+        let _ = std::fs::remove_file(&path);
+        assert_eq!(rec.steps.len(), 1);
+        assert!(matches!(
+            rec.steps[0].step,
+            Step::Item { id: 18, target: Some(0), move_slot: None }
+        ));
     }
 
     #[test]

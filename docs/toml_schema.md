@@ -160,6 +160,17 @@ The `seed` field is always the *resolved* value: if the scenario omitted `seed =
 
 `kind` is one of: `move`, `switch`, `item`, `run`, `forced_switch`, `offer_switch`. For `offer_switch`, the keep-current case writes `keep = true`; the swap-in case writes `slot = N` instead.
 
+An `item` step carries `id = N` and, for items that target one party mon, `target = N` (0-based party slot). Single-move PP-restore items — Ether (`id = 63`), Max Ether (`id = 64`), and MysteryBerry (`id = 150`) — additionally carry `move = N`, the 0-based move slot whose PP to restore. The `move` key is omitted for every other item (whole-party PP restore, HP, status, revive); recordings made before this key existed have no `move` key and parse back as "no move slot", so older fixtures replay unchanged.
+
+```toml
+[[step]]
+kind = "item"
+id = 63        # Ether
+target = 0     # party slot 0
+move = 1       # restore the PP of move slot 1
+# … expect block …
+```
+
 ### Recording — assertions
 
 The `expect.*` keys make a recording a self-checking regression fixture: replaying it (see [Playback](#playback----play-path)) re-derives the same state and compares it field-by-field. The recorder fills every field; the diff is *tolerant*, so a hand-edited recording may keep only the fields it cares about and the rest are ignored.

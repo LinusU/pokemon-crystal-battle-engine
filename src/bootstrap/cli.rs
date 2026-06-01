@@ -83,7 +83,7 @@ const MOVE_SLOTS: u16 = 4;
 enum Action {
     Move(u8),
     Switch(u8),
-    Item { id: u8, target: Option<u8> },
+    Item { id: u8, target: Option<u8>, move_slot: Option<u8> },
     Run,
 }
 
@@ -122,7 +122,7 @@ pub fn handle_battle_menu(cpu: &mut Cpu) {
             match step {
                 Step::Move { slot } => Action::Move(slot),
                 Step::Switch { slot } => Action::Switch(slot),
-                Step::Item { id, target } => Action::Item { id, target },
+                Step::Item { id, target, move_slot } => Action::Item { id, target, move_slot },
                 Step::Run => Action::Run,
                 // `consume`'s `accepts` filter rules these out — unreachable
                 // in well-formed scripts and reported by `consume` otherwise.
@@ -162,11 +162,11 @@ pub fn handle_battle_menu(cpu: &mut Cpu) {
                 // animation, and ends by returning to whoever called us.
                 return crate::game::engine::battle::core::player_switch(cpu);
             }
-            Action::Item { id, target } => {
-                apply_item(cpu, id, target);
+            Action::Item { id, target, move_slot } => {
+                apply_item(cpu, id, target, move_slot);
                 cpu.write_byte(W_BATTLE_PLAYER_ACTION, defs::BATTLEPLAYERACTION_USEITEM);
                 cpu.write_byte(W_BATTLE_MENU_CURSOR_POSITION, 3);
-                recorder::record(cpu, Step::Item { id, target });
+                recorder::record(cpu, Step::Item { id, target, move_slot });
                 // Normal return: caller is `battle_turn_loop1`, which then
                 // checks wBattleEnded and continues the turn.
                 cpu.pc = cpu.pop_word();
@@ -348,7 +348,7 @@ fn prompt_action(cpu: &Cpu) -> Action {
         }
         entries.push((
             format!("Use {} ×{qty}", item_display(id)),
-            Action::Item { id, target: None },
+            Action::Item { id, target: None, move_slot: None },
         ));
     }
     // Balls: not exposed yet — would require running the engine's catch
@@ -366,11 +366,19 @@ fn prompt_action(cpu: &Cpu) -> Action {
 
     // Every directly-usable item targets one party mon. We prompt for it here
     // so the action menu shows one line per item (not one line per item×target).
+    // Single-move PP items (Ether / Max Ether / MysteryBerry) then prompt for
+    // which of that mon's moves to restore.
     if let Action::Item { id, .. } = chosen {
         let target_slot = prompt_item_target(cpu, id);
+        let move_slot = if is_single_move_pp_item(id) {
+            Some(prompt_pp_move_slot(cpu, id, target_slot))
+        } else {
+            None
+        };
         chosen = Action::Item {
             id,
             target: Some(target_slot),
+            move_slot,
         };
     }
     chosen
@@ -385,6 +393,34 @@ fn prompt_item_target(cpu: &Cpu, id: u8) -> u8 {
     let options = item_valid_targets(cpu, id);
     for (idx, slot) in options.iter().enumerate() {
         print_party_slot_line(cpu, *slot, idx + 1);
+    }
+    let pick = prompt_index("> ", options.len());
+    options[pick]
+}
+
+/// Prompt for which move of party `slot` to restore PP on, for a single-move PP
+/// item. Lists only moves that exist and are below their max PP (the ones the
+/// item would actually affect), each with its name and `current/max` PP, and
+/// returns the chosen 0-based move slot. Only reached on the interactive path;
+/// playback supplies the move slot from the recorded step.
+fn prompt_pp_move_slot(cpu: &Cpu, id: u8, slot: u8) -> u8 {
+    println!(
+        "\n[item] use {} on which move of {}?",
+        item_display(id),
+        species_name(read_party_species(cpu, slot)),
+    );
+    let options = restorable_move_slots(cpu, slot);
+    let base = party_slot_addr(slot);
+    for (idx, move_slot) in options.iter().enumerate() {
+        let move_id = cpu.read_byte(base + PARTY_OFFSET_MOVES + u16::from(*move_slot));
+        let pp_byte = cpu.read_byte(base + PARTY_OFFSET_PP + u16::from(*move_slot));
+        println!(
+            "  {}) {} (PP {}/{})",
+            idx + 1,
+            move_name(move_id),
+            move_pp::current_pp(pp_byte),
+            move_pp::max_pp(move_id, pp_byte),
+        );
     }
     let pick = prompt_index("> ", options.len());
     options[pick]
@@ -478,6 +514,13 @@ enum ItemEffect {
     /// effect" depends on per-move PP, so [`ItemEffect::affects`] can't decide
     /// it — PP targeting is special-cased in [`item_valid_targets`].
     PpAll { amount: Option<u8> },
+    /// Restores PP to ONE chosen move of the target (Ether / Max Ether /
+    /// MysteryBerry). `amount: Some(n)` adds `n` PP to the chosen move (capped at
+    /// max PP); `amount: None` (Max Ether) restores it to full. Like
+    /// [`ItemEffect::PpAll`], whether it "would have an effect" depends on
+    /// per-move PP, so it's special-cased in [`item_valid_targets`] /
+    /// [`ItemEffect::affects`] rather than judged by vitals.
+    PpOne { amount: Option<u8> },
 }
 
 impl ItemEffect {
@@ -495,7 +538,7 @@ impl ItemEffect {
             ItemEffect::Revive => hp == 0,
             ItemEffect::Status(mask) => hp != 0 && status & mask != 0,
             ItemEffect::FullRestore => hp != 0 && (hp < max_hp || status != 0),
-            ItemEffect::PpAll { .. } => false,
+            ItemEffect::PpAll { .. } | ItemEffect::PpOne { .. } => false,
         }
     }
 }
@@ -518,6 +561,13 @@ fn item_effect(id: u8) -> Option<ItemEffect> {
         // `scratch/pokecrystal/engine/items/item_effects.asm`.
         0x41 => ItemEffect::PpAll { amount: Some(10) }, // Elixer
         0x15 => ItemEffect::PpAll { amount: None },     // Max Elixer
+        // Single-move PP restore. Ether adds 10 PP to one move; Max Ether
+        // refills one move; MysteryBerry adds 5 PP to one move. See `RestorePP`
+        // (`.restore_one` path) in
+        // `scratch/pokecrystal/engine/items/item_effects.asm`.
+        0x3f => ItemEffect::PpOne { amount: Some(10) }, // Ether
+        0x40 => ItemEffect::PpOne { amount: None },     // Max Ether
+        0x96 => ItemEffect::PpOne { amount: Some(5) },  // MysteryBerry
         // Status heals.
         0x09 => ItemEffect::Status(1 << defs::PSN as u8), // Antidote — poison
         0x0a => ItemEffect::Status(1 << defs::BRN as u8), // Burn Heal
@@ -549,9 +599,12 @@ fn item_valid_targets(cpu: &Cpu, id: u8) -> Vec<u8> {
     (0..n)
         .filter(|&slot| match effect {
             // PP isn't a vital, so `affects` can't judge PP items. A PP restore
-            // applies to any mon — alive or fainted (the game lets you Elixer a
-            // fainted mon) — that has at least one move below its max PP.
-            ItemEffect::PpAll { .. } => slot_has_restorable_pp(cpu, slot),
+            // applies to any mon — alive or fainted (RestorePP has no faint
+            // guard, so the game lets you Ether/Elixer a fainted mon) — that has
+            // at least one move below its max PP.
+            ItemEffect::PpAll { .. } | ItemEffect::PpOne { .. } => {
+                slot_has_restorable_pp(cpu, slot)
+            }
             _ => {
                 let base = party_slot_addr(slot);
                 effect.affects(
@@ -566,20 +619,36 @@ fn item_valid_targets(cpu: &Cpu, id: u8) -> Vec<u8> {
 
 /// Does any of `slot`'s 4 move slots hold a move whose current PP is below its
 /// max PP? Drives PP-item targeting (the game's "It wouldn't have any effect"
-/// guard for Elixer/Max Elixer).
+/// guard for Elixer/Max Elixer/Ether/Max Ether/MysteryBerry).
 fn slot_has_restorable_pp(cpu: &Cpu, slot: u8) -> bool {
-    let base = party_slot_addr(slot);
-    (0..MOVE_SLOTS).any(|i| {
-        let move_id = cpu.read_byte(base + PARTY_OFFSET_MOVES + i);
-        if move_id == 0 {
-            return false;
-        }
-        let pp_byte = cpu.read_byte(base + PARTY_OFFSET_PP + i);
-        move_pp::current_pp(pp_byte) < move_pp::max_pp(move_id, pp_byte)
-    })
+    !restorable_move_slots(cpu, slot).is_empty()
 }
 
-fn apply_item(cpu: &mut Cpu, id: u8, target: Option<u8>) {
+/// The 0-based move slots of party `slot` that exist (move id != 0) and hold a
+/// move below its max PP — i.e. the moves a single-move PP item could restore.
+/// Drives the move-selection prompt for Ether/Max Ether/MysteryBerry.
+fn restorable_move_slots(cpu: &Cpu, slot: u8) -> Vec<u8> {
+    let base = party_slot_addr(slot);
+    (0..MOVE_SLOTS)
+        .filter(|&i| {
+            let move_id = cpu.read_byte(base + PARTY_OFFSET_MOVES + i);
+            if move_id == 0 {
+                return false;
+            }
+            let pp_byte = cpu.read_byte(base + PARTY_OFFSET_PP + i);
+            move_pp::current_pp(pp_byte) < move_pp::max_pp(move_id, pp_byte)
+        })
+        .map(|i| i as u8)
+        .collect()
+}
+
+/// Whether `id` is a single-move PP item (Ether / Max Ether / MysteryBerry),
+/// which needs a move-slot prompt after the target mon is chosen.
+fn is_single_move_pp_item(id: u8) -> bool {
+    matches!(item_effect(id), Some(ItemEffect::PpOne { .. }))
+}
+
+fn apply_item(cpu: &mut Cpu, id: u8, target: Option<u8>, move_slot: Option<u8>) {
     let slot = target.unwrap_or_else(|| cpu.read_byte(W_CUR_BATTLE_MON));
     let base = party_slot_addr(slot);
 
@@ -631,6 +700,17 @@ fn apply_item(cpu: &mut Cpu, id: u8, target: Option<u8>) {
         restore_pp_all(cpu, slot, amount);
     }
 
+    // Single-move PP restore (Ether / Max Ether / MysteryBerry). The chosen
+    // move slot comes from the prompt (interactive) or the recorded step
+    // (playback); if it's somehow absent, fall back to the first restorable
+    // move so we never silently no-op.
+    if let Some(ItemEffect::PpOne { amount }) = item_effect(id) {
+        let chosen = move_slot
+            .or_else(|| restorable_move_slots(cpu, slot).first().copied())
+            .unwrap_or(0);
+        restore_pp_one(cpu, slot, chosen, amount);
+    }
+
     // Decrement the bag count.
     decrement_pocket_item(cpu, W_NUM_ITEMS, id);
 
@@ -670,6 +750,39 @@ fn restore_pp_all(cpu: &mut Cpu, slot: u8, amount: Option<u8>) {
         if is_active {
             mirror_battle_mon_pp(cpu, move_id, new_byte);
         }
+    }
+}
+
+/// Restore PP on a single move slot of `slot` (Ether / Max Ether /
+/// MysteryBerry). `amount = Some(n)` adds `n` PP (capped at max PP); `amount =
+/// None` (Max Ether) sets it to full. The PP-Up bits (top 2) are preserved, the
+/// same `(orig & PP_UP_MASK) | min(cur + n, max)` shape `RestorePP` uses. A move
+/// slot that's empty or already at full PP is left untouched (the game's
+/// `.dont_restore`). If `slot` is the active battle mon, the matching
+/// `wBattleMonPP` slot is mirrored by move id, like [`restore_pp_all`].
+fn restore_pp_one(cpu: &mut Cpu, slot: u8, move_slot: u8, amount: Option<u8>) {
+    if u16::from(move_slot) >= MOVE_SLOTS {
+        return;
+    }
+    let base = party_slot_addr(slot);
+    let move_id = cpu.read_byte(base + PARTY_OFFSET_MOVES + u16::from(move_slot));
+    if move_id == 0 {
+        return;
+    }
+    let pp_byte = cpu.read_byte(base + PARTY_OFFSET_PP + u16::from(move_slot));
+    let max = move_pp::max_pp(move_id, pp_byte);
+    if move_pp::current_pp(pp_byte) >= max {
+        return;
+    }
+    let new_pp = match amount {
+        Some(n) => move_pp::current_pp(pp_byte).saturating_add(n).min(max),
+        None => max,
+    };
+    let new_byte = move_pp::pp_up_bits(pp_byte) | new_pp;
+    cpu.write_byte(base + PARTY_OFFSET_PP + u16::from(move_slot), new_byte);
+
+    if slot == cpu.read_byte(W_CUR_BATTLE_MON) {
+        mirror_battle_mon_pp(cpu, move_id, new_byte);
     }
 }
 
@@ -944,6 +1057,64 @@ mod tests {
     }
 
     #[test]
+    fn single_move_pp_items_classify_as_pp_one() {
+        // Ether adds 10 PP to one move.
+        assert!(
+            matches!(effect(0x3f), ItemEffect::PpOne { amount: Some(10) }),
+            "Ether adds 10 PP to one move",
+        );
+        // Max Ether refills one move (no fixed amount).
+        assert!(
+            matches!(effect(0x40), ItemEffect::PpOne { amount: None }),
+            "Max Ether fully restores one move",
+        );
+        // MysteryBerry adds 5 PP to one move (asm `ld c, 5`).
+        assert!(
+            matches!(effect(0x96), ItemEffect::PpOne { amount: Some(5) }),
+            "MysteryBerry adds 5 PP to one move",
+        );
+        // All three are single-move PP items needing a move-slot prompt.
+        for id in [0x3f, 0x40, 0x96] {
+            assert!(is_single_move_pp_item(id), "item {id:#x} is single-move PP");
+        }
+        // Whole-party PP items (Elixer / Max Elixer) and HP items are NOT.
+        for id in [0x41, 0x15, 0x12] {
+            assert!(!is_single_move_pp_item(id), "item {id:#x} is not single-move PP");
+        }
+    }
+
+    /// The single-move restore math mirrors `RestorePP` (`.restore_some` /
+    /// `.restore_all`): `new = (orig & PP_UP_MASK) | min(cur + n, max)`, with
+    /// `amount: None` (Max Ether) restoring to full and PP-Up bits preserved.
+    #[test]
+    fn single_move_restore_amount_and_cap() {
+        let id = 1u8; // POUND, base 35
+        let restore = |pp_byte: u8, amount: Option<u8>| {
+            let max = move_pp::max_pp(id, pp_byte);
+            let new = match amount {
+                Some(n) => move_pp::current_pp(pp_byte).saturating_add(n).min(max),
+                None => max,
+            };
+            move_pp::pp_up_bits(pp_byte) | new
+        };
+        // Ether: +10, below cap.
+        assert_eq!(restore(20, Some(10)), 30);
+        // Ether: +10 capped at max (35).
+        assert_eq!(restore(30, Some(10)), 35);
+        // MysteryBerry: +5, below cap.
+        assert_eq!(restore(20, Some(5)), 25);
+        // MysteryBerry: +5 capped at max.
+        assert_eq!(restore(33, Some(5)), 35);
+        // Max Ether: restore to full, no PP-Ups.
+        assert_eq!(restore(0, None), 35);
+        // PP-Up bits preserved, and the higher max is respected.
+        let with_ups = 0x80 | 30; // 2 PP-Ups → max 49 for base 35
+        assert_eq!(move_pp::max_pp(id, with_ups), 49);
+        assert_eq!(restore(with_ups, Some(10)), 0x80 | 40);
+        assert_eq!(restore(with_ups, None), 0x80 | 49);
+    }
+
+    #[test]
     fn pp_all_is_not_judged_by_vitals() {
         // PP isn't a vital, so the HP/status `affects` guard never claims a PP
         // item has an effect — `item_valid_targets` decides via per-move PP.
@@ -953,5 +1124,11 @@ mod tests {
         assert!(!elixer.affects(20, 20, 0), "full HP/clean — vitals say no");
         assert!(!elixer.affects(0, 20, 0), "fainted — vitals say no");
         assert!(!elixer.affects(10, 20, 1), "hurt+statused — vitals still say no");
+
+        // Single-move PP items are judged the same way: vitals never claim an
+        // effect, and a fainted mon is still a valid target (no faint guard).
+        let ether = effect(0x3f);
+        assert!(!ether.affects(20, 20, 0), "full HP/clean — vitals say no");
+        assert!(!ether.affects(0, 20, 0), "fainted — vitals say no");
     }
 }

@@ -55,8 +55,12 @@ pub enum Step {
     /// the incoming mon.
     Switch { slot: u8 },
     /// Action menu picked an item. `target` is `Some(slot)` for items that
-    /// target a specific party mon and `None` otherwise.
-    Item { id: u8, target: Option<u8> },
+    /// target a specific party mon and `None` otherwise. `move_slot` is
+    /// `Some(slot)` for single-move PP items (Ether / Max Ether / MysteryBerry)
+    /// that target one move of the targeted mon, and `None` for every other
+    /// item (whole-party PP, HP, status, revive). Older recordings have no
+    /// `move` key, which parses back as `move_slot = None`.
+    Item { id: u8, target: Option<u8>, move_slot: Option<u8> },
     /// Action menu picked Run.
     Run,
     /// `force_pick_party_mon_in_battle` — the active mon fainted and the
@@ -229,11 +233,14 @@ fn write_step(writer: &mut BufWriter<File>, step: Step) -> std::io::Result<()> {
             writeln!(writer, "kind = \"switch\"")?;
             writeln!(writer, "slot = {slot}")?;
         }
-        Step::Item { id, target } => {
+        Step::Item { id, target, move_slot } => {
             writeln!(writer, "kind = \"item\"")?;
             writeln!(writer, "id = {id}")?;
             if let Some(t) = target {
                 writeln!(writer, "target = {t}")?;
+            }
+            if let Some(m) = move_slot {
+                writeln!(writer, "move = {m}")?;
             }
         }
         Step::Run => {
