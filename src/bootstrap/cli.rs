@@ -57,6 +57,10 @@ const SUBSTATUS_X_ACCURACY_MASK: u8 = 1 << 0;
 const SUBSTATUS_MIST_MASK: u8 = 1 << 1;
 const SUBSTATUS_FOCUS_ENERGY_MASK: u8 = 1 << 2;
 const W_ENEMY_SUB_STATUS_5: u16 = 0xc671;
+// The active player mon's Disable counter. High nibble = the disabled move's
+// 1-based slot (0 = nothing disabled); low nibble = turns remaining.
+// `00:c675 wPlayerDisableCount` in `pokecrystal.sym`.
+const W_PLAYER_DISABLE_COUNT: u16 = 0xc675;
 
 // The active player mon's per-stat stage levels — 8 bytes indexed by the stat
 // constants below (only the first 5 are battle stats). Each byte is an ABSOLUTE
@@ -1418,6 +1422,13 @@ fn read_pocket(cpu: &Cpu, count_addr: u16) -> Vec<(u8, u8)> {
 }
 
 fn move_options(cpu: &Cpu) -> Vec<u8> {
+    // A move disabled by Disable is not selectable, same as the engine's
+    // move_selection_screen_use_move `.move_disabled` rejection. wPlayerDisableCount
+    // packs the disabled move's 1-based slot in its high nibble (0 = nothing
+    // disabled); recover the 0-based slot with the engine's `swap a / and $f / dec a`.
+    // When nothing is disabled the high nibble is 0, so the `dec` wraps to 0xff and
+    // never matches a real slot.
+    let disabled_slot = (cpu.read_byte(W_PLAYER_DISABLE_COUNT) >> 4).wrapping_sub(1);
     let mut out = Vec::with_capacity(defs::NUM_MOVES as usize);
     for slot in 0..defs::NUM_MOVES {
         let move_id = cpu.read_byte(W_BATTLE_MON_MOVES + u16::from(slot));
@@ -1426,6 +1437,9 @@ fn move_options(cpu: &Cpu) -> Vec<u8> {
         }
         let pp = cpu.read_byte(W_BATTLE_MON_PP + u16::from(slot)) & defs::PP_MASK;
         if pp == 0 {
+            continue;
+        }
+        if slot == disabled_slot {
             continue;
         }
         out.push(slot);
@@ -1910,5 +1924,29 @@ mod tests {
         let ether = effect(0x3f);
         assert!(!ether.affects(20, 20, 0), "full HP/clean — vitals say no");
         assert!(!ether.affects(0, 20, 0), "fainted — vitals say no");
+    }
+
+    #[test]
+    fn disabled_move_is_not_selectable() {
+        let mut cpu = Cpu::new_cgb(None, None);
+        // Four real moves, each with PP to spare.
+        for slot in 0..4u16 {
+            cpu.write_byte(W_BATTLE_MON_MOVES + slot, slot as u8 + 1);
+            cpu.write_byte(W_BATTLE_MON_PP + slot, 10);
+        }
+
+        // Nothing disabled: all four moves are selectable.
+        cpu.write_byte(W_PLAYER_DISABLE_COUNT, 0);
+        assert_eq!(move_options(&cpu), vec![0, 1, 2, 3]);
+
+        // Disable the move in slot 1 — high nibble = its 1-based slot (2), low
+        // nibble = turns remaining (5). It drops out of the selectable list,
+        // matching the engine's `.move_disabled` rejection.
+        cpu.write_byte(W_PLAYER_DISABLE_COUNT, 0x25);
+        assert_eq!(move_options(&cpu), vec![0, 2, 3]);
+
+        // Counter cleared (Disable expired): the move is selectable again.
+        cpu.write_byte(W_PLAYER_DISABLE_COUNT, 0);
+        assert_eq!(move_options(&cpu), vec![0, 1, 2, 3]);
     }
 }
