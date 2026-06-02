@@ -1,0 +1,14 @@
+# Coverage: player spams Conversion2; bulky player survives & gets hit first so
+# the type-change actually resolves. Weaker enemy avoids a turn-1 KO.
+[battle]
+type = "wild_encounter"
+seed = 0x5eed000000015000
+
+[[player_party]]
+species = "Snorlax"
+level = 55
+moves = ["Conversion2"]
+
+[[enemy_party]]
+species = "Tauros"
+level = 40

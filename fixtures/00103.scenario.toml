@@ -1,0 +1,14 @@
+# Coverage: player spams 'sleep_talk' every turn (single-move override)
+# vs a strong wild attacker so the battle terminates.
+[battle]
+type = "wild_encounter"
+seed = 0x5eed000000067000
+
+[[player_party]]
+species = "Snorlax"
+level = 40
+moves = ["sleep_talk"]
+
+[[enemy_party]]
+species = "Tauros"
+level = 55

@@ -1,0 +1,14 @@
+# Coverage: player spams 'pain_split' every turn (single-move override)
+# vs a strong wild attacker so the battle terminates.
+[battle]
+type = "wild_encounter"
+seed = 0x5eed000000061000
+
+[[player_party]]
+species = "Snorlax"
+level = 40
+moves = ["pain_split"]
+
+[[enemy_party]]
+species = "Tauros"
+level = 55
