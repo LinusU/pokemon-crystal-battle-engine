@@ -11,7 +11,7 @@ Load a TOML scenario, jump into a wild battle, play it in the window.
 - ✅ Driver for trainer battles (`type = "trainer_battle"`, `trainer = "..."`). Today the engine's `InitEnemyTrainer` loads the canonical party and held items from ROM via `wOtherTrainerClass` / `wOtherTrainerID`.
 - TOML-driven overrides for the enemy party and the trainer's `wEnemyTrainerItem1`/`Item2`. Needs a `HARNESS-PATCH:` in `init_enemy_trainer` to skip `GetTrainerAttributes` + `ReadTrainerParty` when the harness has pre-seeded `wOTParty*` and `wEnemyTrainerItem1`/`Item2` itself.
 - Player overrides via TOML: name, id, gender, money, badges (for stat boosts).
-- Per-mon overrides: nickname, item, moves, DVs.
+- Per-mon overrides: nickname, item, DVs. (Player-party `moves` is done — `[[player_party]] moves = [...]` overwrites the generated moveset after `try_add_mon_to_party`; see [TOML schema](toml_schema.md#player_party--one-or-more).)
 - A `[battle]` `seed` field for `wBattleRandom` reproducibility.
 
 ## Step 2.5 — make runs reproducible (prerequisite for tests)

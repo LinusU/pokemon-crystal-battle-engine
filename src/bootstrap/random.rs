@@ -97,6 +97,8 @@ pub fn random_battle_config(base_seed: u64) -> BattleConfig {
         player_party.push(MonSpec {
             species: species::SPECIES_NAMES[idx].to_string(),
             level,
+            // The generator leans on the engine's canonical level-up moveset.
+            moves: None,
         });
     }
 

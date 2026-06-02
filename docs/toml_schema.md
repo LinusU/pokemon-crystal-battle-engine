@@ -36,6 +36,7 @@ trainer = "Whitney"
 [[player_party]]
 species = "Quilava"
 level = 20
+moves = ["Flamethrower", "Quick Attack", "Swift", "Dig"]
 
 [[player_party]]
 species = "Geodude"
@@ -45,6 +46,8 @@ level = 18
 name = "Potion"
 quantity = 3
 ```
+
+The optional `moves` array overrides a player mon's generated moveset (see [`[[player_party]]`](#player_party--one-or-more) below). Omit it — as on Geodude above — to keep the engine's level-up moveset.
 
 For trainer battles the enemy party and the trainer's AI items are loaded from ROM via `wOtherTrainerClass` / `wOtherTrainerID`. `[[enemy_party]]` and `[[enemy_items]]` entries are parsed (so scenarios can document the matchup) but the engine still uses the canonical ROM data — overriding them is on the [roadmap](roadmap.md).
 
@@ -213,8 +216,9 @@ See [`src/bootstrap/player.rs`](../src/bootstrap/player.rs) and [`src/bootstrap/
 | --- | --- | --- | --- |
 | `species` | string | yes | Case-insensitive; punctuation ignored. `"Pikachu"`, `"PIKACHU"`, `"Mr. Mime"`, `"Farfetch'd"`, `"Ho-oh"` all work. |
 | `level` | integer | yes | 1..100. |
+| `moves` | array of strings | no | 1..=4 move names. When omitted, the engine's generated level-up moveset is kept. When present, it overrides the generated moves for that slot. Names are case-insensitive with punctuation ignored, so `"Thunderbolt"`, `"THUNDER WAVE"`, `"thunder_wave"`, `"Double-Edge"` all resolve (see [`src/bootstrap/names.rs`](../src/bootstrap/names.rs)). |
 
-DVs, default moves, PP, HP and stats are produced by the engine itself (`try_add_mon_to_party`/`GeneratePartyMonStats`) — they're not user-controllable yet.
+DVs, PP, HP and stats are produced by the engine itself (`try_add_mon_to_party`/`GeneratePartyMonStats`) — they're not user-controllable yet. `moves` is the one exception: when given, the slot's four move ids are overwritten after generation and PP is refilled to each move's base maximum (no PP Ups — a fresh mon has none). Fewer than four moves leaves the trailing slots empty (id 0, 0 PP). Listing more than four, an empty list, or an unknown move name is a hard error. The override applies only to `[[player_party]]`; a `moves` key on `[[enemy_party]]` is parsed but ignored (the wild mon and trainer parties get their moves from the engine / ROM).
 
 ### `[[enemy_party]]`
 
@@ -241,7 +245,7 @@ See [`src/bootstrap/species.rs`](../src/bootstrap/species.rs). The table is the 
 
 ## Planned additions
 
-- `nickname`, `item`, `moves = [...]`, `dvs = "..."` per mon (will short-circuit `try_add_mon_to_party` for those fields).
+- `nickname`, `item`, `dvs = "..."` per mon (will short-circuit `try_add_mon_to_party` for those fields). `moves = [...]` is done — see [`[[player_party]]`](#player_party--one-or-more).
 - `[battle] battle_type` for `BATTLETYPE_FISH`, `BATTLETYPE_DEBUG`, etc.
 - Honor `[[enemy_party]]` and `[[enemy_items]]` for trainer battles (override the ROM data instead of just documenting the matchup).
 - `[player]` block: `name`, `id`, `gender` instead of the hardcoded "RED" + 0x1234.

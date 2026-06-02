@@ -157,6 +157,10 @@ fn write_party(writer: &mut BufWriter<File>, table: &str, party: &[MonSpec]) -> 
         writeln!(writer, "[[{table}]]")?;
         writeln!(writer, "species = {}", toml_string(&mon.species))?;
         writeln!(writer, "level = {}", mon.level)?;
+        if let Some(moves) = &mon.moves {
+            let rendered: Vec<String> = moves.iter().map(|m| toml_string(m)).collect();
+            writeln!(writer, "moves = [{}]", rendered.join(", "))?;
+        }
     }
     Ok(())
 }

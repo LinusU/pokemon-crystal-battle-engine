@@ -273,6 +273,25 @@ pub fn move_name(id: u8) -> &'static str {
     MOVE_NAMES.get(usize::from(id - 1)).copied().unwrap_or("???")
 }
 
+/// Resolve a move name to its id (1..=251). Case-insensitive; punctuation and
+/// whitespace are ignored, so `"Thunderbolt"`, `"THUNDER WAVE"`,
+/// `"thunder_wave"`, `"DOUBLE-EDGE"`, and `"Conversion2"` all resolve. Returns
+/// `None` for unknown names. The inverse of [`move_name`].
+pub fn move_id_from_name(name: &str) -> Option<u8> {
+    let normalized = normalize_move(name);
+    MOVE_NAMES
+        .iter()
+        .position(|canonical| normalize_move(canonical) == normalized)
+        .map(|i| (i + 1) as u8)
+}
+
+fn normalize_move(s: &str) -> String {
+    s.chars()
+        .filter(|c| c.is_ascii_alphanumeric())
+        .map(|c| c.to_ascii_uppercase())
+        .collect()
+}
+
 // ---------------------------------------------------------------------------
 // Items — id 1..=255. Unused slots in the original ROM are filled with
 // "TERU-SAMA" placeholders; we reproduce them so id↔name stays a direct map.
@@ -601,4 +620,34 @@ pub fn species_name(id: u8) -> &'static str {
         .get(usize::from(id - 1))
         .copied()
         .unwrap_or("???")
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn move_ids_round_trip() {
+        // id 1 = POUND, id 251 = BEAT UP; the inverse of `move_name`.
+        assert_eq!(move_id_from_name("POUND"), Some(1));
+        assert_eq!(move_id_from_name("BEAT UP"), Some(251));
+        for id in 1u8..=251 {
+            assert_eq!(move_id_from_name(move_name(id)), Some(id), "id {id}");
+        }
+    }
+
+    #[test]
+    fn move_lookup_is_punctuation_tolerant() {
+        assert_eq!(move_id_from_name("Thunderbolt"), Some(85));
+        assert_eq!(move_id_from_name("thunder_wave"), Some(86));
+        assert_eq!(move_id_from_name("double-edge"), Some(38));
+        assert_eq!(move_id_from_name("Mud-Slap"), Some(189));
+        assert_eq!(move_id_from_name("conversion2"), Some(176));
+    }
+
+    #[test]
+    fn unknown_move_is_none() {
+        assert!(move_id_from_name("Hyperspace Fury").is_none());
+        assert!(move_id_from_name("").is_none());
+    }
 }

@@ -570,8 +570,8 @@ target = 0
                 seed: None,
             },
             player_party: vec![
-                MonSpec { species: "QUILAVA".into(), level: 20 },
-                MonSpec { species: "GEODUDE".into(), level: 18 },
+                MonSpec { species: "QUILAVA".into(), level: 20, moves: None },
+                MonSpec { species: "GEODUDE".into(), level: 18, moves: None },
             ],
             enemy_party: vec![],
             player_items: vec![ItemSpec { name: "Potion".into(), quantity: 3 }],

@@ -73,6 +73,13 @@ impl BattleKind {
 pub struct MonSpec {
     pub species: String,
     pub level: u8,
+    /// Optional explicit moveset (1..=4 move names). When omitted, the engine's
+    /// generated level-up moveset is kept. When present, it overrides the
+    /// generated moves of a `[[player_party]]` slot and refills PP to each
+    /// move's base maximum. Honored only for the player party — see
+    /// [`seed_player_party`]. Resolved via [`names::move_id_from_name`].
+    #[serde(default)]
+    pub moves: Option<Vec<String>>,
 }
 
 #[derive(Debug, Clone, Deserialize)]
@@ -125,6 +132,13 @@ const W_PLAYER_ID: u16 = 0xd47b;
 const W_PLAYER_NAME: u16 = 0xd47d;
 const W_TIME_OF_DAY_PAL: u16 = 0xd841;
 const W_PARTY_COUNT: u16 = 0xdcd7;
+const W_PARTY_MON1: u16 = 0xdcdf;
+
+// `party_struct` geometry, for the moveset override (see docs/memory_layout.md).
+const PARTY_STRUCT_LEN: u16 = 48;
+const MON_OFFSET_MOVES: u16 = 2; // MON_MOVES: 4 bytes, one id per slot
+const MON_OFFSET_PP: u16 = 23; // MON_PP: 4 bytes, current PP per slot
+const NUM_MOVE_SLOTS: usize = 4;
 
 // Bag pocket counts. Each list expects (count_byte, terminator_byte=0xff) at
 // minimum so the menu code's "walk until 0xff" loops don't run off the end.
@@ -266,12 +280,57 @@ fn add_player_mon(cpu: &mut Cpu, species: u8, level: u8) {
 
 fn seed_player_party(cpu: &mut Cpu, party: &[MonSpec]) -> Result<(), String> {
     cpu.write_byte(W_PARTY_COUNT, 0);
-    for mon in party {
+    for (slot, mon) in party.iter().enumerate() {
         let id = species::id_from_name(&mon.species)
             .ok_or_else(|| format!("unknown player species: {}", mon.species))?;
+        // Resolve the optional moveset before driving the engine so a bad move
+        // name fails fast, before any WRAM is touched for this slot.
+        let move_ids = resolve_moves(mon)?;
         add_player_mon(cpu, id, mon.level);
+        if let Some(ids) = move_ids {
+            apply_moveset(cpu, slot as u8, &ids);
+        }
     }
     Ok(())
+}
+
+/// Resolve a mon's optional `moves` list to move ids, validating the count and
+/// every name. `None` means "keep the engine's generated moveset" and leaves
+/// the slot untouched.
+fn resolve_moves(mon: &MonSpec) -> Result<Option<Vec<u8>>, String> {
+    let Some(names) = &mon.moves else {
+        return Ok(None);
+    };
+    if names.is_empty() || names.len() > NUM_MOVE_SLOTS {
+        return Err(format!(
+            "{}: moves must list 1..={} entries, got {}",
+            mon.species,
+            NUM_MOVE_SLOTS,
+            names.len()
+        ));
+    }
+    let mut ids = Vec::with_capacity(names.len());
+    for name in names {
+        let id = names::move_id_from_name(name)
+            .ok_or_else(|| format!("unknown move for {}: {}", mon.species, name))?;
+        ids.push(id);
+    }
+    Ok(Some(ids))
+}
+
+/// Overwrite a freshly added party slot's moves and PP with an explicit
+/// moveset. `try_add_mon_to_party` has already filled the slot with canonical
+/// DVs, stats, and the level-up moveset; this touches only the `MON_MOVES` and
+/// `MON_PP` bytes. Each given move gets full PP (its base maximum — a fresh mon
+/// has no PP Ups); any leftover move slot is zeroed so the engine sees fewer
+/// than four moves rather than a stale generated one.
+fn apply_moveset(cpu: &mut Cpu, slot: u8, move_ids: &[u8]) {
+    let base = W_PARTY_MON1 + slot as u16 * PARTY_STRUCT_LEN;
+    for i in 0..NUM_MOVE_SLOTS {
+        let id = move_ids.get(i).copied().unwrap_or(0);
+        cpu.write_byte(base + MON_OFFSET_MOVES + i as u16, id);
+        cpu.write_byte(base + MON_OFFSET_PP + i as u16, move_pp::MOVE_BASE_PP[id as usize]);
+    }
 }
 
 fn start_battle(cpu: &mut Cpu) {
@@ -458,4 +517,48 @@ fn system_entropy_seed() -> u64 {
         seed = 0x9e37_79b9_7f4a_7c15;
     }
     seed
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn mon(moves: Option<&[&str]>) -> MonSpec {
+        MonSpec {
+            species: "Pikachu".into(),
+            level: 10,
+            moves: moves.map(|m| m.iter().map(|s| s.to_string()).collect()),
+        }
+    }
+
+    #[test]
+    fn no_moves_key_keeps_generated_moveset() {
+        assert_eq!(resolve_moves(&mon(None)).unwrap(), None);
+    }
+
+    #[test]
+    fn moves_resolve_to_ids_in_order() {
+        // Thunderbolt=85, Surf=57, Quick Attack=98.
+        let ids = resolve_moves(&mon(Some(&["Thunderbolt", "surf", "QUICK_ATTACK"])))
+            .unwrap()
+            .unwrap();
+        assert_eq!(ids, vec![85, 57, 98]);
+    }
+
+    #[test]
+    fn empty_list_is_rejected() {
+        assert!(resolve_moves(&mon(Some(&[]))).is_err());
+    }
+
+    #[test]
+    fn more_than_four_moves_is_rejected() {
+        let err = resolve_moves(&mon(Some(&["Cut", "Fly", "Dig", "Bite", "Surf"]))).unwrap_err();
+        assert!(err.contains("1..=4"), "{err}");
+    }
+
+    #[test]
+    fn unknown_move_name_is_rejected() {
+        let err = resolve_moves(&mon(Some(&["Surf", "Notamove"]))).unwrap_err();
+        assert!(err.contains("Notamove"), "{err}");
+    }
 }
