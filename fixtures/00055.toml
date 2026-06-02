@@ -1,0 +1,455 @@
+[recording]
+seed = "0x4a9c714addcf6889"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "SCHOOLBOY_8"
+
+[[scenario.player_party]]
+species = "WARTORTLE"
+level = 33
+
+[[scenario.player_party]]
+species = "BAYLEEF"
+level = 35
+
+[[scenario.player_items]]
+name = "Dire Hit"
+quantity = 1
+
+[[scenario.player_items]]
+name = "Revive"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Full Heal"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Potion"
+quantity = 2
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "WARTORTLE"
+expect.player.active.level = 33
+expect.player.active.hp = 52
+expect.player.active.max_hp = 89
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 24, 40, 10]
+expect.player.party = [{ species = "WARTORTLE", level = 33, hp = 52, max_hp = 89, status = "none" }, { species = "BAYLEEF", level = 35, hp = 96, max_hp = 96, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 66
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 9, 20, 10]
+expect.enemy.party = [{ species = "TANGELA", level = 33, hp = 91, max_hp = 91, status = "none" }, { species = "VAPOREON", level = 33, hp = 134, max_hp = 134, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "WARTORTLE"
+expect.player.active.level = 33
+expect.player.active.hp = 15
+expect.player.active.max_hp = 89
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 23, 40, 10]
+expect.player.party = [{ species = "WARTORTLE", level = 33, hp = 15, max_hp = 89, status = "none" }, { species = "BAYLEEF", level = 35, hp = 96, max_hp = 96, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 40
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 8, 20, 10]
+expect.enemy.party = [{ species = "TANGELA", level = 33, hp = 91, max_hp = 91, status = "none" }, { species = "VAPOREON", level = 33, hp = 134, max_hp = 134, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 18
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "WARTORTLE"
+expect.player.active.level = 33
+expect.player.active.hp = 0
+expect.player.active.max_hp = 89
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 23, 40, 10]
+expect.player.party = [{ species = "WARTORTLE", level = 33, hp = 0, max_hp = 89, status = "none" }, { species = "BAYLEEF", level = 35, hp = 96, max_hp = 96, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 40
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 7, 20, 10]
+expect.enemy.party = [{ species = "TANGELA", level = 33, hp = 91, max_hp = 91, status = "none" }, { species = "VAPOREON", level = 33, hp = 134, max_hp = 134, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "BAYLEEF"
+expect.player.active.level = 35
+expect.player.active.hp = 96
+expect.player.active.max_hp = 96
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 35, 5, 15]
+expect.player.party = [{ species = "WARTORTLE", level = 33, hp = 0, max_hp = 89, status = "none" }, { species = "BAYLEEF", level = 35, hp = 96, max_hp = 96, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 40
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 7, 20, 10]
+expect.enemy.party = [{ species = "TANGELA", level = 33, hp = 91, max_hp = 91, status = "none" }, { species = "VAPOREON", level = 33, hp = 134, max_hp = 134, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 39
+target = 0
+expect.player.active_slot = 1
+expect.player.active.species = "BAYLEEF"
+expect.player.active.level = 35
+expect.player.active.hp = 86
+expect.player.active.max_hp = 96
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 35, 5, 15]
+expect.player.party = [{ species = "WARTORTLE", level = 33, hp = 44, max_hp = 89, status = "none" }, { species = "BAYLEEF", level = 35, hp = 86, max_hp = 96, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 40
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 7, 19, 10]
+expect.enemy.party = [{ species = "TANGELA", level = 33, hp = 91, max_hp = 91, status = "none" }, { species = "VAPOREON", level = 33, hp = 134, max_hp = 134, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "BAYLEEF"
+expect.player.active.level = 35
+expect.player.active.hp = 76
+expect.player.active.max_hp = 96
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 35, 5, 14]
+expect.player.party = [{ species = "WARTORTLE", level = 33, hp = 44, max_hp = 89, status = "none" }, { species = "BAYLEEF", level = 35, hp = 76, max_hp = 96, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 24
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 7, 18, 10]
+expect.enemy.party = [{ species = "TANGELA", level = 33, hp = 91, max_hp = 91, status = "none" }, { species = "VAPOREON", level = 33, hp = 134, max_hp = 134, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "BAYLEEF"
+expect.player.active.level = 35
+expect.player.active.hp = 72
+expect.player.active.max_hp = 96
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 35, 5, 13]
+expect.player.party = [{ species = "WARTORTLE", level = 33, hp = 44, max_hp = 89, status = "none" }, { species = "BAYLEEF", level = 35, hp = 72, max_hp = 96, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 9
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 7, 17, 10]
+expect.enemy.party = [{ species = "TANGELA", level = 33, hp = 91, max_hp = 91, status = "none" }, { species = "VAPOREON", level = 33, hp = 134, max_hp = 134, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "BAYLEEF"
+expect.player.active.level = 35
+expect.player.active.hp = 72
+expect.player.active.max_hp = 96
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 35, 5, 12]
+expect.player.party = [{ species = "WARTORTLE", level = 33, hp = 44, max_hp = 89, status = "none" }, { species = "BAYLEEF", level = 35, hp = 72, max_hp = 96, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "VAPOREON"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 25, 30, 25]
+expect.enemy.party = [{ species = "TANGELA", level = 33, hp = 0, max_hp = 91, status = "none" }, { species = "VAPOREON", level = 33, hp = 134, max_hp = 134, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "WARTORTLE"
+expect.player.active.level = 33
+expect.player.active.hp = 44
+expect.player.active.max_hp = 89
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 23, 40, 10]
+expect.player.party = [{ species = "WARTORTLE", level = 33, hp = 44, max_hp = 89, status = "none" }, { species = "BAYLEEF", level = 35, hp = 72, max_hp = 96, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "VAPOREON"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 25, 30, 25]
+expect.enemy.party = [{ species = "TANGELA", level = 33, hp = 0, max_hp = 91, status = "none" }, { species = "VAPOREON", level = 33, hp = 134, max_hp = 134, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "WARTORTLE"
+expect.player.active.level = 33
+expect.player.active.hp = 44
+expect.player.active.max_hp = 89
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 23, 40, 9]
+expect.player.party = [{ species = "WARTORTLE", level = 33, hp = 44, max_hp = 89, status = "none" }, { species = "BAYLEEF", level = 35, hp = 72, max_hp = 96, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "VAPOREON"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 25, 30, 25]
+expect.enemy.party = [{ species = "TANGELA", level = 33, hp = 0, max_hp = 91, status = "none" }, { species = "VAPOREON", level = 33, hp = 134, max_hp = 134, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "WARTORTLE"
+expect.player.active.level = 33
+expect.player.active.hp = 22
+expect.player.active.max_hp = 89
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 22, 40, 9]
+expect.player.party = [{ species = "WARTORTLE", level = 33, hp = 22, max_hp = 89, status = "none" }, { species = "BAYLEEF", level = 35, hp = 72, max_hp = 96, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "VAPOREON"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 25, 30, 24]
+expect.enemy.party = [{ species = "TANGELA", level = 33, hp = 0, max_hp = 91, status = "none" }, { species = "VAPOREON", level = 33, hp = 134, max_hp = 134, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "WARTORTLE"
+expect.player.active.level = 33
+expect.player.active.hp = 10
+expect.player.active.max_hp = 89
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 21, 40, 9]
+expect.player.party = [{ species = "WARTORTLE", level = 33, hp = 10, max_hp = 89, status = "none" }, { species = "BAYLEEF", level = 35, hp = 72, max_hp = 96, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "VAPOREON"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 108
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 25, 29, 24]
+expect.enemy.party = [{ species = "TANGELA", level = 33, hp = 0, max_hp = 91, status = "none" }, { species = "VAPOREON", level = 33, hp = 134, max_hp = 134, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "WARTORTLE"
+expect.player.active.level = 33
+expect.player.active.hp = 0
+expect.player.active.max_hp = 89
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 21, 40, 9]
+expect.player.party = [{ species = "WARTORTLE", level = 33, hp = 0, max_hp = 89, status = "none" }, { species = "BAYLEEF", level = 35, hp = 72, max_hp = 96, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "VAPOREON"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 108
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 25, 28, 24]
+expect.enemy.party = [{ species = "TANGELA", level = 33, hp = 0, max_hp = 91, status = "none" }, { species = "VAPOREON", level = 33, hp = 134, max_hp = 134, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "BAYLEEF"
+expect.player.active.level = 35
+expect.player.active.hp = 72
+expect.player.active.max_hp = 96
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 35, 5, 12]
+expect.player.party = [{ species = "WARTORTLE", level = 33, hp = 0, max_hp = 89, status = "none" }, { species = "BAYLEEF", level = 35, hp = 72, max_hp = 96, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "VAPOREON"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 108
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 25, 28, 24]
+expect.enemy.party = [{ species = "TANGELA", level = 33, hp = 0, max_hp = 91, status = "none" }, { species = "VAPOREON", level = 33, hp = 134, max_hp = 134, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "BAYLEEF"
+expect.player.active.level = 35
+expect.player.active.hp = 72
+expect.player.active.max_hp = 96
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 34, 5, 12]
+expect.player.party = [{ species = "WARTORTLE", level = 33, hp = 0, max_hp = 89, status = "none" }, { species = "BAYLEEF", level = 35, hp = 72, max_hp = 96, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "VAPOREON"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 108
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 25, 28, 24]
+expect.enemy.party = [{ species = "TANGELA", level = 33, hp = 0, max_hp = 91, status = "none" }, { species = "VAPOREON", level = 33, hp = 134, max_hp = 134, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "BAYLEEF"
+expect.player.active.level = 35
+expect.player.active.hp = 50
+expect.player.active.max_hp = 96
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 33, 5, 12]
+expect.player.party = [{ species = "WARTORTLE", level = 33, hp = 0, max_hp = 89, status = "none" }, { species = "BAYLEEF", level = 35, hp = 50, max_hp = 96, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "VAPOREON"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 92
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "poison"
+expect.enemy.active.pp = [13, 25, 28, 23]
+expect.enemy.party = [{ species = "TANGELA", level = 33, hp = 0, max_hp = 91, status = "none" }, { species = "VAPOREON", level = 33, hp = 108, max_hp = 134, status = "poison" }]
+
+[[step]]
+kind = "item"
+id = 39
+target = 0
+expect.player.active_slot = 1
+expect.player.active.species = "BAYLEEF"
+expect.player.active.level = 35
+expect.player.active.hp = 40
+expect.player.active.max_hp = 96
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 33, 5, 12]
+expect.player.party = [{ species = "WARTORTLE", level = 33, hp = 44, max_hp = 89, status = "none" }, { species = "BAYLEEF", level = 35, hp = 40, max_hp = 96, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "VAPOREON"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 76
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "poison"
+expect.enemy.active.pp = [13, 25, 27, 23]
+expect.enemy.party = [{ species = "TANGELA", level = 33, hp = 0, max_hp = 91, status = "none" }, { species = "VAPOREON", level = 33, hp = 108, max_hp = 134, status = "poison" }]
+
+[[step]]
+kind = "item"
+id = 18
+target = 1
+expect.player.active_slot = 1
+expect.player.active.species = "BAYLEEF"
+expect.player.active.level = 35
+expect.player.active.hp = 50
+expect.player.active.max_hp = 96
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 33, 5, 12]
+expect.player.party = [{ species = "WARTORTLE", level = 33, hp = 44, max_hp = 89, status = "none" }, { species = "BAYLEEF", level = 35, hp = 50, max_hp = 96, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "VAPOREON"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 60
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "poison"
+expect.enemy.active.pp = [13, 25, 26, 23]
+expect.enemy.party = [{ species = "TANGELA", level = 33, hp = 0, max_hp = 91, status = "none" }, { species = "VAPOREON", level = 33, hp = 108, max_hp = 134, status = "poison" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "BAYLEEF"
+expect.player.active.level = 35
+expect.player.active.hp = 40
+expect.player.active.max_hp = 96
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 33, 5, 11]
+expect.player.party = [{ species = "WARTORTLE", level = 33, hp = 44, max_hp = 89, status = "none" }, { species = "BAYLEEF", level = 35, hp = 40, max_hp = 96, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "VAPOREON"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 44
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "poison"
+expect.enemy.active.pp = [13, 25, 25, 23]
+expect.enemy.party = [{ species = "TANGELA", level = 33, hp = 0, max_hp = 91, status = "none" }, { species = "VAPOREON", level = 33, hp = 108, max_hp = 134, status = "poison" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "BAYLEEF"
+expect.player.active.level = 35
+expect.player.active.hp = 20
+expect.player.active.max_hp = 96
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 33, 5, 10]
+expect.player.party = [{ species = "WARTORTLE", level = 33, hp = 44, max_hp = 89, status = "none" }, { species = "BAYLEEF", level = 35, hp = 20, max_hp = 96, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "VAPOREON"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 2
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "poison"
+expect.enemy.active.pp = [13, 25, 25, 22]
+expect.enemy.party = [{ species = "TANGELA", level = 33, hp = 0, max_hp = 91, status = "none" }, { species = "VAPOREON", level = 33, hp = 108, max_hp = 134, status = "poison" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "BAYLEEF"
+expect.player.active.level = 35
+expect.player.active.hp = 20
+expect.player.active.max_hp = 96
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 33, 5, 9]
+expect.player.party = [{ species = "WARTORTLE", level = 33, hp = 44, max_hp = 89, status = "none" }, { species = "BAYLEEF", level = 35, hp = 20, max_hp = 96, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "VAPOREON"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "poison"
+expect.enemy.active.pp = [13, 25, 25, 22]
+expect.enemy.party = [{ species = "TANGELA", level = 33, hp = 0, max_hp = 91, status = "none" }, { species = "VAPOREON", level = 33, hp = 0, max_hp = 134, status = "poison" }]
+expect.battle.outcome = "win"
