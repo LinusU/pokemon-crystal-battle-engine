@@ -1,0 +1,228 @@
+[recording]
+seed = "0x64fd92ab9ed1ce40"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "GRUNTM_3"
+
+[[scenario.player_party]]
+species = "RAIKOU"
+level = 22
+
+[[scenario.player_party]]
+species = "GRAVELER"
+level = 21
+
+[[scenario.player_party]]
+species = "SLOWPOKE"
+level = 25
+
+[[scenario.player_items]]
+name = "Max Potion"
+quantity = 1
+
+[[scenario.player_items]]
+name = "X Attack"
+quantity = 2
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RAIKOU"
+expect.player.active.level = 22
+expect.player.active.hp = 74
+expect.player.active.max_hp = 74
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 30, 30, 20]
+expect.player.party = [{ species = "RAIKOU", level = 22, hp = 74, max_hp = 74, status = "none" }, { species = "GRAVELER", level = 21, hp = 54, max_hp = 54, status = "none" }, { species = "SLOWPOKE", level = 25, hp = 87, max_hp = 87, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RATICATE"
+expect.enemy.active.level = 24
+expect.enemy.active.hp = 47
+expect.enemy.active.max_hp = 64
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 30, 15, 10]
+expect.enemy.party = [{ species = "RATICATE", level = 24, hp = 64, max_hp = 64, status = "none" }, { species = "RATICATE", level = 24, hp = 64, max_hp = 64, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RAIKOU"
+expect.player.active.level = 22
+expect.player.active.hp = 74
+expect.player.active.max_hp = 74
+expect.player.active.status = "none"
+expect.player.active.pp = [23, 30, 30, 20]
+expect.player.party = [{ species = "RAIKOU", level = 22, hp = 74, max_hp = 74, status = "none" }, { species = "GRAVELER", level = 21, hp = 54, max_hp = 54, status = "none" }, { species = "SLOWPOKE", level = 25, hp = 87, max_hp = 87, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RATICATE"
+expect.enemy.active.level = 24
+expect.enemy.active.hp = 30
+expect.enemy.active.max_hp = 64
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 30, 15, 10]
+expect.enemy.party = [{ species = "RATICATE", level = 24, hp = 64, max_hp = 64, status = "none" }, { species = "RATICATE", level = 24, hp = 64, max_hp = 64, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RAIKOU"
+expect.player.active.level = 22
+expect.player.active.hp = 74
+expect.player.active.max_hp = 74
+expect.player.active.status = "none"
+expect.player.active.pp = [22, 30, 30, 20]
+expect.player.party = [{ species = "RAIKOU", level = 22, hp = 74, max_hp = 74, status = "none" }, { species = "GRAVELER", level = 21, hp = 54, max_hp = 54, status = "none" }, { species = "SLOWPOKE", level = 25, hp = 87, max_hp = 87, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RATICATE"
+expect.enemy.active.level = 24
+expect.enemy.active.hp = 12
+expect.enemy.active.max_hp = 64
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 30, 15, 10]
+expect.enemy.party = [{ species = "RATICATE", level = 24, hp = 64, max_hp = 64, status = "none" }, { species = "RATICATE", level = 24, hp = 64, max_hp = 64, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RAIKOU"
+expect.player.active.level = 22
+expect.player.active.hp = 74
+expect.player.active.max_hp = 74
+expect.player.active.status = "none"
+expect.player.active.pp = [21, 30, 30, 20]
+expect.player.party = [{ species = "RAIKOU", level = 22, hp = 74, max_hp = 74, status = "none" }, { species = "GRAVELER", level = 21, hp = 54, max_hp = 54, status = "none" }, { species = "SLOWPOKE", level = 25, hp = 87, max_hp = 87, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "RATICATE"
+expect.enemy.active.level = 24
+expect.enemy.active.hp = 64
+expect.enemy.active.max_hp = 64
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 30, 15, 10]
+expect.enemy.party = [{ species = "RATICATE", level = 24, hp = 0, max_hp = 64, status = "none" }, { species = "RATICATE", level = 24, hp = 64, max_hp = 64, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "RAIKOU"
+expect.player.active.level = 22
+expect.player.active.hp = 74
+expect.player.active.max_hp = 74
+expect.player.active.status = "none"
+expect.player.active.pp = [21, 30, 30, 20]
+expect.player.party = [{ species = "RAIKOU", level = 22, hp = 74, max_hp = 74, status = "none" }, { species = "GRAVELER", level = 21, hp = 54, max_hp = 54, status = "none" }, { species = "SLOWPOKE", level = 25, hp = 87, max_hp = 87, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "RATICATE"
+expect.enemy.active.level = 24
+expect.enemy.active.hp = 64
+expect.enemy.active.max_hp = 64
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 30, 15, 10]
+expect.enemy.party = [{ species = "RATICATE", level = 24, hp = 0, max_hp = 64, status = "none" }, { species = "RATICATE", level = 24, hp = 64, max_hp = 64, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RAIKOU"
+expect.player.active.level = 22
+expect.player.active.hp = 44
+expect.player.active.max_hp = 74
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 30, 30, 20]
+expect.player.party = [{ species = "RAIKOU", level = 22, hp = 44, max_hp = 74, status = "none" }, { species = "GRAVELER", level = 21, hp = 54, max_hp = 54, status = "none" }, { species = "SLOWPOKE", level = 25, hp = 87, max_hp = 87, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "RATICATE"
+expect.enemy.active.level = 24
+expect.enemy.active.hp = 46
+expect.enemy.active.max_hp = 64
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 30, 14, 10]
+expect.enemy.party = [{ species = "RATICATE", level = 24, hp = 0, max_hp = 64, status = "none" }, { species = "RATICATE", level = 24, hp = 64, max_hp = 64, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RAIKOU"
+expect.player.active.level = 22
+expect.player.active.hp = 14
+expect.player.active.max_hp = 74
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 30, 30, 20]
+expect.player.party = [{ species = "RAIKOU", level = 22, hp = 14, max_hp = 74, status = "none" }, { species = "GRAVELER", level = 21, hp = 54, max_hp = 54, status = "none" }, { species = "SLOWPOKE", level = 25, hp = 87, max_hp = 87, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "RATICATE"
+expect.enemy.active.level = 24
+expect.enemy.active.hp = 30
+expect.enemy.active.max_hp = 64
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 30, 13, 10]
+expect.enemy.party = [{ species = "RATICATE", level = 24, hp = 0, max_hp = 64, status = "none" }, { species = "RATICATE", level = 24, hp = 64, max_hp = 64, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 15
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RAIKOU"
+expect.player.active.level = 22
+expect.player.active.hp = 43
+expect.player.active.max_hp = 74
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 30, 30, 20]
+expect.player.party = [{ species = "RAIKOU", level = 22, hp = 43, max_hp = 74, status = "none" }, { species = "GRAVELER", level = 21, hp = 54, max_hp = 54, status = "none" }, { species = "SLOWPOKE", level = 25, hp = 87, max_hp = 87, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "RATICATE"
+expect.enemy.active.level = 24
+expect.enemy.active.hp = 30
+expect.enemy.active.max_hp = 64
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 30, 12, 10]
+expect.enemy.party = [{ species = "RATICATE", level = 24, hp = 0, max_hp = 64, status = "none" }, { species = "RATICATE", level = 24, hp = 64, max_hp = 64, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RAIKOU"
+expect.player.active.level = 22
+expect.player.active.hp = 26
+expect.player.active.max_hp = 74
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 30, 30, 20]
+expect.player.party = [{ species = "RAIKOU", level = 22, hp = 26, max_hp = 74, status = "none" }, { species = "GRAVELER", level = 21, hp = 54, max_hp = 54, status = "none" }, { species = "SLOWPOKE", level = 25, hp = 87, max_hp = 87, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "RATICATE"
+expect.enemy.active.level = 24
+expect.enemy.active.hp = 12
+expect.enemy.active.max_hp = 64
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 29, 12, 10]
+expect.enemy.party = [{ species = "RATICATE", level = 24, hp = 0, max_hp = 64, status = "none" }, { species = "RATICATE", level = 24, hp = 64, max_hp = 64, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RAIKOU"
+expect.player.active.level = 22
+expect.player.active.hp = 26
+expect.player.active.max_hp = 74
+expect.player.active.status = "none"
+expect.player.active.pp = [17, 30, 30, 20]
+expect.player.party = [{ species = "RAIKOU", level = 22, hp = 26, max_hp = 74, status = "none" }, { species = "GRAVELER", level = 21, hp = 54, max_hp = 54, status = "none" }, { species = "SLOWPOKE", level = 25, hp = 87, max_hp = 87, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "RATICATE"
+expect.enemy.active.level = 24
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 64
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 29, 12, 10]
+expect.enemy.party = [{ species = "RATICATE", level = 24, hp = 0, max_hp = 64, status = "none" }, { species = "RATICATE", level = 24, hp = 0, max_hp = 64, status = "none" }]
+expect.battle.outcome = "win"

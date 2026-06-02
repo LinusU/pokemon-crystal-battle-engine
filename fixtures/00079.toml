@@ -1,0 +1,163 @@
+[recording]
+seed = "0x631fbc2faa38d7f7"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "BUG_CATCHER_1"
+
+[[scenario.player_party]]
+species = "WIGGLYTUFF"
+level = 2
+
+[[scenario.player_items]]
+name = "Max Revive"
+quantity = 1
+
+[[scenario.player_items]]
+name = "X Attack"
+quantity = 1
+
+[[scenario.player_items]]
+name = "Full Heal"
+quantity = 3
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "WIGGLYTUFF"
+expect.player.active.level = 2
+expect.player.active.hp = 17
+expect.player.active.max_hp = 17
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 20, 40, 9]
+expect.player.party = [{ species = "WIGGLYTUFF", level = 2, hp = 17, max_hp = 17, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CATERPIE"
+expect.enemy.active.level = 3
+expect.enemy.active.hp = 12
+expect.enemy.active.max_hp = 16
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 39, 0, 0]
+expect.enemy.party = [{ species = "CATERPIE", level = 3, hp = 16, max_hp = 16, status = "none" }, { species = "CATERPIE", level = 3, hp = 16, max_hp = 16, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "WIGGLYTUFF"
+expect.player.active.level = 2
+expect.player.active.hp = 14
+expect.player.active.max_hp = 17
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 20, 40, 8]
+expect.player.party = [{ species = "WIGGLYTUFF", level = 2, hp = 14, max_hp = 17, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CATERPIE"
+expect.enemy.active.level = 3
+expect.enemy.active.hp = 1
+expect.enemy.active.max_hp = 16
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [34, 39, 0, 0]
+expect.enemy.party = [{ species = "CATERPIE", level = 3, hp = 16, max_hp = 16, status = "none" }, { species = "CATERPIE", level = 3, hp = 16, max_hp = 16, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "WIGGLYTUFF"
+expect.player.active.level = 3
+expect.player.active.hp = 15
+expect.player.active.max_hp = 21
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 20, 40, 7]
+expect.player.party = [{ species = "WIGGLYTUFF", level = 3, hp = 15, max_hp = 21, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "CATERPIE"
+expect.enemy.active.level = 3
+expect.enemy.active.hp = 16
+expect.enemy.active.max_hp = 16
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 40, 0, 0]
+expect.enemy.party = [{ species = "CATERPIE", level = 3, hp = 0, max_hp = 16, status = "none" }, { species = "CATERPIE", level = 3, hp = 16, max_hp = 16, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "WIGGLYTUFF"
+expect.player.active.level = 3
+expect.player.active.hp = 13
+expect.player.active.max_hp = 21
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 20, 40, 6]
+expect.player.party = [{ species = "WIGGLYTUFF", level = 3, hp = 13, max_hp = 21, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "CATERPIE"
+expect.enemy.active.level = 3
+expect.enemy.active.hp = 16
+expect.enemy.active.max_hp = 16
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [34, 40, 0, 0]
+expect.enemy.party = [{ species = "CATERPIE", level = 3, hp = 0, max_hp = 16, status = "none" }, { species = "CATERPIE", level = 3, hp = 16, max_hp = 16, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "WIGGLYTUFF"
+expect.player.active.level = 3
+expect.player.active.hp = 11
+expect.player.active.max_hp = 21
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 20, 40, 5]
+expect.player.party = [{ species = "WIGGLYTUFF", level = 3, hp = 11, max_hp = 21, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "CATERPIE"
+expect.enemy.active.level = 3
+expect.enemy.active.hp = 10
+expect.enemy.active.max_hp = 16
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [33, 40, 0, 0]
+expect.enemy.party = [{ species = "CATERPIE", level = 3, hp = 0, max_hp = 16, status = "none" }, { species = "CATERPIE", level = 3, hp = 16, max_hp = 16, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "WIGGLYTUFF"
+expect.player.active.level = 3
+expect.player.active.hp = 9
+expect.player.active.max_hp = 21
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 20, 40, 4]
+expect.player.party = [{ species = "WIGGLYTUFF", level = 3, hp = 9, max_hp = 21, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "CATERPIE"
+expect.enemy.active.level = 3
+expect.enemy.active.hp = 10
+expect.enemy.active.max_hp = 16
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [32, 40, 0, 0]
+expect.enemy.party = [{ species = "CATERPIE", level = 3, hp = 0, max_hp = 16, status = "none" }, { species = "CATERPIE", level = 3, hp = 16, max_hp = 16, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "WIGGLYTUFF"
+expect.player.active.level = 4
+expect.player.active.hp = 11
+expect.player.active.max_hp = 25
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 20, 40, 3]
+expect.player.party = [{ species = "WIGGLYTUFF", level = 4, hp = 11, max_hp = 25, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "CATERPIE"
+expect.enemy.active.level = 3
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 16
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [31, 40, 0, 0]
+expect.enemy.party = [{ species = "CATERPIE", level = 3, hp = 0, max_hp = 16, status = "none" }, { species = "CATERPIE", level = 3, hp = 0, max_hp = 16, status = "none" }]
+expect.battle.outcome = "win"

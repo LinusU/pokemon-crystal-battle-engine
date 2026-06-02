@@ -1,0 +1,68 @@
+[recording]
+seed = "0x009c5bcda01b52f8"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "HIKER_4"
+
+[[scenario.player_party]]
+species = "SPINARAK"
+level = 26
+
+[[scenario.player_items]]
+name = "Ice Heal"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Ice Heal"
+quantity = 1
+
+[[scenario.player_items]]
+name = "Parlyz Heal"
+quantity = 1
+
+[[scenario.player_items]]
+name = "Soda Pop"
+quantity = 2
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SPINARAK"
+expect.player.active.level = 26
+expect.player.active.hp = 7
+expect.player.active.max_hp = 60
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 35, 14, 15]
+expect.player.party = [{ species = "SPINARAK", level = 26, hp = 7, max_hp = 60, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GEODUDE"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 25
+expect.enemy.active.max_hp = 51
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 14, 30, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 23, hp = 51, max_hp = 51, status = "none" }, { species = "MACHOP", level = 25, hp = 70, max_hp = 70, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 47
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SPINARAK"
+expect.player.active.level = 26
+expect.player.active.hp = 0
+expect.player.active.max_hp = 60
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 35, 14, 15]
+expect.player.party = [{ species = "SPINARAK", level = 26, hp = 0, max_hp = 60, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GEODUDE"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 51
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 14, 30, 4]
+expect.enemy.party = [{ species = "GEODUDE", level = 23, hp = 51, max_hp = 51, status = "none" }, { species = "MACHOP", level = 25, hp = 70, max_hp = 70, status = "none" }]
+expect.battle.outcome = "loss"

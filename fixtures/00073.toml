@@ -1,0 +1,253 @@
+[recording]
+seed = "0x42dc40d76e6b53b5"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "SWIMMERM_10"
+
+[[scenario.player_party]]
+species = "SLOWKING"
+level = 29
+
+[[scenario.player_party]]
+species = "SMEARGLE"
+level = 25
+
+[[scenario.player_party]]
+species = "NIDOKING"
+level = 25
+
+[[scenario.player_items]]
+name = "Ether"
+quantity = 1
+
+[[scenario.player_items]]
+name = "Moomoo Milk"
+quantity = 2
+
+[[scenario.player_items]]
+name = "Fresh Water"
+quantity = 1
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWKING"
+expect.player.active.level = 29
+expect.player.active.hp = 78
+expect.player.active.max_hp = 95
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 25, 24, 20]
+expect.player.party = [{ species = "SLOWKING", level = 29, hp = 78, max_hp = 95, status = "none" }, { species = "SMEARGLE", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "NIDOKING", level = 25, hp = 79, max_hp = 79, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 26
+expect.enemy.active.hp = 64
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [24, 25, 10, 0]
+expect.enemy.party = [{ species = "PILOSWINE", level = 26, hp = 92, max_hp = 92, status = "none" }, { species = "PILOSWINE", level = 26, hp = 92, max_hp = 92, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWKING"
+expect.player.active.level = 29
+expect.player.active.hp = 60
+expect.player.active.max_hp = 95
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 25, 23, 20]
+expect.player.party = [{ species = "SLOWKING", level = 29, hp = 60, max_hp = 95, status = "none" }, { species = "SMEARGLE", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "NIDOKING", level = 25, hp = 79, max_hp = 79, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 26
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [23, 25, 10, 0]
+expect.enemy.party = [{ species = "PILOSWINE", level = 26, hp = 92, max_hp = 92, status = "none" }, { species = "PILOSWINE", level = 26, hp = 92, max_hp = 92, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWKING"
+expect.player.active.level = 29
+expect.player.active.hp = 42
+expect.player.active.max_hp = 95
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 25, 22, 20]
+expect.player.party = [{ species = "SLOWKING", level = 29, hp = 42, max_hp = 95, status = "none" }, { species = "SMEARGLE", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "NIDOKING", level = 25, hp = 79, max_hp = 79, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 26
+expect.enemy.active.hp = 4
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [22, 25, 10, 0]
+expect.enemy.party = [{ species = "PILOSWINE", level = 26, hp = 92, max_hp = 92, status = "none" }, { species = "PILOSWINE", level = 26, hp = 92, max_hp = 92, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWKING"
+expect.player.active.level = 29
+expect.player.active.hp = 24
+expect.player.active.max_hp = 95
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 25, 21, 20]
+expect.player.party = [{ species = "SLOWKING", level = 29, hp = 24, max_hp = 95, status = "none" }, { species = "SMEARGLE", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "NIDOKING", level = 25, hp = 79, max_hp = 79, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 26
+expect.enemy.active.hp = 92
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 25, 10, 0]
+expect.enemy.party = [{ species = "PILOSWINE", level = 26, hp = 0, max_hp = 92, status = "none" }, { species = "PILOSWINE", level = 26, hp = 92, max_hp = 92, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWKING"
+expect.player.active.level = 29
+expect.player.active.hp = 24
+expect.player.active.max_hp = 95
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 25, 21, 20]
+expect.player.party = [{ species = "SLOWKING", level = 29, hp = 24, max_hp = 95, status = "none" }, { species = "SMEARGLE", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "NIDOKING", level = 25, hp = 79, max_hp = 79, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 26
+expect.enemy.active.hp = 92
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 25, 10, 0]
+expect.enemy.party = [{ species = "PILOSWINE", level = 26, hp = 0, max_hp = 92, status = "none" }, { species = "PILOSWINE", level = 26, hp = 92, max_hp = 92, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 72
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWKING"
+expect.player.active.level = 29
+expect.player.active.hp = 76
+expect.player.active.max_hp = 95
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 25, 21, 20]
+expect.player.party = [{ species = "SLOWKING", level = 29, hp = 76, max_hp = 95, status = "none" }, { species = "SMEARGLE", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "NIDOKING", level = 25, hp = 79, max_hp = 79, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 26
+expect.enemy.active.hp = 92
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [24, 25, 10, 0]
+expect.enemy.party = [{ species = "PILOSWINE", level = 26, hp = 0, max_hp = 92, status = "none" }, { species = "PILOSWINE", level = 26, hp = 92, max_hp = 92, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWKING"
+expect.player.active.level = 29
+expect.player.active.hp = 59
+expect.player.active.max_hp = 95
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 25, 20, 20]
+expect.player.party = [{ species = "SLOWKING", level = 29, hp = 59, max_hp = 95, status = "none" }, { species = "SMEARGLE", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "NIDOKING", level = 25, hp = 79, max_hp = 79, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 26
+expect.enemy.active.hp = 61
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [23, 25, 10, 0]
+expect.enemy.party = [{ species = "PILOSWINE", level = 26, hp = 0, max_hp = 92, status = "none" }, { species = "PILOSWINE", level = 26, hp = 92, max_hp = 92, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWKING"
+expect.player.active.level = 29
+expect.player.active.hp = 40
+expect.player.active.max_hp = 95
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 25, 19, 20]
+expect.player.party = [{ species = "SLOWKING", level = 29, hp = 40, max_hp = 95, status = "none" }, { species = "SMEARGLE", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "NIDOKING", level = 25, hp = 79, max_hp = 79, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 26
+expect.enemy.active.hp = 31
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [22, 25, 10, 0]
+expect.enemy.party = [{ species = "PILOSWINE", level = 26, hp = 0, max_hp = 92, status = "none" }, { species = "PILOSWINE", level = 26, hp = 92, max_hp = 92, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWKING"
+expect.player.active.level = 29
+expect.player.active.hp = 22
+expect.player.active.max_hp = 95
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 25, 18, 20]
+expect.player.party = [{ species = "SLOWKING", level = 29, hp = 22, max_hp = 95, status = "none" }, { species = "SMEARGLE", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "NIDOKING", level = 25, hp = 79, max_hp = 79, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 26
+expect.enemy.active.hp = 1
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [21, 25, 10, 0]
+expect.enemy.party = [{ species = "PILOSWINE", level = 26, hp = 0, max_hp = 92, status = "none" }, { species = "PILOSWINE", level = 26, hp = 92, max_hp = 92, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 72
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWKING"
+expect.player.active.level = 29
+expect.player.active.hp = 77
+expect.player.active.max_hp = 95
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 25, 18, 20]
+expect.player.party = [{ species = "SLOWKING", level = 29, hp = 77, max_hp = 95, status = "none" }, { species = "SMEARGLE", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "NIDOKING", level = 25, hp = 79, max_hp = 79, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 26
+expect.enemy.active.hp = 1
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 25, 10, 0]
+expect.enemy.party = [{ species = "PILOSWINE", level = 26, hp = 0, max_hp = 92, status = "none" }, { species = "PILOSWINE", level = 26, hp = 92, max_hp = 92, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWKING"
+expect.player.active.level = 29
+expect.player.active.hp = 41
+expect.player.active.max_hp = 95
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 25, 17, 20]
+expect.player.party = [{ species = "SLOWKING", level = 29, hp = 41, max_hp = 95, status = "none" }, { species = "SMEARGLE", level = 25, hp = 69, max_hp = 69, status = "none" }, { species = "NIDOKING", level = 25, hp = 79, max_hp = 79, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 26
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 25, 10, 0]
+expect.enemy.party = [{ species = "PILOSWINE", level = 26, hp = 0, max_hp = 92, status = "none" }, { species = "PILOSWINE", level = 26, hp = 0, max_hp = 92, status = "none" }]
+expect.battle.outcome = "win"

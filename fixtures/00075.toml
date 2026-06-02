@@ -1,0 +1,172 @@
+[recording]
+seed = "0x837c4570f25205c4"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "POKEFANF_4"
+
+[[scenario.player_party]]
+species = "VENOMOTH"
+level = 29
+
+[[scenario.player_party]]
+species = "PINECO"
+level = 28
+
+[[scenario.player_items]]
+name = "Fresh Water"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Potion"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Hyper Potion"
+quantity = 1
+
+[[scenario.player_items]]
+name = "X Special"
+quantity = 3
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "VENOMOTH"
+expect.player.active.level = 29
+expect.player.active.hp = 53
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 35, 15, 30]
+expect.player.party = [{ species = "VENOMOTH", level = 29, hp = 53, max_hp = 80, status = "none" }, { species = "PINECO", level = 28, hp = 69, max_hp = 69, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GRANBULL"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 76
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 24, 30, 20]
+expect.enemy.party = [{ species = "GRANBULL", level = 30, hp = 96, max_hp = 96, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "VENOMOTH"
+expect.player.active.level = 29
+expect.player.active.hp = 38
+expect.player.active.max_hp = 80
+expect.player.active.status = "none"
+expect.player.active.pp = [23, 35, 15, 30]
+expect.player.party = [{ species = "VENOMOTH", level = 29, hp = 38, max_hp = 80, status = "none" }, { species = "PINECO", level = 28, hp = 69, max_hp = 69, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GRANBULL"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 23, 30, 20]
+expect.enemy.party = [{ species = "GRANBULL", level = 30, hp = 96, max_hp = 96, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "VENOMOTH"
+expect.player.active.level = 29
+expect.player.active.hp = 28
+expect.player.active.max_hp = 80
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [22, 35, 15, 30]
+expect.player.party = [{ species = "VENOMOTH", level = 29, hp = 28, max_hp = 80, status = "paralysis" }, { species = "PINECO", level = 28, hp = 69, max_hp = 69, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GRANBULL"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 50
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 23, 29, 20]
+expect.enemy.party = [{ species = "GRANBULL", level = 30, hp = 96, max_hp = 96, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "VENOMOTH"
+expect.player.active.level = 29
+expect.player.active.hp = 18
+expect.player.active.max_hp = 80
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [21, 35, 15, 30]
+expect.player.party = [{ species = "VENOMOTH", level = 29, hp = 18, max_hp = 80, status = "paralysis" }, { species = "PINECO", level = 28, hp = 69, max_hp = 69, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GRANBULL"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 30
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 23, 28, 20]
+expect.enemy.party = [{ species = "GRANBULL", level = 30, hp = 96, max_hp = 96, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 16
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "VENOMOTH"
+expect.player.active.level = 29
+expect.player.active.hp = 70
+expect.player.active.max_hp = 80
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [21, 35, 15, 30]
+expect.player.party = [{ species = "VENOMOTH", level = 29, hp = 70, max_hp = 80, status = "paralysis" }, { species = "PINECO", level = 28, hp = 69, max_hp = 69, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GRANBULL"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 30
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 23, 27, 20]
+expect.enemy.party = [{ species = "GRANBULL", level = 30, hp = 96, max_hp = 96, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "VENOMOTH"
+expect.player.active.level = 29
+expect.player.active.hp = 61
+expect.player.active.max_hp = 80
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 35, 15, 30]
+expect.player.party = [{ species = "VENOMOTH", level = 29, hp = 61, max_hp = 80, status = "paralysis" }, { species = "PINECO", level = 28, hp = 69, max_hp = 69, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GRANBULL"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 13
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 23, 26, 20]
+expect.enemy.party = [{ species = "GRANBULL", level = 30, hp = 96, max_hp = 96, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "VENOMOTH"
+expect.player.active.level = 29
+expect.player.active.hp = 51
+expect.player.active.max_hp = 80
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [19, 35, 15, 30]
+expect.player.party = [{ species = "VENOMOTH", level = 29, hp = 51, max_hp = 80, status = "paralysis" }, { species = "PINECO", level = 28, hp = 69, max_hp = 69, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GRANBULL"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 23, 25, 20]
+expect.enemy.party = [{ species = "GRANBULL", level = 30, hp = 0, max_hp = 96, status = "none" }]
+expect.battle.outcome = "win"

@@ -1,0 +1,67 @@
+[recording]
+seed = "0xff247c700beded32"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "GUITARIST_1"
+
+[[scenario.player_party]]
+species = "MAROWAK"
+level = 35
+
+[[scenario.player_party]]
+species = "STANTLER"
+level = 33
+
+[[scenario.player_items]]
+name = "Ice Heal"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Antidote"
+quantity = 2
+
+[[scenario.player_items]]
+name = "X Special"
+quantity = 1
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "MAROWAK"
+expect.player.active.level = 35
+expect.player.active.hp = 79
+expect.player.active.max_hp = 93
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 30, 9, 20]
+expect.player.party = [{ species = "MAROWAK", level = 35, hp = 79, max_hp = 93, status = "none" }, { species = "STANTLER", level = 33, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 34
+expect.enemy.active.hp = 93
+expect.enemy.active.max_hp = 93
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 30, 19]
+expect.enemy.party = [{ species = "ELECTABUZZ", level = 34, hp = 93, max_hp = 93, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "MAROWAK"
+expect.player.active.level = 35
+expect.player.active.hp = 65
+expect.player.active.max_hp = 93
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 30, 8, 20]
+expect.player.party = [{ species = "MAROWAK", level = 35, hp = 65, max_hp = 93, status = "none" }, { species = "STANTLER", level = 33, hp = 91, max_hp = 91, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 34
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 93
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 30, 18]
+expect.enemy.party = [{ species = "ELECTABUZZ", level = 34, hp = 0, max_hp = 93, status = "none" }]
+expect.battle.outcome = "win"

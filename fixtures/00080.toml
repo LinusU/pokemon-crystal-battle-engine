@@ -1,0 +1,611 @@
+[recording]
+seed = "0x42d781ff7c22b701"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "BUGSY_1"
+
+[[scenario.player_party]]
+species = "LICKITUNG"
+level = 16
+
+[[scenario.player_party]]
+species = "HYPNO"
+level = 16
+
+[[scenario.player_party]]
+species = "ARIADOS"
+level = 15
+
+[[scenario.player_party]]
+species = "AZUMARILL"
+level = 15
+
+[[scenario.player_items]]
+name = "Guard Spec"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Lemonade"
+quantity = 2
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 57
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [29, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 57, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "METAPOD"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 36
+expect.enemy.active.max_hp = 40
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [35, 39, 30, 0]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 36, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 38, max_hp = 38, status = "none" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 55
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [28, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 55, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "METAPOD"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 32
+expect.enemy.active.max_hp = 40
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [34, 39, 30, 0]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 36, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 38, max_hp = 38, status = "none" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 53
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [27, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 53, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "METAPOD"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 28
+expect.enemy.active.max_hp = 40
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [33, 39, 30, 0]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 36, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 38, max_hp = 38, status = "none" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 53
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [26, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 53, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "METAPOD"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 24
+expect.enemy.active.max_hp = 40
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [33, 39, 30, 0]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 36, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 38, max_hp = 38, status = "none" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 51
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 51, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "METAPOD"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 20
+expect.enemy.active.max_hp = 40
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [32, 39, 30, 0]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 36, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 38, max_hp = 38, status = "none" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 48
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 48, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "METAPOD"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 16
+expect.enemy.active.max_hp = 40
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [31, 39, 30, 0]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 36, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 38, max_hp = 38, status = "none" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 45
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [23, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 45, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "METAPOD"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 12
+expect.enemy.active.max_hp = 40
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [30, 39, 30, 0]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 36, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 38, max_hp = 38, status = "none" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 45
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [22, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 45, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "METAPOD"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 8
+expect.enemy.active.max_hp = 40
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [30, 38, 30, 0]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 36, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 38, max_hp = 38, status = "none" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 43
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [21, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 43, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "METAPOD"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 4
+expect.enemy.active.max_hp = 40
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [29, 38, 30, 0]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 36, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 38, max_hp = 38, status = "none" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 43
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 43, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KAKUNA"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 38
+expect.enemy.active.max_hp = 38
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 40, 30, 0]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 0, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 38, max_hp = 38, status = "none" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 43
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 43, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KAKUNA"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 38
+expect.enemy.active.max_hp = 38
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 40, 30, 0]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 0, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 38, max_hp = 38, status = "none" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 41
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 41, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KAKUNA"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 31
+expect.enemy.active.max_hp = 38
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [34, 40, 30, 0]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 0, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 31, max_hp = 38, status = "paralysis" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 39
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 39, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KAKUNA"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 27
+expect.enemy.active.max_hp = 38
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [33, 40, 30, 0]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 0, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 31, max_hp = 38, status = "paralysis" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 39
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [17, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 39, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KAKUNA"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 23
+expect.enemy.active.max_hp = 38
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [33, 40, 30, 0]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 0, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 31, max_hp = 38, status = "paralysis" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 37
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [16, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 37, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KAKUNA"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 19
+expect.enemy.active.max_hp = 38
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [32, 40, 30, 0]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 0, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 31, max_hp = 38, status = "paralysis" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 37
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 37, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KAKUNA"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 15
+expect.enemy.active.max_hp = 38
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [32, 40, 30, 0]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 0, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 31, max_hp = 38, status = "paralysis" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 37
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 37, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KAKUNA"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 11
+expect.enemy.active.max_hp = 38
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [32, 40, 29, 0]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 0, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 31, max_hp = 38, status = "paralysis" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 37
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 37, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KAKUNA"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 8
+expect.enemy.active.max_hp = 38
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [32, 40, 29, 0]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 0, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 31, max_hp = 38, status = "paralysis" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 37
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 37, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KAKUNA"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 5
+expect.enemy.active.max_hp = 38
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [32, 40, 29, 0]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 0, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 31, max_hp = 38, status = "paralysis" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 37
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 37, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "SCYTHER"
+expect.enemy.active.level = 16
+expect.enemy.active.hp = 50
+expect.enemy.active.max_hp = 50
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 30, 20, 20]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 0, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 0, max_hp = 38, status = "paralysis" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 37
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 37, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "SCYTHER"
+expect.enemy.active.level = 16
+expect.enemy.active.hp = 50
+expect.enemy.active.max_hp = 50
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 30, 20, 20]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 0, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 0, max_hp = 38, status = "paralysis" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 32
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 32, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "SCYTHER"
+expect.enemy.active.level = 16
+expect.enemy.active.hp = 47
+expect.enemy.active.max_hp = 50
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 30, 19, 20]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 0, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 0, max_hp = 38, status = "paralysis" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 22
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 22, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "SCYTHER"
+expect.enemy.active.level = 16
+expect.enemy.active.hp = 44
+expect.enemy.active.max_hp = 50
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [30, 30, 18, 20]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 0, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 0, max_hp = 38, status = "paralysis" }, { species = "SCYTHER", level = 16, hp = 44, max_hp = 50, status = "paralysis" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LICKITUNG"
+expect.player.active.level = 16
+expect.player.active.hp = 0
+expect.player.active.max_hp = 57
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 20, 40, 0]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 0, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "SCYTHER"
+expect.enemy.active.level = 16
+expect.enemy.active.hp = 44
+expect.enemy.active.max_hp = 50
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [30, 30, 17, 20]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 0, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 0, max_hp = 38, status = "paralysis" }, { species = "SCYTHER", level = 16, hp = 44, max_hp = 50, status = "paralysis" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "HYPNO"
+expect.player.active.level = 16
+expect.player.active.hp = 58
+expect.player.active.max_hp = 58
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 20, 20, 25]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 0, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "SCYTHER"
+expect.enemy.active.level = 16
+expect.enemy.active.hp = 44
+expect.enemy.active.max_hp = 50
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [30, 30, 17, 20]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 0, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 0, max_hp = 38, status = "paralysis" }, { species = "SCYTHER", level = 16, hp = 44, max_hp = 50, status = "paralysis" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "HYPNO"
+expect.player.active.level = 16
+expect.player.active.hp = 58
+expect.player.active.max_hp = 58
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 20, 20, 24]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 0, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 58, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "SCYTHER"
+expect.enemy.active.level = 16
+expect.enemy.active.hp = 32
+expect.enemy.active.max_hp = 50
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [30, 30, 17, 20]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 0, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 0, max_hp = 38, status = "paralysis" }, { species = "SCYTHER", level = 16, hp = 44, max_hp = 50, status = "paralysis" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "HYPNO"
+expect.player.active.level = 16
+expect.player.active.hp = 47
+expect.player.active.max_hp = 58
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 20, 20, 23]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 0, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 47, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "SCYTHER"
+expect.enemy.active.level = 16
+expect.enemy.active.hp = 20
+expect.enemy.active.max_hp = 50
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [30, 30, 16, 20]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 0, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 0, max_hp = 38, status = "paralysis" }, { species = "SCYTHER", level = 16, hp = 44, max_hp = 50, status = "paralysis" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "HYPNO"
+expect.player.active.level = 16
+expect.player.active.hp = 26
+expect.player.active.max_hp = 58
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 20, 20, 22]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 0, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 26, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "SCYTHER"
+expect.enemy.active.level = 16
+expect.enemy.active.hp = 7
+expect.enemy.active.max_hp = 50
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [30, 30, 15, 20]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 0, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 0, max_hp = 38, status = "paralysis" }, { species = "SCYTHER", level = 16, hp = 44, max_hp = 50, status = "paralysis" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "HYPNO"
+expect.player.active.level = 16
+expect.player.active.hp = 26
+expect.player.active.max_hp = 58
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 20, 20, 21]
+expect.player.party = [{ species = "LICKITUNG", level = 16, hp = 0, max_hp = 57, status = "none" }, { species = "HYPNO", level = 16, hp = 26, max_hp = 58, status = "none" }, { species = "ARIADOS", level = 15, hp = 46, max_hp = 46, status = "none" }, { species = "AZUMARILL", level = 15, hp = 58, max_hp = 58, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "SCYTHER"
+expect.enemy.active.level = 16
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 50
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [30, 30, 15, 20]
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 0, max_hp = 40, status = "paralysis" }, { species = "KAKUNA", level = 14, hp = 0, max_hp = 38, status = "paralysis" }, { species = "SCYTHER", level = 16, hp = 0, max_hp = 50, status = "paralysis" }]
+expect.battle.outcome = "win"

@@ -1,0 +1,169 @@
+[recording]
+seed = "0xa11f7ef6eebe9ca0"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "SWIMMERM_8"
+
+[[scenario.player_party]]
+species = "UNOWN"
+level = 23
+
+[[scenario.player_items]]
+name = "X Attack"
+quantity = 2
+
+[[scenario.player_items]]
+name = "Burn Heal"
+quantity = 1
+
+[[scenario.player_items]]
+name = "X Attack"
+quantity = 1
+
+[[scenario.player_items]]
+name = "Super Potion"
+quantity = 2
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "UNOWN"
+expect.player.active.level = 23
+expect.player.active.hp = 36
+expect.player.active.max_hp = 56
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.party = [{ species = "UNOWN", level = 23, hp = 36, max_hp = 56, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "KRABBY"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 41
+expect.enemy.active.max_hp = 50
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 29, 30, 20]
+expect.enemy.party = [{ species = "KRABBY", level = 23, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "UNOWN"
+expect.player.active.level = 23
+expect.player.active.hp = 11
+expect.player.active.max_hp = 56
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.party = [{ species = "UNOWN", level = 23, hp = 11, max_hp = 56, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "KRABBY"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 33
+expect.enemy.active.max_hp = 50
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 29, 30, 19]
+expect.enemy.party = [{ species = "KRABBY", level = 23, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 17
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "UNOWN"
+expect.player.active.level = 23
+expect.player.active.hp = 35
+expect.player.active.max_hp = 56
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.party = [{ species = "UNOWN", level = 23, hp = 35, max_hp = 56, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "KRABBY"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 33
+expect.enemy.active.max_hp = 50
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 28, 30, 19]
+expect.enemy.party = [{ species = "KRABBY", level = 23, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "UNOWN"
+expect.player.active.level = 23
+expect.player.active.hp = 8
+expect.player.active.max_hp = 56
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.party = [{ species = "UNOWN", level = 23, hp = 8, max_hp = 56, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "KRABBY"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 33
+expect.enemy.active.max_hp = 50
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 28, 30, 18]
+expect.enemy.party = [{ species = "KRABBY", level = 23, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 17
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "UNOWN"
+expect.player.active.level = 23
+expect.player.active.hp = 35
+expect.player.active.max_hp = 56
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.party = [{ species = "UNOWN", level = 23, hp = 35, max_hp = 56, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "KRABBY"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 33
+expect.enemy.active.max_hp = 50
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 27, 30, 18]
+expect.enemy.party = [{ species = "KRABBY", level = 23, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "UNOWN"
+expect.player.active.level = 23
+expect.player.active.hp = 9
+expect.player.active.max_hp = 56
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 0, 0, 0]
+expect.player.party = [{ species = "UNOWN", level = 23, hp = 9, max_hp = 56, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "KRABBY"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 25
+expect.enemy.active.max_hp = 50
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 27, 30, 17]
+expect.enemy.party = [{ species = "KRABBY", level = 23, hp = 50, max_hp = 50, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "UNOWN"
+expect.player.active.level = 23
+expect.player.active.hp = 0
+expect.player.active.max_hp = 56
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 0, 0, 0]
+expect.player.party = [{ species = "UNOWN", level = 23, hp = 0, max_hp = 56, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "KRABBY"
+expect.enemy.active.level = 23
+expect.enemy.active.hp = 25
+expect.enemy.active.max_hp = 50
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 26, 30, 17]
+expect.enemy.party = [{ species = "KRABBY", level = 23, hp = 50, max_hp = 50, status = "none" }]
+expect.battle.outcome = "loss"

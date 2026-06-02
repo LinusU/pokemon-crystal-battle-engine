@@ -1,0 +1,59 @@
+[recording]
+seed = "0x6593ce1fa33aea3c"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "PICNICKER_4"
+
+[[scenario.player_party]]
+species = "MACHOP"
+level = 16
+
+[[scenario.player_items]]
+name = "Burn Heal"
+quantity = 2
+
+[[scenario.player_items]]
+name = "Max Revive"
+quantity = 3
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "MACHOP"
+expect.player.active.level = 16
+expect.player.active.hp = 36
+expect.player.active.max_hp = 50
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 30, 30, 24]
+expect.player.party = [{ species = "MACHOP", level = 16, hp = 36, max_hp = 50, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VULPIX"
+expect.enemy.active.level = 15
+expect.enemy.active.hp = 16
+expect.enemy.active.max_hp = 36
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [24, 30, 30, 20]
+expect.enemy.party = [{ species = "VULPIX", level = 15, hp = 36, max_hp = 36, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "MACHOP"
+expect.player.active.level = 16
+expect.player.active.hp = 36
+expect.player.active.max_hp = 50
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 30, 30, 23]
+expect.player.party = [{ species = "MACHOP", level = 16, hp = 36, max_hp = 50, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VULPIX"
+expect.enemy.active.level = 15
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 36
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [24, 30, 30, 20]
+expect.enemy.party = [{ species = "VULPIX", level = 15, hp = 0, max_hp = 36, status = "none" }]
+expect.battle.outcome = "win"

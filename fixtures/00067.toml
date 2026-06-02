@@ -1,0 +1,304 @@
+[recording]
+seed = "0x36570ff175d4865a"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "BUG_CATCHER_4"
+
+[[scenario.player_party]]
+species = "OCTILLERY"
+level = 2
+
+[[scenario.player_party]]
+species = "POLIWAG"
+level = 2
+
+[[scenario.player_party]]
+species = "CLOYSTER"
+level = 2
+
+[[scenario.player_party]]
+species = "SPEAROW"
+level = 3
+
+[[scenario.player_party]]
+species = "TYROGUE"
+level = 2
+
+[[scenario.player_items]]
+name = "Dire Hit"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Fresh Water"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Full Restore"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Ether"
+quantity = 1
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "OCTILLERY"
+expect.player.active.level = 2
+expect.player.active.hp = 15
+expect.player.active.max_hp = 15
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 0, 0, 0]
+expect.player.party = [{ species = "OCTILLERY", level = 2, hp = 15, max_hp = 15, status = "none" }, { species = "POLIWAG", level = 2, hp = 13, max_hp = 13, status = "none" }, { species = "CLOYSTER", level = 2, hp = 14, max_hp = 14, status = "none" }, { species = "SPEAROW", level = 3, hp = 15, max_hp = 15, status = "none" }, { species = "TYROGUE", level = 2, hp = 13, max_hp = 13, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CATERPIE"
+expect.enemy.active.level = 2
+expect.enemy.active.hp = 9
+expect.enemy.active.max_hp = 14
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 39, 0, 0]
+expect.enemy.party = [{ species = "CATERPIE", level = 2, hp = 14, max_hp = 14, status = "none" }, { species = "CATERPIE", level = 2, hp = 14, max_hp = 14, status = "none" }, { species = "WEEDLE", level = 3, hp = 15, max_hp = 15, status = "none" }, { species = "CATERPIE", level = 2, hp = 14, max_hp = 14, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "OCTILLERY"
+expect.player.active.level = 2
+expect.player.active.hp = 13
+expect.player.active.max_hp = 15
+expect.player.active.status = "none"
+expect.player.active.pp = [23, 0, 0, 0]
+expect.player.party = [{ species = "OCTILLERY", level = 2, hp = 13, max_hp = 15, status = "none" }, { species = "POLIWAG", level = 2, hp = 13, max_hp = 13, status = "none" }, { species = "CLOYSTER", level = 2, hp = 14, max_hp = 14, status = "none" }, { species = "SPEAROW", level = 3, hp = 15, max_hp = 15, status = "none" }, { species = "TYROGUE", level = 2, hp = 13, max_hp = 13, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CATERPIE"
+expect.enemy.active.level = 2
+expect.enemy.active.hp = 4
+expect.enemy.active.max_hp = 14
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [34, 39, 0, 0]
+expect.enemy.party = [{ species = "CATERPIE", level = 2, hp = 14, max_hp = 14, status = "none" }, { species = "CATERPIE", level = 2, hp = 14, max_hp = 14, status = "none" }, { species = "WEEDLE", level = 3, hp = 15, max_hp = 15, status = "none" }, { species = "CATERPIE", level = 2, hp = 14, max_hp = 14, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "OCTILLERY"
+expect.player.active.level = 3
+expect.player.active.hp = 13
+expect.player.active.max_hp = 17
+expect.player.active.status = "none"
+expect.player.active.pp = [22, 0, 0, 0]
+expect.player.party = [{ species = "OCTILLERY", level = 3, hp = 13, max_hp = 17, status = "none" }, { species = "POLIWAG", level = 2, hp = 13, max_hp = 13, status = "none" }, { species = "CLOYSTER", level = 2, hp = 14, max_hp = 14, status = "none" }, { species = "SPEAROW", level = 3, hp = 15, max_hp = 15, status = "none" }, { species = "TYROGUE", level = 2, hp = 13, max_hp = 13, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "CATERPIE"
+expect.enemy.active.level = 2
+expect.enemy.active.hp = 14
+expect.enemy.active.max_hp = 14
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 40, 0, 0]
+expect.enemy.party = [{ species = "CATERPIE", level = 2, hp = 0, max_hp = 14, status = "none" }, { species = "CATERPIE", level = 2, hp = 14, max_hp = 14, status = "none" }, { species = "WEEDLE", level = 3, hp = 15, max_hp = 15, status = "none" }, { species = "CATERPIE", level = 2, hp = 14, max_hp = 14, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "OCTILLERY"
+expect.player.active.level = 3
+expect.player.active.hp = 13
+expect.player.active.max_hp = 17
+expect.player.active.status = "none"
+expect.player.active.pp = [22, 0, 0, 0]
+expect.player.party = [{ species = "OCTILLERY", level = 3, hp = 13, max_hp = 17, status = "none" }, { species = "POLIWAG", level = 2, hp = 13, max_hp = 13, status = "none" }, { species = "CLOYSTER", level = 2, hp = 14, max_hp = 14, status = "none" }, { species = "SPEAROW", level = 3, hp = 15, max_hp = 15, status = "none" }, { species = "TYROGUE", level = 2, hp = 13, max_hp = 13, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "CATERPIE"
+expect.enemy.active.level = 2
+expect.enemy.active.hp = 14
+expect.enemy.active.max_hp = 14
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 40, 0, 0]
+expect.enemy.party = [{ species = "CATERPIE", level = 2, hp = 0, max_hp = 14, status = "none" }, { species = "CATERPIE", level = 2, hp = 14, max_hp = 14, status = "none" }, { species = "WEEDLE", level = 3, hp = 15, max_hp = 15, status = "none" }, { species = "CATERPIE", level = 2, hp = 14, max_hp = 14, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "OCTILLERY"
+expect.player.active.level = 3
+expect.player.active.hp = 12
+expect.player.active.max_hp = 17
+expect.player.active.status = "none"
+expect.player.active.pp = [21, 0, 0, 0]
+expect.player.party = [{ species = "OCTILLERY", level = 3, hp = 12, max_hp = 17, status = "none" }, { species = "POLIWAG", level = 2, hp = 13, max_hp = 13, status = "none" }, { species = "CLOYSTER", level = 2, hp = 14, max_hp = 14, status = "none" }, { species = "SPEAROW", level = 3, hp = 15, max_hp = 15, status = "none" }, { species = "TYROGUE", level = 2, hp = 13, max_hp = 13, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "CATERPIE"
+expect.enemy.active.level = 2
+expect.enemy.active.hp = 6
+expect.enemy.active.max_hp = 14
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [34, 40, 0, 0]
+expect.enemy.party = [{ species = "CATERPIE", level = 2, hp = 0, max_hp = 14, status = "none" }, { species = "CATERPIE", level = 2, hp = 14, max_hp = 14, status = "none" }, { species = "WEEDLE", level = 3, hp = 15, max_hp = 15, status = "none" }, { species = "CATERPIE", level = 2, hp = 14, max_hp = 14, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "OCTILLERY"
+expect.player.active.level = 3
+expect.player.active.hp = 10
+expect.player.active.max_hp = 17
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 0, 0, 0]
+expect.player.party = [{ species = "OCTILLERY", level = 3, hp = 10, max_hp = 17, status = "none" }, { species = "POLIWAG", level = 2, hp = 13, max_hp = 13, status = "none" }, { species = "CLOYSTER", level = 2, hp = 14, max_hp = 14, status = "none" }, { species = "SPEAROW", level = 3, hp = 15, max_hp = 15, status = "none" }, { species = "TYROGUE", level = 2, hp = 13, max_hp = 13, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "WEEDLE"
+expect.enemy.active.level = 3
+expect.enemy.active.hp = 15
+expect.enemy.active.max_hp = 15
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 40, 0, 0]
+expect.enemy.party = [{ species = "CATERPIE", level = 2, hp = 0, max_hp = 14, status = "none" }, { species = "CATERPIE", level = 2, hp = 0, max_hp = 14, status = "none" }, { species = "WEEDLE", level = 3, hp = 15, max_hp = 15, status = "none" }, { species = "CATERPIE", level = 2, hp = 14, max_hp = 14, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "OCTILLERY"
+expect.player.active.level = 3
+expect.player.active.hp = 10
+expect.player.active.max_hp = 17
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 0, 0, 0]
+expect.player.party = [{ species = "OCTILLERY", level = 3, hp = 10, max_hp = 17, status = "none" }, { species = "POLIWAG", level = 2, hp = 13, max_hp = 13, status = "none" }, { species = "CLOYSTER", level = 2, hp = 14, max_hp = 14, status = "none" }, { species = "SPEAROW", level = 3, hp = 15, max_hp = 15, status = "none" }, { species = "TYROGUE", level = 2, hp = 13, max_hp = 13, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "WEEDLE"
+expect.enemy.active.level = 3
+expect.enemy.active.hp = 15
+expect.enemy.active.max_hp = 15
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 40, 0, 0]
+expect.enemy.party = [{ species = "CATERPIE", level = 2, hp = 0, max_hp = 14, status = "none" }, { species = "CATERPIE", level = 2, hp = 0, max_hp = 14, status = "none" }, { species = "WEEDLE", level = 3, hp = 15, max_hp = 15, status = "none" }, { species = "CATERPIE", level = 2, hp = 14, max_hp = 14, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "OCTILLERY"
+expect.player.active.level = 3
+expect.player.active.hp = 6
+expect.player.active.max_hp = 17
+expect.player.active.status = "poison"
+expect.player.active.pp = [19, 0, 0, 0]
+expect.player.party = [{ species = "OCTILLERY", level = 3, hp = 6, max_hp = 17, status = "poison" }, { species = "POLIWAG", level = 2, hp = 13, max_hp = 13, status = "none" }, { species = "CLOYSTER", level = 2, hp = 14, max_hp = 14, status = "none" }, { species = "SPEAROW", level = 3, hp = 15, max_hp = 15, status = "none" }, { species = "TYROGUE", level = 2, hp = 13, max_hp = 13, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "WEEDLE"
+expect.enemy.active.level = 3
+expect.enemy.active.hp = 7
+expect.enemy.active.max_hp = 15
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [34, 40, 0, 0]
+expect.enemy.party = [{ species = "CATERPIE", level = 2, hp = 0, max_hp = 14, status = "none" }, { species = "CATERPIE", level = 2, hp = 0, max_hp = 14, status = "none" }, { species = "WEEDLE", level = 3, hp = 15, max_hp = 15, status = "none" }, { species = "CATERPIE", level = 2, hp = 14, max_hp = 14, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "OCTILLERY"
+expect.player.active.level = 4
+expect.player.active.hp = 7
+expect.player.active.max_hp = 20
+expect.player.active.status = "poison"
+expect.player.active.pp = [18, 0, 0, 0]
+expect.player.party = [{ species = "OCTILLERY", level = 4, hp = 7, max_hp = 20, status = "poison" }, { species = "POLIWAG", level = 2, hp = 13, max_hp = 13, status = "none" }, { species = "CLOYSTER", level = 2, hp = 14, max_hp = 14, status = "none" }, { species = "SPEAROW", level = 3, hp = 15, max_hp = 15, status = "none" }, { species = "TYROGUE", level = 2, hp = 13, max_hp = 13, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "CATERPIE"
+expect.enemy.active.level = 2
+expect.enemy.active.hp = 14
+expect.enemy.active.max_hp = 14
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 40, 0, 0]
+expect.enemy.party = [{ species = "CATERPIE", level = 2, hp = 0, max_hp = 14, status = "none" }, { species = "CATERPIE", level = 2, hp = 0, max_hp = 14, status = "none" }, { species = "WEEDLE", level = 3, hp = 0, max_hp = 15, status = "none" }, { species = "CATERPIE", level = 2, hp = 14, max_hp = 14, status = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "OCTILLERY"
+expect.player.active.level = 4
+expect.player.active.hp = 7
+expect.player.active.max_hp = 20
+expect.player.active.status = "poison"
+expect.player.active.pp = [18, 0, 0, 0]
+expect.player.party = [{ species = "OCTILLERY", level = 4, hp = 7, max_hp = 20, status = "poison" }, { species = "POLIWAG", level = 2, hp = 13, max_hp = 13, status = "none" }, { species = "CLOYSTER", level = 2, hp = 14, max_hp = 14, status = "none" }, { species = "SPEAROW", level = 3, hp = 15, max_hp = 15, status = "none" }, { species = "TYROGUE", level = 2, hp = 13, max_hp = 13, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "CATERPIE"
+expect.enemy.active.level = 2
+expect.enemy.active.hp = 14
+expect.enemy.active.max_hp = 14
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 40, 0, 0]
+expect.enemy.party = [{ species = "CATERPIE", level = 2, hp = 0, max_hp = 14, status = "none" }, { species = "CATERPIE", level = 2, hp = 0, max_hp = 14, status = "none" }, { species = "WEEDLE", level = 3, hp = 0, max_hp = 15, status = "none" }, { species = "CATERPIE", level = 2, hp = 14, max_hp = 14, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "OCTILLERY"
+expect.player.active.level = 4
+expect.player.active.hp = 4
+expect.player.active.max_hp = 20
+expect.player.active.status = "poison"
+expect.player.active.pp = [17, 0, 0, 0]
+expect.player.party = [{ species = "OCTILLERY", level = 4, hp = 4, max_hp = 20, status = "poison" }, { species = "POLIWAG", level = 2, hp = 13, max_hp = 13, status = "none" }, { species = "CLOYSTER", level = 2, hp = 14, max_hp = 14, status = "none" }, { species = "SPEAROW", level = 3, hp = 15, max_hp = 15, status = "none" }, { species = "TYROGUE", level = 2, hp = 13, max_hp = 13, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "CATERPIE"
+expect.enemy.active.level = 2
+expect.enemy.active.hp = 5
+expect.enemy.active.max_hp = 14
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [34, 40, 0, 0]
+expect.enemy.party = [{ species = "CATERPIE", level = 2, hp = 0, max_hp = 14, status = "none" }, { species = "CATERPIE", level = 2, hp = 0, max_hp = 14, status = "none" }, { species = "WEEDLE", level = 3, hp = 0, max_hp = 15, status = "none" }, { species = "CATERPIE", level = 2, hp = 14, max_hp = 14, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 14
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "OCTILLERY"
+expect.player.active.level = 4
+expect.player.active.hp = 19
+expect.player.active.max_hp = 20
+expect.player.active.status = "none"
+expect.player.active.pp = [17, 0, 0, 0]
+expect.player.party = [{ species = "OCTILLERY", level = 4, hp = 19, max_hp = 20, status = "none" }, { species = "POLIWAG", level = 2, hp = 13, max_hp = 13, status = "none" }, { species = "CLOYSTER", level = 2, hp = 14, max_hp = 14, status = "none" }, { species = "SPEAROW", level = 3, hp = 15, max_hp = 15, status = "none" }, { species = "TYROGUE", level = 2, hp = 13, max_hp = 13, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "CATERPIE"
+expect.enemy.active.level = 2
+expect.enemy.active.hp = 5
+expect.enemy.active.max_hp = 14
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [33, 40, 0, 0]
+expect.enemy.party = [{ species = "CATERPIE", level = 2, hp = 0, max_hp = 14, status = "none" }, { species = "CATERPIE", level = 2, hp = 0, max_hp = 14, status = "none" }, { species = "WEEDLE", level = 3, hp = 0, max_hp = 15, status = "none" }, { species = "CATERPIE", level = 2, hp = 14, max_hp = 14, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "OCTILLERY"
+expect.player.active.level = 4
+expect.player.active.hp = 18
+expect.player.active.max_hp = 20
+expect.player.active.status = "none"
+expect.player.active.pp = [16, 0, 0, 0]
+expect.player.party = [{ species = "OCTILLERY", level = 4, hp = 18, max_hp = 20, status = "none" }, { species = "POLIWAG", level = 2, hp = 13, max_hp = 13, status = "none" }, { species = "CLOYSTER", level = 2, hp = 14, max_hp = 14, status = "none" }, { species = "SPEAROW", level = 3, hp = 15, max_hp = 15, status = "none" }, { species = "TYROGUE", level = 2, hp = 13, max_hp = 13, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "CATERPIE"
+expect.enemy.active.level = 2
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 14
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [32, 40, 0, 0]
+expect.enemy.party = [{ species = "CATERPIE", level = 2, hp = 0, max_hp = 14, status = "none" }, { species = "CATERPIE", level = 2, hp = 0, max_hp = 14, status = "none" }, { species = "WEEDLE", level = 3, hp = 0, max_hp = 15, status = "none" }, { species = "CATERPIE", level = 2, hp = 0, max_hp = 14, status = "none" }]
+expect.battle.outcome = "win"

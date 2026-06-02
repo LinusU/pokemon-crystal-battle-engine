@@ -1,0 +1,103 @@
+[recording]
+seed = "0xd59967e6a41ed18e"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "KIMONO_GIRL_3"
+
+[[scenario.player_party]]
+species = "CYNDAQUIL"
+level = 16
+
+[[scenario.player_items]]
+name = "Max Elixer"
+quantity = 3
+
+[[scenario.player_items]]
+name = "Ice Heal"
+quantity = 2
+
+[[scenario.player_items]]
+name = "X Accuracy"
+quantity = 1
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "CYNDAQUIL"
+expect.player.active.level = 16
+expect.player.active.hp = 18
+expect.player.active.max_hp = 42
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 20, 24]
+expect.player.party = [{ species = "CYNDAQUIL", level = 16, hp = 18, max_hp = 42, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "ESPEON"
+expect.enemy.active.level = 17
+expect.enemy.active.hp = 42
+expect.enemy.active.max_hp = 49
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 30, 15, 24]
+expect.enemy.party = [{ species = "ESPEON", level = 17, hp = 49, max_hp = 49, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "CYNDAQUIL"
+expect.player.active.level = 16
+expect.player.active.hp = 18
+expect.player.active.max_hp = 42
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 20, 23]
+expect.player.party = [{ species = "CYNDAQUIL", level = 16, hp = 18, max_hp = 42, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "ESPEON"
+expect.enemy.active.level = 17
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 49
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 29, 15, 24]
+expect.enemy.party = [{ species = "ESPEON", level = 17, hp = 49, max_hp = 49, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "CYNDAQUIL"
+expect.player.active.level = 16
+expect.player.active.hp = 18
+expect.player.active.max_hp = 42
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 20, 22]
+expect.player.party = [{ species = "CYNDAQUIL", level = 16, hp = 18, max_hp = 42, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "ESPEON"
+expect.enemy.active.level = 17
+expect.enemy.active.hp = 26
+expect.enemy.active.max_hp = 49
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 28, 15, 24]
+expect.enemy.party = [{ species = "ESPEON", level = 17, hp = 49, max_hp = 49, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "CYNDAQUIL"
+expect.player.active.level = 16
+expect.player.active.hp = 0
+expect.player.active.max_hp = 42
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 20, 22]
+expect.player.party = [{ species = "CYNDAQUIL", level = 16, hp = 0, max_hp = 42, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "ESPEON"
+expect.enemy.active.level = 17
+expect.enemy.active.hp = 26
+expect.enemy.active.max_hp = 49
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 28, 15, 23]
+expect.enemy.party = [{ species = "ESPEON", level = 17, hp = 49, max_hp = 49, status = "none" }]
+expect.battle.outcome = "loss"

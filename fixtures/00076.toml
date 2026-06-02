@@ -1,0 +1,99 @@
+[recording]
+seed = "0x207112cdb0a0ee9b"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "BEAUTY_11"
+
+[[scenario.player_party]]
+species = "SEADRA"
+level = 17
+
+[[scenario.player_items]]
+name = "Burn Heal"
+quantity = 2
+
+[[scenario.player_items]]
+name = "Super Potion"
+quantity = 1
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SEADRA"
+expect.player.active.level = 17
+expect.player.active.hp = 50
+expect.player.active.max_hp = 50
+expect.player.active.status = "none"
+expect.player.active.pp = [29, 20, 30, 25]
+expect.player.party = [{ species = "SEADRA", level = 17, hp = 50, max_hp = 50, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SENTRET"
+expect.enemy.active.level = 15
+expect.enemy.active.hp = 28
+expect.enemy.active.max_hp = 36
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 39, 30, 0]
+expect.enemy.party = [{ species = "SENTRET", level = 15, hp = 36, max_hp = 36, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SEADRA"
+expect.player.active.level = 17
+expect.player.active.hp = 45
+expect.player.active.max_hp = 50
+expect.player.active.status = "none"
+expect.player.active.pp = [28, 20, 30, 25]
+expect.player.party = [{ species = "SEADRA", level = 17, hp = 45, max_hp = 50, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SENTRET"
+expect.enemy.active.level = 15
+expect.enemy.active.hp = 11
+expect.enemy.active.max_hp = 36
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [34, 39, 30, 0]
+expect.enemy.party = [{ species = "SENTRET", level = 15, hp = 36, max_hp = 36, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SEADRA"
+expect.player.active.level = 17
+expect.player.active.hp = 40
+expect.player.active.max_hp = 50
+expect.player.active.status = "none"
+expect.player.active.pp = [27, 20, 30, 25]
+expect.player.party = [{ species = "SEADRA", level = 17, hp = 40, max_hp = 50, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SENTRET"
+expect.enemy.active.level = 15
+expect.enemy.active.hp = 3
+expect.enemy.active.max_hp = 36
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [33, 39, 30, 0]
+expect.enemy.party = [{ species = "SENTRET", level = 15, hp = 36, max_hp = 36, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SEADRA"
+expect.player.active.level = 17
+expect.player.active.hp = 34
+expect.player.active.max_hp = 50
+expect.player.active.status = "none"
+expect.player.active.pp = [26, 20, 30, 25]
+expect.player.party = [{ species = "SEADRA", level = 17, hp = 34, max_hp = 50, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SENTRET"
+expect.enemy.active.level = 15
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 36
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [33, 39, 29, 0]
+expect.enemy.party = [{ species = "SENTRET", level = 15, hp = 0, max_hp = 36, status = "none" }]
+expect.battle.outcome = "win"
