@@ -1,0 +1,9 @@
+# Coverage-targeted (broaden): COOLTRAINERM_19.
+[battle]
+type = "trainer_battle"
+trainer = "COOLTRAINERM_19"
+seed = 0x5eed000000003e00
+
+[[player_party]]
+species = "CHANSEY"
+level = 35

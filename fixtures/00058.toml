@@ -1,0 +1,144 @@
+[recording]
+source_scenario = "fixtures/00058.scenario.toml"
+seed = "0x5eed000000003a00"
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 18
+expect.player.active.hp = 67
+expect.player.active.max_hp = 85
+expect.player.active.status = "none"
+expect.player.active.pp = [34, 20, 40, 0]
+expect.player.party = [{ species = "SNORLAX", level = 18, hp = 67, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 35
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 10, 5, 10]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 18
+expect.player.active.hp = 51
+expect.player.active.max_hp = 85
+expect.player.active.status = "none"
+expect.player.active.pp = [33, 20, 40, 0]
+expect.player.party = [{ species = "SNORLAX", level = 18, hp = 51, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 18
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 10, 5, 9]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 18
+expect.player.active.hp = 51
+expect.player.active.max_hp = 85
+expect.player.active.status = "none"
+expect.player.active.pp = [32, 20, 40, 0]
+expect.player.party = [{ species = "SNORLAX", level = 18, hp = 51, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 1
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 10, 5, 9]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 18
+expect.player.active.hp = 51
+expect.player.active.max_hp = 85
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [31, 20, 40, 0]
+expect.player.party = [{ species = "SNORLAX", level = 18, hp = 51, max_hp = 85, status = "paralysis" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 20
+expect.enemy.active.hp = 68
+expect.enemy.active.max_hp = 68
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 20, 10]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 0, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 18
+expect.player.active.hp = 42
+expect.player.active.max_hp = 85
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [30, 20, 40, 0]
+expect.player.party = [{ species = "SNORLAX", level = 18, hp = 42, max_hp = 85, status = "paralysis" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 20
+expect.enemy.active.hp = 59
+expect.enemy.active.max_hp = 68
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 15, 20, 10]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 0, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 18
+expect.player.active.hp = 24
+expect.player.active.max_hp = 85
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [29, 20, 40, 0]
+expect.player.party = [{ species = "SNORLAX", level = 18, hp = 24, max_hp = 85, status = "paralysis" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 20
+expect.enemy.active.hp = 51
+expect.enemy.active.max_hp = 68
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 15, 20, 10]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 0, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 18
+expect.player.active.hp = 0
+expect.player.active.max_hp = 85
+expect.player.active.status = "none"
+expect.player.active.pp = [29, 20, 40, 0]
+expect.player.party = [{ species = "SNORLAX", level = 18, hp = 0, max_hp = 85, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 20
+expect.enemy.active.hp = 51
+expect.enemy.active.max_hp = 68
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 15, 20, 10]
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 0, max_hp = 53, status = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none" }]
+expect.battle.outcome = "loss"

@@ -1,0 +1,13 @@
+# Coverage-targeted (broaden): KOGA_1.
+[battle]
+type = "trainer_battle"
+trainer = "KOGA_1"
+seed = 0x5eed000000004000
+
+[[player_party]]
+species = "SNORLAX"
+level = 52
+
+[[player_items]]
+name = "Full Restore"
+quantity = 6

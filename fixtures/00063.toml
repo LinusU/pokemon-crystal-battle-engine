@@ -1,0 +1,24 @@
+[recording]
+source_scenario = "fixtures/00063.scenario.toml"
+seed = "0x5eed000000003f40"
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 42
+expect.player.active.hp = 0
+expect.player.active.max_hp = 262
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 15, 10, 40]
+expect.player.party = [{ species = "CHANSEY", level = 42, hp = 0, max_hp = 262, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 27
+expect.enemy.active.hp = 68
+expect.enemy.active.max_hp = 68
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 40, 24, 30]
+expect.enemy.party = [{ species = "HITMONLEE", level = 27, hp = 68, max_hp = 68, status = "none" }]
+expect.battle.outcome = "loss"

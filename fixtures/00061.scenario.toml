@@ -1,0 +1,13 @@
+# Coverage-targeted fixture: BLUE_1 carries a 0%-covered move effect.
+[battle]
+type = "trainer_battle"
+trainer = "BLUE_1"
+seed = 0x5eed000000003d00
+
+[[player_party]]
+species = "SNORLAX"
+level = 58
+
+[[player_items]]
+name = "Full Restore"
+quantity = 3

@@ -1,0 +1,345 @@
+[recording]
+source_scenario = "fixtures/00060.scenario.toml"
+seed = "0x5eed000000003c00"
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 33
+expect.player.active.hp = 137
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 10, 15]
+expect.player.party = [{ species = "SNORLAX", level = 33, hp = 137, max_hp = 149, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SEEL"
+expect.enemy.active.level = 27
+expect.enemy.active.hp = 76
+expect.enemy.active.max_hp = 76
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 15, 20, 10]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 76, max_hp = 76, status = "none" }, { species = "DEWGONG", level = 29, hp = 95, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 33
+expect.player.active.hp = 125
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 10, 15]
+expect.player.party = [{ species = "SNORLAX", level = 33, hp = 125, max_hp = 149, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SEEL"
+expect.enemy.active.level = 27
+expect.enemy.active.hp = 76
+expect.enemy.active.max_hp = 76
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 15, 20, 10]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 76, max_hp = 76, status = "none" }, { species = "DEWGONG", level = 29, hp = 95, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 33
+expect.player.active.hp = 112
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 10, 14]
+expect.player.party = [{ species = "SNORLAX", level = 33, hp = 112, max_hp = 149, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SEEL"
+expect.enemy.active.level = 27
+expect.enemy.active.hp = 13
+expect.enemy.active.max_hp = 76
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 15, 20, 10]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 76, max_hp = 76, status = "none" }, { species = "DEWGONG", level = 29, hp = 95, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 33
+expect.player.active.hp = 112
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 10, 13]
+expect.player.party = [{ species = "SNORLAX", level = 33, hp = 112, max_hp = 149, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SEEL"
+expect.enemy.active.level = 27
+expect.enemy.active.hp = 15
+expect.enemy.active.max_hp = 76
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [12, 15, 20, 9]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 76, max_hp = 76, status = "sleep" }, { species = "DEWGONG", level = 29, hp = 95, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 33
+expect.player.active.hp = 112
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 10, 12]
+expect.player.party = [{ species = "SNORLAX", level = 33, hp = 112, max_hp = 149, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "DEWGONG"
+expect.enemy.active.level = 29
+expect.enemy.active.hp = 95
+expect.enemy.active.max_hp = 95
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 20, 10]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "sleep" }, { species = "DEWGONG", level = 29, hp = 95, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 33
+expect.player.active.hp = 92
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 10, 12]
+expect.player.party = [{ species = "SNORLAX", level = 33, hp = 92, max_hp = 149, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "DEWGONG"
+expect.enemy.active.level = 29
+expect.enemy.active.hp = 95
+expect.enemy.active.max_hp = 95
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 15, 20, 10]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "sleep" }, { species = "DEWGONG", level = 29, hp = 95, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 33
+expect.player.active.hp = 75
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 10, 11]
+expect.player.party = [{ species = "SNORLAX", level = 33, hp = 75, max_hp = 149, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "DEWGONG"
+expect.enemy.active.level = 29
+expect.enemy.active.hp = 55
+expect.enemy.active.max_hp = 95
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 15, 20, 10]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "sleep" }, { species = "DEWGONG", level = 29, hp = 95, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 33
+expect.player.active.hp = 55
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 10, 10]
+expect.player.party = [{ species = "SNORLAX", level = 33, hp = 55, max_hp = 149, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "DEWGONG"
+expect.enemy.active.level = 29
+expect.enemy.active.hp = 12
+expect.enemy.active.max_hp = 95
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 15, 20, 10]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "sleep" }, { species = "DEWGONG", level = 29, hp = 95, max_hp = 95, status = "none" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 33
+expect.player.active.hp = 55
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 10, 9]
+expect.player.party = [{ species = "SNORLAX", level = 33, hp = 55, max_hp = 149, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "DEWGONG"
+expect.enemy.active.level = 29
+expect.enemy.active.hp = 51
+expect.enemy.active.max_hp = 95
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [12, 15, 20, 9]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "sleep" }, { species = "DEWGONG", level = 29, hp = 95, max_hp = 95, status = "sleep" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 33
+expect.player.active.hp = 55
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 10, 8]
+expect.player.party = [{ species = "SNORLAX", level = 33, hp = 55, max_hp = 149, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "DEWGONG"
+expect.enemy.active.level = 29
+expect.enemy.active.hp = 12
+expect.enemy.active.max_hp = 95
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [12, 15, 20, 9]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "sleep" }, { species = "DEWGONG", level = 29, hp = 95, max_hp = 95, status = "sleep" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 33
+expect.player.active.hp = 55
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 10, 7]
+expect.player.party = [{ species = "SNORLAX", level = 33, hp = 55, max_hp = 149, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 31
+expect.enemy.active.hp = 107
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 20, 30, 5]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "sleep" }, { species = "DEWGONG", level = 29, hp = 0, max_hp = 95, status = "sleep" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 33
+expect.player.active.hp = 55
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 10, 6]
+expect.player.party = [{ species = "SNORLAX", level = 33, hp = 55, max_hp = 149, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 31
+expect.enemy.active.hp = 67
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 19, 30, 5]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "sleep" }, { species = "DEWGONG", level = 29, hp = 0, max_hp = 95, status = "sleep" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 33
+expect.player.active.hp = 35
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 10, 5]
+expect.player.party = [{ species = "SNORLAX", level = 33, hp = 35, max_hp = 149, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 31
+expect.enemy.active.hp = 26
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 18, 30, 5]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "sleep" }, { species = "DEWGONG", level = 29, hp = 0, max_hp = 95, status = "sleep" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 14
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 33
+expect.player.active.hp = 149
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 10, 5]
+expect.player.party = [{ species = "SNORLAX", level = 33, hp = 149, max_hp = 149, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 31
+expect.enemy.active.hp = 107
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 18, 30, 5]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "sleep" }, { species = "DEWGONG", level = 29, hp = 0, max_hp = 95, status = "sleep" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 33
+expect.player.active.hp = 122
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 10, 4]
+expect.player.party = [{ species = "SNORLAX", level = 33, hp = 122, max_hp = 149, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 31
+expect.enemy.active.hp = 65
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 18, 30, 4]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "sleep" }, { species = "DEWGONG", level = 29, hp = 0, max_hp = 95, status = "sleep" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 33
+expect.player.active.hp = 104
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 10, 3]
+expect.player.party = [{ species = "SNORLAX", level = 33, hp = 104, max_hp = 149, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 31
+expect.enemy.active.hp = 27
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 17, 30, 4]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "sleep" }, { species = "DEWGONG", level = 29, hp = 0, max_hp = 95, status = "sleep" }, { species = "PILOSWINE", level = 31, hp = 107, max_hp = 107, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 33
+expect.player.active.hp = 84
+expect.player.active.max_hp = 149
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 10, 2]
+expect.player.party = [{ species = "SNORLAX", level = 33, hp = 84, max_hp = 149, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "PILOSWINE"
+expect.enemy.active.level = 31
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 16, 30, 4]
+expect.enemy.party = [{ species = "SEEL", level = 27, hp = 0, max_hp = 76, status = "sleep" }, { species = "DEWGONG", level = 29, hp = 0, max_hp = 95, status = "sleep" }, { species = "PILOSWINE", level = 31, hp = 0, max_hp = 107, status = "none" }]
+expect.battle.outcome = "win"

@@ -1,0 +1,204 @@
+[recording]
+source_scenario = "fixtures/00057.scenario.toml"
+seed = "0x5eed000000003900"
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 16
+expect.player.active.hp = 68
+expect.player.active.max_hp = 77
+expect.player.active.status = "none"
+expect.player.active.pp = [34, 20, 40, 0]
+expect.player.party = [{ species = "SNORLAX", level = 16, hp = 68, max_hp = 77, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MEOWTH"
+expect.enemy.active.level = 16
+expect.enemy.active.hp = 23
+expect.enemy.active.max_hp = 40
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [34, 40, 25, 20]
+expect.enemy.party = [{ species = "MEOWTH", level = 16, hp = 40, max_hp = 40, status = "none" }, { species = "MEOWTH", level = 16, hp = 40, max_hp = 40, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 16
+expect.player.active.hp = 51
+expect.player.active.max_hp = 77
+expect.player.active.status = "none"
+expect.player.active.pp = [33, 20, 40, 0]
+expect.player.party = [{ species = "SNORLAX", level = 16, hp = 51, max_hp = 77, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MEOWTH"
+expect.enemy.active.level = 16
+expect.enemy.active.hp = 23
+expect.enemy.active.max_hp = 40
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [33, 40, 25, 20]
+expect.enemy.party = [{ species = "MEOWTH", level = 16, hp = 40, max_hp = 40, status = "none" }, { species = "MEOWTH", level = 16, hp = 40, max_hp = 40, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 16
+expect.player.active.hp = 43
+expect.player.active.max_hp = 77
+expect.player.active.status = "none"
+expect.player.active.pp = [32, 20, 40, 0]
+expect.player.party = [{ species = "SNORLAX", level = 16, hp = 43, max_hp = 77, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MEOWTH"
+expect.enemy.active.level = 16
+expect.enemy.active.hp = 6
+expect.enemy.active.max_hp = 40
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [33, 40, 25, 19]
+expect.enemy.party = [{ species = "MEOWTH", level = 16, hp = 40, max_hp = 40, status = "none" }, { species = "MEOWTH", level = 16, hp = 40, max_hp = 40, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 16
+expect.player.active.hp = 34
+expect.player.active.max_hp = 77
+expect.player.active.status = "none"
+expect.player.active.pp = [31, 20, 40, 0]
+expect.player.party = [{ species = "SNORLAX", level = 16, hp = 34, max_hp = 77, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MEOWTH"
+expect.enemy.active.level = 16
+expect.enemy.active.hp = 40
+expect.enemy.active.max_hp = 40
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 40, 25, 20]
+expect.enemy.party = [{ species = "MEOWTH", level = 16, hp = 0, max_hp = 40, status = "none" }, { species = "MEOWTH", level = 16, hp = 40, max_hp = 40, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 16
+expect.player.active.hp = 34
+expect.player.active.max_hp = 77
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 40, 0]
+expect.player.party = [{ species = "SNORLAX", level = 16, hp = 34, max_hp = 77, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MEOWTH"
+expect.enemy.active.level = 16
+expect.enemy.active.hp = 29
+expect.enemy.active.max_hp = 40
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 39, 25, 20]
+expect.enemy.party = [{ species = "MEOWTH", level = 16, hp = 0, max_hp = 40, status = "none" }, { species = "MEOWTH", level = 16, hp = 40, max_hp = 40, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 16
+expect.player.active.hp = 29
+expect.player.active.max_hp = 77
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 20, 40, 0]
+expect.player.party = [{ species = "SNORLAX", level = 16, hp = 29, max_hp = 77, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MEOWTH"
+expect.enemy.active.level = 16
+expect.enemy.active.hp = 29
+expect.enemy.active.max_hp = 40
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 39, 24, 20]
+expect.enemy.party = [{ species = "MEOWTH", level = 16, hp = 0, max_hp = 40, status = "none" }, { species = "MEOWTH", level = 16, hp = 40, max_hp = 40, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 16
+expect.player.active.hp = 15
+expect.player.active.max_hp = 77
+expect.player.active.status = "none"
+expect.player.active.pp = [29, 20, 40, 0]
+expect.player.party = [{ species = "SNORLAX", level = 16, hp = 15, max_hp = 77, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MEOWTH"
+expect.enemy.active.level = 16
+expect.enemy.active.hp = 18
+expect.enemy.active.max_hp = 40
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 39, 24, 19]
+expect.enemy.party = [{ species = "MEOWTH", level = 16, hp = 0, max_hp = 40, status = "none" }, { species = "MEOWTH", level = 16, hp = 40, max_hp = 40, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 16
+expect.player.active.hp = 6
+expect.player.active.max_hp = 77
+expect.player.active.status = "none"
+expect.player.active.pp = [28, 20, 40, 0]
+expect.player.party = [{ species = "SNORLAX", level = 16, hp = 6, max_hp = 77, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MEOWTH"
+expect.enemy.active.level = 16
+expect.enemy.active.hp = 6
+expect.enemy.active.max_hp = 40
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [34, 39, 24, 19]
+expect.enemy.party = [{ species = "MEOWTH", level = 16, hp = 0, max_hp = 40, status = "none" }, { species = "MEOWTH", level = 16, hp = 40, max_hp = 40, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 16
+expect.player.active.hp = 1
+expect.player.active.max_hp = 77
+expect.player.active.status = "none"
+expect.player.active.pp = [28, 20, 40, 0]
+expect.player.party = [{ species = "SNORLAX", level = 16, hp = 1, max_hp = 77, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MEOWTH"
+expect.enemy.active.level = 16
+expect.enemy.active.hp = 6
+expect.enemy.active.max_hp = 40
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [34, 39, 23, 19]
+expect.enemy.party = [{ species = "MEOWTH", level = 16, hp = 0, max_hp = 40, status = "none" }, { species = "MEOWTH", level = 16, hp = 40, max_hp = 40, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 16
+expect.player.active.hp = 0
+expect.player.active.max_hp = 77
+expect.player.active.status = "none"
+expect.player.active.pp = [28, 20, 40, 0]
+expect.player.party = [{ species = "SNORLAX", level = 16, hp = 0, max_hp = 77, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MEOWTH"
+expect.enemy.active.level = 16
+expect.enemy.active.hp = 6
+expect.enemy.active.max_hp = 40
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [34, 39, 22, 19]
+expect.enemy.party = [{ species = "MEOWTH", level = 16, hp = 0, max_hp = 40, status = "none" }, { species = "MEOWTH", level = 16, hp = 40, max_hp = 40, status = "none" }]
+expect.battle.outcome = "loss"

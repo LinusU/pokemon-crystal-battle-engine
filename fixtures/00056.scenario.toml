@@ -1,0 +1,9 @@
+# Coverage-targeted fixture: SUPER_NERD_12 carries a 0%-covered move effect.
+[battle]
+type = "trainer_battle"
+trainer = "SUPER_NERD_12"
+seed = 0x5eed000000003800
+
+[[player_party]]
+species = "SNORLAX"
+level = 30

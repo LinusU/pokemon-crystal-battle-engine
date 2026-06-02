@@ -1,0 +1,225 @@
+[recording]
+source_scenario = "fixtures/00064.scenario.toml"
+seed = "0x5eed000000004000"
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 52
+expect.player.active.hp = 232
+expect.player.active.max_hp = 232
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 14, 20]
+expect.player.party = [{ species = "SNORLAX", level = 52, hp = 232, max_hp = 232, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "ARIADOS"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 24
+expect.enemy.active.max_hp = 114
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [14, 10, 40, 5]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 24, max_hp = 114, status = "paralysis" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 149, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 52
+expect.player.active.hp = 221
+expect.player.active.max_hp = 232
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 13, 20]
+expect.player.party = [{ species = "SNORLAX", level = 52, hp = 221, max_hp = 232, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "ARIADOS"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 29
+expect.enemy.active.max_hp = 114
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [14, 10, 40, 4]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 24, max_hp = 114, status = "paralysis" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 149, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 52
+expect.player.active.hp = 221
+expect.player.active.max_hp = 232
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 12, 20]
+expect.player.party = [{ species = "SNORLAX", level = 52, hp = 221, max_hp = 232, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "VENOMOTH"
+expect.enemy.active.level = 41
+expect.enemy.active.hp = 117
+expect.enemy.active.max_hp = 117
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 35, 10, 10]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "paralysis" }, { species = "VENOMOTH", level = 41, hp = 117, max_hp = 117, status = "none" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 149, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 52
+expect.player.active.hp = 221
+expect.player.active.max_hp = 232
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 11, 20]
+expect.player.party = [{ species = "SNORLAX", level = 52, hp = 221, max_hp = 232, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "VENOMOTH"
+expect.enemy.active.level = 41
+expect.enemy.active.hp = 11
+expect.enemy.active.max_hp = 117
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [19, 35, 10, 10]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "paralysis" }, { species = "VENOMOTH", level = 41, hp = 11, max_hp = 117, status = "paralysis" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 149, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 52
+expect.player.active.hp = 221
+expect.player.active.max_hp = 232
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 10, 20]
+expect.player.party = [{ species = "SNORLAX", level = 52, hp = 221, max_hp = 232, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "FORRETRESS"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 126
+expect.enemy.active.max_hp = 126
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 5, 20]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "paralysis" }, { species = "VENOMOTH", level = 41, hp = 0, max_hp = 117, status = "paralysis" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 149, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 52
+expect.player.active.hp = 221
+expect.player.active.max_hp = 232
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 9, 20]
+expect.player.party = [{ species = "SNORLAX", level = 52, hp = 221, max_hp = 232, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "FORRETRESS"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 126
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 5, 19]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "paralysis" }, { species = "VENOMOTH", level = 41, hp = 0, max_hp = 117, status = "paralysis" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 149, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 52
+expect.player.active.hp = 163
+expect.player.active.max_hp = 232
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 9, 20]
+expect.player.party = [{ species = "SNORLAX", level = 52, hp = 163, max_hp = 232, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "FORRETRESS"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 126
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 19, 5, 19]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "paralysis" }, { species = "VENOMOTH", level = 41, hp = 0, max_hp = 117, status = "paralysis" }, { species = "FORRETRESS", level = 43, hp = 126, max_hp = 126, status = "none" }, { species = "MUK", level = 42, hp = 149, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 52
+expect.player.active.hp = 133
+expect.player.active.max_hp = 232
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 8, 20]
+expect.player.party = [{ species = "SNORLAX", level = 52, hp = 133, max_hp = 232, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "FORRETRESS"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 63
+expect.enemy.active.max_hp = 126
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [10, 18, 5, 19]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "paralysis" }, { species = "VENOMOTH", level = 41, hp = 0, max_hp = 117, status = "paralysis" }, { species = "FORRETRESS", level = 43, hp = 63, max_hp = 126, status = "paralysis" }, { species = "MUK", level = 42, hp = 149, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 52
+expect.player.active.hp = 80
+expect.player.active.max_hp = 232
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 7, 20]
+expect.player.party = [{ species = "SNORLAX", level = 52, hp = 80, max_hp = 232, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "FORRETRESS"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 39
+expect.enemy.active.max_hp = 126
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [10, 17, 5, 19]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "paralysis" }, { species = "VENOMOTH", level = 41, hp = 0, max_hp = 117, status = "paralysis" }, { species = "FORRETRESS", level = 43, hp = 63, max_hp = 126, status = "paralysis" }, { species = "MUK", level = 42, hp = 149, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 14
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 52
+expect.player.active.hp = 204
+expect.player.active.max_hp = 232
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 7, 20]
+expect.player.party = [{ species = "SNORLAX", level = 52, hp = 204, max_hp = 232, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "FORRETRESS"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 39
+expect.enemy.active.max_hp = 126
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [10, 16, 5, 19]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "paralysis" }, { species = "VENOMOTH", level = 41, hp = 0, max_hp = 117, status = "paralysis" }, { species = "FORRETRESS", level = 43, hp = 63, max_hp = 126, status = "paralysis" }, { species = "MUK", level = 42, hp = 149, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 52
+expect.player.active.hp = 0
+expect.player.active.max_hp = 232
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 6, 20]
+expect.player.party = [{ species = "SNORLAX", level = 52, hp = 0, max_hp = 232, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "FORRETRESS"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 126
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 16, 4, 19]
+expect.enemy.party = [{ species = "ARIADOS", level = 40, hp = 0, max_hp = 114, status = "paralysis" }, { species = "VENOMOTH", level = 41, hp = 0, max_hp = 117, status = "paralysis" }, { species = "FORRETRESS", level = 43, hp = 63, max_hp = 126, status = "paralysis" }, { species = "MUK", level = 42, hp = 149, max_hp = 149, status = "none" }, { species = "CROBAT", level = 44, hp = 138, max_hp = 138, status = "none" }]
+expect.battle.outcome = "loss"

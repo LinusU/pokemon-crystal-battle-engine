@@ -1,0 +1,830 @@
+[recording]
+source_scenario = "fixtures/00065.scenario.toml"
+seed = "0x5eed000000004100"
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 204
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 14, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 204, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GRAVELER"
+expect.enemy.active.level = 41
+expect.enemy.active.hp = 73
+expect.enemy.active.max_hp = 102
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 10, 19, 10]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 102, max_hp = 102, status = "none" }, { species = "RHYHORN", level = 41, hp = 123, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 117, max_hp = 117, status = "none" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "none" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 161
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 13, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 161, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GRAVELER"
+expect.enemy.active.level = 41
+expect.enemy.active.hp = 44
+expect.enemy.active.max_hp = 102
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [40, 10, 19, 10]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 44, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 123, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 117, max_hp = 117, status = "none" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "none" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 161
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 12, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 161, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GRAVELER"
+expect.enemy.active.level = 41
+expect.enemy.active.hp = 17
+expect.enemy.active.max_hp = 102
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [40, 10, 19, 10]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 44, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 123, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 117, max_hp = 117, status = "none" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "none" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 161
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 11, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 161, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "RHYHORN"
+expect.enemy.active.level = 41
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 5]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 123, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 117, max_hp = 117, status = "none" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "none" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 134
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 10, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 134, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "RHYHORN"
+expect.enemy.active.level = 41
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 10, 10, 5]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 123, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 117, max_hp = 117, status = "none" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "none" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 134
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 9, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 134, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "OMASTAR"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 117
+expect.enemy.active.max_hp = 117
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 15, 10, 15]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 117, max_hp = 117, status = "none" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "none" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 120
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 8, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 120, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "OMASTAR"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 91
+expect.enemy.active.max_hp = 117
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 15, 10, 14]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 117, max_hp = 117, status = "none" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "none" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 71
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 7, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 71, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "OMASTAR"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 64
+expect.enemy.active.max_hp = 117
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [25, 14, 10, 14]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 64, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "none" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 14
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 175
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 7, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 175, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "OMASTAR"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 64
+expect.enemy.active.max_hp = 117
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [25, 13, 10, 14]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 64, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "none" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 161
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 6, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 161, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "OMASTAR"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 40
+expect.enemy.active.max_hp = 117
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [25, 13, 10, 13]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 64, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "none" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 161
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 5, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 161, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "OMASTAR"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 14
+expect.enemy.active.max_hp = 117
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [25, 13, 10, 13]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 64, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "none" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 161
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 4, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 161, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 91
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 10]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "none" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 133
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 3, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 133, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 70
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 9]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "none" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 77
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 3, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 77, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 70
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 9, 10, 9]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "none" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 14
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 165
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 3, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 165, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 70
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 8, 10, 9]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "none" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 82
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 3, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 82, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 70
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 7, 10, 9]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "none" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 51
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 3, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 51, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 70
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 6, 10, 9]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "none" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 14
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 193
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 3, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 193, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 70
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 5, 10, 9]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "none" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 165
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 2, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 165, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 49
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 5, 10, 8]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "none" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 106
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 1, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 106, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 29
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [20, 4, 10, 8]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 29, max_hp = 91, status = "paralysis" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 78
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 0, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 78, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 9
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [20, 4, 10, 8]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 29, max_hp = 91, status = "paralysis" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 14
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 196
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 0, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 196, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 91
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [20, 4, 10, 8]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "paralysis" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 168
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 10, 0, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 168, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 91
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [20, 3, 10, 8]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "paralysis" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 140
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 10, 0, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 140, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 91
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [20, 3, 10, 7]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "paralysis" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 82
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 10, 0, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 82, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 91
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [20, 2, 10, 7]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "paralysis" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 23
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 10, 0, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 23, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 91
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [20, 1, 10, 7]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "paralysis" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 14
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 165
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 10, 0, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 165, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 91
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [20, 0, 10, 7]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "paralysis" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 165
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 0, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 165, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 91
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [20, 0, 10, 7]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "paralysis" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 165
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 10, 0, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 165, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 91
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [20, 0, 10, 7]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "paralysis" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 137
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 10, 0, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 137, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 91
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [20, 0, 10, 6]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "paralysis" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 109
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [7, 10, 0, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 109, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 91
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [20, 0, 9, 6]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "paralysis" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 81
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [6, 10, 0, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 81, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 91
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [20, 0, 9, 6]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "paralysis" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 53
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 10, 0, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 53, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 91
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [20, 0, 9, 6]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "paralysis" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "item"
+id = 14
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 224
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 10, 0, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 224, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 91
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [20, 0, 9, 6]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "paralysis" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 196
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 10, 0, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 196, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 91
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [20, 0, 9, 5]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "paralysis" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 168
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 10, 0, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 168, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 91
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [20, 0, 9, 5]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "paralysis" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 140
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [2, 10, 0, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 140, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 91
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [20, 0, 8, 5]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "paralysis" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 112
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [1, 10, 0, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 112, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 91
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [20, 0, 8, 5]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "paralysis" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 112
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 10, 0, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 112, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 91
+expect.enemy.active.max_hp = 91
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [20, 0, 8, 5]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 91, max_hp = 91, status = "paralysis" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 41
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 10, 0, 19]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 41, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "KABUTOPS"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 109
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 10, 5]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 0, max_hp = 91, status = "paralysis" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 0
+expect.player.active.max_hp = 224
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 10, 0, 18]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 0, max_hp = 224, status = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "KABUTOPS"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 93
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 15, 10, 5]
+expect.enemy.party = [{ species = "GRAVELER", level = 41, hp = 0, max_hp = 102, status = "paralysis" }, { species = "RHYHORN", level = 41, hp = 0, max_hp = 123, status = "none" }, { species = "OMASTAR", level = 42, hp = 0, max_hp = 117, status = "paralysis" }, { species = "ONIX", level = 44, hp = 0, max_hp = 91, status = "paralysis" }, { species = "KABUTOPS", level = 42, hp = 109, max_hp = 109, status = "none" }]
+expect.battle.outcome = "loss"
