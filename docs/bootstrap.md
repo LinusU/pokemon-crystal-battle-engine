@@ -4,7 +4,7 @@ Goal: jump straight into a battle described in a TOML file, in roughly the same 
 
 ## The pieces
 
-1. **`main.rs`** parses the CLI (a TOML scenario path, `--random`, `--play`, …) and runs the battle. By default it runs headless — the battle is driven to completion with no window. Built with `--features gui`, it instead spawns the CPU thread and renders the GPU output into a glium window; with no scenario that path boots Crystal as normal (headless requires a battle, since there's no keyboard).
+1. **`main.rs`** parses the CLI (a `<scenario.toml>` path, `--random`, `--play`, …) and runs a single battle. By default it runs headless — the battle is driven to completion with no window. Built with `--features gui`, it instead spawns the CPU thread and renders the GPU output into a glium window so you can watch the same battle. A battle must always be specified; the binary doesn't boot into the overworld.
 2. **`bootstrap::load_battle`** parses the TOML into a `BattleConfig`.
 3. **`bootstrap::run`** is what the CPU thread invokes:
    1. Set `cpu.skip_intro_to_battle = true`.

@@ -63,6 +63,14 @@ fn main() {
     };
     let record_path = cli_args.record;
 
+    // This binary runs a single battle; it never boots into the overworld.
+    let Some(battle_config) = battle_config else {
+        eprintln!(
+            "error: no battle specified — pass a <scenario.toml>, --random, or --play <recording.toml>"
+        );
+        std::process::exit(1);
+    };
+
     #[cfg(feature = "gui")]
     gui::run(battle_config, record_path, playback_recording);
 
@@ -93,26 +101,14 @@ fn run_battle(
     }
 }
 
-/// Headless entry point (no `gui` feature). With no window or keyboard the only
-/// thing we can drive is a fully specified battle — a scenario, `--random`, or
-/// `--play`. Interactively playing the whole game needs the window, so we bail
-/// with a hint to rebuild with the feature.
+/// Headless entry point (no `gui` feature): drive the battle to completion with
+/// no window.
 #[cfg(not(feature = "gui"))]
 fn run_headless(
-    battle_config: Option<BattleConfig>,
+    config: BattleConfig,
     record_path: Option<std::path::PathBuf>,
     playback: Option<bootstrap::player::Recording>,
 ) {
-    let Some(config) = battle_config else {
-        eprintln!(
-            "error: interactive play requires the `gui` feature — rebuild with `cargo run --features gui`"
-        );
-        eprintln!(
-            "       a headless run needs a battle: pass <scenario.toml>, --random, or --play <recording.toml>"
-        );
-        std::process::exit(1);
-    };
-
     let mut cpu = Cpu::new_cgb(None, None);
     cpu.interrupt_vectors = rgb2rust_output::interrupt_vectors();
     run_battle(&mut cpu, &config, record_path.as_deref(), playback);
@@ -231,9 +227,9 @@ fn random_entropy_seed() -> u64 {
     seed
 }
 
-/// The interactive emulator harness: a winit window, a glium renderer, and the
-/// cpu running on its own thread. Compiled only with the `gui` feature — a plain
-/// build is headless and never pulls in glium/winit.
+/// Windowed battle viewer: a winit window + glium renderer that display the
+/// battle while the cpu runs on its own thread. Compiled only with the `gui`
+/// feature — a plain build is headless and never pulls in glium/winit.
 #[cfg(feature = "gui")]
 mod gui {
     use std::sync::mpsc::{self, Sender, SyncSender};
@@ -248,11 +244,10 @@ mod gui {
         linear_interpolation: bool,
     }
 
-    /// Open the window and run until it is closed. The cpu (and the battle or
-    /// the full game) runs on a separate thread, streaming frames back over a
-    /// channel and receiving keypad events.
+    /// Open the window and run until it is closed. The battle runs on a separate
+    /// thread, streaming frames back over a channel and receiving keypad events.
     pub fn run(
-        battle_config: Option<BattleConfig>,
+        battle_config: BattleConfig,
         record_path: Option<std::path::PathBuf>,
         playback_recording: Option<bootstrap::player::Recording>,
     ) {
@@ -341,25 +336,13 @@ mod gui {
     fn run_game(
         update_screen: SyncSender<Vec<u8>>,
         keypad_events: mpsc::Receiver<KeypadEvent>,
-        battle_config: Option<BattleConfig>,
+        config: BattleConfig,
         record_path: Option<std::path::PathBuf>,
         playback: Option<bootstrap::player::Recording>,
     ) {
         let mut cpu = Cpu::new_cgb(Some(update_screen), Some(keypad_events));
         cpu.interrupt_vectors = rgb2rust_output::interrupt_vectors();
-
-        match battle_config {
-            Some(config) => {
-                super::run_battle(&mut cpu, &config, record_path.as_deref(), playback);
-            }
-            None => {
-                if record_path.is_some() {
-                    eprintln!("warning: --record requires a scenario TOML; ignoring");
-                }
-                let routine = rgb2rust_output::entry_routine();
-                (routine.func)(&mut cpu);
-            }
-        }
+        super::run_battle(&mut cpu, &config, record_path.as_deref(), playback);
     }
 
     fn map_keypad_key(key: winit::keyboard::Key<&str>) -> Option<KeypadKey> {

@@ -6,7 +6,7 @@ The transpiled code is in `src/game/`, `src/dispatch.rs`, `src/defs.rs`. We avoi
 
 ## Where we are
 
-- ✅ The transpiled game still boots end-to-end (`cargo run --features gui` with no args plays Crystal in a window).
+- ✅ The transpiled engine boots end-to-end — the battle harness runs the real boot path (hardware init, title/intro skipped) before jumping straight into the battle.
 - ✅ TOML-driven launch: `cargo run -- scratch/first.toml` skips the title/intro and starts a battle.
 - ✅ Wild encounters supported with `[battle] type = "wild_encounter"`, one player party, one enemy mon.
 - ✅ Bag items via `[[player_items]]` — sorted into the engine's Items / Balls pockets.
@@ -18,7 +18,7 @@ The transpiled code is in `src/game/`, `src/dispatch.rs`, `src/defs.rs`. We avoi
 - ✅ Recording with `--record <out.toml>` — every CLI decision (plus the resolved seed) is appended as a `[[step]]` block to a TOML file for later replay. The resolved matchup is embedded as a `[scenario.*]` block, so a recording is self-contained for every battle kind. See [TOML schema](toml_schema.md#recording----record-path).
 - ✅ Playback with `--play <recording.toml>` — drives the battle from a recorded `[[step]]` list with no stdin prompts; the recording's seed is authoritative and its embedded `[scenario.*]` block reconstructs the matchup, so no other file is needed. See [TOML schema](toml_schema.md#playback----play-path).
 - ✅ Random battles with `--random` (optionally `--seed <n>`) — skip authoring TOML and start a deterministic randomized trainer battle; the recording embeds the resolved matchup and replays from the seed, so the generator is never re-run. See [TOML schema](toml_schema.md#random-battles----random-and---seed-n).
-- ✅ Headless by default — glium/winit sit behind the off-by-default `gui` cargo feature, so a plain `cargo run` / `cargo build` compiles no graphics deps. The window + renderer are opt-in via `--features gui`; without it the binary drives a battle (scenario / `--random` / `--play`) straight to completion with no window. Interactive play of the whole game still needs `--features gui`.
+- ✅ Headless by default — glium/winit sit behind the off-by-default `gui` cargo feature, so a plain `cargo run` / `cargo build` compiles no graphics deps and drives the battle straight to completion with no window. `--features gui` adds an opt-in window that shows the same battle. Either way a battle must be specified (`<scenario.toml>` / `--random` / `--play`); the binary always runs a single battle and never boots into the overworld.
 - ⬜ A typed `step(action) -> Outcome` API. The CLI driver already sits at the action chokepoints; lifting it into a library surface is mostly relayout.
 
 ## Layout
