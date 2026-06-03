@@ -1,0 +1,507 @@
+[recording]
+seed = "0x0000000000113001"
+
+[scenario.battle]
+type = "link_battle"
+
+[[scenario.player_party]]
+species = "Feraligatr"
+level = 40
+moves = ["Surf", "Ice Beam", "Crunch", "Earthquake"]
+
+[[scenario.player_party]]
+species = "Jolteon"
+level = 40
+moves = ["Thunderbolt", "Quick Attack", "Pin Missile", "Thunder"]
+
+[[scenario.player_party]]
+species = "Machamp"
+level = 40
+moves = ["Cross Chop", "Earthquake", "Rock Slide", "Fire Blast"]
+
+[[scenario.enemy_party]]
+species = "Venusaur"
+level = 40
+moves = ["Razor Leaf", "Sludge Bomb", "Earthquake", "Body Slam"]
+
+[[scenario.enemy_party]]
+species = "Arcanine"
+level = 40
+moves = ["Flamethrower", "Crunch", "Extreme Speed", "Body Slam"]
+
+[[scenario.enemy_party]]
+species = "Lapras"
+level = 40
+moves = ["Surf", "Ice Beam", "Body Slam", "Thunder"]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 40
+expect.player.active.hp = 122
+expect.player.active.max_hp = 122
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 15, 10]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 122, max_hp = 122, status = "none" }, { species = "JOLTEON", level = 40, hp = 106, max_hp = 106, status = "none" }, { species = "MACHAMP", level = 40, hp = 124, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VENUSAUR"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 125
+expect.enemy.active.max_hp = 125
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 10, 10, 15]
+expect.enemy.party = [{ species = "VENUSAUR", level = 40, hp = 125, max_hp = 125, status = "none" }, { species = "ARCANINE", level = 40, hp = 133, max_hp = 133, status = "none" }, { species = "LAPRAS", level = 40, hp = 165, max_hp = 165, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 40
+expect.player.active.hp = 92
+expect.player.active.max_hp = 122
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 15, 9]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 92, max_hp = 122, status = "none" }, { species = "JOLTEON", level = 40, hp = 106, max_hp = 106, status = "none" }, { species = "MACHAMP", level = 40, hp = 124, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VENUSAUR"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 125
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 10, 9, 15]
+expect.enemy.party = [{ species = "VENUSAUR", level = 40, hp = 125, max_hp = 125, status = "none" }, { species = "ARCANINE", level = 40, hp = 133, max_hp = 133, status = "none" }, { species = "LAPRAS", level = 40, hp = 165, max_hp = 165, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 40
+expect.player.active.hp = 92
+expect.player.active.max_hp = 122
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 15, 9]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 92, max_hp = 122, status = "none" }, { species = "JOLTEON", level = 40, hp = 106, max_hp = 106, status = "none" }, { species = "MACHAMP", level = 40, hp = 124, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VENUSAUR"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 125
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 10, 9, 15]
+expect.enemy.party = [{ species = "VENUSAUR", level = 40, hp = 125, max_hp = 125, status = "none" }, { species = "ARCANINE", level = 40, hp = 133, max_hp = 133, status = "none" }, { species = "LAPRAS", level = 40, hp = 165, max_hp = 165, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 40
+expect.player.active.hp = 65
+expect.player.active.max_hp = 122
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 15, 8]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 65, max_hp = 122, status = "none" }, { species = "JOLTEON", level = 40, hp = 106, max_hp = 106, status = "none" }, { species = "MACHAMP", level = 40, hp = 124, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VENUSAUR"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 43
+expect.enemy.active.max_hp = 125
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 10, 8, 15]
+expect.enemy.party = [{ species = "VENUSAUR", level = 40, hp = 125, max_hp = 125, status = "none" }, { species = "ARCANINE", level = 40, hp = 133, max_hp = 133, status = "none" }, { species = "LAPRAS", level = 40, hp = 165, max_hp = 165, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 40
+expect.player.active.hp = 65
+expect.player.active.max_hp = 122
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 15, 8]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 65, max_hp = 122, status = "none" }, { species = "JOLTEON", level = 40, hp = 106, max_hp = 106, status = "none" }, { species = "MACHAMP", level = 40, hp = 124, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VENUSAUR"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 43
+expect.enemy.active.max_hp = 125
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 10, 8, 15]
+expect.enemy.party = [{ species = "VENUSAUR", level = 40, hp = 125, max_hp = 125, status = "none" }, { species = "ARCANINE", level = 40, hp = 133, max_hp = 133, status = "none" }, { species = "LAPRAS", level = 40, hp = 165, max_hp = 165, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 40
+expect.player.active.hp = 35
+expect.player.active.max_hp = 122
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 15, 7]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 35, max_hp = 122, status = "none" }, { species = "JOLTEON", level = 40, hp = 106, max_hp = 106, status = "none" }, { species = "MACHAMP", level = 40, hp = 124, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VENUSAUR"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 6
+expect.enemy.active.max_hp = 125
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 10, 7, 15]
+expect.enemy.party = [{ species = "VENUSAUR", level = 40, hp = 125, max_hp = 125, status = "none" }, { species = "ARCANINE", level = 40, hp = 133, max_hp = 133, status = "none" }, { species = "LAPRAS", level = 40, hp = 165, max_hp = 165, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 40
+expect.player.active.hp = 35
+expect.player.active.max_hp = 122
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 15, 7]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 35, max_hp = 122, status = "none" }, { species = "JOLTEON", level = 40, hp = 106, max_hp = 106, status = "none" }, { species = "MACHAMP", level = 40, hp = 124, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VENUSAUR"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 6
+expect.enemy.active.max_hp = 125
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 10, 7, 15]
+expect.enemy.party = [{ species = "VENUSAUR", level = 40, hp = 125, max_hp = 125, status = "none" }, { species = "ARCANINE", level = 40, hp = 133, max_hp = 133, status = "none" }, { species = "LAPRAS", level = 40, hp = 165, max_hp = 165, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 40
+expect.player.active.hp = 0
+expect.player.active.max_hp = 122
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 15, 7]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 0, max_hp = 122, status = "none" }, { species = "JOLTEON", level = 40, hp = 106, max_hp = 106, status = "none" }, { species = "MACHAMP", level = 40, hp = 124, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VENUSAUR"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 6
+expect.enemy.active.max_hp = 125
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 10, 6, 15]
+expect.enemy.party = [{ species = "VENUSAUR", level = 40, hp = 125, max_hp = 125, status = "none" }, { species = "ARCANINE", level = 40, hp = 133, max_hp = 133, status = "none" }, { species = "LAPRAS", level = 40, hp = 165, max_hp = 165, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "JOLTEON"
+expect.player.active.level = 40
+expect.player.active.hp = 106
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 30, 20, 10]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 0, max_hp = 122, status = "none" }, { species = "JOLTEON", level = 40, hp = 106, max_hp = 106, status = "none" }, { species = "MACHAMP", level = 40, hp = 124, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VENUSAUR"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 6
+expect.enemy.active.max_hp = 125
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 10, 6, 15]
+expect.enemy.party = [{ species = "VENUSAUR", level = 40, hp = 125, max_hp = 125, status = "none" }, { species = "ARCANINE", level = 40, hp = 133, max_hp = 133, status = "none" }, { species = "LAPRAS", level = 40, hp = 165, max_hp = 165, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "JOLTEON"
+expect.player.active.level = 40
+expect.player.active.hp = 106
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 30, 20, 10]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 0, max_hp = 122, status = "none" }, { species = "JOLTEON", level = 40, hp = 106, max_hp = 106, status = "none" }, { species = "MACHAMP", level = 40, hp = 124, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VENUSAUR"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 6
+expect.enemy.active.max_hp = 125
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 10, 6, 15]
+expect.enemy.party = [{ species = "VENUSAUR", level = 40, hp = 125, max_hp = 125, status = "none" }, { species = "ARCANINE", level = 40, hp = 133, max_hp = 133, status = "none" }, { species = "LAPRAS", level = 40, hp = 165, max_hp = 165, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "JOLTEON"
+expect.player.active.level = 40
+expect.player.active.hp = 106
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 30, 20, 9]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 0, max_hp = 122, status = "none" }, { species = "JOLTEON", level = 40, hp = 106, max_hp = 106, status = "none" }, { species = "MACHAMP", level = 40, hp = 124, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VENUSAUR"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 125
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 10, 6, 15]
+expect.enemy.party = [{ species = "VENUSAUR", level = 40, hp = 0, max_hp = 125, status = "none" }, { species = "ARCANINE", level = 40, hp = 133, max_hp = 133, status = "none" }, { species = "LAPRAS", level = 40, hp = 165, max_hp = 165, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "JOLTEON"
+expect.player.active.level = 40
+expect.player.active.hp = 106
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 30, 20, 9]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 0, max_hp = 122, status = "none" }, { species = "JOLTEON", level = 40, hp = 106, max_hp = 106, status = "none" }, { species = "MACHAMP", level = 40, hp = 124, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ARCANINE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 133
+expect.enemy.active.max_hp = 133
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 5, 15]
+expect.enemy.party = [{ species = "VENUSAUR", level = 40, hp = 0, max_hp = 125, status = "none" }, { species = "ARCANINE", level = 40, hp = 133, max_hp = 133, status = "none" }, { species = "LAPRAS", level = 40, hp = 165, max_hp = 165, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "JOLTEON"
+expect.player.active.level = 40
+expect.player.active.hp = 106
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 30, 20, 9]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 0, max_hp = 122, status = "none" }, { species = "JOLTEON", level = 40, hp = 106, max_hp = 106, status = "none" }, { species = "MACHAMP", level = 40, hp = 124, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ARCANINE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 133
+expect.enemy.active.max_hp = 133
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 5, 15]
+expect.enemy.party = [{ species = "VENUSAUR", level = 40, hp = 0, max_hp = 125, status = "none" }, { species = "ARCANINE", level = 40, hp = 133, max_hp = 133, status = "none" }, { species = "LAPRAS", level = 40, hp = 165, max_hp = 165, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "JOLTEON"
+expect.player.active.level = 40
+expect.player.active.hp = 52
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 30, 20, 8]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 0, max_hp = 122, status = "none" }, { species = "JOLTEON", level = 40, hp = 52, max_hp = 106, status = "none" }, { species = "MACHAMP", level = 40, hp = 124, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ARCANINE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 56
+expect.enemy.active.max_hp = 133
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 15, 5, 15]
+expect.enemy.party = [{ species = "VENUSAUR", level = 40, hp = 0, max_hp = 125, status = "none" }, { species = "ARCANINE", level = 40, hp = 133, max_hp = 133, status = "none" }, { species = "LAPRAS", level = 40, hp = 165, max_hp = 165, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "JOLTEON"
+expect.player.active.level = 40
+expect.player.active.hp = 52
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 30, 20, 8]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 0, max_hp = 122, status = "none" }, { species = "JOLTEON", level = 40, hp = 52, max_hp = 106, status = "none" }, { species = "MACHAMP", level = 40, hp = 124, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ARCANINE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 56
+expect.enemy.active.max_hp = 133
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 15, 5, 15]
+expect.enemy.party = [{ species = "VENUSAUR", level = 40, hp = 0, max_hp = 125, status = "none" }, { species = "ARCANINE", level = 40, hp = 133, max_hp = 133, status = "none" }, { species = "LAPRAS", level = 40, hp = 165, max_hp = 165, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "JOLTEON"
+expect.player.active.level = 40
+expect.player.active.hp = 0
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 30, 20, 7]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 0, max_hp = 122, status = "none" }, { species = "JOLTEON", level = 40, hp = 0, max_hp = 106, status = "none" }, { species = "MACHAMP", level = 40, hp = 124, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ARCANINE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 56
+expect.enemy.active.max_hp = 133
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 15, 5, 15]
+expect.enemy.party = [{ species = "VENUSAUR", level = 40, hp = 0, max_hp = 125, status = "none" }, { species = "ARCANINE", level = 40, hp = 133, max_hp = 133, status = "none" }, { species = "LAPRAS", level = 40, hp = 165, max_hp = 165, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 40
+expect.player.active.hp = 124
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 10, 10, 5]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 0, max_hp = 122, status = "none" }, { species = "JOLTEON", level = 40, hp = 0, max_hp = 106, status = "none" }, { species = "MACHAMP", level = 40, hp = 124, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ARCANINE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 56
+expect.enemy.active.max_hp = 133
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 15, 5, 15]
+expect.enemy.party = [{ species = "VENUSAUR", level = 40, hp = 0, max_hp = 125, status = "none" }, { species = "ARCANINE", level = 40, hp = 133, max_hp = 133, status = "none" }, { species = "LAPRAS", level = 40, hp = 165, max_hp = 165, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 40
+expect.player.active.hp = 124
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 10, 10, 5]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 0, max_hp = 122, status = "none" }, { species = "JOLTEON", level = 40, hp = 0, max_hp = 106, status = "none" }, { species = "MACHAMP", level = 40, hp = 124, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ARCANINE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 56
+expect.enemy.active.max_hp = 133
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 15, 5, 15]
+expect.enemy.party = [{ species = "VENUSAUR", level = 40, hp = 0, max_hp = 125, status = "none" }, { species = "ARCANINE", level = 40, hp = 133, max_hp = 133, status = "none" }, { species = "LAPRAS", level = 40, hp = 165, max_hp = 165, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 40
+expect.player.active.hp = 68
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 10, 10, 4]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 0, max_hp = 122, status = "none" }, { species = "JOLTEON", level = 40, hp = 0, max_hp = 106, status = "none" }, { species = "MACHAMP", level = 40, hp = 68, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ARCANINE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 39
+expect.enemy.active.max_hp = 133
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 15, 5, 15]
+expect.enemy.party = [{ species = "VENUSAUR", level = 40, hp = 0, max_hp = 125, status = "none" }, { species = "ARCANINE", level = 40, hp = 133, max_hp = 133, status = "none" }, { species = "LAPRAS", level = 40, hp = 165, max_hp = 165, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 40
+expect.player.active.hp = 68
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 10, 10, 4]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 0, max_hp = 122, status = "none" }, { species = "JOLTEON", level = 40, hp = 0, max_hp = 106, status = "none" }, { species = "MACHAMP", level = 40, hp = 68, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ARCANINE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 39
+expect.enemy.active.max_hp = 133
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 15, 5, 15]
+expect.enemy.party = [{ species = "VENUSAUR", level = 40, hp = 0, max_hp = 125, status = "none" }, { species = "ARCANINE", level = 40, hp = 133, max_hp = 133, status = "none" }, { species = "LAPRAS", level = 40, hp = 165, max_hp = 165, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 40
+expect.player.active.hp = 11
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 10, 10, 3]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 0, max_hp = 122, status = "none" }, { species = "JOLTEON", level = 40, hp = 0, max_hp = 106, status = "none" }, { species = "MACHAMP", level = 40, hp = 11, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ARCANINE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 22
+expect.enemy.active.max_hp = 133
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [11, 15, 5, 15]
+expect.enemy.party = [{ species = "VENUSAUR", level = 40, hp = 0, max_hp = 125, status = "none" }, { species = "ARCANINE", level = 40, hp = 133, max_hp = 133, status = "none" }, { species = "LAPRAS", level = 40, hp = 165, max_hp = 165, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 2
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 40
+expect.player.active.hp = 11
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 10, 10, 3]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 0, max_hp = 122, status = "none" }, { species = "JOLTEON", level = 40, hp = 0, max_hp = 106, status = "none" }, { species = "MACHAMP", level = 40, hp = 11, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ARCANINE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 22
+expect.enemy.active.max_hp = 133
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [11, 15, 5, 15]
+expect.enemy.party = [{ species = "VENUSAUR", level = 40, hp = 0, max_hp = 125, status = "none" }, { species = "ARCANINE", level = 40, hp = 133, max_hp = 133, status = "none" }, { species = "LAPRAS", level = 40, hp = 165, max_hp = 165, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 40
+expect.player.active.hp = 0
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 10, 10, 3]
+expect.player.party = [{ species = "FERALIGATR", level = 40, hp = 0, max_hp = 122, status = "none" }, { species = "JOLTEON", level = 40, hp = 0, max_hp = 106, status = "none" }, { species = "MACHAMP", level = 40, hp = 0, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ARCANINE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 22
+expect.enemy.active.max_hp = 133
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 15, 5, 15]
+expect.enemy.party = [{ species = "VENUSAUR", level = 40, hp = 0, max_hp = 125, status = "none" }, { species = "ARCANINE", level = 40, hp = 22, max_hp = 133, status = "none" }, { species = "LAPRAS", level = 40, hp = 165, max_hp = 165, status = "none" }]
+expect.battle.outcome = "loss"

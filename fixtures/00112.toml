@@ -1,0 +1,57 @@
+[recording]
+seed = "0x0000000000112001"
+
+[scenario.battle]
+type = "link_battle"
+
+[[scenario.player_party]]
+species = "Electrode"
+level = 40
+moves = ["Explosion"]
+
+[[scenario.enemy_party]]
+species = "Electrode"
+level = 40
+moves = ["Explosion"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "ELECTRODE"
+expect.player.active.level = 40
+expect.player.active.hp = 102
+expect.player.active.max_hp = 102
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 0, 0, 0]
+expect.player.party = [{ species = "ELECTRODE", level = 40, hp = 102, max_hp = 102, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "ELECTRODE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 109
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 0, 0, 0]
+expect.enemy.party = [{ species = "ELECTRODE", level = 40, hp = 109, max_hp = 109, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "ELECTRODE"
+expect.player.active.level = 40
+expect.player.active.hp = 0
+expect.player.active.max_hp = 102
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 0, 0, 0]
+expect.player.party = [{ species = "ELECTRODE", level = 40, hp = 0, max_hp = 102, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "ELECTRODE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [4, 0, 0, 0]
+expect.enemy.party = [{ species = "ELECTRODE", level = 40, hp = 0, max_hp = 109, status = "none" }]
+expect.battle.outcome = "draw"

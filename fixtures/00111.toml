@@ -1,0 +1,57 @@
+[recording]
+seed = "0x0000000000111001"
+
+[scenario.battle]
+type = "link_battle"
+
+[[scenario.player_party]]
+species = "Rattata"
+level = 18
+moves = ["Tackle", "Quick Attack", "Tail Whip", "Hyper Fang"]
+
+[[scenario.enemy_party]]
+species = "Dragonite"
+level = 55
+moves = ["Outrage", "Hyper Beam", "Earthquake", "Fire Blast"]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "RATTATA"
+expect.player.active.level = 18
+expect.player.active.hp = 40
+expect.player.active.max_hp = 40
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 30, 15]
+expect.player.party = [{ species = "RATTATA", level = 18, hp = 40, max_hp = 40, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "DRAGONITE"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 180
+expect.enemy.active.max_hp = 180
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 5, 10, 5]
+expect.enemy.party = [{ species = "DRAGONITE", level = 55, hp = 180, max_hp = 180, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "RATTATA"
+expect.player.active.level = 18
+expect.player.active.hp = 0
+expect.player.active.max_hp = 40
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 30, 30, 15]
+expect.player.party = [{ species = "RATTATA", level = 18, hp = 0, max_hp = 40, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "DRAGONITE"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 180
+expect.enemy.active.max_hp = 180
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 4, 10, 5]
+expect.enemy.party = [{ species = "DRAGONITE", level = 55, hp = 180, max_hp = 180, status = "none" }]
+expect.battle.outcome = "loss"
