@@ -1,6 +1,6 @@
 # Roadmap
 
-End-goal: a **headless Pokémon Crystal battle engine library** that exposes `BattleState` and `step(action) -> Outcome`. The emulator window (`main.rs` + glium/winit) is a stepping stone for verification and demos; it isn't the long-term API surface.
+End-goal: a **headless Pokémon Crystal battle engine library** that exposes `BattleState` and `step(action) -> Outcome`. The emulator window (`main.rs` + glium/winit, now behind the off-by-default `gui` cargo feature) is a stepping stone for verification and demos; it isn't the long-term API surface.
 
 ## Step 1 — done
 
@@ -33,8 +33,9 @@ These are deliberately small patches, not graduations to hand-written. See [tran
 
 ## Step 4 — drop the GPU
 
-- Once `step` is solid, headless tests don't need glium/winit. Run the CPU thread without the channels; the GPU code path becomes dead weight.
-- Split the crate: `pokemon_crystal_battle` (library, no glium/winit deps) + `pokemon_crystal_battle_play` (the window harness).
+- ✅ glium/winit are gated behind the `gui` feature: a default `cargo build` compiles neither, and the headless binary runs a battle without the screen/keypad channels (`Cpu::new_cgb(None, None)`).
+- Still open: the in-`Cpu` GPU emulation (`runtime/gpu.rs`) keeps rendering pixels nobody reads in a headless run. Once `step` exposes state directly, that pixel path becomes dead weight and can be gated/removed too.
+- The `gui` feature gives a glium/winit-free default build without a crate split, so splitting into `pokemon_crystal_battle` (library) + `pokemon_crystal_battle_play` (window harness) is now optional rather than required.
 
 ## Open design questions
 

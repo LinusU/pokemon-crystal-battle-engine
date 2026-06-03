@@ -6,7 +6,7 @@ The transpiled code is in `src/game/`, `src/dispatch.rs`, `src/defs.rs`. We avoi
 
 ## Where we are
 
-- ✅ The transpiled game still boots end-to-end (`cargo run` with no args plays Crystal).
+- ✅ The transpiled game still boots end-to-end (`cargo run --features gui` with no args plays Crystal in a window).
 - ✅ TOML-driven launch: `cargo run -- scratch/first.toml` skips the title/intro and starts a battle.
 - ✅ Wild encounters supported with `[battle] type = "wild_encounter"`, one player party, one enemy mon.
 - ✅ Bag items via `[[player_items]]` — sorted into the engine's Items / Balls pockets.
@@ -18,7 +18,7 @@ The transpiled code is in `src/game/`, `src/dispatch.rs`, `src/defs.rs`. We avoi
 - ✅ Recording with `--record <out.toml>` — every CLI decision (plus the resolved seed) is appended as a `[[step]]` block to a TOML file for later replay. The resolved matchup is embedded as a `[scenario.*]` block, so a recording is self-contained for every battle kind. See [TOML schema](toml_schema.md#recording----record-path).
 - ✅ Playback with `--play <recording.toml>` — drives the battle from a recorded `[[step]]` list with no stdin prompts; the recording's seed is authoritative and its embedded `[scenario.*]` block reconstructs the matchup, so no other file is needed. See [TOML schema](toml_schema.md#playback----play-path).
 - ✅ Random battles with `--random` (optionally `--seed <n>`) — skip authoring TOML and start a deterministic randomized trainer battle; the recording embeds the resolved matchup and replays from the seed, so the generator is never re-run. See [TOML schema](toml_schema.md#random-battles----random-and---seed-n).
-- ⬜ Headless mode (skip glium/winit, just iterate the state machine).
+- ✅ Headless by default — glium/winit sit behind the off-by-default `gui` cargo feature, so a plain `cargo run` / `cargo build` compiles no graphics deps. The window + renderer are opt-in via `--features gui`; without it the binary drives a battle (scenario / `--random` / `--play`) straight to completion with no window. Interactive play of the whole game still needs `--features gui`.
 - ⬜ A typed `step(action) -> Outcome` API. The CLI driver already sits at the action chokepoints; lifting it into a library surface is mostly relayout.
 
 ## Layout
@@ -28,7 +28,7 @@ The transpiled code is in `src/game/`, `src/dispatch.rs`, `src/defs.rs`. We avoi
 | [`src/bootstrap/`](../src/bootstrap/) | Battle-launch harness — TOML schema, species table, WRAM seeding, dispatch to `start_battle`. |
 | [`src/runtime/`](../src/runtime/) | The Game Boy hardware emulation (CPU, GPU, MBC, keypad). The transpiled code shares the same `Cpu` struct. |
 | [`src/game/`](../src/game/) | Transpiled engine code. Mirrors the directory layout of pret/pokecrystal. |
-| [`src/main.rs`](../src/main.rs) | glium/winit window + cpu thread. |
+| [`src/main.rs`](../src/main.rs) | CLI parsing + headless battle runner; the glium/winit window + cpu thread live in a `gui`-gated module. |
 | `scratch/pokecrystal/` | Vendored copy of pret/pokecrystal (gitignored). Source of truth for symbols, constants, struct layouts. |
 | `scratch/*.toml` | Battle scenarios for development. |
 
