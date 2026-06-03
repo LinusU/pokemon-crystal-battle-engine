@@ -143,11 +143,10 @@ Each `[[step]]` table has two halves:
 1. The **action** — `kind` plus its fields — written the instant the CLI resolves the decision.
 2. An **expectation** block (`expect.*` keys) — the battle state that action *produced*, captured at the next decision point. This is the exact state the next step takes its action at; the final step's expectation is captured after the battle ends and also carries the battle `outcome`. See [Recording — assertions](#recording--assertions) below.
 
-A file-driven run additionally records a `source_scenario` back-pointer to the file it was driven from. It's documentary only — playback prefers the embedded `[scenario.*]` block (which is present here too, just like the example above, omitted for brevity):
+The embedded `[scenario.*]` block (shown above, omitted here for brevity) precedes the steps for every recording, file-driven or generated:
 
 ```toml
 [recording]
-source_scenario = "scratch/cli.toml"   # documentary: the file the run was driven from
 seed = "0x0000000000c0ffee"            # always present; the resolved seed
 
 [[step]]
@@ -237,9 +236,9 @@ Pass `--play <recording.toml>` and the harness drives the battle from a previous
 cargo run -- --play /tmp/run.toml
 ```
 
-The recording's `[recording] seed` always wins — replay uses that value to seed the engine RNG even if the loaded scenario carries its own `seed = ...`. The matchup comes from the recording's embedded `[scenario.*]` block, which every recording carries; a legacy recording with only a `source_scenario` path falls back to loading that file. Pass a positional `scratch/other.toml` to override either — it's checked first, so the recorded script re-runs against the edited scenario. `--record` and `--play` can be combined to re-record an edited playback (the new recording embeds its own resolved matchup).
+The recording's `[recording] seed` always wins — replay uses that value to seed the engine RNG even if the loaded scenario carries its own `seed = ...`. The matchup comes from the recording's embedded `[scenario.*]` block, which every recording carries. Pass a positional `scratch/other.toml` to override it — it's checked first, so the recorded script re-runs against the edited scenario. `--record` and `--play` can be combined to re-record an edited playback (the new recording embeds its own resolved matchup).
 
-Because the matchup travels inside the recording, a `--play` is self-contained: a recorded `--random` run is reconstructed without re-running the generator, and a file-driven (including link-battle) recording needs no sibling scenario TOML on disk. Either generator or scenario file can change later without invalidating an existing recording.
+Because the matchup travels inside the recording, a `--play` is self-contained: a recorded `--random` run is reconstructed without re-running the generator, and a file-driven (including link-battle) recording needs no scenario TOML on disk. Either the generator or a scenario file can change later without invalidating an existing recording. A recording with no embedded block (e.g. a hand-written script) needs a positional scenario passed alongside `--play`.
 
 Each CLI prompt site consumes one step in order. The match is strict on `kind`: if the recorded action doesn't fit the current prompt site, the harness prints a clear stderr message naming the step index, the recorded `kind`, the prompt site, and the accepted kinds, then exits with status 2. The same exit-2 path fires when the step list is exhausted before the battle ends — playback never silently substitutes.
 

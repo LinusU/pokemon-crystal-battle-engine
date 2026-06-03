@@ -579,17 +579,13 @@ pub fn run(cpu: &mut Cpu, config: &BattleConfig) -> Result<(), String> {
 }
 
 /// Runtime knobs for [`run`] that don't belong on the scenario TOML —
-/// today the optional `--record` target path, the source scenario path used
-/// for the recording header, and the parsed `--play` recording. All default
-/// to `None`.
+/// today the optional `--record` target path, the forced seed, and the parsed
+/// `--play` recording. All default to `None`.
 #[derive(Default)]
 pub struct RunOptions<'a> {
     /// If `Some`, every player decision is appended as a `[[step]]` block
     /// to the file at this path. See [`recorder`].
     pub record_path: Option<&'a std::path::Path>,
-    /// If `Some`, written into the recording header as `source_scenario`
-    /// so the recorded file documents what it was driven from.
-    pub source_scenario: Option<&'a std::path::Path>,
     /// If `Some`, the seed is forced to this value (the recording's
     /// resolved seed) instead of whatever the scenario carries. Set by
     /// `--play` so playback is bit-identical to the original run.
@@ -620,9 +616,8 @@ pub fn run_with(
     if let Some(path) = options.record_path {
         // A recording always embeds the resolved matchup as a `[scenario.*]`
         // block, so it is self-contained: `--play` reconstructs the battle from
-        // the recording alone, whatever the battle kind. `source_scenario` is
-        // kept only as a documentary back-pointer to the driving file.
-        recorder::install(cpu, path, seed, options.source_scenario, Some(config))?;
+        // the recording alone, whatever the battle kind.
+        recorder::install(cpu, path, seed, Some(config))?;
         eprintln!("battle: recording to {}", path.display());
     }
 

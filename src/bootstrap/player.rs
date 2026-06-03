@@ -54,14 +54,11 @@ pub struct Recording {
     /// Resolved RNG seed the original run used. Authoritative — overrides any
     /// `seed = ...` on the scenario.
     pub seed: u64,
-    /// Path to the scenario TOML the original run was driven from, exactly as
-    /// it appeared in the recording. Used by `--play` to load the same party
-    /// and items if no scenario positional arg is supplied.
-    pub source_scenario: Option<PathBuf>,
-    /// The matchup embedded in the recording (`[scenario.*]`), present for
-    /// generated (`--random`) runs. When set, `--play` reconstructs the battle
-    /// from this directly instead of loading `source_scenario` or re-running
-    /// the generator.
+    /// The matchup embedded in the recording (`[scenario.*]`). Every recording
+    /// carries it, so `--play` reconstructs the battle from this directly —
+    /// nothing else on disk is needed and the `--random` generator is never
+    /// re-run. `None` only for a hand-written script that omits it, in which
+    /// case `--play` requires a positional scenario.
     pub scenario: Option<super::BattleConfig>,
     /// The full `[[step]]` list in order.
     pub steps: Vec<PlayStep>,
@@ -93,7 +90,6 @@ pub fn load(path: &Path) -> Result<Recording, String> {
 
     Ok(Recording {
         seed,
-        source_scenario: raw.recording.source_scenario.map(PathBuf::from),
         scenario: raw.scenario,
         steps,
     })
@@ -341,8 +337,10 @@ impl StepExt for Step {
 struct RawRecording {
     recording: RawHeader,
     /// The embedded matchup (`[scenario.*]`). Decodes straight into the same
-    /// [`BattleConfig`] the standalone scenario TOML uses. Absent for
-    /// recordings driven from a scenario file (those carry `source_scenario`).
+    /// [`BattleConfig`] the standalone scenario TOML uses. Absent only for a
+    /// hand-written script that omits it (then `--play` needs a positional
+    /// scenario). Unknown header keys — e.g. a `source_scenario` line in a
+    /// pre-embed recording — are ignored by serde, so old files still parse.
     #[serde(default)]
     scenario: Option<super::BattleConfig>,
     #[serde(default)]
@@ -354,8 +352,6 @@ struct RawHeader {
     /// String so we can accept the recorder's `0x...` quoted hex. Plain
     /// decimal works too via the same fallback path.
     seed: String,
-    #[serde(default)]
-    source_scenario: Option<String>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -480,8 +476,7 @@ mod tests {
 
         let path = temp_path("rt");
         let mut cpu = Cpu::default();
-        recorder::install(&mut cpu, &path, 0xc0ffee, Some(Path::new("scratch/cli.toml")), None)
-            .expect("install recorder");
+        recorder::install(&mut cpu, &path, 0xc0ffee, None).expect("install recorder");
         recorder::record(&cpu, Step::Move { slot: 0 });
         recorder::observe(&cpu, &snap(30, 22));
         recorder::record(&cpu, Step::Item { id: 0x12, target: Some(1), move_slot: None });
@@ -492,7 +487,6 @@ mod tests {
         let _ = std::fs::remove_file(&path);
 
         assert_eq!(recording.seed, 0xc0ffee);
-        assert_eq!(recording.source_scenario.as_deref(), Some(Path::new("scratch/cli.toml")));
         assert_eq!(recording.steps.len(), 2);
         assert!(matches!(recording.steps[0].step, Step::Move { slot: 0 }));
         assert!(matches!(
@@ -540,7 +534,7 @@ move = 1
         // And the recorder writes a key the parser reads back identically.
         let path = temp_path("movekey-rt");
         let mut cpu = Cpu::default();
-        recorder::install(&mut cpu, &path, 1, None, None).expect("install");
+        recorder::install(&mut cpu, &path, 1, None).expect("install");
         recorder::record(&cpu, Step::Item { id: 0x40, target: Some(0), move_slot: Some(3) });
         cpu.recorder = None;
         let rec = load(&path).expect("load rt");
@@ -681,7 +675,7 @@ slot = 0
 
         let path = temp_path("scn");
         let mut cpu = Cpu::default();
-        recorder::install(&mut cpu, &path, 0xc0ffee, None, Some(&config)).expect("install");
+        recorder::install(&mut cpu, &path, 0xc0ffee, Some(&config)).expect("install");
         recorder::record(&cpu, Step::Move { slot: 0 });
         recorder::finalize(
             &cpu,
@@ -756,7 +750,7 @@ slot = 0
 
         let path = temp_path("link-scn");
         let mut cpu = Cpu::default();
-        recorder::install(&mut cpu, &path, 0x1234, None, Some(&config)).expect("install");
+        recorder::install(&mut cpu, &path, 0x1234, Some(&config)).expect("install");
         recorder::record(&cpu, Step::Move { slot: 0 });
         recorder::finalize(
             &cpu,
@@ -776,6 +770,30 @@ slot = 0
         assert_eq!(scn.enemy_party.len(), 1);
         assert_eq!(scn.enemy_party[0].species, "GEODUDE");
         assert_eq!(scn.enemy_party[0].moves.as_deref(), Some(&["Rock Throw".to_string(), "Magnitude".to_string()][..]));
+    }
+
+    /// CRITICAL back-compat: support for the legacy `source_scenario` header
+    /// was removed, but a pre-embed recording still carries that line. It must
+    /// be *ignored*, not rejected, so the file still parses (with no embedded
+    /// scenario, `--play` then asks for a positional scenario rather than
+    /// failing to load). Guards against a future `deny_unknown_fields`.
+    #[test]
+    fn legacy_source_scenario_line_is_ignored_not_rejected() {
+        let text = r#"
+[recording]
+source_scenario = "fixtures/old.scenario.toml"
+seed = "0x1"
+
+[[step]]
+kind = "move"
+slot = 0
+"#;
+        let path = temp_path("legacy-src");
+        std::fs::write(&path, text).unwrap();
+        let rec = load(&path).expect("a stray source_scenario line must not fail parsing");
+        let _ = std::fs::remove_file(&path);
+        assert!(rec.scenario.is_none());
+        assert_eq!(rec.steps.len(), 1);
     }
 
     #[test]

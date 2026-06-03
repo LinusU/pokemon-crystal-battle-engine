@@ -24,12 +24,10 @@ fn main() {
         }
     };
 
-    // `--play` recovers the matchup from the recording: every recording embeds
-    // a `[scenario.*]` block we replay directly. A legacy recording carrying
-    // only a `source_scenario` path falls back to reloading that file. An
-    // explicit positional scenario overrides both — it re-runs the recorded
-    // script against an edited matchup. The recording's resolved seed always
-    // wins over any `seed = ...` on the scenario.
+    // `--play` recovers the matchup from the recording's embedded `[scenario.*]`
+    // block, which we replay directly. An explicit positional scenario overrides
+    // it — re-running the recorded script against an edited matchup. The
+    // recording's resolved seed always wins over any `seed = ...` on the scenario.
     let playback_recording = cli_args.play.as_deref().map(|p| match bootstrap::player::load(p) {
         Ok(rec) => rec,
         Err(e) => {
@@ -38,11 +36,9 @@ fn main() {
         }
     });
 
-    // Resolve the battle config and, for the recording header, the optional
-    // `source_scenario` documenting the file the run was driven from. The
-    // resolved matchup is always embedded into a `--record` output (see
-    // `run_with`), so a recording is self-contained regardless of battle kind.
-    let mut source_scenario: Option<String> = None;
+    // Resolve the battle config. The resolved matchup is always embedded into a
+    // `--record` output (see `run_with`), so a recording is self-contained
+    // regardless of battle kind.
     let battle_config: Option<BattleConfig> = if cli_args.random {
         // Live `--random` run: pick a base seed (CLI > entropy) and generate the
         // matchup. The base seed splits into independent generation and engine
@@ -52,14 +48,11 @@ fn main() {
         Some(bootstrap::random::random_battle_config(base_seed))
     } else if let Some(path) = cli_args.scenario.clone() {
         // Explicit positional scenario. On a plain run this is the battle to
-        // play; on `--play` it overrides the recording's embedded / source
-        // matchup so the recorded script can be re-run against an edited one.
-        // Checked before the embedded block so the override always wins.
+        // play; on `--play` it overrides the recording's embedded matchup so the
+        // recorded script can be re-run against an edited one. Checked before the
+        // embedded block so the override always wins.
         match bootstrap::load_battle(std::path::Path::new(&path)) {
-            Ok(cfg) => {
-                source_scenario = Some(path);
-                Some(cfg)
-            }
+            Ok(cfg) => Some(cfg),
             Err(e) => {
                 eprintln!("error: {e}");
                 std::process::exit(1);
@@ -69,25 +62,9 @@ fn main() {
         // Self-contained recording: replay the embedded matchup verbatim.
         // `seed_override` below pins the engine seed.
         Some(scenario.clone())
-    } else if let Some(path) = playback_recording
-        .as_ref()
-        .and_then(|rec| rec.source_scenario.as_ref())
-        .map(|p| p.to_string_lossy().into_owned())
-    {
-        // Legacy recording carrying only a `source_scenario` path: reload it.
-        match bootstrap::load_battle(std::path::Path::new(&path)) {
-            Ok(cfg) => {
-                source_scenario = Some(path);
-                Some(cfg)
-            }
-            Err(e) => {
-                eprintln!("error: {e}");
-                std::process::exit(1);
-            }
-        }
     } else if playback_recording.is_some() {
         eprintln!(
-            "error: --play recording has neither an embedded scenario nor a `source_scenario` — pass a scenario.toml positionally"
+            "error: --play recording has no embedded `[scenario.*]` block — pass a scenario.toml positionally"
         );
         std::process::exit(1);
     } else {
@@ -123,7 +100,6 @@ fn main() {
             keypad_receiver,
             battle_config,
             record_path,
-            source_scenario,
             playback_recording,
         )
     });
@@ -219,7 +195,6 @@ fn run_game(
     keypad_events: mpsc::Receiver<KeypadEvent>,
     battle_config: Option<BattleConfig>,
     record_path: Option<std::path::PathBuf>,
-    source_scenario: Option<String>,
     playback: Option<rgb2rust_output::bootstrap::player::Recording>,
 ) {
     let mut cpu = rgb2rust_output::runtime::Cpu::new_cgb(Some(update_screen), Some(keypad_events));
@@ -227,14 +202,12 @@ fn run_game(
 
     match battle_config {
         Some(config) => {
-            let source_scenario_path = source_scenario.as_ref().map(std::path::Path::new);
             let (seed_override, playback_steps) = match playback {
                 Some(rec) => (Some(rec.seed), Some(rec.steps)),
                 None => (None, None),
             };
             let options = RunOptions {
                 record_path: record_path.as_deref(),
-                source_scenario: source_scenario_path,
                 seed_override,
                 playback: playback_steps,
             };
@@ -256,7 +229,7 @@ fn run_game(
 /// The first non-flag positional is the scenario path. Flag order is
 /// irrelevant. `--play` may be passed with or without a positional scenario —
 /// when absent, the matchup is taken from the recording's embedded
-/// `[scenario.*]` block, falling back to its `source_scenario` header path.
+/// `[scenario.*]` block.
 /// `--random` is mutually exclusive with a positional scenario.toml and with
 /// `--play` (a recorded random run is replayed by passing the recording to
 /// `--play` alone; the recording carries the resolved matchup, so no

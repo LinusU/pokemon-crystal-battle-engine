@@ -109,26 +109,25 @@ pub struct Recorder {
 
 /// Open `path` for write (truncating any existing file), write the
 /// `[recording]` header, and install the resulting writer on `cpu.recorder`.
-/// The seed is always written even when the source scenario omitted one —
-/// it's the resolved value used to seed the RNG so a replay is bit-identical.
+/// The seed is always written even when the scenario omitted one — it's the
+/// resolved value used to seed the RNG so a replay is bit-identical.
 ///
 /// When `scenario` is `Some` — which it is for every CLI recording — the
 /// *resolved* matchup is embedded as a `[scenario.*]` block right after the
 /// header. This makes the recording self-contained: `--play` reconstructs the
-/// matchup from this block instead of reloading a sibling scenario file or
-/// re-running the `--random` generator, so neither can ever invalidate it.
-/// `None` is still accepted (the tests use it) to write a header-only file.
+/// matchup from this block, so nothing on disk besides the recording is needed
+/// (and the `--random` generator is never re-run). `None` is still accepted
+/// (the tests use it) to write a header-only file.
 pub fn install(
     cpu: &mut Cpu,
     path: &Path,
     seed: u64,
-    source_scenario: Option<&Path>,
     scenario: Option<&BattleConfig>,
 ) -> Result<(), String> {
     let file = File::create(path)
         .map_err(|e| format!("could not open recording file {}: {}", path.display(), e))?;
     let mut writer = BufWriter::new(file);
-    write_header(&mut writer, seed, source_scenario)
+    write_header(&mut writer, seed)
         .map_err(|e| format!("could not write recording header: {e}"))?;
     if let Some(config) = scenario {
         write_scenario(&mut writer, config)
@@ -141,18 +140,8 @@ pub fn install(
     Ok(())
 }
 
-fn write_header(
-    writer: &mut BufWriter<File>,
-    seed: u64,
-    source_scenario: Option<&Path>,
-) -> std::io::Result<()> {
+fn write_header(writer: &mut BufWriter<File>, seed: u64) -> std::io::Result<()> {
     writeln!(writer, "[recording]")?;
-    if let Some(p) = source_scenario {
-        // `to_string_lossy` is fine — paths the user typed at the CLI are
-        // overwhelmingly UTF-8, and a non-UTF-8 byte just becomes U+FFFD
-        // in the recorded label rather than crashing.
-        writeln!(writer, "source_scenario = {}", toml_string(&p.to_string_lossy()))?;
-    }
     writeln!(writer, "seed = \"0x{seed:016x}\"")?;
     Ok(())
 }
@@ -427,8 +416,7 @@ mod tests {
     fn steps_and_expects_round_trip_through_toml_parser() {
         let path = temp_path("rt");
         let mut cpu = Cpu::default();
-        install(&mut cpu, &path, 0xc0ffee, Some(&PathBuf::from("scratch/cli.toml")), None)
-            .expect("install");
+        install(&mut cpu, &path, 0xc0ffee, None).expect("install");
 
         // Decision 1: a move. Its outcome is observed at decision 2.
         record(&cpu, Step::Move { slot: 0 });
@@ -487,7 +475,7 @@ mod tests {
 
         let path = temp_path("side");
         let mut cpu = Cpu::default();
-        install(&mut cpu, &path, 1, None, None).expect("install");
+        install(&mut cpu, &path, 1, None).expect("install");
         record(&cpu, Step::Move { slot: 0 }); // player
         record_side(&cpu, Side::Enemy, Step::Move { slot: 2 }); // enemy
         record_side(&cpu, Side::Enemy, Step::Switch { slot: 1 }); // enemy switch
@@ -512,7 +500,7 @@ mod tests {
     fn open_step_without_expect_is_still_valid_toml() {
         let path = temp_path("open");
         let mut cpu = Cpu::default();
-        install(&mut cpu, &path, 1, None, None).expect("install");
+        install(&mut cpu, &path, 1, None).expect("install");
         record(&cpu, Step::Run);
         cpu.recorder = None;
 
