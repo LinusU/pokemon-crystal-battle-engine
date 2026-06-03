@@ -1,6 +1,28 @@
 [recording]
-source_scenario = "fixtures/00109.scenario.toml"
 seed = "0x0000000000001234"
+
+[scenario.battle]
+type = "link_battle"
+
+[[scenario.player_party]]
+species = "Pikachu"
+level = 30
+moves = ["Thunderbolt", "Quick Attack", "Surf", "Thunder"]
+
+[[scenario.player_party]]
+species = "Snorlax"
+level = 30
+moves = ["Body Slam", "Rest", "Surf", "Earthquake"]
+
+[[scenario.enemy_party]]
+species = "Geodude"
+level = 30
+moves = ["Rock Throw", "Magnitude", "Tackle", "Defense Curl"]
+
+[[scenario.enemy_party]]
+species = "Gengar"
+level = 30
+moves = ["Night Shade", "Lick", "Hypnosis", "Mean Look"]
 
 [[step]]
 kind = "move"
