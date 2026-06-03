@@ -1,6 +1,17 @@
 [recording]
-source_scenario = "fixtures/00060.scenario.toml"
 seed = "0x5eed000000003c00"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "PRYCE_1"
+
+[[scenario.player_party]]
+species = "SNORLAX"
+level = 33
+
+[[scenario.player_items]]
+name = "Full Restore"
+quantity = 5
 
 [[step]]
 kind = "move"

@@ -1,9 +1,0 @@
-# Coverage-targeted fixture: WHITNEY_1 carries a 0%-covered move effect.
-[battle]
-type = "trainer_battle"
-trainer = "WHITNEY_1"
-seed = 0x5eed000000003a00
-
-[[player_party]]
-species = "SNORLAX"
-level = 18

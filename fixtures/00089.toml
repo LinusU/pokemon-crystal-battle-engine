@@ -1,6 +1,17 @@
 [recording]
-source_scenario = "fixtures/00089.scenario.toml"
 seed = "0x5eed000000059000"
+
+[scenario.battle]
+type = "wild_encounter"
+
+[[scenario.player_party]]
+species = "Snorlax"
+level = 40
+moves = ["false_swipe"]
+
+[[scenario.enemy_party]]
+species = "Tauros"
+level = 55
 
 [[step]]
 kind = "move"

@@ -1,6 +1,17 @@
 [recording]
-source_scenario = "fixtures/00064.scenario.toml"
 seed = "0x5eed000000004000"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "KOGA_1"
+
+[[scenario.player_party]]
+species = "SNORLAX"
+level = 52
+
+[[scenario.player_items]]
+name = "Full Restore"
+quantity = 6
 
 [[step]]
 kind = "move"

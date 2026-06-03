@@ -1,6 +1,16 @@
 [recording]
-source_scenario = "fixtures/00051.scenario.toml"
 seed = "0x0000000000005151"
+
+[scenario.battle]
+type = "wild_encounter"
+
+[[scenario.player_party]]
+species = "Feraligatr"
+level = 50
+
+[[scenario.enemy_party]]
+species = "Pidgey"
+level = 5
 
 [[step]]
 kind = "move"

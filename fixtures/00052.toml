@@ -1,6 +1,16 @@
 [recording]
-source_scenario = "fixtures/00052.scenario.toml"
 seed = "0x0000000000005252"
+
+[scenario.battle]
+type = "wild_encounter"
+
+[[scenario.player_party]]
+species = "Quilava"
+level = 20
+
+[[scenario.enemy_party]]
+species = "Pidgey"
+level = 12
 
 [[step]]
 kind = "move"

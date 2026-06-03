@@ -1,6 +1,20 @@
 [recording]
-source_scenario = "fixtures/00054.scenario.toml"
 seed = "0x0000000000005454"
+
+[scenario.battle]
+type = "wild_encounter"
+
+[[scenario.player_party]]
+species = "Feraligatr"
+level = 50
+
+[[scenario.enemy_party]]
+species = "Pidgey"
+level = 5
+
+[[scenario.player_items]]
+name = "Poke Doll"
+quantity = 1
 
 [[step]]
 kind = "item"

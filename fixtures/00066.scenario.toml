@@ -1,9 +1,0 @@
-# Coverage-targeted retry: SUPER_NERD_12.
-[battle]
-type = "trainer_battle"
-trainer = "SUPER_NERD_12"
-seed = 0x5eed000000004240
-
-[[player_party]]
-species = "CHANSEY"
-level = 40

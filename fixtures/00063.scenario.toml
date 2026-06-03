@@ -1,9 +1,0 @@
-# Coverage-targeted retry: BLACKBELT_T_2.
-[battle]
-type = "trainer_battle"
-trainer = "BLACKBELT_T_2"
-seed = 0x5eed000000003f40
-
-[[player_party]]
-species = "CHANSEY"
-level = 42

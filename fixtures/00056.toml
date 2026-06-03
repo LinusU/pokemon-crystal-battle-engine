@@ -1,6 +1,13 @@
 [recording]
-source_scenario = "fixtures/00056.scenario.toml"
 seed = "0x5eed000000003800"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "SUPER_NERD_12"
+
+[[scenario.player_party]]
+species = "SNORLAX"
+level = 30
 
 [[step]]
 kind = "move"

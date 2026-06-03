@@ -1,6 +1,13 @@
 [recording]
-source_scenario = "fixtures/00057.scenario.toml"
 seed = "0x5eed000000003900"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "BEAUTY_2"
+
+[[scenario.player_party]]
+species = "SNORLAX"
+level = 16
 
 [[step]]
 kind = "move"

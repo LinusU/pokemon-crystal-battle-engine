@@ -1,6 +1,20 @@
 [recording]
-source_scenario = "fixtures/00053.scenario.toml"
 seed = "0x0000000000005353"
+
+[scenario.battle]
+type = "wild_encounter"
+
+[[scenario.player_party]]
+species = "Feraligatr"
+level = 50
+
+[[scenario.enemy_party]]
+species = "Pidgey"
+level = 5
+
+[[scenario.player_items]]
+name = "Master Ball"
+quantity = 1
 
 [[step]]
 kind = "item"

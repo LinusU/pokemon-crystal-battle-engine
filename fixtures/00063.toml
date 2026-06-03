@@ -1,6 +1,13 @@
 [recording]
-source_scenario = "fixtures/00063.scenario.toml"
 seed = "0x5eed000000003f40"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "BLACKBELT_T_2"
+
+[[scenario.player_party]]
+species = "CHANSEY"
+level = 42
 
 [[step]]
 kind = "move"

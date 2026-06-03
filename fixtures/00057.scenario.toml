@@ -1,9 +1,0 @@
-# Coverage-targeted fixture: BEAUTY_2 carries a 0%-covered move effect.
-[battle]
-type = "trainer_battle"
-trainer = "BEAUTY_2"
-seed = 0x5eed000000003900
-
-[[player_party]]
-species = "SNORLAX"
-level = 16
