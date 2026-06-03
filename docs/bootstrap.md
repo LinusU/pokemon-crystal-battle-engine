@@ -49,6 +49,19 @@ Once those are set, `start_battle → BattleIntro → InitEnemy` notices nonzero
 
 Because the engine owns the enemy-party load for trainer battles, the TOML's `[[enemy_party]]` and `[[enemy_items]]` are currently informational only. Overriding them would need a `HARNESS-PATCH:` in `init_enemy_trainer` that skips the two `callfar`s when a `cpu.skip_trainer_party_load` flag is set, plus harness-side pre-seeding of `wOTParty*` (using `wMonType = OTPARTYMON`) and `wEnemyTrainerItem1` / `Item2`. See [roadmap.md](roadmap.md).
 
+## Link battles
+
+For `type = "link_battle"` ([`launch_link_battle`](../src/bootstrap/mod.rs)) the player-side seeding (identity, party) is the same as a trainer battle, but the **enemy party is seeded too** rather than loaded from ROM — and the engine is switched onto its real link path. Link mode is exactly the engine's no-AI, both-parties-uploaded mode, so we reuse it wholesale and only seed RAM + hook the serial exchange:
+
+- **Enemy party**: each `[[enemy_party]]` mon is added with `wMonType = OTPARTYMON` so `try_add_mon_to_party` appends it to `wOTParty*` (same `try_add_mon_to_party` + `moves`-override path as the player party).
+- **Link mode**: `cpu.link_battle = true` and `wLinkMode = LINK_COLOSSEUM`. This makes `AIChooseMove` bail (no AI), `ReadTrainerParty` / `GetTrainerAttributes` early-return (so the seeded `wOTParty*` survives — nothing is read from ROM), and `parse_enemy_action` read the enemy's action from `wBattleAction` (0xd430).
+- **`wOtherTrainerClass = CAL`**: mirrors the real colosseum-battle setup (`engine/link/link.asm`) so `InitEnemy` routes to the multi-mon trainer path (with switching) rather than the single wild mon path.
+- **`hSerialConnectionStatus = USING_EXTERNAL_CLOCK`**: makes the local side "player 1" so `DoBattle` sends out the first enemy mon itself (player 2 assumes its partner did).
+- **Active-slot / name guards**: `wCurOTMon`, `wCurPartyMon` are zeroed (the ROM party load that normally does this is skipped), and `wOTPlayerName` / `wOTClassName` are seeded with a terminated name so the battle-start textboxes don't walk unterminated garbage past the tilemap into battle WRAM.
+- **Mode**: `wBattleMode = TRAINER_BATTLE`, `wBattleType = BATTLETYPE_NORMAL`. No bag items (the link bag is disabled).
+
+The enemy's per-round action is then sourced from the CLI / playback by the four `HARNESS-PATCH` sites gated on `cpu.link_battle` — see [transpiled_code.md](transpiled_code.md) and [`cli::handle_enemy_action`](../src/bootstrap/cli.rs).
+
 ## ROM banks
 
 Every transpiled function lives in a specific ROM bank. The transpiled code does **not** automatically bankswitch on Rust function entry — it assumes the right bank is already loaded. So before each top-level engine call, the harness writes to `hROMBank` (0xff9d) and the MBC bank-select (`R_ROMB` = 0x2000):

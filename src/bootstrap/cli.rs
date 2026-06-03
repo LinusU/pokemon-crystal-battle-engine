@@ -24,7 +24,7 @@ use crate::runtime::Cpu;
 use super::move_pp;
 use super::names;
 use super::player::{self, PromptSite, StepKind};
-use super::recorder::{self, Step};
+use super::recorder::{self, Side, Step};
 
 // ---------------------------------------------------------------------------
 // WRAM addresses. Source of truth: scratch/pokecrystal/pokecrystal.sym.
@@ -147,10 +147,28 @@ const H_ROM_BANK: u16 = 0xff9d;
 const W_BATTLE_MODE: u16 = 0xd22d;
 
 const W_ENEMY_MON_SPECIES: u16 = 0xd206;
+const W_ENEMY_MON_MOVES: u16 = 0xd208;
+const W_ENEMY_MON_PP: u16 = 0xd20e;
 const W_ENEMY_MON_LEVEL: u16 = 0xd213;
 const W_ENEMY_MON_HP: u16 = 0xd216;
 const W_ENEMY_MON_MAX_HP: u16 = 0xd218;
 const W_ENEMY_MON_STATUS: u16 = 0xd214;
+// The active enemy mon's Disable counter — same packing as wPlayerDisableCount
+// (high nibble = disabled move's 1-based slot, 0 = nothing). `00:c67d
+// wEnemyDisableCount` in `pokecrystal.sym`.
+const W_ENEMY_DISABLE_COUNT: u16 = 0xc67d;
+// Enemy active party slot, and the OT party list (same `party_struct` layout as
+// the player party). `00:c663 wCurOTMon`, `01:d280 wOTPartyCount`,
+// `01:d288 wOTPartyMon1` in `pokecrystal.sym`.
+const W_CUR_OT_MON: u16 = 0xc663;
+const W_OT_PARTY_COUNT: u16 = 0xd280;
+const W_OT_PARTY_MON1: u16 = 0xd288;
+// `wBattleAction` (0xd430): the enemy's action for the round, where a serial
+// link partner would have written it. The link path's `parse_enemy_action`
+// reads it as a move slot (0..3 = BATTLEACTION_MOVE1..4), `BATTLEACTION_SWITCH1
+// + slot` for a switch, or `BATTLEACTION_STRUGGLE`. The link-battle CLI
+// (`handle_enemy_action`) fills it in place of the cable.
+const W_BATTLE_ACTION: u16 = 0xd430;
 
 // Party struct field offsets (see docs/memory_layout.md).
 const PARTY_OFFSET_MOVES: u16 = 2;
@@ -486,6 +504,211 @@ pub fn handle_offer_switch(cpu: &mut Cpu) -> Option<u8> {
         recorder::record(cpu, Step::OfferSwitch { keep: false, slot: Some(slot) });
         Some(slot)
     }
+}
+
+// ---------------------------------------------------------------------------
+// Enemy-side input (link battles)
+//
+// In a link battle both sides are CLI-driven. The player side goes through the
+// engine's normal menus (`handle_battle_menu` etc.). The enemy side has no menu
+// — the engine's link path reads the enemy's action from `wBattleAction`
+// (0xd430), exactly where a serial partner would have written it. The
+// `link_battle_send_receive_action` HARNESS-PATCH calls [`handle_enemy_action`]
+// to fill that byte from the CLI / playback, so the second player drives the
+// enemy with the same move/switch vocabulary the player has. Items, balls, and
+// run aren't offered to the enemy: a Gen-II link battle disables the bag, and
+// the action byte can only encode a move or a switch anyway.
+
+/// The enemy's chosen action for the round. Mirrors the move/switch subset of
+/// [`Action`]; the enemy never uses items, balls, or run.
+#[derive(Debug, Clone, Copy)]
+enum EnemyAction {
+    Move(u8),
+    Switch(u8),
+}
+
+/// CLI patch reached from the `link_battle_send_receive_action` HARNESS-PATCH in
+/// a link battle: the second player picks the enemy's action for this round and
+/// it is encoded into `wBattleAction` (0xd430) — the byte the engine's link path
+/// reads in place of an AI decision or a serial partner. The single hook fires
+/// from four engine sites; the context is read from WRAM:
+///
+/// - **Player forced-replacement sync** (`wBattlePlayerAction == USEITEM`, enemy
+///   alive): only the player's mon fainted. `force_player_mon_choice` exchanges
+///   purely to stay in lockstep with the (real) partner and never reads
+///   `wBattleAction` back, so the enemy doesn't act — write a harmless SKIPTURN
+///   and return WITHOUT making this a decision point (no observe / consume /
+///   record), or the recorded step stream would gain a phantom enemy step.
+/// - **Enemy must replace a fainted mon** (`wEnemyMonHP == 0`): offer only the
+///   enemy's alive bench → `BATTLEACTION_SWITCH1 + slot`.
+/// - **Normal turn / player switch**: offer the enemy's usable moves + alive
+///   bench → a move slot (`BATTLEACTION_MOVE1 + slot`) or a switch.
+/// - **Forced Struggle** (no usable move and no mon to switch to): not a real
+///   choice, so it is not a decision point either — hand the engine
+///   `BATTLEACTION_STRUGGLE` and return.
+pub fn handle_enemy_action(cpu: &mut Cpu) {
+    let enemy_fainted = read_word_be(cpu, W_ENEMY_MON_HP) == 0;
+
+    // Player-only faint: the enemy isn't acting and the engine ignores the byte
+    // here. Not a decision point — keep the record/playback step stream aligned.
+    if cpu.read_byte(W_BATTLE_PLAYER_ACTION) == defs::BATTLEPLAYERACTION_USEITEM && !enemy_fainted {
+        cpu.write_byte(W_BATTLE_ACTION, defs::BATTLEACTION_SKIPTURN);
+        return;
+    }
+
+    let current = cpu.read_byte(W_CUR_OT_MON);
+    let moves = if enemy_fainted { Vec::new() } else { enemy_move_options(cpu) };
+    let switches = enemy_alive_party_slots(cpu, Some(current));
+
+    // No usable move and nowhere to switch: forced Struggle. Like the sync case
+    // this is not a choice, so it is recorded/replayed implicitly (the same
+    // deterministic state reproduces it) rather than as a step.
+    if moves.is_empty() && switches.is_empty() {
+        cpu.write_byte(W_BATTLE_ACTION, defs::BATTLEACTION_STRUGGLE);
+        return;
+    }
+
+    observe_decision_point(cpu);
+    let action = if let Some(step) =
+        player::consume(cpu, PromptSite::EnemyAction, &[StepKind::Move, StepKind::Switch])
+    {
+        match step {
+            Step::Move { slot } => EnemyAction::Move(slot),
+            Step::Switch { slot } => EnemyAction::Switch(slot),
+            // `consume`'s `accepts` filter rules everything else out.
+            _ => unreachable!("EnemyAction consumes only Move/Switch"),
+        }
+    } else {
+        prompt_enemy_action(cpu, enemy_fainted, &moves, &switches)
+    };
+
+    let byte = match action {
+        EnemyAction::Move(slot) => {
+            recorder::record_side(cpu, Side::Enemy, Step::Move { slot });
+            // BATTLEACTION_MOVE1 == 0, so the move slot index *is* the action byte.
+            defs::BATTLEACTION_MOVE1 + slot
+        }
+        EnemyAction::Switch(slot) => {
+            recorder::record_side(cpu, Side::Enemy, Step::Switch { slot });
+            defs::BATTLEACTION_SWITCH1 + slot
+        }
+    };
+    cpu.write_byte(W_BATTLE_ACTION, byte);
+}
+
+/// Prompt the second player for the enemy's action. `moves` / `switches` are the
+/// already-computed legal options (so the empty/forced cases are handled by the
+/// caller). When `enemy_fainted` the enemy is sending in a replacement, so only
+/// switches are offered.
+fn prompt_enemy_action(cpu: &Cpu, enemy_fainted: bool, moves: &[u8], switches: &[u8]) -> EnemyAction {
+    print_enemy_state(cpu);
+    let mut entries: Vec<(String, EnemyAction)> = Vec::new();
+    if !enemy_fainted {
+        for &slot in moves {
+            let move_id = cpu.read_byte(W_ENEMY_MON_MOVES + u16::from(slot));
+            let pp = cpu.read_byte(W_ENEMY_MON_PP + u16::from(slot)) & defs::PP_MASK;
+            entries.push((format!("{} (PP {pp})", move_name(move_id)), EnemyAction::Move(slot)));
+        }
+    }
+    for &slot in switches {
+        let species = read_ot_party_species(cpu, slot);
+        let hp = read_word_be(cpu, ot_party_slot_addr(slot) + PARTY_OFFSET_HP);
+        let max_hp = read_word_be(cpu, ot_party_slot_addr(slot) + PARTY_OFFSET_MAX_HP);
+        entries.push((
+            format!("Switch to {} (HP {}/{})", species_name(species), hp, max_hp),
+            EnemyAction::Switch(slot),
+        ));
+    }
+
+    if enemy_fainted {
+        println!("\n[enemy] your Pokémon fainted — choose the next:");
+    } else {
+        println!("\n[enemy] choose an action:");
+    }
+    for (idx, (label, _)) in entries.iter().enumerate() {
+        println!("  {}) {label}", idx + 1);
+    }
+    let pick = prompt_index("> ", entries.len());
+    entries[pick].1
+}
+
+/// Print the battle from the enemy player's perspective: their active mon as
+/// "You", the player's mon as "Opponent". Mirrors [`print_battle_state`].
+fn print_enemy_state(cpu: &Cpu) {
+    let species = cpu.read_byte(W_ENEMY_MON_SPECIES);
+    let level = cpu.read_byte(W_ENEMY_MON_LEVEL);
+    let hp = read_word_be(cpu, W_ENEMY_MON_HP);
+    let max_hp = read_word_be(cpu, W_ENEMY_MON_MAX_HP);
+    let status = cpu.read_byte(W_ENEMY_MON_STATUS);
+
+    let foe_species = cpu.read_byte(W_BATTLE_MON_SPECIES);
+    let foe_level = cpu.read_byte(W_BATTLE_MON_LEVEL);
+    let foe_hp = read_word_be(cpu, W_BATTLE_MON_HP);
+    let foe_max_hp = read_word_be(cpu, W_BATTLE_MON_MAX_HP);
+    let foe_status = cpu.read_byte(W_BATTLE_MON_STATUS);
+
+    println!(
+        "\n=== Opponent: {} Lv{} HP {}/{}{}\n=== Enemy:    {} Lv{} HP {}/{}{}",
+        species_name(foe_species),
+        foe_level,
+        foe_hp,
+        foe_max_hp,
+        status_suffix(foe_status),
+        species_name(species),
+        level,
+        hp,
+        max_hp,
+        status_suffix(status),
+    );
+}
+
+/// Address of OT party slot `slot` (enemy `party_struct`).
+fn ot_party_slot_addr(slot: u8) -> u16 {
+    W_OT_PARTY_MON1 + u16::from(slot) * PARTY_STRUCT_LEN
+}
+
+fn read_ot_party_species(cpu: &Cpu, slot: u8) -> u8 {
+    cpu.read_byte(ot_party_slot_addr(slot))
+}
+
+/// The enemy's selectable move slots: a real move (id != 0) with PP left that
+/// isn't Disabled. Mirrors [`move_options`] against the enemy's `wEnemyMon*`
+/// fields and `wEnemyDisableCount`.
+fn enemy_move_options(cpu: &Cpu) -> Vec<u8> {
+    let disabled_slot = (cpu.read_byte(W_ENEMY_DISABLE_COUNT) >> 4).wrapping_sub(1);
+    let mut out = Vec::with_capacity(defs::NUM_MOVES as usize);
+    for slot in 0..defs::NUM_MOVES {
+        let move_id = cpu.read_byte(W_ENEMY_MON_MOVES + u16::from(slot));
+        if move_id == 0 {
+            continue;
+        }
+        let pp = cpu.read_byte(W_ENEMY_MON_PP + u16::from(slot)) & defs::PP_MASK;
+        if pp == 0 {
+            continue;
+        }
+        if slot == disabled_slot {
+            continue;
+        }
+        out.push(slot);
+    }
+    out
+}
+
+/// The enemy's alive, non-current OT party slots. Mirrors [`alive_party_slots`]
+/// against `wOTPartyCount` / the OT party list.
+fn enemy_alive_party_slots(cpu: &Cpu, exclude: Option<u8>) -> Vec<u8> {
+    let n = cpu.read_byte(W_OT_PARTY_COUNT);
+    let mut out = Vec::with_capacity(n as usize);
+    for slot in 0..n {
+        if Some(slot) == exclude {
+            continue;
+        }
+        if read_word_be(cpu, ot_party_slot_addr(slot) + PARTY_OFFSET_HP) == 0 {
+            continue;
+        }
+        out.push(slot);
+    }
+    out
 }
 
 // ---------------------------------------------------------------------------
@@ -1995,6 +2218,61 @@ mod tests {
         // Counter cleared (Disable expired): the move is selectable again.
         cpu.write_byte(W_PLAYER_DISABLE_COUNT, 0);
         assert_eq!(move_options(&cpu), vec![0, 1, 2, 3]);
+    }
+
+    /// The enemy move menu (link battles) mirrors the player's: a real move
+    /// (id != 0) with PP that isn't Disabled. Same logic as
+    /// `disabled_move_is_not_selectable`, against the `wEnemyMon*` fields and
+    /// `wEnemyDisableCount`.
+    #[test]
+    fn enemy_move_options_filter_pp_and_disable() {
+        let mut cpu = Cpu::new_cgb(None, None);
+        // slot 0: real move, PP. slot 1: real move, 0 PP. slot 2: real move, PP
+        // (we'll Disable it). slot 3: empty.
+        cpu.write_byte(W_ENEMY_MON_MOVES + 0, 10);
+        cpu.write_byte(W_ENEMY_MON_PP + 0, 5);
+        cpu.write_byte(W_ENEMY_MON_MOVES + 1, 20);
+        cpu.write_byte(W_ENEMY_MON_PP + 1, 0);
+        cpu.write_byte(W_ENEMY_MON_MOVES + 2, 30);
+        cpu.write_byte(W_ENEMY_MON_PP + 2, 8);
+        cpu.write_byte(W_ENEMY_MON_MOVES + 3, 0);
+        cpu.write_byte(W_ENEMY_DISABLE_COUNT, 0); // nothing disabled
+        assert_eq!(enemy_move_options(&cpu), vec![0, 2]); // slot 1 has no PP
+
+        // Disable slot 2 (high nibble = its 1-based slot 3): drops out.
+        cpu.write_byte(W_ENEMY_DISABLE_COUNT, 0x34);
+        assert_eq!(enemy_move_options(&cpu), vec![0]);
+    }
+
+    /// The enemy switch list (link battles) is the alive OT party slots minus
+    /// the active one — so a single-mon enemy offers no switch.
+    #[test]
+    fn enemy_alive_party_slots_exclude_active_and_fainted() {
+        let mut cpu = Cpu::new_cgb(None, None);
+        cpu.write_byte(W_OT_PARTY_COUNT, 3);
+        // slot 0 active+alive, slot 1 alive, slot 2 fainted.
+        write_word_be(&mut cpu, ot_party_slot_addr(0) + PARTY_OFFSET_HP, 20);
+        write_word_be(&mut cpu, ot_party_slot_addr(1) + PARTY_OFFSET_HP, 15);
+        write_word_be(&mut cpu, ot_party_slot_addr(2) + PARTY_OFFSET_HP, 0);
+        assert_eq!(enemy_alive_party_slots(&cpu, Some(0)), vec![1]);
+        // Single-mon enemy: nothing to switch to.
+        cpu.write_byte(W_OT_PARTY_COUNT, 1);
+        assert_eq!(enemy_alive_party_slots(&cpu, Some(0)), Vec::<u8>::new());
+    }
+
+    /// The action byte the enemy hook writes to `wBattleAction`: a move slot is
+    /// the slot index (BATTLEACTION_MOVE1 == 0), a switch is
+    /// `BATTLEACTION_SWITCH1 + slot`. These are what `parse_enemy_action`'s link
+    /// path decodes.
+    #[test]
+    fn enemy_action_byte_encoding() {
+        assert_eq!(defs::BATTLEACTION_MOVE1, 0);
+        assert_eq!(defs::BATTLEACTION_MOVE1 + 3, 3); // move slot 3
+        assert_eq!(defs::BATTLEACTION_SWITCH1, 4);
+        assert_eq!(defs::BATTLEACTION_SWITCH1 + 0, 4); // switch to slot 0
+        assert_eq!(defs::BATTLEACTION_SWITCH1 + 5, 9); // switch to slot 5
+        // The two ranges never overlap (4 move slots, then switches).
+        assert!(defs::BATTLEACTION_MOVE1 + (defs::NUM_MOVES as u8 - 1) < defs::BATTLEACTION_SWITCH1);
     }
 
     #[test]

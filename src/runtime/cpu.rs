@@ -42,6 +42,18 @@ pub struct Cpu {
     /// `Outcome::Caught`. Reset per battle is unnecessary — a fresh `Cpu` is
     /// built for each run.
     pub caught_wild_mon: bool,
+    /// When true, the battle is a headless "link battle": both parties are
+    /// pre-seeded in WRAM and BOTH sides are driven by the CLI / playback (no
+    /// AI). The harness sets `wLinkMode` so the engine takes its real link
+    /// path — skipping AI, the ROM enemy-party load, and reading the enemy
+    /// action from `wBattleAction`. This flag gates the three link-battle
+    /// `HARNESS-PATCH` sites that replace serial I/O the link path would
+    /// otherwise block on: `link_battle_send_receive_action` (enemy action
+    /// comes from the CLI, not the cable), `_battle_random` (keep the seeded
+    /// LCG instead of the exchanged-RNs buffer), and `exit_battle` (take the
+    /// non-linked end path instead of the link-result SRAM/record display).
+    /// See `bootstrap::launch_link_battle` and docs/transpiled_code.md.
+    pub link_battle: bool,
     /// Open recording file. When `Some`, the CLI driver appends one
     /// `[[step]]` block per resolved decision (the action plus the `expect`
     /// state it produced) and flushes after each write so a mid-battle crash
@@ -114,6 +126,7 @@ impl Default for Cpu {
             skip_intro_to_battle: false,
             cli_pending_move: None,
             caught_wild_mon: false,
+            link_battle: false,
             recorder: None,
             player: None,
             mbc: Mbc::new(crate::rom::ROM),

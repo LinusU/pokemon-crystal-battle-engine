@@ -44,9 +44,35 @@ use super::snapshot::{BattleSnapshot, Outcome, SideSnapshot};
 use super::{BattleConfig, ItemSpec, MonSpec};
 use crate::runtime::Cpu;
 
-/// One captured CLI decision. Each variant maps 1:1 to one of the four prompt
-/// sites in [`super::cli`]. This is the *action* half of a `[[step]]`; the
-/// *outcome* half is the `expect.*` keys written by [`observe`] / [`finalize`].
+/// Which side a recorded decision belongs to. A normal (wild / trainer) battle
+/// only ever records `Player` steps and writes no `side` key, so those
+/// recordings — and every fixture made before link battles existed — parse back
+/// as `Player`. A link battle additionally records `Enemy` steps for the second
+/// CLI player's move / switch picks, tagged `side = "enemy"`. See
+/// [`super::cli::handle_enemy_action`] and docs/toml_schema.md.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Side {
+    Player,
+    Enemy,
+}
+
+impl Side {
+    /// The `side` tag written into / parsed from the recording TOML. `Player`
+    /// returns `None` so player steps stay key-less (back-compat); only `Enemy`
+    /// writes `side = "enemy"`.
+    pub fn tag(self) -> Option<&'static str> {
+        match self {
+            Side::Player => None,
+            Side::Enemy => Some("enemy"),
+        }
+    }
+}
+
+/// One captured CLI decision. Each variant maps 1:1 to one of the prompt sites
+/// in [`super::cli`]. This is the *action* half of a `[[step]]`; the *outcome*
+/// half is the `expect.*` keys written by [`observe`] / [`finalize`]. The side
+/// the decision belongs to is tracked separately (see [`Side`] / [`record_side`])
+/// rather than on the variant, since the action shape is identical for both.
 #[derive(Debug, Clone, Copy)]
 pub enum Step {
     /// Action menu picked a move. `slot` is the 0-based move slot.
@@ -175,16 +201,23 @@ fn write_items(writer: &mut BufWriter<File>, table: &str, items: &[ItemSpec]) ->
     Ok(())
 }
 
-/// Append a `[[step]]` action block and flush. Silently no-ops if the cpu has
-/// no recorder installed — callers always invoke this; the runtime field is
-/// what gates recording.
+/// Append a player-side `[[step]]` action block. Shorthand for
+/// [`record_side`] with [`Side::Player`] — the common case, and what every
+/// non-link battle records.
+pub fn record(cpu: &Cpu, step: Step) {
+    record_side(cpu, Side::Player, step);
+}
+
+/// Append a `[[step]]` action block (tagged with `side` when it's the enemy's)
+/// and flush. Silently no-ops if the cpu has no recorder installed — callers
+/// always invoke this; the runtime field is what gates recording.
 ///
 /// The step is left "open": its `expect.*` keys are filled by the next
 /// [`observe`] (or [`finalize`] if it turns out to be the last step).
-pub fn record(cpu: &Cpu, step: Step) {
+pub fn record_side(cpu: &Cpu, side: Side, step: Step) {
     let Some(cell) = cpu.recorder.as_ref() else { return };
     let mut rec = cell.borrow_mut();
-    if let Err(e) = write_step(&mut rec.writer, step) {
+    if let Err(e) = write_step(&mut rec.writer, side, step) {
         // Don't bubble — we're mid-battle and the recording is best-effort.
         // The error is logged once so an unwriteable file doesn't go silent.
         eprintln!("recorder: failed to write step: {e}");
@@ -225,9 +258,14 @@ fn write_outcome(cpu: &Cpu, snapshot: &BattleSnapshot, outcome: Option<Outcome>)
     }
 }
 
-fn write_step(writer: &mut BufWriter<File>, step: Step) -> std::io::Result<()> {
+fn write_step(writer: &mut BufWriter<File>, side: Side, step: Step) -> std::io::Result<()> {
     writeln!(writer)?;
     writeln!(writer, "[[step]]")?;
+    // `side = "enemy"` only for the second CLI player's link-battle decisions;
+    // player steps stay key-less so older recordings round-trip unchanged.
+    if let Some(tag) = side.tag() {
+        writeln!(writer, "side = \"{tag}\"")?;
+    }
     match step {
         Step::Move { slot } => {
             writeln!(writer, "kind = \"move\"")?;
@@ -435,6 +473,35 @@ mod tests {
             .expect("player party array");
         assert_eq!(party.len(), 1);
         assert_eq!(party[0].get("species").and_then(|v| v.as_str()), Some("QUILAVA"));
+    }
+
+    /// A link battle records both player and enemy decisions into one ordered
+    /// list. Enemy steps carry `side = "enemy"`; player steps stay key-less so
+    /// pre-link recordings round-trip unchanged.
+    #[test]
+    fn enemy_side_is_tagged_player_side_is_not() {
+        assert_eq!(Side::Player.tag(), None);
+        assert_eq!(Side::Enemy.tag(), Some("enemy"));
+
+        let path = temp_path("side");
+        let mut cpu = Cpu::default();
+        install(&mut cpu, &path, 1, None, None).expect("install");
+        record(&cpu, Step::Move { slot: 0 }); // player
+        record_side(&cpu, Side::Enemy, Step::Move { slot: 2 }); // enemy
+        record_side(&cpu, Side::Enemy, Step::Switch { slot: 1 }); // enemy switch
+        cpu.recorder = None;
+
+        let text = std::fs::read_to_string(&path).expect("read");
+        let parsed: toml::Value = toml::from_str(&text).expect("parse");
+        let _ = std::fs::remove_file(&path);
+        let steps = parsed.get("step").and_then(|v| v.as_array()).expect("steps");
+        assert_eq!(steps.len(), 3);
+        // Player step: no `side` key.
+        assert!(steps[0].get("side").is_none(), "player step must not be tagged");
+        // Enemy steps: side = "enemy".
+        assert_eq!(steps[1].get("side").and_then(|v| v.as_str()), Some("enemy"));
+        assert_eq!(steps[2].get("side").and_then(|v| v.as_str()), Some("enemy"));
+        assert_eq!(steps[2].get("kind").and_then(|v| v.as_str()), Some("switch"));
     }
 
     /// An action recorded but never observed (a crash before the next decision)

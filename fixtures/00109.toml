@@ -1,0 +1,1357 @@
+[recording]
+source_scenario = "fixtures/00109.scenario.toml"
+seed = "0x0000000000001234"
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "PIKACHU"
+expect.player.active.level = 30
+expect.player.active.hp = 62
+expect.player.active.max_hp = 62
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 30, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 62, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GEODUDE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 72
+expect.enemy.active.max_hp = 72
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 30, 35, 40]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 72, max_hp = 72, status = "none" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "PIKACHU"
+expect.player.active.level = 30
+expect.player.active.hp = 29
+expect.player.active.max_hp = 62
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 30, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 29, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GEODUDE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 72
+expect.enemy.active.max_hp = 72
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 30, 35, 40]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 72, max_hp = 72, status = "none" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "PIKACHU"
+expect.player.active.level = 30
+expect.player.active.hp = 29
+expect.player.active.max_hp = 62
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 30, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 29, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GEODUDE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 72
+expect.enemy.active.max_hp = 72
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 30, 35, 40]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 72, max_hp = 72, status = "none" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "PIKACHU"
+expect.player.active.level = 30
+expect.player.active.hp = 0
+expect.player.active.max_hp = 62
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 30, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GEODUDE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 72
+expect.enemy.active.max_hp = 72
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 30, 35, 40]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 72, max_hp = 72, status = "none" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GEODUDE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 72
+expect.enemy.active.max_hp = 72
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 30, 35, 40]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 72, max_hp = 72, status = "none" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GEODUDE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 72
+expect.enemy.active.max_hp = 72
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 30, 35, 40]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 72, max_hp = 72, status = "none" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 116
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 116, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GEODUDE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 54
+expect.enemy.active.max_hp = 72
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 30, 35, 40]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 72, max_hp = 72, status = "none" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 116
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 116, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GEODUDE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 54
+expect.enemy.active.max_hp = 72
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 30, 35, 40]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 72, max_hp = 72, status = "none" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GEODUDE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 37
+expect.enemy.active.max_hp = 72
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [11, 30, 35, 40]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 72, max_hp = 72, status = "none" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GEODUDE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 37
+expect.enemy.active.max_hp = 72
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [11, 30, 35, 40]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 72, max_hp = 72, status = "none" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GEODUDE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 20
+expect.enemy.active.max_hp = 72
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [11, 30, 35, 40]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 20, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GEODUDE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 20
+expect.enemy.active.max_hp = 72
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [11, 30, 35, 40]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 20, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GEODUDE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 72
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [11, 30, 35, 40]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [7, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [11, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [7, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [11, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [6, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [6, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [2, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [6, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [2, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [6, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [1, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [1, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [4, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 94
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 10, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 94, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [4, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "sleep"
+expect.player.active.pp = [0, 9, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "sleep" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [3, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "sleep"
+expect.player.active.pp = [0, 9, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "sleep" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [3, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "sleep"
+expect.player.active.pp = [0, 9, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "sleep" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [2, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "sleep"
+expect.player.active.pp = [0, 9, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "sleep" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [2, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "sleep"
+expect.player.active.pp = [0, 9, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "sleep" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [1, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "sleep"
+expect.player.active.pp = [0, 9, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "sleep" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [1, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 8, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 8, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 30, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 7, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 29, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 7, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 29, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 6, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 28, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 6, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 28, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 5, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 27, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 5, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 27, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 4, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 26, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 4, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 26, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 3, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 25, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 3, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 25, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 2, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 24, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 2, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 24, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 1, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 23, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 1, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 23, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 0, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 22, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 0, 15, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 84
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 22, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 0, 14, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 58
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 21, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 0, 14, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 58
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 21, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 0, 13, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 6
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 20, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 0, 13, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 6
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 20, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 84, max_hp = 84, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 136
+expect.player.active.max_hp = 136
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 0, 12, 10]
+expect.player.party = [{ species = "PIKACHU", level = 30, hp = 0, max_hp = 62, status = "none" }, { species = "SNORLAX", level = 30, hp = 136, max_hp = 136, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 84
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 19, 20, 5]
+expect.enemy.party = [{ species = "GEODUDE", level = 30, hp = 0, max_hp = 72, status = "paralysis" }, { species = "GENGAR", level = 30, hp = 0, max_hp = 84, status = "none" }]
+expect.battle.outcome = "win"

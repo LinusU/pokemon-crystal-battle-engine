@@ -33,16 +33,18 @@ use serde::Deserialize;
 
 use crate::runtime::Cpu;
 
-use super::recorder::Step;
+use super::recorder::{Side, Step};
 use super::snapshot::{self, BattleSnapshot, Expect, Outcome};
 
-/// One replayable step: the recorded action plus the tolerant expectations for
-/// the state it produced. The `expect` is empty for steps a recording omitted
-/// it on (e.g. the in-flight last step of a crashed run, or a hand-written
-/// script that only asserts some turns).
+/// One replayable step: the recorded action, the side that took it, and the
+/// tolerant expectations for the state it produced. The `expect` is empty for
+/// steps a recording omitted it on (e.g. the in-flight last step of a crashed
+/// run, or a hand-written script that only asserts some turns). `side` is
+/// `Player` for every non-link recording (the `side` key is absent there).
 #[derive(Debug, Clone)]
 pub struct PlayStep {
     pub step: Step,
+    pub side: Side,
     pub expect: Expect,
 }
 
@@ -134,6 +136,10 @@ pub enum PromptSite {
     MoveSelection,
     ForcedSwitch,
     OfferSwitch,
+    /// The second CLI player's per-round action in a link battle (move or
+    /// switch). Reached from the `link_battle_send_receive_action` hook rather
+    /// than an engine menu. Consumes only `Enemy`-side steps.
+    EnemyAction,
 }
 
 impl PromptSite {
@@ -143,6 +149,18 @@ impl PromptSite {
             PromptSite::MoveSelection => "move re-selection (Disable / no-PP)",
             PromptSite::ForcedSwitch => "forced switch (active fainted)",
             PromptSite::OfferSwitch => "offer switch (enemy sending in next mon)",
+            PromptSite::EnemyAction => "enemy action (link battle, move/switch)",
+        }
+    }
+
+    /// Which side's recorded steps this prompt site consumes. Every player-menu
+    /// site takes `Player` steps; the link-battle enemy hook takes `Enemy`
+    /// steps. Playback uses this to keep the interleaved step stream in lockstep
+    /// with the engine's alternating player/enemy prompts.
+    fn side(self) -> Side {
+        match self {
+            PromptSite::EnemyAction => Side::Enemy,
+            _ => Side::Player,
         }
     }
 }
@@ -158,7 +176,7 @@ pub fn consume(cpu: &Cpu, site: PromptSite, accepts: &[StepKind]) -> Option<Step
     let cell = cpu.player.as_ref()?;
     let mut player = cell.borrow_mut();
     let cursor = player.cursor;
-    let Some(step) = player.steps.get(cursor).map(|s| s.step) else {
+    let Some(play_step) = player.steps.get(cursor).cloned() else {
         eprintln!(
             "playback: ran out of steps at decision #{} ({}) — recording is incomplete",
             cursor + 1,
@@ -166,6 +184,21 @@ pub fn consume(cpu: &Cpu, site: PromptSite, accepts: &[StepKind]) -> Option<Step
         );
         std::process::exit(2);
     };
+    let step = play_step.step;
+    // Side must match before kind: an interleaved link-battle stream relies on
+    // each prompt site consuming a step from its own side, in order. A player
+    // site meeting a queued enemy step (or vice versa) is structural drift, the
+    // same class of failure as a kind mismatch.
+    if play_step.side != site.side() {
+        eprintln!(
+            "playback: step #{} is a {} step but the engine is asking for a {} decision ({}); the recorded sides are out of order",
+            cursor + 1,
+            side_str(play_step.side),
+            side_str(site.side()),
+            site.label(),
+        );
+        std::process::exit(2);
+    }
     let kind = step.kind();
     if !accepts.contains(&kind) {
         let expected: Vec<&'static str> = accepts.iter().map(|k| k.as_str()).collect();
@@ -242,6 +275,14 @@ fn site_str(site: PromptSite) -> &'static str {
         PromptSite::MoveSelection => "move_selection",
         PromptSite::ForcedSwitch => "forced_switch",
         PromptSite::OfferSwitch => "offer_switch",
+        PromptSite::EnemyAction => "enemy_action",
+    }
+}
+
+fn side_str(side: Side) -> &'static str {
+    match side {
+        Side::Player => "player",
+        Side::Enemy => "enemy",
     }
 }
 
@@ -320,6 +361,10 @@ struct RawHeader {
 #[derive(Debug, Deserialize)]
 struct RawStep {
     kind: String,
+    /// `"enemy"` for the second CLI player's link-battle decisions; absent on
+    /// every player step (and every pre-link recording), parsing as `Player`.
+    #[serde(default)]
+    side: Option<String>,
     #[serde(default)]
     slot: Option<u8>,
     #[serde(default)]
@@ -340,7 +385,12 @@ struct RawStep {
 
 impl RawStep {
     fn into_play_step(self) -> Result<PlayStep, String> {
-        let RawStep { kind, slot, id, target, move_slot, keep, expect } = self;
+        let RawStep { kind, side, slot, id, target, move_slot, keep, expect } = self;
+        let side = match side.as_deref() {
+            None | Some("player") => Side::Player,
+            Some("enemy") => Side::Enemy,
+            Some(other) => return Err(format!("unknown `side = {other:?}` (expected \"player\" or \"enemy\")")),
+        };
         let step = match kind.as_str() {
             "move" => {
                 let slot = slot.ok_or("`move` step needs `slot`")?;
@@ -371,7 +421,7 @@ impl RawStep {
             }
             other => return Err(format!("unknown `kind = {other:?}`")),
         };
-        Ok(PlayStep { step, expect })
+        Ok(PlayStep { step, side, expect })
     }
 }
 
@@ -523,6 +573,57 @@ target = 0
             rec.steps[0].step,
             Step::Item { id: 18, target: Some(0), move_slot: None }
         ));
+    }
+
+    /// A link-battle recording interleaves player and enemy steps in one list.
+    /// `side` parses back to the right [`Side`]: absent / `"player"` → Player,
+    /// `"enemy"` → Enemy, anything else is an error.
+    #[test]
+    fn side_key_parses_into_play_step() {
+        let text = r#"
+[recording]
+seed = "0x1"
+
+[[step]]
+kind = "move"
+slot = 0
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 2
+
+[[step]]
+side = "player"
+kind = "switch"
+slot = 1
+"#;
+        let path = temp_path("sides");
+        std::fs::write(&path, text).unwrap();
+        let rec = load(&path).expect("load");
+        let _ = std::fs::remove_file(&path);
+        assert_eq!(rec.steps.len(), 3);
+        assert_eq!(rec.steps[0].side, Side::Player); // no key → Player
+        assert_eq!(rec.steps[1].side, Side::Enemy);
+        assert_eq!(rec.steps[2].side, Side::Player); // explicit "player"
+    }
+
+    #[test]
+    fn unknown_side_errors() {
+        let text = r#"
+[recording]
+seed = "0x1"
+
+[[step]]
+side = "spectator"
+kind = "move"
+slot = 0
+"#;
+        let path = temp_path("badside");
+        std::fs::write(&path, text).unwrap();
+        let err = load(&path).unwrap_err();
+        let _ = std::fs::remove_file(&path);
+        assert!(err.contains("spectator"), "got: {err}");
     }
 
     #[test]

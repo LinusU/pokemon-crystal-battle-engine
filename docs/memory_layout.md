@@ -28,6 +28,24 @@ The ground truth for symbol addresses is `scratch/pokecrystal/pokecrystal.sym`, 
 | `0xdcd7` | `wPartyCount` | 1 | Party size, terminator-prefix list begins after. |
 | `0xdcdf` + N·48 | `wPartyMon{N}` | 48 | `party_struct` slot. Filled by `try_add_mon_to_party`. |
 
+### Link-battle seeding (`launch_link_battle`)
+
+A `link_battle` additionally seeds the enemy party and switches the engine onto its real link path (see [bootstrap.md](bootstrap.md#link-battles)). These are the extra bytes it writes:
+
+| Address | Symbol | Bytes | Purpose |
+| --- | --- | --- | --- |
+| `0xc2dc` | `wLinkMode` | 1 | Set to `LINK_COLOSSEUM` (3) — engine takes the link path: no AI, no ROM party load, enemy action from `wBattleAction`. |
+| `0xffcb` | `hSerialConnectionStatus` | 1 | `USING_EXTERNAL_CLOCK` (1) → local side is player 1, so `DoBattle` sends out the first enemy mon itself. |
+| `0xd280` | `wOTPartyCount` | 1 | Enemy party size; set by `try_add_mon_to_party` as each enemy mon is added (`wMonType = OTPARTYMON`). |
+| `0xd288` + N·48 | `wOTPartyMon{N}` | 48 | Enemy `party_struct` slots, seeded from `[[enemy_party]]` (same path as the player party). |
+| `0xc663` | `wCurOTMon` | 1 | Active enemy slot, zeroed (the ROM load that normally does this is skipped). |
+| `0xd109` | `wCurPartyMon` | 1 | Scratch slot `InitEnemyMon` copies into `wCurOTMon`; zeroed for the same reason. |
+| `0xc656` | `wOTClassName` | 11 | Opponent class name, seeded with a terminated string so battle-start text stays bounded (it's only 13 bytes below `wCurOTMon`). |
+| `0xd26b` | `wOTPlayerName` | 11 | Opponent player name, seeded for the same reason. |
+| `0xd22f` | `wOtherTrainerClass` | 1 | `CAL` (12) — routes `InitEnemy` to the multi-mon trainer path, as the real colosseum battle does. |
+
+The link path's enemy action lives in `wBattleAction` (`0xd430`); the `link_battle_send_receive_action` hook fills it from the CLI (see the in-battle table — `cli.rs` reads/writes it). RNG would otherwise come from `wLinkBattleRNs` (`0xd1fa`, 10 bytes), but the `_battle_random` patch keeps link battles on the seeded LCG instead.
+
 ## In-battle WRAM (read or written by the CLI driver)
 
 The CLI driver in [`src/bootstrap/cli.rs`](../src/bootstrap/cli.rs) reads battle state out of these addresses and writes the engine's "post-menu" state back into them when the player picks an action. The patches in [`src/game/engine/battle/core.rs`](../src/game/engine/battle/core.rs) (`battle_menu`, `move_selection_screen`, `force_pick_party_mon_in_battle`, `ask_use_next_pokemon`, `offer_switch`) target these same fields.

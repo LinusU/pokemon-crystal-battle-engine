@@ -1,0 +1,27 @@
+# Link battle regression fixture: both sides CLI-driven, two mons each, with
+# move overrides on both parties. Replayed by fixtures/00109.toml. Exercises the
+# link-battle path — the wLinkMode setup, the enemy-action hook, and a forced
+# switch on each side when a mon faints.
+[battle]
+type = "link_battle"
+seed = 0x1234
+
+[[player_party]]
+species = "Pikachu"
+level = 30
+moves = ["Thunderbolt", "Quick Attack", "Surf", "Thunder"]
+
+[[player_party]]
+species = "Snorlax"
+level = 30
+moves = ["Body Slam", "Rest", "Surf", "Earthquake"]
+
+[[enemy_party]]
+species = "Geodude"
+level = 30
+moves = ["Rock Throw", "Magnitude", "Tackle", "Defense Curl"]
+
+[[enemy_party]]
+species = "Gengar"
+level = 30
+moves = ["Night Shade", "Lick", "Hypnosis", "Mean Look"]

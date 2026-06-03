@@ -55,6 +55,12 @@ pub struct BattleHeader {
 pub enum BattleKind {
     WildEncounter,
     TrainerBattle,
+    /// A headless link battle: both parties are fully specified in the TOML and
+    /// BOTH sides are CLI-driven (no AI). The harness seeds both `wParty*` and
+    /// `wOTParty*`, sets `wLinkMode` so the engine takes its real link path, and
+    /// feeds the enemy's per-round action via the `link_battle_send_receive_action`
+    /// hook. See [`launch_link_battle`].
+    LinkBattle,
 }
 
 impl BattleKind {
@@ -65,6 +71,7 @@ impl BattleKind {
         match self {
             BattleKind::WildEncounter => "wild_encounter",
             BattleKind::TrainerBattle => "trainer_battle",
+            BattleKind::LinkBattle => "link_battle",
         }
     }
 }
@@ -133,6 +140,49 @@ const W_PLAYER_NAME: u16 = 0xd47d;
 const W_TIME_OF_DAY_PAL: u16 = 0xd841;
 const W_PARTY_COUNT: u16 = 0xdcd7;
 const W_PARTY_MON1: u16 = 0xdcdf;
+// OT (enemy) party list — same `party_struct` layout as the player party. Used
+// by the link-battle path to pre-seed the enemy's whole party.
+const W_OT_PARTY_MON1: u16 = 0xd288;
+// `wCurOTMon` (0xc663): the enemy's active party slot. `wCurPartyMon` (0xd109):
+// the scratch "current mon" slot `InitEnemyMon` copies into `wCurOTMon` when the
+// first enemy mon is sent out. Both are normally zeroed by the ROM trainer-party
+// load, which the link path early-returns out of — so we seed them to 0
+// ourselves, else `InitEnemyMon` makes the enemy's active slot a garbage index
+// and the engine reads/writes the OT party far out of bounds. `00:c663
+// wCurOTMon`, `00:d109 wCurPartyMon` in `pokecrystal.sym`.
+const W_CUR_OT_MON: u16 = 0xc663;
+const W_CUR_PARTY_MON: u16 = 0xd109;
+// The opponent's class name (`wOTClassName`, 0xc656) and link player name
+// (`wOTPlayerName`, 0xd26b). In a real link battle these are filled by the link
+// setup / `GetTrainerAttributes`; in our headless setup `GetTrainerAttributes`
+// early-returns on `wLinkMode != 0`, so they hold unterminated garbage. The
+// battle-start / "sent out" textboxes then walk the garbage past the tilemap and
+// clobber neighbouring battle WRAM (`wOTClassName` is only 13 bytes below
+// `wCurOTMon`). We seed terminated names so the text stays bounded.
+const W_OT_CLASS_NAME: u16 = 0xc656;
+const W_OT_PLAYER_NAME: u16 = 0xd26b;
+// Per-mon nickname lists. `try_add_mon_to_party` fills the player list
+// (`wPartyMonNicknames`) but SKIPS it for OT mons (`wMonType != PARTYMON`) — in
+// a real link battle the partner supplies those names. Headless we must seed
+// `wOTPartyMonNicknames` ourselves or the enemy mon's name renders as garbage.
+// `get_pokemon_name` writes the ROM species name into `wStringBuffer1`.
+// `01:d3ea wOTPartyMonNicknames`, `01:d073 wStringBuffer1`, `01:d265
+// wNamedObjectIndex` in `pokecrystal.sym`.
+const W_OT_PARTY_MON_NICKNAMES: u16 = 0xd3ea;
+const W_STRING_BUFFER1: u16 = 0xd073;
+const W_NAMED_OBJECT_INDEX: u16 = 0xd265;
+
+// `hSerialConnectionStatus` (0xffcb). In a link battle `do_battle` reads this:
+// `== USING_INTERNAL_CLOCK` makes the local side player 2 (its enemy mon is
+// assumed already set up by the partner). We want the local side to be player 1
+// so the engine runs the first-enemy-mon send-out itself, so we seed
+// `USING_EXTERNAL_CLOCK`. Turn order on a speed tie also keys off this.
+const H_SERIAL_CONNECTION_STATUS: u16 = 0xffcb;
+
+// `wMonType` values (constants/ram_constants.asm): which party `try_add_mon_to_party`
+// appends to. 0 = the player party (`wParty*`), 1 = the OT party (`wOTParty*`).
+const MONTYPE_PARTYMON: u8 = 0;
+const MONTYPE_OTPARTYMON: u8 = 1;
 
 // `party_struct` geometry, for the moveset override (see docs/memory_layout.md).
 const PARTY_STRUCT_LEN: u16 = 48;
@@ -262,13 +312,14 @@ fn write_pocket(cpu: &mut Cpu, num_addr: u16, entries: &[(u8, u8)]) {
     cpu.write_byte(addr, 0xff);
 }
 
-/// Append one player party slot by driving the engine's own
-/// `try_add_mon_to_party` so DVs, stats, moves, and PP all come out canonical.
-fn add_player_mon(cpu: &mut Cpu, species: u8, level: u8) {
+/// Append one party slot by driving the engine's own `try_add_mon_to_party` so
+/// DVs, stats, moves, and PP all come out canonical. `mon_type` selects which
+/// party (`MONTYPE_PARTYMON` → `wParty*`, `MONTYPE_OTPARTYMON` → `wOTParty*`).
+fn add_mon(cpu: &mut Cpu, species: u8, level: u8, mon_type: u8) {
     cpu.write_byte(W_CUR_PARTY_SPECIES, species);
     cpu.write_byte(W_CUR_PARTY_LEVEL, level);
     cpu.write_byte(W_CUR_SPECIES, species);
-    cpu.write_byte(W_MON_TYPE, 0); // PARTYMON
+    cpu.write_byte(W_MON_TYPE, mon_type);
     cpu.write_byte(W_BATTLE_MODE, 0); // 0 = not in battle yet, so default item / random moves
     cpu.write_byte(W_ENEMY_MON_ITEM, 0);
 
@@ -279,19 +330,60 @@ fn add_player_mon(cpu: &mut Cpu, species: u8, level: u8) {
 }
 
 fn seed_player_party(cpu: &mut Cpu, party: &[MonSpec]) -> Result<(), String> {
-    cpu.write_byte(W_PARTY_COUNT, 0);
+    seed_party(cpu, party, MONTYPE_PARTYMON, W_PARTY_COUNT, W_PARTY_MON1, "player")
+}
+
+/// Seed a whole party into either the player's or the OT (enemy's) list,
+/// honoring each mon's optional `moves` override. `count_addr` / `mon1_addr`
+/// are the destination party's count byte and first `party_struct`; `mon_type`
+/// routes `try_add_mon_to_party` to the matching list. `label` names the side in
+/// error messages. Shared by the player party and the link-battle enemy party.
+fn seed_party(
+    cpu: &mut Cpu,
+    party: &[MonSpec],
+    mon_type: u8,
+    count_addr: u16,
+    mon1_addr: u16,
+    label: &str,
+) -> Result<(), String> {
+    cpu.write_byte(count_addr, 0);
     for (slot, mon) in party.iter().enumerate() {
         let id = species::id_from_name(&mon.species)
-            .ok_or_else(|| format!("unknown player species: {}", mon.species))?;
+            .ok_or_else(|| format!("unknown {label} species: {}", mon.species))?;
         // Resolve the optional moveset before driving the engine so a bad move
         // name fails fast, before any WRAM is touched for this slot.
         let move_ids = resolve_moves(mon)?;
-        add_player_mon(cpu, id, mon.level);
+        add_mon(cpu, id, mon.level, mon_type);
         if let Some(ids) = move_ids {
-            apply_moveset(cpu, slot as u8, &ids);
+            apply_moveset(cpu, mon1_addr, slot as u8, &ids);
+        }
+        // `try_add_mon_to_party` sets the nickname only for the player party;
+        // for OT mons it skips it (the link partner would supply the name), so
+        // seed the OT nickname to the species name ourselves.
+        if mon_type == MONTYPE_OTPARTYMON {
+            seed_ot_nickname(cpu, slot as u8, id);
         }
     }
     Ok(())
+}
+
+/// Set OT party slot `slot`'s nickname to `species`'s ROM name, mirroring what
+/// `try_add_mon_to_party` does for the player party (which it skips for OT
+/// mons). Drives the engine's `get_pokemon_name` to fetch the exact name into
+/// `wStringBuffer1`, then copies it into `wOTPartyMonNicknames[slot]`. Without
+/// this the enemy mon's name in the battle HUD renders as uninitialised garbage.
+fn seed_ot_nickname(cpu: &mut Cpu, slot: u8, species: u8) {
+    cpu.write_byte(W_NAMED_OBJECT_INDEX, species);
+    // `get_pokemon_name` saves/restores the ROM bank itself, so no switch needed.
+    let return_sentinel: u16 = 0xfffc;
+    cpu.push_word(return_sentinel);
+    crate::game::home::names::get_pokemon_name(cpu);
+
+    let dest = W_OT_PARTY_MON_NICKNAMES + slot as u16 * defs::MON_NAME_LENGTH as u16;
+    for i in 0..defs::MON_NAME_LENGTH as u16 {
+        let b = cpu.read_byte(W_STRING_BUFFER1 + i);
+        cpu.write_byte(dest + i, b);
+    }
 }
 
 /// Resolve a mon's optional `moves` list to move ids, validating the count and
@@ -324,8 +416,8 @@ fn resolve_moves(mon: &MonSpec) -> Result<Option<Vec<u8>>, String> {
 /// `MON_PP` bytes. Each given move gets full PP (its base maximum — a fresh mon
 /// has no PP Ups); any leftover move slot is zeroed so the engine sees fewer
 /// than four moves rather than a stale generated one.
-fn apply_moveset(cpu: &mut Cpu, slot: u8, move_ids: &[u8]) {
-    let base = W_PARTY_MON1 + slot as u16 * PARTY_STRUCT_LEN;
+fn apply_moveset(cpu: &mut Cpu, party_mon1_addr: u16, slot: u8, move_ids: &[u8]) {
+    let base = party_mon1_addr + slot as u16 * PARTY_STRUCT_LEN;
     for i in 0..NUM_MOVE_SLOTS {
         let id = move_ids.get(i).copied().unwrap_or(0);
         cpu.write_byte(base + MON_OFFSET_MOVES + i as u16, id);
@@ -407,6 +499,79 @@ fn launch_trainer_battle(cpu: &mut Cpu, config: &BattleConfig) -> Result<(), Str
     Ok(())
 }
 
+/// Launch a link battle: both parties are fully specified and BOTH sides are
+/// CLI-driven. Unlike a trainer battle, the enemy party is NOT loaded from ROM —
+/// we seed `wOTParty*` ourselves and set `wLinkMode` so the engine takes its
+/// real link path, which skips the AI, early-returns out of `ReadTrainerParty` /
+/// `GetTrainerAttributes` (preserving our seeded party), and reads the enemy's
+/// per-round action from `wBattleAction`. The `link_battle_send_receive_action`
+/// HARNESS-PATCH fills that byte from the CLI / playback (see
+/// [`cli::handle_enemy_action`]). See docs/bootstrap.md.
+fn launch_link_battle(cpu: &mut Cpu, config: &BattleConfig) -> Result<(), String> {
+    let max = defs::PARTY_LENGTH as usize;
+    if config.player_party.is_empty() || config.player_party.len() > max {
+        return Err(format!(
+            "link_battle requires 1..={max} player_party entries, got {}",
+            config.player_party.len()
+        ));
+    }
+    if config.enemy_party.is_empty() || config.enemy_party.len() > max {
+        return Err(format!(
+            "link_battle requires 1..={max} enemy_party entries, got {}",
+            config.enemy_party.len()
+        ));
+    }
+    // A Gen-II link battle disables the bag — both sides only move and switch.
+    if !config.player_items.is_empty() || !config.enemy_items.is_empty() {
+        return Err(
+            "link_battle does not accept player_items / enemy_items (the bag is disabled in a link battle)"
+                .into(),
+        );
+    }
+
+    seed_player(cpu);
+    // No bag items, but the pack-menu pocket terminators must still be written.
+    seed_player_items(cpu, &[])?;
+    seed_player_party(cpu, &config.player_party)?;
+    seed_party(
+        cpu,
+        &config.enemy_party,
+        MONTYPE_OTPARTYMON,
+        W_OT_PARTY_COUNT,
+        W_OT_PARTY_MON1,
+        "enemy",
+    )?;
+
+    // Switch the engine onto its real link path. `cpu.link_battle` gates the
+    // three HARNESS-PATCHes (serial exchange → CLI, RNG → seeded LCG, battle end
+    // → non-linked teardown). `wOtherTrainerClass = CAL` mirrors the real
+    // colosseum-battle setup (engine/link/link.asm) so `InitEnemy` routes to the
+    // multi-mon trainer path; `ReadTrainerParty` / `GetTrainerAttributes` then
+    // early-return on `wLinkMode != 0`, leaving the party we seeded intact.
+    // `USING_EXTERNAL_CLOCK` makes the local side player 1, so `DoBattle` sends
+    // out the first enemy mon itself (player 2 assumes its partner did).
+    cpu.link_battle = true;
+    cpu.write_byte(W_LINK_MODE, defs::LINK_COLOSSEUM);
+    cpu.write_byte(H_SERIAL_CONNECTION_STATUS, defs::USING_EXTERNAL_CLOCK);
+    // The active-enemy-mon slot (and the scratch slot InitEnemyMon copies from)
+    // are normally zeroed by the ROM party load we skip.
+    cpu.write_byte(W_CUR_OT_MON, 0);
+    cpu.write_byte(W_CUR_PARTY_MON, 0);
+    // Seed terminated opponent names so the battle-start text stays bounded
+    // (GetTrainerAttributes — which fills these — early-returns in link mode).
+    let ot_name = encode_name("RIVAL");
+    for (i, b) in ot_name.iter().enumerate() {
+        cpu.write_byte(W_OT_PLAYER_NAME + i as u16, *b);
+        cpu.write_byte(W_OT_CLASS_NAME + i as u16, *b);
+    }
+    cpu.write_byte(W_BATTLE_MODE, defs::TRAINER_BATTLE as u8);
+    cpu.write_byte(W_BATTLE_TYPE, defs::BATTLETYPE_NORMAL as u8);
+    cpu.write_byte(W_OTHER_TRAINER_CLASS, defs::CAL);
+
+    start_battle(cpu);
+    Ok(())
+}
+
 /// Drive the boot to the post-init "ready" state and then launch whatever
 /// battle the config describes. Blocks for the duration of the battle.
 pub fn run(cpu: &mut Cpu, config: &BattleConfig) -> Result<(), String> {
@@ -477,6 +642,7 @@ pub fn run_with(
     match config.battle.kind {
         BattleKind::WildEncounter => launch_wild_encounter(cpu, config)?,
         BattleKind::TrainerBattle => launch_trainer_battle(cpu, config)?,
+        BattleKind::LinkBattle => launch_link_battle(cpu, config)?,
     }
 
     // The battle has ended. Capture the final state + outcome so the recorder

@@ -2,6 +2,17 @@ use crate::runtime::Cpu;
 
 pub(crate) fn show_link_battle_participants(cpu: &mut Cpu) {
     cpu.pc = 0x6e18;
+    // HARNESS-PATCH: skip the cosmetic "<player> vs <rival>" participant screen
+    // in a headless link battle. It renders the two link players' names, but the
+    // link name buffers (wOTPlayerName etc.) aren't seeded headless, so the text
+    // engine writes its glyphs to a stale destination and scribbles over battle
+    // WRAM (notably wCurOTMon at 0xc663). There's no screen to show it on anyway.
+    // Mirrors the wLinkMode == 0 early return just below. See docs/transpiled_code.md.
+    if cpu.link_battle {
+        cpu.pc = cpu.pop_word();
+        cpu.cycle(20);
+        return;
+    }
     cpu.a = cpu.read_byte(0xc2dc);
     cpu.pc += 3;
     cpu.cycle(16);

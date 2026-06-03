@@ -24561,6 +24561,23 @@ pub(crate) fn check_enemy_locked_in(cpu: &mut Cpu) {
 
 pub(crate) fn link_battle_send_receive_action(cpu: &mut Cpu) {
     cpu.pc = 0x68e4;
+    // HARNESS-PATCH: in a headless link battle the "enemy" is a second CLI
+    // player, not a serial partner. Source its action from the CLI / playback
+    // and write it to wBattleAction (0xd430), then return — skipping the
+    // far_call to the serial routine (_LinkBattleSendReceiveAction, bank 0x40),
+    // which would block forever on rSB/rSC waiting for a partner. The local
+    // player's action was already chosen via handle_battle_menu; in a headless
+    // run there is nothing to "send". This is the single hook that covers every
+    // link action exchange — the normal turn (parse_enemy_action), a voluntary
+    // player switch (player_switch), an enemy switch (handle_enemy_switch), and
+    // a forced switch on faint (force_player_mon_choice) all funnel through
+    // here. See bootstrap::cli::handle_enemy_action and docs/transpiled_code.md.
+    if cpu.link_battle {
+        crate::bootstrap::cli::handle_enemy_action(cpu);
+        cpu.pc = cpu.pop_word();
+        cpu.cycle(16);
+        return;
+    }
     cpu.a = 0x40;
     cpu.pc += 2;
     cpu.cycle(8);
@@ -27681,6 +27698,15 @@ pub(crate) fn empty_battle_textbox(cpu: &mut Cpu) {
 
 pub fn _battle_random(cpu: &mut Cpu) {
     cpu.pc = 0x6dd8;
+    // HARNESS-PATCH: a headless link battle has no exchanged-RN buffer
+    // (wLinkBattleRNs at 0xd1fa is normally filled over the cable at battle
+    // start). Route RNG through the seeded LCG `random()` — the same source
+    // non-link battles use — so link battles stay deterministic and recordings
+    // replay bit-for-bit. Without this, the wLinkMode != 0 we set would index
+    // the never-seeded wLinkBattleRNs buffer below. See docs/transpiled_code.md.
+    if cpu.link_battle {
+        become crate::game::home::random::random(cpu);
+    }
     cpu.a = cpu.read_byte(0xc2dc);
     cpu.pc += 3;
     cpu.cycle(16);
@@ -33170,6 +33196,15 @@ pub(crate) fn exit_battle(cpu: &mut Cpu) {
 
 pub(crate) fn exit_battle_handle_end_of_battle(cpu: &mut Cpu) {
     cpu.pc = 0x76a5;
+    // HARNESS-PATCH: a headless link battle has no second console to show the
+    // link-result screen to, and the linked end path does SRAM link-record
+    // writes (AddLastLinkBattleToLinkRecord) plus a WaitPressAorB. Take the
+    // non-linked end path instead — wBattleResult is already set, so the
+    // outcome the recorder/playback reads is correct, and teardown matches the
+    // proven trainer/wild battle exit. See docs/transpiled_code.md.
+    if cpu.link_battle {
+        become exit_battle_not_linked(cpu);
+    }
     cpu.a = cpu.read_byte(0xc2dc);
     cpu.pc += 3;
     cpu.cycle(16);

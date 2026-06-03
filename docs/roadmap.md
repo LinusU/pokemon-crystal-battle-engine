@@ -9,6 +9,7 @@ Load a TOML scenario, jump into a wild battle, play it in the window.
 ## Step 2 — make the harness usable
 
 - ✅ Driver for trainer battles (`type = "trainer_battle"`, `trainer = "..."`). Today the engine's `InitEnemyTrainer` loads the canonical party and held items from ROM via `wOtherTrainerClass` / `wOtherTrainerID`.
+- ✅ Link battles (`type = "link_battle"`). Both parties are seeded from the TOML (species, level, moves) and both sides are CLI-driven — the engine's real `wLinkMode` path with the AI and ROM party-load skipped, and the enemy action sourced from the CLI via the `link_battle_send_receive_action` hook. See [bootstrap.md](bootstrap.md#link-battles) and [toml_schema.md](toml_schema.md#link-battles). (This also demonstrates the "seed `wOTParty*` instead of loading from ROM" mechanism the trainer-battle enemy-override below still wants.)
 - TOML-driven overrides for the enemy party and the trainer's `wEnemyTrainerItem1`/`Item2`. Needs a `HARNESS-PATCH:` in `init_enemy_trainer` to skip `GetTrainerAttributes` + `ReadTrainerParty` when the harness has pre-seeded `wOTParty*` and `wEnemyTrainerItem1`/`Item2` itself.
 - Player overrides via TOML: name, id, gender, money, badges (for stat boosts).
 - Per-mon overrides: nickname, item, DVs. (Player-party `moves` is done — `[[player_party]] moves = [...]` overwrites the generated moveset after `try_add_mon_to_party`; see [TOML schema](toml_schema.md#player_party--one-or-more).)
