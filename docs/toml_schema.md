@@ -71,7 +71,7 @@ moves = ["Rock Throw", "Magnitude", "Tackle", "Defense Curl"]
 
 A `link_battle` is the engine's real two-player link mode driven entirely from the terminal: **both** sides are CLI-controlled, there is no AI, and **both parties are taken from the TOML** — unlike a trainer battle, nothing is loaded from ROM. So `[[enemy_party]]` is honored in full here (1..=6 mons, with `moves` overrides), exactly like `[[player_party]]`. The harness seeds `wParty*` and `wOTParty*`, sets `wLinkMode` so the engine skips the AI and the ROM party load and reads the enemy's action from `wBattleAction`, and fills that byte from the CLI via the `link_battle_send_receive_action` hook (see [transpiled_code.md](transpiled_code.md)).
 
-Each round prompts the **player** first (the normal action menu) and then the **enemy** (a parallel menu of the enemy mon's usable moves + its alive bench). When a side's mon faints it's prompted for a replacement. The bag is disabled in a link battle (as in the real game), so neither side is offered items, balls, or — for the enemy — run; `[[player_items]]` / `[[enemy_items]]` are rejected. `--record` / `--play` work as for any scenario; enemy decisions are written with `side = "enemy"` (see [Recording](#recording----record-path)). Both parties are required (1..=6 each).
+Each round prompts the **player** first (the normal action menu) and then the **enemy** (a parallel menu of the enemy mon's usable moves + its alive bench). When a side's mon faints it's prompted for a replacement. The bag is disabled in a link battle (as in the real game), so neither side is offered items, balls, or — for the enemy — run; `[[player_items]]` / `[[enemy_items]]` are rejected. `--record` / `--play` work as for any scenario; enemy decisions are written with `side = "enemy"` (see [Recording](#recording----record-path)). Like every recording, a link-battle `--record` embeds the full matchup, so a link fixture is a single self-contained file — no sibling scenario TOML is needed to replay it. Both parties are required (1..=6 each).
 
 ## Fields
 
@@ -107,7 +107,7 @@ Mutual exclusions:
 - `--random` cannot be combined with `--play` (a recorded random run is replayed by passing the recording to `--play` *alone*; the recording carries the resolved matchup, so no regeneration is needed).
 - `--seed` without `--random` is rejected — for scenario TOMLs the seed belongs in `[battle] seed = ...`.
 
-When `--random` is combined with `--record`, the recorder embeds the *resolved* matchup in the recording as a `[scenario.*]` block (see [Recording](#recording----record-path)). `--play` of such a recording reconstructs the battle from that block — it never re-runs the generator — so the generator can change freely without invalidating the recording. No TOML on disk is required.
+As with every `--record` run, the recorder embeds the *resolved* matchup in the recording as a `[scenario.*]` block (see [Recording](#recording----record-path)). Because a generated run has no scenario file at all, this block is the *only* record of the matchup: `--play` reconstructs the battle from it and never re-runs the generator, so the generator can change freely without invalidating the recording. No TOML on disk is required.
 
 ## Recording — `--record <path>`
 
@@ -119,7 +119,7 @@ cargo run -- scratch/cli.toml --record /tmp/run.toml
 
 The recording is a separate TOML document — not the scenario schema. It starts with a `[recording]` header and then one `[[step]]` table per decision the CLI driver resolves. Each step is flushed to disk immediately, so a mid-battle crash still leaves a usable script.
 
-For a generated (`--random`) run the header is followed by an embedded `[scenario.*]` block that mirrors the standalone scenario schema one level down (`[scenario.battle]`, `[[scenario.player_party]]`, `[[scenario.player_items]]`, …). It holds the *resolved* matchup so `--play` can reconstruct the battle without re-running the generator. The engine seed stays in `[recording] seed`, so it is intentionally omitted from the embedded `[scenario.battle]`:
+Every recording embeds a `[scenario.*]` block right after the header — it mirrors the standalone scenario schema one level down (`[scenario.battle]`, `[[scenario.player_party]]`, `[[scenario.player_items]]`, …) and holds the *resolved* matchup. This makes a recording self-contained for **every** battle kind: `--play` reconstructs the battle from the recording alone — no sibling scenario file is needed, and a generated (`--random`) run is never re-run through the generator. The engine seed stays in `[recording] seed`, so it is intentionally omitted from the embedded `[scenario.battle]`:
 
 ```toml
 [recording]
@@ -143,9 +143,11 @@ Each `[[step]]` table has two halves:
 1. The **action** — `kind` plus its fields — written the instant the CLI resolves the decision.
 2. An **expectation** block (`expect.*` keys) — the battle state that action *produced*, captured at the next decision point. This is the exact state the next step takes its action at; the final step's expectation is captured after the battle ends and also carries the battle `outcome`. See [Recording — assertions](#recording--assertions) below.
 
+A file-driven run additionally records a `source_scenario` back-pointer to the file it was driven from. It's documentary only — playback prefers the embedded `[scenario.*]` block (which is present here too, just like the example above, omitted for brevity):
+
 ```toml
 [recording]
-source_scenario = "scratch/cli.toml"   # if the run was driven from a TOML file
+source_scenario = "scratch/cli.toml"   # documentary: the file the run was driven from
 seed = "0x0000000000c0ffee"            # always present; the resolved seed
 
 [[step]]
@@ -235,9 +237,9 @@ Pass `--play <recording.toml>` and the harness drives the battle from a previous
 cargo run -- --play /tmp/run.toml
 ```
 
-The recording's `[recording] seed` always wins — replay uses that value to seed the engine RNG even if the loaded scenario carries its own `seed = ...`. The matchup comes from the recording's embedded `[scenario.*]` block when present (recorded `--random` runs); otherwise it's loaded from the `source_scenario` header path. Pass a positional `scratch/other.toml` to override (useful for re-running the same script against an edited scenario). `--record` and `--play` can be combined to re-record an edited playback.
+The recording's `[recording] seed` always wins — replay uses that value to seed the engine RNG even if the loaded scenario carries its own `seed = ...`. The matchup comes from the recording's embedded `[scenario.*]` block, which every recording carries; a legacy recording with only a `source_scenario` path falls back to loading that file. Pass a positional `scratch/other.toml` to override either — it's checked first, so the recorded script re-runs against the edited scenario. `--record` and `--play` can be combined to re-record an edited playback (the new recording embeds its own resolved matchup).
 
-A recorded `--random` run carries its resolved matchup in the embedded `[scenario.*]` block, so playback reconstructs it directly — the generator is never re-run. This means the matchup generator can change without invalidating existing recordings.
+Because the matchup travels inside the recording, a `--play` is self-contained: a recorded `--random` run is reconstructed without re-running the generator, and a file-driven (including link-battle) recording needs no sibling scenario TOML on disk. Either generator or scenario file can change later without invalidating an existing recording.
 
 Each CLI prompt site consumes one step in order. The match is strict on `kind`: if the recorded action doesn't fit the current prompt site, the harness prints a clear stderr message naming the step index, the recorded `kind`, the prompt site, and the accepted kinds, then exits with status 2. The same exit-2 path fires when the step list is exhausted before the battle ends — playback never silently substitutes.
 

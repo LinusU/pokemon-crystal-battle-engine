@@ -707,6 +707,77 @@ slot = 0
         assert_eq!(scn.player_items[0].quantity, 3);
     }
 
+    /// A link battle embeds both parties — with per-mon `moves` overrides — into
+    /// the recording, so a link fixture is a single self-contained file. This
+    /// covers the bits `embedded_scenario_round_trips` doesn't: a populated
+    /// `enemy_party` and the `moves = [...]` emission (its config uses neither).
+    #[test]
+    fn embedded_link_scenario_round_trips_both_parties_and_moves() {
+        use super::super::recorder;
+        use super::super::{BattleConfig, BattleHeader, BattleKind, MonSpec};
+
+        fn side(species: &str) -> SideSnapshot {
+            SideSnapshot {
+                active_slot: 0,
+                active: ActiveSnapshot {
+                    species: species.into(),
+                    level: 30,
+                    hp: 0,
+                    max_hp: 60,
+                    status: Status::None,
+                    pp: [0, 0, 0, 0],
+                },
+                party: vec![PartySnapshot {
+                    species: species.into(),
+                    level: 30,
+                    hp: 0,
+                    max_hp: 60,
+                    status: Status::None,
+                }],
+            }
+        }
+
+        let config = BattleConfig {
+            battle: BattleHeader { kind: BattleKind::LinkBattle, trainer: None, seed: None },
+            player_party: vec![MonSpec {
+                species: "PIKACHU".into(),
+                level: 30,
+                moves: Some(vec!["Thunderbolt".into(), "Quick Attack".into()]),
+            }],
+            enemy_party: vec![MonSpec {
+                species: "GEODUDE".into(),
+                level: 30,
+                moves: Some(vec!["Rock Throw".into(), "Magnitude".into()]),
+            }],
+            // A link battle disables the bag; both item lists stay empty.
+            player_items: vec![],
+            enemy_items: vec![],
+        };
+
+        let path = temp_path("link-scn");
+        let mut cpu = Cpu::default();
+        recorder::install(&mut cpu, &path, 0x1234, None, Some(&config)).expect("install");
+        recorder::record(&cpu, Step::Move { slot: 0 });
+        recorder::finalize(
+            &cpu,
+            &BattleSnapshot { player: side("PIKACHU"), enemy: side("GEODUDE") },
+            Outcome::Win,
+        );
+        cpu.recorder = None;
+
+        let rec = load(&path).expect("load recording");
+        let _ = std::fs::remove_file(&path);
+
+        let scn = rec.scenario.expect("embedded scenario present");
+        assert!(matches!(scn.battle.kind, BattleKind::LinkBattle));
+        assert!(scn.battle.trainer.is_none());
+        // Both parties survive, with their move overrides intact and in order.
+        assert_eq!(scn.player_party[0].moves.as_deref(), Some(&["Thunderbolt".to_string(), "Quick Attack".to_string()][..]));
+        assert_eq!(scn.enemy_party.len(), 1);
+        assert_eq!(scn.enemy_party[0].species, "GEODUDE");
+        assert_eq!(scn.enemy_party[0].moves.as_deref(), Some(&["Rock Throw".to_string(), "Magnitude".to_string()][..]));
+    }
+
     #[test]
     fn steps_without_expect_parse_with_empty_expect() {
         let text = r#"

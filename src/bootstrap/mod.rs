@@ -590,11 +590,6 @@ pub struct RunOptions<'a> {
     /// If `Some`, written into the recording header as `source_scenario`
     /// so the recorded file documents what it was driven from.
     pub source_scenario: Option<&'a std::path::Path>,
-    /// If `true`, the resolved matchup is embedded in the recording as a
-    /// `[scenario.*]` block (see [`recorder::install`]). Set for generated
-    /// (`--random`) runs so the recording is self-contained and `--play`
-    /// reconstructs the matchup without re-running the generator.
-    pub embed_scenario: bool,
     /// If `Some`, the seed is forced to this value (the recording's
     /// resolved seed) instead of whatever the scenario carries. Set by
     /// `--play` so playback is bit-identical to the original run.
@@ -623,8 +618,11 @@ pub fn run_with(
     // Install the recorder *after* the seed is resolved so the resolved
     // value lands in the header even when the scenario omitted `seed = ...`.
     if let Some(path) = options.record_path {
-        let embedded = options.embed_scenario.then_some(config);
-        recorder::install(cpu, path, seed, options.source_scenario, embedded)?;
+        // A recording always embeds the resolved matchup as a `[scenario.*]`
+        // block, so it is self-contained: `--play` reconstructs the battle from
+        // the recording alone, whatever the battle kind. `source_scenario` is
+        // kept only as a documentary back-pointer to the driving file.
+        recorder::install(cpu, path, seed, options.source_scenario, Some(config))?;
         eprintln!("battle: recording to {}", path.display());
     }
 

@@ -6,9 +6,10 @@
 //! seed (whether the scenario supplied one or it was drawn from system
 //! entropy), then hands a writer to the [`Cpu`] in `cpu.recorder`.
 //!
-//! For generated battles (`--random`) the header is followed by an embedded
-//! `[scenario.*]` block holding the resolved matchup, so the recording is
-//! self-contained and `--play` never has to re-run the generator — see
+//! The header is followed by an embedded `[scenario.*]` block holding the
+//! resolved matchup, so every recording is self-contained: `--play`
+//! reconstructs the battle from the recording alone — it never reloads a
+//! sibling scenario file, nor (for `--random`) re-runs the generator. See
 //! [`write_scenario`] and [`super::player`].
 //!
 //! Each `[[step]]` table is written in two halves:
@@ -111,11 +112,12 @@ pub struct Recorder {
 /// The seed is always written even when the source scenario omitted one —
 /// it's the resolved value used to seed the RNG so a replay is bit-identical.
 ///
-/// When `scenario` is `Some`, the *resolved* matchup is embedded as a
-/// `[scenario.*]` block right after the header. This makes recordings of
-/// generated battles (`--random`) self-contained: `--play` reconstructs the
-/// matchup from this block instead of re-running the generator, so the
-/// generator can change without ever invalidating the recording.
+/// When `scenario` is `Some` — which it is for every CLI recording — the
+/// *resolved* matchup is embedded as a `[scenario.*]` block right after the
+/// header. This makes the recording self-contained: `--play` reconstructs the
+/// matchup from this block instead of reloading a sibling scenario file or
+/// re-running the `--random` generator, so neither can ever invalidate it.
+/// `None` is still accepted (the tests use it) to write a header-only file.
 pub fn install(
     cpu: &mut Cpu,
     path: &Path,
