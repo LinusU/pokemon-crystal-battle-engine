@@ -1,0 +1,253 @@
+[recording]
+seed = "0x5eed000000078000"
+
+[scenario.battle]
+type = "wild_encounter"
+
+[[scenario.player_party]]
+species = "Gengar"
+level = 40
+moves = ["curse"]
+
+[[scenario.enemy_party]]
+species = "Tauros"
+level = 55
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 53
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 0, 0, 0]
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 53, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 159
+expect.enemy.active.max_hp = 159
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 9, 20, 20]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 25
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 0, 0, 0]
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 25, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 120
+expect.enemy.active.max_hp = 159
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 9, 20, 20]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 25
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [7, 0, 0, 0]
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 25, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 120
+expect.enemy.active.max_hp = 159
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [19, 8, 20, 20]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 25
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [6, 0, 0, 0]
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 25, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 81
+expect.enemy.active.max_hp = 159
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [19, 8, 20, 20]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 25
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 0, 0, 0]
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 25, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 42
+expect.enemy.active.max_hp = 159
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [19, 8, 20, 20]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 25
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 0, 0, 0]
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 25, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 120
+expect.enemy.active.max_hp = 159
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [19, 7, 20, 20]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 25
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 0, 0, 0]
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 25, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 81
+expect.enemy.active.max_hp = 159
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [19, 7, 20, 20]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 25
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [2, 0, 0, 0]
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 25, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 42
+expect.enemy.active.max_hp = 159
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [19, 7, 20, 20]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 25
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [1, 0, 0, 0]
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 25, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 120
+expect.enemy.active.max_hp = 159
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [19, 6, 20, 20]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 25
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 0, 0, 0]
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 25, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 81
+expect.enemy.active.max_hp = 159
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [19, 6, 20, 20]
+expect.enemy.party = []
+
+[[step]]
+kind = "run"
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 25
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 0, 0, 0]
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 25, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 42
+expect.enemy.active.max_hp = 159
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [19, 6, 20, 20]
+expect.enemy.party = []
+
+[[step]]
+kind = "run"
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 25
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 0, 0, 0]
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 25, max_hp = 105, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 42
+expect.enemy.active.max_hp = 159
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [19, 6, 20, 20]
+expect.enemy.party = []
+expect.battle.outcome = "draw"

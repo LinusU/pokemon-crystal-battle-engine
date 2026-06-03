@@ -1,0 +1,55 @@
+[recording]
+seed = "0x5eed00000008f000"
+
+[scenario.battle]
+type = "wild_encounter"
+
+[[scenario.player_party]]
+species = "Snorlax"
+level = 40
+moves = ["thunder"]
+
+[[scenario.enemy_party]]
+species = "Magikarp"
+level = 5
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 183
+expect.player.active.max_hp = 183
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 0, 0, 0]
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 183, max_hp = 183, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGIKARP"
+expect.enemy.active.level = 5
+expect.enemy.active.hp = 17
+expect.enemy.active.max_hp = 17
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [39, 0, 0, 0]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 183
+expect.player.active.max_hp = 183
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 0, 0, 0]
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 183, max_hp = 183, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGIKARP"
+expect.enemy.active.level = 5
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 17
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [39, 0, 0, 0]
+expect.enemy.party = []
+expect.battle.outcome = "win"

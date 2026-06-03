@@ -1,0 +1,75 @@
+[recording]
+seed = "0x5eed000000085000"
+
+[scenario.battle]
+type = "wild_encounter"
+
+[[scenario.player_party]]
+species = "Snorlax"
+level = 40
+moves = ["perish_song"]
+
+[[scenario.enemy_party]]
+species = "Tauros"
+level = 55
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 182
+expect.player.active.max_hp = 182
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 0, 0, 0]
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 182, max_hp = 182, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 158
+expect.enemy.active.max_hp = 158
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 9, 20, 20]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 39
+expect.player.active.max_hp = 182
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 0, 0, 0]
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 39, max_hp = 182, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 158
+expect.enemy.active.max_hp = 158
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 9, 19, 20]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 0
+expect.player.active.max_hp = 182
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 0, 0, 0]
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 0, max_hp = 182, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 158
+expect.enemy.active.max_hp = 158
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 9, 19, 20]
+expect.enemy.party = []
+expect.battle.outcome = "loss"

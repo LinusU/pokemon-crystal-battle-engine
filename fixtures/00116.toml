@@ -1,0 +1,295 @@
+[recording]
+seed = "0x5eed000000074000"
+
+[scenario.battle]
+type = "wild_encounter"
+
+[[scenario.player_party]]
+species = "Nidoking"
+level = 40
+moves = ["attract"]
+
+[[scenario.enemy_party]]
+species = "Nidoqueen"
+level = 55
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 40
+expect.player.active.hp = 105
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.party = [{ species = "NIDOKING", level = 40, hp = 105, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "NIDOQUEEN"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 178
+expect.enemy.active.max_hp = 178
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 29, 30, 15]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 40
+expect.player.active.hp = 105
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.party = [{ species = "NIDOKING", level = 40, hp = 105, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "NIDOQUEEN"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 178
+expect.enemy.active.max_hp = 178
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 29, 30, 15]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 40
+expect.player.active.hp = 105
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 0, 0, 0]
+expect.player.party = [{ species = "NIDOKING", level = 40, hp = 105, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "NIDOQUEEN"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 178
+expect.enemy.active.max_hp = 178
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 29, 30, 15]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 40
+expect.player.active.hp = 105
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 0, 0, 0]
+expect.player.party = [{ species = "NIDOKING", level = 40, hp = 105, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "NIDOQUEEN"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 178
+expect.enemy.active.max_hp = 178
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 29, 30, 15]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 40
+expect.player.active.hp = 105
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 0, 0, 0]
+expect.player.party = [{ species = "NIDOKING", level = 40, hp = 105, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "NIDOQUEEN"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 178
+expect.enemy.active.max_hp = 178
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 29, 30, 15]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 40
+expect.player.active.hp = 105
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 0, 0, 0]
+expect.player.party = [{ species = "NIDOKING", level = 40, hp = 105, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "NIDOQUEEN"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 178
+expect.enemy.active.max_hp = 178
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 29, 30, 15]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 40
+expect.player.active.hp = 105
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 0, 0, 0]
+expect.player.party = [{ species = "NIDOKING", level = 40, hp = 105, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "NIDOQUEEN"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 178
+expect.enemy.active.max_hp = 178
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 29, 30, 15]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 40
+expect.player.active.hp = 105
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [7, 0, 0, 0]
+expect.player.party = [{ species = "NIDOKING", level = 40, hp = 105, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "NIDOQUEEN"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 178
+expect.enemy.active.max_hp = 178
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 29, 30, 15]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 40
+expect.player.active.hp = 55
+expect.player.active.max_hp = 124
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [6, 0, 0, 0]
+expect.player.party = [{ species = "NIDOKING", level = 40, hp = 55, max_hp = 124, status = "paralysis" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "NIDOQUEEN"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 178
+expect.enemy.active.max_hp = 178
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 29, 30, 14]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 40
+expect.player.active.hp = 55
+expect.player.active.max_hp = 124
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [5, 0, 0, 0]
+expect.player.party = [{ species = "NIDOKING", level = 40, hp = 55, max_hp = 124, status = "paralysis" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "NIDOQUEEN"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 178
+expect.enemy.active.max_hp = 178
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 29, 29, 14]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 40
+expect.player.active.hp = 55
+expect.player.active.max_hp = 124
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [4, 0, 0, 0]
+expect.player.party = [{ species = "NIDOKING", level = 40, hp = 55, max_hp = 124, status = "paralysis" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "NIDOQUEEN"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 178
+expect.enemy.active.max_hp = 178
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 29, 29, 14]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 40
+expect.player.active.hp = 55
+expect.player.active.max_hp = 124
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [3, 0, 0, 0]
+expect.player.party = [{ species = "NIDOKING", level = 40, hp = 55, max_hp = 124, status = "paralysis" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "NIDOQUEEN"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 178
+expect.enemy.active.max_hp = 178
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 29, 29, 14]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 40
+expect.player.active.hp = 55
+expect.player.active.max_hp = 124
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [3, 0, 0, 0]
+expect.player.party = [{ species = "NIDOKING", level = 40, hp = 55, max_hp = 124, status = "paralysis" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "NIDOQUEEN"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 178
+expect.enemy.active.max_hp = 178
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 29, 29, 14]
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 40
+expect.player.active.hp = 0
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 0, 0, 0]
+expect.player.party = [{ species = "NIDOKING", level = 40, hp = 0, max_hp = 124, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "NIDOQUEEN"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 178
+expect.enemy.active.max_hp = 178
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 29, 29, 13]
+expect.enemy.party = []
+expect.battle.outcome = "loss"
