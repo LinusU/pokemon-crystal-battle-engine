@@ -1,0 +1,415 @@
+[recording]
+seed = "0x5eed000000144001"
+
+[scenario.battle]
+type = "link_battle"
+
+[[scenario.player_party]]
+species = "Snorlax"
+level = 50
+moves = ["Baton Pass"]
+
+[[scenario.player_party]]
+species = "Tauros"
+level = 50
+moves = ["Body Slam", "Earthquake", "Take Down", "Stomp"]
+
+[[scenario.enemy_party]]
+species = "Gengar"
+level = 50
+moves = ["Thunderbolt", "Shadow Ball", "Psychic", "Ice Punch"]
+
+[[scenario.enemy_party]]
+species = "Tauros"
+level = 50
+moves = ["Body Slam", "Earthquake", "Take Down", "Stomp"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 229
+expect.player.active.max_hp = 229
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 0, 0, 0]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 229, max_hp = 229, status = "none" }, { species = "TAUROS", level = 50, hp = 142, max_hp = 142, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 10, 15]
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 134, max_hp = 134, status = "none" }, { species = "TAUROS", level = 50, hp = 149, max_hp = 149, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 188
+expect.player.active.max_hp = 229
+expect.player.active.status = "none"
+expect.player.active.pp = [39, 0, 0, 0]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 188, max_hp = 229, status = "none" }, { species = "TAUROS", level = 50, hp = 142, max_hp = 142, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 15, 10, 15]
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 134, max_hp = 134, status = "none" }, { species = "TAUROS", level = 50, hp = 149, max_hp = 149, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "TAUROS"
+expect.player.active.level = 50
+expect.player.active.hp = 142
+expect.player.active.max_hp = 142
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 20, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 188, max_hp = 229, status = "none" }, { species = "TAUROS", level = 50, hp = 142, max_hp = 142, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 15, 10, 15]
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 134, max_hp = 134, status = "none" }, { species = "TAUROS", level = 50, hp = 149, max_hp = 149, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "TAUROS"
+expect.player.active.level = 50
+expect.player.active.hp = 142
+expect.player.active.max_hp = 142
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 20, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 188, max_hp = 229, status = "none" }, { species = "TAUROS", level = 50, hp = 142, max_hp = 142, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 15, 10, 15]
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 134, max_hp = 134, status = "none" }, { species = "TAUROS", level = 50, hp = 149, max_hp = 149, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "TAUROS"
+expect.player.active.level = 50
+expect.player.active.hp = 82
+expect.player.active.max_hp = 142
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 9, 20, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 188, max_hp = 229, status = "none" }, { species = "TAUROS", level = 50, hp = 82, max_hp = 142, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 2
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 15, 10, 15]
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 134, max_hp = 134, status = "none" }, { species = "TAUROS", level = 50, hp = 149, max_hp = 149, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "TAUROS"
+expect.player.active.level = 50
+expect.player.active.hp = 82
+expect.player.active.max_hp = 142
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 9, 20, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 188, max_hp = 229, status = "none" }, { species = "TAUROS", level = 50, hp = 82, max_hp = 142, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 2
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 15, 10, 15]
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 134, max_hp = 134, status = "none" }, { species = "TAUROS", level = 50, hp = 149, max_hp = 149, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "TAUROS"
+expect.player.active.level = 50
+expect.player.active.hp = 20
+expect.player.active.max_hp = 142
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 8, 20, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 188, max_hp = 229, status = "none" }, { species = "TAUROS", level = 50, hp = 20, max_hp = 142, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 15, 10, 15]
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 0, max_hp = 134, status = "none" }, { species = "TAUROS", level = 50, hp = 149, max_hp = 149, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "TAUROS"
+expect.player.active.level = 50
+expect.player.active.hp = 20
+expect.player.active.max_hp = 142
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 8, 20, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 188, max_hp = 229, status = "none" }, { species = "TAUROS", level = 50, hp = 20, max_hp = 142, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 149
+expect.enemy.active.max_hp = 149
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 10, 20, 20]
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 0, max_hp = 134, status = "none" }, { species = "TAUROS", level = 50, hp = 149, max_hp = 149, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "TAUROS"
+expect.player.active.level = 50
+expect.player.active.hp = 20
+expect.player.active.max_hp = 142
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 8, 20, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 188, max_hp = 229, status = "none" }, { species = "TAUROS", level = 50, hp = 20, max_hp = 142, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 149
+expect.enemy.active.max_hp = 149
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 10, 20, 20]
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 0, max_hp = 134, status = "none" }, { species = "TAUROS", level = 50, hp = 149, max_hp = 149, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "TAUROS"
+expect.player.active.level = 50
+expect.player.active.hp = 0
+expect.player.active.max_hp = 142
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 8, 20, 20]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 188, max_hp = 229, status = "none" }, { species = "TAUROS", level = 50, hp = 0, max_hp = 142, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 149
+expect.enemy.active.max_hp = 149
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 9, 20, 20]
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 0, max_hp = 134, status = "none" }, { species = "TAUROS", level = 50, hp = 149, max_hp = 149, status = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 188
+expect.player.active.max_hp = 229
+expect.player.active.status = "none"
+expect.player.active.pp = [39, 0, 0, 0]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 188, max_hp = 229, status = "none" }, { species = "TAUROS", level = 50, hp = 0, max_hp = 142, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 149
+expect.enemy.active.max_hp = 149
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 9, 20, 20]
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 0, max_hp = 134, status = "none" }, { species = "TAUROS", level = 50, hp = 149, max_hp = 149, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 188
+expect.player.active.max_hp = 229
+expect.player.active.status = "none"
+expect.player.active.pp = [39, 0, 0, 0]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 188, max_hp = 229, status = "none" }, { species = "TAUROS", level = 50, hp = 0, max_hp = 142, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 149
+expect.enemy.active.max_hp = 149
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 9, 20, 20]
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 0, max_hp = 134, status = "none" }, { species = "TAUROS", level = 50, hp = 149, max_hp = 149, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 125
+expect.player.active.max_hp = 229
+expect.player.active.status = "none"
+expect.player.active.pp = [38, 0, 0, 0]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 125, max_hp = 229, status = "none" }, { species = "TAUROS", level = 50, hp = 0, max_hp = 142, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 149
+expect.enemy.active.max_hp = 149
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 8, 20, 20]
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 0, max_hp = 134, status = "none" }, { species = "TAUROS", level = 50, hp = 149, max_hp = 149, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 125
+expect.player.active.max_hp = 229
+expect.player.active.status = "none"
+expect.player.active.pp = [38, 0, 0, 0]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 125, max_hp = 229, status = "none" }, { species = "TAUROS", level = 50, hp = 0, max_hp = 142, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 149
+expect.enemy.active.max_hp = 149
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 8, 20, 20]
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 0, max_hp = 134, status = "none" }, { species = "TAUROS", level = 50, hp = 149, max_hp = 149, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 65
+expect.player.active.max_hp = 229
+expect.player.active.status = "none"
+expect.player.active.pp = [37, 0, 0, 0]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 65, max_hp = 229, status = "none" }, { species = "TAUROS", level = 50, hp = 0, max_hp = 142, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 149
+expect.enemy.active.max_hp = 149
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 7, 20, 20]
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 0, max_hp = 134, status = "none" }, { species = "TAUROS", level = 50, hp = 149, max_hp = 149, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 65
+expect.player.active.max_hp = 229
+expect.player.active.status = "none"
+expect.player.active.pp = [37, 0, 0, 0]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 65, max_hp = 229, status = "none" }, { species = "TAUROS", level = 50, hp = 0, max_hp = 142, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 149
+expect.enemy.active.max_hp = 149
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 7, 20, 20]
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 0, max_hp = 134, status = "none" }, { species = "TAUROS", level = 50, hp = 149, max_hp = 149, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 2
+expect.player.active.max_hp = 229
+expect.player.active.status = "none"
+expect.player.active.pp = [36, 0, 0, 0]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 2, max_hp = 229, status = "none" }, { species = "TAUROS", level = 50, hp = 0, max_hp = 142, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 149
+expect.enemy.active.max_hp = 149
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 6, 20, 20]
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 0, max_hp = 134, status = "none" }, { species = "TAUROS", level = 50, hp = 149, max_hp = 149, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 2
+expect.player.active.max_hp = 229
+expect.player.active.status = "none"
+expect.player.active.pp = [36, 0, 0, 0]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 2, max_hp = 229, status = "none" }, { species = "TAUROS", level = 50, hp = 0, max_hp = 142, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 149
+expect.enemy.active.max_hp = 149
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 6, 20, 20]
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 0, max_hp = 134, status = "none" }, { species = "TAUROS", level = 50, hp = 149, max_hp = 149, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 0
+expect.player.active.max_hp = 229
+expect.player.active.status = "none"
+expect.player.active.pp = [36, 0, 0, 0]
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 0, max_hp = 229, status = "none" }, { species = "TAUROS", level = 50, hp = 0, max_hp = 142, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 149
+expect.enemy.active.max_hp = 149
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 5, 20, 20]
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 0, max_hp = 134, status = "none" }, { species = "TAUROS", level = 50, hp = 149, max_hp = 149, status = "none" }]
+expect.battle.outcome = "loss"

@@ -1,0 +1,144 @@
+[recording]
+seed = "0x5eed000000145001"
+
+[scenario.battle]
+type = "link_battle"
+
+[[scenario.player_party]]
+species = "Snorlax"
+level = 35
+moves = ["Pursuit"]
+
+[[scenario.enemy_party]]
+species = "Tauros"
+level = 50
+moves = ["Body Slam", "Earthquake", "Take Down", "Stomp"]
+
+[[scenario.enemy_party]]
+species = "Nidoking"
+level = 50
+moves = ["Earthquake", "Thrash", "Body Slam", "Surf"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 35
+expect.player.active.hp = 163
+expect.player.active.max_hp = 163
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 0, 0, 0]
+expect.player.party = [{ species = "SNORLAX", level = 35, hp = 163, max_hp = 163, status = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 149
+expect.enemy.active.max_hp = 149
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 10, 20, 20]
+expect.enemy.party = [{ species = "TAUROS", level = 50, hp = 149, max_hp = 149, status = "none" }, { species = "NIDOKING", level = 50, hp = 155, max_hp = 155, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "switch"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 35
+expect.player.active.hp = 163
+expect.player.active.max_hp = 163
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 0, 0, 0]
+expect.player.party = [{ species = "SNORLAX", level = 35, hp = 163, max_hp = 163, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "NIDOKING"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 155
+expect.enemy.active.max_hp = 155
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 15, 15]
+expect.enemy.party = [{ species = "TAUROS", level = 50, hp = 131, max_hp = 149, status = "none" }, { species = "NIDOKING", level = 50, hp = 155, max_hp = 155, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 35
+expect.player.active.hp = 163
+expect.player.active.max_hp = 163
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 0, 0, 0]
+expect.player.party = [{ species = "SNORLAX", level = 35, hp = 163, max_hp = 163, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "NIDOKING"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 155
+expect.enemy.active.max_hp = 155
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 15, 15]
+expect.enemy.party = [{ species = "TAUROS", level = 50, hp = 131, max_hp = 149, status = "none" }, { species = "NIDOKING", level = 50, hp = 155, max_hp = 155, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 35
+expect.player.active.hp = 33
+expect.player.active.max_hp = 163
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 0, 0, 0]
+expect.player.party = [{ species = "SNORLAX", level = 35, hp = 33, max_hp = 163, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "NIDOKING"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 147
+expect.enemy.active.max_hp = 155
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 20, 15, 15]
+expect.enemy.party = [{ species = "TAUROS", level = 50, hp = 131, max_hp = 149, status = "none" }, { species = "NIDOKING", level = 50, hp = 155, max_hp = 155, status = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 35
+expect.player.active.hp = 33
+expect.player.active.max_hp = 163
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 0, 0, 0]
+expect.player.party = [{ species = "SNORLAX", level = 35, hp = 33, max_hp = 163, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "NIDOKING"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 147
+expect.enemy.active.max_hp = 155
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 20, 15, 15]
+expect.enemy.party = [{ species = "TAUROS", level = 50, hp = 131, max_hp = 149, status = "none" }, { species = "NIDOKING", level = 50, hp = 155, max_hp = 155, status = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 35
+expect.player.active.hp = 0
+expect.player.active.max_hp = 163
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 0, 0, 0]
+expect.player.party = [{ species = "SNORLAX", level = 35, hp = 0, max_hp = 163, status = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "NIDOKING"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 147
+expect.enemy.active.max_hp = 155
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 20, 15, 15]
+expect.enemy.party = [{ species = "TAUROS", level = 50, hp = 131, max_hp = 149, status = "none" }, { species = "NIDOKING", level = 50, hp = 147, max_hp = 155, status = "none" }]
+expect.battle.outcome = "loss"
