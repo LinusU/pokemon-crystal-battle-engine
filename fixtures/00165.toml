@@ -1,0 +1,196 @@
+[recording]
+seed = "0x42ba110000165001"
+
+[scenario.battle]
+type = "link_battle"
+
+[[scenario.player_party]]
+species = "Donphan"
+level = 50
+moves = ["rapid_spin"]
+
+[[scenario.enemy_party]]
+species = "Bellsprout"
+level = 40
+moves = ["Leech Seed"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "DONPHAN"
+expect.player.active.level = 50
+expect.player.active.hp = 159
+expect.player.active.max_hp = 159
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "DONPHAN", level = 50, hp = 159, max_hp = 159, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BELLSPROUT"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 101
+expect.enemy.active.max_hp = 101
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BELLSPROUT", level = 40, hp = 101, max_hp = 101, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "DONPHAN"
+expect.player.active.level = 50
+expect.player.active.hp = 159
+expect.player.active.max_hp = 159
+expect.player.active.status = "none"
+expect.player.active.pp = [39, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "DONPHAN", level = 50, hp = 159, max_hp = 159, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BELLSPROUT"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 101
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BELLSPROUT", level = 40, hp = 101, max_hp = 101, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "DONPHAN"
+expect.player.active.level = 50
+expect.player.active.hp = 159
+expect.player.active.max_hp = 159
+expect.player.active.status = "none"
+expect.player.active.pp = [39, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "DONPHAN", level = 50, hp = 159, max_hp = 159, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BELLSPROUT"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 69
+expect.enemy.active.max_hp = 101
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BELLSPROUT", level = 40, hp = 101, max_hp = 101, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "DONPHAN"
+expect.player.active.level = 50
+expect.player.active.hp = 159
+expect.player.active.max_hp = 159
+expect.player.active.status = "none"
+expect.player.active.pp = [38, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "DONPHAN", level = 50, hp = 159, max_hp = 159, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BELLSPROUT"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 37
+expect.enemy.active.max_hp = 101
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BELLSPROUT", level = 40, hp = 101, max_hp = 101, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "DONPHAN"
+expect.player.active.level = 50
+expect.player.active.hp = 159
+expect.player.active.max_hp = 159
+expect.player.active.status = "none"
+expect.player.active.pp = [38, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "DONPHAN", level = 50, hp = 159, max_hp = 159, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BELLSPROUT"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 37
+expect.enemy.active.max_hp = 101
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BELLSPROUT", level = 40, hp = 101, max_hp = 101, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "DONPHAN"
+expect.player.active.level = 50
+expect.player.active.hp = 159
+expect.player.active.max_hp = 159
+expect.player.active.status = "none"
+expect.player.active.pp = [37, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "DONPHAN", level = 50, hp = 159, max_hp = 159, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BELLSPROUT"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 5
+expect.enemy.active.max_hp = 101
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BELLSPROUT", level = 40, hp = 101, max_hp = 101, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "DONPHAN"
+expect.player.active.level = 50
+expect.player.active.hp = 159
+expect.player.active.max_hp = 159
+expect.player.active.status = "none"
+expect.player.active.pp = [37, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "DONPHAN", level = 50, hp = 159, max_hp = 159, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BELLSPROUT"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 5
+expect.enemy.active.max_hp = 101
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BELLSPROUT", level = 40, hp = 101, max_hp = 101, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "DONPHAN"
+expect.player.active.level = 50
+expect.player.active.hp = 159
+expect.player.active.max_hp = 159
+expect.player.active.status = "none"
+expect.player.active.pp = [36, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "DONPHAN", level = 50, hp = 159, max_hp = 159, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BELLSPROUT"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 101
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BELLSPROUT", level = 40, hp = 0, max_hp = 101, status = "none", item = "none" }]
+expect.battle.outcome = "win"
