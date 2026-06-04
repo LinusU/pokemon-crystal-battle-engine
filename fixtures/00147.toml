@@ -1,0 +1,82 @@
+[recording]
+seed = "0x000000511effa00d"
+
+[scenario.battle]
+type = "wild_encounter"
+
+[[scenario.player_party]]
+species = "Snorlax"
+level = 44
+moves = ["Body Slam"]
+item = "Leftovers"
+
+[[scenario.enemy_party]]
+species = "Tauros"
+level = 40
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 44
+expect.player.active.hp = 174
+expect.player.active.max_hp = 206
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.active.item = "Leftovers"
+expect.player.party = [{ species = "SNORLAX", level = 44, hp = 174, max_hp = 206, status = "none", item = "Leftovers" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 63
+expect.enemy.active.max_hp = 118
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [24, 10, 20, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 44
+expect.player.active.hp = 143
+expect.player.active.max_hp = 206
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.active.item = "Leftovers"
+expect.player.party = [{ species = "SNORLAX", level = 44, hp = 143, max_hp = 206, status = "none", item = "Leftovers" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 11
+expect.enemy.active.max_hp = 118
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [23, 10, 20, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 44
+expect.player.active.hp = 143
+expect.player.active.max_hp = 206
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 0, 0, 0]
+expect.player.active.item = "Leftovers"
+expect.player.party = [{ species = "SNORLAX", level = 44, hp = 143, max_hp = 206, status = "none", item = "Leftovers" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 118
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [23, 10, 20, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+expect.battle.outcome = "win"

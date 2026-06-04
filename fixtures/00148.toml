@@ -1,0 +1,79 @@
+[recording]
+seed = "0x0000000077124eff"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Machamp"
+level = 34
+moves = ["Cross Chop", "Earthquake", "Rock Slide", "Strength"]
+item = "Blackbelt"
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 34
+expect.player.active.hp = 109
+expect.player.active.max_hp = 109
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 9, 10, 15]
+expect.player.active.item = "Blackbelt"
+expect.player.party = [{ species = "MACHAMP", level = 34, hp = 109, max_hp = 109, status = "none", item = "Blackbelt" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 20
+expect.enemy.active.hp = 68
+expect.enemy.active.max_hp = 68
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 20, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 0, max_hp = 53, status = "none", item = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 34
+expect.player.active.hp = 108
+expect.player.active.max_hp = 109
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 8, 10, 15]
+expect.player.active.item = "Blackbelt"
+expect.player.party = [{ species = "MACHAMP", level = 34, hp = 108, max_hp = 109, status = "none", item = "Blackbelt" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 20
+expect.enemy.active.hp = 12
+expect.enemy.active.max_hp = 68
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 15, 20, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 0, max_hp = 53, status = "none", item = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 34
+expect.player.active.hp = 108
+expect.player.active.max_hp = 109
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 7, 10, 15]
+expect.player.active.item = "Blackbelt"
+expect.player.party = [{ species = "MACHAMP", level = 34, hp = 108, max_hp = 109, status = "none", item = "Blackbelt" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 20
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 68
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 15, 20, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 0, max_hp = 53, status = "none", item = "none" }, { species = "MILTANK", level = 20, hp = 0, max_hp = 68, status = "none", item = "none" }]
+expect.battle.outcome = "win"

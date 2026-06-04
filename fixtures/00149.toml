@@ -1,0 +1,188 @@
+[recording]
+seed = "0x000000000bad1dea"
+
+[scenario.battle]
+type = "link_battle"
+
+[[scenario.player_party]]
+species = "Snorlax"
+level = 50
+moves = ["Body Slam", "Earthquake", "Surf", "Rest"]
+item = "Leftovers"
+
+[[scenario.player_party]]
+species = "Pikachu"
+level = 50
+moves = ["Thunderbolt", "Surf", "Quick Attack", "Thunder"]
+item = "Light Ball"
+
+[[scenario.enemy_party]]
+species = "Machamp"
+level = 45
+moves = ["Cross Chop", "Earthquake", "Rock Slide", "Vital Throw"]
+item = "King's Rock"
+
+[[scenario.enemy_party]]
+species = "Gengar"
+level = 45
+moves = ["Shadow Ball", "Thunderbolt", "Psychic", "Hypnosis"]
+item = "Leftovers"
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 227
+expect.player.active.max_hp = 227
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 15, 10]
+expect.player.active.item = "Leftovers"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 227, max_hp = 227, status = "none", item = "Leftovers" }, { species = "PIKACHU", level = 50, hp = 105, max_hp = 105, status = "none", item = "Light Ball" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 148
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 10, 10, 10]
+expect.enemy.active.item = "King's Rock"
+expect.enemy.party = [{ species = "MACHAMP", level = 45, hp = 148, max_hp = 148, status = "none", item = "King's Rock" }, { species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "Leftovers" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 182
+expect.player.active.max_hp = 227
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 9, 15, 10]
+expect.player.active.item = "Leftovers"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 182, max_hp = 227, status = "none", item = "Leftovers" }, { species = "PIKACHU", level = 50, hp = 105, max_hp = 105, status = "none", item = "Light Ball" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 10
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 9, 10, 10]
+expect.enemy.active.item = "King's Rock"
+expect.enemy.party = [{ species = "MACHAMP", level = 45, hp = 148, max_hp = 148, status = "none", item = "King's Rock" }, { species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "Leftovers" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 182
+expect.player.active.max_hp = 227
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 9, 15, 10]
+expect.player.active.item = "Leftovers"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 182, max_hp = 227, status = "none", item = "Leftovers" }, { species = "PIKACHU", level = 50, hp = 105, max_hp = 105, status = "none", item = "Light Ball" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 10
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 9, 10, 10]
+expect.enemy.active.item = "King's Rock"
+expect.enemy.party = [{ species = "MACHAMP", level = 45, hp = 148, max_hp = 148, status = "none", item = "King's Rock" }, { species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "Leftovers" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 124
+expect.player.active.max_hp = 227
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 8, 15, 10]
+expect.player.active.item = "Leftovers"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 124, max_hp = 227, status = "none", item = "Leftovers" }, { species = "PIKACHU", level = 50, hp = 105, max_hp = 105, status = "none", item = "Light Ball" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 8, 10, 10]
+expect.enemy.active.item = "King's Rock"
+expect.enemy.party = [{ species = "MACHAMP", level = 45, hp = 0, max_hp = 148, status = "none", item = "King's Rock" }, { species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "Leftovers" }]
+
+[[step]]
+side = "enemy"
+kind = "switch"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 138
+expect.player.active.max_hp = 227
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 8, 15, 10]
+expect.player.active.item = "Leftovers"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 138, max_hp = 227, status = "none", item = "Leftovers" }, { species = "PIKACHU", level = 50, hp = 105, max_hp = 105, status = "none", item = "Light Ball" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 121
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 10, 20]
+expect.enemy.active.item = "Leftovers"
+expect.enemy.party = [{ species = "MACHAMP", level = 45, hp = 0, max_hp = 148, status = "none", item = "King's Rock" }, { species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "Leftovers" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 138
+expect.player.active.max_hp = 227
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 8, 15, 10]
+expect.player.active.item = "Leftovers"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 138, max_hp = 227, status = "none", item = "Leftovers" }, { species = "PIKACHU", level = 50, hp = 105, max_hp = 105, status = "none", item = "Light Ball" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 121
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 10, 20]
+expect.enemy.active.item = "Leftovers"
+expect.enemy.party = [{ species = "MACHAMP", level = 45, hp = 0, max_hp = 148, status = "none", item = "King's Rock" }, { species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "Leftovers" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 100
+expect.player.active.max_hp = 227
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [15, 7, 15, 10]
+expect.player.active.item = "Leftovers"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 100, max_hp = 227, status = "paralysis", item = "Leftovers" }, { species = "PIKACHU", level = 50, hp = 105, max_hp = 105, status = "none", item = "Light Ball" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 121
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 14, 10, 20]
+expect.enemy.active.item = "Leftovers"
+expect.enemy.party = [{ species = "MACHAMP", level = 45, hp = 0, max_hp = 148, status = "none", item = "King's Rock" }, { species = "GENGAR", level = 45, hp = 0, max_hp = 121, status = "none", item = "Leftovers" }]
+expect.battle.outcome = "win"
