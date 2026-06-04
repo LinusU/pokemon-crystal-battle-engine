@@ -1,0 +1,151 @@
+[recording]
+seed = "0x42ba110000167005"
+
+[scenario.battle]
+type = "link_battle"
+
+[[scenario.player_party]]
+species = "Electrode"
+level = 50
+moves = ["encore"]
+
+[[scenario.enemy_party]]
+species = "Snorlax"
+level = 45
+moves = ["Body Slam"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "ELECTRODE"
+expect.player.active.level = 50
+expect.player.active.hp = 129
+expect.player.active.max_hp = 129
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ELECTRODE", level = 50, hp = 129, max_hp = 129, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SNORLAX"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 211
+expect.enemy.active.max_hp = 211
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SNORLAX", level = 45, hp = 211, max_hp = 211, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "ELECTRODE"
+expect.player.active.level = 50
+expect.player.active.hp = 76
+expect.player.active.max_hp = 129
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ELECTRODE", level = 50, hp = 76, max_hp = 129, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SNORLAX"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 211
+expect.enemy.active.max_hp = 211
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SNORLAX", level = 45, hp = 211, max_hp = 211, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "ELECTRODE"
+expect.player.active.level = 50
+expect.player.active.hp = 76
+expect.player.active.max_hp = 129
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ELECTRODE", level = 50, hp = 76, max_hp = 129, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SNORLAX"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 211
+expect.enemy.active.max_hp = 211
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SNORLAX", level = 45, hp = 211, max_hp = 211, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "ELECTRODE"
+expect.player.active.level = 50
+expect.player.active.hp = 18
+expect.player.active.max_hp = 129
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [3, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ELECTRODE", level = 50, hp = 18, max_hp = 129, status = "paralysis", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SNORLAX"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 211
+expect.enemy.active.max_hp = 211
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SNORLAX", level = 45, hp = 211, max_hp = 211, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "ELECTRODE"
+expect.player.active.level = 50
+expect.player.active.hp = 18
+expect.player.active.max_hp = 129
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [3, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ELECTRODE", level = 50, hp = 18, max_hp = 129, status = "paralysis", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SNORLAX"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 211
+expect.enemy.active.max_hp = 211
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SNORLAX", level = 45, hp = 211, max_hp = 211, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "ELECTRODE"
+expect.player.active.level = 50
+expect.player.active.hp = 0
+expect.player.active.max_hp = 129
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ELECTRODE", level = 50, hp = 0, max_hp = 129, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SNORLAX"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 211
+expect.enemy.active.max_hp = 211
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SNORLAX", level = 45, hp = 211, max_hp = 211, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
