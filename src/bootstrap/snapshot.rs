@@ -18,7 +18,7 @@
 
 use serde::Deserialize;
 
-use super::species;
+use super::{items, species};
 use crate::runtime::Cpu;
 
 // ---------------------------------------------------------------------------
@@ -27,6 +27,7 @@ use crate::runtime::Cpu;
 // Active player mon — `wBattleMon`, base 0xc62c. The engine keeps this copy of
 // the active party slot in sync for the duration of the battle.
 const W_BATTLE_MON_SPECIES: u16 = 0xc62c;
+const W_BATTLE_MON_ITEM: u16 = 0xc62d; // held item id (`battle_struct` +1)
 const W_BATTLE_MON_PP: u16 = 0xc634; // 4 bytes, one per move slot
 const W_BATTLE_MON_LEVEL: u16 = 0xc639;
 const W_BATTLE_MON_STATUS: u16 = 0xc63a;
@@ -35,6 +36,7 @@ const W_BATTLE_MON_MAX_HP: u16 = 0xc63e; // big-endian u16
 
 // Active enemy mon — `wEnemyMon`, base 0xd206. Same layout as `wBattleMon`.
 const W_ENEMY_MON_SPECIES: u16 = 0xd206;
+const W_ENEMY_MON_ITEM: u16 = 0xd207; // held item id (`battle_struct` +1)
 const W_ENEMY_MON_PP: u16 = 0xd20e; // 4 bytes
 const W_ENEMY_MON_LEVEL: u16 = 0xd213;
 const W_ENEMY_MON_STATUS: u16 = 0xd214;
@@ -54,6 +56,7 @@ const PARTY_STRUCT_LEN: u16 = 48;
 
 // `party_struct` field offsets (see docs/memory_layout.md).
 const PARTY_OFFSET_SPECIES: u16 = 0;
+const PARTY_OFFSET_ITEM: u16 = 1; // held item id
 const PARTY_OFFSET_LEVEL: u16 = 31;
 const PARTY_OFFSET_STATUS: u16 = 32;
 const PARTY_OFFSET_HP: u16 = 34; // big-endian u16
@@ -202,6 +205,8 @@ pub struct ActiveSnapshot {
     pub status: Status,
     /// Current PP per move slot (PP Ups masked off).
     pub pp: [u8; 4],
+    /// Held item display name (`"none"` when unequipped). See [`item_name`].
+    pub item: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -211,6 +216,8 @@ pub struct PartySnapshot {
     pub hp: u16,
     pub max_hp: u16,
     pub status: Status,
+    /// Held item display name (`"none"` when unequipped). See [`item_name`].
+    pub item: String,
 }
 
 impl BattleSnapshot {
@@ -228,6 +235,7 @@ impl BattleSnapshot {
                     max_hp: read_be_word(cpu, W_BATTLE_MON_MAX_HP),
                     status: Status::decode(cpu.read_byte(W_BATTLE_MON_STATUS)),
                     pp: read_pp(cpu, W_BATTLE_MON_PP),
+                    item: item_name(cpu.read_byte(W_BATTLE_MON_ITEM)),
                 },
                 party: read_party(cpu, W_PARTY_COUNT, W_PARTY_MON1),
             },
@@ -240,6 +248,7 @@ impl BattleSnapshot {
                     max_hp: read_be_word(cpu, W_ENEMY_MON_MAX_HP),
                     status: Status::decode(cpu.read_byte(W_ENEMY_MON_STATUS)),
                     pp: read_pp(cpu, W_ENEMY_MON_PP),
+                    item: item_name(cpu.read_byte(W_ENEMY_MON_ITEM)),
                 },
                 party: read_party(cpu, W_OT_PARTY_COUNT, W_OT_PARTY_MON1),
             },
@@ -258,6 +267,7 @@ fn read_party(cpu: &Cpu, count_addr: u16, base: u16) -> Vec<PartySnapshot> {
                 hp: read_be_word(cpu, addr + PARTY_OFFSET_HP),
                 max_hp: read_be_word(cpu, addr + PARTY_OFFSET_MAX_HP),
                 status: Status::decode(cpu.read_byte(addr + PARTY_OFFSET_STATUS)),
+                item: item_name(cpu.read_byte(addr + PARTY_OFFSET_ITEM)),
             }
         })
         .collect()
@@ -283,6 +293,18 @@ fn species_name(id: u8) -> String {
         format!("#{id}")
     } else {
         species::SPECIES_NAMES[id as usize - 1].to_string()
+    }
+}
+
+/// Map a held-item id to its display name. `0` (no item) renders as `"none"`.
+/// Ids the harness doesn't have a name for (TMs, mail, unused slots a ROM
+/// trainer might hold) fall back to `#id`. Both the recorder and the playback
+/// reader go through here, so the strings match on either side of a round-trip.
+fn item_name(id: u8) -> String {
+    if id == 0 {
+        "none".to_string()
+    } else {
+        items::name_from_id(id).map_or_else(|| format!("#{id}"), |n| n.to_string())
     }
 }
 
@@ -325,6 +347,7 @@ pub struct ActiveExpect {
     pub max_hp: Option<u16>,
     pub status: Option<Status>,
     pub pp: Option<[u8; 4]>,
+    pub item: Option<String>,
 }
 
 #[derive(Debug, Clone, Default, Deserialize, PartialEq, Eq)]
@@ -335,6 +358,7 @@ pub struct PartyExpect {
     pub hp: Option<u16>,
     pub max_hp: Option<u16>,
     pub status: Option<Status>,
+    pub item: Option<String>,
 }
 
 #[derive(Debug, Clone, Default, Deserialize, PartialEq, Eq)]
@@ -434,6 +458,11 @@ fn diff_active(side: &str, e: &ActiveExpect, a: &ActiveSnapshot, out: &mut Vec<M
             out.push(text(format!("{side}.active.pp"), format!("{v:?}"), format!("{:?}", a.pp)));
         }
     }
+    if let Some(v) = &e.item {
+        if v != &a.item {
+            out.push(text(format!("{side}.active.item"), v.clone(), a.item.clone()));
+        }
+    }
 }
 
 fn diff_party_slot(side: &str, i: usize, e: &PartyExpect, a: &PartySnapshot, out: &mut Vec<Mismatch>) {
@@ -463,6 +492,11 @@ fn diff_party_slot(side: &str, i: usize, e: &PartyExpect, a: &PartySnapshot, out
             out.push(text(path("status"), v.as_str().into(), a.status.as_str().into()));
         }
     }
+    if let Some(v) = &e.item {
+        if v != &a.item {
+            out.push(text(path("item"), v.clone(), a.item.clone()));
+        }
+    }
 }
 
 fn scalar<T: std::fmt::Display>(path: String, expected: T, actual: T) -> Mismatch {
@@ -485,6 +519,7 @@ mod tests {
             max_hp: 40,
             status: Status::None,
             pp: [10, 0, 0, 0],
+            item: "none".into(),
         }
     }
 
@@ -499,6 +534,7 @@ mod tests {
                     hp: 30,
                     max_hp: 40,
                     status: Status::None,
+                    item: "none".into(),
                 }],
             },
             enemy: SideSnapshot {
@@ -510,9 +546,49 @@ mod tests {
                     hp: 0,
                     max_hp: 28,
                     status: Status::None,
+                    item: "none".into(),
                 }],
             },
         }
+    }
+
+    #[test]
+    fn item_id_decodes_to_a_name_or_none() {
+        assert_eq!(item_name(0), "none");
+        assert_eq!(item_name(0x92), "Leftovers");
+        assert_eq!(item_name(0x52), "King's Rock");
+        // An id with no harness name (e.g. a TM) falls back to `#id`.
+        assert_eq!(item_name(0xbf), "#191");
+    }
+
+    #[test]
+    fn held_item_mismatch_is_reported() {
+        // A held-item expectation that disagrees with the observed item surfaces
+        // on both the active mon and a benched party slot.
+        let mut s = snap();
+        s.player.active.item = "Leftovers".into();
+        s.player.party[0].item = "Leftovers".into();
+        let e = Expect {
+            player: Some(SideExpect {
+                active: Some(ActiveExpect { item: Some("King's Rock".into()), ..Default::default() }),
+                party: Some(vec![PartyExpect { item: Some("none".into()), ..Default::default() }]),
+                ..Default::default()
+            }),
+            ..Default::default()
+        };
+        let ms = diff(&e, &s, None);
+        let paths: Vec<&str> = ms.iter().map(|m| m.path.as_str()).collect();
+        assert!(paths.contains(&"player.active.item"), "{paths:?}");
+        assert!(paths.contains(&"player.party[0].item"), "{paths:?}");
+        // And a matching expectation produces no mismatch.
+        let ok = Expect {
+            player: Some(SideExpect {
+                active: Some(ActiveExpect { item: Some("Leftovers".into()), ..Default::default() }),
+                ..Default::default()
+            }),
+            ..Default::default()
+        };
+        assert!(diff(&ok, &s, None).is_empty());
     }
 
     #[test]

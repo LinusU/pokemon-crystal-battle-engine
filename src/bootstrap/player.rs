@@ -462,6 +462,7 @@ mod tests {
                     max_hp: 40,
                     status: Status::None,
                     pp: [25, 0, 0, 0],
+                    item: "none".into(),
                 },
                 party: vec![PartySnapshot {
                     species: species.into(),
@@ -469,6 +470,7 @@ mod tests {
                     hp,
                     max_hp: 40,
                     status: Status::None,
+                    item: "none".into(),
                 }],
             }
         }
@@ -646,6 +648,7 @@ slot = 0
                     max_hp: 60,
                     status: Status::None,
                     pp: [0, 0, 0, 0],
+                    item: "none".into(),
                 },
                 party: vec![PartySnapshot {
                     species: species.into(),
@@ -653,6 +656,7 @@ slot = 0
                     hp: 0,
                     max_hp: 60,
                     status: Status::None,
+                    item: "none".into(),
                 }],
             }
         }
@@ -665,8 +669,8 @@ slot = 0
                 seed: None,
             },
             player_party: vec![
-                MonSpec { species: "QUILAVA".into(), level: 20, moves: None },
-                MonSpec { species: "GEODUDE".into(), level: 18, moves: None },
+                MonSpec { species: "QUILAVA".into(), level: 20, moves: None, item: None },
+                MonSpec { species: "GEODUDE".into(), level: 18, moves: None, item: None },
             ],
             enemy_party: vec![],
             player_items: vec![ItemSpec { name: "Potion".into(), quantity: 3 }],
@@ -720,6 +724,7 @@ slot = 0
                     max_hp: 60,
                     status: Status::None,
                     pp: [0, 0, 0, 0],
+                    item: "none".into(),
                 },
                 party: vec![PartySnapshot {
                     species: species.into(),
@@ -727,6 +732,7 @@ slot = 0
                     hp: 0,
                     max_hp: 60,
                     status: Status::None,
+                    item: "none".into(),
                 }],
             }
         }
@@ -737,11 +743,13 @@ slot = 0
                 species: "PIKACHU".into(),
                 level: 30,
                 moves: Some(vec!["Thunderbolt".into(), "Quick Attack".into()]),
+                item: Some("Light Ball".into()),
             }],
             enemy_party: vec![MonSpec {
                 species: "GEODUDE".into(),
                 level: 30,
                 moves: Some(vec!["Rock Throw".into(), "Magnitude".into()]),
+                item: Some("Leftovers".into()),
             }],
             // A link battle disables the bag; both item lists stay empty.
             player_items: vec![],
@@ -770,6 +778,10 @@ slot = 0
         assert_eq!(scn.enemy_party.len(), 1);
         assert_eq!(scn.enemy_party[0].species, "GEODUDE");
         assert_eq!(scn.enemy_party[0].moves.as_deref(), Some(&["Rock Throw".to_string(), "Magnitude".to_string()][..]));
+        // Held items round-trip on both sides — the link-battle "both player and
+        // opponent" case the harness must reconstruct on `--play`.
+        assert_eq!(scn.player_party[0].item.as_deref(), Some("Light Ball"));
+        assert_eq!(scn.enemy_party[0].item.as_deref(), Some("Leftovers"));
     }
 
     /// CRITICAL back-compat: support for the legacy `source_scenario` header

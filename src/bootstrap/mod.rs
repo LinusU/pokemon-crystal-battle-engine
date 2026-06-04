@@ -87,6 +87,15 @@ pub struct MonSpec {
     /// [`seed_player_party`]. Resolved via [`names::move_id_from_name`].
     #[serde(default)]
     pub moves: Option<Vec<String>>,
+    /// Optional held item name. When set, the item id is written into the slot's
+    /// `MON_ITEM` byte after generation, so the mon walks into battle holding it
+    /// (Leftovers, King's Rock, type boosters, …). Honored for the player party
+    /// (every battle kind) and for the link-battle enemy party — both go through
+    /// [`seed_party`]. A wild/trainer enemy's item comes from the engine / ROM,
+    /// so `item` on those `[[enemy_party]]` entries is ignored, like `moves`.
+    /// Resolved via [`items::lookup`].
+    #[serde(default)]
+    pub item: Option<String>,
 }
 
 #[derive(Debug, Clone, Deserialize)]
@@ -184,8 +193,10 @@ const H_SERIAL_CONNECTION_STATUS: u16 = 0xffcb;
 const MONTYPE_PARTYMON: u8 = 0;
 const MONTYPE_OTPARTYMON: u8 = 1;
 
-// `party_struct` geometry, for the moveset override (see docs/memory_layout.md).
+// `party_struct` geometry, for the moveset / held-item overrides (see
+// docs/memory_layout.md).
 const PARTY_STRUCT_LEN: u16 = 48;
+const MON_OFFSET_ITEM: u16 = 1; // MON_ITEM: held item id
 const MON_OFFSET_MOVES: u16 = 2; // MON_MOVES: 4 bytes, one id per slot
 const MON_OFFSET_PP: u16 = 23; // MON_PP: 4 bytes, current PP per slot
 const NUM_MOVE_SLOTS: usize = 4;
@@ -350,12 +361,16 @@ fn seed_party(
     for (slot, mon) in party.iter().enumerate() {
         let id = species::id_from_name(&mon.species)
             .ok_or_else(|| format!("unknown {label} species: {}", mon.species))?;
-        // Resolve the optional moveset before driving the engine so a bad move
-        // name fails fast, before any WRAM is touched for this slot.
+        // Resolve the optional moveset / held item before driving the engine so
+        // a bad name fails fast, before any WRAM is touched for this slot.
         let move_ids = resolve_moves(mon)?;
+        let item_id = resolve_item(mon, label)?;
         add_mon(cpu, id, mon.level, mon_type);
         if let Some(ids) = move_ids {
             apply_moveset(cpu, mon1_addr, slot as u8, &ids);
+        }
+        if let Some(item_id) = item_id {
+            apply_item(cpu, mon1_addr, slot as u8, item_id);
         }
         // `try_add_mon_to_party` sets the nickname only for the player party;
         // for OT mons it skips it (the link partner would supply the name), so
@@ -423,6 +438,28 @@ fn apply_moveset(cpu: &mut Cpu, party_mon1_addr: u16, slot: u8, move_ids: &[u8])
         cpu.write_byte(base + MON_OFFSET_MOVES + i as u16, id);
         cpu.write_byte(base + MON_OFFSET_PP + i as u16, move_pp::MOVE_BASE_PP[id as usize]);
     }
+}
+
+/// Resolve a mon's optional `item` name to its item id, validating the name.
+/// `None` means "no held item" and leaves the slot's `MON_ITEM` byte as
+/// `try_add_mon_to_party` left it (0, since we add mons with `wBattleMode = 0`).
+fn resolve_item(mon: &MonSpec, label: &str) -> Result<Option<u8>, String> {
+    let Some(name) = &mon.item else {
+        return Ok(None);
+    };
+    let def = items::lookup(name)
+        .ok_or_else(|| format!("unknown held item for {label} {}: {}", mon.species, name))?;
+    Ok(Some(def.id))
+}
+
+/// Equip a freshly added party slot with a held item by writing the `MON_ITEM`
+/// byte. `try_add_mon_to_party` already zeroed it (we add mons out of battle, so
+/// `generate_party_mon_stats` takes the "no item" branch); the engine copies
+/// this byte into `wBattleMon` / `wEnemyMon` on send-out, so the mon walks into
+/// battle holding the item.
+fn apply_item(cpu: &mut Cpu, party_mon1_addr: u16, slot: u8, item_id: u8) {
+    let base = party_mon1_addr + slot as u16 * PARTY_STRUCT_LEN;
+    cpu.write_byte(base + MON_OFFSET_ITEM, item_id);
 }
 
 fn start_battle(cpu: &mut Cpu) {
@@ -687,6 +724,16 @@ mod tests {
             species: "Pikachu".into(),
             level: 10,
             moves: moves.map(|m| m.iter().map(|s| s.to_string()).collect()),
+            item: None,
+        }
+    }
+
+    fn mon_with_item(item: Option<&str>) -> MonSpec {
+        MonSpec {
+            species: "Pikachu".into(),
+            level: 10,
+            moves: None,
+            item: item.map(|s| s.to_string()),
         }
     }
 
@@ -719,5 +766,23 @@ mod tests {
     fn unknown_move_name_is_rejected() {
         let err = resolve_moves(&mon(Some(&["Surf", "Notamove"]))).unwrap_err();
         assert!(err.contains("Notamove"), "{err}");
+    }
+
+    #[test]
+    fn no_item_key_leaves_slot_itemless() {
+        assert_eq!(resolve_item(&mon_with_item(None), "player").unwrap(), None);
+    }
+
+    #[test]
+    fn item_resolves_to_id() {
+        // Leftovers=0x92, King's Rock=0x52 — case/punctuation insensitive.
+        assert_eq!(resolve_item(&mon_with_item(Some("Leftovers")), "player").unwrap(), Some(0x92));
+        assert_eq!(resolve_item(&mon_with_item(Some("kings rock")), "enemy").unwrap(), Some(0x52));
+    }
+
+    #[test]
+    fn unknown_item_name_is_rejected() {
+        let err = resolve_item(&mon_with_item(Some("Master Sword")), "player").unwrap_err();
+        assert!(err.contains("Master Sword"), "{err}");
     }
 }

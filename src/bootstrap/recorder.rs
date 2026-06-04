@@ -178,6 +178,9 @@ fn write_party(writer: &mut BufWriter<File>, table: &str, party: &[MonSpec]) -> 
             let rendered: Vec<String> = moves.iter().map(|m| toml_string(m)).collect();
             writeln!(writer, "moves = [{}]", rendered.join(", "))?;
         }
+        if let Some(item) = &mon.item {
+            writeln!(writer, "item = {}", toml_string(item))?;
+        }
     }
     Ok(())
 }
@@ -323,6 +326,7 @@ fn write_side(writer: &mut BufWriter<File>, side: &str, s: &SideSnapshot) -> std
         "expect.{side}.active.pp = [{}, {}, {}, {}]",
         a.pp[0], a.pp[1], a.pp[2], a.pp[3],
     )?;
+    writeln!(writer, "expect.{side}.active.item = {}", toml_string(&a.item))?;
     // Party as an inline array of inline tables — keeps the whole block inside
     // the open `[[step]]` table so streaming never needs a sub-table header.
     write!(writer, "expect.{side}.party = [")?;
@@ -332,12 +336,13 @@ fn write_side(writer: &mut BufWriter<File>, side: &str, s: &SideSnapshot) -> std
         }
         write!(
             writer,
-            "{{ species = {}, level = {}, hp = {}, max_hp = {}, status = {} }}",
+            "{{ species = {}, level = {}, hp = {}, max_hp = {}, status = {}, item = {} }}",
             toml_string(&m.species),
             m.level,
             m.hp,
             m.max_hp,
             toml_string(m.status.as_str()),
+            toml_string(&m.item),
         )?;
     }
     writeln!(writer, "]")?;
@@ -391,6 +396,7 @@ mod tests {
                 max_hp: 40,
                 status: Status::None,
                 pp: [25, 10, 0, 0],
+                item: "none".into(),
             },
             party: vec![PartySnapshot {
                 species: species.to_string(),
@@ -398,6 +404,7 @@ mod tests {
                 hp,
                 max_hp: 40,
                 status: Status::None,
+                item: "none".into(),
             }],
         }
     }

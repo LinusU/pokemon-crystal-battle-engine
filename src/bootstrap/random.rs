@@ -59,6 +59,26 @@ const BATTLE_ITEMS: &[&str] = &[
     "Dire Hit", "Guard Spec",
 ];
 
+/// Held items a generated mon may walk into battle carrying. Curated to items
+/// with an in-battle effect the engine acts on — Leftovers' end-of-turn heal,
+/// Quick Claw's priority roll, the flinch / crit boosters, evasion / accuracy
+/// tweaks, and the type-boosting held items. Consumable berries are left out so
+/// a recorded matchup's held item stays stable across the whole fight. Every
+/// name must resolve via [`items::lookup`] — asserted by `held_items_all_resolve`.
+const HELD_ITEMS: &[&str] = &[
+    "Leftovers", "Quick Claw", "King's Rock", "Focus Band", "Brightpowder",
+    "Scope Lens", "Lucky Egg",
+    "Charcoal", "Mystic Water", "Miracle Seed", "Magnet", "Twistedspoon",
+    "Blackbelt", "Sharp Beak", "Poison Barb", "Soft Sand", "Hard Stone",
+    "Silverpowder", "Spell Tag", "Nevermeltice", "Dragon Fang", "Blackglasses",
+    "Pink Bow", "Metal Coat",
+];
+
+/// Per-mon chance (in percent) that a `--random` party member is generated
+/// holding an item from [`HELD_ITEMS`]. Small on purpose — held items should be
+/// an occasional spice, not the norm.
+const HELD_ITEM_CHANCE_PERCENT: u64 = 15;
+
 /// Build a random trainer battle from a `base_seed` and log the chosen matchup
 /// to stderr so the run is debuggable even when not recording. The trainer
 /// is drawn from [`trainers::all`]; player party size is the trainer's
@@ -94,11 +114,17 @@ pub fn random_battle_config(base_seed: u64) -> BattleConfig {
     for _ in 0..count {
         let idx = rng.below(species::SPECIES_NAMES.len() as u64) as usize;
         let level = rng.in_range(lvl_lo as u64, lvl_hi as u64) as u8;
+        // A small chance to walk in holding a battle-relevant item. Roll first,
+        // then pick, so the held-item draw stays a fixed two-step slice of the
+        // RNG stream regardless of whether the mon ends up holding anything.
+        let held = rng.below(100) < HELD_ITEM_CHANCE_PERCENT;
+        let pick = rng.below(HELD_ITEMS.len() as u64) as usize;
         player_party.push(MonSpec {
             species: species::SPECIES_NAMES[idx].to_string(),
             level,
             // The generator leans on the engine's canonical level-up moveset.
             moves: None,
+            item: held.then(|| HELD_ITEMS[pick].to_string()),
         });
     }
 
@@ -115,7 +141,10 @@ pub fn random_battle_config(base_seed: u64) -> BattleConfig {
         trainer.name, count, lvl_lo, lvl_hi,
     );
     for mon in &player_party {
-        eprintln!("  party: {} L{}", mon.species, mon.level);
+        match &mon.item {
+            Some(item) => eprintln!("  party: {} L{} @ {}", mon.species, mon.level, item),
+            None => eprintln!("  party: {} L{}", mon.species, mon.level),
+        }
     }
     for item in &player_items {
         eprintln!("  bag:   {} x{}", item.name, item.quantity);
@@ -191,6 +220,11 @@ mod tests {
             for mon in &cfg.player_party {
                 assert!(species::id_from_name(&mon.species).is_some(), "unknown species {}", mon.species);
                 assert!(mon.level >= 2 && mon.level <= 100, "bad level {}", mon.level);
+                // A generated held item (when present) must resolve, or seeding
+                // would error out only after the user picked that seed.
+                if let Some(item) = &mon.item {
+                    assert!(items::lookup(item).is_some(), "unknown held item {item}");
+                }
             }
             for item in &cfg.player_items {
                 assert!(items::lookup(&item.name).is_some(), "unknown item {}", item.name);
@@ -207,6 +241,34 @@ mod tests {
         for name in BATTLE_ITEMS {
             assert!(items::lookup(name).is_some(), "BATTLE_ITEMS contains unknown name {name:?}");
         }
+    }
+
+    /// Same guard for the held-item pool: a typo would only blow up inside
+    /// `seed_party` after a `--random` run happened to roll that entry.
+    #[test]
+    fn held_items_all_resolve() {
+        for name in HELD_ITEMS {
+            assert!(items::lookup(name).is_some(), "HELD_ITEMS contains unknown name {name:?}");
+        }
+    }
+
+    /// Held items are an *occasional* spice: a sweep of seeds must produce some
+    /// mons holding an item and some holding none. This catches both a stuck-on
+    /// (always equips) and stuck-off (never equips) regression in the roll.
+    #[test]
+    fn held_items_are_sometimes_but_not_always_assigned() {
+        let mut with = 0usize;
+        let mut without = 0usize;
+        for seed in 0..200u64 {
+            for mon in random_battle_config(seed).player_party {
+                match mon.item {
+                    Some(_) => with += 1,
+                    None => without += 1,
+                }
+            }
+        }
+        assert!(with > 0, "no generated mon ever held an item");
+        assert!(without > 0, "every generated mon held an item");
     }
 
     /// The engine seed in the header must be decoupled from the base seed: a
