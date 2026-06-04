@@ -86,11 +86,13 @@ The CLI driver in [`src/bootstrap/cli.rs`](../src/bootstrap/cli.rs) reads battle
 | Address | Symbol | Bytes | Purpose |
 | --- | --- | --- | --- |
 | `0xc62c` | `wBattleMonSpecies` | 1 | Active player mon species id. |
+| `0xc62d` | `wBattleMonItem` | 1 | Active player mon held item id (`battle_struct` +1). Decoded to a name for the `expect.player.active.item` assertion. |
 | `0xc634` | `wBattleMonPP` | 4 | Active player mon PP, one per move slot. Low 6 bits = current PP; top 2 = PP Ups (masked off). |
 | `0xc639` | `wBattleMonLevel` | 1 | Active player mon level. |
 | `0xc63a` | `wBattleMonStatus` | 1 | Status byte. Bits 0–2 = sleep counter; bit 3 PSN, 4 BRN, 5 FRZ, 6 PAR, 7 TOX. |
 | `0xc663` | `wCurOTMon` | 1 | Party slot of the *active* enemy mon. |
 | `0xd206` | `wEnemyMonSpecies` | 1 | Active enemy mon species id. |
+| `0xd207` | `wEnemyMonItem` | 1 | Active enemy mon held item id (`battle_struct` +1). Decoded for the `expect.enemy.active.item` assertion. |
 | `0xd20e` | `wEnemyMonPP` | 4 | Active enemy mon PP (not asserted — invisible to the player). |
 | `0xd213` | `wEnemyMonLevel` | 1 | Active enemy mon level. |
 | `0xd214` | `wEnemyMonStatus` | 1 | Enemy status byte (same bit layout as player). |
@@ -100,7 +102,7 @@ The CLI driver in [`src/bootstrap/cli.rs`](../src/bootstrap/cli.rs) reads battle
 | `0xd0ee` | `wBattleResult` | 1 | Battle outcome. Low nibble: 0 = win, 1 = loss, else draw (`BATTLERESULT_BITMASK = 0xc0` carries CAUGHT_CELEBI / BOX_FULL, ignored). |
 | `0xd232` | `wForcedSwitch` | 1 | Non-zero ends the turn loop (`battle_turn_loop1` quits when set). `PokeDollEffect` sets it to 1 to end a wild battle as an escape (a DRAW); the CLI Poké Doll path replicates that. |
 
-`wCurBattleMon` (`0xd0d4`, player active slot) is listed in the in-battle table above. Per-slot party reads use the `party_struct` offsets below (species `+0`, level `+31`, status `+32`, HP `+34`, MaxHP `+36`) against both `wPartyMon1` (`0xdcdf`) and `wOTPartyMon1` (`0xd288`).
+`wCurBattleMon` (`0xd0d4`, player active slot) is listed in the in-battle table above. Per-slot party reads use the `party_struct` offsets below (species `+0`, item `+1`, level `+31`, status `+32`, HP `+34`, MaxHP `+36`) against both `wPartyMon1` (`0xdcdf`) and `wOTPartyMon1` (`0xd288`). The harness also *writes* item `+1` when seeding a `[[player_party]]` / link `[[enemy_party]]` mon with an `item = "..."` override.
 
 ## Party struct (48 bytes, aka `PARTYMON_STRUCT_LENGTH`)
 

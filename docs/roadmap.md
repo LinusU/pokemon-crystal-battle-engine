@@ -12,7 +12,7 @@ Load a TOML scenario, jump into a wild battle, play it in the window.
 - ✅ Link battles (`type = "link_battle"`). Both parties are seeded from the TOML (species, level, moves) and both sides are CLI-driven — the engine's real `wLinkMode` path with the AI and ROM party-load skipped, and the enemy action sourced from the CLI via the `link_battle_send_receive_action` hook. See [bootstrap.md](bootstrap.md#link-battles) and [toml_schema.md](toml_schema.md#link-battles). (This also demonstrates the "seed `wOTParty*` instead of loading from ROM" mechanism the trainer-battle enemy-override below still wants.)
 - TOML-driven overrides for the enemy party and the trainer's `wEnemyTrainerItem1`/`Item2`. Needs a `HARNESS-PATCH:` in `init_enemy_trainer` to skip `GetTrainerAttributes` + `ReadTrainerParty` when the harness has pre-seeded `wOTParty*` and `wEnemyTrainerItem1`/`Item2` itself.
 - Player overrides via TOML: name, id, gender, money, badges (for stat boosts).
-- Per-mon overrides: nickname, item, DVs. (Player-party `moves` is done — `[[player_party]] moves = [...]` overwrites the generated moveset after `try_add_mon_to_party`; see [TOML schema](toml_schema.md#player_party--one-or-more).)
+- Per-mon overrides: nickname, DVs. (Player-party `moves` and `item` are done — `[[player_party]] moves = [...]` / `item = "..."` overwrite the generated moveset / `MON_ITEM` byte after `try_add_mon_to_party`; `item` also works on the link-battle enemy party. See [TOML schema](toml_schema.md#player_party--one-or-more).)
 - A `[battle]` `seed` field for `wBattleRandom` reproducibility.
 
 ## Step 2.5 — make runs reproducible (prerequisite for tests)

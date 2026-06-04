@@ -62,14 +62,16 @@ seed = 0x1234
 species = "Pikachu"
 level = 30
 moves = ["Thunderbolt", "Quick Attack", "Surf", "Thunder"]
+item = "Light Ball"
 
 [[enemy_party]]
 species = "Geodude"
 level = 30
 moves = ["Rock Throw", "Magnitude", "Tackle", "Defense Curl"]
+item = "Leftovers"
 ```
 
-A `link_battle` is the engine's real two-player link mode driven entirely from the terminal: **both** sides are CLI-controlled, there is no AI, and **both parties are taken from the TOML** — unlike a trainer battle, nothing is loaded from ROM. So `[[enemy_party]]` is honored in full here (1..=6 mons, with `moves` overrides), exactly like `[[player_party]]`. The harness seeds `wParty*` and `wOTParty*`, sets `wLinkMode` so the engine skips the AI and the ROM party load and reads the enemy's action from `wBattleAction`, and fills that byte from the CLI via the `link_battle_send_receive_action` hook (see [transpiled_code.md](transpiled_code.md)).
+A `link_battle` is the engine's real two-player link mode driven entirely from the terminal: **both** sides are CLI-controlled, there is no AI, and **both parties are taken from the TOML** — unlike a trainer battle, nothing is loaded from ROM. So `[[enemy_party]]` is honored in full here (1..=6 mons, with `moves` and `item` overrides), exactly like `[[player_party]]` — held items work for both the player and the opponent. The harness seeds `wParty*` and `wOTParty*`, sets `wLinkMode` so the engine skips the AI and the ROM party load and reads the enemy's action from `wBattleAction`, and fills that byte from the CLI via the `link_battle_send_receive_action` hook (see [transpiled_code.md](transpiled_code.md)).
 
 Each round prompts the **player** first (the normal action menu) and then the **enemy** (a parallel menu of the enemy mon's usable moves + its alive bench). When a side's mon faints it's prompted for a replacement. The bag is disabled in a link battle (as in the real game), so neither side is offered items, balls, or — for the enemy — run; `[[player_items]]` / `[[enemy_items]]` are rejected. `--record` / `--play` work as for any scenario; enemy decisions are written with `side = "enemy"` (see [Recording](#recording----record-path)). Like every recording, a link-battle `--record` embeds the full matchup, so a link fixture is a single self-contained file — no sibling scenario TOML is needed to replay it. Both parties are required (1..=6 each).
 
@@ -95,7 +97,7 @@ cargo run -- --random --seed 0xdead         # deterministic, hex or decimal
 cargo run -- --random --record /tmp/r.toml  # combine with recording
 ```
 
-`--random` picks one trainer uniformly from the **entire game roster** — every battleable trainer instance, generated into [`src/bootstrap/trainers_data.rs`](../src/bootstrap/trainers_data.rs) from `parties.asm` (see [`all`](../src/bootstrap/trainers.rs)) — and generates a player party scaled to that trainer's canonical level / count (party size ±1 clamped to 1..=6, levels ±10% clamped to 2..=100). The bag gets 2..=4 entries drawn from a curated `BATTLE_ITEMS` list (potions, status heals, X-items — see [`src/bootstrap/random.rs`](../src/bootstrap/random.rs)) at 1..=3 each. The chosen matchup is logged on stderr.
+`--random` picks one trainer uniformly from the **entire game roster** — every battleable trainer instance, generated into [`src/bootstrap/trainers_data.rs`](../src/bootstrap/trainers_data.rs) from `parties.asm` (see [`all`](../src/bootstrap/trainers.rs)) — and generates a player party scaled to that trainer's canonical level / count (party size ±1 clamped to 1..=6, levels ±10% clamped to 2..=100). Each generated player mon has a small (~15%) chance to walk in holding an item from a curated `HELD_ITEMS` list (Leftovers, type boosters, Quick Claw, King's Rock, … — see [`src/bootstrap/random.rs`](../src/bootstrap/random.rs)). The bag gets 2..=4 entries drawn from a curated `BATTLE_ITEMS` list (potions, status heals, X-items) at 1..=3 each. The chosen matchup — held items included — is logged on stderr.
 
 Pass `--seed <n>` to make the run reproducible (accepts decimal `42` or hex `0xdeadbeef`); otherwise the harness draws a base seed from system entropy and logs it. Two invocations with the same `--seed` produce identical matchups and identical battle outcomes for the same choices.
 
@@ -223,7 +225,8 @@ The captured shape, per step, mirrors [`src/bootstrap/snapshot.rs`](../src/boots
 | `expect.<side>.active_slot` | Party slot index of the mon currently out (`<side>` is `player` or `enemy`). |
 | `expect.<side>.active.{species,level,hp,max_hp,status}` | The active mon's vitals. `status` is one of `none`, `sleep`, `poison`, `burn`, `freeze`, `paralysis`, `toxic`. |
 | `expect.<side>.active.pp` | A 4-element array of current PP (PP Ups masked off). Enemy PP isn't visible to the player, so the enemy's reads as `[0,0,0,0]`. |
-| `expect.<side>.party` | An array of inline tables, one per party slot in order: `{ species, level, hp, max_hp, status }`. Both the player's and the enemy's full parties are captured, so benched-mon changes (status spikes, healing) are asserted too. |
+| `expect.<side>.active.item` | Held item display name (`"Leftovers"`, `"King's Rock"`, …), `"none"` when unequipped, or `"#id"` for an id with no harness name. Tracks the active mon's item, so a consumed berry surfaces as a change to `"none"`. |
+| `expect.<side>.party` | An array of inline tables, one per party slot in order: `{ species, level, hp, max_hp, status, item }`. Both the player's and the enemy's full parties are captured, so benched-mon changes (status spikes, healing, held items) are asserted too. |
 | `expect.battle.outcome` | `win` / `loss` / `draw` / `caught`. Written only on the final step (after the battle ends). `caught` is a wild-mon capture with a Poké Ball. |
 
 HP/Max-HP are decoded from the big-endian `wBattleMon` / `wEnemyMon` / `party_struct` fields; `outcome` from the low nibble of `wBattleResult` — except `caught`, which the engine reports as a WIN and the harness tracks via a side-channel set on the CLI capture path. See [Memory layout](memory_layout.md#in-battle-state-read-by-the-snapshot-reader).
@@ -255,8 +258,9 @@ See [`src/bootstrap/player.rs`](../src/bootstrap/player.rs) and [`src/bootstrap/
 | `species` | string | yes | Case-insensitive; punctuation ignored. `"Pikachu"`, `"PIKACHU"`, `"Mr. Mime"`, `"Farfetch'd"`, `"Ho-oh"` all work. |
 | `level` | integer | yes | 1..100. |
 | `moves` | array of strings | no | 1..=4 move names. When omitted, the engine's generated level-up moveset is kept. When present, it overrides the generated moves for that slot. Names are case-insensitive with punctuation ignored, so `"Thunderbolt"`, `"THUNDER WAVE"`, `"thunder_wave"`, `"Double-Edge"` all resolve (see [`src/bootstrap/names.rs`](../src/bootstrap/names.rs)). |
+| `item` | string | no | Held item name (`"Leftovers"`, `"King's Rock"`, `"leftovers"`, …). Case-insensitive, punctuation ignored. When set, the mon walks into battle holding the item, so the engine's held-item mechanics (Leftovers' end-of-turn heal, type boosters, Quick Claw, flinch/crit items, …) all apply. Resolved via [`src/bootstrap/items.rs`](../src/bootstrap/items.rs) — the same table the bag uses. Unknown names are a hard error. |
 
-DVs, PP, HP and stats are produced by the engine itself (`try_add_mon_to_party`/`GeneratePartyMonStats`) — they're not user-controllable yet. `moves` is the one exception: when given, the slot's four move ids are overwritten after generation and PP is refilled to each move's base maximum (no PP Ups — a fresh mon has none). Fewer than four moves leaves the trailing slots empty (id 0, 0 PP). Listing more than four, an empty list, or an unknown move name is a hard error. The override applies only to `[[player_party]]`; a `moves` key on `[[enemy_party]]` is parsed but ignored (the wild mon and trainer parties get their moves from the engine / ROM).
+DVs, PP, HP and stats are produced by the engine itself (`try_add_mon_to_party`/`GeneratePartyMonStats`) — they're not user-controllable yet. `moves` and `item` are the exceptions, both written into the slot after generation: `moves` overwrites the four move ids and refills PP to each move's base maximum (no PP Ups — a fresh mon has none; fewer than four moves leaves the trailing slots empty, id 0 / 0 PP), and `item` writes the `MON_ITEM` byte so the mon holds it walking into battle. Listing more than four moves, an empty `moves` list, an unknown move name, or an unknown `item` name is a hard error. A `moves` key on `[[enemy_party]]` is parsed but ignored (the wild mon and trainer parties get their moves from the engine / ROM); `item` is honored on `[[player_party]]` for every battle kind and on `[[enemy_party]]` only for [link battles](#link-battles) (where the enemy party is seeded from the TOML, not ROM) — a wild/trainer enemy's held item comes from the engine / ROM, so `item` there is ignored too.
 
 ### `[[enemy_party]]`
 
@@ -264,7 +268,7 @@ For `wild_encounter`, exactly one entry is required. Same field set as `player_p
 
 For `trainer_battle`, optional and currently informational only — the engine loads the trainer's canonical party (species, levels, moves, items) from ROM via `ReadTrainerParty`.
 
-For `link_battle`, **required** (1..=6 entries) and fully honored, including `moves` overrides — the enemy party is seeded into `wOTParty*` from the TOML, not loaded from ROM. See [Link battles](#link-battles).
+For `link_battle`, **required** (1..=6 entries) and fully honored, including `moves` and `item` overrides — the enemy party is seeded into `wOTParty*` from the TOML, not loaded from ROM, so the opponent's held items work too. See [Link battles](#link-battles).
 
 ### `[[player_items]]` — zero or more
 
@@ -285,7 +289,7 @@ See [`src/bootstrap/species.rs`](../src/bootstrap/species.rs). The table is the 
 
 ## Planned additions
 
-- `nickname`, `item`, `dvs = "..."` per mon (will short-circuit `try_add_mon_to_party` for those fields). `moves = [...]` is done — see [`[[player_party]]`](#player_party--one-or-more).
+- `nickname`, `dvs = "..."` per mon (will short-circuit `try_add_mon_to_party` for those fields). `moves = [...]` and `item = "..."` are done — see [`[[player_party]]`](#player_party--one-or-more).
 - `[battle] battle_type` for `BATTLETYPE_FISH`, `BATTLETYPE_DEBUG`, etc.
 - Honor `[[enemy_party]]` and `[[enemy_items]]` for trainer battles (override the ROM data instead of just documenting the matchup).
 - `[player]` block: `name`, `id`, `gender` instead of the hardcoded "RED" + 0x1234.
