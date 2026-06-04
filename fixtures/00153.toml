@@ -1,0 +1,287 @@
+[recording]
+seed = "0x0000000000004004"
+
+[scenario.battle]
+type = "link_battle"
+
+[[scenario.player_party]]
+species = "Machamp"
+level = 50
+moves = ["Cross Chop"]
+item = "Mysteryberry"
+
+[[scenario.enemy_party]]
+species = "Gengar"
+level = 28
+moves = ["Night Shade"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 154
+expect.player.active.max_hp = 154
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 0, 0, 0]
+expect.player.active.item = "Mysteryberry"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 154, max_hp = 154, status = "none", item = "Mysteryberry" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 28
+expect.enemy.active.hp = 79
+expect.enemy.active.max_hp = 79
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 28, hp = 79, max_hp = 79, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 126
+expect.player.active.max_hp = 154
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 0, 0, 0]
+expect.player.active.item = "Mysteryberry"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 126, max_hp = 154, status = "none", item = "Mysteryberry" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 28
+expect.enemy.active.hp = 79
+expect.enemy.active.max_hp = 79
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 28, hp = 79, max_hp = 79, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 126
+expect.player.active.max_hp = 154
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 0, 0, 0]
+expect.player.active.item = "Mysteryberry"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 126, max_hp = 154, status = "none", item = "Mysteryberry" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 28
+expect.enemy.active.hp = 79
+expect.enemy.active.max_hp = 79
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 28, hp = 79, max_hp = 79, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 98
+expect.player.active.max_hp = 154
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 0, 0, 0]
+expect.player.active.item = "Mysteryberry"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 98, max_hp = 154, status = "none", item = "Mysteryberry" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 28
+expect.enemy.active.hp = 79
+expect.enemy.active.max_hp = 79
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 28, hp = 79, max_hp = 79, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 98
+expect.player.active.max_hp = 154
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 0, 0, 0]
+expect.player.active.item = "Mysteryberry"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 98, max_hp = 154, status = "none", item = "Mysteryberry" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 28
+expect.enemy.active.hp = 79
+expect.enemy.active.max_hp = 79
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 28, hp = 79, max_hp = 79, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 70
+expect.player.active.max_hp = 154
+expect.player.active.status = "none"
+expect.player.active.pp = [2, 0, 0, 0]
+expect.player.active.item = "Mysteryberry"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 70, max_hp = 154, status = "none", item = "Mysteryberry" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 28
+expect.enemy.active.hp = 79
+expect.enemy.active.max_hp = 79
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 28, hp = 79, max_hp = 79, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 70
+expect.player.active.max_hp = 154
+expect.player.active.status = "none"
+expect.player.active.pp = [2, 0, 0, 0]
+expect.player.active.item = "Mysteryberry"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 70, max_hp = 154, status = "none", item = "Mysteryberry" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 28
+expect.enemy.active.hp = 79
+expect.enemy.active.max_hp = 79
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 28, hp = 79, max_hp = 79, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 42
+expect.player.active.max_hp = 154
+expect.player.active.status = "none"
+expect.player.active.pp = [1, 0, 0, 0]
+expect.player.active.item = "Mysteryberry"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 42, max_hp = 154, status = "none", item = "Mysteryberry" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 28
+expect.enemy.active.hp = 79
+expect.enemy.active.max_hp = 79
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [11, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 28, hp = 79, max_hp = 79, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 42
+expect.player.active.max_hp = 154
+expect.player.active.status = "none"
+expect.player.active.pp = [1, 0, 0, 0]
+expect.player.active.item = "Mysteryberry"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 42, max_hp = 154, status = "none", item = "Mysteryberry" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 28
+expect.enemy.active.hp = 79
+expect.enemy.active.max_hp = 79
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [11, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 28, hp = 79, max_hp = 79, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 14
+expect.player.active.max_hp = 154
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 14, max_hp = 154, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 28
+expect.enemy.active.hp = 79
+expect.enemy.active.max_hp = 79
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 28, hp = 79, max_hp = 79, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 14
+expect.player.active.max_hp = 154
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 14, max_hp = 154, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 28
+expect.enemy.active.hp = 79
+expect.enemy.active.max_hp = 79
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 28, hp = 79, max_hp = 79, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 0
+expect.player.active.max_hp = 154
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 0, max_hp = 154, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 28
+expect.enemy.active.hp = 79
+expect.enemy.active.max_hp = 79
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 28, hp = 79, max_hp = 79, status = "none", item = "none" }]
+expect.battle.outcome = "loss"

@@ -1,0 +1,107 @@
+[recording]
+seed = "0x0000000000002222"
+
+[scenario.battle]
+type = "link_battle"
+
+[[scenario.player_party]]
+species = "Electrode"
+level = 50
+moves = ["Thunder Wave"]
+
+[[scenario.enemy_party]]
+species = "Machamp"
+level = 45
+moves = ["Cross Chop"]
+item = "Przcureberry"
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "ELECTRODE"
+expect.player.active.level = 50
+expect.player.active.hp = 132
+expect.player.active.max_hp = 132
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ELECTRODE", level = 50, hp = 132, max_hp = 132, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 148
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 0, 0, 0]
+expect.enemy.active.item = "Przcureberry"
+expect.enemy.party = [{ species = "MACHAMP", level = 45, hp = 148, max_hp = 148, status = "none", item = "Przcureberry" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "ELECTRODE"
+expect.player.active.level = 50
+expect.player.active.hp = 37
+expect.player.active.max_hp = 132
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ELECTRODE", level = 50, hp = 37, max_hp = 132, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 148
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [4, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MACHAMP", level = 45, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "ELECTRODE"
+expect.player.active.level = 50
+expect.player.active.hp = 37
+expect.player.active.max_hp = 132
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ELECTRODE", level = 50, hp = 37, max_hp = 132, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 148
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [4, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MACHAMP", level = 45, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "ELECTRODE"
+expect.player.active.level = 50
+expect.player.active.hp = 0
+expect.player.active.max_hp = 132
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ELECTRODE", level = 50, hp = 0, max_hp = 132, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 148
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [3, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MACHAMP", level = 45, hp = 148, max_hp = 148, status = "paralysis", item = "none" }]
+expect.battle.outcome = "loss"
