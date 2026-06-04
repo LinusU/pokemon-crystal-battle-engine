@@ -1,0 +1,61 @@
+[recording]
+seed = "0x0042ba1100001701"
+
+[scenario.battle]
+type = "link_battle"
+
+[[scenario.player_party]]
+species = "Snorlax"
+level = 50
+moves = ["Body Slam"]
+
+[[scenario.enemy_party]]
+species = "Tauros"
+level = 40
+moves = ["conversion2"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 227
+expect.player.active.max_hp = 227
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 227, max_hp = 227, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 121
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TAUROS", level = 40, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 227
+expect.player.active.max_hp = 227
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 227, max_hp = 227, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 121
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [29, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TAUROS", level = 40, hp = 0, max_hp = 121, status = "none", item = "none" }]
+expect.battle.outcome = "win"
