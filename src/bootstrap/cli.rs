@@ -31,6 +31,7 @@ use super::recorder::{self, Side, Step};
 // Mirrors docs/memory_layout.md.
 
 const W_BATTLE_MON_SPECIES: u16 = 0xc62c;
+const W_BATTLE_MON_ITEM: u16 = 0xc62d; // held item id (`battle_struct` +1)
 const W_BATTLE_MON_MOVES: u16 = 0xc62e;
 const W_BATTLE_MON_PP: u16 = 0xc634;
 const W_BATTLE_MON_LEVEL: u16 = 0xc639;
@@ -147,6 +148,7 @@ const H_ROM_BANK: u16 = 0xff9d;
 const W_BATTLE_MODE: u16 = 0xd22d;
 
 const W_ENEMY_MON_SPECIES: u16 = 0xd206;
+const W_ENEMY_MON_ITEM: u16 = 0xd207; // held item id (`battle_struct` +1)
 const W_ENEMY_MON_MOVES: u16 = 0xd208;
 const W_ENEMY_MON_PP: u16 = 0xd20e;
 const W_ENEMY_MON_LEVEL: u16 = 0xd213;
@@ -640,25 +642,29 @@ fn print_enemy_state(cpu: &Cpu) {
     let hp = read_word_be(cpu, W_ENEMY_MON_HP);
     let max_hp = read_word_be(cpu, W_ENEMY_MON_MAX_HP);
     let status = cpu.read_byte(W_ENEMY_MON_STATUS);
+    let item = cpu.read_byte(W_ENEMY_MON_ITEM);
 
     let foe_species = cpu.read_byte(W_BATTLE_MON_SPECIES);
     let foe_level = cpu.read_byte(W_BATTLE_MON_LEVEL);
     let foe_hp = read_word_be(cpu, W_BATTLE_MON_HP);
     let foe_max_hp = read_word_be(cpu, W_BATTLE_MON_MAX_HP);
     let foe_status = cpu.read_byte(W_BATTLE_MON_STATUS);
+    let foe_item = cpu.read_byte(W_BATTLE_MON_ITEM);
 
     println!(
-        "\n=== Opponent: {} Lv{} HP {}/{}{}\n=== Enemy:    {} Lv{} HP {}/{}{}",
+        "\n=== Opponent: {} Lv{} HP {}/{}{}{}\n=== Enemy:    {} Lv{} HP {}/{}{}{}",
         species_name(foe_species),
         foe_level,
         foe_hp,
         foe_max_hp,
         status_suffix(foe_status),
+        item_suffix(foe_item),
         species_name(species),
         level,
         hp,
         max_hp,
         status_suffix(status),
+        item_suffix(item),
     );
 }
 
@@ -720,25 +726,29 @@ fn print_battle_state(cpu: &Cpu) {
     let hp = read_word_be(cpu, W_BATTLE_MON_HP);
     let max_hp = read_word_be(cpu, W_BATTLE_MON_MAX_HP);
     let status = cpu.read_byte(W_BATTLE_MON_STATUS);
+    let item = cpu.read_byte(W_BATTLE_MON_ITEM);
 
     let enemy_species = cpu.read_byte(W_ENEMY_MON_SPECIES);
     let enemy_level = cpu.read_byte(W_ENEMY_MON_LEVEL);
     let enemy_hp = read_word_be(cpu, W_ENEMY_MON_HP);
     let enemy_max_hp = read_word_be(cpu, W_ENEMY_MON_MAX_HP);
     let enemy_status = cpu.read_byte(W_ENEMY_MON_STATUS);
+    let enemy_item = cpu.read_byte(W_ENEMY_MON_ITEM);
 
     println!(
-        "\n=== Enemy: {} Lv{} HP {}/{}{}\n=== You:   {} Lv{} HP {}/{}{}",
+        "\n=== Enemy: {} Lv{} HP {}/{}{}{}\n=== You:   {} Lv{} HP {}/{}{}{}",
         species_name(enemy_species),
         enemy_level,
         enemy_hp,
         enemy_max_hp,
         status_suffix(enemy_status),
+        item_suffix(enemy_item),
         species_name(species),
         level,
         hp,
         max_hp,
         status_suffix(status),
+        item_suffix(item),
     );
 }
 
@@ -1743,6 +1753,16 @@ fn move_name(id: u8) -> &'static str {
 
 fn item_display(id: u8) -> &'static str {
     names::item_name(id)
+}
+
+/// `" @ItemName"` when the mon holds an item, empty otherwise. Appended to the
+/// battle status line so a held item (Leftovers, type boosters, …) is visible.
+fn item_suffix(item: u8) -> String {
+    if item == 0 {
+        String::new()
+    } else {
+        format!(" @{}", item_display(item))
+    }
 }
 
 fn status_suffix(status: u8) -> String {
