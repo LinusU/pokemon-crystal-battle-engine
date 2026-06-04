@@ -1,0 +1,125 @@
+[recording]
+seed = "0x42ba1100000a1000"
+
+[scenario.battle]
+type = "wild_encounter"
+
+[[scenario.player_party]]
+species = "Jolteon"
+level = 40
+moves = ["conversion2"]
+
+[[scenario.enemy_party]]
+species = "Snorlax"
+level = 55
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "JOLTEON"
+expect.player.active.level = 40
+expect.player.active.hp = 103
+expect.player.active.max_hp = 103
+expect.player.active.status = "none"
+expect.player.active.pp = [29, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "JOLTEON", level = 40, hp = 103, max_hp = 103, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SNORLAX"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 246
+expect.enemy.active.max_hp = 246
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 9, 15, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "JOLTEON"
+expect.player.active.level = 40
+expect.player.active.hp = 103
+expect.player.active.max_hp = 103
+expect.player.active.status = "none"
+expect.player.active.pp = [28, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "JOLTEON", level = 40, hp = 103, max_hp = 103, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SNORLAX"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 246
+expect.enemy.active.max_hp = 246
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 9, 15, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "JOLTEON"
+expect.player.active.level = 40
+expect.player.active.hp = 76
+expect.player.active.max_hp = 103
+expect.player.active.status = "none"
+expect.player.active.pp = [27, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "JOLTEON", level = 40, hp = 76, max_hp = 103, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SNORLAX"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 246
+expect.enemy.active.max_hp = 246
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 9, 15, 19]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "JOLTEON"
+expect.player.active.level = 40
+expect.player.active.hp = 49
+expect.player.active.max_hp = 103
+expect.player.active.status = "none"
+expect.player.active.pp = [26, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "JOLTEON", level = 40, hp = 49, max_hp = 103, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SNORLAX"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 246
+expect.enemy.active.max_hp = 246
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 9, 15, 19]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "JOLTEON"
+expect.player.active.level = 40
+expect.player.active.hp = 0
+expect.player.active.max_hp = 103
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "JOLTEON", level = 40, hp = 0, max_hp = 103, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SNORLAX"
+expect.enemy.active.level = 55
+expect.enemy.active.hp = 246
+expect.enemy.active.max_hp = 246
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 9, 15, 19]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+expect.battle.outcome = "loss"
