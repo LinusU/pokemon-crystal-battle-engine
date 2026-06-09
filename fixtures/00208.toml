@@ -1,0 +1,518 @@
+[recording]
+seed = "0x3c13000000d00000"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "CHUCK_1"
+
+[[scenario.player_party]]
+species = "Gengar"
+level = 40
+moves = ["hypnosis", "lick"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 98
+expect.player.active.max_hp = 98
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 30, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 98, max_hp = 98, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PRIMEAPE"
+expect.enemy.active.level = 27
+expect.enemy.active.hp = 76
+expect.enemy.active.max_hp = 76
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [30, 20, 25, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 76, max_hp = 76, status = "sleep", item = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 98
+expect.player.active.max_hp = 98
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 29, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 98, max_hp = 98, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PRIMEAPE"
+expect.enemy.active.level = 27
+expect.enemy.active.hp = 61
+expect.enemy.active.max_hp = 76
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [30, 20, 25, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 76, max_hp = 76, status = "sleep", item = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 98
+expect.player.active.max_hp = 98
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 28, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 98, max_hp = 98, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PRIMEAPE"
+expect.enemy.active.level = 27
+expect.enemy.active.hp = 32
+expect.enemy.active.max_hp = 76
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [29, 20, 25, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 32, max_hp = 76, status = "none", item = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 98
+expect.player.active.max_hp = 98
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 28, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 98, max_hp = 98, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PRIMEAPE"
+expect.enemy.active.level = 27
+expect.enemy.active.hp = 32
+expect.enemy.active.max_hp = 76
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [29, 20, 25, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 32, max_hp = 76, status = "sleep", item = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 98
+expect.player.active.max_hp = 98
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 27, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 98, max_hp = 98, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PRIMEAPE"
+expect.enemy.active.level = 27
+expect.enemy.active.hp = 15
+expect.enemy.active.max_hp = 76
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [29, 20, 25, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 32, max_hp = 76, status = "sleep", item = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 98
+expect.player.active.max_hp = 98
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 26, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 98, max_hp = 98, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 98
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 5, 15, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "sleep", item = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 98
+expect.player.active.max_hp = 98
+expect.player.active.status = "none"
+expect.player.active.pp = [17, 26, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 98, max_hp = 98, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 98
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 5, 15, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "sleep", item = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 98
+expect.player.active.max_hp = 98
+expect.player.active.status = "none"
+expect.player.active.pp = [16, 26, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 98, max_hp = 98, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 98
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [19, 5, 15, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "sleep", item = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "sleep", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 98
+expect.player.active.max_hp = 98
+expect.player.active.status = "none"
+expect.player.active.pp = [16, 25, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 98, max_hp = 98, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 87
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 5, 15, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "sleep", item = "none" }, { species = "POLIWRATH", level = 30, hp = 98, max_hp = 98, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 98
+expect.player.active.max_hp = 98
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 25, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 98, max_hp = 98, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 87
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [19, 5, 15, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "sleep", item = "none" }, { species = "POLIWRATH", level = 30, hp = 87, max_hp = 98, status = "sleep", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 98
+expect.player.active.max_hp = 98
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 24, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 98, max_hp = 98, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 77
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 4, 15, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "sleep", item = "none" }, { species = "POLIWRATH", level = 30, hp = 77, max_hp = 98, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 98
+expect.player.active.max_hp = 98
+expect.player.active.status = "sleep"
+expect.player.active.pp = [14, 24, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 98, max_hp = 98, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 77
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 4, 15, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "sleep", item = "none" }, { species = "POLIWRATH", level = 30, hp = 77, max_hp = 98, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 66
+expect.player.active.max_hp = 98
+expect.player.active.status = "sleep"
+expect.player.active.pp = [14, 24, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 66, max_hp = 98, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 77
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 4, 14, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "sleep", item = "none" }, { species = "POLIWRATH", level = 30, hp = 77, max_hp = 98, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 66
+expect.player.active.max_hp = 98
+expect.player.active.status = "sleep"
+expect.player.active.pp = [14, 24, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 66, max_hp = 98, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 77
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 3, 14, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "sleep", item = "none" }, { species = "POLIWRATH", level = 30, hp = 77, max_hp = 98, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 66
+expect.player.active.max_hp = 98
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 24, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 66, max_hp = 98, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 77
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [18, 3, 14, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "sleep", item = "none" }, { species = "POLIWRATH", level = 30, hp = 77, max_hp = 98, status = "sleep", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 66
+expect.player.active.max_hp = 98
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 23, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 66, max_hp = 98, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 67
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [18, 3, 14, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "sleep", item = "none" }, { species = "POLIWRATH", level = 30, hp = 77, max_hp = 98, status = "sleep", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 66
+expect.player.active.max_hp = 98
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 22, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 66, max_hp = 98, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 47
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [18, 3, 14, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "sleep", item = "none" }, { species = "POLIWRATH", level = 30, hp = 77, max_hp = 98, status = "sleep", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 66
+expect.player.active.max_hp = 98
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 21, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 66, max_hp = 98, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 37
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [18, 3, 14, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "sleep", item = "none" }, { species = "POLIWRATH", level = 30, hp = 77, max_hp = 98, status = "sleep", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 66
+expect.player.active.max_hp = 98
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 20, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 66, max_hp = 98, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 27
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [18, 3, 14, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "sleep", item = "none" }, { species = "POLIWRATH", level = 30, hp = 77, max_hp = 98, status = "sleep", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 66
+expect.player.active.max_hp = 98
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 19, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 66, max_hp = 98, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 16
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [18, 3, 14, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "sleep", item = "none" }, { species = "POLIWRATH", level = 30, hp = 77, max_hp = 98, status = "sleep", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 66
+expect.player.active.max_hp = 98
+expect.player.active.status = "sleep"
+expect.player.active.pp = [13, 18, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 66, max_hp = 98, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 5
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 3, 14, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "sleep", item = "none" }, { species = "POLIWRATH", level = 30, hp = 5, max_hp = 98, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 36
+expect.player.active.max_hp = 98
+expect.player.active.status = "sleep"
+expect.player.active.pp = [13, 18, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 36, max_hp = 98, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 5
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 3, 13, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "sleep", item = "none" }, { species = "POLIWRATH", level = 30, hp = 5, max_hp = 98, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 40
+expect.player.active.hp = 0
+expect.player.active.max_hp = 98
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 18, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 40, hp = 0, max_hp = 98, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWRATH"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 5
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 3, 12, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PRIMEAPE", level = 27, hp = 0, max_hp = 76, status = "sleep", item = "none" }, { species = "POLIWRATH", level = 30, hp = 5, max_hp = 98, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
