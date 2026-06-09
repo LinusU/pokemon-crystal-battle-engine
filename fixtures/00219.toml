@@ -1,0 +1,308 @@
+[recording]
+seed = "0x3f14000000000000"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Lance"
+
+[[scenario.player_party]]
+species = "Lapras"
+level = 55
+moves = ["ice_beam"]
+
+[[scenario.player_party]]
+species = "Lapras"
+level = 55
+moves = ["ice_beam"]
+
+[[scenario.player_party]]
+species = "Lapras"
+level = 55
+moves = ["ice_beam"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 55
+expect.player.active.hp = 196
+expect.player.active.max_hp = 208
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 55, hp = 196, max_hp = 208, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 211, max_hp = 211, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 213, max_hp = 213, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GYARADOS"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 32
+expect.enemy.active.max_hp = 147
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 5, 15, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 147, max_hp = 147, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none", item = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none", item = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none", item = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 55
+expect.player.active.hp = 129
+expect.player.active.max_hp = 208
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 55, hp = 129, max_hp = 208, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 211, max_hp = 211, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 213, max_hp = 213, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "DRAGONITE"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 152
+expect.enemy.active.max_hp = 152
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 10, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 0, max_hp = 147, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none", item = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none", item = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none", item = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none", item = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 55
+expect.player.active.hp = 129
+expect.player.active.max_hp = 208
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 55, hp = 129, max_hp = 208, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 211, max_hp = 211, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 213, max_hp = 213, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "DRAGONITE"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 152
+expect.enemy.active.max_hp = 152
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 10, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 0, max_hp = 147, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none", item = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none", item = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none", item = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 55
+expect.player.active.hp = 129
+expect.player.active.max_hp = 208
+expect.player.active.status = "none"
+expect.player.active.pp = [7, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 55, hp = 129, max_hp = 208, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 211, max_hp = 211, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 213, max_hp = 213, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "DRAGONITE"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 152
+expect.enemy.active.max_hp = 152
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 5, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 0, max_hp = 147, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 0, max_hp = 152, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none", item = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none", item = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none", item = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none", item = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 55
+expect.player.active.hp = 129
+expect.player.active.max_hp = 208
+expect.player.active.status = "none"
+expect.player.active.pp = [7, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 55, hp = 129, max_hp = 208, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 211, max_hp = 211, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 213, max_hp = 213, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "DRAGONITE"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 152
+expect.enemy.active.max_hp = 152
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 5, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 0, max_hp = 147, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 0, max_hp = 152, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 152, max_hp = 152, status = "none", item = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none", item = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none", item = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 55
+expect.player.active.hp = 129
+expect.player.active.max_hp = 208
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [6, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 55, hp = 129, max_hp = 208, status = "paralysis", item = "none" }, { species = "LAPRAS", level = 55, hp = 211, max_hp = 211, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 213, max_hp = 213, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "AERODACTYL"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 5, 10, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 0, max_hp = 147, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 0, max_hp = 152, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 0, max_hp = 152, status = "none", item = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none", item = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none", item = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none", item = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 55
+expect.player.active.hp = 129
+expect.player.active.max_hp = 208
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [6, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 55, hp = 129, max_hp = 208, status = "paralysis", item = "none" }, { species = "LAPRAS", level = 55, hp = 211, max_hp = 211, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 213, max_hp = 213, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "AERODACTYL"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 5, 10, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 0, max_hp = 147, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 0, max_hp = 152, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 0, max_hp = 152, status = "none", item = "none" }, { species = "AERODACTYL", level = 46, hp = 139, max_hp = 139, status = "none", item = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none", item = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 55
+expect.player.active.hp = 29
+expect.player.active.max_hp = 208
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [5, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 55, hp = 29, max_hp = 208, status = "paralysis", item = "none" }, { species = "LAPRAS", level = 55, hp = 211, max_hp = 211, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 213, max_hp = 213, status = "none", item = "none" }]
+expect.enemy.active_slot = 5
+expect.enemy.active.species = "DRAGONITE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 162
+expect.enemy.active.max_hp = 162
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 25, 15, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 0, max_hp = 147, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 0, max_hp = 152, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 0, max_hp = 152, status = "none", item = "none" }, { species = "AERODACTYL", level = 46, hp = 0, max_hp = 139, status = "none", item = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none", item = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none", item = "none" }]
+
+[[step]]
+kind = "offer_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 55
+expect.player.active.hp = 211
+expect.player.active.max_hp = 211
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 55, hp = 29, max_hp = 208, status = "paralysis", item = "none" }, { species = "LAPRAS", level = 55, hp = 211, max_hp = 211, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 213, max_hp = 213, status = "none", item = "none" }]
+expect.enemy.active_slot = 5
+expect.enemy.active.species = "DRAGONITE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 162
+expect.enemy.active.max_hp = 162
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 25, 15, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 0, max_hp = 147, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 0, max_hp = 152, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 0, max_hp = 152, status = "none", item = "none" }, { species = "AERODACTYL", level = 46, hp = 0, max_hp = 139, status = "none", item = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none", item = "none" }, { species = "DRAGONITE", level = 50, hp = 162, max_hp = 162, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 55
+expect.player.active.hp = 211
+expect.player.active.max_hp = 211
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 55, hp = 29, max_hp = 208, status = "paralysis", item = "none" }, { species = "LAPRAS", level = 55, hp = 211, max_hp = 211, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 213, max_hp = 213, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CHARIZARD"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 137
+expect.enemy.active.max_hp = 137
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 35, 20, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 0, max_hp = 147, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 0, max_hp = 152, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 0, max_hp = 152, status = "none", item = "none" }, { species = "AERODACTYL", level = 46, hp = 0, max_hp = 139, status = "none", item = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none", item = "none" }, { species = "DRAGONITE", level = 50, hp = 0, max_hp = 162, status = "none", item = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 1
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 55
+expect.player.active.hp = 211
+expect.player.active.max_hp = 211
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 55, hp = 29, max_hp = 208, status = "paralysis", item = "none" }, { species = "LAPRAS", level = 55, hp = 211, max_hp = 211, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 213, max_hp = 213, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CHARIZARD"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 137
+expect.enemy.active.max_hp = 137
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 35, 20, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 0, max_hp = 147, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 0, max_hp = 152, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 0, max_hp = 152, status = "none", item = "none" }, { species = "AERODACTYL", level = 46, hp = 0, max_hp = 139, status = "none", item = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none", item = "none" }, { species = "DRAGONITE", level = 50, hp = 0, max_hp = 162, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 55
+expect.player.active.hp = 156
+expect.player.active.max_hp = 211
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 55, hp = 29, max_hp = 208, status = "paralysis", item = "none" }, { species = "LAPRAS", level = 55, hp = 156, max_hp = 211, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 213, max_hp = 213, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CHARIZARD"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 55
+expect.enemy.active.max_hp = 137
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 35, 20, 4]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 0, max_hp = 147, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 0, max_hp = 152, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 0, max_hp = 152, status = "none", item = "none" }, { species = "AERODACTYL", level = 46, hp = 0, max_hp = 139, status = "none", item = "none" }, { species = "CHARIZARD", level = 46, hp = 137, max_hp = 137, status = "none", item = "none" }, { species = "DRAGONITE", level = 50, hp = 0, max_hp = 162, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 55
+expect.player.active.hp = 156
+expect.player.active.max_hp = 211
+expect.player.active.status = "none"
+expect.player.active.pp = [7, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 55, hp = 29, max_hp = 208, status = "paralysis", item = "none" }, { species = "LAPRAS", level = 55, hp = 156, max_hp = 211, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 213, max_hp = 213, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "CHARIZARD"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 137
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 35, 20, 4]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GYARADOS", level = 44, hp = 0, max_hp = 147, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 0, max_hp = 152, status = "none", item = "none" }, { species = "DRAGONITE", level = 47, hp = 0, max_hp = 152, status = "none", item = "none" }, { species = "AERODACTYL", level = 46, hp = 0, max_hp = 139, status = "none", item = "none" }, { species = "CHARIZARD", level = 46, hp = 0, max_hp = 137, status = "none", item = "none" }, { species = "DRAGONITE", level = 50, hp = 0, max_hp = 162, status = "none", item = "none" }]
+expect.battle.outcome = "win"
