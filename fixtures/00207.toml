@@ -1,0 +1,122 @@
+[recording]
+seed = "0x3b12000000cf0000"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "COOLTRAINERM_7"
+
+[[scenario.player_party]]
+species = "Snorlax"
+level = 45
+moves = ["body_slam"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 149
+expect.player.active.max_hp = 208
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 45, hp = 149, max_hp = 208, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VICTREEBEL"
+expect.enemy.active.level = 39
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 117
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 10, 9, 25]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VICTREEBEL", level = 39, hp = 117, max_hp = 117, status = "none", item = "none" }, { species = "KINGLER", level = 39, hp = 98, max_hp = 98, status = "none", item = "King's Rock" }, { species = "FLAREON", level = 39, hp = 105, max_hp = 105, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 91
+expect.player.active.max_hp = 208
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 45, hp = 91, max_hp = 208, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KINGLER"
+expect.enemy.active.level = 39
+expect.enemy.active.hp = 98
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 20, 5, 5]
+expect.enemy.active.item = "King's Rock"
+expect.enemy.party = [{ species = "VICTREEBEL", level = 39, hp = 0, max_hp = 117, status = "none", item = "none" }, { species = "KINGLER", level = 39, hp = 98, max_hp = 98, status = "none", item = "King's Rock" }, { species = "FLAREON", level = 39, hp = 105, max_hp = 105, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 59
+expect.player.active.max_hp = 208
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 45, hp = 59, max_hp = 208, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KINGLER"
+expect.enemy.active.level = 39
+expect.enemy.active.hp = 43
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 19, 5, 5]
+expect.enemy.active.item = "King's Rock"
+expect.enemy.party = [{ species = "VICTREEBEL", level = 39, hp = 0, max_hp = 117, status = "none", item = "none" }, { species = "KINGLER", level = 39, hp = 98, max_hp = 98, status = "none", item = "King's Rock" }, { species = "FLAREON", level = 39, hp = 105, max_hp = 105, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 25
+expect.player.active.max_hp = 208
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 45, hp = 25, max_hp = 208, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "FLAREON"
+expect.enemy.active.level = 39
+expect.enemy.active.hp = 105
+expect.enemy.active.max_hp = 105
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 30, 25, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VICTREEBEL", level = 39, hp = 0, max_hp = 117, status = "none", item = "none" }, { species = "KINGLER", level = 39, hp = 0, max_hp = 98, status = "none", item = "King's Rock" }, { species = "FLAREON", level = 39, hp = 105, max_hp = 105, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 0
+expect.player.active.max_hp = 208
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 45, hp = 0, max_hp = 208, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "FLAREON"
+expect.enemy.active.level = 39
+expect.enemy.active.hp = 105
+expect.enemy.active.max_hp = 105
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 30, 25, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VICTREEBEL", level = 39, hp = 0, max_hp = 117, status = "none", item = "none" }, { species = "KINGLER", level = 39, hp = 0, max_hp = 98, status = "none", item = "King's Rock" }, { species = "FLAREON", level = 39, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
