@@ -1,0 +1,37 @@
+[recording]
+seed = "0x3a11000000b10000"
+
+[scenario.battle]
+type = "wild_encounter"
+
+[[scenario.player_party]]
+species = "Abra"
+level = 10
+moves = ["teleport"]
+
+[[scenario.enemy_party]]
+species = "Tauros"
+level = 50
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "ABRA"
+expect.player.active.level = 10
+expect.player.active.hp = 0
+expect.player.active.max_hp = 25
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ABRA", level = 10, hp = 0, max_hp = 25, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 146
+expect.enemy.active.max_hp = 146
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 19, 10, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+expect.battle.outcome = "loss"
