@@ -1,0 +1,196 @@
+[recording]
+seed = "0x3a11000000c40000"
+
+[scenario.battle]
+type = "link_battle"
+
+[[scenario.player_party]]
+species = "Snorlax"
+level = 40
+moves = ["body_slam"]
+
+[[scenario.enemy_party]]
+species = "Miltank"
+level = 40
+moves = ["rollout"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 184
+expect.player.active.max_hp = 184
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 184, max_hp = 184, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 137
+expect.enemy.active.max_hp = 137
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MILTANK", level = 40, hp = 137, max_hp = 137, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 171
+expect.player.active.max_hp = 184
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 171, max_hp = 184, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 90
+expect.enemy.active.max_hp = 137
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [19, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MILTANK", level = 40, hp = 90, max_hp = 137, status = "paralysis", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 171
+expect.player.active.max_hp = 184
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 171, max_hp = 184, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 90
+expect.enemy.active.max_hp = 137
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [19, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MILTANK", level = 40, hp = 90, max_hp = 137, status = "paralysis", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 143
+expect.player.active.max_hp = 184
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 143, max_hp = 184, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 48
+expect.enemy.active.max_hp = 137
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [19, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MILTANK", level = 40, hp = 90, max_hp = 137, status = "paralysis", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 143
+expect.player.active.max_hp = 184
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 143, max_hp = 184, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 48
+expect.enemy.active.max_hp = 137
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [19, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MILTANK", level = 40, hp = 90, max_hp = 137, status = "paralysis", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 143
+expect.player.active.max_hp = 184
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 143, max_hp = 184, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 3
+expect.enemy.active.max_hp = 137
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [19, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MILTANK", level = 40, hp = 90, max_hp = 137, status = "paralysis", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 143
+expect.player.active.max_hp = 184
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 143, max_hp = 184, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 3
+expect.enemy.active.max_hp = 137
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [19, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MILTANK", level = 40, hp = 90, max_hp = 137, status = "paralysis", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 143
+expect.player.active.max_hp = 184
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 143, max_hp = 184, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MILTANK"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 137
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [19, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MILTANK", level = 40, hp = 0, max_hp = 137, status = "paralysis", item = "none" }]
+expect.battle.outcome = "win"

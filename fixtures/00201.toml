@@ -1,0 +1,295 @@
+[recording]
+seed = "0x3a11000000c90000"
+
+[scenario.battle]
+type = "link_battle"
+
+[[scenario.player_party]]
+species = "Snorlax"
+level = 40
+moves = ["body_slam"]
+
+[[scenario.enemy_party]]
+species = "Houndoom"
+level = 40
+moves = ["beat_up"]
+
+[[scenario.enemy_party]]
+species = "Houndour"
+level = 30
+
+[[scenario.enemy_party]]
+species = "Sneasel"
+level = 30
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 179
+expect.player.active.max_hp = 179
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 179, max_hp = 179, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 121
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOOM", level = 40, hp = 121, max_hp = 121, status = "none", item = "none" }, { species = "HOUNDOUR", level = 30, hp = 75, max_hp = 75, status = "none", item = "none" }, { species = "SNEASEL", level = 30, hp = 81, max_hp = 81, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 166
+expect.player.active.max_hp = 179
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 166, max_hp = 179, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 30
+expect.enemy.active.max_hp = 121
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [9, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOOM", level = 40, hp = 30, max_hp = 121, status = "paralysis", item = "none" }, { species = "HOUNDOUR", level = 30, hp = 75, max_hp = 75, status = "none", item = "none" }, { species = "SNEASEL", level = 30, hp = 81, max_hp = 81, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 166
+expect.player.active.max_hp = 179
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 166, max_hp = 179, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 30
+expect.enemy.active.max_hp = 121
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [9, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOOM", level = 40, hp = 30, max_hp = 121, status = "paralysis", item = "none" }, { species = "HOUNDOUR", level = 30, hp = 75, max_hp = 75, status = "none", item = "none" }, { species = "SNEASEL", level = 30, hp = 81, max_hp = 81, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 166
+expect.player.active.max_hp = 179
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 166, max_hp = 179, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 121
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [9, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOOM", level = 40, hp = 0, max_hp = 121, status = "paralysis", item = "none" }, { species = "HOUNDOUR", level = 30, hp = 75, max_hp = 75, status = "none", item = "none" }, { species = "SNEASEL", level = 30, hp = 81, max_hp = 81, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "switch"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 166
+expect.player.active.max_hp = 179
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 166, max_hp = 179, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HOUNDOUR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 75
+expect.enemy.active.max_hp = 75
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 25, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOOM", level = 40, hp = 0, max_hp = 121, status = "paralysis", item = "none" }, { species = "HOUNDOUR", level = 30, hp = 75, max_hp = 75, status = "none", item = "none" }, { species = "SNEASEL", level = 30, hp = 81, max_hp = 81, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 166
+expect.player.active.max_hp = 179
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 166, max_hp = 179, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HOUNDOUR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 75
+expect.enemy.active.max_hp = 75
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 25, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOOM", level = 40, hp = 0, max_hp = 121, status = "paralysis", item = "none" }, { species = "HOUNDOUR", level = 30, hp = 75, max_hp = 75, status = "none", item = "none" }, { species = "SNEASEL", level = 30, hp = 81, max_hp = 81, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 149
+expect.player.active.max_hp = 179
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 149, max_hp = 179, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HOUNDOUR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 75
+expect.enemy.active.max_hp = 75
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 24, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOOM", level = 40, hp = 0, max_hp = 121, status = "paralysis", item = "none" }, { species = "HOUNDOUR", level = 30, hp = 75, max_hp = 75, status = "none", item = "none" }, { species = "SNEASEL", level = 30, hp = 81, max_hp = 81, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 149
+expect.player.active.max_hp = 179
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 149, max_hp = 179, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HOUNDOUR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 75
+expect.enemy.active.max_hp = 75
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 24, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOOM", level = 40, hp = 0, max_hp = 121, status = "paralysis", item = "none" }, { species = "HOUNDOUR", level = 30, hp = 75, max_hp = 75, status = "none", item = "none" }, { species = "SNEASEL", level = 30, hp = 81, max_hp = 81, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 133
+expect.player.active.max_hp = 179
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 133, max_hp = 179, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HOUNDOUR"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 75
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 23, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOOM", level = 40, hp = 0, max_hp = 121, status = "paralysis", item = "none" }, { species = "HOUNDOUR", level = 30, hp = 0, max_hp = 75, status = "none", item = "none" }, { species = "SNEASEL", level = 30, hp = 81, max_hp = 81, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "switch"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 133
+expect.player.active.max_hp = 179
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 133, max_hp = 179, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "SNEASEL"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 81
+expect.enemy.active.max_hp = 81
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 30, 40, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOOM", level = 40, hp = 0, max_hp = 121, status = "paralysis", item = "none" }, { species = "HOUNDOUR", level = 30, hp = 0, max_hp = 75, status = "none", item = "none" }, { species = "SNEASEL", level = 30, hp = 81, max_hp = 81, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 133
+expect.player.active.max_hp = 179
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 133, max_hp = 179, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "SNEASEL"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 81
+expect.enemy.active.max_hp = 81
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 30, 40, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOOM", level = 40, hp = 0, max_hp = 121, status = "paralysis", item = "none" }, { species = "HOUNDOUR", level = 30, hp = 0, max_hp = 75, status = "none", item = "none" }, { species = "SNEASEL", level = 30, hp = 81, max_hp = 81, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 124
+expect.player.active.max_hp = 179
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 124, max_hp = 179, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "SNEASEL"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 81
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 30, 40, 19]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOOM", level = 40, hp = 0, max_hp = 121, status = "paralysis", item = "none" }, { species = "HOUNDOUR", level = 30, hp = 0, max_hp = 75, status = "none", item = "none" }, { species = "SNEASEL", level = 30, hp = 0, max_hp = 81, status = "none", item = "none" }]
+expect.battle.outcome = "win"
