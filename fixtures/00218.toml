@@ -1,0 +1,122 @@
+[recording]
+seed = "0x3d14000000000000"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Janine"
+
+[[scenario.player_party]]
+species = "Snorlax"
+level = 40
+moves = ["body_slam"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 178
+expect.player.active.max_hp = 178
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 178, max_hp = 178, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 36
+expect.enemy.active.hp = 49
+expect.enemy.active.max_hp = 112
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [40, 19, 10, 35]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 49, max_hp = 112, status = "paralysis", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 109, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 178
+expect.player.active.max_hp = 178
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 178, max_hp = 178, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "WEEZING"
+expect.enemy.active.level = 36
+expect.enemy.active.hp = 98
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "paralysis", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 109, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 167
+expect.player.active.max_hp = 178
+expect.player.active.status = "poison"
+expect.player.active.pp = [12, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 167, max_hp = 178, status = "poison", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "WEEZING"
+expect.enemy.active.level = 36
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 9, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "paralysis", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 109, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 94
+expect.player.active.max_hp = 178
+expect.player.active.status = "poison"
+expect.player.active.pp = [11, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 94, max_hp = 178, status = "poison", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "WEEZING"
+expect.enemy.active.level = 36
+expect.enemy.active.hp = 15
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 9, 9, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "paralysis", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 109, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 0
+expect.player.active.max_hp = 178
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 0, max_hp = 178, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "WEEZING"
+expect.enemy.active.level = 36
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 9, 9, 4]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "paralysis", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 109, max_hp = 109, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
