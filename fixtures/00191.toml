@@ -1,0 +1,247 @@
+[recording]
+seed = "0x3a11000000bf0000"
+
+[scenario.battle]
+type = "wild_encounter"
+
+[[scenario.player_party]]
+species = "Houndoom"
+level = 40
+moves = ["beat_up"]
+
+[[scenario.player_party]]
+species = "Snorlax"
+level = 40
+
+[[scenario.player_party]]
+species = "Tauros"
+level = 40
+
+[[scenario.player_party]]
+species = "Miltank"
+level = 40
+
+[[scenario.enemy_party]]
+species = "Tauros"
+level = 35
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HOUNDOOM"
+expect.player.active.level = 40
+expect.player.active.hp = 77
+expect.player.active.max_hp = 118
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 40, hp = 77, max_hp = 118, status = "none", item = "none" }, { species = "SNORLAX", level = 40, hp = 185, max_hp = 185, status = "none", item = "none" }, { species = "TAUROS", level = 40, hp = 116, max_hp = 116, status = "none", item = "none" }, { species = "MILTANK", level = 40, hp = 127, max_hp = 127, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 90
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [24, 10, 20, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HOUNDOOM"
+expect.player.active.level = 40
+expect.player.active.hp = 77
+expect.player.active.max_hp = 118
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 40, hp = 77, max_hp = 118, status = "none", item = "none" }, { species = "SNORLAX", level = 40, hp = 185, max_hp = 185, status = "none", item = "none" }, { species = "TAUROS", level = 40, hp = 116, max_hp = 116, status = "none", item = "none" }, { species = "MILTANK", level = 40, hp = 127, max_hp = 127, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 90
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [24, 10, 20, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HOUNDOOM"
+expect.player.active.level = 40
+expect.player.active.hp = 77
+expect.player.active.max_hp = 118
+expect.player.active.status = "none"
+expect.player.active.pp = [7, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 40, hp = 77, max_hp = 118, status = "none", item = "none" }, { species = "SNORLAX", level = 40, hp = 185, max_hp = 185, status = "none", item = "none" }, { species = "TAUROS", level = 40, hp = 116, max_hp = 116, status = "none", item = "none" }, { species = "MILTANK", level = 40, hp = 127, max_hp = 127, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 73
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [24, 10, 20, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HOUNDOOM"
+expect.player.active.level = 40
+expect.player.active.hp = 77
+expect.player.active.max_hp = 118
+expect.player.active.status = "none"
+expect.player.active.pp = [6, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 40, hp = 77, max_hp = 118, status = "none", item = "none" }, { species = "SNORLAX", level = 40, hp = 185, max_hp = 185, status = "none", item = "none" }, { species = "TAUROS", level = 40, hp = 116, max_hp = 116, status = "none", item = "none" }, { species = "MILTANK", level = 40, hp = 127, max_hp = 127, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 56
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [24, 10, 20, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HOUNDOOM"
+expect.player.active.level = 40
+expect.player.active.hp = 29
+expect.player.active.max_hp = 118
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 40, hp = 29, max_hp = 118, status = "none", item = "none" }, { species = "SNORLAX", level = 40, hp = 185, max_hp = 185, status = "none", item = "none" }, { species = "TAUROS", level = 40, hp = 116, max_hp = 116, status = "none", item = "none" }, { species = "MILTANK", level = 40, hp = 127, max_hp = 127, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 39
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [23, 10, 20, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HOUNDOOM"
+expect.player.active.level = 40
+expect.player.active.hp = 29
+expect.player.active.max_hp = 118
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 40, hp = 29, max_hp = 118, status = "none", item = "none" }, { species = "SNORLAX", level = 40, hp = 185, max_hp = 185, status = "none", item = "none" }, { species = "TAUROS", level = 40, hp = 116, max_hp = 116, status = "none", item = "none" }, { species = "MILTANK", level = 40, hp = 127, max_hp = 127, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 22
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [23, 9, 20, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HOUNDOOM"
+expect.player.active.level = 40
+expect.player.active.hp = 29
+expect.player.active.max_hp = 118
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 40, hp = 29, max_hp = 118, status = "none", item = "none" }, { species = "SNORLAX", level = 40, hp = 185, max_hp = 185, status = "none", item = "none" }, { species = "TAUROS", level = 40, hp = 116, max_hp = 116, status = "none", item = "none" }, { species = "MILTANK", level = 40, hp = 127, max_hp = 127, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 3
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [23, 8, 20, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HOUNDOOM"
+expect.player.active.level = 40
+expect.player.active.hp = 0
+expect.player.active.max_hp = 118
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 40, hp = 0, max_hp = 118, status = "none", item = "none" }, { species = "SNORLAX", level = 40, hp = 185, max_hp = 185, status = "none", item = "none" }, { species = "TAUROS", level = 40, hp = 116, max_hp = 116, status = "none", item = "none" }, { species = "MILTANK", level = 40, hp = 127, max_hp = 127, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 3
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [22, 8, 20, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 185
+expect.player.active.max_hp = 185
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 15, 15, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 40, hp = 0, max_hp = 118, status = "none", item = "none" }, { species = "SNORLAX", level = 40, hp = 185, max_hp = 185, status = "none", item = "none" }, { species = "TAUROS", level = 40, hp = 116, max_hp = 116, status = "none", item = "none" }, { species = "MILTANK", level = 40, hp = 127, max_hp = 127, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 3
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [22, 8, 20, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 185
+expect.player.active.max_hp = 185
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 14, 15, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 40, hp = 0, max_hp = 118, status = "none", item = "none" }, { species = "SNORLAX", level = 40, hp = 185, max_hp = 185, status = "none", item = "none" }, { species = "TAUROS", level = 40, hp = 116, max_hp = 116, status = "none", item = "none" }, { species = "MILTANK", level = 40, hp = 127, max_hp = 127, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [22, 7, 20, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+expect.battle.outcome = "win"
