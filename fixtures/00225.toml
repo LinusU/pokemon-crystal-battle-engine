@@ -1,0 +1,506 @@
+[recording]
+seed = "0x3d14000000000000"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Bruno"
+
+[[scenario.player_party]]
+species = "Gengar"
+level = 55
+moves = ["shadow_ball"]
+
+[[scenario.player_party]]
+species = "Gengar"
+level = 55
+moves = ["shadow_ball"]
+
+[[scenario.player_party]]
+species = "Gengar"
+level = 55
+moves = ["shadow_ball"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 55
+expect.player.active.hp = 131
+expect.player.active.max_hp = 131
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 55, hp = 131, max_hp = 131, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 134, max_hp = 134, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 145, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 55
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 9, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 55
+expect.player.active.hp = 79
+expect.player.active.max_hp = 131
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 55, hp = 79, max_hp = 131, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 134, max_hp = 134, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 145, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 55
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 9, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 55
+expect.player.active.hp = 79
+expect.player.active.max_hp = 131
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 55, hp = 79, max_hp = 131, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 134, max_hp = 134, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 145, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 11
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 8, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 55
+expect.player.active.hp = 28
+expect.player.active.max_hp = 131
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 55, hp = 28, max_hp = 131, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 134, max_hp = 134, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 145, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 11
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 8, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 55
+expect.player.active.hp = 28
+expect.player.active.max_hp = 131
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 55, hp = 28, max_hp = 131, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 134, max_hp = 134, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 145, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 92
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "offer_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 55
+expect.player.active.hp = 134
+expect.player.active.max_hp = 134
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 55, hp = 28, max_hp = 131, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 134, max_hp = 134, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 145, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 92
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 55
+expect.player.active.hp = 118
+expect.player.active.max_hp = 134
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 55, hp = 28, max_hp = 131, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 118, max_hp = 134, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 145, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 62
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 9, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 55
+expect.player.active.hp = 17
+expect.player.active.max_hp = 134
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 55, hp = 28, max_hp = 131, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 17, max_hp = 134, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 145, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 32
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 9, 9, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 55
+expect.player.active.hp = 0
+expect.player.active.max_hp = 134
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 55, hp = 28, max_hp = 131, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 0, max_hp = 134, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 145, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 4
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 8, 9, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 55
+expect.player.active.hp = 127
+expect.player.active.max_hp = 145
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 55, hp = 28, max_hp = 131, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 0, max_hp = 134, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 127, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 4
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 8, 9, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 55
+expect.player.active.hp = 127
+expect.player.active.max_hp = 145
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 55, hp = 28, max_hp = 131, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 0, max_hp = 134, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 127, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 30, 20, 40]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 2
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 55
+expect.player.active.hp = 109
+expect.player.active.max_hp = 145
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 55, hp = 28, max_hp = 131, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 0, max_hp = 134, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 109, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 91
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 30, 20, 40]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 55
+expect.player.active.hp = 109
+expect.player.active.max_hp = 145
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 55, hp = 28, max_hp = 131, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 0, max_hp = 134, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 109, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 10
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 30, 20, 39]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 55
+expect.player.active.hp = 109
+expect.player.active.max_hp = 145
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 55, hp = 28, max_hp = 131, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 0, max_hp = 134, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 109, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 15, 30]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 2
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 55
+expect.player.active.hp = 109
+expect.player.active.max_hp = 145
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 55, hp = 28, max_hp = 131, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 0, max_hp = 134, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 109, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 15, 30]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 55
+expect.player.active.hp = 98
+expect.player.active.max_hp = 145
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 55, hp = 28, max_hp = 131, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 0, max_hp = 134, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 98, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 39
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 15, 29]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 55
+expect.player.active.hp = 85
+expect.player.active.max_hp = 145
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 55, hp = 28, max_hp = 131, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 0, max_hp = 134, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 85, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 148
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 40, 10, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 2
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 55
+expect.player.active.hp = 85
+expect.player.active.max_hp = 145
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 55, hp = 28, max_hp = 131, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 0, max_hp = 134, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 85, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 148
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 40, 10, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 55
+expect.player.active.hp = 85
+expect.player.active.max_hp = 145
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 55, hp = 28, max_hp = 131, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 0, max_hp = 134, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 85, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 92
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 40, 10, 4]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 55
+expect.player.active.hp = 42
+expect.player.active.max_hp = 145
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 55, hp = 28, max_hp = 131, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 0, max_hp = 134, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 42, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 35
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 40, 10, 3]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 55
+expect.player.active.hp = 42
+expect.player.active.max_hp = 145
+expect.player.active.status = "none"
+expect.player.active.pp = [7, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 55, hp = 28, max_hp = 131, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 0, max_hp = 134, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 42, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 48
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 40, 10, 3]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 55
+expect.player.active.hp = 42
+expect.player.active.max_hp = 145
+expect.player.active.status = "none"
+expect.player.active.pp = [6, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 55, hp = 28, max_hp = 131, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 0, max_hp = 134, status = "none", item = "none" }, { species = "GENGAR", level = 55, hp = 42, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 40, 10, 3]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 0, max_hp = 148, status = "none", item = "none" }]
+expect.battle.outcome = "win"
