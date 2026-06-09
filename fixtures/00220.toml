@@ -1,0 +1,320 @@
+[recording]
+seed = "0x3d14000000000000"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Erika"
+
+[[scenario.player_party]]
+species = "Snorlax"
+level = 50
+moves = ["body_slam"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 220
+expect.player.active.max_hp = 220
+expect.player.active.status = "sleep"
+expect.player.active.pp = [15, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 220, max_hp = 220, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 113
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 5, 14]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none", item = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none", item = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none", item = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 193
+expect.player.active.max_hp = 220
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 193, max_hp = 220, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 61
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 4, 14]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none", item = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none", item = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none", item = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 193
+expect.player.active.max_hp = 220
+expect.player.active.status = "sleep"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 193, max_hp = 220, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 61
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 4, 13]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none", item = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none", item = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none", item = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 168
+expect.player.active.max_hp = 220
+expect.player.active.status = "sleep"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 168, max_hp = 220, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 73
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 3, 13]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none", item = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none", item = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none", item = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 140
+expect.player.active.max_hp = 220
+expect.player.active.status = "sleep"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 140, max_hp = 220, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 87
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 2, 13]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none", item = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none", item = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none", item = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 115
+expect.player.active.max_hp = 220
+expect.player.active.status = "sleep"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 115, max_hp = 220, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 99
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 1, 13]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none", item = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none", item = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none", item = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 89
+expect.player.active.max_hp = 220
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 89, max_hp = 220, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 0, 13]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none", item = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none", item = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none", item = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 89
+expect.player.active.max_hp = 220
+expect.player.active.status = "sleep"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 89, max_hp = 220, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 0, 12]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none", item = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none", item = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none", item = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 72
+expect.player.active.max_hp = 220
+expect.player.active.status = "sleep"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 72, max_hp = 220, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 20, 0, 12]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none", item = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none", item = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none", item = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 72
+expect.player.active.max_hp = 220
+expect.player.active.status = "sleep"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 72, max_hp = 220, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TANGELA"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 19, 0, 12]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 113, max_hp = 113, status = "none", item = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none", item = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none", item = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 55
+expect.player.active.max_hp = 220
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 55, max_hp = 220, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "JUMPLUFF"
+expect.enemy.active.level = 41
+expect.enemy.active.hp = 119
+expect.enemy.active.max_hp = 119
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 10, 40, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none", item = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none", item = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 38
+expect.player.active.max_hp = 220
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 38, max_hp = 220, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "JUMPLUFF"
+expect.enemy.active.level = 41
+expect.enemy.active.hp = 27
+expect.enemy.active.max_hp = 119
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 10, 40, 4]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "JUMPLUFF", level = 41, hp = 119, max_hp = 119, status = "none", item = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none", item = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 22
+expect.player.active.max_hp = 220
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 22, max_hp = 220, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "VICTREEBEL"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 136
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 5, 30, 25]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "JUMPLUFF", level = 41, hp = 0, max_hp = 119, status = "none", item = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none", item = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 0
+expect.player.active.max_hp = 220
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 0, max_hp = 220, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "VICTREEBEL"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 136
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 5, 29, 25]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TANGELA", level = 42, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "JUMPLUFF", level = 41, hp = 0, max_hp = 119, status = "none", item = "none" }, { species = "VICTREEBEL", level = 46, hp = 136, max_hp = 136, status = "none", item = "none" }, { species = "BELLOSSOM", level = 46, hp = 132, max_hp = 132, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
