@@ -1,0 +1,479 @@
+[recording]
+seed = "0x3d14000000000000"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Blue"
+
+[[scenario.player_party]]
+species = "Lapras"
+level = 65
+moves = ["ice_beam"]
+
+[[scenario.player_party]]
+species = "Lapras"
+level = 65
+moves = ["ice_beam"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 65
+expect.player.active.hp = 202
+expect.player.active.max_hp = 244
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 65, hp = 202, max_hp = 244, status = "none", item = "none" }, { species = "LAPRAS", level = 65, hp = 247, max_hp = 247, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PIDGEOT"
+expect.enemy.active.level = 56
+expect.enemy.active.hp = 7
+expect.enemy.active.max_hp = 175
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 20, 34, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 56, hp = 175, max_hp = 175, status = "none", item = "none" }, { species = "ALAKAZAM", level = 54, hp = 139, max_hp = 139, status = "none", item = "none" }, { species = "RHYDON", level = 56, hp = 200, max_hp = 200, status = "none", item = "none" }, { species = "GYARADOS", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "EXEGGUTOR", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "ARCANINE", level = 58, hp = 189, max_hp = 189, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 65
+expect.player.active.hp = 194
+expect.player.active.max_hp = 244
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 65, hp = 194, max_hp = 244, status = "none", item = "none" }, { species = "LAPRAS", level = 65, hp = 247, max_hp = 247, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ALAKAZAM"
+expect.enemy.active.level = 54
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 10, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 56, hp = 0, max_hp = 175, status = "none", item = "none" }, { species = "ALAKAZAM", level = 54, hp = 139, max_hp = 139, status = "none", item = "none" }, { species = "RHYDON", level = 56, hp = 200, max_hp = 200, status = "none", item = "none" }, { species = "GYARADOS", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "EXEGGUTOR", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "ARCANINE", level = 58, hp = 189, max_hp = 189, status = "none", item = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 65
+expect.player.active.hp = 194
+expect.player.active.max_hp = 244
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 65, hp = 194, max_hp = 244, status = "none", item = "none" }, { species = "LAPRAS", level = 65, hp = 247, max_hp = 247, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ALAKAZAM"
+expect.enemy.active.level = 54
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 10, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 56, hp = 0, max_hp = 175, status = "none", item = "none" }, { species = "ALAKAZAM", level = 54, hp = 139, max_hp = 139, status = "none", item = "none" }, { species = "RHYDON", level = 56, hp = 200, max_hp = 200, status = "none", item = "none" }, { species = "GYARADOS", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "EXEGGUTOR", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "ARCANINE", level = 58, hp = 189, max_hp = 189, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 65
+expect.player.active.hp = 118
+expect.player.active.max_hp = 244
+expect.player.active.status = "none"
+expect.player.active.pp = [7, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 65, hp = 118, max_hp = 244, status = "none", item = "none" }, { species = "LAPRAS", level = 65, hp = 247, max_hp = 247, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ALAKAZAM"
+expect.enemy.active.level = 54
+expect.enemy.active.hp = 59
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 9, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 56, hp = 0, max_hp = 175, status = "none", item = "none" }, { species = "ALAKAZAM", level = 54, hp = 139, max_hp = 139, status = "none", item = "none" }, { species = "RHYDON", level = 56, hp = 200, max_hp = 200, status = "none", item = "none" }, { species = "GYARADOS", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "EXEGGUTOR", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "ARCANINE", level = 58, hp = 189, max_hp = 189, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 65
+expect.player.active.hp = 38
+expect.player.active.max_hp = 244
+expect.player.active.status = "none"
+expect.player.active.pp = [6, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 65, hp = 38, max_hp = 244, status = "none", item = "none" }, { species = "LAPRAS", level = 65, hp = 247, max_hp = 247, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "RHYDON"
+expect.enemy.active.level = 56
+expect.enemy.active.hp = 200
+expect.enemy.active.max_hp = 200
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 56, hp = 0, max_hp = 175, status = "none", item = "none" }, { species = "ALAKAZAM", level = 54, hp = 0, max_hp = 139, status = "none", item = "none" }, { species = "RHYDON", level = 56, hp = 200, max_hp = 200, status = "none", item = "none" }, { species = "GYARADOS", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "EXEGGUTOR", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "ARCANINE", level = 58, hp = 189, max_hp = 189, status = "none", item = "none" }]
+
+[[step]]
+kind = "offer_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 65
+expect.player.active.hp = 247
+expect.player.active.max_hp = 247
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 65, hp = 38, max_hp = 244, status = "none", item = "none" }, { species = "LAPRAS", level = 65, hp = 247, max_hp = 247, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "RHYDON"
+expect.enemy.active.level = 56
+expect.enemy.active.hp = 200
+expect.enemy.active.max_hp = 200
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 56, hp = 0, max_hp = 175, status = "none", item = "none" }, { species = "ALAKAZAM", level = 54, hp = 0, max_hp = 139, status = "none", item = "none" }, { species = "RHYDON", level = 56, hp = 200, max_hp = 200, status = "none", item = "none" }, { species = "GYARADOS", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "EXEGGUTOR", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "ARCANINE", level = 58, hp = 189, max_hp = 189, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 65
+expect.player.active.hp = 247
+expect.player.active.max_hp = 247
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 65, hp = 38, max_hp = 244, status = "none", item = "none" }, { species = "LAPRAS", level = 65, hp = 247, max_hp = 247, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "GYARADOS"
+expect.enemy.active.level = 58
+expect.enemy.active.hp = 195
+expect.enemy.active.max_hp = 195
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 5, 5, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 56, hp = 0, max_hp = 175, status = "none", item = "none" }, { species = "ALAKAZAM", level = 54, hp = 0, max_hp = 139, status = "none", item = "none" }, { species = "RHYDON", level = 56, hp = 0, max_hp = 200, status = "none", item = "none" }, { species = "GYARADOS", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "EXEGGUTOR", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "ARCANINE", level = 58, hp = 189, max_hp = 189, status = "none", item = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 1
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 65
+expect.player.active.hp = 247
+expect.player.active.max_hp = 247
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 65, hp = 38, max_hp = 244, status = "none", item = "none" }, { species = "LAPRAS", level = 65, hp = 247, max_hp = 247, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "GYARADOS"
+expect.enemy.active.level = 58
+expect.enemy.active.hp = 195
+expect.enemy.active.max_hp = 195
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 5, 5, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 56, hp = 0, max_hp = 175, status = "none", item = "none" }, { species = "ALAKAZAM", level = 54, hp = 0, max_hp = 139, status = "none", item = "none" }, { species = "RHYDON", level = 56, hp = 0, max_hp = 200, status = "none", item = "none" }, { species = "GYARADOS", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "EXEGGUTOR", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "ARCANINE", level = 58, hp = 189, max_hp = 189, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 65
+expect.player.active.hp = 234
+expect.player.active.max_hp = 247
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 65, hp = 38, max_hp = 244, status = "none", item = "none" }, { species = "LAPRAS", level = 65, hp = 234, max_hp = 247, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "GYARADOS"
+expect.enemy.active.level = 58
+expect.enemy.active.hp = 119
+expect.enemy.active.max_hp = 195
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 5, 5, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 56, hp = 0, max_hp = 175, status = "none", item = "none" }, { species = "ALAKAZAM", level = 54, hp = 0, max_hp = 139, status = "none", item = "none" }, { species = "RHYDON", level = 56, hp = 0, max_hp = 200, status = "none", item = "none" }, { species = "GYARADOS", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "EXEGGUTOR", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "ARCANINE", level = 58, hp = 189, max_hp = 189, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 65
+expect.player.active.hp = 221
+expect.player.active.max_hp = 247
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 65, hp = 38, max_hp = 244, status = "none", item = "none" }, { species = "LAPRAS", level = 65, hp = 221, max_hp = 247, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "GYARADOS"
+expect.enemy.active.level = 58
+expect.enemy.active.hp = 119
+expect.enemy.active.max_hp = 195
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 5, 5, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 56, hp = 0, max_hp = 175, status = "none", item = "none" }, { species = "ALAKAZAM", level = 54, hp = 0, max_hp = 139, status = "none", item = "none" }, { species = "RHYDON", level = 56, hp = 0, max_hp = 200, status = "none", item = "none" }, { species = "GYARADOS", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "EXEGGUTOR", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "ARCANINE", level = 58, hp = 189, max_hp = 189, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 65
+expect.player.active.hp = 196
+expect.player.active.max_hp = 247
+expect.player.active.status = "none"
+expect.player.active.pp = [7, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 65, hp = 38, max_hp = 244, status = "none", item = "none" }, { species = "LAPRAS", level = 65, hp = 196, max_hp = 247, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "GYARADOS"
+expect.enemy.active.level = 58
+expect.enemy.active.hp = 44
+expect.enemy.active.max_hp = 195
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 4, 5, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 56, hp = 0, max_hp = 175, status = "none", item = "none" }, { species = "ALAKAZAM", level = 54, hp = 0, max_hp = 139, status = "none", item = "none" }, { species = "RHYDON", level = 56, hp = 0, max_hp = 200, status = "none", item = "none" }, { species = "GYARADOS", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "EXEGGUTOR", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "ARCANINE", level = 58, hp = 189, max_hp = 189, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 65
+expect.player.active.hp = 196
+expect.player.active.max_hp = 247
+expect.player.active.status = "none"
+expect.player.active.pp = [6, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 65, hp = 38, max_hp = 244, status = "none", item = "none" }, { species = "LAPRAS", level = 65, hp = 196, max_hp = 247, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "GYARADOS"
+expect.enemy.active.level = 58
+expect.enemy.active.hp = 125
+expect.enemy.active.max_hp = 195
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 4, 5, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 56, hp = 0, max_hp = 175, status = "none", item = "none" }, { species = "ALAKAZAM", level = 54, hp = 0, max_hp = 139, status = "none", item = "none" }, { species = "RHYDON", level = 56, hp = 0, max_hp = 200, status = "none", item = "none" }, { species = "GYARADOS", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "EXEGGUTOR", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "ARCANINE", level = 58, hp = 189, max_hp = 189, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 65
+expect.player.active.hp = 196
+expect.player.active.max_hp = 247
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 65, hp = 38, max_hp = 244, status = "none", item = "none" }, { species = "LAPRAS", level = 65, hp = 196, max_hp = 247, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "GYARADOS"
+expect.enemy.active.level = 58
+expect.enemy.active.hp = 49
+expect.enemy.active.max_hp = 195
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 3, 5, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 56, hp = 0, max_hp = 175, status = "none", item = "none" }, { species = "ALAKAZAM", level = 54, hp = 0, max_hp = 139, status = "none", item = "none" }, { species = "RHYDON", level = 56, hp = 0, max_hp = 200, status = "none", item = "none" }, { species = "GYARADOS", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "EXEGGUTOR", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "ARCANINE", level = 58, hp = 189, max_hp = 189, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 65
+expect.player.active.hp = 86
+expect.player.active.max_hp = 247
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 65, hp = 38, max_hp = 244, status = "none", item = "none" }, { species = "LAPRAS", level = 65, hp = 86, max_hp = 247, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "EXEGGUTOR"
+expect.enemy.active.level = 58
+expect.enemy.active.hp = 195
+expect.enemy.active.max_hp = 195
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 10, 10, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 56, hp = 0, max_hp = 175, status = "none", item = "none" }, { species = "ALAKAZAM", level = 54, hp = 0, max_hp = 139, status = "none", item = "none" }, { species = "RHYDON", level = 56, hp = 0, max_hp = 200, status = "none", item = "none" }, { species = "GYARADOS", level = 58, hp = 0, max_hp = 195, status = "none", item = "none" }, { species = "EXEGGUTOR", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "ARCANINE", level = 58, hp = 189, max_hp = 189, status = "none", item = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 1
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 65
+expect.player.active.hp = 86
+expect.player.active.max_hp = 247
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 65, hp = 38, max_hp = 244, status = "none", item = "none" }, { species = "LAPRAS", level = 65, hp = 86, max_hp = 247, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "EXEGGUTOR"
+expect.enemy.active.level = 58
+expect.enemy.active.hp = 195
+expect.enemy.active.max_hp = 195
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 10, 10, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 56, hp = 0, max_hp = 175, status = "none", item = "none" }, { species = "ALAKAZAM", level = 54, hp = 0, max_hp = 139, status = "none", item = "none" }, { species = "RHYDON", level = 56, hp = 0, max_hp = 200, status = "none", item = "none" }, { species = "GYARADOS", level = 58, hp = 0, max_hp = 195, status = "none", item = "none" }, { species = "EXEGGUTOR", level = 58, hp = 195, max_hp = 195, status = "none", item = "none" }, { species = "ARCANINE", level = 58, hp = 189, max_hp = 189, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 65
+expect.player.active.hp = 86
+expect.player.active.max_hp = 247
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 65, hp = 38, max_hp = 244, status = "none", item = "none" }, { species = "LAPRAS", level = 65, hp = 86, max_hp = 247, status = "none", item = "none" }]
+expect.enemy.active_slot = 5
+expect.enemy.active.species = "ARCANINE"
+expect.enemy.active.level = 58
+expect.enemy.active.hp = 189
+expect.enemy.active.max_hp = 189
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 15, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 56, hp = 0, max_hp = 175, status = "none", item = "none" }, { species = "ALAKAZAM", level = 54, hp = 0, max_hp = 139, status = "none", item = "none" }, { species = "RHYDON", level = 56, hp = 0, max_hp = 200, status = "none", item = "none" }, { species = "GYARADOS", level = 58, hp = 0, max_hp = 195, status = "none", item = "none" }, { species = "EXEGGUTOR", level = 58, hp = 0, max_hp = 195, status = "none", item = "none" }, { species = "ARCANINE", level = 58, hp = 189, max_hp = 189, status = "none", item = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 1
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 65
+expect.player.active.hp = 86
+expect.player.active.max_hp = 247
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 65, hp = 38, max_hp = 244, status = "none", item = "none" }, { species = "LAPRAS", level = 65, hp = 86, max_hp = 247, status = "none", item = "none" }]
+expect.enemy.active_slot = 5
+expect.enemy.active.species = "ARCANINE"
+expect.enemy.active.level = 58
+expect.enemy.active.hp = 189
+expect.enemy.active.max_hp = 189
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 15, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 56, hp = 0, max_hp = 175, status = "none", item = "none" }, { species = "ALAKAZAM", level = 54, hp = 0, max_hp = 139, status = "none", item = "none" }, { species = "RHYDON", level = 56, hp = 0, max_hp = 200, status = "none", item = "none" }, { species = "GYARADOS", level = 58, hp = 0, max_hp = 195, status = "none", item = "none" }, { species = "EXEGGUTOR", level = 58, hp = 0, max_hp = 195, status = "none", item = "none" }, { species = "ARCANINE", level = 58, hp = 189, max_hp = 189, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 65
+expect.player.active.hp = 22
+expect.player.active.max_hp = 247
+expect.player.active.status = "none"
+expect.player.active.pp = [2, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 65, hp = 38, max_hp = 244, status = "none", item = "none" }, { species = "LAPRAS", level = 65, hp = 22, max_hp = 247, status = "none", item = "none" }]
+expect.enemy.active_slot = 5
+expect.enemy.active.species = "ARCANINE"
+expect.enemy.active.level = 58
+expect.enemy.active.hp = 144
+expect.enemy.active.max_hp = 189
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 14, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 56, hp = 0, max_hp = 175, status = "none", item = "none" }, { species = "ALAKAZAM", level = 54, hp = 0, max_hp = 139, status = "none", item = "none" }, { species = "RHYDON", level = 56, hp = 0, max_hp = 200, status = "none", item = "none" }, { species = "GYARADOS", level = 58, hp = 0, max_hp = 195, status = "none", item = "none" }, { species = "EXEGGUTOR", level = 58, hp = 0, max_hp = 195, status = "none", item = "none" }, { species = "ARCANINE", level = 58, hp = 189, max_hp = 189, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 65
+expect.player.active.hp = 0
+expect.player.active.max_hp = 247
+expect.player.active.status = "none"
+expect.player.active.pp = [2, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 65, hp = 38, max_hp = 244, status = "none", item = "none" }, { species = "LAPRAS", level = 65, hp = 0, max_hp = 247, status = "none", item = "none" }]
+expect.enemy.active_slot = 5
+expect.enemy.active.species = "ARCANINE"
+expect.enemy.active.level = 58
+expect.enemy.active.hp = 144
+expect.enemy.active.max_hp = 189
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 13, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 56, hp = 0, max_hp = 175, status = "none", item = "none" }, { species = "ALAKAZAM", level = 54, hp = 0, max_hp = 139, status = "none", item = "none" }, { species = "RHYDON", level = 56, hp = 0, max_hp = 200, status = "none", item = "none" }, { species = "GYARADOS", level = 58, hp = 0, max_hp = 195, status = "none", item = "none" }, { species = "EXEGGUTOR", level = 58, hp = 0, max_hp = 195, status = "none", item = "none" }, { species = "ARCANINE", level = 58, hp = 189, max_hp = 189, status = "none", item = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 65
+expect.player.active.hp = 38
+expect.player.active.max_hp = 244
+expect.player.active.status = "none"
+expect.player.active.pp = [6, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 65, hp = 38, max_hp = 244, status = "none", item = "none" }, { species = "LAPRAS", level = 65, hp = 0, max_hp = 247, status = "none", item = "none" }]
+expect.enemy.active_slot = 5
+expect.enemy.active.species = "ARCANINE"
+expect.enemy.active.level = 58
+expect.enemy.active.hp = 144
+expect.enemy.active.max_hp = 189
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 13, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 56, hp = 0, max_hp = 175, status = "none", item = "none" }, { species = "ALAKAZAM", level = 54, hp = 0, max_hp = 139, status = "none", item = "none" }, { species = "RHYDON", level = 56, hp = 0, max_hp = 200, status = "none", item = "none" }, { species = "GYARADOS", level = 58, hp = 0, max_hp = 195, status = "none", item = "none" }, { species = "EXEGGUTOR", level = 58, hp = 0, max_hp = 195, status = "none", item = "none" }, { species = "ARCANINE", level = 58, hp = 189, max_hp = 189, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 65
+expect.player.active.hp = 0
+expect.player.active.max_hp = 244
+expect.player.active.status = "none"
+expect.player.active.pp = [6, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 65, hp = 0, max_hp = 244, status = "none", item = "none" }, { species = "LAPRAS", level = 65, hp = 0, max_hp = 247, status = "none", item = "none" }]
+expect.enemy.active_slot = 5
+expect.enemy.active.species = "ARCANINE"
+expect.enemy.active.level = 58
+expect.enemy.active.hp = 144
+expect.enemy.active.max_hp = 189
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 12, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 56, hp = 0, max_hp = 175, status = "none", item = "none" }, { species = "ALAKAZAM", level = 54, hp = 0, max_hp = 139, status = "none", item = "none" }, { species = "RHYDON", level = 56, hp = 0, max_hp = 200, status = "none", item = "none" }, { species = "GYARADOS", level = 58, hp = 0, max_hp = 195, status = "none", item = "none" }, { species = "EXEGGUTOR", level = 58, hp = 0, max_hp = 195, status = "none", item = "none" }, { species = "ARCANINE", level = 58, hp = 189, max_hp = 189, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
