@@ -1,0 +1,320 @@
+[recording]
+seed = "0x3c14000000000000"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Slowbro"
+level = 18
+moves = ["lick"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 18
+expect.player.active.hp = 56
+expect.player.active.max_hp = 62
+expect.player.active.status = "none"
+expect.player.active.pp = [29, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 18, hp = 56, max_hp = 62, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 10, 5, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none", item = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 18
+expect.player.active.hp = 56
+expect.player.active.max_hp = 62
+expect.player.active.status = "none"
+expect.player.active.pp = [28, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 18, hp = 56, max_hp = 62, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 10, 4, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none", item = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 18
+expect.player.active.hp = 56
+expect.player.active.max_hp = 62
+expect.player.active.status = "none"
+expect.player.active.pp = [27, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 18, hp = 56, max_hp = 62, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 5, 4, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none", item = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 18
+expect.player.active.hp = 47
+expect.player.active.max_hp = 62
+expect.player.active.status = "none"
+expect.player.active.pp = [26, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 18, hp = 47, max_hp = 62, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 5, 4, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none", item = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 18
+expect.player.active.hp = 41
+expect.player.active.max_hp = 62
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 18, hp = 41, max_hp = 62, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 5, 4, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none", item = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 18
+expect.player.active.hp = 35
+expect.player.active.max_hp = 62
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 18, hp = 35, max_hp = 62, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 5, 4, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none", item = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 18
+expect.player.active.hp = 35
+expect.player.active.max_hp = 62
+expect.player.active.status = "none"
+expect.player.active.pp = [23, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 18, hp = 35, max_hp = 62, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 5, 3, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none", item = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 18
+expect.player.active.hp = 30
+expect.player.active.max_hp = 62
+expect.player.active.status = "none"
+expect.player.active.pp = [22, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 18, hp = 30, max_hp = 62, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 4, 3, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none", item = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 18
+expect.player.active.hp = 25
+expect.player.active.max_hp = 62
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [22, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 18, hp = 25, max_hp = 62, status = "paralysis", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 3, 3, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none", item = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 18
+expect.player.active.hp = 18
+expect.player.active.max_hp = 62
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [21, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 18, hp = 18, max_hp = 62, status = "paralysis", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 2, 3, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none", item = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 18
+expect.player.active.hp = 18
+expect.player.active.max_hp = 62
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [21, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 18, hp = 18, max_hp = 62, status = "paralysis", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [6, 2, 3, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none", item = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 18
+expect.player.active.hp = 18
+expect.player.active.max_hp = 62
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [21, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 18, hp = 18, max_hp = 62, status = "paralysis", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [6, 2, 2, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none", item = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 18
+expect.player.active.hp = 13
+expect.player.active.max_hp = 62
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 18, hp = 13, max_hp = 62, status = "paralysis", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 53
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [6, 1, 2, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none", item = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 18
+expect.player.active.hp = 0
+expect.player.active.max_hp = 62
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 18, hp = 0, max_hp = 62, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CLEFAIRY"
+expect.enemy.active.level = 18
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [6, 1, 2, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CLEFAIRY", level = 18, hp = 53, max_hp = 53, status = "none", item = "none" }, { species = "MILTANK", level = 20, hp = 68, max_hp = 68, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
