@@ -1,0 +1,594 @@
+[recording]
+seed = "0x3d14000000000000"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "EXECUTIVEM_1"
+
+[[scenario.player_party]]
+species = "Machop"
+level = 28
+moves = ["karate_chop"]
+
+[[scenario.player_party]]
+species = "Snorlax"
+level = 45
+moves = ["swords_dance"]
+
+[[scenario.player_party]]
+species = "Lapras"
+level = 55
+moves = ["ice_beam"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MACHOP"
+expect.player.active.level = 28
+expect.player.active.hp = 29
+expect.player.active.max_hp = 77
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 29, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 201, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 20, 20, 30]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "MACHOP"
+expect.player.active.level = 28
+expect.player.active.hp = 29
+expect.player.active.max_hp = 77
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 29, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 201, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 20, 20, 30]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MACHOP"
+expect.player.active.level = 28
+expect.player.active.hp = 0
+expect.player.active.max_hp = 77
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 201, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 19, 20, 30]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 201
+expect.player.active.max_hp = 201
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 201, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 19, 20, 30]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 178
+expect.player.active.max_hp = 201
+expect.player.active.status = "none"
+expect.player.active.pp = [29, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 178, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 18, 20, 30]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 152
+expect.player.active.max_hp = 201
+expect.player.active.status = "none"
+expect.player.active.pp = [28, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 152, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 17, 20, 30]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 152
+expect.player.active.max_hp = 201
+expect.player.active.status = "none"
+expect.player.active.pp = [27, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 152, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 17, 20, 29]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 142
+expect.player.active.max_hp = 201
+expect.player.active.status = "none"
+expect.player.active.pp = [26, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 142, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [34, 17, 20, 29]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 142
+expect.player.active.max_hp = 201
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 142, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [34, 17, 20, 28]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 123
+expect.player.active.max_hp = 201
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 123, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [33, 17, 20, 28]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 123
+expect.player.active.max_hp = 201
+expect.player.active.status = "none"
+expect.player.active.pp = [23, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 123, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [33, 17, 20, 27]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 113
+expect.player.active.max_hp = 201
+expect.player.active.status = "none"
+expect.player.active.pp = [22, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 113, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [32, 17, 20, 27]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 113
+expect.player.active.max_hp = 201
+expect.player.active.status = "none"
+expect.player.active.pp = [21, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 113, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [32, 17, 20, 26]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 90
+expect.player.active.max_hp = 201
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 90, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [32, 16, 20, 26]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 81
+expect.player.active.max_hp = 201
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 81, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [31, 16, 20, 26]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 81
+expect.player.active.max_hp = 201
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 81, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [31, 16, 20, 25]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 54
+expect.player.active.max_hp = 201
+expect.player.active.status = "none"
+expect.player.active.pp = [17, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 54, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [31, 15, 20, 25]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 54
+expect.player.active.max_hp = 201
+expect.player.active.status = "none"
+expect.player.active.pp = [16, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 54, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [31, 15, 20, 24]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 28
+expect.player.active.max_hp = 201
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 28, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [31, 14, 20, 24]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 28
+expect.player.active.max_hp = 201
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 28, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [31, 14, 20, 23]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 18
+expect.player.active.max_hp = 201
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 18, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 14, 20, 23]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 45
+expect.player.active.hp = 0
+expect.player.active.max_hp = 201
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 0, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 13, 20, 23]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 55
+expect.player.active.hp = 222
+expect.player.active.max_hp = 222
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 0, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 13, 20, 23]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 55
+expect.player.active.hp = 222
+expect.player.active.max_hp = 222
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 0, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 222, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 20, 25, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 0, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 55
+expect.player.active.hp = 199
+expect.player.active.max_hp = 222
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 0, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 199, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 48
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "freeze"
+expect.enemy.active.pp = [25, 20, 25, 19]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 0, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 48, max_hp = 103, status = "freeze", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 55
+expect.player.active.hp = 199
+expect.player.active.max_hp = 222
+expect.player.active.status = "none"
+expect.player.active.pp = [7, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 28, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "SNORLAX", level = 45, hp = 0, max_hp = 201, status = "none", item = "none" }, { species = "LAPRAS", level = 55, hp = 199, max_hp = 222, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "freeze"
+expect.enemy.active.pp = [25, 20, 25, 19]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 0, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 0, max_hp = 103, status = "freeze", item = "none" }]
+expect.battle.outcome = "win"
