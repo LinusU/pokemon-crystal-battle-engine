@@ -1,0 +1,677 @@
+[recording]
+seed = "0x5dda8a3671364187"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "LT_SURGE_1"
+
+[[scenario.player_party]]
+species = "Gengar"
+level = 65
+moves = ["night_shade", "recover", "toxic", "hypnosis"]
+
+[[scenario.player_party]]
+species = "Nidoking"
+level = 50
+moves = ["earthquake", "rock_slide", "strength", "recover"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 65
+expect.player.active.hp = 168
+expect.player.active.max_hp = 168
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [14, 20, 10, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 168, max_hp = 168, status = "paralysis", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RAICHU"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 48
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 30, 15, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 113, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 65
+expect.player.active.hp = 116
+expect.player.active.max_hp = 168
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [13, 20, 10, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 116, max_hp = 168, status = "paralysis", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 30, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 65
+expect.player.active.hp = 116
+expect.player.active.max_hp = 168
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [13, 20, 10, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 116, max_hp = 168, status = "paralysis", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 30, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 65
+expect.player.active.hp = 51
+expect.player.active.max_hp = 168
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [12, 20, 10, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 51, max_hp = 168, status = "paralysis", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 58
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 30, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 65
+expect.player.active.hp = 0
+expect.player.active.max_hp = 168
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 20, 10, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 58
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 30, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 146
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 15, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 58
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 30, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 146
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 15, 19]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 58
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [29, 15, 30, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 146
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 15, 18]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [29, 15, 30, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 146
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 15, 17]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [29, 15, 29, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 146
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 15, 16]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [28, 15, 29, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 146
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 15, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [27, 15, 29, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 146
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 15, 14]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [26, 15, 29, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 146
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 15, 13]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 15, 29, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 146
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 15, 12]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [24, 15, 29, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 146
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 15, 11]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [24, 15, 28, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 146
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 15, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [23, 15, 28, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 146
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 15, 9]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [22, 15, 28, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 146
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 15, 8]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [21, 15, 28, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 146
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 15, 7]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 28, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 146
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 15, 6]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 15, 28, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 146
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 15, 5]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 15, 28, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 146
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 15, 4]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 15, 28, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 146
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 15, 3]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [16, 15, 28, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 146
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 15, 2]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [16, 15, 27, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 146
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 15, 1]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 27, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 146
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 15, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 146, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ELECTABUZZ"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 123
+expect.enemy.active.max_hp = 123
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 15, 27, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 123, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 129
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 10, 15, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 129, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "ELECTRODE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 104
+expect.enemy.active.max_hp = 104
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 15, 20, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 0, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 129
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 10, 15, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 129, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ELECTRODE"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 104
+expect.enemy.active.max_hp = 104
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 15, 20, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 104, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 0, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 129
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [7, 10, 15, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 129, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "MAGNETON"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 96
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 15, 20, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 96, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 0, max_hp = 123, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "NIDOKING"
+expect.player.active.level = 50
+expect.player.active.hp = 129
+expect.player.active.max_hp = 146
+expect.player.active.status = "none"
+expect.player.active.pp = [6, 10, 15, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 65, hp = 0, max_hp = 168, status = "none", item = "none" }, { species = "NIDOKING", level = 50, hp = 129, max_hp = 146, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "MAGNETON"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 15, 20, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 44, hp = 0, max_hp = 113, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none", item = "none" }, { species = "MAGNETON", level = 40, hp = 0, max_hp = 96, status = "none", item = "none" }, { species = "ELECTRODE", level = 40, hp = 0, max_hp = 104, status = "none", item = "none" }, { species = "ELECTABUZZ", level = 46, hp = 0, max_hp = 123, status = "none", item = "none" }]
+expect.battle.outcome = "win"
