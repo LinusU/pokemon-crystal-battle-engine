@@ -2,3 +2,4 @@
 /scratch
 /target
 /target-plain
+*.profraw
