@@ -1,0 +1,100 @@
+[recording]
+seed = "0x5b16000000000000"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "FISHER_4"
+
+[[scenario.player_party]]
+species = "Lapras"
+level = 50
+moves = ["perish_song", "growl", "leer", "safeguard"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 50
+expect.player.active.hp = 190
+expect.player.active.max_hp = 190
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 40, 30, 25]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 50, hp = 190, max_hp = 190, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SEAKING"
+expect.enemy.active.level = 28
+expect.enemy.active.hp = 87
+expect.enemy.active.max_hp = 87
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [29, 20, 25, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SEAKING", level = 28, hp = 87, max_hp = 87, status = "none", item = "none" }, { species = "POLIWHIRL", level = 31, hp = 86, max_hp = 86, status = "none", item = "none" }, { species = "SEAKING", level = 31, hp = 95, max_hp = 95, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 50
+expect.player.active.hp = 183
+expect.player.active.max_hp = 190
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 40, 30, 25]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 50, hp = 183, max_hp = 190, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SEAKING"
+expect.enemy.active.level = 28
+expect.enemy.active.hp = 87
+expect.enemy.active.max_hp = 87
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [29, 20, 25, 14]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SEAKING", level = 28, hp = 87, max_hp = 87, status = "none", item = "none" }, { species = "POLIWHIRL", level = 31, hp = 86, max_hp = 86, status = "none", item = "none" }, { species = "SEAKING", level = 31, hp = 95, max_hp = 95, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 50
+expect.player.active.hp = 183
+expect.player.active.max_hp = 190
+expect.player.active.status = "none"
+expect.player.active.pp = [2, 40, 30, 25]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 50, hp = 183, max_hp = 190, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SEAKING"
+expect.enemy.active.level = 28
+expect.enemy.active.hp = 87
+expect.enemy.active.max_hp = 87
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [28, 20, 25, 14]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SEAKING", level = 28, hp = 87, max_hp = 87, status = "none", item = "none" }, { species = "POLIWHIRL", level = 31, hp = 86, max_hp = 86, status = "none", item = "none" }, { species = "SEAKING", level = 31, hp = 95, max_hp = 95, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 50
+expect.player.active.hp = 0
+expect.player.active.max_hp = 190
+expect.player.active.status = "none"
+expect.player.active.pp = [1, 40, 30, 25]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 50, hp = 0, max_hp = 190, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWHIRL"
+expect.enemy.active.level = 31
+expect.enemy.active.hp = 86
+expect.enemy.active.max_hp = 86
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 25, 10, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SEAKING", level = 28, hp = 87, max_hp = 87, status = "none", item = "none" }, { species = "POLIWHIRL", level = 31, hp = 86, max_hp = 86, status = "none", item = "none" }, { species = "SEAKING", level = 31, hp = 95, max_hp = 95, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
