@@ -1,0 +1,166 @@
+[recording]
+seed = "0x915c5150baf12ab1"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "COOLTRAINERM_6"
+
+[[scenario.player_party]]
+species = "Snorlax"
+level = 100
+moves = ["splash", "body_slam", "earthquake", "amnesia"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 100
+expect.player.active.hp = 412
+expect.player.active.max_hp = 442
+expect.player.active.status = "none"
+expect.player.active.pp = [39, 15, 10, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 100, hp = 412, max_hp = 442, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VICTREEBEL"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 106
+expect.enemy.active.max_hp = 106
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 10, 30, 25]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VICTREEBEL", level = 35, hp = 106, max_hp = 106, status = "none", item = "none" }, { species = "KINGLER", level = 35, hp = 89, max_hp = 89, status = "none", item = "none" }, { species = "FLAREON", level = 35, hp = 96, max_hp = 96, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 100
+expect.player.active.hp = 375
+expect.player.active.max_hp = 442
+expect.player.active.status = "none"
+expect.player.active.pp = [38, 15, 10, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 100, hp = 375, max_hp = 442, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VICTREEBEL"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 106
+expect.enemy.active.max_hp = 106
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 10, 29, 25]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VICTREEBEL", level = 35, hp = 106, max_hp = 106, status = "none", item = "none" }, { species = "KINGLER", level = 35, hp = 89, max_hp = 89, status = "none", item = "none" }, { species = "FLAREON", level = 35, hp = 96, max_hp = 96, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 100
+expect.player.active.hp = 375
+expect.player.active.max_hp = 442
+expect.player.active.status = "poison"
+expect.player.active.pp = [37, 15, 10, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 100, hp = 375, max_hp = 442, status = "poison", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VICTREEBEL"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 106
+expect.enemy.active.max_hp = 106
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 9, 29, 25]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VICTREEBEL", level = 35, hp = 106, max_hp = 106, status = "none", item = "none" }, { species = "KINGLER", level = 35, hp = 89, max_hp = 89, status = "none", item = "none" }, { species = "FLAREON", level = 35, hp = 96, max_hp = 96, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 100
+expect.player.active.hp = 375
+expect.player.active.max_hp = 442
+expect.player.active.status = "poison"
+expect.player.active.pp = [37, 15, 9, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 100, hp = 375, max_hp = 442, status = "poison", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KINGLER"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 89
+expect.enemy.active.max_hp = 89
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 5, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VICTREEBEL", level = 35, hp = 0, max_hp = 106, status = "none", item = "none" }, { species = "KINGLER", level = 35, hp = 89, max_hp = 89, status = "none", item = "none" }, { species = "FLAREON", level = 35, hp = 96, max_hp = 96, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 100
+expect.player.active.hp = 348
+expect.player.active.max_hp = 442
+expect.player.active.status = "poison"
+expect.player.active.pp = [37, 15, 8, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 100, hp = 348, max_hp = 442, status = "poison", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KINGLER"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 89
+expect.enemy.active.max_hp = 89
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 5, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VICTREEBEL", level = 35, hp = 0, max_hp = 106, status = "none", item = "none" }, { species = "KINGLER", level = 35, hp = 89, max_hp = 89, status = "none", item = "none" }, { species = "FLAREON", level = 35, hp = 96, max_hp = 96, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 100
+expect.player.active.hp = 348
+expect.player.active.max_hp = 442
+expect.player.active.status = "poison"
+expect.player.active.pp = [37, 15, 7, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 100, hp = 348, max_hp = 442, status = "poison", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "FLAREON"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 96
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 30, 25, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VICTREEBEL", level = 35, hp = 0, max_hp = 106, status = "none", item = "none" }, { species = "KINGLER", level = 35, hp = 0, max_hp = 89, status = "none", item = "none" }, { species = "FLAREON", level = 35, hp = 96, max_hp = 96, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 100
+expect.player.active.hp = 348
+expect.player.active.max_hp = 442
+expect.player.active.status = "poison"
+expect.player.active.pp = [37, 15, 6, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 100, hp = 348, max_hp = 442, status = "poison", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "FLAREON"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 96
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 30, 25, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VICTREEBEL", level = 35, hp = 0, max_hp = 106, status = "none", item = "none" }, { species = "KINGLER", level = 35, hp = 0, max_hp = 89, status = "none", item = "none" }, { species = "FLAREON", level = 35, hp = 0, max_hp = 96, status = "none", item = "none" }]
+expect.battle.outcome = "win"
