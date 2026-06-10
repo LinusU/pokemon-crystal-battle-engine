@@ -1,0 +1,78 @@
+[recording]
+seed = "0xc7cbf289137f2cdb"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "FISHER_4"
+
+[[scenario.player_party]]
+species = "Golem"
+level = 60
+moves = ["rock_throw", "earthquake", "defense_curl", "harden"]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "GOLEM"
+expect.player.active.level = 60
+expect.player.active.hp = 168
+expect.player.active.max_hp = 168
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 9, 40, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GOLEM", level = 60, hp = 168, max_hp = 168, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "POLIWHIRL"
+expect.enemy.active.level = 31
+expect.enemy.active.hp = 86
+expect.enemy.active.max_hp = 86
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 25, 10, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SEAKING", level = 28, hp = 0, max_hp = 87, status = "none", item = "none" }, { species = "POLIWHIRL", level = 31, hp = 86, max_hp = 86, status = "none", item = "none" }, { species = "SEAKING", level = 31, hp = 95, max_hp = 95, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "GOLEM"
+expect.player.active.level = 60
+expect.player.active.hp = 130
+expect.player.active.max_hp = 168
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 8, 40, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GOLEM", level = 60, hp = 130, max_hp = 168, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "SEAKING"
+expect.enemy.active.level = 31
+expect.enemy.active.hp = 95
+expect.enemy.active.max_hp = 95
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 25, 15, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SEAKING", level = 28, hp = 0, max_hp = 87, status = "none", item = "none" }, { species = "POLIWHIRL", level = 31, hp = 0, max_hp = 86, status = "none", item = "none" }, { species = "SEAKING", level = 31, hp = 95, max_hp = 95, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "GOLEM"
+expect.player.active.level = 60
+expect.player.active.hp = 130
+expect.player.active.max_hp = 168
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 7, 40, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GOLEM", level = 60, hp = 130, max_hp = 168, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "SEAKING"
+expect.enemy.active.level = 31
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 95
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 25, 15, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SEAKING", level = 28, hp = 0, max_hp = 87, status = "none", item = "none" }, { species = "POLIWHIRL", level = 31, hp = 0, max_hp = 86, status = "none", item = "none" }, { species = "SEAKING", level = 31, hp = 0, max_hp = 95, status = "none", item = "none" }]
+expect.battle.outcome = "win"
