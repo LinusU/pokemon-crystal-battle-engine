@@ -1,0 +1,170 @@
+[recording]
+seed = "0x3c14000000000000"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "KAREN_1"
+
+[[scenario.player_party]]
+species = "Houndoom"
+level = 100
+moves = ["crunch", "surf", "flamethrower", "shadow_ball"]
+
+[[scenario.player_items]]
+name = "Full Restore"
+quantity = 5
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HOUNDOOM"
+expect.player.active.level = 100
+expect.player.active.hp = 260
+expect.player.active.max_hp = 260
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 14, 15, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 100, hp = 260, max_hp = 260, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "UMBREON"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 13
+expect.enemy.active.max_hp = 144
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 10, 20, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 144, max_hp = 144, status = "none", item = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none", item = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none", item = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none", item = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "HOUNDOOM"
+expect.player.active.level = 100
+expect.player.active.hp = 260
+expect.player.active.max_hp = 260
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 14, 14, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 100, hp = 260, max_hp = 260, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "MURKROW"
+expect.enemy.active.level = 44
+expect.enemy.active.hp = 120
+expect.enemy.active.max_hp = 120
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 20, 20, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 0, max_hp = 144, status = "none", item = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none", item = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none", item = "none" }, { species = "MURKROW", level = 44, hp = 120, max_hp = 120, status = "none", item = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HOUNDOOM"
+expect.player.active.level = 100
+expect.player.active.hp = 247
+expect.player.active.max_hp = 260
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 13, 14, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 100, hp = 247, max_hp = 260, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 47
+expect.enemy.active.hp = 141
+expect.enemy.active.max_hp = 141
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 15, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 0, max_hp = 144, status = "none", item = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none", item = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none", item = "none" }, { species = "MURKROW", level = 44, hp = 0, max_hp = 120, status = "none", item = "none" }, { species = "HOUNDOOM", level = 47, hp = 141, max_hp = 141, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "HOUNDOOM"
+expect.player.active.level = 100
+expect.player.active.hp = 247
+expect.player.active.max_hp = 260
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 13, 13, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 100, hp = 247, max_hp = 260, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "VILEPLUME"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 127
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 30, 5, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 0, max_hp = 144, status = "none", item = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none", item = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none", item = "none" }, { species = "MURKROW", level = 44, hp = 0, max_hp = 120, status = "none", item = "none" }, { species = "HOUNDOOM", level = 47, hp = 0, max_hp = 141, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HOUNDOOM"
+expect.player.active.level = 100
+expect.player.active.hp = 247
+expect.player.active.max_hp = 260
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [15, 12, 13, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 100, hp = 247, max_hp = 260, status = "paralysis", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "VILEPLUME"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 127
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [29, 30, 5, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 0, max_hp = 144, status = "none", item = "none" }, { species = "VILEPLUME", level = 42, hp = 127, max_hp = 127, status = "none", item = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none", item = "none" }, { species = "MURKROW", level = 44, hp = 0, max_hp = 120, status = "none", item = "none" }, { species = "HOUNDOOM", level = 47, hp = 0, max_hp = 141, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "HOUNDOOM"
+expect.player.active.level = 100
+expect.player.active.hp = 230
+expect.player.active.max_hp = 260
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [15, 12, 12, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 100, hp = 230, max_hp = 260, status = "paralysis", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 122
+expect.enemy.active.max_hp = 122
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 10, 10, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 0, max_hp = 144, status = "none", item = "none" }, { species = "VILEPLUME", level = 42, hp = 0, max_hp = 127, status = "none", item = "none" }, { species = "GENGAR", level = 45, hp = 122, max_hp = 122, status = "none", item = "none" }, { species = "MURKROW", level = 44, hp = 0, max_hp = 120, status = "none", item = "none" }, { species = "HOUNDOOM", level = 47, hp = 0, max_hp = 141, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HOUNDOOM"
+expect.player.active.level = 100
+expect.player.active.hp = 230
+expect.player.active.max_hp = 260
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [15, 11, 12, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 100, hp = 230, max_hp = 260, status = "paralysis", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 122
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 10, 9, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "UMBREON", level = 42, hp = 0, max_hp = 144, status = "none", item = "none" }, { species = "VILEPLUME", level = 42, hp = 0, max_hp = 127, status = "none", item = "none" }, { species = "GENGAR", level = 45, hp = 0, max_hp = 122, status = "none", item = "none" }, { species = "MURKROW", level = 44, hp = 0, max_hp = 120, status = "none", item = "none" }, { species = "HOUNDOOM", level = 47, hp = 0, max_hp = 141, status = "none", item = "none" }]
+expect.battle.outcome = "win"
