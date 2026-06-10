@@ -1,0 +1,144 @@
+[recording]
+seed = "0xbfce497eb41cdeb3"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "JANINE_1"
+
+[[scenario.player_party]]
+species = "Gengar"
+level = 50
+moves = ["night_shade", "lick", "hypnosis", "toxic"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 50
+expect.player.active.hp = 104
+expect.player.active.max_hp = 133
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 30, 20, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 50, hp = 104, max_hp = 133, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 36
+expect.enemy.active.hp = 62
+expect.enemy.active.max_hp = 112
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 20, 10, 34]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 112, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 109, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 50
+expect.player.active.hp = 76
+expect.player.active.max_hp = 133
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 30, 20, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 50, hp = 76, max_hp = 133, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 36
+expect.enemy.active.hp = 12
+expect.enemy.active.max_hp = 112
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 20, 10, 33]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 112, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 109, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 50
+expect.player.active.hp = 76
+expect.player.active.max_hp = 133
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 30, 20, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 50, hp = 76, max_hp = 133, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ARIADOS"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 94
+expect.enemy.active.max_hp = 94
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 5, 40, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 109, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 50
+expect.player.active.hp = 43
+expect.player.active.max_hp = 133
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 30, 20, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 50, hp = 43, max_hp = 133, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ARIADOS"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 44
+expect.enemy.active.max_hp = 94
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 5, 40, 14]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 109, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 50
+expect.player.active.hp = 43
+expect.player.active.max_hp = 133
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 30, 20, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 50, hp = 43, max_hp = 133, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "VENOMOTH"
+expect.enemy.active.level = 39
+expect.enemy.active.hp = 109
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 15, 35, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 0, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 109, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "GENGAR"
+expect.player.active.level = 50
+expect.player.active.hp = 0
+expect.player.active.max_hp = 133
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 30, 20, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GENGAR", level = 50, hp = 0, max_hp = 133, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "VENOMOTH"
+expect.enemy.active.level = 39
+expect.enemy.active.hp = 59
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 15, 35, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 0, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 109, max_hp = 109, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
