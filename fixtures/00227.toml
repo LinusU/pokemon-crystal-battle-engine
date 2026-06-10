@@ -1,0 +1,144 @@
+[recording]
+seed = "0x3d14000000000000"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "EXECUTIVEM_1"
+
+[[scenario.player_party]]
+species = "Lapras"
+level = 50
+moves = ["ice_beam"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 50
+expect.player.active.hp = 179
+expect.player.active.max_hp = 190
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 50, hp = 179, max_hp = 190, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HOUNDOUR"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 16
+expect.enemy.active.max_hp = 77
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [24, 20, 25, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 77, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 50
+expect.player.active.hp = 179
+expect.player.active.max_hp = 190
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 50, hp = 179, max_hp = 190, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KOFFING"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 74
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 20, 20, 30]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 50
+expect.player.active.hp = 179
+expect.player.active.max_hp = 190
+expect.player.active.status = "none"
+expect.player.active.pp = [7, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 50, hp = 179, max_hp = 190, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 20, 25, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 0, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 50
+expect.player.active.hp = 173
+expect.player.active.max_hp = 190
+expect.player.active.status = "none"
+expect.player.active.pp = [6, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 50, hp = 173, max_hp = 190, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 62
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 19, 25, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 0, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 50
+expect.player.active.hp = 147
+expect.player.active.max_hp = 190
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 50, hp = 147, max_hp = 190, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 24
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 19, 25, 19]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 0, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 103, max_hp = 103, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "LAPRAS"
+expect.player.active.level = 50
+expect.player.active.hp = 121
+expect.player.active.max_hp = 190
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "LAPRAS", level = 50, hp = 121, max_hp = 190, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [25, 19, 25, 18]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOUR", level = 33, hp = 0, max_hp = 77, status = "none", item = "none" }, { species = "KOFFING", level = 33, hp = 0, max_hp = 74, status = "none", item = "none" }, { species = "HOUNDOOM", level = 35, hp = 0, max_hp = 103, status = "none", item = "none" }]
+expect.battle.outcome = "win"
