@@ -1,0 +1,237 @@
+[recording]
+seed = "0x0300000000000000"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Blaine"
+
+[[scenario.player_party]]
+species = "Starmie"
+level = 60
+moves = ["recover", "psychic", "thunderbolt", "ice_beam"]
+
+[[scenario.player_party]]
+species = "Tentacruel"
+level = 40
+moves = ["bubblebeam", "toxic", "acid", "surf"]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 60
+expect.player.active.hp = 142
+expect.player.active.max_hp = 142
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 10, 14, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 60, hp = 142, max_hp = 142, status = "none", item = "none" }, { species = "TENTACRUEL", level = 40, hp = 114, max_hp = 114, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MAGMAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 120
+expect.enemy.active.max_hp = 120
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 5, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none", item = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none", item = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none", item = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 60
+expect.player.active.hp = 142
+expect.player.active.max_hp = 142
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 10, 14, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 60, hp = 142, max_hp = 142, status = "none", item = "none" }, { species = "TENTACRUEL", level = 40, hp = 114, max_hp = 114, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MAGMAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 120
+expect.enemy.active.max_hp = 120
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 5, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none", item = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none", item = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 60
+expect.player.active.hp = 142
+expect.player.active.max_hp = 142
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 10, 13, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 60, hp = 142, max_hp = 142, status = "none", item = "none" }, { species = "TENTACRUEL", level = 40, hp = 114, max_hp = 114, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "MAGMAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 56
+expect.enemy.active.max_hp = 120
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 4, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none", item = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none", item = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 60
+expect.player.active.hp = 142
+expect.player.active.max_hp = 142
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 10, 12, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 60, hp = 142, max_hp = 142, status = "none", item = "none" }, { species = "TENTACRUEL", level = 40, hp = 114, max_hp = 114, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "RAPIDASH"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 133
+expect.enemy.active.max_hp = 133
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 20, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none", item = "none" }, { species = "MAGMAR", level = 45, hp = 0, max_hp = 120, status = "none", item = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none", item = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 60
+expect.player.active.hp = 142
+expect.player.active.max_hp = 142
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 10, 12, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 60, hp = 142, max_hp = 142, status = "none", item = "none" }, { species = "TENTACRUEL", level = 40, hp = 114, max_hp = 114, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "RAPIDASH"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 133
+expect.enemy.active.max_hp = 133
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 20, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none", item = "none" }, { species = "MAGMAR", level = 45, hp = 0, max_hp = 120, status = "none", item = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 60
+expect.player.active.hp = 91
+expect.player.active.max_hp = 142
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 10, 11, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 60, hp = 91, max_hp = 142, status = "none", item = "none" }, { species = "TENTACRUEL", level = 40, hp = 114, max_hp = 114, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "RAPIDASH"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 70
+expect.enemy.active.max_hp = 133
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 20, 4]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none", item = "none" }, { species = "MAGMAR", level = 45, hp = 0, max_hp = 120, status = "none", item = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 60
+expect.player.active.hp = 42
+expect.player.active.max_hp = 142
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 10, 10, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 60, hp = 42, max_hp = 142, status = "none", item = "none" }, { species = "TENTACRUEL", level = 40, hp = 114, max_hp = 114, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "RAPIDASH"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 6
+expect.enemy.active.max_hp = 133
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 20, 3]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none", item = "none" }, { species = "MAGMAR", level = 45, hp = 0, max_hp = 120, status = "none", item = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 60
+expect.player.active.hp = 42
+expect.player.active.max_hp = 142
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 10, 9, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 60, hp = 42, max_hp = 142, status = "none", item = "none" }, { species = "TENTACRUEL", level = 40, hp = 114, max_hp = 114, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "RAPIDASH"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 68
+expect.enemy.active.max_hp = 133
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 20, 3]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none", item = "none" }, { species = "MAGMAR", level = 45, hp = 0, max_hp = 120, status = "none", item = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 60
+expect.player.active.hp = 42
+expect.player.active.max_hp = 142
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 10, 9, 9]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 60, hp = 42, max_hp = 142, status = "none", item = "none" }, { species = "TENTACRUEL", level = 40, hp = 114, max_hp = 114, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "RAPIDASH"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 39
+expect.enemy.active.max_hp = 133
+expect.enemy.active.status = "freeze"
+expect.enemy.active.pp = [30, 15, 20, 3]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none", item = "none" }, { species = "MAGMAR", level = 45, hp = 0, max_hp = 120, status = "none", item = "none" }, { species = "RAPIDASH", level = 50, hp = 39, max_hp = 133, status = "freeze", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 60
+expect.player.active.hp = 42
+expect.player.active.max_hp = 142
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 10, 8, 9]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 60, hp = 42, max_hp = 142, status = "none", item = "none" }, { species = "TENTACRUEL", level = 40, hp = 114, max_hp = 114, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "RAPIDASH"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 133
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 15, 20, 3]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none", item = "none" }, { species = "MAGMAR", level = 45, hp = 0, max_hp = 120, status = "none", item = "none" }, { species = "RAPIDASH", level = 50, hp = 0, max_hp = 133, status = "none", item = "none" }]
+expect.battle.outcome = "win"
