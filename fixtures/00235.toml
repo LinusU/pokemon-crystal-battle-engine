@@ -1,0 +1,281 @@
+[recording]
+seed = "0x3c14000000000000"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "BRUNO_1"
+
+[[scenario.player_party]]
+species = "Haunter"
+level = 100
+moves = ["night_shade", "hypnosis", "confuse_ray", "curse"]
+
+[[scenario.player_items]]
+name = "Full Restore"
+quantity = 5
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 100
+expect.player.active.hp = 200
+expect.player.active.max_hp = 200
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 20, 10, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 100, hp = 200, max_hp = 200, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 3
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 9, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 100
+expect.player.active.hp = 159
+expect.player.active.max_hp = 200
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 20, 10, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 100, hp = 159, max_hp = 200, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HITMONTOP"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 3
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 9, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 100
+expect.player.active.hp = 159
+expect.player.active.max_hp = 200
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 20, 10, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 100, hp = 159, max_hp = 200, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ONIX"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 92
+expect.enemy.active.max_hp = 92
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 92, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 100
+expect.player.active.hp = 159
+expect.player.active.max_hp = 200
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 20, 10, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 100, hp = 159, max_hp = 200, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 30, 20, 40]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 100
+expect.player.active.hp = 159
+expect.player.active.max_hp = 200
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 20, 10, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 100, hp = 159, max_hp = 200, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "HITMONLEE"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 3
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 30, 20, 39]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 100
+expect.player.active.hp = 159
+expect.player.active.max_hp = 200
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 20, 10, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 100, hp = 159, max_hp = 200, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 103
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 15, 30]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 100
+expect.player.active.hp = 148
+expect.player.active.max_hp = 200
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 20, 10, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 100, hp = 148, max_hp = 200, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "HITMONCHAN"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 3
+expect.enemy.active.max_hp = 103
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 15, 15, 29]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 103, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 100
+expect.player.active.hp = 137
+expect.player.active.max_hp = 200
+expect.player.active.status = "none"
+expect.player.active.pp = [7, 20, 10, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 100, hp = 137, max_hp = 200, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 148
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 40, 10, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 100
+expect.player.active.hp = 55
+expect.player.active.max_hp = 200
+expect.player.active.status = "none"
+expect.player.active.pp = [6, 20, 10, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 100, hp = 55, max_hp = 200, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 48
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 40, 10, 4]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "item"
+id = 14
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 100
+expect.player.active.hp = 200
+expect.player.active.max_hp = 200
+expect.player.active.status = "none"
+expect.player.active.pp = [6, 20, 10, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 100, hp = 200, max_hp = 200, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 148
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 40, 10, 4]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 100
+expect.player.active.hp = 200
+expect.player.active.max_hp = 200
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 20, 10, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 100, hp = 200, max_hp = 200, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 48
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 40, 10, 3]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 100
+expect.player.active.hp = 200
+expect.player.active.max_hp = 200
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 20, 10, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 100, hp = 200, max_hp = 200, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 46
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 148
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 40, 10, 3]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HITMONTOP", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONLEE", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "HITMONCHAN", level = 42, hp = 0, max_hp = 103, status = "none", item = "none" }, { species = "ONIX", level = 43, hp = 0, max_hp = 92, status = "none", item = "none" }, { species = "MACHAMP", level = 46, hp = 0, max_hp = 148, status = "none", item = "none" }]
+expect.battle.outcome = "win"
