@@ -1,0 +1,100 @@
+[recording]
+seed = "0x258b18710e6b7c9c"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "CLAIR_1"
+
+[[scenario.player_party]]
+species = "Misdreavus"
+level = 50
+moves = ["perish_song", "confuse_ray", "thunder_wave", "night_shade"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MISDREAVUS"
+expect.player.active.level = 50
+expect.player.active.hp = 134
+expect.player.active.max_hp = 134
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [4, 10, 20, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MISDREAVUS", level = 50, hp = 134, max_hp = 134, status = "paralysis", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "DRAGONAIR"
+expect.enemy.active.level = 37
+expect.enemy.active.hp = 100
+expect.enemy.active.max_hp = 100
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 15, 20, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "DRAGONAIR", level = 37, hp = 100, max_hp = 100, status = "none", item = "none" }, { species = "DRAGONAIR", level = 37, hp = 100, max_hp = 100, status = "none", item = "none" }, { species = "DRAGONAIR", level = 37, hp = 100, max_hp = 100, status = "none", item = "none" }, { species = "KINGDRA", level = 40, hp = 118, max_hp = 118, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MISDREAVUS"
+expect.player.active.level = 50
+expect.player.active.hp = 116
+expect.player.active.max_hp = 134
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [3, 10, 20, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MISDREAVUS", level = 50, hp = 116, max_hp = 134, status = "paralysis", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "DRAGONAIR"
+expect.enemy.active.level = 37
+expect.enemy.active.hp = 100
+expect.enemy.active.max_hp = 100
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 15, 20, 19]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "DRAGONAIR", level = 37, hp = 100, max_hp = 100, status = "none", item = "none" }, { species = "DRAGONAIR", level = 37, hp = 100, max_hp = 100, status = "none", item = "none" }, { species = "DRAGONAIR", level = 37, hp = 100, max_hp = 100, status = "none", item = "none" }, { species = "KINGDRA", level = 40, hp = 118, max_hp = 118, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MISDREAVUS"
+expect.player.active.level = 50
+expect.player.active.hp = 96
+expect.player.active.max_hp = 134
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [2, 10, 20, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MISDREAVUS", level = 50, hp = 96, max_hp = 134, status = "paralysis", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "DRAGONAIR"
+expect.enemy.active.level = 37
+expect.enemy.active.hp = 100
+expect.enemy.active.max_hp = 100
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 15, 20, 18]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "DRAGONAIR", level = 37, hp = 100, max_hp = 100, status = "none", item = "none" }, { species = "DRAGONAIR", level = 37, hp = 100, max_hp = 100, status = "none", item = "none" }, { species = "DRAGONAIR", level = 37, hp = 100, max_hp = 100, status = "none", item = "none" }, { species = "KINGDRA", level = 40, hp = 118, max_hp = 118, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MISDREAVUS"
+expect.player.active.level = 50
+expect.player.active.hp = 0
+expect.player.active.max_hp = 134
+expect.player.active.status = "none"
+expect.player.active.pp = [1, 10, 20, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MISDREAVUS", level = 50, hp = 0, max_hp = 134, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "DRAGONAIR"
+expect.enemy.active.level = 37
+expect.enemy.active.hp = 100
+expect.enemy.active.max_hp = 100
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 15, 20, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "DRAGONAIR", level = 37, hp = 100, max_hp = 100, status = "none", item = "none" }, { species = "DRAGONAIR", level = 37, hp = 100, max_hp = 100, status = "none", item = "none" }, { species = "DRAGONAIR", level = 37, hp = 100, max_hp = 100, status = "none", item = "none" }, { species = "KINGDRA", level = 40, hp = 118, max_hp = 118, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
