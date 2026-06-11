@@ -1,0 +1,122 @@
+[recording]
+seed = "0x94373440b6f0c997"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "BUGSY_1"
+
+[[scenario.player_party]]
+species = "Haunter"
+level = 30
+moves = ["curse", "shadow_ball", "hypnosis", "mean_look"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 30
+expect.player.active.hp = 38
+expect.player.active.max_hp = 76
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 15, 20, 5]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 30, hp = 38, max_hp = 76, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "METAPOD"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 30
+expect.enemy.active.max_hp = 40
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 39, 30, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 40, max_hp = 40, status = "none", item = "none" }, { species = "KAKUNA", level = 14, hp = 38, max_hp = 38, status = "none", item = "none" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 30
+expect.player.active.hp = 38
+expect.player.active.max_hp = 76
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 15, 20, 5]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 30, hp = 38, max_hp = 76, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "METAPOD"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 20
+expect.enemy.active.max_hp = 40
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 39, 29, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 40, max_hp = 40, status = "none", item = "none" }, { species = "KAKUNA", level = 14, hp = 38, max_hp = 38, status = "none", item = "none" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 30
+expect.player.active.hp = 38
+expect.player.active.max_hp = 76
+expect.player.active.status = "none"
+expect.player.active.pp = [7, 15, 20, 5]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 30, hp = 38, max_hp = 76, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "METAPOD"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 10
+expect.enemy.active.max_hp = 40
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 38, 29, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 40, max_hp = 40, status = "none", item = "none" }, { species = "KAKUNA", level = 14, hp = 38, max_hp = 38, status = "none", item = "none" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 30
+expect.player.active.hp = 38
+expect.player.active.max_hp = 76
+expect.player.active.status = "none"
+expect.player.active.pp = [6, 15, 20, 5]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 30, hp = 38, max_hp = 76, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KAKUNA"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 38
+expect.enemy.active.max_hp = 38
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 40, 30, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 0, max_hp = 40, status = "none", item = "none" }, { species = "KAKUNA", level = 14, hp = 38, max_hp = 38, status = "none", item = "none" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 30
+expect.player.active.hp = 0
+expect.player.active.max_hp = 76
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 15, 20, 5]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 30, hp = 0, max_hp = 76, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "KAKUNA"
+expect.enemy.active.level = 14
+expect.enemy.active.hp = 38
+expect.enemy.active.max_hp = 38
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 40, 30, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "METAPOD", level = 14, hp = 0, max_hp = 40, status = "none", item = "none" }, { species = "KAKUNA", level = 14, hp = 38, max_hp = 38, status = "none", item = "none" }, { species = "SCYTHER", level = 16, hp = 50, max_hp = 50, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
