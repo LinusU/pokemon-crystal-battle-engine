@@ -1,0 +1,539 @@
+# Coverage: ai_items_notfirstturnout (wEnemyTurnsTaken>0 path in ai_items_x_item)
+[recording]
+seed = "0x0000000000000002"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "JANINE_1"
+
+[[scenario.player_party]]
+species = "Machamp"
+level = 50
+moves = ["cross_chop"]
+
+[[scenario.player_party]]
+species = "Machamp"
+level = 50
+moves = ["cross_chop"]
+
+[[scenario.player_party]]
+species = "Machamp"
+level = 50
+moves = ["cross_chop"]
+
+[[scenario.player_party]]
+species = "Machamp"
+level = 50
+moves = ["cross_chop"]
+
+[[scenario.player_party]]
+species = "Magikarp"
+level = 20
+moves = ["splash"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 154
+expect.player.active.max_hp = 154
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 154, max_hp = 154, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }, { species = "MAGIKARP", level = 20, hp = 42, max_hp = 42, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 36
+expect.enemy.active.hp = 80
+expect.enemy.active.max_hp = 112
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [39, 20, 10, 35]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 112, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 109, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 101
+expect.player.active.max_hp = 154
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 101, max_hp = 154, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }, { species = "MAGIKARP", level = 20, hp = 42, max_hp = 42, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "CROBAT"
+expect.enemy.active.level = 36
+expect.enemy.active.hp = 48
+expect.enemy.active.max_hp = 112
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [39, 20, 10, 34]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 112, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 109, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 49
+expect.player.active.max_hp = 154
+expect.player.active.status = "none"
+expect.player.active.pp = [2, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 49, max_hp = 154, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }, { species = "MAGIKARP", level = 20, hp = 42, max_hp = 42, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "VENOMOTH"
+expect.enemy.active.level = 39
+expect.enemy.active.hp = 109
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 15, 35, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 109, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 49
+expect.player.active.max_hp = 154
+expect.player.active.status = "none"
+expect.player.active.pp = [2, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 49, max_hp = 154, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }, { species = "MAGIKARP", level = 20, hp = 42, max_hp = 42, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "VENOMOTH"
+expect.enemy.active.level = 39
+expect.enemy.active.hp = 109
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 15, 35, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 109, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 1
+expect.player.active.max_hp = 154
+expect.player.active.status = "none"
+expect.player.active.pp = [1, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 1, max_hp = 154, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }, { species = "MAGIKARP", level = 20, hp = 42, max_hp = 42, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "VENOMOTH"
+expect.enemy.active.level = 39
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 15, 35, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 109, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 0
+expect.player.active.max_hp = 154
+expect.player.active.status = "none"
+expect.player.active.pp = [1, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 0, max_hp = 154, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }, { species = "MAGIKARP", level = 20, hp = 42, max_hp = 42, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "VENOMOTH"
+expect.enemy.active.level = 39
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 15, 35, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 109, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 156
+expect.player.active.max_hp = 156
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 0, max_hp = 154, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }, { species = "MAGIKARP", level = 20, hp = 42, max_hp = 42, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "VENOMOTH"
+expect.enemy.active.level = 39
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 15, 35, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 109, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 156
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 0, max_hp = 154, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 105, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }, { species = "MAGIKARP", level = 20, hp = 42, max_hp = 42, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "VENOMOTH"
+expect.enemy.active.level = 39
+expect.enemy.active.hp = 34
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 15, 35, 7]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 109, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 156
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 0, max_hp = 154, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 105, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }, { species = "MAGIKARP", level = 20, hp = 42, max_hp = 42, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "WEEZING"
+expect.enemy.active.level = 36
+expect.enemy.active.hp = 98
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 0, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 1
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 156
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 0, max_hp = 154, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 105, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }, { species = "MAGIKARP", level = 20, hp = 42, max_hp = 42, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "WEEZING"
+expect.enemy.active.level = 36
+expect.enemy.active.hp = 98
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 0, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 156
+expect.player.active.status = "poison"
+expect.player.active.pp = [2, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 0, max_hp = 154, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 105, max_hp = 156, status = "poison", item = "none" }, { species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }, { species = "MAGIKARP", level = 20, hp = 42, max_hp = 42, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "WEEZING"
+expect.enemy.active.level = 36
+expect.enemy.active.hp = 52
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 9, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 0, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 79
+expect.player.active.max_hp = 156
+expect.player.active.status = "poison"
+expect.player.active.pp = [1, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 0, max_hp = 154, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 79, max_hp = 156, status = "poison", item = "none" }, { species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }, { species = "MAGIKARP", level = 20, hp = 42, max_hp = 42, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "WEEZING"
+expect.enemy.active.level = 36
+expect.enemy.active.hp = 6
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 10, 9, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 0, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 0
+expect.player.active.max_hp = 156
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 0, max_hp = 154, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 0, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }, { species = "MAGIKARP", level = 20, hp = 42, max_hp = 42, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "WEEZING"
+expect.enemy.active.level = 36
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 10, 9, 4]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 0, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 0, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 2
+expect.player.active_slot = 2
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 156
+expect.player.active.max_hp = 156
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 0, max_hp = 154, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 0, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }, { species = "MAGIKARP", level = 20, hp = 42, max_hp = 42, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "WEEZING"
+expect.enemy.active.level = 36
+expect.enemy.active.hp = 98
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 0, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 0, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 156
+expect.player.active.max_hp = 156
+expect.player.active.status = "poison"
+expect.player.active.pp = [4, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 0, max_hp = 154, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 0, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "poison", item = "none" }, { species = "MACHAMP", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }, { species = "MAGIKARP", level = 20, hp = 42, max_hp = 42, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "WEEZING"
+expect.enemy.active.level = 36
+expect.enemy.active.hp = 55
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 9, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 0, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 0, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 147
+expect.player.active.max_hp = 156
+expect.player.active.status = "poison"
+expect.player.active.pp = [3, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 0, max_hp = 154, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 0, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 147, max_hp = 156, status = "poison", item = "none" }, { species = "MACHAMP", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }, { species = "MAGIKARP", level = 20, hp = 42, max_hp = 42, status = "none", item = "none" }]
+expect.enemy.active_slot = 2
+expect.enemy.active.species = "WEEZING"
+expect.enemy.active.level = 36
+expect.enemy.active.hp = 15
+expect.enemy.active.max_hp = 98
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 10, 9, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 0, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 0, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 147
+expect.player.active.max_hp = 156
+expect.player.active.status = "poison"
+expect.player.active.pp = [2, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 0, max_hp = 154, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 0, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 147, max_hp = 156, status = "poison", item = "none" }, { species = "MACHAMP", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }, { species = "MAGIKARP", level = 20, hp = 42, max_hp = 42, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ARIADOS"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 94
+expect.enemy.active.max_hp = 94
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 5, 40, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 0, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 0, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 0, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "offer_switch"
+keep = true
+expect.player.active_slot = 2
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 147
+expect.player.active.max_hp = 156
+expect.player.active.status = "poison"
+expect.player.active.pp = [2, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 0, max_hp = 154, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 0, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 147, max_hp = 156, status = "poison", item = "none" }, { species = "MACHAMP", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }, { species = "MAGIKARP", level = 20, hp = 42, max_hp = 42, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ARIADOS"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 94
+expect.enemy.active.max_hp = 94
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 5, 40, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 0, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 0, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 0, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 96
+expect.player.active.max_hp = 156
+expect.player.active.status = "poison"
+expect.player.active.pp = [1, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 0, max_hp = 154, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 0, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 96, max_hp = 156, status = "poison", item = "none" }, { species = "MACHAMP", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }, { species = "MAGIKARP", level = 20, hp = 42, max_hp = 42, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ARIADOS"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 56
+expect.enemy.active.max_hp = 94
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 5, 40, 14]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 0, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 0, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 0, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 2
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 36
+expect.player.active.max_hp = 156
+expect.player.active.status = "poison"
+expect.player.active.pp = [0, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 0, max_hp = 154, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 0, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 36, max_hp = 156, status = "poison", item = "none" }, { species = "MACHAMP", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }, { species = "MAGIKARP", level = 20, hp = 42, max_hp = 42, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ARIADOS"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 19
+expect.enemy.active.max_hp = 94
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 5, 40, 13]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 0, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 0, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 0, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "switch"
+slot = 3
+expect.player.active_slot = 3
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 124
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 0, max_hp = 154, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 0, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 36, max_hp = 156, status = "poison", item = "none" }, { species = "MACHAMP", level = 50, hp = 124, max_hp = 157, status = "none", item = "none" }, { species = "MAGIKARP", level = 20, hp = 42, max_hp = 42, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ARIADOS"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 19
+expect.enemy.active.max_hp = 94
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 5, 40, 12]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 0, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 0, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 0, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 3
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 124
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 0, max_hp = 154, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 0, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 36, max_hp = 156, status = "poison", item = "none" }, { species = "MACHAMP", level = 50, hp = 124, max_hp = 157, status = "none", item = "none" }, { species = "MAGIKARP", level = 20, hp = 42, max_hp = 42, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ARIADOS"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 19
+expect.enemy.active.max_hp = 94
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 5, 39, 12]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 0, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 0, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 94, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 0, max_hp = 109, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 3
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 124
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 0, max_hp = 154, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 0, max_hp = 156, status = "none", item = "none" }, { species = "MACHAMP", level = 50, hp = 36, max_hp = 156, status = "poison", item = "none" }, { species = "MACHAMP", level = 50, hp = 124, max_hp = 157, status = "none", item = "none" }, { species = "MAGIKARP", level = 20, hp = 42, max_hp = 42, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "ARIADOS"
+expect.enemy.active.level = 33
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 94
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 5, 39, 12]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "CROBAT", level = 36, hp = 0, max_hp = 112, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 0, max_hp = 98, status = "none", item = "none" }, { species = "WEEZING", level = 36, hp = 0, max_hp = 98, status = "none", item = "none" }, { species = "ARIADOS", level = 33, hp = 0, max_hp = 94, status = "none", item = "none" }, { species = "VENOMOTH", level = 39, hp = 0, max_hp = 109, status = "none", item = "none" }]
+expect.battle.outcome = "win"
