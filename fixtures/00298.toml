@@ -1,0 +1,196 @@
+[recording]
+seed = "0xe5ec723418ed3de1"
+
+[scenario.battle]
+type = "link_battle"
+
+[[scenario.player_party]]
+species = "Porygon2"
+level = 50
+moves = ["conversion2", "tackle", "recover", "sharpen"]
+
+[[scenario.enemy_party]]
+species = "Haunter"
+level = 50
+moves = ["curse", "shadow_ball", "hypnosis", "mean_look"]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "PORYGON2"
+expect.player.active.level = 50
+expect.player.active.hp = 152
+expect.player.active.max_hp = 152
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 35, 20, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "PORYGON2", level = 50, hp = 152, max_hp = 152, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 119
+expect.enemy.active.max_hp = 119
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 15, 20, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HAUNTER", level = 50, hp = 119, max_hp = 119, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "PORYGON2"
+expect.player.active.level = 50
+expect.player.active.hp = 114
+expect.player.active.max_hp = 152
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 34, 20, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "PORYGON2", level = 50, hp = 114, max_hp = 152, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 60
+expect.enemy.active.max_hp = 119
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 15, 20, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HAUNTER", level = 50, hp = 60, max_hp = 119, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "PORYGON2"
+expect.player.active.level = 50
+expect.player.active.hp = 114
+expect.player.active.max_hp = 152
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 34, 20, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "PORYGON2", level = 50, hp = 114, max_hp = 152, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 60
+expect.enemy.active.max_hp = 119
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 15, 20, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HAUNTER", level = 50, hp = 60, max_hp = 119, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "PORYGON2"
+expect.player.active.level = 50
+expect.player.active.hp = 76
+expect.player.active.max_hp = 152
+expect.player.active.status = "none"
+expect.player.active.pp = [29, 34, 20, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "PORYGON2", level = 50, hp = 76, max_hp = 152, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 60
+expect.enemy.active.max_hp = 119
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 15, 20, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HAUNTER", level = 50, hp = 60, max_hp = 119, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "PORYGON2"
+expect.player.active.level = 50
+expect.player.active.hp = 76
+expect.player.active.max_hp = 152
+expect.player.active.status = "none"
+expect.player.active.pp = [29, 34, 20, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "PORYGON2", level = 50, hp = 76, max_hp = 152, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 60
+expect.enemy.active.max_hp = 119
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 15, 20, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HAUNTER", level = 50, hp = 60, max_hp = 119, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "PORYGON2"
+expect.player.active.level = 50
+expect.player.active.hp = 38
+expect.player.active.max_hp = 152
+expect.player.active.status = "none"
+expect.player.active.pp = [29, 33, 20, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "PORYGON2", level = 50, hp = 38, max_hp = 152, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 60
+expect.enemy.active.max_hp = 119
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 15, 20, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HAUNTER", level = 50, hp = 60, max_hp = 119, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "PORYGON2"
+expect.player.active.level = 50
+expect.player.active.hp = 38
+expect.player.active.max_hp = 152
+expect.player.active.status = "none"
+expect.player.active.pp = [29, 33, 20, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "PORYGON2", level = 50, hp = 38, max_hp = 152, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 60
+expect.enemy.active.max_hp = 119
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [7, 15, 20, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HAUNTER", level = 50, hp = 60, max_hp = 119, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "PORYGON2"
+expect.player.active.level = 50
+expect.player.active.hp = 0
+expect.player.active.max_hp = 152
+expect.player.active.status = "none"
+expect.player.active.pp = [29, 32, 20, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "PORYGON2", level = 50, hp = 0, max_hp = 152, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 60
+expect.enemy.active.max_hp = 119
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [6, 15, 20, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HAUNTER", level = 50, hp = 60, max_hp = 119, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
