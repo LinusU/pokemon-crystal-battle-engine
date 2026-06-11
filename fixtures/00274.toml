@@ -1,0 +1,103 @@
+[recording]
+seed = "0x0000000000003039"
+
+[scenario.battle]
+type = "wild_encounter"
+
+[[scenario.player_party]]
+species = "Machamp"
+level = 50
+moves = ["strength"]
+
+[[scenario.enemy_party]]
+species = "Shuckle"
+level = 30
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 156
+expect.player.active.max_hp = 156
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SHUCKLE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 37
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 5, 25, 9]
+expect.enemy.active.item = "Berry"
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 156
+expect.player.active.max_hp = 156
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 156, max_hp = 156, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SHUCKLE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 32
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 5, 25, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 94
+expect.player.active.max_hp = 156
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 94, max_hp = 156, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SHUCKLE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 16
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 5, 25, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "MACHAMP"
+expect.player.active.level = 50
+expect.player.active.hp = 94
+expect.player.active.max_hp = 156
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHAMP", level = 50, hp = 94, max_hp = 156, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SHUCKLE"
+expect.enemy.active.level = 30
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 53
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 5, 25, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+expect.battle.outcome = "win"
