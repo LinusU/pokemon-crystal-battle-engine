@@ -1,0 +1,34 @@
+[recording]
+seed = "0x1a2aaf081001fdea"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "RIVAL2_1"
+
+[[scenario.player_party]]
+species = "Typhlosion"
+level = 50
+moves = ["flamethrower", "thunderpunch", "swift", "quick_attack"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "TYPHLOSION"
+expect.player.active.level = 50
+expect.player.active.hp = 147
+expect.player.active.max_hp = 147
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 15, 20, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "TYPHLOSION", level = 50, hp = 147, max_hp = 147, status = "none", item = "none" }]
+expect.enemy.active_slot = 230
+expect.enemy.active.species = "SNEASEL"
+expect.enemy.active.level = 41
+expect.enemy.active.hp = 102
+expect.enemy.active.max_hp = 102
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 40, 20, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SNEASEL", level = 41, hp = 102, max_hp = 102, status = "none", item = "none" }, { species = "GOLBAT", level = 42, hp = 121, max_hp = 121, status = "none", item = "none" }, { species = "MAGNETON", level = 41, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "GENGAR", level = 43, hp = 111, max_hp = 111, status = "none", item = "none" }, { species = "ALAKAZAM", level = 43, hp = 107, max_hp = 107, status = "none", item = "none" }, { species = "MEGANIUM", level = 45, hp = 134, max_hp = 134, status = "none", item = "none" }]
+expect.battle.outcome = "win"
