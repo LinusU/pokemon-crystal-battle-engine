@@ -1,0 +1,738 @@
+[recording]
+seed = "0x7654321000000000"
+
+[scenario.battle]
+type = "link_battle"
+
+[[scenario.player_party]]
+species = "Haunter"
+level = 50
+moves = ["sleep_talk", "fly", "bide", "skull_bash"]
+
+[[scenario.enemy_party]]
+species = "Jynx"
+level = 50
+moves = ["lovely_kiss", "splash"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 15, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 40, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "sleep"
+expect.player.active.pp = [9, 15, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 40, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "sleep"
+expect.player.active.pp = [9, 15, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 40, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "sleep"
+expect.player.active.pp = [8, 15, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 39, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "sleep"
+expect.player.active.pp = [8, 15, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 39, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "sleep"
+expect.player.active.pp = [7, 15, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 38, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "sleep"
+expect.player.active.pp = [7, 15, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 38, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "sleep"
+expect.player.active.pp = [6, 15, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 37, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "sleep"
+expect.player.active.pp = [6, 15, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 37, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 15, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 36, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 15, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 36, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 15, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 35, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 15, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 35, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 15, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 34, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 15, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 34, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [2, 15, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 33, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [2, 15, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 33, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [1, 15, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 32, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [1, 15, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 32, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 15, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 31, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 15, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 31, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 14, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 30, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 14, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 101
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 29, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 14, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 101
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 29, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 13, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 101
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 28, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 13, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 61
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 27, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 13, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 61
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 27, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 12, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 61
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 26, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 12, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 24
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 25, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 12, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 24
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 25, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 11, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 24
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 24, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 105
+expect.player.active.max_hp = 105
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 11, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 105, max_hp = 105, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JYNX"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 139
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 23, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JYNX", level = 50, hp = 0, max_hp = 139, status = "none", item = "none" }]
+expect.battle.outcome = "win"
