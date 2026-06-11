@@ -1,0 +1,628 @@
+[recording]
+seed = "0x1234000000000000"
+
+[scenario.battle]
+type = "link_battle"
+
+[[scenario.player_party]]
+species = "Espeon"
+level = 50
+moves = ["baton_pass", "splash"]
+
+[[scenario.player_party]]
+species = "Umbreon"
+level = 50
+moves = ["tackle", "splash"]
+
+[[scenario.enemy_party]]
+species = "Slowpoke"
+level = 50
+moves = ["splash"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "ESPEON"
+expect.player.active.level = 50
+expect.player.active.hp = 125
+expect.player.active.max_hp = 125
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 164
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "ESPEON"
+expect.player.active.level = 50
+expect.player.active.hp = 125
+expect.player.active.max_hp = 125
+expect.player.active.status = "none"
+expect.player.active.pp = [39, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 164
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 164
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 164
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [34, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 151
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [39, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [34, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 151
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [39, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [33, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 137
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [38, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [33, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 137
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [38, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [32, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 122
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [37, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [32, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 122
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [37, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [31, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 107
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [36, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [31, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 107
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [36, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 93
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [30, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 93
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [29, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 78
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [34, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [29, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 78
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [34, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [28, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 65
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [33, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [28, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 65
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [33, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [27, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 51
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [32, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [27, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 51
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [32, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [26, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 35
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [31, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [26, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 35
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [31, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 21
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [25, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 21
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 7
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [29, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 7
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [29, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "UMBREON"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [23, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ESPEON", level = 50, hp = 125, max_hp = 125, status = "none", item = "none" }, { species = "UMBREON", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [29, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 0, max_hp = 164, status = "none", item = "none" }]
+expect.battle.outcome = "win"
