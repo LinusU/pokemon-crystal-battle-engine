@@ -1,0 +1,37 @@
+[recording]
+seed = "0x0000000000003039"
+
+[scenario.battle]
+type = "wild_encounter"
+
+[[scenario.player_party]]
+species = "Snorlax"
+level = 30
+moves = ["teleport"]
+
+[[scenario.enemy_party]]
+species = "Jolteon"
+level = 50
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 139
+expect.player.active.max_hp = 139
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 30, hp = 139, max_hp = 139, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JOLTEON"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 127
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 20, 20, 29]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+expect.battle.outcome = "draw"
