@@ -158,6 +158,8 @@ pub fn random_battle_config(base_seed: u64) -> BattleConfig {
             // above). `resolve_seed` returns it so the battle RNG keys off it;
             // `run_with` honours `seed_override` ahead of this for `--play`.
             seed: Some(engine_seed),
+            johto_badges: None,
+            kanto_badges: None,
         },
         player_party,
         enemy_party: Vec::new(),

@@ -25,6 +25,8 @@ The ground truth for symbol addresses is `scratch/pokecrystal/pokecrystal.sym`, 
 | `0xd47b` | `wPlayerID` | 2 | Player trainer id. Affects DV generation / catch math. |
 | `0xd47d` | `wPlayerName` | 11 | `NAME_LENGTH` byte name in Crystal text encoding. |
 | `0xd841` | `wTimeOfDayPal` | 1 | Palette id; saved/restored around `start_battle`. |
+| `0xd857` | `wJohtoBadges` | 1 | Badge bitfield from `[battle] johto_badges` (default 0). Read by `DoBadgeTypeBoosts`. |
+| `0xd858` | `wKantoBadges` | 1 | Badge bitfield from `[battle] kanto_badges` (default 0). |
 | `0xdcd7` | `wPartyCount` | 1 | Party size, terminator-prefix list begins after. |
 | `0xdcdf` + N·48 | `wPartyMon{N}` | 48 | `party_struct` slot. Filled by `try_add_mon_to_party`. |
 

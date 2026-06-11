@@ -48,6 +48,16 @@ pub struct BattleHeader {
     /// one from system entropy and logs it. Accepts decimal (`42`) or hex
     /// (`0xdeadbeef`) literals via TOML's integer parser.
     pub seed: Option<u64>,
+    /// Johto badge bitfield (`wJohtoBadges`, 0xd857). Each bit corresponds to
+    /// one badge; `0xff` = all 8 Johto badges held. When omitted, defaults to 0
+    /// (no badges). The badge boost in `misc.rs` applies a stat multiplier for
+    /// player Pokémon of certain types when the matching badge is held.
+    #[serde(default)]
+    pub johto_badges: Option<u8>,
+    /// Kanto badge bitfield (`wKantoBadges`, 0xd858). Each bit corresponds to
+    /// one badge; `0xff` = all 8 Kanto badges held. When omitted, defaults to 0.
+    #[serde(default)]
+    pub kanto_badges: Option<u8>,
 }
 
 #[derive(Debug, Deserialize, Clone, Copy, PartialEq, Eq)]
@@ -142,6 +152,8 @@ const W_OTHER_TRAINER_CLASS: u16 = 0xd22f;
 const W_BATTLE_TYPE: u16 = 0xd230;
 const W_OTHER_TRAINER_ID: u16 = 0xd231;
 const W_TIME_OF_DAY: u16 = 0xd269;
+const W_JOHTO_BADGES: u16 = 0xd857;
+const W_KANTO_BADGES: u16 = 0xd858;
 const W_OT_PARTY_COUNT: u16 = 0xd280;
 const W_PLAYER_GENDER: u16 = 0xd472;
 const W_PLAYER_ID: u16 = 0xd47b;
@@ -264,6 +276,14 @@ fn seed_player(cpu: &mut Cpu) {
         cpu.write_byte(list_addr, 0);
         cpu.write_byte(list_addr + 1, 0xff);
     }
+}
+
+/// Write the player's badge bitfields (`wJohtoBadges`, `wKantoBadges`).
+/// The badge boost logic in `misc.rs` reads these to decide whether to apply
+/// a per-type stat multiplier on the player's side. Defaults to 0 (no badges).
+fn seed_badges(cpu: &mut Cpu, header: &BattleHeader) {
+    cpu.write_byte(W_JOHTO_BADGES, header.johto_badges.unwrap_or(0));
+    cpu.write_byte(W_KANTO_BADGES, header.kanto_badges.unwrap_or(0));
 }
 
 /// Write the player's items into the Items and Balls pockets. Each pocket
@@ -484,6 +504,7 @@ fn launch_wild_encounter(cpu: &mut Cpu, config: &BattleConfig) -> Result<(), Str
     }
 
     seed_player(cpu);
+    seed_badges(cpu, &config.battle);
     seed_player_items(cpu, &config.player_items)?;
     seed_player_party(cpu, &config.player_party)?;
 
@@ -516,6 +537,7 @@ fn launch_trainer_battle(cpu: &mut Cpu, config: &BattleConfig) -> Result<(), Str
         .ok_or_else(|| format!("unknown trainer: {trainer_name}"))?;
 
     seed_player(cpu);
+    seed_badges(cpu, &config.battle);
     seed_player_items(cpu, &config.player_items)?;
     seed_player_party(cpu, &config.player_party)?;
 
@@ -567,6 +589,7 @@ fn launch_link_battle(cpu: &mut Cpu, config: &BattleConfig) -> Result<(), String
     }
 
     seed_player(cpu);
+    seed_badges(cpu, &config.battle);
     // No bag items, but the pack-menu pocket terminators must still be written.
     seed_player_items(cpu, &[])?;
     seed_player_party(cpu, &config.player_party)?;
