@@ -1,0 +1,376 @@
+[recording]
+seed = "0x1234567890000000"
+
+[scenario.battle]
+type = "link_battle"
+
+[[scenario.player_party]]
+species = "Haunter"
+level = 50
+moves = ["mean_look", "teleport"]
+
+[[scenario.enemy_party]]
+species = "Gengar"
+level = 50
+moves = ["mean_look", "lick"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 106
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 20, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 106, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 30, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 134, max_hp = 134, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 106
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 20, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 106, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [4, 30, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 134, max_hp = 134, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 106
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 20, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 106, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [4, 30, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 134, max_hp = 134, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 106
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 19, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 106, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [3, 30, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 134, max_hp = 134, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 106
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 19, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 106, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [3, 30, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 134, max_hp = 134, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 106
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 18, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 106, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [2, 30, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 134, max_hp = 134, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 106
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 18, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 106, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [2, 30, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 134, max_hp = 134, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 106
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 17, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 106, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [1, 30, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 134, max_hp = 134, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 106
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 17, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 106, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [1, 30, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 134, max_hp = 134, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 106
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 16, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 106, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 30, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 134, max_hp = 134, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 106
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 16, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 106, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 30, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 134, max_hp = 134, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 66
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 15, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 66, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 29, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 134, max_hp = 134, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 66
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 15, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 66, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 29, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 134, max_hp = 134, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 30
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 14, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 30, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 28, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 134, max_hp = 134, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 30
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 14, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 30, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 28, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 134, max_hp = 134, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 50
+expect.player.active.hp = 0
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 14, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 50, hp = 0, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 134
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [0, 27, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 50, hp = 134, max_hp = 134, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
