@@ -1,0 +1,358 @@
+[recording]
+seed = "0x1234000000000000"
+
+[scenario.battle]
+type = "link_battle"
+
+[[scenario.player_party]]
+species = "Clefairy"
+level = 50
+moves = ["mimic"]
+
+[[scenario.player_party]]
+species = "Sneasel"
+level = 50
+moves = ["beat_up"]
+
+[[scenario.enemy_party]]
+species = "Slowpoke"
+level = 50
+moves = ["surf"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CLEFAIRY"
+expect.player.active.level = 50
+expect.player.active.hp = 130
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 50, hp = 130, max_hp = 130, status = "none", item = "none" }, { species = "SNEASEL", level = 50, hp = 117, max_hp = 117, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 164
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CLEFAIRY"
+expect.player.active.level = 50
+expect.player.active.hp = 89
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 50, hp = 89, max_hp = 130, status = "none", item = "none" }, { species = "SNEASEL", level = 50, hp = 117, max_hp = 117, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 164
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CLEFAIRY"
+expect.player.active.level = 50
+expect.player.active.hp = 89
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 50, hp = 89, max_hp = 130, status = "none", item = "none" }, { species = "SNEASEL", level = 50, hp = 117, max_hp = 117, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 164
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CLEFAIRY"
+expect.player.active.level = 50
+expect.player.active.hp = 44
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 50, hp = 44, max_hp = 130, status = "none", item = "none" }, { species = "SNEASEL", level = 50, hp = 117, max_hp = 117, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 164
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CLEFAIRY"
+expect.player.active.level = 50
+expect.player.active.hp = 44
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 50, hp = 44, max_hp = 130, status = "none", item = "none" }, { species = "SNEASEL", level = 50, hp = 117, max_hp = 117, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 164
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CLEFAIRY"
+expect.player.active.level = 50
+expect.player.active.hp = 1
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 50, hp = 1, max_hp = 130, status = "none", item = "none" }, { species = "SNEASEL", level = 50, hp = 117, max_hp = 117, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 140
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CLEFAIRY"
+expect.player.active.level = 50
+expect.player.active.hp = 1
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 50, hp = 1, max_hp = 130, status = "none", item = "none" }, { species = "SNEASEL", level = 50, hp = 117, max_hp = 117, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 140
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CLEFAIRY"
+expect.player.active.level = 50
+expect.player.active.hp = 0
+expect.player.active.max_hp = 130
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 50, hp = 0, max_hp = 130, status = "none", item = "none" }, { species = "SNEASEL", level = 50, hp = 117, max_hp = 117, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 116
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [11, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "SNEASEL"
+expect.player.active.level = 50
+expect.player.active.hp = 117
+expect.player.active.max_hp = 117
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 50, hp = 0, max_hp = 130, status = "none", item = "none" }, { species = "SNEASEL", level = 50, hp = 117, max_hp = 117, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 116
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [11, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNEASEL"
+expect.player.active.level = 50
+expect.player.active.hp = 117
+expect.player.active.max_hp = 117
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 50, hp = 0, max_hp = 130, status = "none", item = "none" }, { species = "SNEASEL", level = 50, hp = 117, max_hp = 117, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 116
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [11, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNEASEL"
+expect.player.active.level = 50
+expect.player.active.hp = 80
+expect.player.active.max_hp = 117
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 50, hp = 0, max_hp = 130, status = "none", item = "none" }, { species = "SNEASEL", level = 50, hp = 80, max_hp = 117, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 109
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNEASEL"
+expect.player.active.level = 50
+expect.player.active.hp = 80
+expect.player.active.max_hp = 117
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 50, hp = 0, max_hp = 130, status = "none", item = "none" }, { species = "SNEASEL", level = 50, hp = 80, max_hp = 117, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 109
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNEASEL"
+expect.player.active.level = 50
+expect.player.active.hp = 37
+expect.player.active.max_hp = 117
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 50, hp = 0, max_hp = 130, status = "none", item = "none" }, { species = "SNEASEL", level = 50, hp = 37, max_hp = 117, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 102
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNEASEL"
+expect.player.active.level = 50
+expect.player.active.hp = 37
+expect.player.active.max_hp = 117
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 50, hp = 0, max_hp = 130, status = "none", item = "none" }, { species = "SNEASEL", level = 50, hp = 37, max_hp = 117, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 102
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 1
+expect.player.active.species = "SNEASEL"
+expect.player.active.level = 50
+expect.player.active.hp = 0
+expect.player.active.max_hp = 117
+expect.player.active.status = "none"
+expect.player.active.pp = [7, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 50, hp = 0, max_hp = 130, status = "none", item = "none" }, { species = "SNEASEL", level = 50, hp = 0, max_hp = 117, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SLOWPOKE"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 95
+expect.enemy.active.max_hp = 164
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SLOWPOKE", level = 50, hp = 95, max_hp = 164, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
