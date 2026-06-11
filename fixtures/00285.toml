@@ -1,0 +1,82 @@
+[recording]
+seed = "0xff7507fa753eaed5"
+
+[scenario.battle]
+type = "wild_encounter"
+
+[[scenario.player_party]]
+species = "Jolteon"
+level = 5
+moves = ["thundershock"]
+
+[[scenario.enemy_party]]
+species = "Smeargle"
+level = 5
+moves = ["sketch"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "JOLTEON"
+expect.player.active.level = 5
+expect.player.active.hp = 22
+expect.player.active.max_hp = 22
+expect.player.active.status = "none"
+expect.player.active.pp = [29, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "JOLTEON", level = 5, hp = 22, max_hp = 22, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SMEARGLE"
+expect.enemy.active.level = 5
+expect.enemy.active.hp = 13
+expect.enemy.active.max_hp = 21
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [30, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "JOLTEON"
+expect.player.active.level = 5
+expect.player.active.hp = 21
+expect.player.active.max_hp = 22
+expect.player.active.status = "none"
+expect.player.active.pp = [28, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "JOLTEON", level = 5, hp = 21, max_hp = 22, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SMEARGLE"
+expect.enemy.active.level = 5
+expect.enemy.active.hp = 5
+expect.enemy.active.max_hp = 21
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [29, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "JOLTEON"
+expect.player.active.level = 5
+expect.player.active.hp = 21
+expect.player.active.max_hp = 22
+expect.player.active.status = "none"
+expect.player.active.pp = [27, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "JOLTEON", level = 5, hp = 21, max_hp = 22, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SMEARGLE"
+expect.enemy.active.level = 5
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 21
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [29, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+expect.battle.outcome = "win"
