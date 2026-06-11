@@ -1,0 +1,56 @@
+[recording]
+seed = "0x0000000000003039"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "GRUNTF_1"
+
+[[scenario.player_party]]
+species = "Starmie"
+level = 50
+moves = ["surf"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 50
+expect.player.active.hp = 126
+expect.player.active.max_hp = 126
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 50, hp = 126, max_hp = 126, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "EKANS"
+expect.enemy.active.level = 11
+expect.enemy.active.hp = 30
+expect.enemy.active.max_hp = 30
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 35, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "ZUBAT", level = 9, hp = 0, max_hp = 27, status = "none", item = "none" }, { species = "EKANS", level = 11, hp = 30, max_hp = 30, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 50
+expect.player.active.hp = 126
+expect.player.active.max_hp = 126
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 50, hp = 126, max_hp = 126, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "EKANS"
+expect.enemy.active.level = 11
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 30
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 30, 35, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "ZUBAT", level = 9, hp = 0, max_hp = 27, status = "none", item = "none" }, { species = "EKANS", level = 11, hp = 0, max_hp = 30, status = "none", item = "none" }]
+expect.battle.outcome = "win"
