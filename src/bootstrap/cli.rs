@@ -926,9 +926,14 @@ fn prompt_index(prompt: &str, len: usize) -> usize {
         print!("{prompt}");
         let _ = std::io::stdout().flush();
         let mut line = String::new();
-        if std::io::stdin().lock().read_line(&mut line).is_err() {
-            // stdin closed (CI / piped) — default to first option.
-            return 0;
+        // EOF is `Ok(0)`, not `Err`: a closed stdin (dead driver, `</dev/null`)
+        // must abort, or this loop spins forever re-prompting at 100% CPU.
+        match std::io::stdin().lock().read_line(&mut line) {
+            Ok(0) | Err(_) => {
+                eprintln!("error: stdin closed while waiting for a battle decision");
+                std::process::exit(2);
+            }
+            Ok(_) => {}
         }
         let trimmed = line.trim();
         if let Ok(n) = trimmed.parse::<usize>() {
