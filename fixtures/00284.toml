@@ -1,0 +1,106 @@
+[recording]
+seed = "0x395fc8211d923646"
+
+[scenario.battle]
+type = "link_battle"
+
+[[scenario.player_party]]
+species = "Rattata"
+level = 10
+moves = ["tackle"]
+
+[[scenario.enemy_party]]
+species = "Abra"
+level = 10
+moves = ["teleport"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RATTATA"
+expect.player.active.level = 10
+expect.player.active.hp = 27
+expect.player.active.max_hp = 27
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "RATTATA", level = 10, hp = 27, max_hp = 27, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "ABRA"
+expect.enemy.active.level = 10
+expect.enemy.active.hp = 27
+expect.enemy.active.max_hp = 27
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "ABRA", level = 10, hp = 27, max_hp = 27, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RATTATA"
+expect.player.active.level = 10
+expect.player.active.hp = 27
+expect.player.active.max_hp = 27
+expect.player.active.status = "none"
+expect.player.active.pp = [34, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "RATTATA", level = 10, hp = 27, max_hp = 27, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "ABRA"
+expect.enemy.active.level = 10
+expect.enemy.active.hp = 14
+expect.enemy.active.max_hp = 27
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "ABRA", level = 10, hp = 27, max_hp = 27, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RATTATA"
+expect.player.active.level = 10
+expect.player.active.hp = 27
+expect.player.active.max_hp = 27
+expect.player.active.status = "none"
+expect.player.active.pp = [34, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "RATTATA", level = 10, hp = 27, max_hp = 27, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "ABRA"
+expect.enemy.active.level = 10
+expect.enemy.active.hp = 14
+expect.enemy.active.max_hp = 27
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "ABRA", level = 10, hp = 27, max_hp = 27, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RATTATA"
+expect.player.active.level = 10
+expect.player.active.hp = 27
+expect.player.active.max_hp = 27
+expect.player.active.status = "none"
+expect.player.active.pp = [33, 0, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "RATTATA", level = 10, hp = 27, max_hp = 27, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "ABRA"
+expect.enemy.active.level = 10
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 27
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "ABRA", level = 10, hp = 0, max_hp = 27, status = "none", item = "none" }]
+expect.battle.outcome = "win"
