@@ -1,0 +1,63 @@
+[recording]
+seed = "0xd874155137d4d82d"
+
+[scenario.battle]
+type = "link_battle"
+
+[[scenario.player_party]]
+species = "Snorlax"
+level = 50
+moves = ["body_slam"]
+item = "Leftovers"
+
+[[scenario.enemy_party]]
+species = "Meowth"
+level = 50
+moves = ["thief"]
+item = "Berry"
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 222
+expect.player.active.max_hp = 222
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 0, 0, 0]
+expect.player.active.item = "Leftovers"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 222, max_hp = 222, status = "none", item = "Leftovers" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MEOWTH"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 114
+expect.enemy.active.max_hp = 114
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 0, 0, 0]
+expect.enemy.active.item = "Berry"
+expect.enemy.party = [{ species = "MEOWTH", level = 50, hp = 114, max_hp = 114, status = "none", item = "Berry" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 215
+expect.player.active.max_hp = 222
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 0, 0, 0]
+expect.player.active.item = "Leftovers"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 215, max_hp = 222, status = "none", item = "Leftovers" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MEOWTH"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 114
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 0, 0, 0]
+expect.enemy.active.item = "Berry"
+expect.enemy.party = [{ species = "MEOWTH", level = 50, hp = 0, max_hp = 114, status = "none", item = "Berry" }]
+expect.battle.outcome = "win"
