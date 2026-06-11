@@ -1,0 +1,61 @@
+[recording]
+seed = "0x1234000000000000"
+
+[scenario.battle]
+type = "link_battle"
+
+[[scenario.player_party]]
+species = "Chansey"
+level = 50
+moves = ["counter", "splash"]
+
+[[scenario.enemy_party]]
+species = "Rattata"
+level = 50
+moves = ["tackle", "splash"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 310
+expect.player.active.max_hp = 310
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 310, max_hp = 310, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RATTATA"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 104
+expect.enemy.active.max_hp = 104
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 40, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RATTATA", level = 50, hp = 104, max_hp = 104, status = "none", item = "none" }]
+
+[[step]]
+side = "enemy"
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 57
+expect.player.active.max_hp = 310
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 40, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 57, max_hp = 310, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RATTATA"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 104
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [34, 40, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RATTATA", level = 50, hp = 0, max_hp = 104, status = "none", item = "none" }]
+expect.battle.outcome = "win"
