@@ -1,0 +1,39 @@
+[recording]
+seed = "0x1234567890abcdef"
+
+[scenario.battle]
+type = "wild_encounter"
+johto_badges = 0xff
+kanto_badges = 0xff
+
+[[scenario.player_party]]
+species = "Pidgeot"
+level = 50
+moves = ["wing_attack", "body_slam", "gust", "tackle"]
+
+[[scenario.enemy_party]]
+species = "Rattata"
+level = 5
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "PIDGEOT"
+expect.player.active.level = 50
+expect.player.active.hp = 157
+expect.player.active.max_hp = 157
+expect.player.active.status = "none"
+expect.player.active.pp = [35, 14, 35, 35]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "PIDGEOT", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RATTATA"
+expect.enemy.active.level = 5
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 18
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 30, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+expect.battle.outcome = "win"
