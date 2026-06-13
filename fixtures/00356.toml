@@ -1,0 +1,152 @@
+[recording]
+seed = "0x000000008bbcdef0"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Houndoom"
+level = 45
+moves = ["Flamethrower", "Crunch", "Faint Attack", "Fire Spin"]
+
+[[scenario.enemy_party]]
+species = "Politoed"
+level = 45
+moves = ["Rain Dance", "Surf", "Ice Beam", "Hypnosis"]
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HOUNDOOM"
+expect.player.active.level = 45
+expect.player.active.hp = 134
+expect.player.active.max_hp = 134
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 15, 20, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 45, hp = 134, max_hp = 134, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "POLITOED"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [4, 15, 10, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "POLITOED", level = 45, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HOUNDOOM"
+expect.player.active.level = 45
+expect.player.active.hp = 134
+expect.player.active.max_hp = 134
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 15, 20, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 45, hp = 134, max_hp = 134, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "POLITOED"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 107
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [4, 15, 10, 19]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "POLITOED", level = 45, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HOUNDOOM"
+expect.player.active.level = 45
+expect.player.active.hp = 94
+expect.player.active.max_hp = 134
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 15, 20, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 45, hp = 94, max_hp = 134, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "POLITOED"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 94
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [4, 15, 9, 19]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "POLITOED", level = 45, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HOUNDOOM"
+expect.player.active.level = 45
+expect.player.active.hp = 94
+expect.player.active.max_hp = 134
+expect.player.active.status = "sleep"
+expect.player.active.pp = [11, 15, 20, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 45, hp = 94, max_hp = 134, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "POLITOED"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 63
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "burn"
+expect.enemy.active.pp = [4, 15, 9, 18]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "POLITOED", level = 45, hp = 80, max_hp = 148, status = "burn", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HOUNDOOM"
+expect.player.active.level = 45
+expect.player.active.hp = 75
+expect.player.active.max_hp = 134
+expect.player.active.status = "sleep"
+expect.player.active.pp = [11, 15, 20, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 45, hp = 75, max_hp = 134, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "POLITOED"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 46
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "burn"
+expect.enemy.active.pp = [4, 15, 8, 18]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "POLITOED", level = 45, hp = 80, max_hp = 148, status = "burn", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HOUNDOOM"
+expect.player.active.level = 45
+expect.player.active.hp = 75
+expect.player.active.max_hp = 134
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 15, 20, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 45, hp = 75, max_hp = 134, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "POLITOED"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "burn"
+expect.enemy.active.pp = [3, 15, 8, 18]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "POLITOED", level = 45, hp = 0, max_hp = 148, status = "burn", item = "none" }]
+expect.battle.outcome = "win"
