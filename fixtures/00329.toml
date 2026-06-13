@@ -1,0 +1,64 @@
+[recording]
+seed = "0x00000000aabbccdd"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Snorlax"
+level = 40
+moves = ["Rest", "Body Slam", "Earthquake", "Amnesia"]
+
+[[scenario.enemy_party]]
+species = "Gengar"
+level = 45
+moves = ["Nightmare", "Shadow Ball", "Hypnosis", "Confuse Ray"]
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 184
+expect.player.active.max_hp = 184
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 15, 9, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 184, max_hp = 184, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 25
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 14, 20, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 40
+expect.player.active.hp = 184
+expect.player.active.max_hp = 184
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 15, 8, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 40, hp = 184, max_hp = 184, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 14, 20, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 0, max_hp = 121, status = "none", item = "none" }]
+expect.battle.outcome = "win"
