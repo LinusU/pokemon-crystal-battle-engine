@@ -1,0 +1,86 @@
+[recording]
+seed = "0x0000000055667788"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Charizard"
+level = 50
+moves = ["Fly", "Growl", "Leer", "Tail Whip"]
+
+[[scenario.enemy_party]]
+species = "Pidgeot"
+level = 50
+moves = ["Gust", "Twister", "Wing Attack", "Quick Attack"]
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHARIZARD"
+expect.player.active.level = 50
+expect.player.active.hp = 103
+expect.player.active.max_hp = 151
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 40, 30, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHARIZARD", level = 50, hp = 103, max_hp = 151, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PIDGEOT"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 113
+expect.enemy.active.max_hp = 143
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 18, 35, 30]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHARIZARD"
+expect.player.active.level = 50
+expect.player.active.hp = 34
+expect.player.active.max_hp = 151
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 40, 30, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHARIZARD", level = 50, hp = 34, max_hp = 151, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PIDGEOT"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 71
+expect.enemy.active.max_hp = 143
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 17, 34, 30]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHARIZARD"
+expect.player.active.level = 50
+expect.player.active.hp = 0
+expect.player.active.max_hp = 151
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 40, 30, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHARIZARD", level = 50, hp = 0, max_hp = 151, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PIDGEOT"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 71
+expect.enemy.active.max_hp = 143
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [34, 17, 34, 30]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
