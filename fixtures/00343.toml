@@ -1,0 +1,112 @@
+[recording]
+seed = "0x000000003deff000"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Snorlax"
+level = 50
+moves = ["Fly", "Amnesia", "Harden", "Growl"]
+
+[[scenario.enemy_party]]
+species = "Pidgeot"
+level = 50
+moves = ["Gust", "Wing Attack", "Quick Attack", "Sand Attack"]
+
+[[scenario.player_items]]
+name = "Full Restore"
+quantity = 2
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 234
+expect.player.active.max_hp = 234
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 20, 30, 40]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 234, max_hp = 234, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PIDGEOT"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 118
+expect.enemy.active.max_hp = 143
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 35, 30, 13]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 182
+expect.player.active.max_hp = 234
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 20, 30, 40]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 182, max_hp = 234, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PIDGEOT"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 74
+expect.enemy.active.max_hp = 143
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [34, 35, 30, 12]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 86
+expect.player.active.max_hp = 234
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 20, 30, 40]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 86, max_hp = 234, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PIDGEOT"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 30
+expect.enemy.active.max_hp = 143
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [33, 34, 30, 12]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 50, hp = 157, max_hp = 157, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 50
+expect.player.active.hp = 2
+expect.player.active.max_hp = 234
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 20, 30, 40]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 50, hp = 2, max_hp = 234, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "PIDGEOT"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 143
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [31, 34, 30, 12]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "PIDGEOT", level = 50, hp = 0, max_hp = 157, status = "none", item = "none" }]
+expect.battle.outcome = "win"
