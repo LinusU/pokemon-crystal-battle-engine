@@ -1,0 +1,229 @@
+[recording]
+seed = "0x000000000000eeee"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Slowbro"
+level = 30
+moves = ["Surf", "Psychic", "Amnesia", "Rest"]
+
+[[scenario.enemy_party]]
+species = "Machamp"
+level = 50
+moves = ["Fissure", "Cross Chop", "Rock Slide", "Tackle"]
+
+[[scenario.enemy_party]]
+species = "Rattata"
+level = 10
+moves = ["Tackle", "Tail Whip", "Quick Attack", "Focus Energy"]
+
+[[scenario.player_items]]
+name = "Full Restore"
+quantity = 2
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 30
+expect.player.active.hp = 74
+expect.player.active.max_hp = 101
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 10, 20, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 30, hp = 74, max_hp = 101, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 134
+expect.enemy.active.max_hp = 150
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 5, 10, 34]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MACHAMP", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }, { species = "RATTATA", level = 10, hp = 28, max_hp = 28, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 30
+expect.player.active.hp = 74
+expect.player.active.max_hp = 101
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 10, 20, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 30, hp = 74, max_hp = 101, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 105
+expect.enemy.active.max_hp = 150
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [4, 5, 10, 34]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MACHAMP", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }, { species = "RATTATA", level = 10, hp = 28, max_hp = 28, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 30
+expect.player.active.hp = 21
+expect.player.active.max_hp = 101
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 10, 20, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 30, hp = 21, max_hp = 101, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 75
+expect.enemy.active.max_hp = 150
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [4, 4, 10, 34]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MACHAMP", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }, { species = "RATTATA", level = 10, hp = 28, max_hp = 28, status = "none", item = "none" }]
+
+[[step]]
+kind = "item"
+id = 14
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 30
+expect.player.active.hp = 71
+expect.player.active.max_hp = 101
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 10, 20, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 30, hp = 71, max_hp = 101, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 75
+expect.enemy.active.max_hp = 150
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [4, 4, 10, 33]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MACHAMP", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }, { species = "RATTATA", level = 10, hp = 28, max_hp = 28, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 30
+expect.player.active.hp = 71
+expect.player.active.max_hp = 101
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 10, 20, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 30, hp = 71, max_hp = 101, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 49
+expect.enemy.active.max_hp = 150
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [3, 4, 10, 33]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MACHAMP", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }, { species = "RATTATA", level = 10, hp = 28, max_hp = 28, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 30
+expect.player.active.hp = 71
+expect.player.active.max_hp = 101
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 10, 20, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 30, hp = 71, max_hp = 101, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 21
+expect.enemy.active.max_hp = 150
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [2, 4, 10, 33]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MACHAMP", level = 50, hp = 164, max_hp = 164, status = "none", item = "none" }, { species = "RATTATA", level = 10, hp = 28, max_hp = 28, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 30
+expect.player.active.hp = 15
+expect.player.active.max_hp = 101
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 10, 20, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 30, hp = 15, max_hp = 101, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "RATTATA"
+expect.enemy.active.level = 10
+expect.enemy.active.hp = 28
+expect.enemy.active.max_hp = 26
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 30, 30, 30]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MACHAMP", level = 50, hp = 0, max_hp = 164, status = "none", item = "none" }, { species = "RATTATA", level = 10, hp = 28, max_hp = 28, status = "none", item = "none" }]
+
+[[step]]
+kind = "item"
+id = 14
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 30
+expect.player.active.hp = 101
+expect.player.active.max_hp = 101
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 10, 20, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 30, hp = 101, max_hp = 101, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "RATTATA"
+expect.enemy.active.level = 10
+expect.enemy.active.hp = 28
+expect.enemy.active.max_hp = 26
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 30, 30, 29]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MACHAMP", level = 50, hp = 0, max_hp = 164, status = "none", item = "none" }, { species = "RATTATA", level = 10, hp = 28, max_hp = 28, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 30
+expect.player.active.hp = 101
+expect.player.active.max_hp = 101
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 10, 20, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 30, hp = 101, max_hp = 101, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "RATTATA"
+expect.enemy.active.level = 10
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 26
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 30, 30, 29]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MACHAMP", level = 50, hp = 0, max_hp = 164, status = "none", item = "none" }, { species = "RATTATA", level = 10, hp = 0, max_hp = 28, status = "none", item = "none" }]
+expect.battle.outcome = "win"
