@@ -1,0 +1,68 @@
+[recording]
+seed = "0x000000001bcdefa0"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Blissey"
+level = 50
+moves = ["Softboiled", "Ice Beam", "Seismic Toss", "Thunder Wave"]
+
+[[scenario.enemy_party]]
+species = "Ditto"
+level = 40
+moves = ["Transform", "Swords Dance", "Slash", "Swift"]
+
+[[scenario.player_items]]
+name = "Full Restore"
+quantity = 2
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SETUP", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "BLISSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 322
+expect.player.active.max_hp = 322
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 9, 20, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "BLISSEY", level = 50, hp = 322, max_hp = 322, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "DITTO"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 30
+expect.enemy.active.max_hp = 88
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 29, 20, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "DITTO", level = 40, hp = 99, max_hp = 99, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "BLISSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 322
+expect.player.active.max_hp = 322
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 8, 20, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "BLISSEY", level = 50, hp = 322, max_hp = 322, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "DITTO"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 88
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 29, 20, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "DITTO", level = 40, hp = 0, max_hp = 99, status = "none", item = "none" }]
+expect.battle.outcome = "win"
