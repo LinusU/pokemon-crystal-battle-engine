@@ -1,0 +1,113 @@
+[recording]
+seed = "0x000000004abcdef0"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Haunter"
+level = 45
+moves = ["Shadow Ball", "Hypnosis", "Night Shade", "Confuse Ray"]
+
+[[scenario.player_party]]
+species = "Feraligatr"
+level = 45
+moves = ["Surf", "Ice Beam", "Earthquake", "Headbutt"]
+
+[[scenario.enemy_party]]
+species = "Houndoom"
+level = 45
+moves = ["Mean Look", "Foresight", "Crunch", "Flamethrower"]
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 45
+expect.player.active.hp = 107
+expect.player.active.max_hp = 107
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 20, 15, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 45, hp = 107, max_hp = 107, status = "none", item = "none" }, { species = "FERALIGATR", level = 45, hp = 141, max_hp = 141, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 114
+expect.enemy.active.max_hp = 122
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 39, 15, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOOM", level = 45, hp = 135, max_hp = 135, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 45
+expect.player.active.hp = 0
+expect.player.active.max_hp = 107
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 20, 15, 10]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 45, hp = 0, max_hp = 107, status = "none", item = "none" }, { species = "FERALIGATR", level = 45, hp = 141, max_hp = 141, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 95
+expect.enemy.active.max_hp = 122
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 39, 14, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOOM", level = 45, hp = 135, max_hp = 135, status = "none", item = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 45
+expect.player.active.hp = 141
+expect.player.active.max_hp = 141
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 45, hp = 0, max_hp = 107, status = "none", item = "none" }, { species = "FERALIGATR", level = 45, hp = 141, max_hp = 141, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 95
+expect.enemy.active.max_hp = 122
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 39, 14, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOOM", level = 45, hp = 135, max_hp = 135, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 45
+expect.player.active.hp = 106
+expect.player.active.max_hp = 141
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 9, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 45, hp = 0, max_hp = 107, status = "none", item = "none" }, { species = "FERALIGATR", level = 45, hp = 106, max_hp = 141, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HOUNDOOM"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 122
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 39, 14, 14]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HOUNDOOM", level = 45, hp = 0, max_hp = 135, status = "none", item = "none" }]
+expect.battle.outcome = "win"
