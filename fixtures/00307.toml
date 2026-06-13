@@ -1,0 +1,108 @@
+[recording]
+seed = "0x000000000000cccc"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Slowbro"
+level = 45
+moves = ["Sunny Day", "Sunny Day", "Sunny Day", "Sunny Day"]
+
+[[scenario.enemy_party]]
+species = "Jolteon"
+level = 45
+moves = ["Thunder", "Sunny Day", "Thunderbolt", "Shadow Ball"]
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 45
+expect.player.active.hp = 144
+expect.player.active.max_hp = 144
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 5, 5, 5]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 45, hp = 144, max_hp = 144, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JOLTEON"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 126
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 4, 15, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JOLTEON", level = 45, hp = 126, max_hp = 126, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 45
+expect.player.active.hp = 106
+expect.player.active.max_hp = 144
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 5, 5, 5]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 45, hp = 106, max_hp = 144, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JOLTEON"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 126
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 4, 15, 14]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JOLTEON", level = 45, hp = 126, max_hp = 126, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 45
+expect.player.active.hp = 65
+expect.player.active.max_hp = 144
+expect.player.active.status = "none"
+expect.player.active.pp = [2, 5, 5, 5]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 45, hp = 65, max_hp = 144, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JOLTEON"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 126
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 4, 15, 13]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JOLTEON", level = 45, hp = 126, max_hp = 126, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 45
+expect.player.active.hp = 0
+expect.player.active.max_hp = 144
+expect.player.active.status = "none"
+expect.player.active.pp = [2, 5, 5, 5]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 45, hp = 0, max_hp = 144, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "JOLTEON"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 126
+expect.enemy.active.max_hp = 113
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 4, 14, 13]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "JOLTEON", level = 45, hp = 126, max_hp = 126, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
