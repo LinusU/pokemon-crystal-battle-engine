@@ -1,0 +1,86 @@
+[recording]
+seed = "0x0000000000001234"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Tauros"
+level = 45
+moves = ["Body Slam", "Earthquake", "Hyper Beam", "Horn Attack"]
+
+[[scenario.enemy_party]]
+species = "Machamp"
+level = 45
+moves = ["Counter", "Cross Chop", "Rock Slide", "Tackle"]
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "TAUROS"
+expect.player.active.level = 45
+expect.player.active.hp = 107
+expect.player.active.max_hp = 125
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 4, 25]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "TAUROS", level = 45, hp = 107, max_hp = 125, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 5, 10, 34]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MACHAMP", level = 45, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "TAUROS"
+expect.player.active.level = 45
+expect.player.active.hp = 107
+expect.player.active.max_hp = 125
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 3, 25]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "TAUROS", level = 45, hp = 107, max_hp = 125, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 57
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 5, 10, 34]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MACHAMP", level = 45, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "TAUROS"
+expect.player.active.level = 45
+expect.player.active.hp = 107
+expect.player.active.max_hp = 125
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 2, 25]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "TAUROS", level = 45, hp = 107, max_hp = 125, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 5, 10, 34]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MACHAMP", level = 45, hp = 0, max_hp = 148, status = "none", item = "none" }]
+expect.battle.outcome = "win"
