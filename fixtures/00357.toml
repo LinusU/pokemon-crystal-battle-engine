@@ -1,0 +1,64 @@
+[recording]
+seed = "0x000000008cbcdef0"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Houndoom"
+level = 45
+moves = ["Flamethrower", "Crunch", "Faint Attack", "Fire Spin"]
+
+[[scenario.enemy_party]]
+species = "Venusaur"
+level = 45
+moves = ["Sunny Day", "Solar Beam", "Razor Leaf", "Sleep Powder"]
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HOUNDOOM"
+expect.player.active.level = 45
+expect.player.active.hp = 134
+expect.player.active.max_hp = 134
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 15, 20, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 45, hp = 134, max_hp = 134, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VENUSAUR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 27
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 10, 25, 14]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VENUSAUR", level = 45, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HOUNDOOM"
+expect.player.active.level = 45
+expect.player.active.hp = 134
+expect.player.active.max_hp = 134
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 15, 20, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HOUNDOOM", level = 45, hp = 134, max_hp = 134, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VENUSAUR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 10, 25, 14]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VENUSAUR", level = 45, hp = 0, max_hp = 139, status = "none", item = "none" }]
+expect.battle.outcome = "win"
