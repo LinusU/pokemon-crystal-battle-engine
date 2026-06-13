@@ -1,0 +1,218 @@
+[recording]
+seed = "0x0000000000005678"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Scyther"
+level = 45
+moves = ["Fury Cutter", "Fury Cutter", "Fury Cutter", "Fury Cutter"]
+
+[[scenario.enemy_party]]
+species = "Steelix"
+level = 45
+moves = ["Protect", "Iron Tail", "Earthquake", "Crunch"]
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 45
+expect.player.active.hp = 124
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 20, 20, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SCYTHER", level = 45, hp = 124, max_hp = 124, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 133
+expect.enemy.active.max_hp = 122
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 15, 9, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "STEELIX", level = 45, hp = 135, max_hp = 135, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 45
+expect.player.active.hp = 104
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 19, 20, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SCYTHER", level = 45, hp = 104, max_hp = 124, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 128
+expect.enemy.active.max_hp = 122
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 15, 9, 14]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "STEELIX", level = 45, hp = 135, max_hp = 135, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 45
+expect.player.active.hp = 72
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 19, 19, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SCYTHER", level = 45, hp = 72, max_hp = 124, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 116
+expect.enemy.active.max_hp = 122
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 15, 9, 13]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "STEELIX", level = 45, hp = 135, max_hp = 135, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 45
+expect.player.active.hp = 72
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 19, 19, 19]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SCYTHER", level = 45, hp = 72, max_hp = 124, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 116
+expect.enemy.active.max_hp = 122
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 15, 9, 13]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "STEELIX", level = 45, hp = 135, max_hp = 135, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 45
+expect.player.active.hp = 40
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 19, 19, 19]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SCYTHER", level = 45, hp = 40, max_hp = 124, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 114
+expect.enemy.active.max_hp = 122
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 15, 9, 12]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "STEELIX", level = 45, hp = 135, max_hp = 135, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 45
+expect.player.active.hp = 40
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 18, 19, 19]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SCYTHER", level = 45, hp = 40, max_hp = 124, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 109
+expect.enemy.active.max_hp = 122
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 15, 8, 12]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "STEELIX", level = 45, hp = 135, max_hp = 135, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 45
+expect.player.active.hp = 40
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 18, 18, 19]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SCYTHER", level = 45, hp = 40, max_hp = 124, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 99
+expect.enemy.active.max_hp = 122
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 15, 7, 12]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "STEELIX", level = 45, hp = 135, max_hp = 135, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 45
+expect.player.active.hp = 40
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 18, 18, 18]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SCYTHER", level = 45, hp = 40, max_hp = 124, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 99
+expect.enemy.active.max_hp = 122
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 15, 7, 12]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "STEELIX", level = 45, hp = 135, max_hp = 135, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SCYTHER"
+expect.player.active.level = 45
+expect.player.active.hp = 0
+expect.player.active.max_hp = 124
+expect.player.active.status = "none"
+expect.player.active.pp = [17, 18, 18, 18]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SCYTHER", level = 45, hp = 0, max_hp = 124, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "STEELIX"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 97
+expect.enemy.active.max_hp = 122
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [8, 14, 7, 12]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "STEELIX", level = 45, hp = 135, max_hp = 135, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
