@@ -1,0 +1,218 @@
+[recording]
+seed = "0x00000000bbeeddff"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Clefairy"
+level = 40
+moves = ["Minimize", "Growl", "Tail Whip", "String Shot"]
+
+[[scenario.enemy_party]]
+species = "Tauros"
+level = 35
+moves = ["Stomp", "Earthquake", "Body Slam", "Hyper Beam"]
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CLEFAIRY"
+expect.player.active.level = 40
+expect.player.active.hp = 14
+expect.player.active.max_hp = 116
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 40, 30, 40]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 40, hp = 14, max_hp = 116, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 107
+expect.enemy.active.max_hp = 97
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 15, 4]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TAUROS", level = 35, hp = 107, max_hp = 107, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CLEFAIRY"
+expect.player.active.level = 40
+expect.player.active.hp = 14
+expect.player.active.max_hp = 116
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 40, 30, 40]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 40, hp = 14, max_hp = 116, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 107
+expect.enemy.active.max_hp = 97
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 15, 4]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TAUROS", level = 35, hp = 107, max_hp = 107, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CLEFAIRY"
+expect.player.active.level = 40
+expect.player.active.hp = 14
+expect.player.active.max_hp = 116
+expect.player.active.status = "none"
+expect.player.active.pp = [17, 40, 30, 40]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 40, hp = 14, max_hp = 116, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 107
+expect.enemy.active.max_hp = 97
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 10, 15, 4]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TAUROS", level = 35, hp = 107, max_hp = 107, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CLEFAIRY"
+expect.player.active.level = 40
+expect.player.active.hp = 14
+expect.player.active.max_hp = 116
+expect.player.active.status = "none"
+expect.player.active.pp = [16, 40, 30, 40]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 40, hp = 14, max_hp = 116, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 107
+expect.enemy.active.max_hp = 97
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 10, 15, 4]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TAUROS", level = 35, hp = 107, max_hp = 107, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CLEFAIRY"
+expect.player.active.level = 40
+expect.player.active.hp = 14
+expect.player.active.max_hp = 116
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 40, 30, 40]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 40, hp = 14, max_hp = 116, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 107
+expect.enemy.active.max_hp = 97
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 10, 15, 4]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TAUROS", level = 35, hp = 107, max_hp = 107, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CLEFAIRY"
+expect.player.active.level = 40
+expect.player.active.hp = 14
+expect.player.active.max_hp = 116
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 40, 30, 40]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 40, hp = 14, max_hp = 116, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 107
+expect.enemy.active.max_hp = 97
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [16, 10, 15, 4]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TAUROS", level = 35, hp = 107, max_hp = 107, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CLEFAIRY"
+expect.player.active.level = 40
+expect.player.active.hp = 14
+expect.player.active.max_hp = 116
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 40, 30, 40]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 40, hp = 14, max_hp = 116, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 107
+expect.enemy.active.max_hp = 97
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 10, 15, 4]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TAUROS", level = 35, hp = 107, max_hp = 107, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CLEFAIRY"
+expect.player.active.level = 40
+expect.player.active.hp = 14
+expect.player.active.max_hp = 116
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 40, 30, 40]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 40, hp = 14, max_hp = 116, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 107
+expect.enemy.active.max_hp = 97
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 10, 15, 4]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TAUROS", level = 35, hp = 107, max_hp = 107, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CLEFAIRY"
+expect.player.active.level = 40
+expect.player.active.hp = 0
+expect.player.active.max_hp = 116
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 40, 30, 40]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CLEFAIRY", level = 40, hp = 0, max_hp = 116, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "TAUROS"
+expect.enemy.active.level = 35
+expect.enemy.active.hp = 107
+expect.enemy.active.max_hp = 97
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 10, 15, 4]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "TAUROS", level = 35, hp = 107, max_hp = 107, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
