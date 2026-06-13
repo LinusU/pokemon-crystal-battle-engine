@@ -1,0 +1,108 @@
+[recording]
+seed = "0x0000000012ab34cd"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Starmie"
+level = 45
+moves = ["Surf", "Psychic", "Thunderbolt", "Blizzard"]
+
+[[scenario.enemy_party]]
+species = "Alakazam"
+level = 45
+moves = ["Disable", "Psychic", "Recover", "Shadow Ball"]
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 45
+expect.player.active.hp = 72
+expect.player.active.max_hp = 114
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 15, 4]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 45, hp = 72, max_hp = 114, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "ALAKAZAM"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 59
+expect.enemy.active.max_hp = 104
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 20, 14]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "ALAKAZAM", level = 45, hp = 117, max_hp = 117, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 45
+expect.player.active.hp = 36
+expect.player.active.max_hp = 114
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 15, 3]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 45, hp = 36, max_hp = 114, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "ALAKAZAM"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 59
+expect.enemy.active.max_hp = 104
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 9, 20, 14]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "ALAKAZAM", level = 45, hp = 117, max_hp = 117, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 45
+expect.player.active.hp = 36
+expect.player.active.max_hp = 114
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 15, 2]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 45, hp = 36, max_hp = 114, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "ALAKAZAM"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 3
+expect.enemy.active.max_hp = 104
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 9, 20, 14]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "ALAKAZAM", level = 45, hp = 117, max_hp = 117, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 45
+expect.player.active.hp = 36
+expect.player.active.max_hp = 114
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 15, 1]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 45, hp = 36, max_hp = 114, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "ALAKAZAM"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 104
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 9, 19, 14]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "ALAKAZAM", level = 45, hp = 0, max_hp = 117, status = "none", item = "none" }]
+expect.battle.outcome = "win"
