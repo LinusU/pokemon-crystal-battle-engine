@@ -1,0 +1,328 @@
+[recording]
+seed = "0x000000000000def0"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Smeargle"
+level = 40
+moves = ["Spore", "Tackle", "Tackle", "Tackle"]
+
+[[scenario.enemy_party]]
+species = "Haunter"
+level = 40
+moves = ["Hypnosis", "Nightmare", "Snore", "Sleep Talk"]
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SMEARGLE"
+expect.player.active.level = 40
+expect.player.active.hp = 99
+expect.player.active.max_hp = 99
+expect.player.active.status = "sleep"
+expect.player.active.pp = [15, 35, 35, 35]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SMEARGLE", level = 40, hp = 99, max_hp = 99, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 97
+expect.enemy.active.max_hp = 86
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 15, 15, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HAUNTER", level = 40, hp = 97, max_hp = 97, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SMEARGLE"
+expect.player.active.level = 40
+expect.player.active.hp = 99
+expect.player.active.max_hp = 99
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 35, 35, 35]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SMEARGLE", level = 40, hp = 99, max_hp = 99, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 97
+expect.enemy.active.max_hp = 86
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [19, 14, 15, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HAUNTER", level = 40, hp = 97, max_hp = 97, status = "sleep", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SMEARGLE"
+expect.player.active.level = 40
+expect.player.active.hp = 99
+expect.player.active.max_hp = 99
+expect.player.active.status = "sleep"
+expect.player.active.pp = [14, 35, 35, 35]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SMEARGLE", level = 40, hp = 99, max_hp = 99, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 97
+expect.enemy.active.max_hp = 86
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [19, 14, 15, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HAUNTER", level = 40, hp = 97, max_hp = 97, status = "sleep", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SMEARGLE"
+expect.player.active.level = 40
+expect.player.active.hp = 83
+expect.player.active.max_hp = 99
+expect.player.active.status = "sleep"
+expect.player.active.pp = [14, 35, 35, 35]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SMEARGLE", level = 40, hp = 83, max_hp = 99, status = "sleep", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 97
+expect.enemy.active.max_hp = 86
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [19, 14, 14, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HAUNTER", level = 40, hp = 97, max_hp = 97, status = "sleep", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SMEARGLE"
+expect.player.active.level = 40
+expect.player.active.hp = 83
+expect.player.active.max_hp = 99
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 35, 35, 35]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SMEARGLE", level = 40, hp = 83, max_hp = 99, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 97
+expect.enemy.active.max_hp = 86
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [19, 14, 14, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HAUNTER", level = 40, hp = 97, max_hp = 97, status = "sleep", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SMEARGLE"
+expect.player.active.level = 40
+expect.player.active.hp = 83
+expect.player.active.max_hp = 99
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 35, 35, 35]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SMEARGLE", level = 40, hp = 83, max_hp = 99, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 97
+expect.enemy.active.max_hp = 86
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [18, 14, 14, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HAUNTER", level = 40, hp = 97, max_hp = 97, status = "sleep", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SMEARGLE"
+expect.player.active.level = 40
+expect.player.active.hp = 83
+expect.player.active.max_hp = 99
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 35, 35, 35]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SMEARGLE", level = 40, hp = 83, max_hp = 99, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 97
+expect.enemy.active.max_hp = 86
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [18, 14, 14, 7]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HAUNTER", level = 40, hp = 97, max_hp = 97, status = "sleep", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SMEARGLE"
+expect.player.active.level = 40
+expect.player.active.hp = 66
+expect.player.active.max_hp = 99
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 35, 35, 35]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SMEARGLE", level = 40, hp = 66, max_hp = 99, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 97
+expect.enemy.active.max_hp = 86
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [18, 14, 13, 7]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HAUNTER", level = 40, hp = 97, max_hp = 97, status = "sleep", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SMEARGLE"
+expect.player.active.level = 40
+expect.player.active.hp = 49
+expect.player.active.max_hp = 99
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 35, 35, 35]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SMEARGLE", level = 40, hp = 49, max_hp = 99, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 97
+expect.enemy.active.max_hp = 86
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [18, 14, 13, 6]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HAUNTER", level = 40, hp = 97, max_hp = 97, status = "sleep", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SMEARGLE"
+expect.player.active.level = 40
+expect.player.active.hp = 49
+expect.player.active.max_hp = 99
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 35, 35, 35]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SMEARGLE", level = 40, hp = 49, max_hp = 99, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 97
+expect.enemy.active.max_hp = 86
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [18, 14, 13, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HAUNTER", level = 40, hp = 97, max_hp = 97, status = "sleep", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SMEARGLE"
+expect.player.active.level = 40
+expect.player.active.hp = 33
+expect.player.active.max_hp = 99
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 35, 35, 35]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SMEARGLE", level = 40, hp = 33, max_hp = 99, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 97
+expect.enemy.active.max_hp = 86
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [18, 14, 13, 4]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HAUNTER", level = 40, hp = 97, max_hp = 97, status = "sleep", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SMEARGLE"
+expect.player.active.level = 40
+expect.player.active.hp = 15
+expect.player.active.max_hp = 99
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 35, 35, 35]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SMEARGLE", level = 40, hp = 15, max_hp = 99, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 97
+expect.enemy.active.max_hp = 86
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [18, 14, 13, 3]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HAUNTER", level = 40, hp = 97, max_hp = 97, status = "sleep", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SMEARGLE"
+expect.player.active.level = 40
+expect.player.active.hp = 15
+expect.player.active.max_hp = 99
+expect.player.active.status = "none"
+expect.player.active.pp = [7, 35, 35, 35]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SMEARGLE", level = 40, hp = 15, max_hp = 99, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 97
+expect.enemy.active.max_hp = 86
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [17, 14, 13, 3]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HAUNTER", level = 40, hp = 97, max_hp = 97, status = "sleep", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SMEARGLE"
+expect.player.active.level = 40
+expect.player.active.hp = 0
+expect.player.active.max_hp = 99
+expect.player.active.status = "none"
+expect.player.active.pp = [7, 35, 35, 35]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SMEARGLE", level = 40, hp = 0, max_hp = 99, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HAUNTER"
+expect.enemy.active.level = 40
+expect.enemy.active.hp = 97
+expect.enemy.active.max_hp = 86
+expect.enemy.active.status = "sleep"
+expect.enemy.active.pp = [17, 14, 13, 2]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HAUNTER", level = 40, hp = 97, max_hp = 97, status = "sleep", item = "none" }]
+expect.battle.outcome = "loss"
