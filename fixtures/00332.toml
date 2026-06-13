@@ -1,0 +1,86 @@
+[recording]
+seed = "0x0000000056781234"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Steelix"
+level = 45
+moves = ["Iron Tail", "Earthquake", "Crunch", "Harden"]
+
+[[scenario.enemy_party]]
+species = "Raichu"
+level = 45
+moves = ["Hidden Power", "Thunderbolt", "Thunder Wave", "Agility"]
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "STEELIX"
+expect.player.active.level = 45
+expect.player.active.hp = 97
+expect.player.active.max_hp = 122
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 10, 15, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STEELIX", level = 45, hp = 97, max_hp = 122, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RAICHU"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 78
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [14, 15, 20, 30]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "STEELIX"
+expect.player.active.level = 45
+expect.player.active.hp = 73
+expect.player.active.max_hp = 122
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 10, 15, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STEELIX", level = 45, hp = 73, max_hp = 122, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RAICHU"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 38
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [13, 15, 20, 30]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "STEELIX"
+expect.player.active.level = 45
+expect.player.active.hp = 48
+expect.player.active.max_hp = 122
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 10, 15, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STEELIX", level = 45, hp = 48, max_hp = 122, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RAICHU"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [12, 15, 20, 30]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RAICHU", level = 45, hp = 0, max_hp = 121, status = "none", item = "none" }]
+expect.battle.outcome = "win"
