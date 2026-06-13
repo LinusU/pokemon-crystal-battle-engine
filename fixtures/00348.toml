@@ -1,0 +1,752 @@
+[recording]
+seed = "0x000000002bcdefa0"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Chansey"
+level = 50
+moves = ["Safeguard", "Growl", "Tail Whip", "Sing"]
+
+[[scenario.enemy_party]]
+species = "Gengar"
+level = 45
+moves = ["Hypnosis", "Toxic", "Night Shade", "Confuse Ray"]
+
+[[scenario.player_items]]
+name = "Full Restore"
+quantity = 2
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 316
+expect.player.active.max_hp = 316
+expect.player.active.status = "none"
+expect.player.active.pp = [24, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 316, max_hp = 316, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 10, 15, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 316
+expect.player.active.max_hp = 316
+expect.player.active.status = "none"
+expect.player.active.pp = [23, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 316, max_hp = 316, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 10, 14, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 316
+expect.player.active.max_hp = 316
+expect.player.active.status = "none"
+expect.player.active.pp = [22, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 316, max_hp = 316, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 10, 13, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 316
+expect.player.active.max_hp = 316
+expect.player.active.status = "none"
+expect.player.active.pp = [21, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 316, max_hp = 316, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 10, 12, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 316
+expect.player.active.max_hp = 316
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 316, max_hp = 316, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 10, 11, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 297
+expect.player.active.max_hp = 316
+expect.player.active.status = "poison"
+expect.player.active.pp = [19, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 297, max_hp = 316, status = "poison", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 9, 11, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 259
+expect.player.active.max_hp = 316
+expect.player.active.status = "poison"
+expect.player.active.pp = [18, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 259, max_hp = 316, status = "poison", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 9, 10, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 202
+expect.player.active.max_hp = 316
+expect.player.active.status = "poison"
+expect.player.active.pp = [17, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 202, max_hp = 316, status = "poison", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 9, 9, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 126
+expect.player.active.max_hp = 316
+expect.player.active.status = "poison"
+expect.player.active.pp = [16, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 126, max_hp = 316, status = "poison", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 9, 8, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 31
+expect.player.active.max_hp = 316
+expect.player.active.status = "poison"
+expect.player.active.pp = [15, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 31, max_hp = 316, status = "poison", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 9, 7, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "item"
+id = 14
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 316
+expect.player.active.max_hp = 316
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 316, max_hp = 316, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 9, 6, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 316
+expect.player.active.max_hp = 316
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 316, max_hp = 316, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 9, 6, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 316
+expect.player.active.max_hp = 316
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 316, max_hp = 316, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 9, 5, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 316
+expect.player.active.max_hp = 316
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 316, max_hp = 316, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 9, 4, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 316
+expect.player.active.max_hp = 316
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 316, max_hp = 316, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 9, 3, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 316
+expect.player.active.max_hp = 316
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 316, max_hp = 316, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 9, 2, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 297
+expect.player.active.max_hp = 316
+expect.player.active.status = "poison"
+expect.player.active.pp = [9, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 297, max_hp = 316, status = "poison", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 8, 2, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 259
+expect.player.active.max_hp = 316
+expect.player.active.status = "poison"
+expect.player.active.pp = [8, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 259, max_hp = 316, status = "poison", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 8, 1, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 202
+expect.player.active.max_hp = 316
+expect.player.active.status = "poison"
+expect.player.active.pp = [7, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 202, max_hp = 316, status = "poison", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 8, 0, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 126
+expect.player.active.max_hp = 316
+expect.player.active.status = "poison"
+expect.player.active.pp = [6, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 126, max_hp = 316, status = "poison", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 8, 0, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 31
+expect.player.active.max_hp = 316
+expect.player.active.status = "poison"
+expect.player.active.pp = [5, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 31, max_hp = 316, status = "poison", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 8, 0, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "item"
+id = 14
+target = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 316
+expect.player.active.max_hp = 316
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 316, max_hp = 316, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 8, 0, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 316
+expect.player.active.max_hp = 316
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 316, max_hp = 316, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [16, 8, 0, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 316
+expect.player.active.max_hp = 316
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 316, max_hp = 316, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [16, 8, 0, 7]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 316
+expect.player.active.max_hp = 316
+expect.player.active.status = "none"
+expect.player.active.pp = [2, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 316, max_hp = 316, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [16, 7, 0, 7]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 316
+expect.player.active.max_hp = 316
+expect.player.active.status = "none"
+expect.player.active.pp = [1, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 316, max_hp = 316, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [16, 7, 0, 6]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 316
+expect.player.active.max_hp = 316
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 316, max_hp = 316, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [16, 7, 0, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 296
+expect.player.active.max_hp = 316
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 40, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 296, max_hp = 316, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [16, 7, 0, 4]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 277
+expect.player.active.max_hp = 316
+expect.player.active.status = "poison"
+expect.player.active.pp = [0, 39, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 277, max_hp = 316, status = "poison", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [16, 6, 0, 4]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 219
+expect.player.active.max_hp = 316
+expect.player.active.status = "poison"
+expect.player.active.pp = [0, 39, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 219, max_hp = 316, status = "poison", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [16, 6, 0, 3]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 142
+expect.player.active.max_hp = 316
+expect.player.active.status = "poison"
+expect.player.active.pp = [0, 39, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 142, max_hp = 316, status = "poison", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [16, 5, 0, 3]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 66
+expect.player.active.max_hp = 316
+expect.player.active.status = "poison"
+expect.player.active.pp = [0, 38, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 66, max_hp = 316, status = "poison", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 5, 0, 3]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "CHANSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 0
+expect.player.active.max_hp = 316
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 38, 30, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "CHANSEY", level = 50, hp = 0, max_hp = 316, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [15, 5, 0, 2]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GENGAR", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
