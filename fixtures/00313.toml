@@ -1,0 +1,64 @@
+[recording]
+seed = "0x000000000000bbbb"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Tauros"
+level = 30
+moves = ["Body Slam", "Earthquake", "Hyper Beam", "Horn Attack"]
+
+[[scenario.enemy_party]]
+species = "Blissey"
+level = 50
+moves = ["Mirror Coat", "Softboiled", "Thunder Wave", "Flamethrower"]
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "TAUROS"
+expect.player.active.level = 30
+expect.player.active.hp = 86
+expect.player.active.max_hp = 86
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [15, 10, 4, 25]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "TAUROS", level = 30, hp = 86, max_hp = 86, status = "paralysis", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BLISSEY"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 309
+expect.enemy.active.max_hp = 315
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 9, 19, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BLISSEY", level = 50, hp = 309, max_hp = 329, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "TAUROS"
+expect.player.active.level = 30
+expect.player.active.hp = 0
+expect.player.active.max_hp = 86
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 3, 25]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "TAUROS", level = 30, hp = 0, max_hp = 86, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BLISSEY"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 138
+expect.enemy.active.max_hp = 315
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 9, 19, 13]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BLISSEY", level = 50, hp = 309, max_hp = 329, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
