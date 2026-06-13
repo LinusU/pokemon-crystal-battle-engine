@@ -1,0 +1,86 @@
+[recording]
+seed = "0x000000000000dddd"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Starmie"
+level = 45
+moves = ["Surf", "Psychic", "Thunderbolt", "Blizzard"]
+
+[[scenario.enemy_party]]
+species = "Machamp"
+level = 45
+moves = ["Counter", "Cross Chop", "Rock Slide", "Tackle"]
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 45
+expect.player.active.hp = 95
+expect.player.active.max_hp = 118
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 15, 4]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 45, hp = 95, max_hp = 118, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 43
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 5, 10, 34]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MACHAMP", level = 45, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 45
+expect.player.active.hp = 48
+expect.player.active.max_hp = 118
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 15, 3]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 45, hp = 48, max_hp = 118, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 43
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 4, 10, 34]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MACHAMP", level = 45, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 45
+expect.player.active.hp = 48
+expect.player.active.max_hp = 118
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 15, 2]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 45, hp = 48, max_hp = 118, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 4, 10, 34]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MACHAMP", level = 45, hp = 0, max_hp = 148, status = "none", item = "none" }]
+expect.battle.outcome = "win"
