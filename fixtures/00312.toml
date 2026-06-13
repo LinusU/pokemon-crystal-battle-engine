@@ -1,0 +1,130 @@
+[recording]
+seed = "0x000000000000cccc"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Starmie"
+level = 45
+moves = ["Surf", "Psychic", "Thunderbolt", "Blizzard"]
+
+[[scenario.enemy_party]]
+species = "Blissey"
+level = 45
+moves = ["Mirror Coat", "Softboiled", "Thunder Wave", "Flamethrower"]
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 45
+expect.player.active.hp = 94
+expect.player.active.max_hp = 112
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 15, 4]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 45, hp = 94, max_hp = 112, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BLISSEY"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 297
+expect.enemy.active.max_hp = 284
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 20, 14]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BLISSEY", level = 45, hp = 297, max_hp = 297, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 45
+expect.player.active.hp = 94
+expect.player.active.max_hp = 112
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [15, 10, 15, 3]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 45, hp = 94, max_hp = 112, status = "paralysis", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BLISSEY"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 265
+expect.enemy.active.max_hp = 284
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 19, 14]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BLISSEY", level = 45, hp = 297, max_hp = 297, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 45
+expect.player.active.hp = 94
+expect.player.active.max_hp = 112
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [15, 10, 15, 3]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 45, hp = 94, max_hp = 112, status = "paralysis", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BLISSEY"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 265
+expect.enemy.active.max_hp = 284
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 10, 19, 14]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BLISSEY", level = 45, hp = 297, max_hp = 297, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 45
+expect.player.active.hp = 30
+expect.player.active.max_hp = 112
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [15, 10, 15, 2]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 45, hp = 30, max_hp = 112, status = "paralysis", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BLISSEY"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 233
+expect.enemy.active.max_hp = 284
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 10, 19, 14]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BLISSEY", level = 45, hp = 297, max_hp = 297, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "STARMIE"
+expect.player.active.level = 45
+expect.player.active.hp = 0
+expect.player.active.max_hp = 112
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 15, 1]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "STARMIE", level = 45, hp = 0, max_hp = 112, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BLISSEY"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 200
+expect.enemy.active.max_hp = 284
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [17, 10, 19, 14]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BLISSEY", level = 45, hp = 297, max_hp = 297, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
