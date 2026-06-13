@@ -1,0 +1,196 @@
+[recording]
+seed = "0x0000000000001234"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Slowbro"
+level = 45
+moves = ["Rain Dance", "Rain Dance", "Rain Dance", "Rain Dance"]
+
+[[scenario.enemy_party]]
+species = "Venusaur"
+level = 45
+moves = ["Solar Beam", "Sunny Day", "Synthesis", "Sludge Bomb"]
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 45
+expect.player.active.hp = 143
+expect.player.active.max_hp = 143
+expect.player.active.status = "none"
+expect.player.active.pp = [4, 5, 5, 5]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 45, hp = 143, max_hp = 143, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VENUSAUR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 4, 5, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VENUSAUR", level = 45, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 45
+expect.player.active.hp = 107
+expect.player.active.max_hp = 143
+expect.player.active.status = "none"
+expect.player.active.pp = [3, 5, 5, 5]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 45, hp = 107, max_hp = 143, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VENUSAUR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 4, 5, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VENUSAUR", level = 45, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 45
+expect.player.active.hp = 107
+expect.player.active.max_hp = 143
+expect.player.active.status = "none"
+expect.player.active.pp = [2, 5, 5, 5]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 45, hp = 107, max_hp = 143, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VENUSAUR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 3, 5, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VENUSAUR", level = 45, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 45
+expect.player.active.hp = 107
+expect.player.active.max_hp = 143
+expect.player.active.status = "none"
+expect.player.active.pp = [1, 5, 5, 5]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 45, hp = 107, max_hp = 143, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VENUSAUR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 2, 5, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VENUSAUR", level = 45, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 45
+expect.player.active.hp = 107
+expect.player.active.max_hp = 143
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 5, 5, 5]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 45, hp = 107, max_hp = 143, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VENUSAUR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 1, 5, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VENUSAUR", level = 45, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 45
+expect.player.active.hp = 70
+expect.player.active.max_hp = 143
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 4, 5, 5]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 45, hp = 70, max_hp = 143, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VENUSAUR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 1, 5, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VENUSAUR", level = 45, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 45
+expect.player.active.hp = 33
+expect.player.active.max_hp = 143
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 3, 5, 5]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 45, hp = 33, max_hp = 143, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VENUSAUR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 1, 5, 7]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VENUSAUR", level = 45, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 45
+expect.player.active.hp = 0
+expect.player.active.max_hp = 143
+expect.player.active.status = "none"
+expect.player.active.pp = [0, 3, 5, 5]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 45, hp = 0, max_hp = 143, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VENUSAUR"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 139
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 1, 5, 6]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VENUSAUR", level = 45, hp = 139, max_hp = 139, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
