@@ -165,6 +165,26 @@ fn write_scenario(writer: &mut BufWriter<File>, config: &BattleConfig) -> std::i
     write_party(writer, "scenario.enemy_party", &config.enemy_party)?;
     write_items(writer, "scenario.player_items", &config.player_items)?;
     write_items(writer, "scenario.enemy_items", &config.enemy_items)?;
+    if let Some(ov) = &config.enemy_trainer {
+        write_enemy_trainer(writer, ov)?;
+    }
+    Ok(())
+}
+
+fn write_enemy_trainer(
+    writer: &mut BufWriter<File>,
+    ov: &super::EnemyTrainerOverride,
+) -> std::io::Result<()> {
+    writeln!(writer)?;
+    writeln!(writer, "[scenario.enemy_trainer]")?;
+    if let Some(flags) = &ov.ai_move_flags {
+        let rendered: Vec<String> = flags.iter().map(|f| toml_string(f)).collect();
+        writeln!(writer, "ai_move_flags = [{}]", rendered.join(", "))?;
+    }
+    if let Some(flags) = &ov.ai_item_flags {
+        let rendered: Vec<String> = flags.iter().map(|f| toml_string(f)).collect();
+        writeln!(writer, "ai_item_flags = [{}]", rendered.join(", "))?;
+    }
     Ok(())
 }
 

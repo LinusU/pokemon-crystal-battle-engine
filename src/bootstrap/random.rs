@@ -165,6 +165,7 @@ pub fn random_battle_config(base_seed: u64) -> BattleConfig {
         enemy_party: Vec::new(),
         player_items,
         enemy_items: Vec::new(),
+        enemy_trainer: None,
     }
 }
 

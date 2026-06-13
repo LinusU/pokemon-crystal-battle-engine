@@ -36,6 +36,32 @@ pub struct BattleConfig {
     pub player_items: Vec<ItemSpec>,
     #[serde(default)]
     pub enemy_items: Vec<ItemSpec>,
+    /// Optional `[enemy_trainer]` table for trainer battles. When present,
+    /// overrides the trainer class's AI move-flags and/or AI item-flags
+    /// (and thus enemy item usage strategy) by poking the `TrainerClassAttributes`
+    /// ROM entry before `start_battle`. See [`EnemyTrainerOverride`].
+    pub enemy_trainer: Option<EnemyTrainerOverride>,
+}
+
+/// Optional per-battle AI overrides for trainer battles. Each field, when
+/// `Some`, replaces the corresponding word in the trainer class's
+/// `TrainerClassAttributes` ROM entry. The flag names are case-sensitive and
+/// must match the spellings in `scratch/pokecrystal/constants/trainer_data_constants.asm`.
+#[derive(Debug, Clone, Deserialize)]
+pub struct EnemyTrainerOverride {
+    /// When `Some`, replaces `TRNATTR_AI_MOVE_WEIGHTS` (the 16-bit move-AI
+    /// flag word) for the trainer's class. Valid flag names (bit positions):
+    /// `AI_BASIC` (0), `AI_SETUP` (1), `AI_TYPES` (2), `AI_OFFENSIVE` (3),
+    /// `AI_SMART` (4), `AI_OPPORTUNIST` (5), `AI_AGGRESSIVE` (6),
+    /// `AI_CAUTIOUS` (7), `AI_STATUS` (8), `AI_RISKY` (9). An empty list is
+    /// valid and means "no AI move scoring" (word = 0).
+    pub ai_move_flags: Option<Vec<String>>,
+    /// When `Some`, replaces `TRNATTR_AI_ITEM_SWITCH` (the 16-bit item/switch
+    /// AI flag word) for the trainer's class. Valid flag names (bit positions):
+    /// `SWITCH_OFTEN` (0), `SWITCH_RARELY` (1), `SWITCH_SOMETIMES` (2),
+    /// `ALWAYS_USE` (4), `UNKNOWN_USE` (5), `CONTEXT_USE` (6). An empty list
+    /// is valid and means "never use items / switch" (word = 0).
+    pub ai_item_flags: Option<Vec<String>>,
 }
 
 #[derive(Debug, Clone, Deserialize)]
@@ -139,6 +165,10 @@ pub fn load_battle(path: &std::path::Path) -> Result<BattleConfig, LoadError> {
 // WRAM addresses we touch. Source of truth: scratch/pokecrystal/pokecrystal.sym.
 // Keep this in sync with docs/memory_layout.md.
 const W_LINK_MODE: u16 = 0xc2dc;
+// Trainer item slots seeded by `GetTrainerAttributes` into WRAM 0xc650/0xc651.
+// We write them directly when an `[[enemy_items]]` override is present.
+const W_ENEMY_TRAINER_ITEM1: u16 = 0xc650;
+const W_ENEMY_TRAINER_ITEM2: u16 = 0xc651;
 const W_MON_TYPE: u16 = 0xcf5f;
 const W_CUR_SPECIES: u16 = 0xcf60;
 const W_IN_BATTLE_TOWER_BATTLE: u16 = 0xcfc0;
@@ -225,6 +255,130 @@ const CHARMAP_TERMINATOR: u8 = 0x50;
 /// Banks of the engine routines we drive directly. Source: pokecrystal.sym.
 const BANK_TRY_ADD_MON_TO_PARTY: u8 = 0x03;
 const BANK_START_BATTLE: u8 = 0x0f;
+
+// `TrainerClassAttributes` table.
+// Symbol `0e:559c TrainerClassAttributes` from scratch/pokecrystal/pokecrystal.sym.
+// Flat ROM offset = bank * 0x4000 + (addr - 0x4000) = 0x0e * 0x4000 + (0x559c - 0x4000).
+// Each entry is NUM_TRAINER_ATTRIBUTES (7) bytes: item1, item2, basemoney,
+// ai_move_lo, ai_move_hi, ai_item_lo, ai_item_hi (little-endian words).
+const TRNATTR_ROM_FLAT_BASE: usize = 0x0e * 0x4000 + (0x559c - 0x4000); // = 0x3959c
+
+// Byte offsets within one entry (mirrors TRNATTR_* in defs.rs / attributes.asm).
+const TRNATTR_OFF_ITEM1: usize = 0;
+const TRNATTR_OFF_ITEM2: usize = 1;
+const TRNATTR_OFF_AI_MOVE_LO: usize = 3; // TRNATTR_AI_MOVE_WEIGHTS low byte
+const TRNATTR_OFF_AI_MOVE_HI: usize = 4;
+const TRNATTR_OFF_AI_ITEM_LO: usize = 5; // TRNATTR_AI_ITEM_SWITCH low byte
+const TRNATTR_OFF_AI_ITEM_HI: usize = 6;
+
+/// Valid `ai_move_flags` names from `trainer_data_constants.asm` and their bit
+/// positions within the `TRNATTR_AI_MOVE_WEIGHTS` 16-bit word.
+const AI_MOVE_FLAG_NAMES: &[(&str, u16)] = &[
+    ("AI_BASIC",       1 << 0),
+    ("AI_SETUP",       1 << 1),
+    ("AI_TYPES",       1 << 2),
+    ("AI_OFFENSIVE",   1 << 3),
+    ("AI_SMART",       1 << 4),
+    ("AI_OPPORTUNIST", 1 << 5),
+    ("AI_AGGRESSIVE",  1 << 6),
+    ("AI_CAUTIOUS",    1 << 7),
+    ("AI_STATUS",      1 << 8),
+    ("AI_RISKY",       1 << 9),
+];
+
+/// Valid `ai_item_flags` names from `trainer_data_constants.asm` and their bit
+/// positions within the `TRNATTR_AI_ITEM_SWITCH` 16-bit word.
+const AI_ITEM_FLAG_NAMES: &[(&str, u16)] = &[
+    ("SWITCH_OFTEN",     1 << 0),
+    ("SWITCH_RARELY",    1 << 1),
+    ("SWITCH_SOMETIMES", 1 << 2),
+    // bit 3 is reserved (const_skip in the asm)
+    ("ALWAYS_USE",       1 << 4),
+    ("UNKNOWN_USE",      1 << 5),
+    ("CONTEXT_USE",      1 << 6),
+];
+
+/// Resolve a list of AI flag name strings to a 16-bit flag word. Each name must
+/// exist in `table`. Unknown names are a hard error. An empty list is valid and
+/// produces word = 0.
+fn resolve_ai_flags(names: &[String], table: &[(&str, u16)], field: &str) -> Result<u16, String> {
+    let mut word: u16 = 0;
+    for name in names {
+        let Some(&(_, bit)) = table.iter().find(|&&(n, _)| n == name.as_str()) else {
+            let valid: Vec<&str> = table.iter().map(|&(n, _)| n).collect();
+            return Err(format!(
+                "unknown {field} flag {:?}; valid flags are: {}",
+                name,
+                valid.join(", ")
+            ));
+        };
+        word |= bit;
+    }
+    Ok(word)
+}
+
+/// Compute the flat ROM offset of a trainer class's `TrainerClassAttributes`
+/// entry. `trainer_class` is 1-based (class 1 = Falkner). The entry is
+/// `NUM_TRAINER_ATTRIBUTES` (7) bytes; fields are at `entry_base + offset`.
+fn trnattr_entry_base(trainer_class: u8) -> usize {
+    TRNATTR_ROM_FLAT_BASE + (trainer_class as usize - 1) * defs::NUM_TRAINER_ATTRIBUTES as usize
+}
+
+/// Poke the trainer class's `TrainerClassAttributes` entry to apply
+/// `[[enemy_items]]` and/or `[enemy_trainer]` overrides. The ROM overlay in
+/// `cpu.rom_patches` ensures the three AI readers — `get_trainer_attributes`,
+/// `ai_choose_move_apply_layers`, and `ai_switch_or_try_item` — all see the
+/// overridden data without any transpiled-code edits beyond the party patch.
+fn poke_trainer_attributes(
+    cpu: &mut Cpu,
+    trainer_class: u8,
+    enemy_items: &[ItemSpec],
+    enemy_trainer: Option<&EnemyTrainerOverride>,
+) -> Result<(), String> {
+    let entry_base = trnattr_entry_base(trainer_class);
+
+    // --- enemy_items: expand by quantity into item1 / item2 slots ---
+    if !enemy_items.is_empty() {
+        let mut slots: [u8; 2] = [defs::NO_ITEM, defs::NO_ITEM];
+        let mut slot_idx = 0usize;
+        for spec in enemy_items {
+            let def = items::lookup(&spec.name)
+                .ok_or_else(|| format!("unknown enemy_items item: {}", spec.name))?;
+            if spec.quantity == 0 {
+                return Err(format!("enemy_items {}: quantity must be >= 1", spec.name));
+            }
+            for _ in 0..spec.quantity {
+                if slot_idx >= 2 {
+                    return Err(format!(
+                        "enemy_items total quantity exceeds 2 (trainer has at most 2 item slots); \
+                         got more than 2 items when expanding {:?}",
+                        spec.name
+                    ));
+                }
+                slots[slot_idx] = def.id;
+                slot_idx += 1;
+            }
+        }
+        cpu.poke_rom(entry_base + TRNATTR_OFF_ITEM1, slots[0]);
+        cpu.poke_rom(entry_base + TRNATTR_OFF_ITEM2, slots[1]);
+    }
+
+    // --- enemy_trainer: AI move-flags and AI item/switch-flags ---
+    if let Some(ov) = enemy_trainer {
+        if let Some(names) = &ov.ai_move_flags {
+            let word = resolve_ai_flags(names, AI_MOVE_FLAG_NAMES, "ai_move_flags")?;
+            cpu.poke_rom(entry_base + TRNATTR_OFF_AI_MOVE_LO, (word & 0xff) as u8);
+            cpu.poke_rom(entry_base + TRNATTR_OFF_AI_MOVE_HI, (word >> 8) as u8);
+        }
+        if let Some(names) = &ov.ai_item_flags {
+            let word = resolve_ai_flags(names, AI_ITEM_FLAG_NAMES, "ai_item_flags")?;
+            cpu.poke_rom(entry_base + TRNATTR_OFF_AI_ITEM_LO, (word & 0xff) as u8);
+            cpu.poke_rom(entry_base + TRNATTR_OFF_AI_ITEM_HI, (word >> 8) as u8);
+        }
+    }
+
+    Ok(())
+}
 
 /// Mirror what the engine's `Bankswitch` routine does: update the in-HRAM
 /// shadow of the current bank (`hROMBank` = `0xff9d`) and the MBC bank-select
@@ -541,12 +695,56 @@ fn launch_trainer_battle(cpu: &mut Cpu, config: &BattleConfig) -> Result<(), Str
     seed_player_items(cpu, &config.player_items)?;
     seed_player_party(cpu, &config.player_party)?;
 
-    // The engine's `InitEnemyTrainer` reads `wOtherTrainerClass` /
-    // `wOtherTrainerID` and uses them to load the canonical party from
-    // `TrainerGroups` and the held items / base reward from
-    // `TrainerClassAttributes`. The `[[enemy_party]]` and `[[enemy_items]]`
-    // entries in the TOML are parsed but the engine still uses ROM data for
-    // both — see docs/toml_schema.md.
+    // --- enemy_party override (knob 1) ---
+    // When 1..=6 `[[enemy_party]]` entries are present, pre-seed `wOTParty*`
+    // from the TOML and gate the harness-patched `read_trainer_party` early-
+    // return so the seeded party is not clobbered by the ROM load.
+    // The rest of `InitEnemyTrainer` (GetTrainerAttributes, AI init, HUD) still
+    // runs — only the party build is bypassed.
+    if !config.enemy_party.is_empty() {
+        let max = defs::PARTY_LENGTH as usize;
+        if config.enemy_party.len() > max {
+            return Err(format!(
+                "trainer_battle enemy_party: at most {max} entries, got {}",
+                config.enemy_party.len()
+            ));
+        }
+        // Seed the enemy party the same way the link-battle path does.
+        // `wMonType = OTPARTYMON` routes `try_add_mon_to_party` to `wOTParty*`.
+        seed_party(
+            cpu,
+            &config.enemy_party,
+            MONTYPE_OTPARTYMON,
+            W_OT_PARTY_COUNT,
+            W_OT_PARTY_MON1,
+            "enemy",
+        )?;
+        // Zero the active-enemy-slot scratch byte (`wCurOTMon`/`wCurPartyMon`)
+        // that the skipped ROM party-load would normally initialise.
+        cpu.write_byte(W_CUR_OT_MON, 0);
+        cpu.write_byte(W_CUR_PARTY_MON, 0);
+        // Activate the HARNESS-PATCH in `read_trainer_party`.
+        cpu.trainer_party_override = true;
+    }
+
+    // --- enemy_items / enemy_trainer overrides (knobs 2 & 3) ---
+    // Poke the trainer class's TrainerClassAttributes ROM entry so that
+    // `GetTrainerAttributes` (which copies item1/item2 to WRAM) and the three
+    // AI flag readers all see the overridden values. This is a ROM overlay —
+    // the static ROM bytes are unchanged; `Cpu::poke_rom` intercepts reads.
+    if !config.enemy_items.is_empty() || config.enemy_trainer.is_some() {
+        poke_trainer_attributes(
+            cpu,
+            trainer.class,
+            &config.enemy_items,
+            config.enemy_trainer.as_ref(),
+        )?;
+    }
+
+    // `InitEnemyTrainer` reads `wOtherTrainerClass` / `wOtherTrainerID` and uses
+    // them to load the canonical party from `TrainerGroups` (now gated by the
+    // `trainer_party_override` flag) and the held items / base reward from
+    // `TrainerClassAttributes` (now honoring the ROM overlay above).
     cpu.write_byte(W_BATTLE_MODE, defs::TRAINER_BATTLE as u8);
     cpu.write_byte(W_BATTLE_TYPE, defs::BATTLETYPE_NORMAL as u8);
     cpu.write_byte(W_OTHER_TRAINER_CLASS, trainer.class);
@@ -807,5 +1005,171 @@ mod tests {
     fn unknown_item_name_is_rejected() {
         let err = resolve_item(&mon_with_item(Some("Master Sword")), "player").unwrap_err();
         assert!(err.contains("Master Sword"), "{err}");
+    }
+
+    // -------------------------------------------------------------------------
+    // AI flag resolution
+    // -------------------------------------------------------------------------
+
+    fn flags(names: &[&str]) -> Vec<String> {
+        names.iter().map(|s| s.to_string()).collect()
+    }
+
+    #[test]
+    fn ai_move_empty_list_gives_zero() {
+        assert_eq!(resolve_ai_flags(&[], AI_MOVE_FLAG_NAMES, "ai_move_flags").unwrap(), 0);
+    }
+
+    #[test]
+    fn ai_move_known_flags_round_trip() {
+        // AI_BASIC=bit0, AI_SMART=bit4 → 0x11 (17 dec)
+        let word = resolve_ai_flags(
+            &flags(&["AI_BASIC", "AI_SMART"]),
+            AI_MOVE_FLAG_NAMES,
+            "ai_move_flags",
+        )
+        .unwrap();
+        assert_eq!(word, (1 << 0) | (1 << 4));
+        assert_eq!(word, 0x0011);
+    }
+
+    #[test]
+    fn ai_item_known_flags_round_trip() {
+        // CONTEXT_USE=bit6=0x40, SWITCH_SOMETIMES=bit2=0x04 → 0x44
+        let word = resolve_ai_flags(
+            &flags(&["CONTEXT_USE", "SWITCH_SOMETIMES"]),
+            AI_ITEM_FLAG_NAMES,
+            "ai_item_flags",
+        )
+        .unwrap();
+        assert_eq!(word, (1 << 6) | (1 << 2));
+        assert_eq!(word, 0x0044);
+    }
+
+    #[test]
+    fn ai_move_unknown_flag_is_rejected() {
+        let err = resolve_ai_flags(
+            &flags(&["AI_BASIC", "AI_INVALID"]),
+            AI_MOVE_FLAG_NAMES,
+            "ai_move_flags",
+        )
+        .unwrap_err();
+        assert!(err.contains("AI_INVALID"), "{err}");
+        assert!(err.contains("ai_move_flags"), "{err}");
+    }
+
+    #[test]
+    fn ai_item_unknown_flag_is_rejected() {
+        let err = resolve_ai_flags(
+            &flags(&["SWITCH_OFTEN", "NOTAFLAG"]),
+            AI_ITEM_FLAG_NAMES,
+            "ai_item_flags",
+        )
+        .unwrap_err();
+        assert!(err.contains("NOTAFLAG"), "{err}");
+    }
+
+    // -------------------------------------------------------------------------
+    // Attribute poke offset correctness
+    // -------------------------------------------------------------------------
+
+    /// The flat offset formula must land exactly where `get_trainer_attributes`
+    /// indexes: (class-1) * NUM_TRAINER_ATTRIBUTES bytes from the table base.
+    /// Verified against the canonical ROM bytes for Falkner (class 1) and
+    /// Whitney (class 2).
+    #[test]
+    fn trnattr_entry_base_matches_canonical_rom() {
+        let rom = crate::rom::ROM;
+
+        // Falkner (class 1): item1=0, item2=0, basemoney=0x19
+        let falkner_base = trnattr_entry_base(1);
+        assert_eq!(rom[falkner_base], 0x00, "Falkner item1");
+        assert_eq!(rom[falkner_base + 1], 0x00, "Falkner item2");
+        assert_eq!(rom[falkner_base + 2], 0x19, "Falkner basemoney");
+        // ai_move word (little-endian): 0x03d3 (AI_BASIC|AI_SETUP|AI_SMART|
+        // AI_AGGRESSIVE|AI_CAUTIOUS|AI_STATUS|AI_RISKY)
+        let ai_move = u16::from_le_bytes([rom[falkner_base + 3], rom[falkner_base + 4]]);
+        assert_eq!(ai_move, 0x03d3, "Falkner ai_move_flags");
+        // ai_item word: 0x0044 (CONTEXT_USE|SWITCH_SOMETIMES)
+        let ai_item = u16::from_le_bytes([rom[falkner_base + 5], rom[falkner_base + 6]]);
+        assert_eq!(ai_item, 0x0044, "Falkner ai_item_flags");
+
+        // Whitney (class 2): same AI flags as Falkner (identical canonical entry)
+        let whitney_base = trnattr_entry_base(2);
+        assert_eq!(whitney_base, falkner_base + 7, "Whitney entry immediately follows Falkner");
+        assert_eq!(rom[whitney_base + 2], 0x19, "Whitney basemoney");
+        let ai_move_w = u16::from_le_bytes([rom[whitney_base + 3], rom[whitney_base + 4]]);
+        assert_eq!(ai_move_w, 0x03d3, "Whitney ai_move_flags");
+    }
+
+    /// `poke_trainer_attributes` writes the correct flat offsets: after a poke
+    /// the ROM overlay in `cpu.rom_patches` must intercept the exact bytes that
+    /// `get_trainer_attributes`-equivalent indexing reads.
+    #[test]
+    fn poke_trainer_attributes_lands_at_correct_offsets() {
+        let mut cpu = Cpu::default();
+        let items = vec![ItemSpec { name: "Super Potion".into(), quantity: 2 }];
+        poke_trainer_attributes(&mut cpu, 1, &items, None).expect("poke");
+
+        // item1 and item2 both set to Super Potion (0x11).
+        let base = trnattr_entry_base(1);
+        assert_eq!(
+            cpu.rom_patches.iter().find(|&&(o, _)| o == base).map(|&(_, v)| v),
+            Some(0x11),
+            "item1 not patched correctly"
+        );
+        assert_eq!(
+            cpu.rom_patches.iter().find(|&&(o, _)| o == base + 1).map(|&(_, v)| v),
+            Some(0x11),
+            "item2 not patched correctly"
+        );
+    }
+
+    #[test]
+    fn enemy_items_quantity_over_two_is_rejected() {
+        let mut cpu = Cpu::default();
+        // Single entry with quantity 3 → exceeds 2 slots.
+        let items = vec![ItemSpec { name: "Potion".into(), quantity: 3 }];
+        let err = poke_trainer_attributes(&mut cpu, 1, &items, None).unwrap_err();
+        assert!(err.contains("exceed"), "{err}");
+    }
+
+    #[test]
+    fn enemy_items_two_entries_totalling_three_is_rejected() {
+        let mut cpu = Cpu::default();
+        let items = vec![
+            ItemSpec { name: "Potion".into(), quantity: 2 },
+            ItemSpec { name: "Super Potion".into(), quantity: 1 },
+        ];
+        let err = poke_trainer_attributes(&mut cpu, 1, &items, None).unwrap_err();
+        assert!(err.contains("exceed"), "{err}");
+    }
+
+    #[test]
+    fn enemy_items_two_slots_exactly_accepted() {
+        let mut cpu = Cpu::default();
+        let items = vec![
+            ItemSpec { name: "Potion".into(), quantity: 1 },
+            ItemSpec { name: "Super Potion".into(), quantity: 1 },
+        ];
+        poke_trainer_attributes(&mut cpu, 1, &items, None).expect("two slots OK");
+        let base = trnattr_entry_base(1);
+        // Potion = 0x12, Super Potion = 0x11
+        assert_eq!(
+            cpu.rom_patches.iter().find(|&&(o, _)| o == base).map(|&(_, v)| v),
+            Some(0x12)
+        );
+        assert_eq!(
+            cpu.rom_patches.iter().find(|&&(o, _)| o == base + 1).map(|&(_, v)| v),
+            Some(0x11)
+        );
+    }
+
+    #[test]
+    fn unknown_enemy_item_is_rejected() {
+        let mut cpu = Cpu::default();
+        let items = vec![ItemSpec { name: "MasterSword".into(), quantity: 1 }];
+        let err = poke_trainer_attributes(&mut cpu, 1, &items, None).unwrap_err();
+        assert!(err.contains("MasterSword"), "{err}");
     }
 }

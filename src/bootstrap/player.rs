@@ -667,6 +667,8 @@ slot = 0
                 trainer: Some("Whitney".to_string()),
                 // Engine seed lives in the recording header, not here.
                 seed: None,
+                johto_badges: None,
+                kanto_badges: None,
             },
             player_party: vec![
                 MonSpec { species: "QUILAVA".into(), level: 20, moves: None, item: None },
@@ -675,6 +677,7 @@ slot = 0
             enemy_party: vec![],
             player_items: vec![ItemSpec { name: "Potion".into(), quantity: 3 }],
             enemy_items: vec![],
+            enemy_trainer: None,
         };
 
         let path = temp_path("scn");
@@ -738,7 +741,13 @@ slot = 0
         }
 
         let config = BattleConfig {
-            battle: BattleHeader { kind: BattleKind::LinkBattle, trainer: None, seed: None },
+            battle: BattleHeader {
+                kind: BattleKind::LinkBattle,
+                trainer: None,
+                seed: None,
+                johto_badges: None,
+                kanto_badges: None,
+            },
             player_party: vec![MonSpec {
                 species: "PIKACHU".into(),
                 level: 30,
@@ -754,6 +763,7 @@ slot = 0
             // A link battle disables the bag; both item lists stay empty.
             player_items: vec![],
             enemy_items: vec![],
+            enemy_trainer: None,
         };
 
         let path = temp_path("link-scn");

@@ -1,6 +1,16 @@
 use crate::runtime::Cpu;
 
 pub(crate) fn read_trainer_party(cpu: &mut Cpu) {
+    // HARNESS-PATCH: when the bootstrap has pre-seeded `wOTParty*` from a
+    // `[[enemy_party]]` override, skip the ROM load entirely so the seeded
+    // party survives. Only the party-build is skipped — `GetTrainerAttributes`
+    // (items, AI) and the rest of `InitEnemyTrainer` (HUD, AI init) still run.
+    // See `bootstrap::launch_trainer_battle` and docs/transpiled_code.md.
+    if cpu.trainer_party_override {
+        cpu.pc = cpu.pop_word();
+        cpu.cycle(20);
+        return;
+    }
     cpu.pc = 0x5771;
     cpu.a = cpu.read_byte(0xcfc0);
     cpu.pc += 3;

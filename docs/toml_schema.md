@@ -49,7 +49,37 @@ quantity = 3
 
 The optional `moves` array overrides a player mon's generated moveset (see [`[[player_party]]`](#player_party--one-or-more) below). Omit it — as on Geodude above — to keep the engine's level-up moveset.
 
-For trainer battles the enemy party and the trainer's AI items are loaded from ROM via `wOtherTrainerClass` / `wOtherTrainerID`. `[[enemy_party]]` and `[[enemy_items]]` entries are parsed (so scenarios can document the matchup) but the engine still uses the canonical ROM data — overriding them is on the [roadmap](roadmap.md).
+For trainer battles the enemy party and the trainer's AI items can be overridden from the TOML. See [`[[enemy_party]]`](#enemy_party), [`[[enemy_items]]`](#enemy_items--trainer-battles-only) and [`[enemy_trainer]`](#enemy_trainer--trainer-battles-only) below. Example with all three override knobs:
+
+```toml
+[battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[player_party]]
+species = "Machop"
+level = 25
+
+# Override the enemy party (replaces Whitney's canonical Clefairy/Miltank)
+[[enemy_party]]
+species = "Caterpie"
+level = 10
+moves = ["Tackle", "String Shot"]
+
+[[enemy_party]]
+species = "Metapod"
+level = 10
+
+# Override the trainer's two AI item slots
+[[enemy_items]]
+name = "Super Potion"
+quantity = 2
+
+# Override AI behaviour flags
+[enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+ai_item_flags = ["ALWAYS_USE", "CONTEXT_USE"]
+```
 
 ## Link battles
 
@@ -262,13 +292,15 @@ See [`src/bootstrap/player.rs`](../src/bootstrap/player.rs) and [`src/bootstrap/
 | `moves` | array of strings | no | 1..=4 move names. When omitted, the engine's generated level-up moveset is kept. When present, it overrides the generated moves for that slot. Names are case-insensitive with punctuation ignored, so `"Thunderbolt"`, `"THUNDER WAVE"`, `"thunder_wave"`, `"Double-Edge"` all resolve (see [`src/bootstrap/names.rs`](../src/bootstrap/names.rs)). |
 | `item` | string | no | Held item name (`"Leftovers"`, `"King's Rock"`, `"leftovers"`, …). Case-insensitive, punctuation ignored. When set, the mon walks into battle holding the item, so the engine's held-item mechanics (Leftovers' end-of-turn heal, type boosters, Quick Claw, flinch/crit items, …) all apply. Resolved via [`src/bootstrap/items.rs`](../src/bootstrap/items.rs) — the same table the bag uses. Unknown names are a hard error. |
 
-DVs, PP, HP and stats are produced by the engine itself (`try_add_mon_to_party`/`GeneratePartyMonStats`) — they're not user-controllable yet. `moves` and `item` are the exceptions, both written into the slot after generation: `moves` overwrites the four move ids and refills PP to each move's base maximum (no PP Ups — a fresh mon has none; fewer than four moves leaves the trailing slots empty, id 0 / 0 PP), and `item` writes the `MON_ITEM` byte so the mon holds it walking into battle. Listing more than four moves, an empty `moves` list, an unknown move name, or an unknown `item` name is a hard error. A `moves` key on `[[enemy_party]]` is parsed but ignored (the wild mon and trainer parties get their moves from the engine / ROM); `item` is honored on `[[player_party]]` for every battle kind and on `[[enemy_party]]` only for [link battles](#link-battles) (where the enemy party is seeded from the TOML, not ROM) — a wild/trainer enemy's held item comes from the engine / ROM, so `item` there is ignored too.
+DVs, PP, HP and stats are produced by the engine itself (`try_add_mon_to_party`/`GeneratePartyMonStats`) — they're not user-controllable yet. `moves` and `item` are the exceptions, both written into the slot after generation: `moves` overwrites the four move ids and refills PP to each move's base maximum (no PP Ups — a fresh mon has none; fewer than four moves leaves the trailing slots empty, id 0 / 0 PP), and `item` writes the `MON_ITEM` byte so the mon holds it walking into battle. Listing more than four moves, an empty `moves` list, an unknown move name, or an unknown `item` name is a hard error. For `[[enemy_party]]`: `moves` and `item` are honored for `trainer_battle` when a party override is present (1..=6 entries) and for `link_battle` (always). For a `wild_encounter` and a `trainer_battle` with no override block, the wild mon / ROM party gets its moves and items from the engine, so `moves` and `item` there are parsed but ignored.
 
 ### `[[enemy_party]]`
 
 For `wild_encounter`, exactly one entry is required. Same field set as `player_party`.
 
-For `trainer_battle`, optional and currently informational only — the engine loads the trainer's canonical party (species, levels, moves, items) from ROM via `ReadTrainerParty`.
+For `trainer_battle`, **optional** (0..=6 entries):
+- When **absent** (0 entries), the engine loads the trainer's canonical party from ROM via `ReadTrainerParty` — back-compat, all existing fixtures behave as before.
+- When **present** (1..=6 entries), the entries fully replace the trainer's canonical party: `species` + `level` are required; `moves` (1..=4) and `item` (held item) are optional, honored exactly as for the player party. The harness seeds `wOTParty*` and an early-return HARNESS-PATCH in `read_trainer_party` prevents the ROM load from clobbering it. The rest of `InitEnemyTrainer` (attributes load, AI init, HUD) still runs normally.
 
 For `link_battle`, **required** (1..=6 entries) and fully honored, including `moves` and `item` overrides — the enemy party is seeded into `wOTParty*` from the TOML, not loaded from ROM, so the opponent's held items work too. See [Link battles](#link-battles).
 
@@ -281,9 +313,26 @@ For `link_battle`, **required** (1..=6 entries) and fully honored, including `mo
 
 Items are sorted into the engine's Items pocket (cap 20) or Balls pocket (cap 12) based on the item's pocket attribute. Key items, TMs, HMs, and mail are not exposed by the harness today — see [`src/bootstrap/items.rs`](../src/bootstrap/items.rs) for the supported list.
 
-### `[[enemy_items]]` — trainer battles only, currently informational
+### `[[enemy_items]]` — trainer battles only
 
-Same field set as `[[player_items]]`. Rejected for `wild_encounter`. For `trainer_battle`, parsed but ignored — the trainer's AI item slots (`wEnemyTrainerItem1` / `Item2`) come from `TrainerClassAttributes` in ROM. Wiring this up to override the ROM values is on the [roadmap](roadmap.md).
+Same field set as `[[player_items]]`. Rejected for `wild_encounter` and `link_battle` (the bag is disabled in a link battle). For `trainer_battle`:
+- When **absent**, the trainer's AI item slots (`wEnemyTrainerItem1` / `wEnemyTrainerItem2` at 0xc650/0xc651) are filled from the canonical `TrainerClassAttributes` ROM entry.
+- When **present**, the entries are expanded by `quantity` in order into at most 2 item slots (e.g. one entry with `quantity = 2` fills both slots; `quantity = 1` fills slot 1 only; a second entry fills slot 2). Total quantity > 2 is a hard error. The bootstrap pokes the trainer class's ROM entry via `Cpu::poke_rom` before `start_battle`; `GetTrainerAttributes` then reads and copies the overridden bytes into WRAM.
+
+The item name must resolve via [`src/bootstrap/items.rs`](../src/bootstrap/items.rs) (same table as the player bag). Unknown names are a hard error.
+
+### `[enemy_trainer]` — trainer battles only
+
+Optional table for overriding the trainer's AI behaviour. Each field, when present, replaces the corresponding 16-bit word in the trainer class's `TrainerClassAttributes` ROM entry (via `Cpu::poke_rom`) before `start_battle`. The ROM overlay is invisible to the canonical `TrainerClassAttributes` data — only the current battle session is affected.
+
+| Field | Type | Required | Notes |
+| --- | --- | --- | --- |
+| `ai_move_flags` | array of strings | no | Replaces `TRNATTR_AI_MOVE_WEIGHTS`. Each name is one of: `AI_BASIC`, `AI_SETUP`, `AI_TYPES`, `AI_OFFENSIVE`, `AI_SMART`, `AI_OPPORTUNIST`, `AI_AGGRESSIVE`, `AI_CAUTIOUS`, `AI_STATUS`, `AI_RISKY`. An empty list (`[]`) is valid and means "no move-score AI" (word = 0). Unknown flag names are a hard error. |
+| `ai_item_flags` | array of strings | no | Replaces `TRNATTR_AI_ITEM_SWITCH`. Each name is one of: `SWITCH_OFTEN`, `SWITCH_RARELY`, `SWITCH_SOMETIMES`, `ALWAYS_USE`, `UNKNOWN_USE`, `CONTEXT_USE`. An empty list is valid (word = 0). Unknown flag names are a hard error. |
+
+Flag names are case-sensitive and must match the spellings in `scratch/pokecrystal/constants/trainer_data_constants.asm` exactly. Both fields may be omitted — only present fields are overridden.
+
+The `[enemy_trainer]` block is embedded in recordings as `[scenario.enemy_trainer]` and round-trips through `--record`/`--play` so the overrides are reproduced exactly on replay.
 
 ## Species name resolution
 
@@ -293,6 +342,5 @@ See [`src/bootstrap/species.rs`](../src/bootstrap/species.rs). The table is the 
 
 - `nickname`, `dvs = "..."` per mon (will short-circuit `try_add_mon_to_party` for those fields). `moves = [...]` and `item = "..."` are done — see [`[[player_party]]`](#player_party--one-or-more).
 - `[battle] battle_type` for `BATTLETYPE_FISH`, `BATTLETYPE_DEBUG`, etc.
-- Honor `[[enemy_party]]` and `[[enemy_items]]` for trainer battles (override the ROM data instead of just documenting the matchup).
 - `[player]` block: `name`, `id`, `gender` instead of the hardcoded "RED" + 0x1234.
 - Non-battle item categories (key items, TMs/HMs) — every *battle-usable* item is already supported.
