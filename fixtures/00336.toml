@@ -1,0 +1,86 @@
+[recording]
+seed = "0x00000000feed1234"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Onix"
+level = 50
+moves = ["Rock Throw", "Earthquake", "Slam", "Harden"]
+
+[[scenario.enemy_party]]
+species = "Machamp"
+level = 45
+moves = ["Counter", "Cross Chop", "Rock Slide", "Tackle"]
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "ONIX"
+expect.player.active.level = 50
+expect.player.active.hp = 98
+expect.player.active.max_hp = 103
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 9, 20, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ONIX", level = 50, hp = 98, max_hp = 103, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 101
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 5, 10, 34]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MACHAMP", level = 45, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "ONIX"
+expect.player.active.level = 50
+expect.player.active.hp = 87
+expect.player.active.max_hp = 103
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 8, 20, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ONIX", level = 50, hp = 87, max_hp = 103, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 55
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 5, 9, 34]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MACHAMP", level = 45, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "ONIX"
+expect.player.active.level = 50
+expect.player.active.hp = 0
+expect.player.active.max_hp = 103
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 7, 20, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "ONIX", level = 50, hp = 0, max_hp = 103, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MACHAMP"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 8
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 5, 9, 34]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "MACHAMP", level = 45, hp = 148, max_hp = 148, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
