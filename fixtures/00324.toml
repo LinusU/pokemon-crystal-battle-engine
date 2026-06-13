@@ -1,0 +1,218 @@
+[recording]
+seed = "0x000000005566aabb"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Raichu"
+level = 40
+moves = ["Thunder Wave", "Growl", "Tail Whip", "String Shot"]
+
+[[scenario.enemy_party]]
+species = "Blissey"
+level = 50
+moves = ["Heal Bell", "Softboiled", "Psychic", "Body Slam"]
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RAICHU"
+expect.player.active.level = 40
+expect.player.active.hp = 106
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 40, 30, 40]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "RAICHU", level = 40, hp = 106, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BLISSEY"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 329
+expect.enemy.active.max_hp = 315
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [5, 10, 10, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BLISSEY", level = 50, hp = 329, max_hp = 329, status = "paralysis", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RAICHU"
+expect.player.active.level = 40
+expect.player.active.hp = 106
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [18, 40, 30, 40]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "RAICHU", level = 40, hp = 106, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BLISSEY"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 329
+expect.enemy.active.max_hp = 315
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [4, 10, 10, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BLISSEY", level = 50, hp = 329, max_hp = 329, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RAICHU"
+expect.player.active.level = 40
+expect.player.active.hp = 106
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [17, 40, 30, 40]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "RAICHU", level = 40, hp = 106, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BLISSEY"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 329
+expect.enemy.active.max_hp = 315
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [4, 10, 10, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BLISSEY", level = 50, hp = 329, max_hp = 329, status = "paralysis", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RAICHU"
+expect.player.active.level = 40
+expect.player.active.hp = 106
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [16, 40, 30, 40]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "RAICHU", level = 40, hp = 106, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BLISSEY"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 329
+expect.enemy.active.max_hp = 315
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [4, 10, 10, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BLISSEY", level = 50, hp = 329, max_hp = 329, status = "paralysis", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RAICHU"
+expect.player.active.level = 40
+expect.player.active.hp = 106
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 40, 30, 40]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "RAICHU", level = 40, hp = 106, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BLISSEY"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 329
+expect.enemy.active.max_hp = 315
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [3, 10, 10, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BLISSEY", level = 50, hp = 329, max_hp = 329, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RAICHU"
+expect.player.active.level = 40
+expect.player.active.hp = 6
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 40, 30, 40]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "RAICHU", level = 40, hp = 6, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BLISSEY"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 329
+expect.enemy.active.max_hp = 315
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [3, 10, 9, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BLISSEY", level = 50, hp = 329, max_hp = 329, status = "paralysis", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RAICHU"
+expect.player.active.level = 40
+expect.player.active.hp = 6
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 40, 30, 40]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "RAICHU", level = 40, hp = 6, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BLISSEY"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 329
+expect.enemy.active.max_hp = 315
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [3, 10, 9, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BLISSEY", level = 50, hp = 329, max_hp = 329, status = "paralysis", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RAICHU"
+expect.player.active.level = 40
+expect.player.active.hp = 6
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 40, 30, 40]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "RAICHU", level = 40, hp = 6, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BLISSEY"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 329
+expect.enemy.active.max_hp = 315
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [2, 10, 9, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BLISSEY", level = 50, hp = 329, max_hp = 329, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "RAICHU"
+expect.player.active.level = 40
+expect.player.active.hp = 0
+expect.player.active.max_hp = 106
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 40, 30, 40]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "RAICHU", level = 40, hp = 0, max_hp = 106, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "BLISSEY"
+expect.enemy.active.level = 50
+expect.enemy.active.hp = 329
+expect.enemy.active.max_hp = 315
+expect.enemy.active.status = "paralysis"
+expect.enemy.active.pp = [2, 10, 9, 14]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "BLISSEY", level = 50, hp = 329, max_hp = 329, status = "paralysis", item = "none" }]
+expect.battle.outcome = "loss"
