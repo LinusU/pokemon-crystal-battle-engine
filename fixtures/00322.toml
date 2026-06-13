@@ -1,0 +1,108 @@
+[recording]
+seed = "0x00000000feed1234"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Tangela"
+level = 45
+moves = ["Bind", "Leech Seed", "Slam", "Sleep Powder"]
+
+[[scenario.enemy_party]]
+species = "Starmie"
+level = 45
+moves = ["Rapid Spin", "Surf", "Psychic", "Thunder Wave"]
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "TANGELA"
+expect.player.active.level = 45
+expect.player.active.hp = 120
+expect.player.active.max_hp = 120
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [20, 10, 20, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "TANGELA", level = 45, hp = 120, max_hp = 120, status = "paralysis", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "STARMIE"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 15, 10, 19]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "STARMIE", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "TANGELA"
+expect.player.active.level = 45
+expect.player.active.hp = 49
+expect.player.active.max_hp = 120
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [19, 10, 20, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "TANGELA", level = 45, hp = 49, max_hp = 120, status = "paralysis", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "STARMIE"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 110
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [40, 14, 10, 19]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "STARMIE", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "TANGELA"
+expect.player.active.level = 45
+expect.player.active.hp = 43
+expect.player.active.max_hp = 120
+expect.player.active.status = "paralysis"
+expect.player.active.pp = [19, 10, 20, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "TANGELA", level = 45, hp = 43, max_hp = 120, status = "paralysis", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "STARMIE"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 110
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [39, 14, 10, 19]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "STARMIE", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 0
+expect.player.active.species = "TANGELA"
+expect.player.active.level = 45
+expect.player.active.hp = 0
+expect.player.active.max_hp = 120
+expect.player.active.status = "none"
+expect.player.active.pp = [19, 10, 20, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "TANGELA", level = 45, hp = 0, max_hp = 120, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "STARMIE"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 110
+expect.enemy.active.max_hp = 109
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [39, 14, 9, 19]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "STARMIE", level = 45, hp = 121, max_hp = 121, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
