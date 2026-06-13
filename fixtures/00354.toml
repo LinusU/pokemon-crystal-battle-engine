@@ -1,0 +1,86 @@
+[recording]
+seed = "0x000000008abcdef0"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Kabutops"
+level = 45
+moves = ["Surf", "Rock Slide", "Slash", "Absorb"]
+
+[[scenario.enemy_party]]
+species = "Politoed"
+level = 45
+moves = ["Rain Dance", "Surf", "Ice Beam", "Hypnosis"]
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "KABUTOPS"
+expect.player.active.level = 45
+expect.player.active.hp = 49
+expect.player.active.max_hp = 120
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 10, 20, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "KABUTOPS", level = 45, hp = 49, max_hp = 120, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "POLITOED"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 130
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 14, 10, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "POLITOED", level = 45, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "KABUTOPS"
+expect.player.active.level = 45
+expect.player.active.hp = 25
+expect.player.active.max_hp = 120
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 10, 20, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "KABUTOPS", level = 45, hp = 25, max_hp = 120, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "POLITOED"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 113
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 14, 9, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "POLITOED", level = 45, hp = 148, max_hp = 148, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "KABUTOPS"
+expect.player.active.level = 45
+expect.player.active.hp = 0
+expect.player.active.max_hp = 120
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 10, 20, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "KABUTOPS", level = 45, hp = 0, max_hp = 120, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "POLITOED"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 95
+expect.enemy.active.max_hp = 136
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 13, 9, 20]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "POLITOED", level = 45, hp = 148, max_hp = 148, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
