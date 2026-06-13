@@ -1,0 +1,108 @@
+[recording]
+seed = "0x000000009abc1234"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Slowbro"
+level = 50
+moves = ["Surf", "Amnesia", "Psychic", "Recover"]
+
+[[scenario.enemy_party]]
+species = "Heracross"
+level = 45
+moves = ["Endure", "Reversal", "Megahorn", "Rock Slide"]
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 50
+expect.player.active.hp = 111
+expect.player.active.max_hp = 163
+expect.player.active.status = "none"
+expect.player.active.pp = [14, 20, 10, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 50, hp = 111, max_hp = 163, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HERACROSS"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 70
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 15, 10, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HERACROSS", level = 45, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 50
+expect.player.active.hp = 85
+expect.player.active.max_hp = 163
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 20, 10, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 50, hp = 85, max_hp = 163, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HERACROSS"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 3
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 15, 10, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HERACROSS", level = 45, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 50
+expect.player.active.hp = 85
+expect.player.active.max_hp = 163
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 20, 10, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 50, hp = 85, max_hp = 163, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HERACROSS"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 1
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 15, 10, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HERACROSS", level = 45, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "SLOWBRO"
+expect.player.active.level = 50
+expect.player.active.hp = 27
+expect.player.active.max_hp = 163
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 20, 10, 20]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SLOWBRO", level = 50, hp = 27, max_hp = 163, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "HERACROSS"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 14, 10, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "HERACROSS", level = 45, hp = 0, max_hp = 139, status = "none", item = "none" }]
+expect.battle.outcome = "win"
