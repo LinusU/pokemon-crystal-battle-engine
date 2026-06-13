@@ -68,6 +68,20 @@ pub struct Cpu {
     /// reason as `recorder`: the CLI prompt sites that see this take `&Cpu`,
     /// not `&mut Cpu`.
     pub player: Option<std::cell::RefCell<crate::bootstrap::player::Player>>,
+    /// Per-byte ROM overrides applied before `start_battle`. The bootstrap
+    /// uses this to poke the trainer class's `TrainerClassAttributes` entry
+    /// (items, AI flags) without touching the immutable static ROM slice. Each
+    /// pair is a `(flat_offset, value)` in the full ROM image; `read_rom`
+    /// checks this list before delegating to the MBC. At most one entry per
+    /// flat offset is meaningful — duplicates are last-write-wins. Empty by
+    /// default (no overhead for battles that need no poke).
+    pub rom_patches: Vec<(usize, u8)>,
+    /// When true, the harness has already seeded `wOTParty*` with an
+    /// `[[enemy_party]]` override for a trainer battle, and
+    /// `read_trainer_party` must not clobber it. The HARNESS-PATCH at the
+    /// top of `read_trainer_party` early-returns when this flag is set.
+    /// See `bootstrap::launch_trainer_battle` and docs/transpiled_code.md.
+    pub trainer_party_override: bool,
     mbc: Mbc,
     wram: [u8; WRAM_SIZE],
     zram: [u8; ZRAM_SIZE],
@@ -129,6 +143,8 @@ impl Default for Cpu {
             link_battle: false,
             recorder: None,
             player: None,
+            rom_patches: Vec::new(),
+            trainer_party_override: false,
             mbc: Mbc::new(crate::rom::ROM),
             wram: [0; WRAM_SIZE],
             zram: [0; ZRAM_SIZE],
@@ -384,7 +400,29 @@ impl Cpu {
     }
 
     fn read_rom(&self, addr: u16) -> u8 {
+        // Check the per-byte ROM overlay first. The overlay is empty for most
+        // battles; the linear scan over ≤7 entries is negligible.
+        if !self.rom_patches.is_empty() {
+            let bank = if addr < 0x4000 { 0 } else { self.rom_bank };
+            let flat = (bank * 0x4000) | usize::from(addr & 0x3fff);
+            if let Some(&(_, v)) = self.rom_patches.iter().find(|&&(o, _)| o == flat) {
+                return v;
+            }
+        }
         self.mbc.read_rom(crate::rom::ROM, addr)
+    }
+
+    /// Poke a single byte at `flat_offset` in the ROM image. Used by the
+    /// bootstrap to override `TrainerClassAttributes` entries (AI flags, AI
+    /// items) before `start_battle` without allocating a full ROM copy. Adds a
+    /// new `(offset, value)` pair; if the same offset was already patched the
+    /// new value replaces it (last-write-wins, keeps the list short).
+    pub fn poke_rom(&mut self, flat_offset: usize, value: u8) {
+        if let Some(entry) = self.rom_patches.iter_mut().find(|(o, _)| *o == flat_offset) {
+            entry.1 = value;
+        } else {
+            self.rom_patches.push((flat_offset, value));
+        }
     }
 
     fn write_rom_control(&mut self, addr: u16, value: u8) {
