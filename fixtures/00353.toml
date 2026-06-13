@@ -1,0 +1,179 @@
+[recording]
+seed = "0x000000006abcdef0"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Haunter"
+level = 30
+moves = ["Confuse Ray", "Growl", "Leer", "Tail Whip"]
+
+[[scenario.player_party]]
+species = "Feraligatr"
+level = 45
+moves = ["Surf", "Ice Beam", "Earthquake", "Headbutt"]
+
+[[scenario.enemy_party]]
+species = "Golem"
+level = 45
+moves = ["Rollout", "Earthquake", "Rock Slide", "Body Slam"]
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 30
+expect.player.active.hp = 74
+expect.player.active.max_hp = 74
+expect.player.active.status = "none"
+expect.player.active.pp = [9, 40, 30, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 30, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "FERALIGATR", level = 45, hp = 145, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GOLEM"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 124
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 10, 10, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GOLEM", level = 45, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 30
+expect.player.active.hp = 74
+expect.player.active.max_hp = 74
+expect.player.active.status = "none"
+expect.player.active.pp = [8, 40, 30, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 30, hp = 74, max_hp = 74, status = "none", item = "none" }, { species = "FERALIGATR", level = 45, hp = 145, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GOLEM"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 124
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [19, 10, 10, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GOLEM", level = 45, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 30
+expect.player.active.hp = 26
+expect.player.active.max_hp = 74
+expect.player.active.status = "none"
+expect.player.active.pp = [7, 40, 30, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 30, hp = 26, max_hp = 74, status = "none", item = "none" }, { species = "FERALIGATR", level = 45, hp = 145, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GOLEM"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 124
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 10, 10, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GOLEM", level = 45, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "HAUNTER"
+expect.player.active.level = 30
+expect.player.active.hp = 0
+expect.player.active.max_hp = 74
+expect.player.active.status = "none"
+expect.player.active.pp = [6, 40, 30, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 30, hp = 0, max_hp = 74, status = "none", item = "none" }, { species = "FERALIGATR", level = 45, hp = 145, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GOLEM"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 124
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 10, 10, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GOLEM", level = 45, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "forced_switch"
+slot = 1
+expect.player.active_slot = 1
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 45
+expect.player.active.hp = 145
+expect.player.active.max_hp = 145
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 30, hp = 0, max_hp = 74, status = "none", item = "none" }, { species = "FERALIGATR", level = 45, hp = 145, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GOLEM"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 124
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 10, 10, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GOLEM", level = 45, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 45
+expect.player.active.hp = 62
+expect.player.active.max_hp = 145
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 9, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 30, hp = 0, max_hp = 74, status = "none", item = "none" }, { species = "FERALIGATR", level = 45, hp = 62, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GOLEM"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 54
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 10, 10, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GOLEM", level = 45, hp = 139, max_hp = 139, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 2
+expect.player.active_slot = 1
+expect.player.active.species = "FERALIGATR"
+expect.player.active.level = 45
+expect.player.active.hp = 62
+expect.player.active.max_hp = 145
+expect.player.active.status = "none"
+expect.player.active.pp = [15, 10, 8, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "HAUNTER", level = 30, hp = 0, max_hp = 74, status = "none", item = "none" }, { species = "FERALIGATR", level = 45, hp = 62, max_hp = 145, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "GOLEM"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 127
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [18, 10, 10, 15]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "GOLEM", level = 45, hp = 0, max_hp = 139, status = "none", item = "none" }]
+expect.battle.outcome = "win"
