@@ -1,0 +1,112 @@
+[recording]
+seed = "0x0000000000001234"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Blissey"
+level = 50
+moves = ["Softboiled", "Thunderwave", "Psychic", "Ice Beam"]
+
+[[scenario.enemy_party]]
+species = "Vaporeon"
+level = 25
+moves = ["Substitute", "Surf", "Ice Beam", "Bite"]
+
+[[scenario.player_items]]
+name = "Full Restore"
+quantity = 2
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "BLISSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 318
+expect.player.active.max_hp = 318
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 20, 10, 9]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "BLISSEY", level = 50, hp = 318, max_hp = 318, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VAPOREON"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 55
+expect.enemy.active.max_hp = 100
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 15, 10, 25]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VAPOREON", level = 25, hp = 107, max_hp = 107, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "BLISSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 311
+expect.player.active.max_hp = 318
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 20, 10, 8]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "BLISSEY", level = 50, hp = 311, max_hp = 318, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VAPOREON"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 55
+expect.enemy.active.max_hp = 100
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 15, 10, 24]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VAPOREON", level = 25, hp = 107, max_hp = 107, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "BLISSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 304
+expect.player.active.max_hp = 318
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 20, 10, 7]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "BLISSEY", level = 50, hp = 304, max_hp = 318, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VAPOREON"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 28
+expect.enemy.active.max_hp = 100
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 15, 10, 23]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VAPOREON", level = 25, hp = 107, max_hp = 107, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "BLISSEY"
+expect.player.active.level = 50
+expect.player.active.hp = 304
+expect.player.active.max_hp = 318
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 20, 10, 6]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "BLISSEY", level = 50, hp = 304, max_hp = 318, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "VAPOREON"
+expect.enemy.active.level = 25
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 100
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [9, 15, 10, 23]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "VAPOREON", level = 25, hp = 0, max_hp = 107, status = "none", item = "none" }]
+expect.battle.outcome = "win"
