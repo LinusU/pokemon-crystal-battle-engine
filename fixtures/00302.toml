@@ -1,0 +1,108 @@
+[recording]
+seed = "0x2222222222222222"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "Whitney"
+
+[[scenario.player_party]]
+species = "Machop"
+level = 45
+moves = ["Cross Chop", "Rock Slide", "Body Slam", "Earthquake"]
+
+[[scenario.enemy_party]]
+species = "Snorlax"
+level = 45
+moves = ["Belly Drum", "Return", "Earthquake", "Fire Blast"]
+
+[scenario.enemy_trainer]
+ai_move_flags = ["AI_BASIC", "AI_SMART"]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "MACHOP"
+expect.player.active.level = 45
+expect.player.active.hp = 63
+expect.player.active.max_hp = 128
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 10, 15, 9]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 45, hp = 63, max_hp = 128, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SNORLAX"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 171
+expect.enemy.active.max_hp = 199
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 20, 9, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SNORLAX", level = 45, hp = 211, max_hp = 211, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "MACHOP"
+expect.player.active.level = 45
+expect.player.active.hp = 32
+expect.player.active.max_hp = 128
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 10, 15, 8]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 45, hp = 32, max_hp = 128, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SNORLAX"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 127
+expect.enemy.active.max_hp = 199
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 19, 9, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SNORLAX", level = 45, hp = 211, max_hp = 211, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "MACHOP"
+expect.player.active.level = 45
+expect.player.active.hp = 3
+expect.player.active.max_hp = 128
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 10, 15, 7]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 45, hp = 3, max_hp = 128, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SNORLAX"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 83
+expect.enemy.active.max_hp = 199
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 18, 9, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SNORLAX", level = 45, hp = 211, max_hp = 211, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "MACHOP"
+expect.player.active.level = 45
+expect.player.active.hp = 0
+expect.player.active.max_hp = 128
+expect.player.active.status = "none"
+expect.player.active.pp = [5, 10, 15, 6]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "MACHOP", level = 45, hp = 0, max_hp = 128, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SNORLAX"
+expect.enemy.active.level = 45
+expect.enemy.active.hp = 39
+expect.enemy.active.max_hp = 199
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [10, 17, 9, 5]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SNORLAX", level = 45, hp = 211, max_hp = 211, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
