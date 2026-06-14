@@ -351,7 +351,23 @@ pub(crate) fn do_move_read_move_effect_command(cpu: &mut Cpu) {
     cpu.push_word(next_pc);
     cpu.cycle(24);
     do_move_do_move_effect_command(cpu);
-    assert_eq!(cpu.pc, next_pc);
+    // HARNESS-PATCH: a move-effect command can abort the whole move by popping the
+    // read-loop return address off the stack and tail-calling EndMoveEffect, e.g.
+    // BattleCommand_FutureSight's `.failed` path (`pop bc` then `jp EndMoveEffect`,
+    // reached when Future Sight is used while one is already charging — see
+    // engine/battle/move_effects/future_sight.asm). On hardware this makes
+    // EndMoveEffect's `ret` skip the read loop's `jr .ReadMoveEffectCommand` and
+    // return straight out of DoMove to its caller (here the `callfar DoPlayerTurn`).
+    // The transpiler models this read loop as straight-line recursion that assumes
+    // every command returns to `next_pc`, so the original `assert_eq!(cpu.pc, next_pc)`
+    // can't represent that two-level unwind and panics. When the command returned
+    // anywhere other than the read-loop continuation, the move has been aborted:
+    // return so the unwind propagates to DoMove's caller. The stack and PC are already
+    // exactly what the hardware leaves, and the caller's own far-call assert still
+    // validates the final return target. See docs/transpiled_code.md.
+    if cpu.pc != next_pc {
+        return;
+    }
     cpu.cycle(12);
     become do_move_read_move_effect_command(cpu);
 }
