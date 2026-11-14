@@ -71,7 +71,7 @@ impl Engine {
     }
 
     /// `LoadMoveAnim`.
-    fn load_move_anim(&mut self) {
+    pub fn load_move_anim(&mut self) {
         self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
         self.mem.wb(W_FX_ANIM_ID + 1, 0);
         let a = self.battle_var(BATTLE_VARS_MOVE_ANIM);
