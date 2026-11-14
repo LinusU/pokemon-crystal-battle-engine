@@ -30,12 +30,49 @@ These are deliberately small patches, not graduations to hand-written. See [tran
 - Define `Action` = `{ Move(slot), Switch(slot), Item(id), Run }`.
 - Define `Outcome` = `{ NextTurn(BattleState), AwaitingPlayer { prompts }, Ended { winner, ... } }`.
 - Implement `step` by setting `wBattlePlayerAction` / `wCurMoveNum` / etc. and driving the relevant engine sub-routine for one "tick" of `do_battle`. Open question: where the natural reentry points are. Likely candidates are between `BattleTurn` iterations.
+- Define an ordered `BattleEvent` stream as part of the API (see [Step 4](#step-4--separate-battle-logic-from-rendering)). Emit events from small hooks around the transpiled presentation calls, the same shape as existing `HARNESS-PATCH` hooks.
 
-## Step 4 — drop the GPU
+## Step 4 — separate battle logic from rendering
 
-- ✅ glium/winit are gated behind the `gui` feature: a default `cargo build` compiles neither, and the headless binary runs a battle without the screen/keypad channels (`Cpu::new_cgb(None, None)`).
-- Still open: the in-`Cpu` GPU emulation (`runtime/gpu.rs`) keeps rendering pixels nobody reads in a headless run. Once `step` exposes state directly, that pixel path becomes dead weight and can be gated/removed too.
-- The `gui` feature gives a glium/winit-free default build without a crate split, so splitting into `pokemon_crystal_battle` (library) + `pokemon_crystal_battle_play` (window harness) is now optional rather than required.
+Goal: be able to watch a battle live without the battle logic depending on any renderer. We separate logic from rendering rather than ripping rendering out, because the separation boundary *is* the library API — Rustic Crystal and Rustic Yellow both need to draw a battle the library drives, so this is the integration work for both, not a side project.
+
+**Shape.** The logic emits an ordered stream of presentation events; renderers are consumers:
+
+```rust
+enum BattleEvent {
+    Text(BattleText),            // "Foe GENGAR used HYPNOSIS!"
+    MoveAnimation { side, move_id },
+    HpChanged { side, from, to },
+    StatusChanged { side, status },
+    StatChanged { side, stat, stages },
+    Fainted { side },
+    SwitchedIn { side, slot, species },
+    Sfx(SfxId),
+    AwaitingInput(Prompt),       // the existing CLI chokepoints
+}
+```
+
+Consumers:
+
+- **Training / headless:** ignore the stream. With a generic no-op sink, monomorphization removes it entirely.
+- **CLI text view:** prints the event stream as a readable battle log, so a battle can be watched with no GPU at all.
+- **Graphical renderer** (behind the `gui` feature): draws the battle screen from events.
+- **Rustic Crystal / Rustic Yellow:** each brings its own renderer. Yellow lifts the Gen 2 engine into Gen 1 with Gen 1 presentation, which is exactly why the logic must not know how it is drawn.
+- Because recordings replay deterministically, any recorded battle (including ML self-play) can be watched after the fact.
+
+**Why it can't be a clean cut today.** In the transpiled code presentation is interleaved with logic — `core.rs` alone has ~52 `std_battle_textbox`, ~28 tilemap loads, ~26 `delay_frames`, ~12 `wait_bg_map`, and ~10 `play_sfx` calls next to the damage and turn-order logic. The split therefore happens incrementally, alongside graduating routines to hand-written code.
+
+**Order of work:**
+
+1. ✅ glium/winit are gated behind the `gui` feature: a default `cargo build` compiles neither, and the headless binary runs a battle without the screen/keypad channels (`Cpu::new_cgb(None, None)`).
+2. Gate the pixel output of the in-`Cpu` GPU emulation (`runtime/gpu.rs`) behind `gui` too. The transpiled code keeps writing tilemaps/VRAM (cheap memory writes), but headless builds stop producing pixels nobody reads. The window keeps working unchanged and stays the visual reference.
+3. With Step 3: emit `BattleEvent`s from hooks around the presentation calls (battle textbox, battle anims, HUD / HP-bar updates, sfx) and build the CLI text view on them.
+4. As logic graduates to hand-written code, presentation calls leave the logic and only event emissions remain. The renderer can keep reusing the *transpiled presentation routines* (textbox, battle anims, HUD), now driven by events instead of being called from inside the logic — likely the same shape Rustic Crystal ends up with.
+5. Once the event-driven renderer matches the emulated GPU visually, the emulated GPU can be dropped from the battle path.
+
+**Invariant: rendering never influences logic.** Events describe what happened; they never feed back. In real Crystal, frame timing can leak into randomness (`rDIV`, `hRandomAdd`), so removing `delay_frames` and similar calls must not change outcomes. The fixture corpus enforces this — any rendering change that moves a recording's per-step expectations is a bug.
+
+The `gui` feature gives a glium/winit-free default build without a crate split, so splitting into `pokemon_crystal_battle` (library) + `pokemon_crystal_battle_play` (window harness) is now optional rather than required.
 
 ## Open design questions
 
