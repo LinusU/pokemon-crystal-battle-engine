@@ -18,6 +18,7 @@ pub mod random;
 pub mod recorder;
 pub mod snapshot;
 pub mod species;
+pub mod events;
 pub mod trainers;
 pub mod trainers_data;
 
@@ -856,6 +857,8 @@ pub struct RunOptions<'a> {
     pub playback: Option<Vec<player::PlayStep>>,
     /// Suppress the `battle: …` progress lines on stderr (library use).
     pub quiet: bool,
+    /// Print the original battle text to stdout as the engine prints it.
+    pub show_text: bool,
 }
 
 pub fn run_with(
@@ -891,6 +894,9 @@ pub fn run_with(
         player::install(cpu, steps);
     }
 
+    if options.show_text {
+        cpu.events = Some(std::cell::RefCell::new(events::EventCapture::echoing()));
+    }
     cpu.skip_intro_to_battle = true;
     let entry = crate::entry_routine();
     (entry.func)(cpu);

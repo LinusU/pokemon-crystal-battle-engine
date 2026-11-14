@@ -88,9 +88,11 @@ The overall plan, in five phases:
       control flow untouched. All 349 fixtures replay through it.
 - [x] Typed `BattleState` (both sides: active mon, party, stat stages,
       sub-statuses, every per-side counter, screens, weather).
-- [ ] `BattleEvent` stream from hooks: battle text (exact strings, from the text
-      engine), move animations, HP changes, faint, switch-in.
-- [ ] CLI text view that renders events, so a battle can be watched without a GPU.
+- [x] `Event` stream from observe-only hooks: battle text (exact strings, from
+      the text engine) and HP-bar changes. Faints, switch-ins and move use are
+      in the text ("… fainted!", "Go! …!", "… used …!") and the state.
+- [x] CLI text view that renders events (`--show-text`, `examples/watch`), so
+      a battle can be watched without a GPU.
 - [x] Replace the hand-rolled item path with the original routines (the switch
       path was checked and is equivalent).
 - [x] Fixture corpus green after every change; recordings that depended on a

@@ -1,6 +1,9 @@
 use crate::runtime::Cpu;
 
 pub(crate) fn _animate_hp_bar(cpu: &mut Cpu) {
+    // HARNESS-PATCH: report the HP-bar change (bootstrap::events, observe
+    // only); no-op unless cpu.events is Some. See docs/transpiled_code.md.
+    crate::bootstrap::events::hp_bar(cpu);
     cpu.pc = 0x5627;
     let next_pc = cpu.pc + 3;
     cpu.push_word(next_pc);

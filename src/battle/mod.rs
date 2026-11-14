@@ -29,6 +29,7 @@ use std::sync::mpsc::{Receiver, SyncSender, sync_channel};
 use std::thread::JoinHandle;
 
 pub use crate::bootstrap::BattleConfig;
+pub use crate::bootstrap::events::{Event, HpBarTarget, one_line};
 pub use crate::bootstrap::decision::{PromptSite, Step as Action};
 pub use crate::bootstrap::recorder::Side;
 pub use crate::bootstrap::snapshot::Outcome;
@@ -49,6 +50,9 @@ pub struct Decision {
     pub legal: Vec<Action>,
     /// The battle state at this decision point.
     pub state: BattleState,
+    /// What the battle showed since the previous decision (or since the start):
+    /// the exact battle text and HP-bar changes, in order.
+    pub events: Vec<Event>,
 }
 
 /// Where the battle is.
@@ -57,7 +61,7 @@ pub enum Status<'a> {
     /// Waiting for [`Battle::step`].
     Decision(&'a Decision),
     /// The battle is over.
-    Ended { outcome: Outcome, state: &'a BattleState },
+    Ended { outcome: Outcome, state: &'a BattleState, events: &'a [Event] },
 }
 
 /// Why a call failed.
@@ -88,13 +92,13 @@ impl std::error::Error for Error {}
 
 enum EngineMsg {
     Decision(Decision),
-    Ended { outcome: Outcome, state: BattleState },
+    Ended { outcome: Outcome, state: BattleState, events: Vec<Event> },
     Failed(Error),
 }
 
 enum Current {
     Decision(Decision),
-    Ended { outcome: Outcome, state: BattleState },
+    Ended { outcome: Outcome, state: BattleState, events: Vec<Event> },
 }
 
 /// One battle in progress.
@@ -118,7 +122,13 @@ struct ChannelDecider {
 impl Decider for ChannelDecider {
     fn decide(&mut self, cpu: &Cpu, site: PromptSite, legal: &[Action]) -> Action {
         let side = if site == PromptSite::EnemyAction { Side::Enemy } else { Side::Player };
-        let decision = Decision { site, side, legal: legal.to_vec(), state: BattleState::read(cpu) };
+        let decision = Decision {
+            site,
+            side,
+            legal: legal.to_vec(),
+            state: BattleState::read(cpu),
+            events: crate::bootstrap::events::take_events(cpu),
+        };
         if self.to_api.send(EngineMsg::Decision(decision)).is_err() {
             std::panic::resume_unwind(Box::new(Abandoned));
         }
@@ -145,7 +155,7 @@ impl Battle {
             .spawn(move || run_engine(config, seed, to_api, from_api))
             .map_err(|e| Error::Engine(format!("could not spawn the engine thread: {e}")))?;
         let mut battle = Battle {
-            current: Current::Ended { outcome: Outcome::Draw, state: placeholder_state() },
+            current: Current::Ended { outcome: Outcome::Draw, state: placeholder_state(), events: Vec::new() },
             to_engine: Some(to_engine),
             from_engine,
             thread: Some(thread),
@@ -154,11 +164,20 @@ impl Battle {
         Ok(battle)
     }
 
+    /// What the battle showed during the last [`Battle::step`] (or, before the
+    /// first step, since the battle started).
+    pub fn events(&self) -> &[Event] {
+        match &self.current {
+            Current::Decision(d) => &d.events,
+            Current::Ended { events, .. } => events,
+        }
+    }
+
     /// The pending decision, or the result.
     pub fn status(&self) -> Status<'_> {
         match &self.current {
             Current::Decision(d) => Status::Decision(d),
-            Current::Ended { outcome, state } => Status::Ended { outcome: *outcome, state },
+            Current::Ended { outcome, state, events } => Status::Ended { outcome: *outcome, state, events },
         }
     }
 
@@ -206,9 +225,9 @@ impl Battle {
     fn receive(&mut self) -> Result<Current, Error> {
         match self.from_engine.recv() {
             Ok(EngineMsg::Decision(d)) => Ok(Current::Decision(d)),
-            Ok(EngineMsg::Ended { outcome, state }) => {
+            Ok(EngineMsg::Ended { outcome, state, events }) => {
                 self.to_engine = None;
-                Ok(Current::Ended { outcome, state })
+                Ok(Current::Ended { outcome, state, events })
             }
             Ok(EngineMsg::Failed(e)) => Err(e),
             Err(_) => Err(self.engine_failure()),
@@ -239,6 +258,7 @@ fn run_engine(config: BattleConfig, seed: u64, to_api: SyncSender<EngineMsg>, fr
     let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(move || {
         let mut cpu = Cpu::new_cgb(None, None);
         cpu.interrupt_vectors = crate::interrupt_vectors();
+        cpu.events = Some(std::cell::RefCell::new(Default::default()));
         cpu.decider = Some(std::cell::RefCell::new(Box::new(ChannelDecider {
             to_api: to_api.clone(),
             from_api,
@@ -254,7 +274,8 @@ fn run_engine(config: BattleConfig, seed: u64, to_api: SyncSender<EngineMsg>, fr
         }
         let outcome = crate::bootstrap::snapshot::read_outcome(&cpu);
         let state = BattleState::read(&cpu);
-        let _ = to_api.send(EngineMsg::Ended { outcome, state });
+        let events = crate::bootstrap::events::take_events(&cpu);
+        let _ = to_api.send(EngineMsg::Ended { outcome, state, events });
     }));
     if let Err(payload) = result {
         if payload.downcast_ref::<Abandoned>().is_none() {

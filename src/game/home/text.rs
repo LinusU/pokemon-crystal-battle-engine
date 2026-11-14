@@ -1361,6 +1361,9 @@ pub(crate) fn check_dict_place_handakuten(cpu: &mut Cpu) {
 
 pub(crate) fn check_dict_place(cpu: &mut Cpu) {
     cpu.pc = 0x1174;
+    // HARNESS-PATCH: battle-text capture (bootstrap::events); no-op unless
+    // cpu.events is Some. See docs/transpiled_code.md.
+    crate::bootstrap::events::place(cpu);
     cpu.write_byte(cpu.hl(), cpu.a);
     cpu.set_hl(cpu.hl().wrapping_add(1));
     cpu.pc += 1;
@@ -1862,6 +1865,9 @@ pub fn place_command_character(cpu: &mut Cpu) {
 
 pub fn next_line_char(cpu: &mut Cpu) {
     cpu.pc = 0x12a7;
+    // HARNESS-PATCH: battle-text capture (bootstrap::events); no-op unless
+    // cpu.events is Some. See docs/transpiled_code.md.
+    crate::bootstrap::events::newline(cpu);
     let value = cpu.pop_word();
     cpu.set_hl(value);
     cpu.pc += 1;
@@ -1887,6 +1893,9 @@ pub fn next_line_char(cpu: &mut Cpu) {
 
 pub fn line_feed_char(cpu: &mut Cpu) {
     cpu.pc = 0x12b0;
+    // HARNESS-PATCH: battle-text capture (bootstrap::events); no-op unless
+    // cpu.events is Some. See docs/transpiled_code.md.
+    crate::bootstrap::events::newline(cpu);
     let value = cpu.pop_word();
     cpu.set_hl(value);
     cpu.pc += 1;
@@ -2090,6 +2099,9 @@ pub(crate) fn carriage_return_char_done2(cpu: &mut Cpu) {
 
 pub fn line_char(cpu: &mut Cpu) {
     cpu.pc = 0x12ea;
+    // HARNESS-PATCH: battle-text capture (bootstrap::events); no-op unless
+    // cpu.events is Some. See docs/transpiled_code.md.
+    crate::bootstrap::events::newline(cpu);
     let value = cpu.pop_word();
     cpu.set_hl(value);
     cpu.pc += 1;
@@ -2106,6 +2118,9 @@ pub fn line_char(cpu: &mut Cpu) {
 
 pub fn paragraph(cpu: &mut Cpu) {
     cpu.pc = 0x12f2;
+    // HARNESS-PATCH: battle-text capture (bootstrap::events); no-op unless
+    // cpu.events is Some. See docs/transpiled_code.md.
+    crate::bootstrap::events::end_message(cpu);
     cpu.push_word(cpu.de());
     cpu.pc += 1;
     cpu.cycle(16);
@@ -2199,6 +2214,9 @@ pub(crate) fn paragraph_linkbattle(cpu: &mut Cpu) {
 
 pub fn _cont_text(cpu: &mut Cpu) {
     cpu.pc = 0x131f;
+    // HARNESS-PATCH: battle-text capture (bootstrap::events); no-op unless
+    // cpu.events is Some. See docs/transpiled_code.md.
+    crate::bootstrap::events::newline(cpu);
     cpu.a = cpu.read_byte(0xc2dc);
     cpu.pc += 3;
     cpu.cycle(16);
@@ -2269,6 +2287,9 @@ pub(crate) fn _cont_text_communication(cpu: &mut Cpu) {
 
 pub fn _cont_text_no_pause(cpu: &mut Cpu) {
     cpu.pc = 0x1337;
+    // HARNESS-PATCH: battle-text capture (bootstrap::events); no-op unless
+    // cpu.events is Some. See docs/transpiled_code.md.
+    crate::bootstrap::events::newline(cpu);
     cpu.push_word(cpu.de());
     cpu.pc += 1;
     cpu.cycle(16);
@@ -2341,6 +2362,9 @@ pub fn place_dex_end(cpu: &mut Cpu) {
 
 pub fn prompt_text(cpu: &mut Cpu) {
     cpu.pc = 0x135a;
+    // HARNESS-PATCH: battle-text capture (bootstrap::events); no-op unless
+    // cpu.events is Some. See docs/transpiled_code.md.
+    crate::bootstrap::events::end_message(cpu);
     cpu.a = cpu.read_byte(0xc2dc);
     cpu.pc += 3;
     cpu.cycle(16);
@@ -2437,6 +2461,9 @@ pub(crate) fn prompt_text_ok(cpu: &mut Cpu) {
 
 pub fn done_text(cpu: &mut Cpu) {
     cpu.pc = 0x137c;
+    // HARNESS-PATCH: battle-text capture (bootstrap::events); no-op unless
+    // cpu.events is Some. See docs/transpiled_code.md.
+    crate::bootstrap::events::end_message(cpu);
     let value = cpu.pop_word();
     cpu.set_hl(value);
     cpu.pc += 1;
@@ -2691,6 +2718,10 @@ pub fn poke_flute_terminator(cpu: &mut Cpu) {
 
 pub fn print_textbox_text_at(cpu: &mut Cpu) {
     cpu.pc = 0x13e5;
+    // HARNESS-PATCH: battle-text capture (bootstrap::events); no-op unless
+    // cpu.events is Some. A new text starts a new message. See
+    // docs/transpiled_code.md.
+    crate::bootstrap::events::end_message(cpu);
     cpu.a = cpu.read_byte(0xcfcf);
     cpu.pc += 3;
     cpu.cycle(16);
@@ -3016,6 +3047,9 @@ pub fn text_command_box(cpu: &mut Cpu) {
 
 pub fn text_command_low(cpu: &mut Cpu) {
     cpu.pc = 0x149b;
+    // HARNESS-PATCH: battle-text capture (bootstrap::events); no-op unless
+    // cpu.events is Some. See docs/transpiled_code.md.
+    crate::bootstrap::events::newline(cpu);
     cpu.set_bc({ const N: i32 = (((((crate::defs::TEXTBOX_INNERY as u16 as i32) + (2 as i32)) * (crate::defs::SCREEN_WIDTH as u16 as i32)) + (crate::defs::TEXTBOX_INNERX as u16 as i32)) + (0xc4a0 as i32)); N as u16 });
     cpu.pc += 3;
     cpu.cycle(12);
@@ -3025,6 +3059,9 @@ pub fn text_command_low(cpu: &mut Cpu) {
 
 pub fn text_command_prompt_button(cpu: &mut Cpu) {
     cpu.pc = 0x149f;
+    // HARNESS-PATCH: battle-text capture (bootstrap::events); no-op unless
+    // cpu.events is Some. See docs/transpiled_code.md.
+    crate::bootstrap::events::end_message(cpu);
     cpu.a = cpu.read_byte(0xc2dc);
     cpu.pc += 3;
     cpu.cycle(16);
@@ -3093,6 +3130,9 @@ pub fn text_command_prompt_button(cpu: &mut Cpu) {
 
 pub fn text_command_scroll(cpu: &mut Cpu) {
     cpu.pc = 0x14ba;
+    // HARNESS-PATCH: battle-text capture (bootstrap::events); no-op unless
+    // cpu.events is Some. See docs/transpiled_code.md.
+    crate::bootstrap::events::newline(cpu);
     cpu.push_word(cpu.hl());
     cpu.pc += 1;
     cpu.cycle(16);
@@ -3192,11 +3232,15 @@ pub fn text_command_decimal(cpu: &mut Cpu) {
     cpu.b = cpu.a;
     cpu.pc += 1;
     cpu.cycle(4);
+    // HARNESS-PATCH: battle-text capture (bootstrap::events); no-op unless
+    // cpu.events is Some. See docs/transpiled_code.md.
+    let capture_start = cpu.hl();
     let next_pc = cpu.pc + 3;
     cpu.push_word(next_pc);
     cpu.cycle(24);
     crate::game::home::print_text::print_num(cpu);
     assert_eq!(cpu.pc, next_pc);
+    crate::bootstrap::events::placed_range(cpu, capture_start, cpu.hl());
     cpu.b = cpu.h;
     cpu.pc += 1;
     cpu.cycle(4);

@@ -88,6 +88,9 @@ pub struct Cpu {
     /// Move slot the `move_selection_screen` HARNESS-PATCH returns for the
     /// Ether/Max Ether/MysteryBerry move menu (`wMoveSelectionMenuType == 2`).
     pub cli_pending_item_move: Option<u8>,
+    /// Battle text / HP-bar capture, fed by observe-only HARNESS-PATCH hooks.
+    /// `None` (the default) disables capture. See [`crate::bootstrap::events`].
+    pub events: Option<std::cell::RefCell<crate::bootstrap::events::EventCapture>>,
     /// Per-byte ROM overrides applied before `start_battle`. The bootstrap
     /// uses this to poke the trainer class's `TrainerClassAttributes` entry
     /// (items, AI flags) without touching the immutable static ROM slice. Each
@@ -168,6 +171,7 @@ impl Default for Cpu {
             cli_pending_item: None,
             cli_pending_party_target: None,
             cli_pending_item_move: None,
+            events: None,
             rom_patches: Vec::new(),
             trainer_party_override: false,
             mbc: Mbc::new(crate::rom::ROM),

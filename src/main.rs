@@ -72,10 +72,10 @@ fn main() {
     };
 
     #[cfg(feature = "gui")]
-    gui::run(battle_config, record_path, playback_recording);
+    gui::run(battle_config, record_path, playback_recording, cli_args.show_text);
 
     #[cfg(not(feature = "gui"))]
-    run_headless(battle_config, record_path, playback_recording);
+    run_headless(battle_config, record_path, playback_recording, cli_args.show_text);
 }
 
 /// Drive a single fully specified battle to completion on `cpu`. Shared by the
@@ -86,6 +86,7 @@ fn run_battle(
     config: &BattleConfig,
     record_path: Option<&std::path::Path>,
     playback: Option<bootstrap::player::Recording>,
+    show_text: bool,
 ) {
     let (seed_override, playback_steps) = match playback {
         Some(rec) => (Some(rec.seed), Some(rec.steps)),
@@ -96,6 +97,7 @@ fn run_battle(
         seed_override,
         playback: playback_steps,
         quiet: false,
+        show_text,
     };
     if let Err(e) = bootstrap::run_with(cpu, config, options) {
         eprintln!("battle bootstrap failed: {e}");
@@ -109,10 +111,11 @@ fn run_headless(
     config: BattleConfig,
     record_path: Option<std::path::PathBuf>,
     playback: Option<bootstrap::player::Recording>,
+    show_text: bool,
 ) {
     let mut cpu = Cpu::new_cgb(None, None);
     cpu.interrupt_vectors = rgb2rust_output::interrupt_vectors();
-    run_battle(&mut cpu, &config, record_path.as_deref(), playback);
+    run_battle(&mut cpu, &config, record_path.as_deref(), playback, show_text);
 }
 
 /// Argv parser for `[<scenario.toml> | --random] [--seed <n>] [--record <out.toml>] [--play <rec.toml>]`.
@@ -130,6 +133,8 @@ struct CliArgs {
     play: Option<std::path::PathBuf>,
     random: bool,
     seed: Option<u64>,
+    /// `--show-text`: print the original battle text as the engine prints it.
+    show_text: bool,
 }
 
 fn parse_cli_args(args: &[String]) -> Result<CliArgs, String> {
@@ -138,6 +143,7 @@ fn parse_cli_args(args: &[String]) -> Result<CliArgs, String> {
     let mut play: Option<std::path::PathBuf> = None;
     let mut random = false;
     let mut seed: Option<u64> = None;
+    let mut show_text = false;
     let mut i = 0;
     while i < args.len() {
         let arg = &args[i];
@@ -155,6 +161,10 @@ fn parse_cli_args(args: &[String]) -> Result<CliArgs, String> {
                     .ok_or_else(|| "--play requires a path argument".to_string())?;
                 play = Some(std::path::PathBuf::from(path));
                 i += 2;
+            }
+            "--show-text" => {
+                show_text = true;
+                i += 1;
             }
             "--random" => {
                 random = true;
@@ -199,7 +209,7 @@ fn parse_cli_args(args: &[String]) -> Result<CliArgs, String> {
             "--seed without --random has no effect — put `seed = ...` in the scenario TOML instead".into(),
         );
     }
-    Ok(CliArgs { scenario, record, play, random, seed })
+    Ok(CliArgs { scenario, record, play, random, seed, show_text })
 }
 
 /// Parse `--seed` as decimal or `0x...`/`0X...` hex. Accepts the same shape
@@ -251,6 +261,7 @@ mod gui {
         battle_config: BattleConfig,
         record_path: Option<std::path::PathBuf>,
         playback_recording: Option<bootstrap::player::Recording>,
+        show_text: bool,
     ) {
         let scale = 4;
         let (sender, receiver) = mpsc::sync_channel(1);
@@ -280,6 +291,7 @@ mod gui {
                 battle_config,
                 record_path,
                 playback_recording,
+                show_text,
             )
         });
 
@@ -340,10 +352,11 @@ mod gui {
         config: BattleConfig,
         record_path: Option<std::path::PathBuf>,
         playback: Option<bootstrap::player::Recording>,
+        show_text: bool,
     ) {
         let mut cpu = Cpu::new_cgb(Some(update_screen), Some(keypad_events));
         cpu.interrupt_vectors = rgb2rust_output::interrupt_vectors();
-        super::run_battle(&mut cpu, &config, record_path.as_deref(), playback);
+        super::run_battle(&mut cpu, &config, record_path.as_deref(), playback, show_text);
     }
 
     fn map_keypad_key(key: winit::keyboard::Key<&str>) -> Option<KeypadKey> {
