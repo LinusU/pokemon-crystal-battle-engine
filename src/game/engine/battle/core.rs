@@ -21956,6 +21956,16 @@ pub(crate) fn move_selection_screen(cpu: &mut Cpu) {
         cpu.cycle(20);
         return;
     }
+    // HARNESS-PATCH: leave what the skipped menu's ListMoves / 2D-menu setup
+    // leaves for the battle: wNumMoves (0xd0eb) = index of the last move,
+    // w2DMenuNumRows (0xcfa3) = wNumMoves + 1 (CheckObedience's random-move
+    // pick reads it). See docs/transpiled_code.md.
+    let count = (0..4u16).take_while(|&i| cpu.read_byte(0xc62e + i) != 0).count() as u8;
+    if count > 0 {
+        cpu.write_byte(0xd0eb, count - 1);
+    }
+    let rows = cpu.read_byte(0xd0eb).wrapping_add(1);
+    cpu.write_byte(0xcfa3, rows);
     let slot = match cpu.cli_pending_move.take() {
         Some(s) => s,
         None => crate::bootstrap::cli::handle_move_selection(cpu),

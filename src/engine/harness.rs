@@ -191,6 +191,15 @@ impl Engine {
             assert!(!usable, "Struggle offered with a usable move");
             return Ok(false);
         }
+        // The skipped menu's ListMoves leaves wNumMoves = index of the last
+        // move, and the 2D menu w2DMenuNumRows = wNumMoves + 1 (as the
+        // HARNESS-PATCH in move_selection_screen does).
+        let count = (0..4u16).take_while(|&i| self.mem.rb(W_BATTLE_MON_MOVES + i) != 0).count() as u8;
+        if count > 0 {
+            self.mem.wb(W_NUM_MOVES, count - 1);
+        }
+        let rows = self.mem.rb(W_NUM_MOVES).wrapping_add(1);
+        self.mem.wb(W2_D_MENU_NUM_ROWS, rows);
         let slot = match self.flags.pending_move.take() {
             Some(s) => s,
             None => {
