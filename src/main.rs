@@ -297,6 +297,9 @@ mod gui {
 
         event_loop.set_control_flow(winit::event_loop::ControlFlow::Poll);
         loop {
+            // The closure form is deprecated in winit 0.30 in favour of an
+            // `ApplicationHandler`; it still pumps the same events.
+            #[allow(deprecated)]
             let status = event_loop.pump_events(Some(std::time::Duration::ZERO), |event, elwt| {
                 use winit::event::{ElementState, Event, WindowEvent};
                 use winit::keyboard::{Key, NamedKey};
@@ -390,8 +393,8 @@ mod gui {
         let _ = sender.send(event);
     }
 
-    fn create_window_builder() -> winit::window::WindowBuilder {
-        winit::window::WindowBuilder::new().with_title("rgb2rust")
+    fn create_window_builder() -> winit::window::WindowAttributes {
+        winit::window::WindowAttributes::default().with_title("rgb2rust")
     }
 
     fn recalculate_screen<T>(
