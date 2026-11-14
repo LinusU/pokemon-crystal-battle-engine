@@ -4,6 +4,4 @@
 use super::battle::{Engine, Flow};
 
 impl Engine {
-    /// `GetItemHeldEffect`: (held effect `b`, parameter `c`) of item `b`.
-    pub fn get_item_held_effect(&self, _item: u8) -> (u8, u8) { self.unported("GetItemHeldEffect") }
 }
