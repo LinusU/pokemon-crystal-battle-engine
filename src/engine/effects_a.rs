@@ -19,152 +19,14 @@ const PP_OFFSET: u16 = 6;
 impl Engine {
     // --- shared helpers from effect_commands.asm ---------------------------------
 
-    /// `AnimateCurrentMove`: only the memory the animation leaves behind.
-    pub fn animate_current_move(&mut self) -> Flow {
-        let param = self.mem.rb(W_BATTLE_ANIM_PARAM);
-        self.battle_command_lower_sub()?;
-        self.mem.wb(W_BATTLE_ANIM_PARAM, param);
-        self.load_move_anim();
-        self.battle_command_raise_sub()?;
-        Ok(())
-    }
-
-    /// `AnimateFailedMove`.
-    pub fn animate_failed_move(&mut self) -> Flow {
-        self.battle_command_lower_sub()?;
-        self.battle_command_move_delay()?;
-        self.battle_command_raise_sub()?;
-        Ok(())
-    }
-
-    /// `PrintButItFailed`.
-    pub fn print_but_it_failed(&mut self) {
-        self.text(r::BUT_IT_FAILED_TEXT);
-    }
-
-    /// `PrintDoesntAffect`.
-    pub fn print_doesnt_affect(&mut self) {
-        self.text(r::DOESNT_AFFECT_TEXT);
-    }
-
-    /// `PrintDidntAffect`.
-    pub fn print_didnt_affect(&mut self) {
-        self.text(r::DIDNT_AFFECT1_TEXT);
-    }
-
-    /// `FailText_CheckOpponentProtect`: `hl`, or `de` if the opponent is protected.
-    pub fn fail_text_check_opponent_protect(&mut self, hl: usize, de: usize) {
-        let text = if self.battle_var_bit(BATTLE_VARS_SUBSTATUS1_OPP, SUBSTATUS_PROTECT) { de } else { hl };
-        self.text(text);
-    }
-
-    /// `FailMove`.
-    pub fn fail_move(&mut self) -> Flow<Cmd> {
-        self.animate_failed_move()?;
-        self.fail_mimic();
-        Ok(Cmd::Next)
-    }
-
-    /// `FailMimic`.
-    pub fn fail_mimic(&mut self) {
-        self.fail_text_check_opponent_protect(r::BUT_IT_FAILED_TEXT, r::IT_FAILED_TEXT);
-    }
-
-    /// `PrintDidntAffect2`.
-    pub fn print_didnt_affect2(&mut self) -> Flow<Cmd> {
-        self.animate_failed_move()?;
-        self.fail_text_check_opponent_protect(r::DIDNT_AFFECT1_TEXT, r::DIDNT_AFFECT2_TEXT);
-        Ok(Cmd::Next)
-    }
-
-    /// `CheckSubstituteOpp` (nz = the opponent has a substitute).
-    pub fn check_substitute_opp(&self) -> bool {
-        self.battle_var_bit(BATTLE_VARS_SUBSTATUS4_OPP, SUBSTATUS_SUBSTITUTE)
-    }
-
-    /// `CheckHiddenOpponent` (nz = the opponent is flying or underground).
-    /// BUG: Lock-On and Mind Reader don't always bypass Fly and Dig.
-    pub fn check_hidden_opponent(&self) -> bool {
-        self.battle_var(BATTLE_VARS_SUBSTATUS3_OPP) & (1 << SUBSTATUS_FLYING | 1 << SUBSTATUS_UNDERGROUND) != 0
-    }
-
-    /// `CheckOpponentWentFirst` (nz = `true`: the opponent went first).
-    pub fn check_opponent_went_first(&self) -> bool {
-        self.mem.rb(W_ENEMY_GOES_FIRST) ^ self.turn() != 0
-    }
-
     /// `ResetMiss`.
     pub fn reset_miss(&mut self) {
         self.mem.wb(W_ATTACK_MISSED, 0);
     }
 
-    /// `ClearLastMove`.
-    pub fn clear_last_move(&mut self) {
-        self.set_battle_var(BATTLE_VARS_LAST_COUNTER_MOVE, 0);
-        self.set_battle_var(BATTLE_VARS_LAST_MOVE, 0);
-    }
-
-    /// `ResetActorDisable`.
-    pub fn reset_actor_disable(&mut self) {
-        if self.is_player_turn() {
-            self.mem.wb(W_PLAYER_DISABLE_COUNT, 0);
-            self.mem.wb(W_DISABLED_MOVE, 0);
-        } else {
-            self.mem.wb(W_ENEMY_DISABLE_COUNT, 0);
-            self.mem.wb(W_ENEMY_DISABLED_MOVE, 0);
-        }
-    }
-
-    /// `CheckUserMove`: `b` = move `a`; returns z (`true`) if the user has it.
-    pub fn check_user_move(&self, mv: u8) -> bool {
-        let moves = if self.is_player_turn() { W_BATTLE_MON_MOVES } else { W_ENEMY_MON_MOVES };
-        (0..u16::from(NUM_MOVES)).any(|i| self.mem.rb(moves + i) == mv)
-    }
-
-    /// `ResetTurn`: use the move now in the user's move variable.
-    pub fn reset_turn(&mut self) -> Flow<Cmd> {
-        let hl = if self.is_player_turn() { W_PLAYER_CHARGING } else { W_ENEMY_CHARGING };
-        self.mem.wb(hl, 1);
-        self.mem.wb(W_ALREADY_DISOBEYED, 0);
-        self.do_move()?;
-        self.end_move_effect();
-        Ok(Cmd::Next)
-    }
-
-    /// `SkipToBattleCommand`: skip script bytes until command `b`.
-    pub fn skip_to_battle_command(&mut self, b: u8) {
-        let mut hl = self.mem.rw_le(W_BATTLE_SCRIPT_BUFFER_ADDRESS);
-        loop {
-            let a = self.mem.rb(hl);
-            hl = hl.wrapping_add(1);
-            if a == b {
-                break;
-            }
-        }
-        self.mem.ww_le(W_BATTLE_SCRIPT_BUFFER_ADDRESS, hl);
-    }
-
     /// `GetMoveAttr` for the `Moves` table: attribute `attr` of move `mv` (1-based).
     fn move_attr(mv: u8, attr: u8) -> u8 {
         rom::byte(r::MOVES + usize::from(mv.wrapping_sub(1)) * usize::from(MOVE_LENGTH) + usize::from(attr))
-    }
-
-    /// `GetStatName`: stat name number `b` (1-based) into `wStringBuffer2`.
-    pub fn get_stat_name(&mut self, mut b: u8) {
-        let mut hl = r::STAT_NAMES;
-        loop {
-            b = b.wrapping_sub(1);
-            if b == 0 {
-                break;
-            }
-            while rom::byte(hl) != CHAR_TERMINATOR {
-                hl += 1;
-            }
-            hl += 1;
-        }
-        for i in 0..u16::from(STRING_BUFFER_LENGTH) {
-            self.mem.wb(W_STRING_BUFFER2 + i, rom::byte(hl + usize::from(i)));
-        }
     }
 
     /// `GetTypeName`: the name of type `wNamedObjectIndex` into `wStringBuffer1`.
@@ -176,66 +38,11 @@ impl Engine {
         }
     }
 
-    /// `TryLowerStat`: lower stat `c` from stat struct `hl` (buffer `de`).
-    /// Returns nz (`true`) unless the stat is already at its minimum of 1.
-    fn try_lower_stat(&mut self, hl: u16, c: u8) -> bool {
-        let hl = hl.wrapping_add(u16::from(c) << 1);
-        let low = self.mem.rb(hl);
-        if low == 1 && self.mem.rb(hl - 1) == 0 {
-            return false;
-        }
-        // .not_min
-        if self.is_player_turn() {
-            self.switch_turn();
-            self.calc_enemy_stats();
-            self.switch_turn();
-        } else {
-            self.switch_turn();
-            self.calc_player_stats();
-            self.switch_turn();
-        }
-        true
-    }
-
-    /// `LowerStat`: lower the user's own stat `a` (stage number | `$10` for two stages).
-    pub fn lower_stat(&mut self, a: u8) {
-        self.mem.wb(W_LOWERED_STAT, a);
-        let base = if self.is_player_turn() { W_PLAYER_STAT_LEVELS } else { W_ENEMY_STAT_LEVELS };
-        let c = a & 0xf;
-        let hl = base + u16::from(c);
-        let mut b = self.mem.rb(hl).wrapping_sub(1);
-        if b == 0 {
-            // .cant_lower_anymore
-            self.mem.wb(W_FAILED_MESSAGE, 2);
-            return;
-        }
-        if self.mem.rb(W_LOWERED_STAT) & 0xf0 != 0 {
-            b = b.wrapping_sub(1);
-            if b == 0 {
-                b += 1;
-            }
-        }
-        self.mem.wb(hl, b);
-        if c < ACCURACY {
-            let stats = if self.is_player_turn() { W_BATTLE_MON_STATS + 1 } else { W_ENEMY_MON_STATS + 1 };
-            if !self.try_lower_stat(stats, c) {
-                // .failed
-                let v = self.mem.rb(hl).wrapping_add(1);
-                self.mem.wb(hl, v);
-                self.mem.wb(W_FAILED_MESSAGE, 2);
-                return;
-            }
-        }
-        // .accuracy_evasion
-        if self.is_player_turn() { self.calc_player_stats() } else { self.calc_enemy_stats() }
-        self.mem.wb(W_FAILED_MESSAGE, 0);
-    }
-
     /// `ProtectChance` (`protect.asm`): carry (`true`) = failed.
     pub fn protect_chance(&mut self) -> Flow<bool> {
         let de = if self.is_player_turn() { W_PLAYER_PROTECT_COUNT } else { W_ENEMY_PROTECT_COUNT };
         let ok = 'chance: {
-            if self.check_opponent_went_first() {
+            if self.check_opponent_went_first() != 0 {
                 break 'chance false;
             }
             if self.battle_var_bit(BATTLE_VARS_SUBSTATUS4, SUBSTATUS_SUBSTITUTE) {
@@ -335,7 +142,7 @@ impl Engine {
             || self.check_hidden_opponent()
             || self.battle_var_bit(BATTLE_VARS_SUBSTATUS1_OPP, SUBSTATUS_IN_LOVE)
         {
-            return self.fail_move();
+            { self.fail_move()?; return Ok(Cmd::Next); }
         }
         self.set_battle_var_bit(BATTLE_VARS_SUBSTATUS1_OPP, SUBSTATUS_IN_LOVE);
         self.animate_current_move()?;
@@ -767,16 +574,16 @@ impl Engine {
     /// `BattleCommand_Conversion2`.
     pub fn battle_command_conversion2(&mut self) -> Flow<Cmd> {
         if self.mem.rb(W_ATTACK_MISSED) != 0 {
-            return self.fail_move();
+            { self.fail_move()?; return Ok(Cmd::Next); }
         }
         let hl = if self.is_player_turn() { W_BATTLE_MON_TYPE1 } else { W_ENEMY_MON_TYPE1 };
         let a = self.battle_var(BATTLE_VARS_LAST_COUNTER_MOVE_OPP);
         if a == 0 {
-            return self.fail_move();
+            { self.fail_move()?; return Ok(Cmd::Next); }
         }
         let d = Self::move_attr(a, MOVE_TYPE);
         if d == CURSE_TYPE {
-            return self.fail_move();
+            { self.fail_move()?; return Ok(Cmd::Next); }
         }
         self.animate_current_move()?;
         self.switch_turn();
@@ -832,7 +639,7 @@ impl Engine {
             return Ok(Cmd::Next);
         }
         self.battle_command_reset_type_matchup()?;
-        if self.mem.rb(W_TYPE_MATCHUP) == 0 || !self.check_opponent_went_first() {
+        if self.mem.rb(W_TYPE_MATCHUP) == 0 || self.check_opponent_went_first() == 0 {
             return Ok(Cmd::Next);
         }
         let b = self.battle_var(BATTLE_VARS_LAST_COUNTER_MOVE_OPP);
@@ -927,16 +734,16 @@ impl Engine {
     /// `BattleCommand_Disable`.
     pub fn battle_command_disable(&mut self) -> Flow<Cmd> {
         if self.mem.rb(W_ATTACK_MISSED) != 0 {
-            return self.fail_move();
+            { self.fail_move()?; return Ok(Cmd::Next); }
         }
         let player = self.is_player_turn();
         let (de, mut hl) = if player { (W_ENEMY_DISABLE_COUNT, W_ENEMY_MON_MOVES) } else { (W_PLAYER_DISABLE_COUNT, W_BATTLE_MON_MOVES) };
         if self.mem.rb(de) != 0 {
-            return self.fail_move();
+            { self.fail_move()?; return Ok(Cmd::Next); }
         }
         let last = self.battle_var(BATTLE_VARS_LAST_COUNTER_MOVE_OPP);
         if last == 0 || last == STRUGGLE {
-            return self.fail_move();
+            { self.fail_move()?; return Ok(Cmd::Next); }
         }
         let mut c = 0xffu8;
         loop {
@@ -949,7 +756,7 @@ impl Engine {
         }
         let pp = if player { W_ENEMY_MON_PP } else { W_BATTLE_MON_PP };
         if self.mem.rb(pp.wrapping_add(u16::from(c))) == 0 {
-            return self.fail_move();
+            { self.fail_move()?; return Ok(Cmd::Next); }
         }
         let a = loop {
             let a = self.battle_random("BattleCommand_Disable") & 7;
@@ -977,7 +784,7 @@ impl Engine {
         let (mut hl, de) = if player { (W_ENEMY_MON_MOVES, W_ENEMY_ENCORE_COUNT) } else { (W_BATTLE_MON_MOVES, W_PLAYER_ENCORE_COUNT) };
         let b = self.battle_var(BATTLE_VARS_LAST_MOVE_OPP);
         if b == 0 || b == STRUGGLE || b == ENCORE || b == MIRROR_MOVE {
-            return self.print_didnt_affect2();
+            { self.print_didnt_affect2()?; return Ok(Cmd::Next); }
         }
         loop {
             let a = self.mem.rb(hl);
@@ -988,16 +795,16 @@ impl Engine {
         }
         let pp = hl.wrapping_add(PP_OFFSET - 1);
         if self.mem.rb(pp) & PP_MASK == 0 || self.mem.rb(W_ATTACK_MISSED) != 0 {
-            return self.print_didnt_affect2();
+            { self.print_didnt_affect2()?; return Ok(Cmd::Next); }
         }
         let substatus5 = self.battle_var_addr(BATTLE_VARS_SUBSTATUS5_OPP);
         if self.mem.bit(substatus5, SUBSTATUS_ENCORED) {
-            return self.print_didnt_affect2();
+            { self.print_didnt_affect2()?; return Ok(Cmd::Next); }
         }
         self.mem.set_bit(substatus5, SUBSTATUS_ENCORED);
         let a = (self.battle_random("BattleCommand_Encore") & 3) + 3;
         self.mem.wb(de, a);
-        if !self.check_opponent_went_first() {
+        if self.check_opponent_went_first() == 0 {
             if !player {
                 // Force the player's last move.
                 let b = self.mem.rb(W_LAST_PLAYER_MOVE);
@@ -1005,7 +812,7 @@ impl Engine {
                 let Some(c) = found else {
                     self.mem.res_bit(substatus5, SUBSTATUS_ENCORED);
                     self.mem.wb(de, 0);
-                    return self.print_didnt_affect2();
+                    { self.print_didnt_affect2()?; return Ok(Cmd::Next); }
                 };
                 self.mem.wb(W_CUR_MOVE_NUM, c);
                 self.mem.wb(W_CUR_PLAYER_MOVE, b);
@@ -1017,7 +824,7 @@ impl Engine {
                 let Some(c) = found else {
                     self.mem.res_bit(substatus5, SUBSTATUS_ENCORED);
                     self.mem.wb(de, 0);
-                    return self.print_didnt_affect2();
+                    { self.print_didnt_affect2()?; return Ok(Cmd::Next); }
                 };
                 self.mem.wb(W_CUR_ENEMY_MOVE_NUM, c);
                 self.mem.wb(W_CUR_ENEMY_MOVE, b);
@@ -1064,7 +871,7 @@ impl Engine {
             || self.check_hidden_opponent()
             || self.battle_var_bit(BATTLE_VARS_SUBSTATUS1_OPP, SUBSTATUS_IDENTIFIED)
         {
-            return self.fail_move();
+            { self.fail_move()?; return Ok(Cmd::Next); }
         }
         self.set_battle_var_bit(BATTLE_VARS_SUBSTATUS1_OPP, SUBSTATUS_IDENTIFIED);
         self.animate_current_move()?;
@@ -1324,7 +1131,7 @@ impl Engine {
             }
             self.set_battle_var(BATTLE_VARS_MOVE, b);
             self.update_move_data();
-            return self.reset_turn();
+            { self.reset_turn()?; return Ok(Cmd::Next); }
         }
     }
 
@@ -1354,7 +1161,8 @@ impl Engine {
         }
         // .done
         self.battle_command_move_delay()?;
-        self.reset_turn()
+        self.reset_turn()?;
+        Ok(Cmd::Next)
     }
 
     /// `BattleCommand_Mimic`.

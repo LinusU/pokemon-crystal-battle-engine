@@ -237,56 +237,13 @@ impl Engine {
 
     /// `BattleCommand_Protect`.
     pub fn battle_command_protect(&mut self) -> Flow<Cmd> {
-        if self.protect_chance() {
+        if self.protect_chance()? {
             return Ok(Cmd::Next);
         }
         self.set_battle_var_bit(BATTLE_VARS_SUBSTATUS1, SUBSTATUS_PROTECT);
         self.animate_current_move();
         self.text(r::PROTECTED_ITSELF_TEXT);
         Ok(Cmd::Next)
-    }
-
-    /// `ProtectChance`: returns carry (`true`) if the move failed.
-    fn protect_chance(&mut self) -> bool {
-        let de = if self.is_player_turn() { W_PLAYER_PROTECT_COUNT } else { W_ENEMY_PROTECT_COUNT };
-        let failed = 'check: {
-            if self.check_opponent_went_first() != 0 {
-                break 'check true;
-            }
-            if self.battle_var_bit(BATTLE_VARS_SUBSTATUS4, SUBSTATUS_SUBSTITUTE) {
-                break 'check true;
-            }
-            // Halve the chance of success for each consecutive use.
-            let mut b = 0xffu8;
-            let mut c = self.mem.rb(de);
-            while c != 0 {
-                c -= 1;
-                b >>= 1;
-                if b == 0 {
-                    break 'check true;
-                }
-            }
-            let mut a;
-            loop {
-                a = self.battle_random("ProtectChance");
-                if a != 0 {
-                    break;
-                }
-            }
-            a -= 1;
-            if a >= b {
-                break 'check true;
-            }
-            let count = self.mem.rb(de).wrapping_add(1);
-            self.mem.wb(de, count);
-            false
-        };
-        if failed {
-            self.mem.wb(de, 0);
-            self.animate_failed_move();
-            self.print_but_it_failed();
-        }
-        failed
     }
 
     // --- psych_up.asm ------------------------------------------------------------------
