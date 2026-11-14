@@ -33214,6 +33214,9 @@ pub(crate) fn fill_enemy_moves_from_move_indices_buffer_clearpp(cpu: &mut Cpu) {
 }
 
 pub(crate) fn exit_battle(cpu: &mut Cpu) {
+    // HARNESS-PATCH: report the end of the battle (observe only); see
+    // docs/transpiled_code.md.
+    crate::bootstrap::decision::battle_ended(cpu);
     cpu.pc = 0x769e;
     let next_pc = cpu.pc + 3;
     cpu.push_word(next_pc);
