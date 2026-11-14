@@ -145,6 +145,7 @@ impl Engine {
     /// `seed_player`: name, ID, gender, time of day, empty key/PC item lists.
     fn seed_player(&mut self) {
         self.write_bytes(W_PLAYER_NAME, &encode_name("RED"));
+        self.write_bytes(W_RIVAL_NAME, &encode_name("SILVER"));
         self.mem.wb(W_PLAYER_ID, 0x12);
         self.mem.wb(W_PLAYER_ID + 1, 0x34);
         self.mem.wb(W_PLAYER_GENDER, 0);
@@ -283,11 +284,6 @@ impl Engine {
         }
         let name = config.battle.trainer.as_deref().ok_or_else(|| "trainer_battle requires a [battle] trainer = \"...\" field".to_string())?;
         let trainer = trainers::lookup(name).ok_or_else(|| format!("unknown trainer: {name}"))?;
-        if trainer.class == RIVAL1 || trainer.class == RIVAL2 {
-            // The harness never sets wRivalName, so the rival's name text reads
-            // unterminated garbage (and the text renderer would recurse on it).
-            return Err(StartError::Unsupported("rival battles: the harness leaves wRivalName unset"));
-        }
         let mut launch = Launch::default();
         self.seed_player();
         self.seed_badges(config);

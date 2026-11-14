@@ -205,6 +205,7 @@ const W_KANTO_BADGES: u16 = 0xd858;
 const W_OT_PARTY_COUNT: u16 = 0xd280;
 const W_PLAYER_GENDER: u16 = 0xd472;
 const W_PLAYER_ID: u16 = 0xd47b;
+const W_RIVAL_NAME: u16 = 0xd493;
 const W_PLAYER_NAME: u16 = 0xd47d;
 const W_TIME_OF_DAY_PAL: u16 = 0xd841;
 const W_PARTY_COUNT: u16 = 0xdcd7;
@@ -430,6 +431,13 @@ fn seed_player(cpu: &mut Cpu) {
     let name = encode_name("RED");
     for (i, b) in name.iter().enumerate() {
         cpu.write_byte(W_PLAYER_NAME + i as u16, *b);
+    }
+    // The rival's name, which a rival battle prints. The game asks for it in
+    // New Bark Town; SILVER is the first preset. Left unset, the name reads
+    // unterminated garbage and the text engine writes '?'s across WRAM.
+    let rival = encode_name("SILVER");
+    for (i, b) in rival.iter().enumerate() {
+        cpu.write_byte(W_RIVAL_NAME + i as u16, *b);
     }
     cpu.write_byte(W_PLAYER_ID, 0x12);
     cpu.write_byte(W_PLAYER_ID + 1, 0x34);
