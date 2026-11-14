@@ -834,7 +834,8 @@ impl Engine {
             self.mem.wb(W_HP_BUFFER3, cur as u8);
         }
         self.mem.wb(W_WHICH_HP_BAR, u8::from(player));
-        // AnimateHPBar, RefreshBattleHuds
+        self.animate_hp_bar();
+        // RefreshBattleHuds
     }
 
     /// `DoSubstituteDamage`.
@@ -890,7 +891,8 @@ impl Engine {
             self.mem.wb(user_hp, 0);
             self.mem.wb(W_HP_BUFFER3, 0);
             self.mem.wb(W_HP_BUFFER3 + 1, 0);
-            // AnimateHPBar, RefreshBattleHuds
+            self.animate_hp_bar();
+            // RefreshBattleHuds
             self.battle_command_switch_turn()?;
             self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
             self.mem.wb(W_FX_ANIM_ID + 1, 0);
