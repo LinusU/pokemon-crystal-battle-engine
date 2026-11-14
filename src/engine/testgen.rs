@@ -17,6 +17,20 @@ impl Default for GenOptions {
     }
 }
 
+/// Held items for generated mons: every battle-relevant held effect,
+/// consumable berries and the Berserk Gene included.
+const HELD_ITEMS: &[&str] = &[
+    "Leftovers", "Quick Claw", "King's Rock", "Focus Band", "Brightpowder",
+    "Scope Lens", "Lucky Egg", "Amulet Coin", "Light Ball", "Thick Club",
+    "Stick", "Metal Powder", "Charcoal", "Mystic Water", "Miracle Seed",
+    "Magnet", "Twistedspoon", "Blackbelt", "Sharp Beak", "Poison Barb",
+    "Soft Sand", "Hard Stone", "Silverpowder", "Spell Tag", "Nevermeltice",
+    "Dragon Fang", "Blackglasses", "Pink Bow", "Metal Coat", "Polkadot Bow",
+    "Berry", "Gold Berry", "PSNCureBerry", "PRZCureBerry", "Burnt Berry",
+    "Ice Berry", "Mint Berry", "Bitter Berry", "MiracleBerry", "MysteryBerry",
+    "Berserk Gene",
+];
+
 /// A random link battle: both parties random, every mon with 1–4 random moves
 /// drawn from `moves` (move ids).
 pub fn random_link_config(seed: u64, moves: &[u8], opts: GenOptions) -> BattleConfig {
@@ -46,8 +60,16 @@ pub fn random_link_config(seed: u64, moves: &[u8], opts: GenOptions) -> BattleCo
             })
             .collect()
     };
-    let player_party = party(&mut rng);
-    let enemy_party = party(&mut rng);
+    let mut player_party = party(&mut rng);
+    let mut enemy_party = party(&mut rng);
+    // Held items from their own stream, so the parties above stay as they were.
+    let mut item_rng = seed ^ 0x6865_6c64;
+    for mon in player_party.iter_mut().chain(enemy_party.iter_mut()) {
+        if mix(&mut item_rng) % 4 == 0 {
+            let pick = (mix(&mut item_rng) % HELD_ITEMS.len() as u64) as usize;
+            mon.item = Some(HELD_ITEMS[pick].to_string());
+        }
+    }
     BattleConfig {
         battle: BattleHeader {
             kind: BattleKind::LinkBattle,
