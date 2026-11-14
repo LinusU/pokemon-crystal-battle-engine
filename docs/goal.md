@@ -80,19 +80,20 @@ The overall plan, in five phases:
 
 ## Phase 3 — library API (on top of the transpiled engine)
 
-- [ ] Split `bootstrap::cli` into an engine-facing layer (prompt kinds, legal
-      options, applying an action) and front-ends (stdin, playback, library).
-- [ ] `Battle` API: `Battle::new(&BattleConfig, seed)`, `prompt()`,
-      `legal_actions()`, `step(Action)`, `state()`. The engine runs on its own
-      thread and blocks at decision points; this keeps the original control
-      flow untouched.
-- [ ] Typed `BattleState` (both sides: active mon, party, stat stages, statuses,
-      field effects) — what an AI needs to observe.
+- [x] Split `bootstrap::cli` into an engine-facing layer (legal steps per
+      decision point) and decision sources (playback, `Decider`, stdin).
+- [x] `Battle` API: `Battle::new(BattleConfig, seed)`, `status()`,
+      `decision()`, `step(Action)`, `state()`, `outcome()`. The engine runs on
+      its own thread and blocks at decision points; this keeps the original
+      control flow untouched. All 349 fixtures replay through it.
+- [x] Typed `BattleState` (both sides: active mon, party, stat stages,
+      sub-statuses, every per-side counter, screens, weather).
 - [ ] `BattleEvent` stream from hooks: battle text (exact strings, from the text
       engine), move animations, HP changes, faint, switch-in.
 - [ ] CLI text view that renders events, so a battle can be watched without a GPU.
-- [ ] Replace the hand-rolled item and switch paths with the original routines.
-- [ ] Fixture corpus green after every change; recordings that depended on a
+- [x] Replace the hand-rolled item path with the original routines (the switch
+      path was checked and is equivalent).
+- [x] Fixture corpus green after every change; recordings that depended on a
       hand-rolled behaviour are re-recorded and the change is called out.
 
 ## Phase 4 — idiomatic, fast, logic separated from rendering

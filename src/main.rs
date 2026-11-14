@@ -95,6 +95,7 @@ fn run_battle(
         record_path,
         seed_override,
         playback: playback_steps,
+        quiet: false,
     };
     if let Err(e) = bootstrap::run_with(cpu, config, options) {
         eprintln!("battle bootstrap failed: {e}");

@@ -854,6 +854,8 @@ pub struct RunOptions<'a> {
     /// stdin, and the recorded `expect`s are asserted as the battle replays.
     /// See [`player`].
     pub playback: Option<Vec<player::PlayStep>>,
+    /// Suppress the `battle: …` progress lines on stderr (library use).
+    pub quiet: bool,
 }
 
 pub fn run_with(
@@ -863,7 +865,9 @@ pub fn run_with(
 ) -> Result<(), String> {
     let seed = match options.seed_override {
         Some(s) => {
-            eprintln!("battle: using seed 0x{s:016x} from recording");
+            if !options.quiet {
+                eprintln!("battle: using seed 0x{s:016x} from recording");
+            }
             s
         }
         None => resolve_seed(config.battle.seed),
