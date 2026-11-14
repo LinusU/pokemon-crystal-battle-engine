@@ -493,7 +493,16 @@ impl Cpu {
         self.pc += 1;
         self.cycle(4);
         while self.halted {
-            self.cycle(4);
+            // Skip ahead to the GPU's next possible event instead of idling 4
+            // ticks at a time; see `Gpu::ticks_to_next_event`. Pending EI/DI
+            // delays count down per `cycle` call, so step singly while one is
+            // in flight.
+            let step = if self.interrupt_enable_delay == 0 && self.interrupt_disable_delay == 0 {
+                self.gpu.ticks_to_next_event()
+            } else {
+                4
+            };
+            self.cycle(u64::from(step));
         }
     }
 

@@ -153,6 +153,31 @@ impl Gpu {
         }
     }
 
+    /// The fewest ticks (a multiple of 4, at most 80) after which `do_cycle`
+    /// could change mode, line or raise an interrupt. Stepping a halted CPU
+    /// by this amount instead of 4 ticks at a time lands every mode change
+    /// and interrupt on exactly the same cycle, because `modeclock` only
+    /// ever moves in multiples of 4 and every threshold below is one.
+    pub fn ticks_to_next_event(&self) -> u32 {
+        if !self.lcd_on {
+            return 80;
+        }
+        let mc = self.modeclock;
+        let next = if self.line < 144 {
+            // Mode 2 while mc <= 80, mode 3 while mc <= 252, then mode 0.
+            if mc <= 80 {
+                84 - mc
+            } else if mc <= 252 {
+                256 - mc
+            } else {
+                456 - mc
+            }
+        } else {
+            456 - mc
+        };
+        next.clamp(4, 80)
+    }
+
     fn check_interrupt_lyc(&mut self) {
         if self.lyc_inte && self.line == self.lyc {
             self.interrupt |= 0x02;
@@ -397,6 +422,13 @@ impl Gpu {
     }
 
     fn renderscan(&mut self) {
+        // Pixels only exist to be shown. With no screen attached (every
+        // headless run) nothing reads them, so skip drawing entirely. The
+        // GPU's observable state — mode, LY, STAT, interrupts — is updated by
+        // `do_cycle` either way.
+        if self.update_screen.is_none() {
+            return;
+        }
         if self.first_frame {
             // Real hardware returns garbage on the first frame after the LCD
             // is re-enabled; skip drawing it.
