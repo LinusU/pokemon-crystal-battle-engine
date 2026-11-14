@@ -1049,7 +1049,7 @@ impl Engine {
     }
 
     /// `ResetEnemyBattleVars`.
-    fn reset_enemy_battle_vars(&mut self) {
+    pub(super) fn reset_enemy_battle_vars(&mut self) {
         for addr in [W_LAST_PLAYER_COUNTER_MOVE, W_LAST_ENEMY_COUNTER_MOVE, W_LAST_ENEMY_MOVE, W_CUR_ENEMY_MOVE] {
             self.mem.wb(addr, 0);
         }
@@ -1058,7 +1058,7 @@ impl Engine {
     }
 
     /// `LoadEnemyMonToSwitchTo` (`b` = OT party slot).
-    fn load_enemy_mon_to_switch_to(&mut self, b: u8) {
+    pub(super) fn load_enemy_mon_to_switch_to(&mut self, b: u8) {
         self.mem.wb(W_CUR_PARTY_MON, b);
         let level = self.mem.rb(W_OT_PARTY_MON1_LEVEL + u16::from(b) * PARTY_LEN);
         self.mem.wb(W_CUR_PARTY_LEVEL, level);
@@ -1095,7 +1095,7 @@ impl Engine {
     }
 
     /// `ShowSetEnemyMonAndSendOutAnimation`: the memory side.
-    fn show_set_enemy_mon_and_send_out_animation(&mut self) {
+    pub(super) fn show_set_enemy_mon_and_send_out_animation(&mut self) {
         let species = self.mem.rb(W_TEMP_ENEMY_MON_SPECIES);
         self.mem.wb(W_CUR_PARTY_SPECIES, species);
         self.mem.wb(W_CUR_SPECIES, species);
