@@ -41,6 +41,7 @@ pub fn random_link_config(seed: u64, moves: &[u8], opts: GenOptions) -> BattleCo
                     level,
                     moves: Some(picked.iter().map(|&m| names::move_name(m).to_string()).collect()),
                     item: None,
+                    ot_id: None,
                 }
             })
             .collect()
@@ -73,7 +74,8 @@ pub fn random_wild_config(seed: u64, moves: &[u8], opts: GenOptions) -> BattleCo
     let span = u64::from(opts.max_level - opts.min_level) + 1;
     let level = opts.min_level + (mix(&mut rng) % span) as u8;
     config.battle.kind = BattleKind::WildEncounter;
-    config.enemy_party = vec![MonSpec { species: species::SPECIES_NAMES[idx].to_string(), level, moves: None, item: None }];
+    traded_and_badges(&mut config, seed);
+    config.enemy_party = vec![MonSpec { species: species::SPECIES_NAMES[idx].to_string(), level, moves: None, item: None, ot_id: None }];
     config
 }
 
@@ -88,5 +90,19 @@ pub fn random_trainer_config(seed: u64, moves: &[u8], opts: GenOptions) -> Battl
     }
     config.player_items.clear();
     config.battle.battle_scene = Some(false);
+    traded_and_badges(&mut config, seed);
     config
+}
+
+/// Make about half the player's mons traded and give the player a random
+/// subset of Johto badges, so obedience (`BattleCommand_CheckObedience`) and
+/// the badge stat boosts get exercised. Link battles skip both.
+fn traded_and_badges(config: &mut BattleConfig, seed: u64) {
+    let mut rng = seed ^ 0x7472_6164;
+    for mon in &mut config.player_party {
+        if mix(&mut rng) % 2 == 0 {
+            mon.ot_id = Some(0x5678);
+        }
+    }
+    config.battle.johto_badges = Some(mix(&mut rng) as u8);
 }
