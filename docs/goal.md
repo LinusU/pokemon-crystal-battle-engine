@@ -100,7 +100,14 @@ The overall plan, in five phases:
 
 ## Phase 4 — idiomatic, fast, logic separated from rendering
 
-- [ ] Gate the emulated GPU's pixel output behind `gui`; measure battles/second.
+- [x] Headless speed for the oracle: no scanline rendering without a screen,
+      halts fast-forward to the next GPU event, GPU updates deferred until
+      observable (cycle-identical), keypad not polled without input, and the
+      `battle_scene = false` option. Longest fixture: 4.7s → 1.3s; the corpus
+      replays in ~1 min on 11 cores. Remaining cost is the per-instruction
+      emulation itself (~250M emulated instructions for a 120-decision battle).
+- [x] Fidelity: the Poké Ball wobble rolls (`GetPokeBallWobble` draws
+      `Random`) were skipped with the ball animation; they now run.
 - [ ] Hand-written engine (`src/engine/`): pure Rust, typed state, no `Cpu`,
       `Clone`-able (so an AI can search ahead), emits `BattleEvent`s. Game data
       (base stats, moves, type chart, trainer parties, item attributes, AI data)
