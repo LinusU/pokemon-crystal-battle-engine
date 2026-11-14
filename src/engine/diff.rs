@@ -82,7 +82,7 @@ pub enum Divergence {
     Unsupported { reason: String },
     Site { decision: usize, oracle: String, engine: String },
     Legal { decision: usize, oracle: String, engine: String },
-    Rng { decision: usize, oracle_calls: usize },
+    Rng { decision: usize, oracle_calls: usize, first_difference: String },
     Memory { decision: usize, diffs: Vec<String> },
     /// The battle text before this decision differs.
     Text { decision: usize, oracle: Vec<String>, engine: Vec<String> },
@@ -210,6 +210,7 @@ pub fn check(config: &BattleConfig, trace: &Trace, check_text: bool) -> Result<u
     };
     engine.pending = trace.decisions.iter().map(|d| d.action).collect();
     engine.decision_log = Some(Vec::new());
+    engine.rng_trace = Some(Vec::new());
     let run = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
         let mut entry = TurnEntry::TurnStart;
         loop {
@@ -233,7 +234,14 @@ pub fn check(config: &BattleConfig, trace: &Trace, check_text: bool) -> Result<u
     let log = engine.decision_log.take().unwrap_or_default();
     let texts = std::mem::take(&mut engine.text_log);
     for (i, (snap, (site, legal, mem, rng))) in trace.decisions.iter().zip(&log).enumerate() {
-        compare(i, snap, *site, legal, mem, *rng)?;
+        compare(i, snap, *site, legal, mem, *rng).map_err(|d| match d {
+            Divergence::Rng { decision, oracle_calls, .. } => Divergence::Rng {
+                decision,
+                oracle_calls,
+                first_difference: first_rng_difference(trace, engine.rng_trace.as_deref().unwrap_or_default()),
+            },
+            d => d,
+        })?;
         if check_text && snap.texts != texts[i] {
             return Err(Divergence::Text { decision: i, oracle: snap.texts.clone(), engine: texts[i].clone() });
         }
@@ -281,11 +289,37 @@ fn compare(
         return Err(Divergence::Legal { decision: i, oracle: format!("{:?}", snap.legal), engine: format!("{legal:?}") });
     }
     if snap.rng != rng {
-        return Err(Divergence::Rng { decision: i, oracle_calls: snap.rng_calls });
+        return Err(Divergence::Rng { decision: i, oracle_calls: snap.rng_calls, first_difference: String::new() });
     }
     let diffs = mem_diffs(&snap.mem, mem);
     if !diffs.is_empty() {
         return Err(Divergence::Memory { decision: i, diffs });
     }
     Ok(())
+}
+
+/// The first random draw where the oracle and the engine differ: who drew
+/// it on each side, and the bytes. The engine's trace starts at its first
+/// decision; the oracle's log at power-on.
+fn first_rng_difference(trace: &Trace, engine: &[(&'static str, u8)]) -> String {
+    let Some(first) = trace.decisions.first() else { return String::new() };
+    let oracle = &trace.rng_log[first.rng_calls..];
+    let name = |d: &crate::runtime::RngDraw| super::rsym_name(super::rom::flat(d.bank, d.ret));
+    for (k, pair) in oracle.iter().zip(engine).enumerate() {
+        let (o, (e, ev)) = pair;
+        if o.value != *ev {
+            return format!("draw {k}: oracle {} → {:#04x}, engine {e} → {ev:#04x}", name(o), o.value);
+        }
+    }
+    let context = |k: usize| {
+        let from = k.saturating_sub(12);
+        let o: Vec<String> = oracle[from..(k + 1).min(oracle.len())].iter().map(|d| format!("{}={:#04x}", name(d), d.value)).collect();
+        let e: Vec<String> = engine[from..k.min(engine.len())].iter().map(|(n, v)| format!("{n}={v:#04x}")).collect();
+        format!(" [oracle: {} | engine: {}]", o.join(", "), e.join(", "))
+    };
+    match (oracle.len(), engine.len()) {
+        (a, b) if a > b => format!("draw {b}: oracle {} → {:#04x}, engine drew nothing more{}", name(&oracle[b]), oracle[b].value, context(b)),
+        (a, b) if b > a => format!("draw {a}: engine {} → {:#04x}, oracle drew nothing more", engine[a].0, engine[a].1),
+        _ => "the draws match; the generator state differs".to_string(),
+    }
 }
