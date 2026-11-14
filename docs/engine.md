@@ -14,6 +14,7 @@ Goal and exactness contract: [goal.md](goal.md).
 | `battle.rs` | `Engine` (memory + random stream + flags) and shared primitives: `random` / `battle_random`, `battle_var*` (`GetBattleVar`), turn switching, `text`, `decide`. |
 | `math.rs` | `Multiply` / `Divide` on the original's overlapping HRAM buffers. |
 | `core.rs` | `engine/battle/core.asm`. |
+| `effects_b.rs` | `move_effects/` nightmare..transform (Pain Split, Present, Protect, Sleep Talk, Substitute, Teleport, Thief, Transform, Triple Kick, ...), plus the small `effect_commands.asm` helpers they share (`animate_current_move`, `animate_failed_move`, `print_*`, `fail_move`, `check_substitute_opp`, `reset_turn`, `skip_to_battle_command`, ...). |
 | `todo.rs` | Stubs for routines not ported yet; each panics with the original's name. |
 | `oracle.rs` | Runs the original engine and records memory, RNG state, legal actions and a random policy's action at every decision, plus every `Random` call with its caller. |
 | `testgen.rs` | Random scenarios for differential testing. |

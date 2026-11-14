@@ -137,7 +137,7 @@ impl Engine {
     }
 
     /// `CheckOpponentWentFirst`: 0 (z) if the user went first, 1 (nz) if the opponent did.
-    fn check_opponent_went_first(&self) -> u8 {
+    pub fn check_opponent_went_first(&self) -> u8 {
         self.mem.rb(W_ENEMY_GOES_FIRST) ^ self.turn()
     }
 
@@ -198,7 +198,7 @@ impl Engine {
     }
 
     /// `SetBattleDraw`.
-    fn set_battle_draw(&mut self) {
+    pub fn set_battle_draw(&mut self) {
         let result = self.mem.rb(W_BATTLE_RESULT) & BATTLERESULT_BITMASK | DRAW;
         self.mem.wb(W_BATTLE_RESULT, result);
     }

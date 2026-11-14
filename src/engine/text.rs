@@ -240,10 +240,11 @@ impl Engine {
             "UsedMoveText" => {
                 if disobeyed || grammar < 3 { r::USED_MOVE2_TEXT } else { r::USED_MOVE1_TEXT }
             }
-            "UsedMove1Text" | "UsedMove2Text" => {
+            // UsedMove2Text's text_asm falls straight into this label.
+            "UsedMove1Text" | "UsedMove2Text" | "UsedMoveText_CheckObedience" => {
                 if disobeyed { r::USED_MOVE_TEXT_CHECK_OBEDIENCE_USED_INSTEAD_TEXT } else { r::MOVE_NAME_TEXT }
             }
-            "UsedMoveText_CheckObedience.UsedInsteadText" => r::MOVE_NAME_TEXT,
+            "UsedMoveText_CheckObedience.UsedInsteadText" | "UsedMoveText_CheckObedience.GetMoveNameText" => r::MOVE_NAME_TEXT,
             "MoveNameText" => [
                 r::END_USED_MOVE1_TEXT,
                 r::END_USED_MOVE2_TEXT,
