@@ -515,6 +515,12 @@ impl Engine {
         self.mem.rb(addr) != 0
     }
 
+    /// `BattleCommand_CheckTurn` as a script command (it is `CheckTurn`).
+    pub fn battle_command_check_turn(&mut self) -> Flow<Cmd> {
+        self.check_turn()?;
+        Ok(Cmd::Next)
+    }
+
     /// `BattleCommand_CheckObedience`.
     pub fn battle_command_check_obedience(&mut self) -> Flow<Cmd> {
         if !self.is_player_turn() || self.check_user_is_charging() {
