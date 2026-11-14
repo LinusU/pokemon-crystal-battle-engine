@@ -7,9 +7,6 @@ impl Engine {
     pub fn battle_menu(&mut self) -> Flow<bool> { self.unported("BattleMenu") }
     pub fn move_selection_screen(&mut self) -> Flow<bool> { self.unported("MoveSelectionScreen") }
     pub fn link_battle_send_receive_action(&mut self) -> Flow { self.unported("LinkBattleSendReceiveAction") }
-    pub fn update_move_data(&mut self) { self.unported("UpdateMoveData") }
-    pub fn do_player_turn(&mut self) -> Flow { self.unported("DoPlayerTurn") }
-    pub fn do_enemy_turn(&mut self) -> Flow { self.unported("DoEnemyTurn") }
     pub fn handle_future_sight(&mut self) { self.unported("HandleFutureSight") }
     pub fn handle_weather(&mut self) { self.unported("HandleWeather") }
     pub fn handle_wrap(&mut self) { self.unported("HandleWrap") }
@@ -29,4 +26,11 @@ impl Engine {
     pub fn residual_damage(&mut self) -> bool { self.unported("ResidualDamage") }
     pub fn handle_player_mon_faint(&mut self) -> Flow { self.unported("HandlePlayerMonFaint") }
     pub fn handle_enemy_mon_faint(&mut self) -> Flow { self.unported("HandleEnemyMonFaint") }
+    pub fn hit_self_in_confusion(&mut self) { self.unported("HitSelfInConfusion") }
+    pub fn do_player_damage(&mut self, _c: bool) { self.unported("DoPlayerDamage") }
+    pub fn do_enemy_damage(&mut self, _c: bool) { self.unported("DoEnemyDamage") }
+    pub fn appear_user_raise_sub(&mut self) { self.unported("AppearUserRaiseSub") }
+    pub fn reset_fury_cutter_count(&mut self) { self.unported("ResetFuryCutterCount") }
+    pub fn do_weather_modifiers(&mut self) { self.unported("DoWeatherModifiers") }
+    pub fn do_badge_type_boosts(&mut self) { self.unported("DoBadgeTypeBoosts") }
 }

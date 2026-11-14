@@ -7,6 +7,7 @@
 //! battle memory is kept.
 
 use super::battle::{Engine, Flow, PARTY_LEN, PP_MASK, percent};
+use super::rsym as r;
 use super::sym::*;
 use crate::bootstrap::decision::{PromptSite, Step};
 use crate::defs::*;
@@ -381,7 +382,7 @@ impl Engine {
             if n == 0 || pp == 0 {
                 self.mem.res_bit(W_PLAYER_SUB_STATUS5, SUBSTATUS_ENCORED);
                 self.set_enemy_turn();
-                self.text(BATTLE_TEXT_TARGETS_ENCORE_ENDED);
+                self.text(r::BATTLE_TEXT_TARGETS_ENCORE_ENDED);
             }
         }
         // .do_enemy
@@ -392,7 +393,7 @@ impl Engine {
             if n == 0 || pp == 0 {
                 self.mem.res_bit(W_ENEMY_SUB_STATUS5, SUBSTATUS_ENCORED);
                 self.set_player_turn();
-                self.text(BATTLE_TEXT_TARGETS_ENCORE_ENDED);
+                self.text(r::BATTLE_TEXT_TARGETS_ENCORE_ENDED);
             }
         }
     }
@@ -412,7 +413,7 @@ impl Engine {
             return 0;
         }
         let effect = self.get_move_effect(mv);
-        let mut p = MOVE_EFFECT_PRIORITIES;
+        let mut p = r::MOVE_EFFECT_PRIORITIES;
         loop {
             let a = super::rom::byte(p);
             if a == effect {
@@ -427,7 +428,7 @@ impl Engine {
 
     /// `GetMoveEffect`.
     pub fn get_move_effect(&self, mv: u8) -> u8 {
-        super::rom::byte(MOVES + (usize::from(mv) - 1) * usize::from(MOVE_LENGTH) + usize::from(MOVE_EFFECT))
+        super::rom::byte(r::MOVES + (usize::from(mv) - 1) * usize::from(MOVE_LENGTH) + usize::from(MOVE_EFFECT))
     }
 
     /// `Battle_EnemyFirst`.

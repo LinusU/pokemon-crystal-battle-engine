@@ -44,17 +44,20 @@ pub struct Engine {
     pub rng: u64,
     pub flags: Flags,
     /// Decisions to hand out before suspending (filled when replaying a turn).
-    pub(super) pending: VecDeque<Step>,
+    pub pending: VecDeque<Step>,
     /// Every message printed since the log was last taken.
     pub texts: Vec<TextRef>,
     /// Optional record of every random draw (differential testing): the
     /// routine that asked, and the byte.
     pub rng_trace: Option<Vec<(&'static str, u8)>>,
+    /// Optional record of the engine at every decision point (differential
+    /// testing): the site, legal steps, memory and random-stream state.
+    pub decision_log: Option<Vec<(PromptSite, Vec<Step>, Mem, u64)>>,
 }
 
 impl Engine {
     pub fn new(mem: Mem, rng: u64, flags: Flags) -> Self {
-        Engine { mem, rng, flags, pending: VecDeque::new(), texts: Vec::new(), rng_trace: None }
+        Engine { mem, rng, flags, pending: VecDeque::new(), texts: Vec::new(), rng_trace: None, decision_log: None }
     }
 
     // --- the random stream ----------------------------------------------------
@@ -203,6 +206,9 @@ impl Engine {
     /// Take the next decision for `site`, or suspend if none is queued.
     pub fn decide(&mut self, site: PromptSite) -> Flow<Step> {
         let legal = crate::bootstrap::cli::legal_steps(&self.mem, site);
+        if let Some(log) = self.decision_log.as_mut() {
+            log.push((site, legal.clone(), self.mem.clone(), self.rng));
+        }
         match self.pending.pop_front() {
             Some(step) => {
                 assert!(legal.contains(&step), "illegal {step:?} at {site:?}; legal: {legal:?}");

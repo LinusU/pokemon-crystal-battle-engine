@@ -9,11 +9,16 @@
 //! Status: under construction. See docs/goal.md.
 
 pub mod battle;
+mod cmd_todo;
+pub mod commands;
 pub mod core;
+pub mod diff;
 pub mod math;
 pub mod mem;
+pub mod names;
 pub mod oracle;
 pub mod rom;
+pub mod rsym;
 pub mod sym;
 pub mod testgen;
 mod todo;
