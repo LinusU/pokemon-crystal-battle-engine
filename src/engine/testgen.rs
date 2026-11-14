@@ -59,7 +59,7 @@ const BAG_BALLS: &[&str] = &[
 /// Doll now and then.
 pub fn random_bag(rng: &mut u64) -> Vec<ItemSpec> {
     let mut bag: Vec<ItemSpec> = Vec::new();
-    let mut add = |bag: &mut Vec<ItemSpec>, name: &str, quantity: u8| {
+    let add = |bag: &mut Vec<ItemSpec>, name: &str, quantity: u8| {
         if !bag.iter().any(|i| i.name == name) {
             bag.push(ItemSpec { name: name.to_string(), quantity });
         }

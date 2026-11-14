@@ -49,12 +49,12 @@ impl Engine {
             || self.battle_var(BATTLE_VARS_STATUS_OPP) & SLP_MASK == 0
             || self.battle_var_bit(BATTLE_VARS_SUBSTATUS1_OPP, SUBSTATUS_NIGHTMARE)
         {
-            self.animate_failed_move();
+            self.animate_failed_move()?;
             self.print_but_it_failed();
             return Ok(Cmd::Next);
         }
         self.set_battle_var_bit(BATTLE_VARS_SUBSTATUS1_OPP, SUBSTATUS_NIGHTMARE);
-        self.animate_current_move();
+        self.animate_current_move()?;
         self.text(r::STARTED_NIGHTMARE_TEXT);
         Ok(Cmd::Next)
     }
@@ -64,10 +64,10 @@ impl Engine {
     /// `BattleCommand_PainSplit`.
     pub fn battle_command_pain_split(&mut self) -> Flow<Cmd> {
         if self.mem.rb(W_ATTACK_MISSED) != 0 || self.check_substitute_opp() {
-            self.print_didnt_affect2();
+            self.print_didnt_affect2()?;
             return Ok(Cmd::Next);
         }
-        self.animate_current_move();
+        self.animate_current_move()?;
         self.pain_split_player_share_hp();
         self.mem.wb(W_WHICH_HP_BAR, 1);
         self.animate_hp_bar();
@@ -148,7 +148,7 @@ impl Engine {
     /// `BattleCommand_PerishSong`.
     pub fn battle_command_perish_song(&mut self) -> Flow<Cmd> {
         if self.mem.bit(W_PLAYER_SUB_STATUS1, SUBSTATUS_PERISH) && self.mem.bit(W_ENEMY_SUB_STATUS1, SUBSTATUS_PERISH) {
-            self.animate_failed_move();
+            self.animate_failed_move()?;
             self.print_but_it_failed();
             return Ok(Cmd::Next);
         }
@@ -160,7 +160,7 @@ impl Engine {
             self.mem.set_bit(W_ENEMY_SUB_STATUS1, SUBSTATUS_PERISH);
             self.mem.wb(W_ENEMY_PERISH_COUNT, 4);
         }
-        self.animate_current_move();
+        self.animate_current_move()?;
         self.text(r::START_PERISH_TEXT);
         Ok(Cmd::Next)
     }
@@ -206,7 +206,7 @@ impl Engine {
         }
         // .heal_effect
         self.mem.wb(W_BATTLE_ANIM_PARAM, 3);
-        self.animate_current_move();
+        self.animate_current_move()?;
         self.switch_turn();
         let full = if self.is_player_turn() {
             self.ai_check_max_hp(W_BATTLE_MON_HP)
@@ -225,7 +225,7 @@ impl Engine {
             // .already_fully_healed
             self.switch_turn();
             if self.check_battle_scene() {
-                self.animate_failed_move();
+                self.animate_failed_move()?;
                 self.text(r::PRESENT_FAILED_TEXT);
             }
         }
@@ -241,7 +241,7 @@ impl Engine {
             return Ok(Cmd::Next);
         }
         self.set_battle_var_bit(BATTLE_VARS_SUBSTATUS1, SUBSTATUS_PROTECT);
-        self.animate_current_move();
+        self.animate_current_move()?;
         self.text(r::PROTECTED_ITSELF_TEXT);
         Ok(Cmd::Next)
     }
@@ -257,7 +257,7 @@ impl Engine {
         };
         let n = u16::from(NUM_LEVEL_STATS);
         if (0..n).all(|i| self.mem.rb(src + i) == BASE_STAT_LEVEL) {
-            self.animate_failed_move();
+            self.animate_failed_move()?;
             self.print_but_it_failed();
             return Ok(Cmd::Next);
         }
@@ -267,7 +267,7 @@ impl Engine {
         } else {
             self.calc_enemy_stats();
         }
-        self.animate_current_move();
+        self.animate_current_move()?;
         self.text(r::COPIED_STATS_TEXT);
         Ok(Cmd::Next)
     }
@@ -311,7 +311,7 @@ impl Engine {
     pub fn battle_command_start_rain(&mut self) -> Flow<Cmd> {
         self.mem.wb(W_BATTLE_WEATHER, WEATHER_RAIN);
         self.mem.wb(W_WEATHER_COUNT, 5);
-        self.animate_current_move();
+        self.animate_current_move()?;
         self.text(r::DOWNPOUR_TEXT);
         Ok(Cmd::Next)
     }
@@ -320,7 +320,7 @@ impl Engine {
     pub fn battle_command_start_sun(&mut self) -> Flow<Cmd> {
         self.mem.wb(W_BATTLE_WEATHER, WEATHER_SUN);
         self.mem.wb(W_WEATHER_COUNT, 5);
-        self.animate_current_move();
+        self.animate_current_move()?;
         self.text(r::SUN_GOT_BRIGHT_TEXT);
         Ok(Cmd::Next)
     }
@@ -328,13 +328,13 @@ impl Engine {
     /// `BattleCommand_StartSandstorm`.
     pub fn battle_command_start_sandstorm(&mut self) -> Flow<Cmd> {
         if self.mem.rb(W_BATTLE_WEATHER) == WEATHER_SANDSTORM {
-            self.animate_failed_move();
+            self.animate_failed_move()?;
             self.print_but_it_failed();
             return Ok(Cmd::Next);
         }
         self.mem.wb(W_BATTLE_WEATHER, WEATHER_SANDSTORM);
         self.mem.wb(W_WEATHER_COUNT, 5);
-        self.animate_current_move();
+        self.animate_current_move()?;
         self.text(r::SANDSTORM_BREWED_TEXT);
         Ok(Cmd::Next)
     }
@@ -439,13 +439,13 @@ impl Engine {
             (W_ENEMY_SCREENS, W_ENEMY_SAFEGUARD_COUNT)
         };
         if self.mem.bit(hl, SCREENS_SAFEGUARD) {
-            self.animate_failed_move();
+            self.animate_failed_move()?;
             self.print_but_it_failed();
             return Ok(Cmd::Next);
         }
         self.mem.set_bit(hl, SCREENS_SAFEGUARD);
         self.mem.wb(de, 5);
-        self.animate_current_move();
+        self.animate_current_move()?;
         self.text(r::COVERED_BY_VEIL_TEXT);
         Ok(Cmd::Next)
     }
@@ -473,13 +473,13 @@ impl Engine {
     pub fn battle_command_sketch(&mut self) -> Flow<Cmd> {
         self.clear_last_move();
         if self.mem.rb(W_LINK_MODE) != 0 {
-            self.animate_failed_move();
+            self.animate_failed_move()?;
             self.print_nothing_happened();
             return Ok(Cmd::Next);
         }
         if self.sketch_try().is_none() {
             // .fail
-            self.animate_failed_move();
+            self.animate_failed_move()?;
             self.print_didnt_affect();
         }
         Ok(Cmd::Next)
@@ -536,7 +536,7 @@ impl Engine {
             self.mem.wb(slot.wrapping_add(u16::from(MON_PP - MON_MOVES)), a);
         }
         self.get_move_name();
-        self.animate_current_move();
+        self.animate_current_move().expect("animations never ask for a decision");
         self.text(r::SKETCHED_TEXT);
         Some(())
     }
@@ -550,7 +550,7 @@ impl Engine {
             return Ok(Cmd::Next);
         }
         // .fail
-        self.animate_failed_move();
+        self.animate_failed_move()?;
         self.try_print_but_it_failed();
         Ok(Cmd::Next)
     }
@@ -637,7 +637,7 @@ impl Engine {
         }
         self.reset_damage();
         self.mem.wb(W_ATTACK_MISSED, 1);
-        self.fail_move();
+        self.fail_move()?;
         self.end_move_effect();
         Ok(Cmd::Next)
     }
@@ -648,11 +648,11 @@ impl Engine {
     pub fn battle_command_spikes(&mut self) -> Flow<Cmd> {
         let hl = if self.is_player_turn() { W_ENEMY_SCREENS } else { W_PLAYER_SCREENS };
         if self.mem.bit(hl, SCREENS_SPIKES) {
-            self.fail_move();
+            self.fail_move()?;
             return Ok(Cmd::Next);
         }
         self.mem.set_bit(hl, SCREENS_SPIKES);
-        self.animate_current_move();
+        self.animate_current_move()?;
         self.text(r::SPIKES_TEXT);
         Ok(Cmd::Next)
     }
@@ -662,7 +662,7 @@ impl Engine {
     /// `BattleCommand_Spite`.
     pub fn battle_command_spite(&mut self) -> Flow<Cmd> {
         if !self.spite_try() {
-            self.print_didnt_affect2();
+            self.print_didnt_affect2()?;
         }
         Ok(Cmd::Next)
     }
@@ -708,7 +708,7 @@ impl Engine {
             }
             self.mem.wb(hl, new);
         }
-        self.animate_current_move();
+        self.animate_current_move().expect("animations never ask for a decision");
         self.mem.wb(W_TEXT_DECIMAL_BYTE, d);
         self.text(r::SPITE_EFFECT_TEXT);
         true
@@ -718,7 +718,7 @@ impl Engine {
 
     /// `BattleCommand_Splash`.
     pub fn battle_command_splash(&mut self) -> Flow<Cmd> {
-        self.animate_current_move();
+        self.animate_current_move()?;
         self.print_nothing_happened();
         Ok(Cmd::Next)
     }
@@ -824,7 +824,7 @@ impl Engine {
             }
         };
         if !escapes {
-            self.animate_failed_move();
+            self.animate_failed_move()?;
             self.print_but_it_failed();
             return Ok(Cmd::Next);
         }
@@ -904,7 +904,7 @@ impl Engine {
     pub fn battle_command_transform(&mut self) -> Flow<Cmd> {
         self.clear_last_move();
         if self.battle_var_bit(BATTLE_VARS_SUBSTATUS5_OPP, SUBSTATUS_TRANSFORMED) || self.check_hidden_opponent() {
-            self.battle_effect_but_it_failed();
+            self.battle_effect_but_it_failed()?;
             return Ok(Cmd::Next);
         }
         self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
