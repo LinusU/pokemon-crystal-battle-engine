@@ -60,18 +60,18 @@ impl Engine {
     }
 
     /// `PlayFXAnimID` (the animation itself is dropped).
-    fn play_fx_anim_id(&mut self, e: u8, d: u8) {
+    pub fn play_fx_anim_id(&mut self, e: u8, d: u8) {
         self.mem.wb(W_FX_ANIM_ID, e);
         self.mem.wb(W_FX_ANIM_ID + 1, d);
     }
 
     /// `LoadAnim` (the animation itself is dropped).
-    fn load_anim(&mut self, a: u8) {
+    pub fn load_anim(&mut self, a: u8) {
         self.mem.wb(W_FX_ANIM_ID, a);
     }
 
     /// `LoadMoveAnim`.
-    fn load_move_anim(&mut self) {
+    pub fn load_move_anim(&mut self) {
         self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
         self.mem.wb(W_FX_ANIM_ID + 1, 0);
         let a = self.battle_var(BATTLE_VARS_MOVE_ANIM);

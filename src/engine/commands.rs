@@ -746,15 +746,23 @@ impl Engine {
 
     /// `BattleCommand_Stab`: weather, badge boosts, STAB, type effectiveness.
     pub fn battle_command_stab(&mut self) -> Flow<Cmd> {
+        self.stab_regs();
+        Ok(Cmd::Next)
+    }
+
+    /// `BattleCommand_Stab`'s body. Returns the registers `b`, `c`, `d`, `e`
+    /// it leaves behind (`None`: it returned early and touched none); only
+    /// `BattleCommand_Present` in a colosseum battle depends on them.
+    pub fn stab_regs(&mut self) -> Option<[u8; 4]> {
         if self.battle_var(BATTLE_VARS_MOVE_ANIM) == STRUGGLE {
-            return Ok(Cmd::Next);
+            return None;
         }
         let (user, target) = if self.is_player_turn() {
             (W_BATTLE_MON_TYPE1, W_ENEMY_MON_TYPE1)
         } else {
             (W_ENEMY_MON_TYPE1, W_BATTLE_MON_TYPE1)
         };
-        let (b, c) = (self.mem.rb(user), self.mem.rb(user + 1));
+        let (b, mut c) = (self.mem.rb(user), self.mem.rb(user + 1));
         let (d, e) = (self.mem.rb(target), self.mem.rb(target + 1));
         let mtype = self.battle_var(BATTLE_VARS_MOVE_TYPE);
         self.mem.wb(W_CUR_TYPE, mtype);
@@ -764,6 +772,7 @@ impl Engine {
         if cur == b || cur == c {
             // .stab: damage += damage / 2
             let dmg = self.mem.rw(W_CUR_DAMAGE);
+            c = (dmg >> 1) as u8;
             let dmg = dmg.wrapping_add(dmg >> 1);
             self.mem.ww(W_CUR_DAMAGE, dmg);
             self.mem.set_bit(W_TYPE_MODIFIER, STAB_DAMAGE_F);
@@ -823,7 +832,7 @@ impl Engine {
         let m = self.mem.rb(W_TYPE_MATCHUP);
         let v = (self.mem.rb(W_TYPE_MODIFIER) & STAB_DAMAGE) | m;
         self.mem.wb(W_TYPE_MODIFIER, v);
-        Ok(Cmd::Next)
+        Some([m, c, d, e])
     }
 
     /// `BattleCheckTypeMatchup`.
