@@ -531,7 +531,156 @@ impl Engine {
         if self.mem.rb(W_PLAYER_ID) == self.mem.rb(ot) && self.mem.rb(W_PLAYER_ID + 1) == self.mem.rb(ot + 1) {
             return Ok(Cmd::Next);
         }
-        self.unported("BattleCommand_CheckObedience (traded mon)")
+        // .obeylevel: the maximum obedience level comes from the Johto badges.
+        let badges = self.mem.rb(W_JOHTO_BADGES);
+        let c: u8 = if badges & (1 << RISINGBADGE) != 0 {
+            MAX_LEVEL + 1
+        } else if badges & (1 << STORMBADGE) != 0 {
+            70
+        } else if badges & (1 << FOGBADGE) != 0 {
+            50
+        } else if badges & (1 << HIVEBADGE) != 0 {
+            30
+        } else {
+            10
+        };
+        let d = self.mem.rb(W_BATTLE_MON_LEVEL);
+        let b = c.checked_add(d).unwrap_or(0xff);
+        // .checklevel
+        if c >= d {
+            return Ok(Cmd::Next);
+        }
+        // .rand1
+        let a = loop {
+            let a = self.battle_random("BattleCommand_CheckObedience").rotate_left(4);
+            if a < b {
+                break a;
+            }
+        };
+        if a < c {
+            return Ok(Cmd::Next);
+        }
+        if self.ignore_sleep_only() {
+            return Ok(Cmd::Next);
+        }
+        // .rand2
+        let a = loop {
+            let a = self.battle_random("BattleCommand_CheckObedience");
+            if a < b {
+                break a;
+            }
+        };
+        let use_instead = a < c;
+        if !(use_instead && self.obedience_use_instead()?) {
+            if !use_instead {
+                // b = levels above the obedience level; nap chance b/256.
+                let b = d - c;
+                let a = self.battle_random("BattleCommand_CheckObedience").rotate_left(4);
+                match a.checked_sub(b) {
+                    None => {
+                        // .Nap
+                        let status = loop {
+                            let a = self.battle_random("BattleCommand_CheckObedience");
+                            let v = a.wrapping_add(a).rotate_left(4) & SLP_MASK;
+                            if v != 0 {
+                                break v;
+                            }
+                        };
+                        self.mem.wb(W_BATTLE_MON_STATUS, status);
+                        self.text(r::BEGAN_TO_NAP_TEXT);
+                        return self.end_disobedience();
+                    }
+                    Some(a) if a < b => {
+                        self.text(r::WONT_OBEY_TEXT);
+                        self.hit_confusion()?;
+                        return self.end_disobedience();
+                    }
+                    Some(_) => {}
+                }
+            }
+            // .DoNothing
+            self.obedience_do_nothing();
+        }
+        self.end_disobedience()
+    }
+
+    /// `BattleCommand_CheckObedience.DoNothing`: one of four refusal texts.
+    fn obedience_do_nothing(&mut self) {
+        let text = match self.battle_random("BattleCommand_CheckObedience") & 0b11 {
+            0 => r::LOAFING_AROUND_TEXT,
+            1 => r::WONT_OBEY_TEXT,
+            2 => r::TURNED_AWAY_TEXT,
+            _ => r::IGNORED_ORDERS_TEXT,
+        };
+        self.text(text);
+    }
+
+    /// `BattleCommand_CheckObedience.UseInstead`: use a random other move with
+    /// PP. Returns false where the original jumps to `.DoNothing`.
+    fn obedience_use_instead(&mut self) -> Flow<bool> {
+        if self.mem.rb(W_BATTLE_MON_MOVES + 1) == 0 || self.mem.rb(W_DISABLED_MOVE) != 0 {
+            return Ok(false);
+        }
+        // .GetTotalPP (stops at the first empty move slot after the first)
+        let mut total = 0u8;
+        for i in 0..NUM_MOVES as u16 {
+            total = total.wrapping_add(self.mem.rb(W_BATTLE_MON_PP + i) & PP_MASK);
+            if i + 1 == NUM_MOVES as u16 || self.mem.rb(W_BATTLE_MON_MOVES + i + 1) == 0 {
+                break;
+            }
+        }
+        // .CheckMovePP
+        let cur = self.mem.rb(W_CUR_MOVE_NUM);
+        if self.mem.rb(W_BATTLE_MON_PP + u16::from(cur)) & PP_MASK == total {
+            return Ok(false);
+        }
+        self.mem.wb(W_ALREADY_DISOBEYED, 1);
+        let rows = self.mem.rb(W2_D_MENU_NUM_ROWS);
+        let saved = cur;
+        // .RandomMove
+        let slot = loop {
+            let a = self.battle_random("BattleCommand_CheckObedience") & (NUM_MOVES - 1);
+            if a >= rows || a == saved {
+                continue;
+            }
+            self.mem.wb(W_CUR_MOVE_NUM, a);
+            if self.mem.rb(W_BATTLE_MON_PP + u16::from(a)) & PP_MASK != 0 {
+                break a;
+            }
+        };
+        let mv = self.mem.rb(W_BATTLE_MON_MOVES + u16::from(slot));
+        self.mem.wb(W_CUR_PLAYER_MOVE, mv);
+        self.set_player_turn();
+        self.update_move_data();
+        self.do_move()?;
+        self.mem.wb(W_CUR_MOVE_NUM, saved);
+        Ok(true)
+    }
+
+    /// `BattleCommand_CheckObedience.EndDisobedience`.
+    fn end_disobedience(&mut self) -> Flow<Cmd> {
+        self.mem.wb(W_LAST_PLAYER_MOVE, 0);
+        self.mem.wb(W_LAST_PLAYER_COUNTER_MOVE, 0);
+        let v = self.mem.rb(W_PLAYER_SUB_STATUS5) & !(1 << SUBSTATUS_ENCORED);
+        self.mem.wb(W_PLAYER_SUB_STATUS5, v);
+        self.mem.wb(W_PLAYER_ENCORE_COUNT, 0);
+        self.end_move_effect();
+        Ok(Cmd::Next)
+    }
+
+    /// `IgnoreSleepOnly`: Snore / Sleep Talk while asleep are ignored outright
+    /// (carry = true).
+    fn ignore_sleep_only(&mut self) -> bool {
+        let anim = self.battle_var(BATTLE_VARS_MOVE_ANIM);
+        if anim != SNORE && anim != SLEEP_TALK {
+            return false;
+        }
+        if self.battle_var(BATTLE_VARS_STATUS) & SLP_MASK == 0 {
+            return false;
+        }
+        self.text(r::IGNORED_SLEEPING_TEXT);
+        self.end_move_effect();
+        true
     }
 
     /// `BattleCommand_UsedMoveText`: `DisplayUsedMoveText`, whose text runs
