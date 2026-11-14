@@ -61,7 +61,21 @@ impl Decider for RecordingDecider {
             drop(out);
             std::panic::resume_unwind(Box::new(TooLong));
         }
-        let action = legal[(mix(&mut self.policy) % legal.len() as u64) as usize];
+        // LONG_BATTLES=1: leave out the actions that end a wild battle (Run, the
+        // Poké Doll, balls) so battles go on and use more items.
+        let mut pool: Vec<Step> = legal.to_vec();
+        if std::env::var_os("LONG_BATTLES").is_some() {
+            let ends = |s: &Step| match *s {
+                Step::Run => true,
+                Step::Item { id, .. } => id == crate::defs::POKE_DOLL || matches!(id, 1..=5 | 0x9d..=0xa6 | 0xb1),
+                _ => false,
+            };
+            let kept: Vec<Step> = pool.iter().copied().filter(|s| !ends(s)).collect();
+            if !kept.is_empty() {
+                pool = kept;
+            }
+        }
+        let action = pool[(mix(&mut self.policy) % pool.len() as u64) as usize];
         out.push(Snapshot {
             site,
             legal: legal.to_vec(),
