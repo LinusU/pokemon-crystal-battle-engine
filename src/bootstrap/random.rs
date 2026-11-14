@@ -135,6 +135,7 @@ fn generate(base_seed: u64, verbose: bool) -> BattleConfig {
             // The generator leans on the engine's canonical level-up moveset.
             moves: None,
             item: held.then(|| HELD_ITEMS[pick].to_string()),
+            ot_id: None,
         });
     }
 

@@ -676,8 +676,8 @@ slot = 0
             battle_scene: None,
             },
             player_party: vec![
-                MonSpec { species: "QUILAVA".into(), level: 20, moves: None, item: None },
-                MonSpec { species: "GEODUDE".into(), level: 18, moves: None, item: None },
+                MonSpec { species: "QUILAVA".into(), level: 20, moves: None, item: None, ot_id: None },
+                MonSpec { species: "GEODUDE".into(), level: 18, moves: None, item: None, ot_id: None },
             ],
             enemy_party: vec![],
             player_items: vec![ItemSpec { name: "Potion".into(), quantity: 3 }],
@@ -759,12 +759,14 @@ slot = 0
                 level: 30,
                 moves: Some(vec!["Thunderbolt".into(), "Quick Attack".into()]),
                 item: Some("Light Ball".into()),
+                ot_id: None,
             }],
             enemy_party: vec![MonSpec {
                 species: "GEODUDE".into(),
                 level: 30,
                 moves: Some(vec!["Rock Throw".into(), "Magnitude".into()]),
                 item: Some("Leftovers".into()),
+                ot_id: None,
             }],
             // A link battle disables the bag; both item lists stay empty.
             player_items: vec![],

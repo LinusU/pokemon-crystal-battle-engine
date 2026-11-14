@@ -142,6 +142,12 @@ pub struct MonSpec {
     /// Resolved via [`items::lookup`].
     #[serde(default)]
     pub item: Option<String>,
+    /// Optional original-trainer ID. The player's own ID is `0x1234`; any other
+    /// value makes the mon traded, which the engine treats differently (it may
+    /// disobey above the badge level cap, and it gains boosted experience).
+    /// Honored for the player party only.
+    #[serde(default)]
+    pub ot_id: Option<u16>,
 }
 
 #[derive(Debug, Clone, Deserialize)]
@@ -252,6 +258,7 @@ const MONTYPE_OTPARTYMON: u8 = 1;
 const PARTY_STRUCT_LEN: u16 = 48;
 const MON_OFFSET_ITEM: u16 = 1; // MON_ITEM: held item id
 const MON_OFFSET_MOVES: u16 = 2; // MON_MOVES: 4 bytes, one id per slot
+const MON_OFFSET_ID: u16 = 6; // MON_ID: original trainer ID, big endian
 const MON_OFFSET_PP: u16 = 23; // MON_PP: 4 bytes, current PP per slot
 const NUM_MOVE_SLOTS: usize = 4;
 
@@ -557,6 +564,11 @@ fn seed_party(
         }
         if let Some(item_id) = item_id {
             apply_item(cpu, mon1_addr, slot as u8, item_id);
+        }
+        if let (Some(ot_id), MONTYPE_PARTYMON) = (mon.ot_id, mon_type) {
+            let base = mon1_addr + slot as u16 * PARTY_STRUCT_LEN + MON_OFFSET_ID;
+            cpu.write_byte(base, (ot_id >> 8) as u8);
+            cpu.write_byte(base + 1, ot_id as u8);
         }
         // `try_add_mon_to_party` sets the nickname only for the player party;
         // for OT mons it skips it (the link partner would supply the name), so
@@ -972,6 +984,7 @@ mod tests {
             level: 10,
             moves: moves.map(|m| m.iter().map(|s| s.to_string()).collect()),
             item: None,
+            ot_id: None,
         }
     }
 
@@ -981,6 +994,7 @@ mod tests {
             level: 10,
             moves: None,
             item: item.map(|s| s.to_string()),
+            ot_id: None,
         }
     }
 
