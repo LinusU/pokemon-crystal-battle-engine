@@ -143,12 +143,10 @@ impl Engine {
         Ok(Cmd::Next)
     }
 
-    /// `BattleCommand_MoveDelay`: `ld c, 40 / jp DelayFrames` waits 40 frames
-    /// and leaves `c` = 0. That matters once: a Present that misses jumps to
-    /// `AnimateFailedMove` between `damagestats` and `damagecalc`, so the
-    /// damage is calculated against a defense of 0 (raised to 1).
+    /// `BattleCommand_MoveDelay`: waits 40 frames (`ld c, 40 / jp DelayFrames`,
+    /// leaving `c` = 0; callers that care save `bc`, except Present, see
+    /// `battle_command_present`).
     pub fn battle_command_move_delay(&mut self) -> Flow<Cmd> {
-        self.damage_regs[1] = 0;
         Ok(Cmd::Next)
     }
 

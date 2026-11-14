@@ -178,7 +178,11 @@ impl Engine {
             }
         }
         if self.mem.rb(W_TYPE_MATCHUP) == 0 || self.mem.rb(W_ATTACK_MISSED) != 0 {
-            self.animate_failed_move();
+            // `jp AnimateFailedMove` with nothing saved: its MoveDelay
+            // (`ld c, 40 / jp DelayFrames`) leaves c = 0, so damagecalc
+            // runs against a defense of 0 (raised to 1).
+            self.animate_failed_move()?;
+            self.damage_regs[1] = 0;
             return Ok(Cmd::Next);
         }
         let b = self.battle_random("BattleCommand_Present");
