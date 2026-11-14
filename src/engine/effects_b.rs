@@ -37,6 +37,7 @@ impl Engine {
         self.mem.wb(W_FX_ANIM_ID, anim);
         let after = if self.is_player_turn() { ANIM_ENEMY_DAMAGE } else { ANIM_PLAYER_DAMAGE } - BATTLE_AFTERANIMS;
         self.mem.wb(W_BATTLE_AFTER_ANIM, after as u8);
+        self.battle_anim_script_effects();
     }
 
     // --- nightmare.asm -----------------------------------------------------------------

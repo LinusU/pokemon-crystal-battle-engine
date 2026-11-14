@@ -63,11 +63,32 @@ impl Engine {
     pub fn play_fx_anim_id(&mut self, e: u8, d: u8) {
         self.mem.wb(W_FX_ANIM_ID, e);
         self.mem.wb(W_FX_ANIM_ID + 1, d);
+        self.battle_anim_script_effects();
     }
 
     /// `LoadAnim` (the animation itself is dropped).
     pub fn load_anim(&mut self, a: u8) {
         self.mem.wb(W_FX_ANIM_ID, a);
+        self.battle_anim_script_effects();
+    }
+
+    /// What playing a move animation (`BattleAnimRunScript` with Battle Scene
+    /// on) leaves in battle memory: the scripts of Fury Cutter, Present and
+    /// Magnitude loop with `anim_jumpuntil`, which counts `wBattleAnimParam`
+    /// down to 0 (Present's heal branch, param 3, doesn't loop). Every other
+    /// write an animation makes is to graphics / animation scratch RAM.
+    pub fn battle_anim_script_effects(&mut self) {
+        if self.mem.rb(W_FX_ANIM_ID + 1) != 0 || self.check_battle_scene() {
+            return;
+        }
+        let looping = match self.mem.rb(W_FX_ANIM_ID) {
+            FURY_CUTTER | MAGNITUDE => true,
+            PRESENT => self.mem.rb(W_BATTLE_ANIM_PARAM) != 3,
+            _ => false,
+        };
+        if looping {
+            self.mem.wb(W_BATTLE_ANIM_PARAM, 0);
+        }
     }
 
     /// `LoadMoveAnim`.
