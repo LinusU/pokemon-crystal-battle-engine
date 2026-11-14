@@ -4,9 +4,10 @@
 use super::battle::{Engine, Flow};
 
 impl Engine {
-    pub fn get_user_item(&self) -> (u16, u8) { self.unported("GetUserItem") }
-    pub fn get_user_item_full(&self) -> (u16, u8, u8) { self.unported("GetUserItem") }
-    pub fn get_opponent_item_full(&self) -> (u16, u8, u8) { self.unported("GetOpponentItem") }
+    /// `GetUserItem`: (address of the user's held item, its held effect `b`, its parameter `c`).
+    pub fn get_user_item(&self) -> (u16, u8, u8) { self.unported("GetUserItem") }
+    /// `GetOpponentItem`: like `get_user_item`, for the opponent.
+    pub fn get_opponent_item(&self) -> (u16, u8, u8) { self.unported("GetOpponentItem") }
     pub fn hit_self_in_confusion(&mut self) { self.unported("HitSelfInConfusion") }
     pub fn do_player_damage(&mut self, _c: bool) { self.unported("DoPlayerDamage") }
     pub fn do_enemy_damage(&mut self, _c: bool) { self.unported("DoEnemyDamage") }

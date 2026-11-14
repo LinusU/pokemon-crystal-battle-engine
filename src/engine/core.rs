@@ -193,7 +193,7 @@ impl Engine {
                 self.set_enemy_turn();
                 (W_OT_PARTY_MON1_ITEM, self.mem.rb(W_CUR_OT_MON))
             };
-            let (item_addr, _) = self.get_user_item();
+            let (item_addr, _, _) = self.get_user_item();
             let item = self.mem.rb(item_addr);
             self.mem.wb(W_NAMED_OBJECT_INDEX, item);
             if item != BERSERK_GENE {
@@ -252,8 +252,8 @@ impl Engine {
         }
         // .equal_priority
         self.set_player_turn();
-        let (_, player_effect, player_param) = self.get_user_item_full();
-        let (_, enemy_effect, enemy_param) = self.get_opponent_item_full();
+        let (_, player_effect, player_param) = self.get_user_item();
+        let (_, enemy_effect, enemy_param) = self.get_opponent_item();
         let (d, e) = (player_effect, player_param);
         let (b, c) = (enemy_effect, enemy_param);
         if d == HELD_QUICK_CLAW {

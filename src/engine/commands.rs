@@ -731,7 +731,7 @@ impl Engine {
                 c += 2;
             }
             // .ScopeLens
-            let (_, effect, _) = self.get_user_item_full();
+            let (_, effect, _) = self.get_user_item();
             if effect == HELD_CRITICAL_UP {
                 c += 1;
             }
