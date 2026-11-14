@@ -244,7 +244,26 @@ impl Engine {
                         }
                     }
                 }
-                _ => out.push(decode(c)),
+                // Only reachable through garbage (Beat Up's names past the party).
+                0x38 => {
+                    self.place_string(Ptr::Ram(W_REDS_NAME), out);
+                }
+                0x39 => {
+                    self.place_string(Ptr::Ram(W_GREENS_NAME), out);
+                }
+                0x49 => {
+                    self.place_string(Ptr::Ram(W_MOMS_NAME), out);
+                }
+                0x23 => {
+                    // <KOUGEKI>
+                    self.place_string(Ptr::Rom(r::KOUGEKI_TEXT), out);
+                }
+                0x5f => return Some(p), // <DEXEND>: places '.' (not captured) and ends the string
+                // <NULL> places '?' and <CR> moves the cursor, neither through the
+                // captured `.place`; <ROUTE> / <WATASHI> / <KOKO_WA> print "@".
+                0x00 | 0x16 | 0x35..=0x37 => {}
+                0x15 => panic!("<MOBILE> text character (RunMobileScript) isn't ported"),
+                _ => out.push(decode(placed_tile(c))),
             }
         }
     }
@@ -346,4 +365,18 @@ fn print_num_left_aligned(value: u32, digits: u8) -> Vec<u8> {
     }
     out.push(ZERO + units);
     out
+}
+
+/// The tile `PlaceString` (`CheckDict.not_diacritic`) places for a character
+/// that isn't a control character: below `FIRST_REGULAR_TEXT_CHAR` ($60) the
+/// Japanese kana with a (han)dakuten become the plain kana (the mark goes on
+/// the line above, which the capture doesn't record).
+fn placed_tile(c: u8) -> u8 {
+    match c {
+        0x60.. => c,
+        0x44.. => c.wrapping_add(0xca_u8.wrapping_sub(0x44)), // 'は' - 'ぱ'
+        0x40.. => c.wrapping_add(0x99_u8.wrapping_sub(0x40)), // 'ハ' - 'パ'
+        0x20.. => c.wrapping_add(0xb6_u8.wrapping_sub(0x26)), // 'か' - 'が'
+        _ => c.wrapping_add(0x85_u8.wrapping_sub(0x05)),      // 'カ' - 'ガ'
+    }
 }
