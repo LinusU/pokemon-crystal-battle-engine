@@ -20,6 +20,11 @@ pub const COMPARED: &[(u16, u16)] = &[
     (sym::W_BATTLE_RESULT, sym::W_BATTLE_RESULT + 1),
     (sym::W_BATTLE_ACTION, sym::W_BATTLE_ACTION + 1),
     (sym::H_BATTLE_TURN, sym::H_BATTLE_TURN + 1),
+    // The bag (Items and Balls pockets) and what the item routines leave behind.
+    (sym::W_NUM_ITEMS, sym::W_NUM_KEY_ITEMS),
+    (sym::W_NUM_BALLS, sym::W_NUM_BALLS + 26),
+    (sym::W_CUR_ITEM, sym::W_CUR_ITEM_QUANTITY + 1),
+    (sym::W_WILD_MON, sym::W_WILD_MON + 1),
 ];
 
 /// The first way the engine differs from the original.

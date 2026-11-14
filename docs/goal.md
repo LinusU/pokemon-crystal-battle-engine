@@ -111,10 +111,12 @@ The overall plan, in five phases:
 - [ ] Hand-written engine (`src/engine/`, guide: [engine.md](engine.md)) — in
       progress. Ported: turn loop, move-effect script reader, CheckTurn,
       damage pipeline, switching, fainting, between-turn effects, held items
-      in residual effects, the harness menus. Link battles with plain
+      in residual effects, the harness menus, bag items (heals, status heals,
+      revives, PP items, X items, berries, Poké Doll, Poké Balls up to the
+      catch itself). Link battles with plain
       damaging moves match the original exactly (300/300 random battles).
-      Missing: most status/stat/special move effects, AI, bag items,
-      experience, wild/trainer setup, text rendering.
+      Missing: most status/stat/special move effects, AI, the capture
+      bookkeeping after a catch, experience, wild/trainer setup, text rendering.
       Original plan: pure Rust, typed state, no `Cpu`,
       `Clone`-able (so an AI can search ahead), emits `BattleEvent`s. Game data
       (base stats, moves, type chart, trainer parties, item attributes, AI data)
