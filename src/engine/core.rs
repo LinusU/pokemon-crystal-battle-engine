@@ -132,24 +132,27 @@ impl Engine {
 
     /// `HandleBetweenTurnEffects`.
     pub fn handle_between_turn_effects(&mut self) -> Flow {
-        // hSerialConnectionStatus is never USING_EXTERNAL_CLOCK in the harness.
-        if self.check_faint_player_then_enemy()? {
+        // The link harness sets USING_EXTERNAL_CLOCK: faints are checked
+        // enemy first (.CheckEnemyFirst).
+        let enemy_first = self.external_clock();
+        let check = |e: &mut Self| if enemy_first { e.check_faint_enemy_then_player() } else { e.check_faint_player_then_enemy() };
+        if check(self)? {
             return Ok(());
         }
         self.handle_future_sight();
-        if self.check_faint_player_then_enemy()? {
+        if check(self)? {
             return Ok(());
         }
         self.handle_weather();
-        if self.check_faint_player_then_enemy()? {
+        if check(self)? {
             return Ok(());
         }
         self.handle_wrap();
-        if self.check_faint_player_then_enemy()? {
+        if check(self)? {
             return Ok(());
         }
         self.handle_perish_song();
-        if self.check_faint_player_then_enemy()? {
+        if check(self)? {
             return Ok(());
         }
         // .NoMoreFaintingConditions
@@ -163,6 +166,28 @@ impl Engine {
         self.update_battle_mon_in_party();
         self.handle_encore();
         Ok(())
+    }
+
+    /// `hSerialConnectionStatus == USING_EXTERNAL_CLOCK` (the link harness).
+    pub fn external_clock(&self) -> bool {
+        self.mem.rb(H_SERIAL_CONNECTION_STATUS) == USING_EXTERNAL_CLOCK
+    }
+
+    /// `CheckFaint_EnemyThenPlayer`. Returns carry (the battle is over).
+    fn check_faint_enemy_then_player(&mut self) -> Flow<bool> {
+        if self.has_enemy_fainted() {
+            self.handle_enemy_mon_faint()?;
+            if self.mem.rb(W_BATTLE_ENDED) != 0 {
+                return Ok(true);
+            }
+        }
+        if self.has_player_fainted() {
+            self.handle_player_mon_faint()?;
+            if self.mem.rb(W_BATTLE_ENDED) != 0 {
+                return Ok(true);
+            }
+        }
+        Ok(false)
     }
 
     /// `CheckFaint_PlayerThenEnemy`. Returns carry (the battle is over).
@@ -184,7 +209,8 @@ impl Engine {
 
     /// `HandleBerserkGene`.
     fn handle_berserk_gene(&mut self) {
-        for side in [0u8, 1] {
+        let order: [u8; 2] = if self.external_clock() { [1, 0] } else { [0, 1] };
+        for side in order {
             // .player / .enemy
             let (party_item, cur) = if side == 0 {
                 self.set_player_turn();
@@ -374,28 +400,50 @@ impl Engine {
 
     /// `HandleEncore`.
     fn handle_encore(&mut self) {
-        // .do_player
-        if self.mem.bit(W_PLAYER_SUB_STATUS5, SUBSTATUS_ENCORED) {
-            let n = self.mem.rb(W_PLAYER_ENCORE_COUNT).wrapping_sub(1);
-            self.mem.wb(W_PLAYER_ENCORE_COUNT, n);
+        if self.external_clock() {
+            // .player_1: .do_enemy, then fall through to .do_player
+            self.handle_encore_enemy();
+            self.handle_encore_player();
+        } else {
+            self.handle_encore_player();
+            self.handle_encore_enemy();
+        }
+    }
+
+    /// `HandleEncore.do_player`.
+    fn handle_encore_player(&mut self) {
+        if !self.mem.bit(W_PLAYER_SUB_STATUS5, SUBSTATUS_ENCORED) {
+            return;
+        }
+        let n = self.mem.rb(W_PLAYER_ENCORE_COUNT).wrapping_sub(1);
+        self.mem.wb(W_PLAYER_ENCORE_COUNT, n);
+        if n != 0 {
             let pp = self.mem.rb(W_BATTLE_MON_PP + u16::from(self.mem.rb(W_CUR_MOVE_NUM))) & PP_MASK;
-            if n == 0 || pp == 0 {
-                self.mem.res_bit(W_PLAYER_SUB_STATUS5, SUBSTATUS_ENCORED);
-                self.set_enemy_turn();
-                self.text(r::BATTLE_TEXT_TARGETS_ENCORE_ENDED);
+            if pp != 0 {
+                return;
             }
         }
-        // .do_enemy
-        if self.mem.bit(W_ENEMY_SUB_STATUS5, SUBSTATUS_ENCORED) {
-            let n = self.mem.rb(W_ENEMY_ENCORE_COUNT).wrapping_sub(1);
-            self.mem.wb(W_ENEMY_ENCORE_COUNT, n);
+        self.mem.res_bit(W_PLAYER_SUB_STATUS5, SUBSTATUS_ENCORED);
+        self.set_enemy_turn();
+        self.text(r::BATTLE_TEXT_TARGETS_ENCORE_ENDED);
+    }
+
+    /// `HandleEncore.do_enemy`.
+    fn handle_encore_enemy(&mut self) {
+        if !self.mem.bit(W_ENEMY_SUB_STATUS5, SUBSTATUS_ENCORED) {
+            return;
+        }
+        let n = self.mem.rb(W_ENEMY_ENCORE_COUNT).wrapping_sub(1);
+        self.mem.wb(W_ENEMY_ENCORE_COUNT, n);
+        if n != 0 {
             let pp = self.mem.rb(W_ENEMY_MON_PP + u16::from(self.mem.rb(W_CUR_ENEMY_MOVE_NUM))) & PP_MASK;
-            if n == 0 || pp == 0 {
-                self.mem.res_bit(W_ENEMY_SUB_STATUS5, SUBSTATUS_ENCORED);
-                self.set_player_turn();
-                self.text(r::BATTLE_TEXT_TARGETS_ENCORE_ENDED);
+            if pp != 0 {
+                return;
             }
         }
+        self.mem.res_bit(W_ENEMY_SUB_STATUS5, SUBSTATUS_ENCORED);
+        self.set_player_turn();
+        self.text(r::BATTLE_TEXT_TARGETS_ENCORE_ENDED);
     }
 
     /// `CompareMovePriority`: player's priority vs the enemy's (`Less` =

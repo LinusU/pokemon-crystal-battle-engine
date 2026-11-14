@@ -26,7 +26,8 @@ fn main() {
             }
             Err(d) => {
                 bad += 1;
-                println!("seed {seed}: {d:?}");
+                let sites: Vec<_> = trace.decisions.iter().take(6).map(|d| format!("{:?}/{:?}", d.site, d.action)).collect();
+                println!("seed {seed}: {d:?}\n    oracle decisions: {}", sites.join(", "));
             }
         }
     }
