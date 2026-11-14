@@ -252,7 +252,7 @@ impl Engine {
                 r::END_USED_MOVE4_TEXT,
                 r::END_USED_MOVE5_TEXT,
             ][usize::from(grammar)],
-            "GoMonText" | "DoItMonText" | "GoForItMonText" | "YourFoesWeakGetmMonText" => r::BATTLE_MON_NICKNAME_TEXT,
+            "GoMonText" | "DoItMonText" | "GoForItMonText" | "YourFoesWeakGetmMonText" | "PrepareBattleMonNicknameText" => r::BATTLE_MON_NICKNAME_TEXT,
             "WithdrawMonText.WithdrawMonText" => *choices.next().expect("WithdrawMonText needs its choice"),
             "Text_MonGainedExpPoint" => {
                 if self.mem.rb(W_STRING_BUFFER2 + 2) == 0 { r::EXP_POINTS_TEXT } else { r::BOOSTED_EXP_POINTS_TEXT }

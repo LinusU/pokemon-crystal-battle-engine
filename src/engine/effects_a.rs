@@ -906,7 +906,7 @@ impl Engine {
     }
 
     /// `HiddenPowerDamage`: override Hidden Power's type and power from the user's DVs.
-    fn hidden_power_damage(&mut self) -> Flow {
+    pub fn hidden_power_damage(&mut self) -> Flow {
         let hl = if self.is_player_turn() { W_BATTLE_MON_D_VS } else { W_ENEMY_MON_D_VS };
         let (dv0, dv1) = (self.mem.rb(hl), self.mem.rb(hl + 1));
         // Power: the top bit of each DV.

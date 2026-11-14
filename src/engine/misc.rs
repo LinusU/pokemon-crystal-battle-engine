@@ -247,27 +247,6 @@ impl Engine {
 
     // --- forced switching ------------------------------------------------------------------
 
-    /// `FindAliveEnemyMons` (`engine/battle/ai/switch.asm`): carry (`true`) =
-    /// there is no other living mon in the enemy's party.
-    pub fn find_alive_enemy_mons(&mut self) -> bool {
-        let count = self.mem.rb(W_OT_PARTY_COUNT);
-        if count < 2 {
-            return true;
-        }
-        let cur = self.mem.rb(W_CUR_OT_MON);
-        let mut b: u8 = 1 << (PARTY_LENGTH - 1);
-        let mut c: u8 = 0;
-        let mut hl = W_OT_PARTY_MON1_HP;
-        for e in 0..count {
-            if cur != e && self.mem.rw(hl) != 0 {
-                c |= b;
-            }
-            b >>= 1;
-            hl += PARTY_LEN;
-        }
-        c == 0
-    }
-
     /// `CheckPlayerHasMonToSwitchTo`: carry (`true`) = none.
     fn check_player_has_mon_to_switch_to(&self) -> bool {
         let cur = self.mem.rb(W_CUR_BATTLE_MON);
@@ -306,7 +285,7 @@ impl Engine {
         }
         if self.battle_mode() != WILD_BATTLE {
             // .trainer
-            if self.find_alive_enemy_mons() {
+            if self.find_alive_enemy_mons().0 {
                 return self.force_switch_fail();
             }
             if self.mem.rb(W_ENEMY_GOES_FIRST) == 0 {

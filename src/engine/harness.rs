@@ -45,7 +45,7 @@ impl Engine {
                 self.mem.wb(W_BATTLE_MENU_CURSOR_POSITION, 2);
                 self.player_switch()
             }
-            Step::Item { .. } => self.unported("BattleMenu_Pack (engine items)"),
+            Step::Item { id, target, move_slot } => self.battle_menu_pack(id, target, move_slot),
             Step::Run => {
                 self.mem.wb(W_BATTLE_MENU_CURSOR_POSITION, 4);
                 self.battle_menu_run()
@@ -182,9 +182,9 @@ impl Engine {
     /// `MoveSelectionScreen` (patched: see the `move_selection_screen`
     /// HARNESS-PATCH). Returns nz (go back to the battle menu) — never.
     pub fn move_selection_screen(&mut self) -> Flow<bool> {
-        if self.mem.rb(W_MOVE_SELECTION_MENU_TYPE) == 2 {
-            self.unported("MoveSelectionScreen (Ether move menu)");
-        }
+        // The Ether menu (`wMoveSelectionMenuType == 2`) is opened by the item
+        // effect itself (items.rs `ether_move_menu`), never from here.
+        assert!(self.mem.rb(W_MOVE_SELECTION_MENU_TYPE) != 2, "Ether move menu opened outside an item");
         if std::mem::take(&mut self.flags.pending_struggle) {
             // call CheckPlayerHasUsableMoves / ret z
             let usable = self.check_player_has_usable_moves();
