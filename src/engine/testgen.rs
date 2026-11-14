@@ -34,6 +34,10 @@ const HELD_ITEMS: &[&str] = &[
 /// A random link battle: both parties random, every mon with 1–4 random moves
 /// drawn from `moves` (move ids).
 pub fn random_link_config(seed: u64, moves: &[u8], opts: GenOptions) -> BattleConfig {
+    let mut distinct = moves.to_vec();
+    distinct.sort_unstable();
+    distinct.dedup();
+    let moves = &distinct[..];
     let mut rng = seed ^ 0x6c69_6e6b;
     let party = |rng: &mut u64| -> Vec<MonSpec> {
         let count = 1 + (mix(rng) % u64::from(opts.max_party)) as usize;
