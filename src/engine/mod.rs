@@ -24,6 +24,7 @@ pub mod commands;
 pub mod core;
 pub mod diff;
 pub mod harness;
+pub mod items;
 pub mod math;
 pub mod mem;
 pub mod names;

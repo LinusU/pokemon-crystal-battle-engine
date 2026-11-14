@@ -15,6 +15,7 @@ Goal and exactness contract: [goal.md](goal.md).
 | `math.rs` | `Multiply` / `Divide` on the original's overlapping HRAM buffers. |
 | `core.rs` | `engine/battle/core.asm`. |
 | `effects_b.rs` | `move_effects/` nightmare..transform (Pain Split, Present, Protect, Sleep Talk, Substitute, Teleport, Thief, Transform, Triple Kick, ...), plus the small `effect_commands.asm` helpers they share (`animate_current_move`, `animate_failed_move`, `print_*`, `fail_move`, `check_substitute_opp`, `reset_turn`, `skip_to_battle_command`, ...). |
+| `items.rs` | `BattleMenu_Pack` and the bag items the harness offers: `engine/items/item_effects.asm` (heals, status heals, revives, PP items, X items, Dire Hit / Guard Spec / X Accuracy, berries, Poké Doll, Poké Balls with their catch-rate formula, ball multipliers and wobble rolls), the battle pack's use of an item (`pack.asm`, as the `battle_pack_loop` / `party_menu_select` / `move_selection_screen` HARNESS-PATCHes run it) and `TossItem`. The capture bookkeeping after a catch (`LoadEnemyMon`, `TryAddMonToParty`, `SetCaughtData`) is not ported. |
 | `todo.rs` | Stubs for routines not ported yet; each panics with the original's name. |
 | `oracle.rs` | Runs the original engine and records memory, RNG state, legal actions and a random policy's action at every decision, plus every `Random` call with its caller. |
 | `testgen.rs` | Random scenarios for differential testing. |
