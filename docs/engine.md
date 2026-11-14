@@ -14,6 +14,7 @@ Goal and exactness contract: [goal.md](goal.md).
 | `battle.rs` | `Engine` (memory + random stream + flags) and shared primitives: `random` / `battle_random`, `battle_var*` (`GetBattleVar`), turn switching, `text`, `decide`. |
 | `math.rs` | `Multiply` / `Divide` on the original's overlapping HRAM buffers. |
 | `core.rs` | `engine/battle/core.asm`. |
+| `ai.rs`, `ai_smart.rs`, `ai_switch.rs`, `ai_items.rs` | The trainer AI (`engine/battle/ai/`): `AIChooseMove` and the scoring layers, the `AI_Smart_*` handlers, `CheckAbleToSwitch` and friends, `AI_SwitchOrTryItem` and the item routines. AI flags and items are read from `TrainerClassAttributes` in the plain ROM (the harness' `poke_rom` overrides for `[enemy_trainer]` / `[[enemy_items]]` are not modelled yet). HUD redraws and sound are dropped. |
 | `todo.rs` | Stubs for routines not ported yet; each panics with the original's name. |
 | `oracle.rs` | Runs the original engine and records memory, RNG state, legal actions and a random policy's action at every decision, plus every `Random` call with its caller. |
 | `testgen.rs` | Random scenarios for differential testing. |
