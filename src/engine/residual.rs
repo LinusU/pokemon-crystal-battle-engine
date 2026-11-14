@@ -74,7 +74,7 @@ impl Engine {
     }
 
     /// `Call_PlayBattleAnim_OnlyIfVisible`.
-    fn call_play_battle_anim_only_if_visible(&mut self, anim: u16) {
+    pub fn call_play_battle_anim_only_if_visible(&mut self, anim: u16) {
         let sub3 = self.battle_var(BATTLE_VARS_SUBSTATUS3);
         if sub3 & (1 << SUBSTATUS_FLYING | 1 << SUBSTATUS_UNDERGROUND) != 0 {
             return;

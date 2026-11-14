@@ -56,7 +56,7 @@ impl Engine {
             ] {
                 self.mem.wb(addr, 0);
             }
-            self.handle_berserk_gene();
+            self.handle_berserk_gene()?;
             self.update_battle_mon_in_party();
             self.ai_choose_move();
             // IsMobileBattle: never.
@@ -207,8 +207,9 @@ impl Engine {
         Ok(false)
     }
 
-    /// `HandleBerserkGene`.
-    fn handle_berserk_gene(&mut self) {
+    /// `HandleBerserkGene`: a held Berserk Gene is used up at the start of
+    /// the turn, sharply raising Attack and confusing its holder.
+    fn handle_berserk_gene(&mut self) -> Flow {
         let order: [u8; 2] = if self.external_clock() { [1, 0] } else { [0, 1] };
         for side in order {
             // .player / .enemy
@@ -219,18 +220,39 @@ impl Engine {
                 self.set_enemy_turn();
                 (W_OT_PARTY_MON1_ITEM, self.mem.rb(W_CUR_OT_MON))
             };
+            // .go
             let (item_addr, _, _) = self.get_user_item();
             let item = self.mem.rb(item_addr);
             self.mem.wb(W_NAMED_OBJECT_INDEX, item);
             if item != BERSERK_GENE {
                 continue;
             }
-            self.unported("HandleBerserkGene (holding Berserk Gene)");
-            #[allow(unreachable_code)]
-            {
-                let _ = (party_item, cur);
+            self.mem.wb(item_addr, 0);
+            let party = self.get_party_location(party_item, cur);
+            self.mem.wb(party, 0);
+            // BUG: the confusion counter is left as it was (see
+            // docs/bugs_and_glitches.md): 256 turns, or the previous mon's.
+            let was = self.battle_var(BATTLE_VARS_SUBSTATUS3);
+            self.set_battle_var_bit(BATTLE_VARS_SUBSTATUS3, SUBSTATUS_CONFUSED);
+            let anim_addr = self.battle_var_addr(BATTLE_VARS_MOVE_ANIM);
+            let anim = self.mem.rb(anim_addr);
+            self.mem.wb(anim_addr, 0);
+            self.mem.wb(W_ATTACK_MISSED, 0);
+            self.mem.wb(W_EFFECT_FAILED, 0);
+            self.battle_command_attack_up2()?;
+            self.mem.wb(anim_addr, anim);
+            self.get_item_name();
+            self.text(r::BATTLE_TEXT_USERS_STRING_BUFFER1_ACTIVATED);
+            self.battle_command_stat_up_message()?;
+            if was & (1 << SUBSTATUS_CONFUSED) != 0 {
+                continue;
             }
+            self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
+            self.call_play_battle_anim_only_if_visible(ANIM_CONFUSED);
+            self.switch_turn();
+            self.text(r::BECAME_CONFUSED_TEXT);
         }
+        Ok(())
     }
 
     /// `EnemyTriesToFlee`. Returns carry (the link partner forfeited).
