@@ -11,6 +11,7 @@
 pub mod battle;
 pub mod bootstrap;
 pub mod defs;
+pub mod engine;
 pub mod dispatch;
 pub mod game;
 pub mod macros;
