@@ -1001,9 +1001,12 @@ impl Engine {
             return;
         }
         if self.mem.rb(W_WILD_MON) != 0 {
-            // call ClearBGPalettes / ClearTilemap
-            self.unported("PokeBallEffect.toss after a catch (register left by ClearTilemap)");
+            // ClearBGPalettes / ClearTilemap: graphics, except that
+            // ClearTilemap ends in WaitBGMap → DelayFrames, leaving
+            // wVBlankOccurred = 0 and a = 0 (so the `inc a` below gives 1).
+            self.mem.wb(W_V_BLANK_OCCURRED, 0);
         }
+        // .toss: a is 0 on both paths.
         self.mem.wb(W_ITEM_QUANTITY_CHANGE, 1);
         self.toss_item(W_NUM_ITEMS);
     }
@@ -1064,9 +1067,44 @@ impl Engine {
             BATTLETYPE_CELEBI => self.mem.set_bit(W_BATTLE_RESULT, BATTLERESULT_CAUGHT_CELEBI),
             _ => {}
         }
-        // TryAddMonToParty / SendMonIntoBox, SetCaughtData: the caught mon
-        // joins the party or the box (SRAM).
-        self.unported("PokeBallEffect: TryAddMonToParty / SetCaughtData (party or box bookkeeping)")
+        // .not_celebi
+        if self.mem.rb(W_PARTY_COUNT) == PARTY_LENGTH {
+            // .SendToPC: the box lives in SRAM, which the engine doesn't hold.
+            self.unported("PokeBallEffect.SendToPC (party full: SendMonIntoBox)");
+        }
+        self.mem.wb(W_MON_TYPE, PARTYMON);
+        // ClearSprites: graphics only.
+        self.try_add_mon_to_party();
+        self.set_caught_data();
+        if self.mem.rb(W_CUR_ITEM) == FRIEND_BALL {
+            let last = self.mem.rb(W_PARTY_COUNT) - 1;
+            let at = self.get_party_location(W_PARTY_MON1_HAPPINESS, last);
+            self.mem.wb(at, FRIEND_BALL_HAPPINESS);
+        }
+        // .SkipPartyMonFriendBall — HARNESS-PATCH
+        // poke_ball_effect_skip_party_mon_friend_ball: the nickname prompt is
+        // skipped; straight to .return_from_capture.
+        self.poke_ball_return_from_capture();
+        Ok(())
+    }
+
+    /// `SetCaughtData`: the time of day, level and location the last party
+    /// mon was caught at.
+    fn set_caught_data(&mut self) {
+        let last = self.mem.rb(W_PARTY_COUNT).wrapping_sub(1);
+        let hl = self.get_party_location(W_PARTY_MON1_CAUGHT_LEVEL, last);
+        // SetBoxmonOrEggmonCaughtData
+        let b = self.mem.rb(W_TIME_OF_DAY).wrapping_add(1).rotate_right(2);
+        let level = self.mem.rb(W_CUR_PARTY_LEVEL);
+        self.mem.wb(hl, level | b);
+        let (mut group, mut number) = (self.mem.rb(W_MAP_GROUP), self.mem.rb(W_MAP_NUMBER));
+        if number == MAP_POKECENTER_2F && group == GROUP_POKECENTER_2F {
+            group = self.mem.rb(W_BACKUP_MAP_GROUP);
+            number = self.mem.rb(W_BACKUP_MAP_NUMBER);
+        }
+        let location = self.get_world_map_location(group, number);
+        let gender = self.mem.rb(W_PLAYER_GENDER).rotate_right(1);
+        self.mem.wb(hl + 1, gender | location);
     }
 
     /// `UseBallInTrainerBattle`.

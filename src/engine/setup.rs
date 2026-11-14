@@ -386,7 +386,7 @@ impl Engine {
     }
 
     /// `GetWorldMapLocation`: the Pokégear location of map `b`:`c`.
-    fn get_world_map_location(&self, b: u8, c: u8) -> u8 {
+    pub fn get_world_map_location(&self, b: u8, c: u8) -> u8 {
         // GetAnyMapPointer
         let ptr_addr = MAP_GROUP_POINTERS.wrapping_add(2 * u16::from(b.wrapping_sub(1)));
         let map_ptr = u16::from(self.map_byte(ptr_addr)) | u16::from(self.map_byte(ptr_addr.wrapping_add(1))) << 8;
