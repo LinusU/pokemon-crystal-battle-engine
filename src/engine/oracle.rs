@@ -50,6 +50,8 @@ struct RecordingDecider {
     out: Arc<Mutex<Vec<Snapshot>>>,
     policy: u64,
     max: usize,
+    /// When set, the decisions to make (in order) instead of the random policy.
+    script: Option<std::collections::VecDeque<Step>>,
 }
 
 struct TooLong;
@@ -78,7 +80,19 @@ impl Decider for RecordingDecider {
                 pool = kept;
             }
         }
-        let action = pool[(mix(&mut self.policy) % pool.len() as u64) as usize];
+        let action = match self.script.as_mut() {
+            Some(script) => {
+                let mut action = script.pop_front().expect("the script ran out of decisions");
+                // As in playback: old recordings store FIGHT-without-a-menu
+                // (Encore / Bide / Struggle) as a move slot.
+                if matches!(action, Step::Move { .. }) && !legal.contains(&action) && legal.contains(&Step::Fight) {
+                    action = Step::Fight;
+                }
+                assert!(legal.contains(&action), "scripted decision {action:?} is not legal at {site:?}");
+                action
+            }
+            None => pool[(mix(&mut self.policy) % pool.len() as u64) as usize],
+        };
         out.push(Snapshot {
             site,
             legal: legal.to_vec(),
@@ -102,6 +116,24 @@ impl Decider for RecordingDecider {
 /// uniformly random legal action (seeded by `policy_seed`) at every decision.
 /// `None` if the battle needed more than `max_decisions` decisions.
 pub fn run(config: &BattleConfig, seed: u64, policy_seed: u64, max_decisions: usize) -> Option<Trace> {
+    run_with_decider(config, seed, policy_seed, max_decisions, None)
+}
+
+/// Run `config` on the original engine making exactly the decisions in
+/// `script` (a recording's steps), in order. Panics if the script runs out or
+/// a decision isn't legal.
+pub fn run_scripted(config: &BattleConfig, seed: u64, script: Vec<Step>) -> Option<Trace> {
+    let max = script.len() + 1;
+    run_with_decider(config, seed, 0, max, Some(script.into()))
+}
+
+fn run_with_decider(
+    config: &BattleConfig,
+    seed: u64,
+    policy_seed: u64,
+    max_decisions: usize,
+    script: Option<std::collections::VecDeque<Step>>,
+) -> Option<Trace> {
     let out = Arc::new(Mutex::new(Vec::new()));
     let mut cpu = Cpu::new_cgb(None, None);
     cpu.interrupt_vectors = crate::interrupt_vectors();
@@ -112,6 +144,7 @@ pub fn run(config: &BattleConfig, seed: u64, policy_seed: u64, max_decisions: us
         out: out.clone(),
         policy: policy_seed,
         max: max_decisions,
+        script,
     })));
     let options = crate::bootstrap::RunOptions { seed_override: Some(seed), quiet: true, ..Default::default() };
     let finished = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
