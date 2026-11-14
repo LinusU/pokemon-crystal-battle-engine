@@ -80,33 +80,6 @@ impl Engine {
         Ok(true)
     }
 
-    /// `GetNickname`: nickname `n` of the list at `base` into `wStringBuffer1`.
-    pub fn get_nickname(&mut self, base: u16, n: u8) {
-        let hl = base.wrapping_add(u16::from(NAME_LENGTH) * u16::from(n));
-        self.mem.copy(W_STRING_BUFFER1, hl, u16::from(MON_NAME_LENGTH));
-        self.correct_nick_errors(W_STRING_BUFFER1);
-    }
-
-    /// `CorrectNickErrors`: replace text-command characters in the nickname at `de`.
-    fn correct_nick_errors(&mut self, de: u16) {
-        // [lo, hi) ranges of characters that are text commands.
-        const COMMANDS: [(u8, u8); 7] = [(0x00, 0x05), (0x14, 0x19), (0x1d, 0x26), (0x35, 0x3a), (0x3f, 0x40), (0x49, 0x5d), (0x5e, 0x7f)];
-        let mut p = de;
-        for _ in 0..MON_NAME_LENGTH {
-            let a = self.mem.rb(p);
-            if a == CHAR_TERMINATOR {
-                return;
-            }
-            if COMMANDS.iter().any(|&(lo, hi)| a >= lo && a < hi) {
-                self.mem.wb(p, 0xe6); // '?'
-            }
-            p += 1;
-        }
-        // No terminator found: change the nickname to "?@".
-        self.mem.wb(de, 0xe6);
-        self.mem.wb(de + 1, CHAR_TERMINATOR);
-    }
-
     /// `GetGender`: `Some(true)` male, `Some(false)` female, `None` genderless
     /// (carry). `wMonType` selects the struct, as in the original.
     pub fn get_gender(&self) -> Option<bool> {
