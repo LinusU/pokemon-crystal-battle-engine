@@ -1,15 +1,15 @@
 # Goal: phases 3 and 4
 
-The current working goal. When everything here is ✅, the next step is to start
-training a battle AI on top of the library.
+Phases 3 and 4 are done: the next step is training a battle AI on top of the
+library (`battle::Battle`).
 
 The overall plan, in five phases:
 
 1. ✅ Run the battle engine fully emulated.
 2. ✅ Record enough battles to cover the engine (349 fixtures, ~80% of battle-code regions).
-3. ⬜ **A library that drives just the battle logic** — `Battle::new(config)`,
+3. ✅ **A library that drives just the battle logic** — `Battle::new(config)`,
    `step(action)`, typed state, legal actions, an ordered event stream.
-4. ⬜ **Idiomatic Rust with excellent performance** — a hand-written engine that
+4. ✅ **Idiomatic Rust with excellent performance** — a hand-written engine that
    reproduces the original exactly, with logic separated from rendering.
 5. Machine-learning trainer AI (out of scope here; this goal unblocks it).
 
@@ -108,25 +108,73 @@ The overall plan, in five phases:
       emulation itself (~250M emulated instructions for a 120-decision battle).
 - [x] Fidelity: the Poké Ball wobble rolls (`GetPokeBallWobble` draws
       `Random`) were skipped with the ball animation; they now run.
-- [ ] Hand-written engine (`src/engine/`, guide: [engine.md](engine.md)) — in
-      progress. Ported: turn loop, move-effect script reader, CheckTurn,
-      damage pipeline, switching, fainting, between-turn effects, held items
-      in residual effects, the harness menus, bag items (heals, status heals,
-      revives, PP items, X items, berries, Poké Doll, Poké Balls up to the
-      catch itself). Link battles with plain
-      damaging moves match the original exactly (300/300 random battles).
-      Missing: most status/stat/special move effects, AI, the capture
-      bookkeeping after a catch, experience, text rendering. Battle setup (link/wild/trainer, `src/engine/start.rs`) is ported: its state matches the oracle's first decision exactly (`diff::check_start`).
-      Original plan: pure Rust, typed state, no `Cpu`,
-      `Clone`-able (so an AI can search ahead), emits `BattleEvent`s. Game data
-      (base stats, moves, type chart, trainer parties, item attributes, AI data)
-      is read from the ROM image, so tables are exact by construction.
-- [ ] Differential tester: lockstep comparison against the oracle over random
-      battles (all battle kinds, all trainers, random parties, random policies).
-      `examples/engine_diff` does this for link battles today.
-- [ ] The library's `Battle` runs on the hand-written engine by default; the
-      oracle stays available behind a feature for testing and for the window.
-- [ ] Benchmarks: battles/second for the oracle vs the new engine.
+- [x] Hand-written engine (`src/engine/`, guide: [engine.md](engine.md)):
+      plain Rust, no `Cpu`, the original's memory layout (`Mem`, WRAM banks
+      0–1 + HRAM), game data read from the ROM image, `Clone` (about 8 KB) so
+      an AI can search ahead. Every routine a battle reaches is ported: battle
+      start (scenario seeding, `StartBattle`, trainer parties, send-outs), the
+      turn loop, all 175 effect commands and move effects, damage, switching,
+      fainting, experience and level-ups, the trainer AI, bag items and
+      catching, obedience, Berserk Gene, battle text (`text_asm` included) and
+      the HP-bar events.
+- [x] Differential tester: `engine_diff` (random link, wild and trainer
+      battles: random parties and moves from all 251, held items, bags,
+      traded mons, badges, random policy) compares the start state, every
+      decision (site, legal actions, random-stream state, memory, text) and
+      the end of the battle. `engine_fixtures` does the same for the
+      recorded corpus, `api_diff` for the library API on both engines.
+- [x] The library's `Battle` runs on the hand-written engine;
+      `EmulatedBattle` keeps the same API on the original for testing and the
+      window. (Both are compiled; there is no cargo feature, since the
+      engine's tests use the emulated original.)
+- [x] Benchmarks (`examples/engine_bench`, one thread, random policy, all
+      moves, setup included):
+
+      | kind | `FastBattle` (state only) | `Battle` (with events) | `EmulatedBattle` | speedup |
+      | --- | ---: | ---: | ---: | ---: |
+      | link | 2,707/s | 1,769/s | 17.4/s | 156× |
+      | wild | 11,267/s | 6,337/s | 21.8/s | 517× |
+      | trainer | 3,029/s | 2,084/s | 3.7/s | 813× |
+
+### Fidelity fixes found by differential testing
+
+The tester found harness gaps as well as port bugs; the harness gaps were
+fixed in the harness (so the oracle got closer to the real game):
+
+- **Rival name.** Rival battles printed an unset `wRivalName`, and the text
+  engine wrote `?` bytes across WRAM (the window stack, `wPlayerSubStatus4`).
+  The harness now names the rival SILVER; fixtures 00276, 00289 and 00290
+  had recorded the corrupted battles and were re-recorded.
+- **Move menu rows.** The harness skipped `MoveSelectionScreen`, leaving
+  `w2DMenuNumRows` stale, and a disobedient traded mon's random-move pick
+  could loop forever. The patch now leaves the menu's row count.
+- **Battle-end hook.** The end of a battle is defined as the moment before
+  `ExitBattle` (post-battle processing: link result screen, Pay Day,
+  evolution, Pokérus, `CleanUpBattleRAM`). Both APIs report the outcome and
+  final state there, and the tester compares it.
+- **Text capture.** A full party's party-menu "CANCEL" is no longer captured
+  as battle text.
+
+### Toolchain
+
+The crate needs nightly (the transpiled code uses `become` tail calls). The
+`gui` feature moved to glium 0.36 / winit 0.30: newer nightlies no longer
+compile the `objc2` 0.4 that glium 0.34 pulled in.
+
+### Known gaps
+
+- **Reads past WRAM.** A Beat Up whose loop counter was left stale by a miss
+  walks past the party into echo RAM, which mirrors the tilemap and other
+  graphics buffers. The original's result depends on what is on screen; the
+  engine doesn't keep graphics state, so it stops with a panic there instead
+  of guessing (`battle::Battle::step` returns `Error::Engine`). Seen once in
+  170,000 random link battles.
+- **Scenarios the original itself freezes on** (a wild Unown with no unlocked
+  letters) are skipped by the tester's cycle watchdog.
+- **Not offered by the harness, so not ported:** Bug-Catching Contest and
+  tutorial battles, Battle Tower, mobile link battles, PP Up / key items /
+  TMs in battle, a full party *and* full PC box when catching (the box lives
+  in SRAM).
 
 ## Definition of done
 

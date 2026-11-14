@@ -21,7 +21,7 @@ The transpiled code is in `src/game/`, `src/dispatch.rs`, `src/defs.rs`. We avoi
 - ✅ Random battles with `--random` (optionally `--seed <n>`) — skip authoring TOML and start a deterministic randomized trainer battle; the recording embeds the resolved matchup and replays from the seed, so the generator is never re-run. See [TOML schema](toml_schema.md#random-battles----random-and---seed-n).
 - ✅ Headless by default — glium/winit sit behind the off-by-default `gui` cargo feature, so a plain `cargo run` / `cargo build` compiles no graphics deps and drives the battle straight to completion with no window. `--features gui` adds an opt-in window that shows the same battle. Either way a battle must be specified (`<scenario.toml>` / `--random` / `--play`); the binary always runs a single battle and never boots into the overworld.
 - ✅ Battle events: the exact battle text (captured from the original text engine) and HP-bar changes, as `battle::Event`s on every `Decision` / `Battle::events()`. `--show-text` prints them live in the CLI, so any battle or `--play` replay can be watched in the terminal; `cargo run --release --example watch` does the same through the library.
-- ✅ Library API: [`battle::Battle`](../src/battle/mod.rs) — `Battle::new(config, seed)`, `status()` (a `Decision` with the legal actions and a typed [`BattleState`](../src/battle/state.rs), or the outcome), `step(action)`. The original engine runs on its own thread and blocks at each decision point, so its control flow is untouched. Legal actions mirror the original menus exactly (see [TOML schema](toml_schema.md#legal-steps)). Examples: `cargo run --release --example random_agent`, and `--example replay_api -- fixtures/*.toml` (replays the corpus through the API).
+- ✅ Library API: [`battle::Battle`](../src/battle/mod.rs) — `Battle::new(config, seed)`, `status()` (a `Decision` with the legal actions, a typed [`BattleState`](../src/battle/state.rs) and the events since the last decision, or the outcome), `step(action)`, and `Clone` (copy a battle to search ahead). It runs on the **hand-written engine** ([`src/engine/`](../src/engine/), [engine.md](engine.md)): plain Rust, no emulator, verified to reproduce the original exactly (states, random draws, text, outcome). [`battle::EmulatedBattle`](../src/battle/emulated.rs) has the same API on the original code (the transpiled engine on its own thread), the reference it is tested against. Legal actions mirror the original menus exactly (see [TOML schema](toml_schema.md#legal-steps)). Examples: `random_agent`, `replay_api -- fixtures/*.toml`, `watch`, `api_diff`, `engine_bench`.
 
 ## Layout
 
@@ -30,6 +30,8 @@ The transpiled code is in `src/game/`, `src/dispatch.rs`, `src/defs.rs`. We avoi
 | [`src/bootstrap/`](../src/bootstrap/) | Battle-launch harness — TOML schema, species table, WRAM seeding, dispatch to `start_battle`. |
 | [`src/runtime/`](../src/runtime/) | The Game Boy hardware emulation (CPU, GPU, MBC, keypad). The transpiled code shares the same `Cpu` struct. |
 | [`src/game/`](../src/game/) | Transpiled engine code. Mirrors the directory layout of pret/pokecrystal. |
+| [`src/engine/`](../src/engine/) | The hand-written battle engine and its differential tests against the transpiled one. See [engine.md](engine.md). |
+| [`src/battle/`](../src/battle/) | The library API (`Battle` on the hand-written engine, `EmulatedBattle` on the original). |
 | [`src/main.rs`](../src/main.rs) | CLI parsing + headless battle runner; the glium/winit window + cpu thread live in a `gui`-gated module. |
 | `scratch/pokecrystal/` | Vendored copy of pret/pokecrystal (gitignored). Source of truth for symbols, constants, struct layouts. |
 | `scratch/*.toml` | Battle scenarios for development. |
@@ -41,4 +43,5 @@ The transpiled code is in `src/game/`, `src/dispatch.rs`, `src/defs.rs`. We avoi
 - [TOML schema](toml_schema.md) — what a battle config looks like today.
 - [Transpiled code](transpiled_code.md) — the rules for editing `src/game/`, the `HARNESS-PATCH:` convention, and the "graduate to hand-written" model.
 - [Roadmap](roadmap.md) — what step 2+ looks like, open questions to resolve.
-- [Goal](goal.md) — the current working goal (phases 3 and 4), the exactness contract, and known fidelity gaps.
+- [Goal](goal.md) — phases 3 and 4 (done), the exactness contract, how it is verified, and known gaps.
+- [Engine](engine.md) — the hand-written engine: architecture, porting rules, verification tools.

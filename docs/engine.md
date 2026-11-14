@@ -9,21 +9,27 @@ Goal and exactness contract: [goal.md](goal.md).
 | File | What |
 | --- | --- |
 | `mem.rs` | `Mem`: the original's WRAM banks 0–1 and HRAM, byte for byte. All battle state lives here, in the original layout. |
-| `rom.rs` | Read-only data straight from `pokecrystal.gbc` (`rom::byte`, `rom::ptr`). |
-| `sym.rs` | Generated (`python3 tools/gen_engine_syms.py > src/engine/sym.rs`): every WRAM/HRAM symbol (`W_BATTLE_MON_HP`, `H_BATTLE_TURN`, …) and every ROM label the battle code mentions (`MOVES`, `BATTLE_TEXT_…`, as flat ROM offsets). |
-| `battle.rs` | `Engine` (memory + random stream + flags) and shared primitives: `random` / `battle_random`, `battle_var*` (`GetBattleVar`), turn switching, `text`, `decide`. |
+| `rom.rs` | Read-only data straight from `pokecrystal.gbc` (`rom::byte`, `rom::ptr`). `Engine::rom_byte` adds the scenario's ROM overlay (the `[enemy_trainer]` AI-flag patches). |
+| `sym.rs`, `rsym.rs` | Generated (`python3 tools/gen_engine_syms.py`, writes both): every WRAM/HRAM symbol (`W_BATTLE_MON_HP`, `H_BATTLE_TURN`, …) and every ROM label the battle code mentions, local text labels included (`r::MOVES`, `r::BATTLE_TEXT_…`, as flat ROM offsets). |
+| `battle.rs` | `Engine` (memory + random stream + flags + optional logs) and shared primitives: `random` / `battle_random`, `battle_var*` (`GetBattleVar`), turn switching, `text` / `text_with`, `decide`. |
 | `math.rs` | `Multiply` / `Divide` on the original's overlapping HRAM buffers. |
-| `core.rs` | `engine/battle/core.asm`. |
-<<<<<<< HEAD
-| `effects_b.rs` | `move_effects/` nightmare..transform (Pain Split, Present, Protect, Sleep Talk, Substitute, Teleport, Thief, Transform, Triple Kick, ...), plus the small `effect_commands.asm` helpers they share (`animate_current_move`, `animate_failed_move`, `print_*`, `fail_move`, `check_substitute_opp`, `reset_turn`, `skip_to_battle_command`, ...). |
-| `items.rs` | `BattleMenu_Pack` and the bag items the harness offers: `engine/items/item_effects.asm` (heals, status heals, revives, PP items, X items, Dire Hit / Guard Spec / X Accuracy, berries, Poké Doll, Poké Balls with their catch-rate formula, ball multipliers and wobble rolls), the battle pack's use of an item (`pack.asm`, as the `battle_pack_loop` / `party_menu_select` / `move_selection_screen` HARNESS-PATCHes run it) and `TossItem`. The capture bookkeeping after a catch (`LoadEnemyMon`, `TryAddMonToParty`, `SetCaughtData`) is not ported. |
-=======
-| `ai.rs`, `ai_smart.rs`, `ai_switch.rs`, `ai_items.rs` | The trainer AI (`engine/battle/ai/`): `AIChooseMove` and the scoring layers, the `AI_Smart_*` handlers, `CheckAbleToSwitch` and friends, `AI_SwitchOrTryItem` and the item routines. AI flags and items are read from `TrainerClassAttributes` in the plain ROM (the harness' `poke_rom` overrides for `[enemy_trainer]` / `[[enemy_items]]` are not modelled yet). HUD redraws and sound are dropped. |
->>>>>>> worktree-agent-a54e7407892478d18
-| `todo.rs` | Stubs for routines not ported yet; each panics with the original's name. |
-| `oracle.rs` | Runs the original engine and records memory, RNG state, legal actions and a random policy's action at every decision, plus every `Random` call with its caller. |
-| `start.rs` | Starting a battle without the emulator: the harness's scenario seeding (player, bag, badges, parties; mirrors `bootstrap::launch_*`) and the game's `TryAddMonToParty`, `StartBattle`/`BattleIntro`, `ReadTrainerParty`, `InitEnemy*`, `BattleStartMessage` and `DoBattle`'s opening, up to the first `BattleTurn`. `FastBattle::new` uses it; `FastBattle::new_via_oracle` keeps the emulated start. Not modelled (graphics/audio/boot scratch, listed in `diff::START_IGNORED`); rival trainers and `[enemy_trainer]` AI overrides fall back to the oracle. |
-| `testgen.rs` | Random scenarios for differential testing. |
+| `start.rs` | Starting a battle without the emulator: the harness's scenario seeding (player, rival name, bag, badges, parties; mirrors `bootstrap::launch_*`) and the game's `TryAddMonToParty`, `StartBattle` / `BattleIntro`, `ReadTrainerParty`, `InitEnemy*`, `BattleStartMessage` and `DoBattle`'s opening, up to the first `BattleTurn`. |
+| `core.rs` | `engine/battle/core.asm`: the turn loop, action parsing, move order, between-turn effects, Berserk Gene, fleeing. |
+| `commands.rs` | The move-effect script reader (`DoTurn` / `DoMove`), the dispatch of all 175 commands, `CheckTurn`, obedience, used-move text, PP, critical hits, STAB and type matchups, damage variation. |
+| `damage.rs` | The damage pipeline (`CheckHit`, `DamageStats`, `DamageCalc`, applying damage, substitutes, loops, failure text, animation memory effects). |
+| `residual.rs` | HP routines (`AnimateHPBar`'s memory side), residual damage, held items in residual effects. |
+| `status.rs` | Status and stat-change commands, stat recalculation. |
+| `misc.rs`, `effects_a.rs`, `effects_b.rs` | The remaining effect commands and `move_effects/*.asm` (attract..mist, nightmare..transform) with the small `effect_commands.asm` helpers they share. |
+| `switch.rs` | Switching, fainting, send-outs, badge boosts, Spikes, `AI_Switch`. |
+| `setup.rs` | Experience and level-ups, `LoadEnemyMon`, trainer-battle switching (`EnemySwitch`, `FindMonInOTPartyToSwitchIntoBattle`), prize money, `GetTMHMName`. |
+| `ai.rs`, `ai_smart.rs`, `ai_switch.rs`, `ai_items.rs` | The trainer AI (`engine/battle/ai/`): `AIChooseMove` and the scoring layers, the `AI_Smart_*` handlers, `CheckAbleToSwitch` and friends, `AI_SwitchOrTryItem` and the item routines. |
+| `items.rs` | `BattleMenu_Pack` and every bag item the harness offers (`engine/items/item_effects.asm`: heals, status heals, revives, PP items, X items, berries, Poké Doll, Poké Balls with the catch formula, wobble rolls and the party bookkeeping after a catch), `TossItem`. |
+| `names.rs`, `text.rs` | Names into `wStringBuffer1`; the text command interpreter (renders a text label to the exact messages, `text_asm` handlers choose the next text). |
+| `harness.rs` | The emulated harness's replacements for the original's menus (action menu, move selection, link actions), ported as the HARNESS-PATCHes run them. |
+| `api.rs` | `FastBattle`: start, `step`, `status`, `state`, `events`, `Clone`. The library's `battle::Battle` wraps it. |
+| `oracle.rs` | Runs the original engine and records memory, RNG state, legal actions, text and the action at every decision (random policy or a recording's script), the battle's end, and every `Random` call with its caller. |
+| `diff.rs` | Differential checks: `check_start` (the start state, all of WRAM) and `check` (every decision and the end: site, legal actions, random stream, `COMPARED` memory, text). |
+| `testgen.rs` | Random scenarios for differential testing: link / wild / trainer, random parties and moves, held items, bags, traded mons, badges. |
 
 ### Decisions, `step`, and cloning
 
@@ -56,8 +62,11 @@ snapshot (about 8 KB).
   battle (verified: the corpus replays unchanged with Battle Scene off). Keep
   any memory writes those routines make *outside* graphics/sound RAM.
 - **Text**: `StdBattleTextbox` / `PrintText` with `hl = Label` →
-  `self.text(LABEL)`. Text with `text_asm` logic is ported when text rendering
-  lands; until then record the label.
+  `self.text(r::LABEL)`. A text whose `text_asm` picks the next text gets a
+  handler in `text.rs` (`text_asm`); if the battle code already computed the
+  choice, pass it with `self.text_with(label, &[choice])`. Printing is
+  otherwise read-only, except where the original's text engine writes memory
+  (`<ENEMY>` runs `Battle_GetTrainerName`; see `Engine::text_with`).
 - **Random numbers**: `call BattleRandom` → `self.battle_random("Routine")`,
   `call Random` → `self.random("Routine")`, with the routine's name (used by
   the differential tester to say which routine drew a byte).
@@ -71,8 +80,28 @@ snapshot (about 8 KB).
 
 ## Verification
 
-`examples/engine_diff.rs` (coming next) runs random battles on both engines in
-lockstep: same scenario, same seed, same decisions. At each decision it
-compares the legal actions, the random-stream state and the battle memory
-(a whitelist of logic-relevant ranges), and reports the first divergence with
-symbol names and the oracle's `Random` caller log.
+Three tools compare the engine with the original (the transpiled code on the
+emulated CPU). Build them in release (`CARGO_TARGET_DIR=target-plain cargo
+build --release --examples`).
+
+- `engine_diff [link|wild|trainer] <battles> <first_seed> <moves...>`: random
+  battles (random parties, held items, bags, traded mons, badges; a random
+  policy) on both engines in lockstep. Checks the start state, every decision
+  (site, legal actions, random-stream state, memory, battle text) and the end
+  of the battle (memory, random stream, text). A random-stream divergence names
+  the first differing draw and who drew it on each side. `NO_TEXT=1` skips the
+  text, `NO_ITEMS=1` the bag, `LONG_BATTLES=1` keeps the policy from ending a
+  wild battle early.
+- `engine_fixtures fixtures/*.toml`: the recorded fixture corpus, each
+  recording's decisions driving both engines in lockstep (same checks).
+- `api_diff [link|wild|trainer] <battles> <first_seed>`: the library API on
+  both engines, `battle::Battle` against `battle::EmulatedBattle`: every
+  `Decision` (site, side, legal actions, typed state, events) and the outcome.
+
+`engine_bench [battles]` measures battles per second on both.
+
+Scenarios where the original game itself freezes (a wild Unown with no
+unlocked letters) or the harness can't run it are skipped by a cycle
+watchdog. Known gap: a glitch that reads past WRAM (Beat Up with a stale loop
+counter walking past the party) reads graphics state the engine doesn't keep;
+the engine stops there with a panic rather than guess.
