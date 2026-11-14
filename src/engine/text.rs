@@ -128,9 +128,9 @@ impl Engine {
                     for i in 0..u16::from(bytes) {
                         value = value << 8 | u32::from(self.mem.rb(addr + i));
                     }
-                    let s = value.to_string();
-                    let s = if s.len() > digits { &s[s.len() - digits..] } else { &s[..] };
-                    out.push(s);
+                    for c in print_num_left_aligned(value, digits as u8) {
+                        out.push(decode(c));
+                    }
                 }
                 0x0a | 0x0b | 0x0e..=0x13 => {} // pause and sounds
                 0x0c => {
@@ -287,4 +287,41 @@ impl Engine {
             _ => panic!("unported text_asm at {addr:#08x} ({name})"),
         })
     }
+}
+
+/// `_PrintNum` as `TextCommand_DECIMAL` calls it (left-aligned, no leading
+/// zeros, no money sign): the characters it writes for `value`. Faithful to
+/// the original's quirks: a digit count outside 2..=6 prints seven places,
+/// a place's digit can exceed 9 when `value` doesn't fit the places (it is
+/// then the character after `'9'`), and the final two places only look at
+/// the low byte of what is left.
+fn print_num_left_aligned(value: u32, digits: u8) -> Vec<u8> {
+    const ZERO: u8 = 0xf6; // '0'
+    let places: &[u32] = match digits {
+        2 => &[],
+        3 => &[100],
+        4 => &[1000, 100],
+        5 => &[10000, 1000, 100],
+        6 => &[100_000, 10000, 1000, 100],
+        _ => &[1_000_000, 100_000, 10000, 1000, 100],
+    };
+    let mut v = value & 0xff_ffff;
+    let mut out = Vec::new();
+    let mut started = false;
+    for &place in places {
+        let c = (v / place) as u8;
+        v %= place;
+        if started || c != 0 {
+            started = true;
+            out.push(ZERO.wrapping_add(c));
+        }
+    }
+    // .two: tens and units from the low byte.
+    let low = (v & 0xff) as u8;
+    let (tens, units) = (low / 10, low % 10);
+    if started || tens != 0 {
+        out.push(ZERO.wrapping_add(tens));
+    }
+    out.push(ZERO + units);
+    out
 }
