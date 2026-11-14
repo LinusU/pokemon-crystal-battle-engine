@@ -11,6 +11,7 @@ use super::core::{TurnEnd, TurnEntry};
 use crate::battle::BattleState;
 use crate::bootstrap::BattleConfig;
 use crate::bootstrap::decision::{PromptSite, Step};
+use crate::bootstrap::events::Event;
 use crate::bootstrap::snapshot::Outcome;
 
 /// Where a [`FastBattle`] is.
@@ -37,32 +38,51 @@ pub struct FastBattle {
     texts: Vec<TextRef>,
     /// How many of the current turn's texts were already reported.
     turn_texts_seen: usize,
+    /// Events (text messages, HP bars) shown during the last step, when on.
+    events: Vec<Event>,
+    /// How many of the current turn's events were already reported.
+    turn_events_seen: usize,
 }
 
 impl FastBattle {
     /// Start a battle on the hand-written engine (`start::start`: the
     /// scenario's WRAM, the game's own battle start). A scenario only the
     /// emulated harness supports (see `start::StartError::Unsupported`) starts
-    /// through the oracle instead; a malformed one gives `None`.
-    pub fn new(config: &BattleConfig, seed: u64) -> Option<FastBattle> {
-        match super::start::start(config, seed, false) {
-            Ok(engine) => Some(Self::from_engine(engine, TurnEntry::TurnStart)),
-            Err(super::start::StartError::Unsupported(_)) => Self::new_via_oracle(config, seed),
-            Err(super::start::StartError::Invalid(_)) => None,
+    /// through the oracle instead.
+    pub fn new(config: &BattleConfig, seed: u64) -> Result<FastBattle, String> {
+        Self::with_events(config, seed, false)
+    }
+
+    /// [`FastBattle::new`], and with `events` also produce the battle's
+    /// [`Event`]s (exact text messages and HP-bar changes, see
+    /// [`FastBattle::events`]). Rendering text costs time; leave it off when
+    /// only the state matters.
+    pub fn with_events(config: &BattleConfig, seed: u64, events: bool) -> Result<FastBattle, String> {
+        let mut engine = match super::start::start(config, seed, false) {
+            Ok(engine) => engine,
+            Err(super::start::StartError::Unsupported(_)) => return Self::new_via_oracle(config, seed),
+            Err(super::start::StartError::Invalid(message)) => return Err(message),
+        };
+        if events {
+            // The battle start's text, rendered again with events on.
+            let mut again = super::start::start(config, seed, true).map_err(|e| e.to_string())?;
+            again.events = Some(again.rendered.take().unwrap_or_default().into_iter().map(Event::Text).collect());
+            engine = again;
         }
+        Ok(Self::from_engine(engine, TurnEntry::TurnStart))
     }
 
     /// Start a battle by running the original engine (the transpiled code on
     /// the emulated CPU, `oracle::first_decision`) up to its first decision;
     /// the hand-written engine takes over from there. For comparison with
     /// [`FastBattle::new`].
-    pub fn new_via_oracle(config: &BattleConfig, seed: u64) -> Option<FastBattle> {
-        let first = super::oracle::first_decision(config, seed)?;
+    pub fn new_via_oracle(config: &BattleConfig, seed: u64) -> Result<FastBattle, String> {
+        let first = super::oracle::first_decision(config, seed).ok_or("the oracle could not start the battle")?;
         let flags = Flags {
             link_battle: config.battle.kind == crate::bootstrap::BattleKind::LinkBattle,
             ..Flags::default()
         };
-        Some(Self::from_engine(Engine::new(first.mem, first.rng, flags), TurnEntry::BattleMenu))
+        Ok(Self::from_engine(Engine::new(first.mem, first.rng, flags), TurnEntry::BattleMenu))
     }
 
     /// A battle whose current turn starts at `entry` in `base`.
@@ -75,7 +95,14 @@ impl FastBattle {
             status: Status::Ended(Outcome::Draw),
             texts: Vec::new(),
             turn_texts_seen: 0,
+            events: Vec::new(),
+            turn_events_seen: 0,
         };
+        // Events printed before the first turn (the battle start).
+        if let Some(start) = battle.base.events.as_mut() {
+            battle.events = std::mem::take(start);
+        }
+        battle.current = battle.base.clone();
         battle.advance();
         battle
     }
@@ -99,6 +126,13 @@ impl FastBattle {
         &self.texts
     }
 
+    /// What the battle showed during the last step (or, before the first
+    /// step, since the battle started). Empty unless started
+    /// [`FastBattle::with_events`].
+    pub fn events(&self) -> &[Event] {
+        &self.events
+    }
+
     /// Answer the pending decision.
     pub fn step(&mut self, action: Step) -> Result<&Status, Step> {
         match &self.status {
@@ -106,6 +140,7 @@ impl FastBattle {
             _ => return Err(action),
         }
         self.turn_decisions.push(action);
+        self.events.clear();
         self.advance();
         Ok(&self.status)
     }
@@ -123,12 +158,14 @@ impl FastBattle {
                     // A replay re-prints the turn so far; only the rest is new.
                     self.texts.extend_from_slice(&engine.texts[self.turn_texts_seen..]);
                     self.turn_texts_seen = engine.texts.len();
+                    self.take_events(&engine);
                     self.current = engine;
                     self.status = Status::Decision { site, legal };
                     return;
                 }
                 Ok(TurnEnd::Quit) => {
                     self.texts.extend_from_slice(&engine.texts[self.turn_texts_seen..]);
+                    self.take_events(&engine);
                     self.status = Status::Ended(outcome(&engine));
                     self.current = engine;
                     return;
@@ -137,12 +174,27 @@ impl FastBattle {
                     self.texts.extend_from_slice(&engine.texts[self.turn_texts_seen..]);
                     self.turn_texts_seen = 0;
                     engine.texts.clear();
+                    self.take_events(&engine);
+                    self.turn_events_seen = 0;
+                    if let Some(events) = engine.events.as_mut() {
+                        events.clear();
+                    }
                     engine.pending.clear();
                     self.base = engine;
                     self.entry = TurnEntry::TurnStart;
                     self.turn_decisions.clear();
                 }
             }
+        }
+    }
+}
+
+impl FastBattle {
+    /// Move the events `engine` produced in this turn that weren't reported yet.
+    fn take_events(&mut self, engine: &Engine) {
+        if let Some(events) = engine.events.as_ref() {
+            self.events.extend_from_slice(&events[self.turn_events_seen..]);
+            self.turn_events_seen = events.len();
         }
     }
 }

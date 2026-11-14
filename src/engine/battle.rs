@@ -72,11 +72,14 @@ pub struct Engine {
     /// `Cpu::poke_rom` patches of a trainer's AI flags. Read through
     /// [`Engine::rom_byte`].
     pub rom_overlay: Vec<(usize, u8)>,
+    /// When `Some`, what the battle shows, in the emulated harness's format
+    /// (`bootstrap::events`): every text message and every HP-bar change.
+    pub events: Option<Vec<crate::bootstrap::events::Event>>,
 }
 
 impl Engine {
     pub fn new(mem: Mem, rng: u64, flags: Flags) -> Self {
-        Engine { mem, rng, flags, pending: VecDeque::new(), texts: Vec::new(), rng_trace: None, decision_log: None, damage_regs: [0; 4], rendered: None, text_log: Vec::new(), rom_overlay: Vec::new() }
+        Engine { mem, rng, flags, pending: VecDeque::new(), texts: Vec::new(), rng_trace: None, decision_log: None, damage_regs: [0; 4], rendered: None, text_log: Vec::new(), rom_overlay: Vec::new(), events: None }
     }
 
     /// A ROM byte, as patched by the scenario's [`Engine::rom_overlay`].
@@ -241,9 +244,14 @@ impl Engine {
             self.battle_get_trainer_name();
         }
         self.texts.push(TextRef(label));
-        if self.rendered.is_some() {
+        if self.rendered.is_some() || self.events.is_some() {
             let messages = self.render_text(label, choices);
-            self.rendered.as_mut().unwrap().extend(messages);
+            if let Some(events) = self.events.as_mut() {
+                events.extend(messages.iter().cloned().map(crate::bootstrap::events::Event::Text));
+            }
+            if let Some(rendered) = self.rendered.as_mut() {
+                rendered.extend(messages);
+            }
         }
     }
 

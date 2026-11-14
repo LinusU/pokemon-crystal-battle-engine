@@ -802,6 +802,20 @@ impl Engine {
     /// `AnimateHPBar` / `_AnimateHPBar`: the HP bar animation's effect on
     /// memory (`wCurHPAnim*`, `wCurHPBarPixels`, ...); nothing is drawn.
     pub fn animate_hp_bar(&mut self) {
+        if let Some(events) = self.events.as_mut() {
+            use crate::bootstrap::events::{Event, HpBarTarget};
+            let target = match self.mem.rb(W_WHICH_HP_BAR) {
+                0 => HpBarTarget::Enemy,
+                1 => HpBarTarget::Player,
+                _ => HpBarTarget::Party(self.mem.rb(W_CUR_PARTY_MON)),
+            };
+            events.push(Event::HpBar {
+                target,
+                from: self.mem.rw_le(W_CUR_HP_ANIM_OLD_HP),
+                to: self.mem.rw_le(W_CUR_HP_ANIM_NEW_HP),
+                max: self.mem.rw_le(W_CUR_HP_ANIM_MAX_HP),
+            });
+        }
         let more_than_48 = self.mem.rb(W_CUR_HP_ANIM_MAX_HP + 1) != 0
             || i32::from(self.mem.rb(W_CUR_HP_ANIM_MAX_HP)) >= HP_BAR_LENGTH_PX;
         let step = self.hp_bar_compute_pixels();
