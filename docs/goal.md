@@ -116,7 +116,7 @@ The overall plan, in five phases:
       catch itself). Link battles with plain
       damaging moves match the original exactly (300/300 random battles).
       Missing: most status/stat/special move effects, AI, the capture
-      bookkeeping after a catch, experience, wild/trainer setup, text rendering.
+      bookkeeping after a catch, experience, text rendering. Battle setup (link/wild/trainer, `src/engine/start.rs`) is ported: its state matches the oracle's first decision exactly (`diff::check_start`).
       Original plan: pure Rust, typed state, no `Cpu`,
       `Clone`-able (so an AI can search ahead), emits `BattleEvent`s. Game data
       (base stats, moves, type chart, trainer parties, item attributes, AI data)

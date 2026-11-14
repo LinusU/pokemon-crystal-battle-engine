@@ -22,6 +22,7 @@ Goal and exactness contract: [goal.md](goal.md).
 >>>>>>> worktree-agent-a54e7407892478d18
 | `todo.rs` | Stubs for routines not ported yet; each panics with the original's name. |
 | `oracle.rs` | Runs the original engine and records memory, RNG state, legal actions and a random policy's action at every decision, plus every `Random` call with its caller. |
+| `start.rs` | Starting a battle without the emulator: the harness's scenario seeding (player, bag, badges, parties; mirrors `bootstrap::launch_*`) and the game's `TryAddMonToParty`, `StartBattle`/`BattleIntro`, `ReadTrainerParty`, `InitEnemy*`, `BattleStartMessage` and `DoBattle`'s opening, up to the first `BattleTurn`. `FastBattle::new` uses it; `FastBattle::new_via_oracle` keeps the emulated start. Not modelled (graphics/audio/boot scratch, listed in `diff::START_IGNORED`); rival trainers and `[enemy_trainer]` AI overrides fall back to the oracle. |
 | `testgen.rs` | Random scenarios for differential testing. |
 
 ### Decisions, `step`, and cloning
