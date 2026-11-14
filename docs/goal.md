@@ -67,11 +67,16 @@ The overall plan, in five phases:
   them up), balls are legal in trainer battles (the original tosses the ball
   and spends the turn), heal-everything items are legal on a confused active
   mon, and no item is legal in a link battle.
-- **Hand-rolled switch.** The action-menu switch replicates only the WRAM writes
-  of `TryPlayerSwitch`. To be checked line by line against the ASM; switch is
-  logic-relevant (it decides Pursuit, trapping, etc.).
-- **`Random` flags.** The RNG patch always clears carry on return; the original
-  leaves carry from the final `sbc`. To be checked whether any caller reads it.
+- ✅ **Hand-rolled switch (checked).** The action-menu switch writes what
+  `TryPlayerSwitch` writes (`wLastPlayerMon`, `wBattlePlayerAction`,
+  `wCurPartyMon`, `wCurBattleMon`) and tail-calls the real `PlayerSwitch`. The
+  only original writes it skips are UI (party-menu cursor, `wCurPartySpecies`,
+  which the switch-in uses solely for the cry); its trap checks are
+  `TryPlayerSwitch`'s.
+- ✅ **`Random` flags (checked).** The RNG patch returns carry clear where the
+  original returns the carry of its last `sbc`. None of the 229 `Random` /
+  `BattleRandom` call sites reads carry before overwriting it, and z (result is
+  zero) matches.
 
 ## Phase 3 — library API (on top of the transpiled engine)
 
