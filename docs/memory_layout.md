@@ -10,6 +10,7 @@ The ground truth for symbol addresses is `scratch/pokecrystal/pokecrystal.sym`, 
 | `0xcf5f` | `wMonType` | 1 | Whose mon are we operating on. Low nibble 0 = PARTYMON. |
 | `0xcf60` | `wCurSpecies` | 1 | Scratch species id; many engine routines read this. |
 | `0xcfc0` | `wInBattleTowerBattle` | 1 | Battle-Tower flag; 0 disables the special path. |
+| `0xcfcc` | `wOptions` | 1 | Game options. With `[battle] battle_scene = false` we set bit 7 (`BATTLE_SCENE`, set = animations off). |
 | `0xd108` | `wCurPartySpecies` | 1 | Species being added / opponent species. |
 | `0xd143` | `wCurPartyLevel` | 1 | Level for the mon being added or the wild encounter. |
 | `0xd204` | `wTempEnemyMonSpecies` | 1 | Set by `LoadTrainerOrWildMonPic`; we pre-seed it. |

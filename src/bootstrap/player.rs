@@ -673,6 +673,7 @@ slot = 0
                 seed: None,
                 johto_badges: None,
                 kanto_badges: None,
+            battle_scene: None,
             },
             player_party: vec![
                 MonSpec { species: "QUILAVA".into(), level: 20, moves: None, item: None },
@@ -751,6 +752,7 @@ slot = 0
                 seed: None,
                 johto_badges: None,
                 kanto_badges: None,
+            battle_scene: None,
             },
             player_party: vec![MonSpec {
                 species: "PIKACHU".into(),

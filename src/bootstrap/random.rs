@@ -172,6 +172,7 @@ fn generate(base_seed: u64, verbose: bool) -> BattleConfig {
             seed: Some(engine_seed),
             johto_badges: None,
             kanto_badges: None,
+            battle_scene: None,
         },
         player_party,
         enemy_party: Vec::new(),

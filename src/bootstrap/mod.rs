@@ -86,6 +86,14 @@ pub struct BattleHeader {
     /// one badge; `0xff` = all 8 Kanto badges held. When omitted, defaults to 0.
     #[serde(default)]
     pub kanto_badges: Option<u8>,
+    /// The game's Battle Scene option (`wOptions` bit `BATTLE_SCENE`). `true`
+    /// (the game's default, and the default when omitted) plays move
+    /// animations; `false` skips them. Battle logic is identical either way
+    /// (the whole fixture corpus replays unchanged with it off); `false` is
+    /// ~25% faster headless. Text differs in one place: with the scene off,
+    /// Present on a fully healed target also prints "…can't receive the gift".
+    #[serde(default)]
+    pub battle_scene: Option<bool>,
 }
 
 #[derive(Debug, Deserialize, Clone, Copy, PartialEq, Eq)]
@@ -166,6 +174,8 @@ pub fn load_battle(path: &std::path::Path) -> Result<BattleConfig, LoadError> {
 
 // WRAM addresses we touch. Source of truth: scratch/pokecrystal/pokecrystal.sym.
 // Keep this in sync with docs/memory_layout.md.
+/// `wOptions` (`00:cfcc`): text speed, Battle Scene, Battle Style, …
+const W_OPTIONS: u16 = 0xcfcc;
 const W_LINK_MODE: u16 = 0xc2dc;
 // Trainer item slots seeded by `GetTrainerAttributes` into WRAM 0xc650/0xc651.
 // We write them directly when an `[[enemy_items]]` override is present.
@@ -900,6 +910,11 @@ pub fn run_with(
     cpu.skip_intro_to_battle = true;
     let entry = crate::entry_routine();
     (entry.func)(cpu);
+
+    if config.battle.battle_scene == Some(false) {
+        let options = cpu.read_byte(W_OPTIONS);
+        cpu.write_byte(W_OPTIONS, options | 1 << defs::BATTLE_SCENE);
+    }
 
     match config.battle.kind {
         BattleKind::WildEncounter => launch_wild_encounter(cpu, config)?,

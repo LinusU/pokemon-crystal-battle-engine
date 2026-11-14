@@ -174,6 +174,9 @@ fn write_scenario(writer: &mut BufWriter<File>, config: &BattleConfig) -> std::i
     if let Some(badges) = config.battle.kanto_badges {
         writeln!(writer, "kanto_badges = {badges:#04x}")?;
     }
+    if let Some(scene) = config.battle.battle_scene {
+        writeln!(writer, "battle_scene = {scene}")?;
+    }
     write_party(writer, "scenario.player_party", &config.player_party)?;
     write_party(writer, "scenario.enemy_party", &config.enemy_party)?;
     write_items(writer, "scenario.player_items", &config.player_items)?;
