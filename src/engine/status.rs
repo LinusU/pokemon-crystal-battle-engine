@@ -15,104 +15,21 @@ use crate::defs::*;
 impl Engine {
     // --- small helpers (animations, text, checks) --------------------------------
 
-    /// `AnimateCurrentMove` (animation dropped; keeps the memory writes of
-    /// `BattleCommand_LowerSub`, `LoadMoveAnim` and `BattleCommand_RaiseSub`).
-    pub fn animate_current_move(&mut self) -> Flow {
-        let param = self.mem.rb(W_BATTLE_ANIM_PARAM);
-        self.battle_command_lower_sub()?;
-        self.mem.wb(W_BATTLE_ANIM_PARAM, param);
-        // LoadMoveAnim
-        self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
-        self.mem.wb(W_FX_ANIM_ID + 1, 0);
-        let a = self.battle_var(BATTLE_VARS_MOVE_ANIM);
-        if a != 0 {
-            self.mem.wb(W_FX_ANIM_ID, a);
-        }
-        self.battle_command_raise_sub()?;
-        Ok(())
-    }
 
-    /// `AnimateFailedMove`.
-    pub fn animate_failed_move(&mut self) -> Flow {
-        self.battle_command_lower_sub()?;
-        self.battle_command_move_delay()?;
-        self.battle_command_raise_sub()?;
-        Ok(())
-    }
 
-    /// `PlayOpponentBattleAnim` (the animation itself is dropped).
-    pub fn play_opponent_battle_anim(&mut self, anim: u16) {
-        self.mem.wb(W_FX_ANIM_ID, anim as u8);
-        self.mem.wb(W_FX_ANIM_ID + 1, (anim >> 8) as u8);
-        self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
-    }
 
     /// `RefreshBattleHuds`: HUD redraw only.
     fn refresh_battle_huds(&mut self) {}
 
-    /// `CheckSubstituteOpp`: nz (true) if the opponent has a substitute.
-    pub fn check_substitute_opp(&self) -> bool {
-        self.battle_var_bit(BATTLE_VARS_SUBSTATUS4_OPP, SUBSTATUS_SUBSTITUTE)
-    }
 
-    /// `SafeCheckSafeguard`: nz (true) if the opponent is safeguarded.
-    pub fn safe_check_safeguard(&self) -> bool {
-        let hl = if self.is_player_turn() { W_ENEMY_SCREENS } else { W_PLAYER_SCREENS };
-        self.mem.bit(hl, SCREENS_SAFEGUARD)
-    }
 
-    /// `CheckHiddenOpponent`: nz (true) if the opponent is flying or underground.
-    pub fn check_hidden_opponent(&self) -> bool {
-        // BUG: Lock-On and Mind Reader don't always bypass Fly and Dig
-        self.battle_var(BATTLE_VARS_SUBSTATUS3_OPP) & (1 << SUBSTATUS_FLYING | 1 << SUBSTATUS_UNDERGROUND) != 0
-    }
 
-    /// `CheckMoveTypeMatchesTarget`: z (true) if the move's type matches one of
-    /// the opponent's types, unless the move is Normal.
-    pub fn check_move_type_matches_target(&self) -> bool {
-        let hl = if self.is_player_turn() { W_ENEMY_MON_TYPE1 } else { W_BATTLE_MON_TYPE1 };
-        let t = self.battle_var(BATTLE_VARS_MOVE_TYPE);
-        if t == NORMAL {
-            return false;
-        }
-        t == self.mem.rb(hl) || t == self.mem.rb(hl + 1)
-    }
 
-    /// `EndRechargeOpp`.
-    pub fn end_recharge_opp(&mut self) {
-        self.res_battle_var_bit(BATTLE_VARS_SUBSTATUS4_OPP, SUBSTATUS_RECHARGE);
-    }
 
-    /// `PrintParalyze`.
-    pub fn print_paralyze(&mut self) {
-        self.text(r::PARALYZED_TEXT);
-    }
 
-    /// `FailText_CheckOpponentProtect`.
-    pub fn fail_text_check_opponent_protect(&mut self, hl: usize, de: usize) {
-        let text = if self.battle_var_bit(BATTLE_VARS_SUBSTATUS1_OPP, SUBSTATUS_PROTECT) { de } else { hl };
-        self.text(text);
-    }
 
-    /// `PrintDidntAffect2`.
-    pub fn print_didnt_affect2(&mut self) -> Flow {
-        self.animate_failed_move()?;
-        self.fail_text_check_opponent_protect(r::DIDNT_AFFECT1_TEXT, r::DIDNT_AFFECT2_TEXT);
-        Ok(())
-    }
 
-    /// `PrintButItFailed`.
-    pub fn print_but_it_failed(&mut self) {
-        self.text(r::BUT_IT_FAILED_TEXT);
-    }
 
-    /// `TryPrintButItFailed`.
-    pub fn try_print_but_it_failed(&mut self) {
-        if self.mem.rb(W_ALREADY_FAILED) != 0 {
-            return;
-        }
-        self.print_but_it_failed();
-    }
 
     /// The `.fail` tail shared by several commands: animate the failure, then print `hl`.
     fn fail_with_text(&mut self, hl: usize) -> Flow<Cmd> {

@@ -50,7 +50,7 @@ impl Engine {
     }
 
     /// `PlayOpponentBattleAnim` (`de` = animation id).
-    fn play_opponent_battle_anim(&mut self, de: u16) {
+    pub fn play_opponent_battle_anim(&mut self, de: u16) {
         self.mem.wb(W_FX_ANIM_ID, de as u8);
         self.mem.wb(W_FX_ANIM_ID + 1, (de >> 8) as u8);
         self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
