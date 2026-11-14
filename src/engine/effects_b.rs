@@ -39,11 +39,6 @@ impl Engine {
         self.mem.wb(W_BATTLE_AFTER_ANIM, after as u8);
     }
 
-    /// `AICheckPlayerMaxHP` / `AICheckEnemyMaxHP`: carry (`true`) if the HP at `hp` equals max HP at `max`.
-    fn ai_check_max_hp(&self, hp: u16, max: u16) -> bool {
-        self.mem.rb(hp) == self.mem.rb(max) && self.mem.rb(hp + 1) == self.mem.rb(max + 1)
-    }
-
     // --- nightmare.asm -----------------------------------------------------------------
 
     /// `BattleCommand_Nightmare`.
@@ -209,9 +204,9 @@ impl Engine {
         self.animate_current_move();
         self.switch_turn();
         let full = if self.is_player_turn() {
-            self.ai_check_max_hp(W_BATTLE_MON_HP, W_BATTLE_MON_MAX_HP)
+            self.ai_check_max_hp(W_BATTLE_MON_HP)
         } else {
-            self.ai_check_max_hp(W_ENEMY_MON_HP, W_ENEMY_MON_MAX_HP)
+            self.ai_check_max_hp(W_ENEMY_MON_HP)
         };
         if !full {
             let bc = self.get_quarter_max_hp();
