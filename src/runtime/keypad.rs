@@ -46,6 +46,12 @@ impl Keypad {
     /// Read the joypad register (FF00). Returns the currently latched value;
     /// callers must invoke [`Keypad::do_cycle`] periodically to drain pending
     /// input events into the latched state.
+    /// Whether input events can arrive (the GUI). Without them the rows never
+    /// change, and `wb` already refreshes the register, so `do_cycle` is a no-op.
+    pub fn has_events(&self) -> bool {
+        self.events.is_some()
+    }
+
     pub fn rb(&self) -> u8 {
         self.data
     }

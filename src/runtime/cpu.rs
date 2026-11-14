@@ -127,6 +127,11 @@ pub struct Cpu {
     /// in place of the engine's original DIV-driven entropy. xorshift64; never zero.
     /// Reseed with [`Cpu::seed_rng`].
     rng_state: u64,
+    /// Lazy GPU stepping (headless only): banked ticks not yet given to the
+    /// GPU, and how many ticks the GPU can go before its next event.
+    gpu_lazy: bool,
+    gpu_debt: u32,
+    gpu_budget: u32,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -172,6 +177,9 @@ impl Default for Cpu {
             cli_pending_party_target: None,
             cli_pending_item_move: None,
             events: None,
+            gpu_lazy: false,
+            gpu_debt: 0,
+            gpu_budget: 0,
             rom_patches: Vec::new(),
             trainer_party_override: false,
             mbc: Mbc::new(crate::rom::ROM),
@@ -233,6 +241,8 @@ impl Cpu {
         cpu.gpu = Gpu::new_cgb(update_screen);
         cpu.keypad = Keypad::new(keypad_events);
         cpu.set_initial_hardware();
+        cpu.gpu_lazy = !cpu.gpu.has_screen();
+        cpu.gpu_budget = cpu.gpu.ticks_until_event();
         cpu
     }
 
@@ -325,16 +335,48 @@ impl Cpu {
 
     pub fn cycle(&mut self, cycles: u64) {
         let vram_cycles = self.perform_vramdma();
-        self.cycles += cycles + u64::from(vram_cycles);
-        self.gpu.do_cycle(cycles as u32 + vram_cycles);
-        self.keypad.do_cycle();
-        self.tick_div(cycles as u32 + vram_cycles);
+        let ticks = cycles as u32 + vram_cycles;
+        self.cycles += u64::from(ticks);
+        self.advance_gpu(ticks);
+        if self.keypad.has_events() {
+            self.keypad.do_cycle();
+        }
+        self.tick_div(ticks);
         self.request_interrupt(self.gpu.interrupt);
         self.gpu.interrupt = 0;
         self.request_interrupt(self.keypad.interrupt);
         self.keypad.interrupt = 0;
         self.update_interrupt_master();
         self.service_interrupt();
+    }
+
+    /// Advance the GPU by `ticks`. Headless (no screen) and with no HBlank DMA
+    /// running, nothing can observe the GPU between its events except STAT/LY
+    /// reads (answered by `Gpu::rb_after`) and register writes (which sync
+    /// first), so the ticks are banked and replayed in one `do_cycle` call as
+    /// soon as the next event is due. Because events land on multiples of 4
+    /// ticks and instructions are at most 24 apart, the event — and its
+    /// interrupt — happens in the same `cycle` call as when stepping eagerly.
+    fn advance_gpu(&mut self, ticks: u32) {
+        if self.gpu_lazy && self.hdma_status == DmaType::NoDma {
+            self.gpu_debt += ticks;
+            if self.gpu_debt >= self.gpu_budget {
+                self.sync_gpu();
+            }
+        } else {
+            self.sync_gpu();
+            self.gpu.do_cycle(ticks);
+            self.gpu_budget = self.gpu.ticks_until_event();
+        }
+    }
+
+    /// Replay banked GPU ticks (see `advance_gpu`).
+    fn sync_gpu(&mut self) {
+        if self.gpu_debt > 0 {
+            let debt = std::mem::take(&mut self.gpu_debt);
+            self.gpu.do_cycle(debt);
+        }
+        self.gpu_budget = self.gpu.ticks_until_event();
     }
 
     fn tick_div(&mut self, cycles: u32) {
@@ -379,6 +421,7 @@ impl Cpu {
             0xff04 => self.div,
             Self::R_IF => self.intf | 0xe0,
             0xff4d => 0x7e | if self.speed_double { 0x80 } else { 0 } | u8::from(self.speed_switch_req),
+            0xff41 | 0xff44 if self.gpu_debt > 0 => self.gpu.rb_after(addr, self.gpu_debt),
             0xff40..=0xff4f => self.gpu.rb(addr),
             0xff51..=0xff55 => self.hdma_read(addr),
             0xff68..=0xff6b => self.gpu.rb(addr),
@@ -411,8 +454,15 @@ impl Cpu {
             Self::R_IF => self.intf = value,
             0xff46 => self.oamdma(value),
             0xff4d => self.speed_switch_req = value & 0x01 != 0,
-            0xff40..=0xff4f => self.gpu.wb(addr, value),
-            0xff51..=0xff55 => self.hdma_write(addr, value),
+            0xff40..=0xff4f => {
+                self.sync_gpu();
+                self.gpu.wb(addr, value);
+                self.gpu_budget = self.gpu.ticks_until_event();
+            }
+            0xff51..=0xff55 => {
+                self.sync_gpu();
+                self.hdma_write(addr, value);
+            }
             0xff68..=0xff6b => self.gpu.wb(addr, value),
             0xff70 => {
                 self.wrambank = match value & 0x07 {
@@ -497,10 +547,13 @@ impl Cpu {
             // ticks at a time; see `Gpu::ticks_to_next_event`. Pending EI/DI
             // delays count down per `cycle` call, so step singly while one is
             // in flight.
-            let step = if self.interrupt_enable_delay == 0 && self.interrupt_disable_delay == 0 {
-                self.gpu.ticks_to_next_event()
-            } else {
+            let step = if self.interrupt_enable_delay != 0 || self.interrupt_disable_delay != 0 {
                 4
+            } else if self.gpu_lazy && self.hdma_status == DmaType::NoDma {
+                // Exactly up to the next GPU event (`advance_gpu` banks the rest).
+                self.gpu_budget.saturating_sub(self.gpu_debt).clamp(4, 1 << 16)
+            } else {
+                self.gpu.ticks_to_next_event()
             };
             self.cycle(u64::from(step));
         }
@@ -606,7 +659,7 @@ impl Cpu {
         self.push_word(self.pc);
         self.pc = 0x0040 | (u16::from(bit) << 3);
         self.cycles += 20;
-        self.gpu.do_cycle(20);
+        self.advance_gpu(20);
 
         if let Some(routine) = self.interrupt_routine(bit) {
             let was_servicing_interrupt = self.servicing_interrupt;

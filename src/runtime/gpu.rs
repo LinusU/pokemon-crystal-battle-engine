@@ -153,6 +153,67 @@ impl Gpu {
         }
     }
 
+    /// Whether a screen is attached (the GUI). Headless runs have none.
+    pub fn has_screen(&self) -> bool {
+        self.update_screen.is_some()
+    }
+
+    /// Exactly how many ticks until `do_cycle` would next change mode or line
+    /// (or `u32::MAX` with the LCD off). Every threshold is a multiple of 4.
+    pub fn ticks_until_event(&self) -> u32 {
+        if !self.lcd_on {
+            return u32::MAX;
+        }
+        let mc = self.modeclock;
+        if self.line < 144 {
+            if mc <= 80 {
+                84 - mc
+            } else if mc <= 252 {
+                256 - mc
+            } else {
+                456 - mc
+            }
+        } else {
+            456 - mc
+        }
+    }
+
+    /// `rb` for the two time-dependent registers (STAT, LY) as they will read
+    /// `ticks` from now, without advancing anything. Mirrors `do_cycle`'s
+    /// timing exactly; used while the CPU defers GPU updates.
+    pub fn rb_after(&self, a: u16, ticks: u32) -> u8 {
+        let (mut line, mut mode, mut mc) = (self.line, self.mode, self.modeclock);
+        if self.lcd_on {
+            let mut left = ticks;
+            while left > 0 {
+                let step = left.min(80);
+                mc += step;
+                left -= step;
+                if mc >= 456 {
+                    mc -= 456;
+                    line = (line + 1) % 154;
+                    if line >= 144 && mode != 1 {
+                        mode = 1;
+                    }
+                }
+                if line < 144 {
+                    mode = if mc <= 80 { 2 } else if mc <= 252 { 3 } else { 0 };
+                }
+            }
+        }
+        match a {
+            0xFF44 => line,
+            _ => {
+                0x80 | (if self.lyc_inte { 0x40 } else { 0 })
+                    | (if self.m2_inte { 0x20 } else { 0 })
+                    | (if self.m1_inte { 0x10 } else { 0 })
+                    | (if self.m0_inte { 0x08 } else { 0 })
+                    | (if line == self.lyc { 0x04 } else { 0 })
+                    | mode
+            }
+        }
+    }
+
     /// The fewest ticks (a multiple of 4, at most 80) after which `do_cycle`
     /// could change mode, line or raise an interrupt. Stepping a halted CPU
     /// by this amount instead of 4 ticks at a time lands every mode change
