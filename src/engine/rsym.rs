@@ -617,6 +617,13 @@ pub const BATTLE_COMMAND_BIDE_FAIL_TEXT: usize = 0x035165; // 0d:5165 BattleComm
 pub const BATTLE_COMMAND_BUILD_OPPONENT_RAGE: usize = 0x035250; // 0d:5250 BattleCommand_BuildOpponentRage
 pub const BATTLE_COMMAND_BURN_TARGET: usize = 0x03608c; // 0d:608c BattleCommand_BurnTarget
 pub const BATTLE_COMMAND_CHARGE: usize = 0x036b4d; // 0d:6b4d BattleCommand_Charge
+pub const BATTLE_COMMAND_CHARGE_BATTLE_DUG_TEXT: usize = 0x036c27; // 0d:6c27 BattleCommand_Charge.BattleDugText
+pub const BATTLE_COMMAND_CHARGE_BATTLE_FLEW_TEXT: usize = 0x036c22; // 0d:6c22 BattleCommand_Charge.BattleFlewText
+pub const BATTLE_COMMAND_CHARGE_BATTLE_GLOWING_TEXT: usize = 0x036c1d; // 0d:6c1d BattleCommand_Charge.BattleGlowingText
+pub const BATTLE_COMMAND_CHARGE_BATTLE_LOWERED_HEAD_TEXT: usize = 0x036c18; // 0d:6c18 BattleCommand_Charge.BattleLoweredHeadText
+pub const BATTLE_COMMAND_CHARGE_BATTLE_MADE_WHIRLWIND_TEXT: usize = 0x036c0e; // 0d:6c0e BattleCommand_Charge.BattleMadeWhirlwindText
+pub const BATTLE_COMMAND_CHARGE_BATTLE_TOOK_SUNLIGHT_TEXT: usize = 0x036c13; // 0d:6c13 BattleCommand_Charge.BattleTookSunlightText
+pub const BATTLE_COMMAND_CHARGE_USED_TEXT: usize = 0x036bdb; // 0d:6bdb BattleCommand_Charge.UsedText
 pub const BATTLE_COMMAND_CHECK_CHARGE: usize = 0x036b3a; // 0d:6b3a BattleCommand_CheckCharge
 pub const BATTLE_COMMAND_CHECK_FAINT: usize = 0x0351c0; // 0d:51c0 BattleCommand_CheckFaint
 pub const BATTLE_COMMAND_CHECK_FUTURE_SIGHT: usize = 0x037d0d; // 0d:7d0d BattleCommand_CheckFutureSight
@@ -754,11 +761,15 @@ pub const BATTLE_COMMAND_STAT_DOWN: usize = 0x0362e3; // 0d:62e3 BattleCommand_S
 pub const BATTLE_COMMAND_STAT_DOWN_ANIM: usize = 0x034fdb; // 0d:4fdb BattleCommand_StatDownAnim
 pub const BATTLE_COMMAND_STAT_DOWN_FAIL_TEXT: usize = 0x03646a; // 0d:646a BattleCommand_StatDownFailText
 pub const BATTLE_COMMAND_STAT_DOWN_MESSAGE: usize = 0x0363e9; // 0d:63e9 BattleCommand_StatDownMessage
+pub const BATTLE_COMMAND_STAT_DOWN_MESSAGE_BATTLE_STAT_FELL_TEXT: usize = 0x036415; // 0d:6415 BattleCommand_StatDownMessage.BattleStatFellText
+pub const BATTLE_COMMAND_STAT_DOWN_MESSAGE_BATTLE_STAT_SHARPLY_FELL_TEXT: usize = 0x036410; // 0d:6410 BattleCommand_StatDownMessage.BattleStatSharplyFellText
 pub const BATTLE_COMMAND_STAT_UP: usize = 0x0361e4; // 0d:61e4 BattleCommand_StatUp
 pub const BATTLE_COMMAND_STAT_UP_ANIM: usize = 0x034fd1; // 0d:4fd1 BattleCommand_StatUpAnim
 pub const BATTLE_COMMAND_STAT_UP_DOWN_ANIM: usize = 0x034feb; // 0d:4feb BattleCommand_StatUpDownAnim
 pub const BATTLE_COMMAND_STAT_UP_FAIL_TEXT: usize = 0x03644c; // 0d:644c BattleCommand_StatUpFailText
 pub const BATTLE_COMMAND_STAT_UP_MESSAGE: usize = 0x0363b8; // 0d:63b8 BattleCommand_StatUpMessage
+pub const BATTLE_COMMAND_STAT_UP_MESSAGE_BATTLE_STAT_WENT_UP_TEXT: usize = 0x0363e4; // 0d:63e4 BattleCommand_StatUpMessage.BattleStatWentUpText
+pub const BATTLE_COMMAND_STAT_UP_MESSAGE_BATTLE_STAT_WENT_WAY_UP_TEXT: usize = 0x0363df; // 0d:63df BattleCommand_StatUpMessage.BattleStatWentWayUpText
 pub const BATTLE_COMMAND_STORE_ENERGY: usize = 0x036671; // 0d:6671 BattleCommand_StoreEnergy
 pub const BATTLE_COMMAND_SUBSTITUTE: usize = 0x036e7c; // 0d:6e7c BattleCommand_Substitute
 pub const BATTLE_COMMAND_SUPER_EFFECTIVE_LOOP_TEXT: usize = 0x0351a5; // 0d:51a5 BattleCommand_SuperEffectiveLoopText
@@ -782,6 +793,7 @@ pub const BATTLE_INTRO: usize = 0x03f4dd; // 0f:74dd BattleIntro
 pub const BATTLE_INTRO_SLIDING_PICS: usize = 0x04e980; // 13:6980 BattleIntroSlidingPics
 pub const BATTLE_MENU: usize = 0x03e139; // 0f:6139 BattleMenu
 pub const BATTLE_MENU_HEADER: usize = 0x024f2c; // 09:4f2c BattleMenuHeader
+pub const BATTLE_MENU_HEADER_TEXT: usize = 0x024f3d; // 09:4f3d BattleMenuHeader.Text
 pub const BATTLE_MENU_PKMN_LOOP: usize = 0x03e299; // 0f:6299 BattleMenuPKMN_Loop
 pub const BATTLE_MENU_PKMN_RETURN_FROM_STATS: usize = 0x03e290; // 0f:6290 BattleMenuPKMN_ReturnFromStats
 pub const BATTLE_MENU_FIGHT: usize = 0x03e192; // 0f:6192 BattleMenu_Fight
@@ -797,6 +809,7 @@ pub const BATTLE_RANDOM: usize = 0x002f9f; // 00:2f9f BattleRandom
 pub const BATTLE_RESTORE_PP: usize = 0x00f652; // 03:7652 BattleRestorePP
 pub const BATTLE_SIDE_COPY: usize = 0x0372c6; // 0d:72c6 BattleSideCopy
 pub const BATTLE_START_MESSAGE: usize = 0x03fc8b; // 0f:7c8b BattleStartMessage
+pub const BATTLE_START_MESSAGE_PRINT_BATTLE_START_TEXT: usize = 0x03fd0e; // 0f:7d0e BattleStartMessage.PrintBattleStartText
 pub const BATTLE_START_COPY_TILEMAP_AT_ONCE: usize = 0x08cf4f; // 23:4f4f BattleStart_CopyTilemapAtOnce
 pub const BATTLE_START_TRAINER_HUDS: usize = 0x02c000; // 0b:4000 BattleStart_TrainerHuds
 pub const BATTLE_STATS_SCREEN_INIT: usize = 0x04dc7b; // 13:5c7b BattleStatsScreenInit
@@ -915,6 +928,8 @@ pub const BILLS_PC_CLEAR_TILEMAP: usize = 0x0e35e2; // 38:75e2 BillsPC_ClearTile
 pub const BILLS_PC_COPY_MON: usize = 0x0e2fd6; // 38:6fd6 BillsPC_CopyMon
 pub const BILLS_PC_DEPOSIT_MENU: usize = 0x00e4fe; // 03:64fe BillsPC_DepositMenu
 pub const BILLS_PC_DEPOSIT_CHECK_PARTY_SIZE: usize = 0x00e512; // 03:6512 BillsPC_Deposit_CheckPartySize
+pub const BILLS_PC_DEPOSIT_CHECK_PARTY_SIZE_PC_CANT_DEPOSIT_LAST_MON_TEXT: usize = 0x00e533; // 03:6533 BillsPC_Deposit_CheckPartySize.PCCantDepositLastMonText
+pub const BILLS_PC_DEPOSIT_CHECK_PARTY_SIZE_PC_NO_SINGLE_MON_TEXT: usize = 0x00e52e; // 03:652e BillsPC_Deposit_CheckPartySize.PCNoSingleMonText
 pub const BILLS_PC_END_JUMPTABLE_LOOP: usize = 0x0e2992; // 38:6992 BillsPC_EndJumptableLoop
 pub const BILLS_PC_FILL_BOX: usize = 0x0e2ed5; // 38:6ed5 BillsPC_FillBox
 pub const BILLS_PC_GET_SELECTED_POKEMON_SPECIES: usize = 0x0e2def; // 38:6def BillsPC_GetSelectedPokemonSpecies
@@ -928,6 +943,7 @@ pub const BILLS_PC_LEFT_RIGHT_DID_SOMETHING: usize = 0x0e2a6c; // 38:6a6c BillsP
 pub const BILLS_PC_LOAD_MON_STATS: usize = 0x0e2b6d; // 38:6b6d BillsPC_LoadMonStats
 pub const BILLS_PC_MOVE_MON_WO_MAIL_BOX_NAME_AND_ARROWS: usize = 0x0e2a80; // 38:6a80 BillsPC_MoveMonWOMail_BoxNameAndArrows
 pub const BILLS_PC_MOVE_PKMN_MENU: usize = 0x00e4cd; // 03:64cd BillsPC_MovePKMNMenu
+pub const BILLS_PC_MOVE_PKMN_MENU_PC_MON_HOLDING_MAIL_TEXT: usize = 0x00e4f9; // 03:64f9 BillsPC_MovePKMNMenu.PCMonHoldingMailText
 pub const BILLS_PC_PLACE_CHANGE_BOX_STRING: usize = 0x0e37e3; // 38:77e3 BillsPC_PlaceChangeBoxString
 pub const BILLS_PC_PLACE_CHOOSE_A_BOX_STRING: usize = 0x0e379c; // 38:779c BillsPC_PlaceChooseABoxString
 pub const BILLS_PC_PLACE_EMPTY_BOX_STRING_SFX: usize = 0x0e37be; // 38:77be BillsPC_PlaceEmptyBoxString_SFX
@@ -965,6 +981,7 @@ pub const BLISSEY_POKEDEX_ENTRY: usize = 0x1d14f7; // 74:54f7 BlisseyPokedexEntr
 pub const BLIZZARD_DESCRIPTION: usize = 0x02d48b; // 0b:548b BlizzardDescription
 pub const BLOWN_AWAY_TEXT: usize = 0x0812d2; // 20:52d2 BlownAwayText
 pub const BLUE_CARD_EFFECT: usize = 0x00f58f; // 03:758f BlueCardEffect
+pub const BLUE_CARD_EFFECT_BLUE_CARD_BALANCE_TEXT: usize = 0x00f595; // 03:7595 BlueCardEffect.BlueCardBalanceText
 pub const BLUE_SKY_MAIL_GRASS_GFX: usize = 0x0b992e; // 2e:592e BlueSkyMailGrassGFX
 pub const BODY_SLAM_DESCRIPTION: usize = 0x02d165; // 0b:5165 BodySlamDescription
 pub const BONE_CLUB_DESCRIPTION: usize = 0x02dcf4; // 0b:5cf4 BoneClubDescription
@@ -983,11 +1000,18 @@ pub const BUBBLE_DESCRIPTION: usize = 0x02df79; // 0b:5f79 BubbleDescription
 pub const BUBBLEBEAM_DESCRIPTION: usize = 0x02d4d2; // 0b:54d2 BubblebeamDescription
 pub const BUENA_PRINT_TEXT: usize = 0x00105a; // 00:105a BuenaPrintText
 pub const BUENA_PRIZE: usize = 0x08afd4; // 22:6fd4 BuenaPrize
+pub const BUENA_PRIZE_BUENA_ASK_WHICH_PRIZE_TEXT: usize = 0x08b072; // 22:7072 BuenaPrize.BuenaAskWhichPrizeText
+pub const BUENA_PRIZE_BUENA_COME_AGAIN_TEXT: usize = 0x08b08b; // 22:708b BuenaPrize.BuenaComeAgainText
+pub const BUENA_PRIZE_BUENA_HERE_YOU_GO_TEXT: usize = 0x08b07c; // 22:707c BuenaPrize.BuenaHereYouGoText
+pub const BUENA_PRIZE_BUENA_IS_THAT_RIGHT_TEXT: usize = 0x08b077; // 22:7077 BuenaPrize.BuenaIsThatRightText
+pub const BUENA_PRIZE_BUENA_NO_ROOM_TEXT: usize = 0x08b086; // 22:7086 BuenaPrize.BuenaNoRoomText
+pub const BUENA_PRIZE_BUENA_NOT_ENOUGH_POINTS_TEXT: usize = 0x08b081; // 22:7081 BuenaPrize.BuenaNotEnoughPointsText
 pub const BUENAS_PASSWORD: usize = 0x08af6b; // 22:6f6b BuenasPassword
 pub const BUFFER_SCREEN: usize = 0x002879; // 00:2879 BufferScreen
 pub const BUG_CATCHING_CONTESTANT_EVENT_FLAG_TABLE: usize = 0x0139fe; // 04:79fe BugCatchingContestantEventFlagTable
 pub const BUG_CONTEST_JUDGING: usize = 0x00c34a; // 03:434a BugContestJudging
 pub const BUG_CONTEST_SET_CAUGHT_CONTEST_MON: usize = 0x00e6ce; // 03:66ce BugContest_SetCaughtContestMon
+pub const BUG_CONTEST_SET_CAUGHT_CONTEST_MON_CONTEST_CAUGHT_MON_TEXT: usize = 0x00e71d; // 03:671d BugContest_SetCaughtContestMon.ContestCaughtMonText
 pub const BUG_CONTESTANT_POINTERS: usize = 0x013783; // 04:7783 BugContestantPointers
 pub const BUG_CONTESTANT_BUG_CATCHER_BENNY: usize = 0x0137c5; // 04:77c5 BugContestant_BugCatcherBenny
 pub const BUG_CONTESTANT_BUG_CATCHER_DON: usize = 0x013799; // 04:7799 BugContestant_BugCatcherDon
@@ -1095,6 +1119,7 @@ pub const CHECK_ANY_OTHER_ALIVE_MONS: usize = 0x037b01; // 0d:7b01 CheckAnyOther
 pub const CHECK_ANY_OTHER_ALIVE_PARTY_MONS: usize = 0x037ae9; // 0d:7ae9 CheckAnyOtherAlivePartyMons
 pub const CHECK_B_PRESSED_DEBUG: usize = 0x002ebb; // 00:2ebb CheckBPressedDebug
 pub const CHECK_BADGE: usize = 0x00c731; // 03:4731 CheckBadge
+pub const CHECK_BADGE_BADGE_REQUIRED_TEXT: usize = 0x00c73d; // 03:473d CheckBadge.BadgeRequiredText
 pub const CHECK_BATTLE_SCENE: usize = 0x04ea44; // 13:6a44 CheckBattleScene
 pub const CHECK_BOTH_SELECTED_SAME_ROOM: usize = 0x029e82; // 0a:5e82 CheckBothSelectedSameRoom
 pub const CHECK_BREEDMON_COMPATIBILITY: usize = 0x016e1d; // 05:6e1d CheckBreedmonCompatibility
@@ -1120,6 +1145,8 @@ pub const CHECK_FIELD_DEBUG: usize = 0x002ecb; // 00:2ecb CheckFieldDebug
 pub const CHECK_FIRST_MON_IS_EGG: usize = 0x0071ac; // 01:71ac CheckFirstMonIsEgg
 pub const CHECK_FOR_BATTLE_TOWER_RULES: usize = 0x170bd3; // 5c:4bd3 CheckForBattleTowerRules
 pub const CHECK_FOR_LUCKY_NUMBER_WINNERS: usize = 0x04d87a; // 13:587a CheckForLuckyNumberWinners
+pub const CHECK_FOR_LUCKY_NUMBER_WINNERS_LUCKY_NUMBER_MATCH_PC_TEXT: usize = 0x04d9ce; // 13:59ce CheckForLuckyNumberWinners.LuckyNumberMatchPCText
+pub const CHECK_FOR_LUCKY_NUMBER_WINNERS_LUCKY_NUMBER_MATCH_PARTY_TEXT: usize = 0x04d9c9; // 13:59c9 CheckForLuckyNumberWinners.LuckyNumberMatchPartyText
 pub const CHECK_GRASS_TILE: usize = 0x001875; // 00:1875 CheckGrassTile
 pub const CHECK_HEADBUTT_TREE_TILE: usize = 0x00189a; // 00:189a CheckHeadbuttTreeTile
 pub const CHECK_HIDDEN_OPPONENT: usize = 0x037daa; // 0d:7daa CheckHiddenOpponent
@@ -1138,6 +1165,7 @@ pub const CHECK_LINK_TIMEOUT_FRAMES_NONZERO: usize = 0x00082b; // 00:082b CheckL
 pub const CHECK_LINK_TIMEOUT_RECEPTIONIST: usize = 0x029d92; // 0a:5d92 CheckLinkTimeout_Receptionist
 pub const CHECK_LUCKY_NUMBER_SHOW_FLAG: usize = 0x00c434; // 03:4434 CheckLuckyNumberShowFlag
 pub const CHECK_MAGIKARP_LENGTH: usize = 0x0fbb32; // 3e:7b32 CheckMagikarpLength
+pub const CHECK_MAGIKARP_LENGTH_MAGIKARP_GURU_MEASURE_TEXT: usize = 0x0fbba9; // 3e:7ba9 CheckMagikarpLength.MagikarpGuruMeasureText
 pub const CHECK_MIMIC_USED: usize = 0x03460b; // 0d:460b CheckMimicUsed
 pub const CHECK_MIST: usize = 0x036391; // 0d:6391 CheckMist
 pub const CHECK_MOBILE_ADAPTER_STATUS_SPECIAL: usize = 0x10630f; // 41:630f CheckMobileAdapterStatusSpecial
@@ -1263,12 +1291,14 @@ pub const CLOSE_SRAM: usize = 0x002fe1; // 00:2fe1 CloseSRAM
 pub const CLOSE_SRAM_AND_SET_CARRY_FLAG: usize = 0x00dcb1; // 03:5cb1 CloseSRAM_And_SetCarryFlag
 pub const CLOSE_SUBMENU: usize = 0x002b3c; // 00:2b3c CloseSubmenu
 pub const CLOSE_TEXT: usize = 0x002dcf; // 00:2dcf CloseText
+pub const CLOSE_TEXT_CLOSE_TEXT: usize = 0x002de2; // 00:2de2 CloseText.CloseText
 pub const CLOSE_WINDOW: usize = 0x001c17; // 00:1c17 CloseWindow
 pub const CLOYSTER_BACKPIC: usize = 0x147bd4; // 51:7bd4 CloysterBackpic
 pub const CLOYSTER_EVOS_ATTACKS: usize = 0x042f2f; // 10:6f2f CloysterEvosAttacks
 pub const CLOYSTER_FRONTPIC: usize = 0x12a964; // 4a:6964 CloysterFrontpic
 pub const CLOYSTER_POKEDEX_ENTRY: usize = 0x1b8ad9; // 6e:4ad9 CloysterPokedexEntry
 pub const COIN_CASE_EFFECT: usize = 0x00f59a; // 03:759a CoinCaseEffect
+pub const COIN_CASE_EFFECT_COIN_CASE_COUNT_TEXT: usize = 0x00f5a0; // 03:75a0 CoinCaseEffect.CoinCaseCountText
 pub const COINS_SCATTERED_TEXT: usize = 0x081435; // 20:5435 CoinsScatteredText
 pub const COLLISION_PERMISSION_TABLE: usize = 0x04ce1f; // 13:4e1f CollisionPermissionTable
 pub const COLOSSEUM: usize = 0x029ed9; // 0a:5ed9 Colosseum
@@ -1299,6 +1329,7 @@ pub const CONT_TEXT: usize = 0x001345; // 00:1345 ContText
 pub const CONTAINED_MOVE_TEXT: usize = 0x02c8c9; // 0b:48c9 ContainedMoveText
 pub const CONTEST_BATTLE_MENU: usize = 0x024f13; // 09:4f13 ContestBattleMenu
 pub const CONTEST_BATTLE_MENU_HEADER: usize = 0x024f89; // 09:4f89 ContestBattleMenuHeader
+pub const CONTEST_BATTLE_MENU_HEADER_TEXT: usize = 0x024f9a; // 09:4f9a ContestBattleMenuHeader.Text
 pub const CONTEST_DROP_OFF_MONS: usize = 0x013a12; // 04:7a12 ContestDropOffMons
 pub const CONTEST_RETURN_MONS: usize = 0x013a31; // 04:7a31 ContestReturnMons
 pub const CONTINUE_GETTING_MENU_JOYPAD: usize = 0x001f2a; // 00:1f2a ContinueGettingMenuJoypad
@@ -1401,9 +1432,20 @@ pub const DAISYS_GROOMING: usize = 0x00741d; // 01:741d DaisysGrooming
 pub const DAY_CARE_LADY: usize = 0x01672a; // 05:672a DayCareLady
 pub const DAY_CARE_MAN: usize = 0x0166d6; // 05:66d6 DayCareMan
 pub const DAY_CARE_MAN_OUTSIDE: usize = 0x016936; // 05:6936 DayCareManOutside
+pub const DAY_CARE_MAN_OUTSIDE_FOUND_AN_EGG_TEXT: usize = 0x016993; // 05:6993 DayCareManOutside.FoundAnEggText
+pub const DAY_CARE_MAN_OUTSIDE_ILL_KEEP_IT_THANKS_TEXT: usize = 0x0169a2; // 05:69a2 DayCareManOutside.IllKeepItThanksText
+pub const DAY_CARE_MAN_OUTSIDE_NO_ROOM_FOR_EGG_TEXT: usize = 0x0169a7; // 05:69a7 DayCareManOutside.NoRoomForEggText
+pub const DAY_CARE_MAN_OUTSIDE_NOT_YET_TEXT: usize = 0x016944; // 05:6944 DayCareManOutside.NotYetText
+pub const DAY_CARE_MAN_OUTSIDE_RECEIVED_EGG_TEXT: usize = 0x016998; // 05:6998 DayCareManOutside.ReceivedEggText
+pub const DAY_CARE_MAN_OUTSIDE_TAKE_GOOD_CARE_OF_EGG_TEXT: usize = 0x01699d; // 05:699d DayCareManOutside.TakeGoodCareOfEggText
 pub const DAY_CARE_MON1: usize = 0x017421; // 05:7421 DayCareMon1
 pub const DAY_CARE_MON2: usize = 0x017440; // 05:7440 DayCareMon2
 pub const DAY_CARE_MON_COMPATIBILITY_TEXT: usize = 0x01746c; // 05:746c DayCareMonCompatibilityText
+pub const DAY_CARE_MON_COMPATIBILITY_TEXT_BREED_APPEARS_TO_CARE_FOR_TEXT: usize = 0x0174a6; // 05:74a6 DayCareMonCompatibilityText.BreedAppearsToCareForText
+pub const DAY_CARE_MON_COMPATIBILITY_TEXT_BREED_BRIMMING_WITH_ENERGY_TEXT: usize = 0x01749c; // 05:749c DayCareMonCompatibilityText.BreedBrimmingWithEnergyText
+pub const DAY_CARE_MON_COMPATIBILITY_TEXT_BREED_FRIENDLY_TEXT: usize = 0x0174ab; // 05:74ab DayCareMonCompatibilityText.BreedFriendlyText
+pub const DAY_CARE_MON_COMPATIBILITY_TEXT_BREED_NO_INTEREST_TEXT: usize = 0x0174a1; // 05:74a1 DayCareMonCompatibilityText.BreedNoInterestText
+pub const DAY_CARE_MON_COMPATIBILITY_TEXT_BREED_SHOWS_INTEREST_TEXT: usize = 0x0174b0; // 05:74b0 DayCareMonCompatibilityText.BreedShowsInterestText
 pub const DAY_CARE_MON_CURSOR: usize = 0x01745f; // 05:745f DayCareMonCursor
 pub const DAY_CARE_MON_PRINT_EMPTY_STRING: usize = 0x0174b5; // 05:74b5 DayCareMonPrintEmptyString
 pub const DAY_CARE_STEP: usize = 0x007282; // 01:7282 DayCareStep
@@ -1510,6 +1552,7 @@ pub const DO_POISON: usize = 0x0276af; // 09:76af DoPoison
 pub const DO_SLEEP: usize = 0x027340; // 09:7340 DoSleep
 pub const DO_SUBSTITUTE_DAMAGE: usize = 0x035de0; // 0d:5de0 DoSubstituteDamage
 pub const DO_TEXT_UNTIL_TERMINATOR: usize = 0x0013f6; // 00:13f6 DoTextUntilTerminator
+pub const DO_TEXT_UNTIL_TERMINATOR_TEXT_COMMAND: usize = 0x0013ff; // 00:13ff DoTextUntilTerminator.TextCommand
 pub const DO_TURN: usize = 0x03401d; // 0d:401d DoTurn
 pub const DO_WEATHER_MODIFIERS: usize = 0x0fbda4; // 3e:7da4 DoWeatherModifiers
 pub const DODRIO_BACKPIC: usize = 0x148000; // 52:4000 DodrioBackpic
@@ -1914,6 +1957,7 @@ pub const FUNCTION11C1AB: usize = 0x11c1ab; // 47:41ab Function11c1ab
 pub const FUNCTION1700BA: usize = 0x1700ba; // 5c:40ba Function1700ba
 pub const FUNCTION170114: usize = 0x170114; // 5c:4114 Function170114
 pub const FUNCTION1704E1: usize = 0x1704e1; // 5c:44e1 Function1704e1
+pub const FUNCTION1704E1_PLACE_TEXT_ITEMS: usize = 0x1705f0; // 5c:45f0 Function1704e1.PlaceTextItems
 pub const FUNCTION17D2B6: usize = 0x17d2b6; // 5f:52b6 Function17d2b6
 pub const FUNCTION17D2CE: usize = 0x17d2ce; // 5f:52ce Function17d2ce
 pub const FUNCTION3ED7: usize = 0x003ed7; // 00:3ed7 Function3ed7
@@ -2042,6 +2086,7 @@ pub const GET_MAP_SCRIPTS_BANK: usize = 0x002c57; // 00:2c57 GetMapScriptsBank
 pub const GET_MAP_TIME_OF_DAY: usize = 0x002cff; // 00:2cff GetMapTimeOfDay
 pub const GET_MART: usize = 0x015b31; // 05:5b31 GetMart
 pub const GET_MART_DIALOG_GROUP: usize = 0x015ca3; // 05:5ca3 GetMartDialogGroup
+pub const GET_MART_DIALOG_GROUP_MART_TEXT_FUNCTION_POINTERS: usize = 0x015cb0; // 05:5cb0 GetMartDialogGroup.MartTextFunctionPointers
 pub const GET_MART_ITEM_PRICE: usize = 0x015be5; // 05:5be5 GetMartItemPrice
 pub const GET_MART_PRICE: usize = 0x015bf0; // 05:5bf0 GetMartPrice
 pub const GET_MAX_HP: usize = 0x03ccac; // 0f:4cac GetMaxHP
@@ -2070,6 +2115,7 @@ pub const GET_MOVEMENT_PERMISSIONS: usize = 0x002914; // 00:2914 GetMovementPerm
 pub const GET_MTH_MOVE_OF_CURRENT_MON: usize = 0x00f969; // 03:7969 GetMthMoveOfCurrentMon
 pub const GET_MTH_MOVE_OF_NTH_PARTYMON: usize = 0x00f963; // 03:7963 GetMthMoveOfNthPartymon
 pub const GET_MYSTERY_GIFT_ITEM: usize = 0x00c309; // 03:4309 GetMysteryGiftItem
+pub const GET_MYSTERY_GIFT_ITEM_RECEIVE_ITEM_TEXT: usize = 0x00c345; // 03:4345 GetMysteryGiftItem.ReceiveItemText
 pub const GET_NAME: usize = 0x0033c3; // 00:33c3 GetName
 pub const GET_NICKNAME: usize = 0x0038a2; // 00:38a2 GetNickname
 pub const GET_NICKNAME_POINTER: usize = 0x04e528; // 13:6528 GetNicknamePointer
@@ -2116,6 +2162,10 @@ pub const GET_STATIC_MENU_JOYPAD: usize = 0x001f23; // 00:1f23 GetStaticMenuJoyp
 pub const GET_TMHM_ITEM_MOVE: usize = 0x02c7b6; // 0b:47b6 GetTMHMItemMove
 pub const GET_TMHM_MOVE: usize = 0x01166a; // 04:566a GetTMHMMove
 pub const GET_TMHM_NAME: usize = 0x003487; // 00:3487 GetTMHMName
+pub const GET_TMHM_NAME_HM_TEXT: usize = 0x0034dc; // 00:34dc GetTMHMName.HMText
+pub const GET_TMHM_NAME_HM_TEXT_END: usize = 0x0034de; // 00:34de GetTMHMName.HMTextEnd
+pub const GET_TMHM_NAME_TM_TEXT: usize = 0x0034d9; // 00:34d9 GetTMHMName.TMText
+pub const GET_TMHM_NAME_TM_TEXT_END: usize = 0x0034db; // 00:34db GetTMHMName.TMTextEnd
 pub const GET_TMHM_NUMBER: usize = 0x00d407; // 03:5407 GetTMHMNumber
 pub const GET_TILE_PERMISSION: usize = 0x00185d; // 00:185d GetTilePermission
 pub const GET_TIME_OF_DAY: usize = 0x014032; // 05:4032 GetTimeOfDay
@@ -2144,6 +2194,7 @@ pub const GIVE_DRATINI: usize = 0x08b170; // 22:7170 GiveDratini
 pub const GIVE_EGG: usize = 0x00df8c; // 03:5f8c GiveEgg
 pub const GIVE_EXPERIENCE_POINTS: usize = 0x03ee3b; // 0f:6e3b GiveExperiencePoints
 pub const GIVE_ITEM: usize = 0x0103fd; // 04:43fd GiveItem
+pub const GIVE_ITEM_AN_EGG_CANT_HOLD_AN_ITEM_TEXT: usize = 0x01048d; // 04:448d GiveItem.AnEggCantHoldAnItemText
 pub const GIVE_ITEM_TO_POKEMON: usize = 0x012cea; // 04:6cea GiveItemToPokemon
 pub const GIVE_MONEY: usize = 0x015fd7; // 05:5fd7 GiveMoney
 pub const GIVE_ODD_EGG: usize = 0x117656; // 45:7656 GiveOddEgg
@@ -2264,6 +2315,10 @@ pub const HAS_PLAYER_FAINTED: usize = 0x03c710; // 0f:4710 HasPlayerFainted
 pub const HAS_SUBSTITUTE_TEXT: usize = 0x081378; // 20:5378 HasSubstituteText
 pub const HAS_USER_FAINTED: usize = 0x03c706; // 0f:4706 HasUserFainted
 pub const HATCH_EGGS: usize = 0x016f70; // 05:6f70 HatchEggs
+pub const HATCH_EGGS_BREED_ASK_NICKNAME_TEXT: usize = 0x0170ba; // 05:70ba HatchEggs.BreedAskNicknameText
+pub const HATCH_EGGS_BREED_CLEARBOX_TEXT: usize = 0x0170b0; // 05:70b0 HatchEggs.BreedClearboxText
+pub const HATCH_EGGS_BREED_EGG_HATCH_TEXT: usize = 0x0170b5; // 05:70b5 HatchEggs.BreedEggHatchText
+pub const HATCH_EGGS_TEXT_HATCH_EGG: usize = 0x01708b; // 05:708b HatchEggs.Text_HatchEgg
 pub const HATCH_INIT_SHELL_FRAGMENTS: usize = 0x0173b3; // 05:73b3 Hatch_InitShellFragments
 pub const HATCH_LOAD_FRONTPIC_PAL: usize = 0x017363; // 05:7363 Hatch_LoadFrontpicPal
 pub const HATCH_SHELL_FRAGMENT_LOOP: usize = 0x017418; // 05:7418 Hatch_ShellFragmentLoop
@@ -2286,6 +2341,7 @@ pub const HEAL_POWDER_EFFECT: usize = 0x00efad; // 03:6fad HealPowderEffect
 pub const HEAL_STATUS: usize = 0x00f030; // 03:7030 HealStatus
 pub const HEALING_HP_AMOUNTS: usize = 0x00f3af; // 03:73af HealingHPAmounts
 pub const HEAVY_BALL_MULTIPLIER: usize = 0x00ec50; // 03:6c50 HeavyBallMultiplier
+pub const HEAVY_BALL_MULTIPLIER_SKIP_TEXT: usize = 0x00ec61; // 03:6c61 HeavyBallMultiplier.SkipText
 pub const HEAVY_BALL_GET_DEX_ENTRY_BANK: usize = 0x00ec38; // 03:6c38 HeavyBall_GetDexEntryBank
 pub const HELD_STAT_UP_ITEMS: usize = 0x03defc; // 0f:5efc HeldStatUpItems
 pub const HELD_STATUS_HEALING_EFFECTS: usize = 0x03de44; // 0f:5e44 HeldStatusHealingEffects
@@ -2436,7 +2492,11 @@ pub const INIT_TIME: usize = 0x000677; // 00:0677 InitTime
 pub const INIT_TIME_OF_DAY: usize = 0x000658; // 00:0658 InitTimeOfDay
 pub const INIT_VERTICAL_MENU_CURSOR: usize = 0x001c10; // 00:1c10 InitVerticalMenuCursor
 pub const INITIAL_CLEAR_DST_FLAG: usize = 0x090a88; // 24:4a88 InitialClearDSTFlag
+pub const INITIAL_CLEAR_DST_FLAG_TEXT: usize = 0x090aa0; // 24:4aa0 InitialClearDSTFlag.Text
+pub const INITIAL_CLEAR_DST_FLAG_TIME_ASK_OKAY_TEXT: usize = 0x090ab7; // 24:4ab7 InitialClearDSTFlag.TimeAskOkayText
 pub const INITIAL_SET_DST_FLAG: usize = 0x090a54; // 24:4a54 InitialSetDSTFlag
+pub const INITIAL_SET_DST_FLAG_DST_IS_THAT_OK_TEXT: usize = 0x090a83; // 24:4a83 InitialSetDSTFlag.DSTIsThatOKText
+pub const INITIAL_SET_DST_FLAG_TEXT: usize = 0x090a6c; // 24:4a6c InitialSetDSTFlag.Text
 pub const INSERT_DATA_INTO_BOX_OR_PARTY: usize = 0x0513e0; // 14:53e0 InsertDataIntoBoxOrParty
 pub const INSERT_POKEMON_INTO_BOX: usize = 0x051322; // 14:5322 InsertPokemonIntoBox
 pub const INSERT_POKEMON_INTO_PARTY: usize = 0x05138b; // 14:538b InsertPokemonIntoParty
@@ -2481,6 +2541,8 @@ pub const ITEM_CANT_USE_ON_EGG_TEXT: usize = 0x00f810; // 03:7810 ItemCantUseOnE
 pub const ITEM_DESCRIPTIONS: usize = 0x1c8987; // 72:4987 ItemDescriptions
 pub const ITEM_EFFECTS: usize = 0x00e73c; // 03:673c ItemEffects
 pub const ITEM_FINDER: usize = 0x012580; // 04:6580 ItemFinder
+pub const ITEM_FINDER_ITEMFINDER_ITEM_NEARBY_TEXT: usize = 0x0125c3; // 04:65c3 ItemFinder.ItemfinderItemNearbyText
+pub const ITEM_FINDER_ITEMFINDER_NOPE_TEXT: usize = 0x0125c8; // 04:65c8 ItemFinder.ItemfinderNopeText
 pub const ITEM_GOT_OFF_TEXT: usize = 0x00f847; // 03:7847 ItemGotOffText
 pub const ITEM_GOT_ON_TEXT: usize = 0x00f842; // 03:7842 ItemGotOnText
 pub const ITEM_IS_MAIL: usize = 0x0b9e76; // 2e:5e76 ItemIsMail
@@ -2574,6 +2636,7 @@ pub const KINGLER_EVOS_ATTACKS: usize = 0x042fe0; // 10:6fe0 KinglerEvosAttacks
 pub const KINGLER_FRONTPIC: usize = 0x13032e; // 4c:432e KinglerFrontpic
 pub const KINGLER_POKEDEX_ENTRY: usize = 0x1b8e45; // 6e:4e45 KinglerPokedexEntry
 pub const KNOWS_MOVE: usize = 0x00f9ea; // 03:79ea KnowsMove
+pub const KNOWS_MOVE_KNOWS_MOVE_TEXT: usize = 0x00fa06; // 03:7a06 KnowsMove.KnowsMoveText
 pub const KOFFING_BACKPIC: usize = 0x15270f; // 54:670f KoffingBackpic
 pub const KOFFING_EGG_MOVES: usize = 0x023def; // 08:7def KoffingEggMoves
 pub const KOFFING_EVOS_ATTACKS: usize = 0x0430c3; // 10:70c3 KoffingEvosAttacks
@@ -2775,6 +2838,7 @@ pub const MAGIKARP_BACKPIC: usize = 0x158c3f; // 56:4c3f MagikarpBackpic
 pub const MAGIKARP_EVOS_ATTACKS: usize = 0x04327f; // 10:727f MagikarpEvosAttacks
 pub const MAGIKARP_FRONTPIC: usize = 0x141e54; // 50:5e54 MagikarpFrontpic
 pub const MAGIKARP_HOUSE_SIGN: usize = 0x0fbcd2; // 3e:7cd2 MagikarpHouseSign
+pub const MAGIKARP_HOUSE_SIGN_KARP_GURU_RECORD_TEXT: usize = 0x0fbce8; // 3e:7ce8 MagikarpHouseSign.KarpGuruRecordText
 pub const MAGIKARP_LENGTHS: usize = 0x0fbca8; // 3e:7ca8 MagikarpLengths
 pub const MAGIKARP_POKEDEX_ENTRY: usize = 0x1cc000; // 73:4000 MagikarpPokedexEntry
 pub const MAGMAR_BACKPIC: usize = 0x14e00e; // 53:600e MagmarBackpic
@@ -2827,6 +2891,12 @@ pub const MAIL_PLACE6_TILE_ROW: usize = 0x0b9636; // 2e:5636 Mail_Place6TileRow
 pub const MAIL_PLACE_ALTERNATING_COLUMN: usize = 0x0b98bd; // 2e:58bd Mail_PlaceAlternatingColumn
 pub const MAIL_PLACE_ALTERNATING_ROW: usize = 0x0b98ab; // 2e:58ab Mail_PlaceAlternatingRow
 pub const MAILBOX_PC: usize = 0x044806; // 11:4806 MailboxPC
+pub const MAILBOX_PC_MAIL_ALREADY_HOLDING_ITEM_TEXT: usize = 0x04493c; // 11:493c MailboxPC.MailAlreadyHoldingItemText
+pub const MAILBOX_PC_MAIL_CLEARED_PUT_AWAY_TEXT: usize = 0x0448ac; // 11:48ac MailboxPC.MailClearedPutAwayText
+pub const MAILBOX_PC_MAIL_EGG_TEXT: usize = 0x044941; // 11:4941 MailboxPC.MailEggText
+pub const MAILBOX_PC_MAIL_MESSAGE_LOST_TEXT: usize = 0x0448b6; // 11:48b6 MailboxPC.MailMessageLostText
+pub const MAILBOX_PC_MAIL_MOVED_FROM_BOX_TEXT: usize = 0x044946; // 11:4946 MailboxPC.MailMovedFromBoxText
+pub const MAILBOX_PC_MAIL_PACK_FULL_TEXT: usize = 0x0448b1; // 11:48b1 MailboxPC.MailPackFullText
 pub const MAILBOX_PC_GET_MAIL_AUTHOR: usize = 0x0447da; // 11:47da MailboxPC_GetMailAuthor
 pub const MAILBOX_PC_PRINT_MAIL_AUTHOR: usize = 0x0447fb; // 11:47fb MailboxPC_PrintMailAuthor
 pub const MANAGE_POKEMON_MOVES: usize = 0x012fba; // 04:6fba ManagePokemonMoves
@@ -2980,6 +3050,12 @@ pub const MOLTRES_POKEDEX_ENTRY: usize = 0x1cc706; // 73:4706 MoltresPokedexEntr
 pub const MON_CHECK: usize = 0x04a711; // 12:6711 MonCheck
 pub const MON_FAINTED_ANIMATION: usize = 0x03d444; // 0f:5444 MonFaintedAnimation
 pub const MON_MAIL_ACTION: usize = 0x012d45; // 04:6d45 MonMailAction
+pub const MON_MAIL_ACTION_MAIL_ASK_SEND_TO_PC_TEXT: usize = 0x012df1; // 04:6df1 MonMailAction.MailAskSendToPCText
+pub const MON_MAIL_ACTION_MAIL_DETACHED_TEXT: usize = 0x012de7; // 04:6de7 MonMailAction.MailDetachedText
+pub const MON_MAIL_ACTION_MAIL_LOSE_MESSAGE_TEXT: usize = 0x012de2; // 04:6de2 MonMailAction.MailLoseMessageText
+pub const MON_MAIL_ACTION_MAIL_NO_SPACE_TEXT: usize = 0x012dec; // 04:6dec MonMailAction.MailNoSpaceText
+pub const MON_MAIL_ACTION_MAIL_SENT_TO_PC_TEXT: usize = 0x012dfb; // 04:6dfb MonMailAction.MailSentToPCText
+pub const MON_MAIL_ACTION_MAILBOX_FULL_TEXT: usize = 0x012df6; // 04:6df6 MonMailAction.MailboxFullText
 pub const MON_MENU_ICONS: usize = 0x08eac4; // 23:6ac4 MonMenuIcons
 pub const MON_MENU_LOOP: usize = 0x024d59; // 09:4d59 MonMenuLoop
 pub const MON_MENU_OPTION_STRINGS: usize = 0x024caf; // 09:4caf MonMenuOptionStrings
@@ -2991,6 +3067,7 @@ pub const MON_MENU_FLY: usize = 0x012e30; // 04:6e30 MonMenu_Fly
 pub const MON_MENU_HEADBUTT: usize = 0x012f26; // 04:6f26 MonMenu_Headbutt
 pub const MON_MENU_ROCK_SMASH: usize = 0x012f3b; // 04:6f3b MonMenu_RockSmash
 pub const MON_MENU_SOFTBOILED_MILK_DRINK: usize = 0x012ee6; // 04:6ee6 MonMenu_Softboiled_MilkDrink
+pub const MON_MENU_SOFTBOILED_MILK_DRINK_POKEMON_NOT_ENOUGH_HP_TEXT: usize = 0x012f00; // 04:6f00 MonMenu_Softboiled_MilkDrink.PokemonNotEnoughHPText
 pub const MON_MENU_STRENGTH: usize = 0x012e6a; // 04:6e6a MonMenu_Strength
 pub const MON_MENU_SURF: usize = 0x012ebd; // 04:6ebd MonMenu_Surf
 pub const MON_MENU_SWEET_SCENT: usize = 0x012f50; // 04:6f50 MonMenu_SweetScent
@@ -3012,6 +3089,14 @@ pub const MOVE00_DESCRIPTION: usize = 0x02cd52; // 0b:4d52 Move00Description
 pub const MOVE_ASK_FORGET_TEXT: usize = 0x006670; // 01:6670 MoveAskForgetText
 pub const MOVE_CANT_FORGET_HM_TEXT: usize = 0x00669a; // 01:669a MoveCantForgetHMText
 pub const MOVE_DELETION: usize = 0x02c547; // 0b:4547 MoveDeletion
+pub const MOVE_DELETION_ASK_DELETE_MOVE_TEXT: usize = 0x02c5d6; // 0b:45d6 MoveDeletion.AskDeleteMoveText
+pub const MOVE_DELETION_DELETER_ASK_WHICH_MON_TEXT: usize = 0x02c5f4; // 0b:45f4 MoveDeletion.DeleterAskWhichMonText
+pub const MOVE_DELETION_DELETER_ASK_WHICH_MOVE_TEXT: usize = 0x02c5ea; // 0b:45ea MoveDeletion.DeleterAskWhichMoveText
+pub const MOVE_DELETION_DELETER_FORGOT_MOVE_TEXT: usize = 0x02c5db; // 0b:45db MoveDeletion.DeleterForgotMoveText
+pub const MOVE_DELETION_DELETER_INTRO_TEXT: usize = 0x02c5ef; // 0b:45ef MoveDeletion.DeleterIntroText
+pub const MOVE_DELETION_DELETER_NO_COME_AGAIN_TEXT: usize = 0x02c5e5; // 0b:45e5 MoveDeletion.DeleterNoComeAgainText
+pub const MOVE_DELETION_MAIL_EGG_TEXT: usize = 0x02c5e0; // 0b:45e0 MoveDeletion.MailEggText
+pub const MOVE_DELETION_MOVE_KNOWS_ONE_TEXT: usize = 0x02c5d1; // 0b:45d1 MoveDeletion.MoveKnowsOneText
 pub const MOVE_DESCRIPTIONS: usize = 0x02cb52; // 0b:4b52 MoveDescriptions
 pub const MOVE_DISABLED: usize = 0x03438d; // 0d:438d MoveDisabled
 pub const MOVE_EFFECT_PRIORITIES: usize = 0x03c5df; // 0f:45df MoveEffectPriorities
@@ -3189,6 +3274,7 @@ pub const ONIX_EVOS_ATTACKS: usize = 0x042f83; // 10:6f83 OnixEvosAttacks
 pub const ONIX_FRONTPIC: usize = 0x12ca47; // 4b:4a47 OnixFrontpic
 pub const ONIX_POKEDEX_ENTRY: usize = 0x1b8c98; // 6e:4c98 OnixPokedexEntry
 pub const OPEN_BOX: usize = 0x00f769; // 03:7769 OpenBox
+pub const OPEN_BOX_SENT_TROPHY_HOME_TEXT: usize = 0x00f778; // 03:7778 OpenBox.SentTrophyHomeText
 pub const OPEN_MART_DIALOG: usize = 0x015a45; // 05:5a45 OpenMartDialog
 pub const OPEN_PARTY_STATS: usize = 0x012e00; // 04:6e00 OpenPartyStats
 pub const OPEN_SRAM: usize = 0x002fcb; // 00:2fcb OpenSRAM
@@ -3297,6 +3383,11 @@ pub const PHARMACY_NO_MONEY_TEXT: usize = 0x015ea9; // 05:5ea9 PharmacyNoMoneyTe
 pub const PHARMACY_PACK_FULL_TEXT: usize = 0x015ea4; // 05:5ea4 PharmacyPackFullText
 pub const PHARMACY_THANKS_TEXT: usize = 0x015e9f; // 05:5e9f PharmacyThanksText
 pub const PHOTO_STUDIO: usize = 0x016dc7; // 05:6dc7 PhotoStudio
+pub const PHOTO_STUDIO_EGG_PHOTO_TEXT: usize = 0x016e18; // 05:6e18 PhotoStudio.EggPhotoText
+pub const PHOTO_STUDIO_HOLD_STILL_TEXT: usize = 0x016e09; // 05:6e09 PhotoStudio.HoldStillText
+pub const PHOTO_STUDIO_NO_PHOTO_TEXT: usize = 0x016e13; // 05:6e13 PhotoStudio.NoPhotoText
+pub const PHOTO_STUDIO_PRESTO_ALL_DONE_TEXT: usize = 0x016e0e; // 05:6e0e PhotoStudio.PrestoAllDoneText
+pub const PHOTO_STUDIO_WHICH_MON_PHOTO_TEXT: usize = 0x016e04; // 05:6e04 PhotoStudio.WhichMonPhotoText
 pub const PICHU_BACKPIC: usize = 0x1606de; // 58:46de PichuBackpic
 pub const PICHU_EGG_MOVES: usize = 0x023e73; // 08:7e73 PichuEggMoves
 pub const PICHU_EVOS_ATTACKS: usize = 0x043635; // 10:7635 PichuEvosAttacks
@@ -3435,6 +3526,8 @@ pub const POKE_BALL_EFFECT: usize = 0x00e8a2; // 03:68a2 PokeBallEffect
 pub const POKE_BALL_TRANSITION: usize = 0x08c6b8; // 23:46b8 PokeBallTransition
 pub const POKE_DOLL_EFFECT: usize = 0x00f48f; // 03:748f PokeDollEffect
 pub const POKE_FLUTE_EFFECT: usize = 0x00f50c; // 03:750c PokeFluteEffect
+pub const POKE_FLUTE_EFFECT_FLUTE_WAKE_UP_TEXT: usize = 0x00f571; // 03:7571 PokeFluteEffect.FluteWakeUpText
+pub const POKE_FLUTE_EFFECT_PLAYED_FLUTE_TEXT: usize = 0x00f56c; // 03:756c PokeFluteEffect.PlayedFluteText
 pub const POKE_FLUTE_TERMINATOR: usize = 0x0013e0; // 00:13e0 PokeFluteTerminator
 pub const POKE_SEER: usize = 0x04f0bc; // 13:70bc PokeSeer
 pub const POKEDEX: usize = 0x040000; // 10:4000 Pokedex
@@ -3528,6 +3621,18 @@ pub const PRINT_NUM: usize = 0x003198; // 00:3198 PrintNum
 pub const PRINT_PC_BOX: usize = 0x0844bc; // 21:44bc PrintPCBox
 pub const PRINT_PARALYZE: usize = 0x037372; // 0d:7372 PrintParalyze
 pub const PRINT_PARTY_MENU_ACTION_TEXT: usize = 0x050566; // 14:4566 PrintPartyMenuActionText
+pub const PRINT_PARTY_MENU_ACTION_TEXT_BURN_WAS_HEALED_TEXT: usize = 0x05059e; // 14:459e PrintPartyMenuActionText.BurnWasHealedText
+pub const PRINT_PARTY_MENU_ACTION_TEXT_CAME_TO_ITS_SENSES_TEXT: usize = 0x0505bc; // 14:45bc PrintPartyMenuActionText.CameToItsSensesText
+pub const PRINT_PARTY_MENU_ACTION_TEXT_CURED_OF_POISON_TEXT: usize = 0x050594; // 14:4594 PrintPartyMenuActionText.CuredOfPoisonText
+pub const PRINT_PARTY_MENU_ACTION_TEXT_GREW_TO_LEVEL_TEXT: usize = 0x0505b7; // 14:45b7 PrintPartyMenuActionText.GrewToLevelText
+pub const PRINT_PARTY_MENU_ACTION_TEXT_HEALTH_RETURNED_TEXT: usize = 0x0505ad; // 14:45ad PrintPartyMenuActionText.HealthReturnedText
+pub const PRINT_PARTY_MENU_ACTION_TEXT_MENU_ACTION_TEXTS: usize = 0x05057b; // 14:457b PrintPartyMenuActionText.MenuActionTexts
+pub const PRINT_PARTY_MENU_ACTION_TEXT_PRINT_TEXT: usize = 0x0505c1; // 14:45c1 PrintPartyMenuActionText.PrintText
+pub const PRINT_PARTY_MENU_ACTION_TEXT_RECOVERED_SOME_HP_TEXT: usize = 0x05058f; // 14:458f PrintPartyMenuActionText.RecoveredSomeHPText
+pub const PRINT_PARTY_MENU_ACTION_TEXT_REVITALIZED_TEXT: usize = 0x0505b2; // 14:45b2 PrintPartyMenuActionText.RevitalizedText
+pub const PRINT_PARTY_MENU_ACTION_TEXT_RID_OF_PARALYSIS_TEXT: usize = 0x050599; // 14:4599 PrintPartyMenuActionText.RidOfParalysisText
+pub const PRINT_PARTY_MENU_ACTION_TEXT_WAS_DEFROSTED_TEXT: usize = 0x0505a3; // 14:45a3 PrintPartyMenuActionText.WasDefrostedText
+pub const PRINT_PARTY_MENU_ACTION_TEXT_WOKE_UP_TEXT: usize = 0x0505a8; // 14:45a8 PrintPartyMenuActionText.WokeUpText
 pub const PRINT_PLAYER_HUD: usize = 0x03dfbf; // 0f:5fbf PrintPlayerHUD
 pub const PRINT_PLAYER_NAME: usize = 0x00118d; // 00:118d PrintPlayerName
 pub const PRINT_REDS_NAME: usize = 0x00119b; // 00:119b PrintRedsName
@@ -3614,6 +3719,7 @@ pub const RANDOM_PHONE_MON: usize = 0x02a567; // 0a:6567 RandomPhoneMon
 pub const RANDOM_PHONE_WILD_MON: usize = 0x02a51f; // 0a:651f RandomPhoneWildMon
 pub const RANDOM_RANGE: usize = 0x002fb1; // 00:2fb1 RandomRange
 pub const RANDOM_UNSEEN_WILD_MON: usize = 0x02a4ab; // 0a:64ab RandomUnseenWildMon
+pub const RANDOM_UNSEEN_WILD_MON_JUST_SAW_SOME_RARE_MON_TEXT: usize = 0x02a51a; // 0a:651a RandomUnseenWildMon.JustSawSomeRareMonText
 pub const RAPID_SPIN: usize = 0x027908; // 09:7908 RapidSpin
 pub const RAPID_SPIN_DESCRIPTION: usize = 0x02ea52; // 0b:6a52 RapidSpinDescription
 pub const RAPIDASH_BACKPIC: usize = 0x14d9c0; // 53:59c0 RapidashBackpic
@@ -3786,6 +3892,7 @@ pub const SACRED_FIRE_DESCRIPTION: usize = 0x02e958; // 0b:6958 SacredFireDescri
 pub const SAFARI_BALL_MULTIPLIER: usize = 0x00ec2f; // 03:6c2f SafariBallMultiplier
 pub const SAFARI_BATTLE_MENU: usize = 0x024f0b; // 09:4f0b SafariBattleMenu
 pub const SAFARI_BATTLE_MENU_HEADER: usize = 0x024f4e; // 09:4f4e SafariBattleMenuHeader
+pub const SAFARI_BATTLE_MENU_HEADER_TEXT: usize = 0x024f5f; // 09:4f5f SafariBattleMenuHeader.Text
 pub const SAFE_CHECK_SAFEGUARD: usize = 0x037962; // 0d:7962 SafeCheckSafeguard
 pub const SAFE_HDMA_TRANSFER: usize = 0x000dfd; // 00:0dfd SafeHDMATransfer
 pub const SAFE_LOAD_TEMP_TILEMAP_TO_TILEMAP: usize = 0x0030b4; // 00:30b4 SafeLoadTempTilemapToTilemap
@@ -3860,6 +3967,7 @@ pub const SELFDESTRUCT: usize = 0x0273a6; // 09:73a6 Selfdestruct
 pub const SELFDESTRUCT_DESCRIPTION: usize = 0x02dc4b; // 0b:5c4b SelfdestructDescription
 pub const SELL_ITEM_MENU_HEADER: usize = 0x0250fd; // 09:50fd SellItem_MenuHeader
 pub const SELL_MENU: usize = 0x015eb3; // 05:5eb3 SellMenu
+pub const SELL_MENU_NOTHING_TO_SELL_TEXT: usize = 0x015edb; // 05:5edb SellMenu.NothingToSellText
 pub const SELL_HALVE_PRICE: usize = 0x0250c1; // 09:50c1 Sell_HalvePrice
 pub const SEND_GET_MON_INTO_FROM_BOX: usize = 0x00db3f; // 03:5b3f SendGetMonIntoFromBox
 pub const SEND_MAIL_TO_PC: usize = 0x04456e; // 11:456e SendMailToPC
@@ -3895,6 +4003,9 @@ pub const SET_CARRY_FLAG: usize = 0x002e4e; // 00:2e4e SetCarryFlag
 pub const SET_CAUGHT_DATA: usize = 0x04db49; // 13:5b49 SetCaughtData
 pub const SET_CLOCK: usize = 0x000691; // 00:0691 SetClock
 pub const SET_DAY_OF_WEEK: usize = 0x090913; // 24:4913 SetDayOfWeek
+pub const SET_DAY_OF_WEEK_CONFIRM_WEEKDAY_TEXT: usize = 0x090a44; // 24:4a44 SetDayOfWeek.ConfirmWeekdayText
+pub const SET_DAY_OF_WEEK_OAK_TIME_IS_IT_TEXT: usize = 0x090a4f; // 24:4a4f SetDayOfWeek.OakTimeIsItText
+pub const SET_DAY_OF_WEEK_OAK_TIME_WHAT_DAY_IS_IT_TEXT: usize = 0x090a3f; // 24:4a3f SetDayOfWeek.OakTimeWhatDayIsItText
 pub const SET_DEFAULT_BGP_AND_OBP: usize = 0x0032f9; // 00:32f9 SetDefaultBGPAndOBP
 pub const SET_EGG_MON_CAUGHT_DATA: usize = 0x04dbb8; // 13:5bb8 SetEggMonCaughtData
 pub const SET_ENEMY_TURN: usize = 0x003989; // 00:3989 SetEnemyTurn
@@ -4028,6 +4139,7 @@ pub const SNUBBULL_FRONTPIC: usize = 0x13c9f5; // 4f:49f5 SnubbullFrontpic
 pub const SNUBBULL_POKEDEX_ENTRY: usize = 0x1d06e0; // 74:46e0 SnubbullPokedexEntry
 pub const SOFTBOILED_DESCRIPTION: usize = 0x02de2d; // 0b:5e2d SoftboiledDescription
 pub const SOFTBOILED_MILK_DRINK_FUNCTION: usize = 0x00f3df; // 03:73df Softboiled_MilkDrinkFunction
+pub const SOFTBOILED_MILK_DRINK_FUNCTION_ITEM_CANT_USE_ON_MON_TEXT: usize = 0x00f44a; // 03:744a Softboiled_MilkDrinkFunction.ItemCantUseOnMonText
 pub const SOLARBEAM: usize = 0x0279d6; // 09:79d6 Solarbeam
 pub const SOLARBEAM_DESCRIPTION: usize = 0x02d6ca; // 0b:56ca SolarbeamDescription
 pub const SOMETIMES_FLEE_MONS: usize = 0x03c59a; // 0f:459a SometimesFleeMons
@@ -4184,6 +4296,7 @@ pub const STORE_MENU_CURSOR_POSITION: usize = 0x001d4b; // 00:1d4b StoreMenuCurs
 pub const STORING_ENERGY_TEXT: usize = 0x080e6e; // 20:4e6e StoringEnergyText
 pub const STRENGTH_DESCRIPTION: usize = 0x02d600; // 0b:5600 StrengthDescription
 pub const STRENGTH_FUNCTION: usize = 0x00cce5; // 03:4ce5 StrengthFunction
+pub const STRENGTH_FUNCTION_ALREADY_USING_STRENGTH_TEXT: usize = 0x00cd01; // 03:4d01 StrengthFunction.AlreadyUsingStrengthText
 pub const STRING_BUFFER_POINTERS: usize = 0x024000; // 09:4000 StringBufferPointers
 pub const STRING_SHOT_DESCRIPTION: usize = 0x02d774; // 0b:5774 StringShotDescription
 pub const STRING_EGG: usize = 0x00e035; // 03:6035 String_Egg
@@ -4329,6 +4442,8 @@ pub const TEDDIURSA_POKEDEX_ENTRY: usize = 0x1d09da; // 74:49da TeddiursaPokedex
 pub const TELEPORT: usize = 0x0279ff; // 09:79ff Teleport
 pub const TELEPORT_DESCRIPTION: usize = 0x02d9ec; // 0b:59ec TeleportDescription
 pub const TELEPORT_FUNCTION: usize = 0x00cc61; // 03:4c61 TeleportFunction
+pub const TELEPORT_FUNCTION_CANT_USE_TELEPORT_TEXT: usize = 0x00ccb6; // 03:4cb6 TeleportFunction.CantUseTeleportText
+pub const TELEPORT_FUNCTION_TELEPORT_RETURN_TEXT: usize = 0x00ccb1; // 03:4cb1 TeleportFunction.TeleportReturnText
 pub const TENTACOOL_BACKPIC: usize = 0x160250; // 58:4250 TentacoolBackpic
 pub const TENTACOOL_EGG_MOVES: usize = 0x023d9b; // 08:7d9b TentacoolEggMoves
 pub const TENTACOOL_EVOS_ATTACKS: usize = 0x042d76; // 10:6d76 TentacoolEvosAttacks
@@ -4363,6 +4478,7 @@ pub const TEXT_JUMP_COME_BACK: usize = 0x03f357; // 0f:7357 TextJump_ComeBack
 pub const TEXT_SFX: usize = 0x00152d; // 00:152d TextSFX
 pub const TEXT_SCROLL: usize = 0x00138c; // 00:138c TextScroll
 pub const TEXT_1_2_AND_POOF: usize = 0x006684; // 01:6684 Text_1_2_and_Poof
+pub const TEXT_1_2_AND_POOF_MOVE_FORGOT_TEXT: usize = 0x006695; // 01:6695 Text_1_2_and_Poof.MoveForgotText
 pub const TEXT_BALL_CAUGHT: usize = 0x1c5b17; // 71:5b17 Text_BallCaught
 pub const TEXT_BATTLE_EFFECT_ACTIVATE: usize = 0x1c0cc6; // 70:4cc6 Text_BattleEffectActivate
 pub const TEXT_BATTLE_FOE_EFFECT_ACTIVATE: usize = 0x1c0ceb; // 70:4ceb Text_BattleFoeEffectActivate
@@ -4415,6 +4531,10 @@ pub const TOOK_AIM_TEXT: usize = 0x081136; // 20:5136 TookAimText
 pub const TOOK_DOWN_WITH_IT_TEXT: usize = 0x0810da; // 20:50da TookDownWithItText
 pub const TOSS_ITEM: usize = 0x002f53; // 00:2f53 TossItem
 pub const TOSS_ITEM_FROM_PC: usize = 0x0129f4; // 04:69f4 TossItemFromPC
+pub const TOSS_ITEM_FROM_PC_ITEMS_DISCARDED_TEXT: usize = 0x012a4f; // 04:6a4f TossItemFromPC.ItemsDiscardedText
+pub const TOSS_ITEM_FROM_PC_ITEMS_THROW_AWAY_TEXT: usize = 0x012a4a; // 04:6a4a TossItemFromPC.ItemsThrowAwayText
+pub const TOSS_ITEM_FROM_PC_ITEMS_TOO_IMPORTANT_TEXT: usize = 0x012a5b; // 04:6a5b TossItemFromPC.ItemsTooImportantText
+pub const TOSS_ITEM_FROM_PC_ITEMS_TOSS_OUT_HOW_MANY_TEXT: usize = 0x012a45; // 04:6a45 TossItemFromPC.ItemsTossOutHowManyText
 pub const TOSS_ITEM_MENU_HEADER: usize = 0x0250ed; // 09:50ed TossItem_MenuHeader
 pub const TOSS_KEY_ITEM: usize = 0x00d374; // 03:5374 TossKeyItem
 pub const TOSS_MENU: usize = 0x010364; // 04:4364 TossMenu
@@ -4657,6 +4777,8 @@ pub const USED_MOVE1_TEXT: usize = 0x105e04; // 41:5e04 UsedMove1Text
 pub const USED_MOVE2_TEXT: usize = 0x105e0b; // 41:5e0b UsedMove2Text
 pub const USED_MOVE_TEXT: usize = 0x105db9; // 41:5db9 UsedMoveText
 pub const USED_MOVE_TEXT_CHECK_OBEDIENCE: usize = 0x105e10; // 41:5e10 UsedMoveText_CheckObedience
+pub const USED_MOVE_TEXT_CHECK_OBEDIENCE_GET_MOVE_NAME_TEXT: usize = 0x105e1f; // 41:5e1f UsedMoveText_CheckObedience.GetMoveNameText
+pub const USED_MOVE_TEXT_CHECK_OBEDIENCE_USED_INSTEAD_TEXT: usize = 0x105e1a; // 41:5e1a UsedMoveText_CheckObedience.UsedInsteadText
 pub const USEFUL_MOVES: usize = 0x039301; // 0e:5301 UsefulMoves
 pub const USER_PARTY_ATTR: usize = 0x003945; // 00:3945 UserPartyAttr
 pub const V_BLANK: usize = 0x000283; // 00:0283 VBlank
@@ -4686,6 +4808,8 @@ pub const VENUSAUR_EVOS_ATTACKS: usize = 0x0427e1; // 10:67e1 VenusaurEvosAttack
 pub const VENUSAUR_FRONTPIC: usize = 0x122f81; // 48:6f81 VenusaurFrontpic
 pub const VENUSAUR_POKEDEX_ENTRY: usize = 0x181773; // 60:5773 VenusaurPokedexEntry
 pub const VERBOSE_RECEIVE_TMHM: usize = 0x02cadf; // 0b:4adf VerboseReceiveTMHM
+pub const VERBOSE_RECEIVE_TMHM_NO_ROOM_TMHM_TEXT: usize = 0x02caf0; // 0b:4af0 VerboseReceiveTMHM.NoRoomTMHMText
+pub const VERBOSE_RECEIVE_TMHM_RECEIVED_TMHM_TEXT: usize = 0x02caf5; // 0b:4af5 VerboseReceiveTMHM.ReceivedTMHMText
 pub const VERTICAL_MENU: usize = 0x001d81; // 00:1d81 VerticalMenu
 pub const VICEGRIP_DESCRIPTION: usize = 0x02ce99; // 0b:4e99 VicegripDescription
 pub const VICTREEBEL_BACKPIC: usize = 0x15c650; // 57:4650 VictreebelBackpic
@@ -4765,10 +4889,12 @@ pub const WILD_CELEBI_APPEARED_TEXT: usize = 0x080793; // 20:4793 WildCelebiAppe
 pub const WILD_FLED_ENEMY_FLED_LINK_BATTLE_CANCELED: usize = 0x03c0e5; // 0f:40e5 WildFled_EnemyFled_LinkBattleCanceled
 pub const WILD_POKEMON_APPEARED_TEXT: usize = 0x080746; // 20:4746 WildPokemonAppearedText
 pub const WIN_TRAINER_BATTLE: usize = 0x03cfa4; // 0f:4fa4 WinTrainerBattle
+pub const WIN_TRAINER_BATTLE_SENT_TO_MOM_TEXTS: usize = 0x03d0ab; // 0f:50ab WinTrainerBattle.SentToMomTexts
 pub const WING_ATTACK_DESCRIPTION: usize = 0x02cf59; // 0b:4f59 WingAttackDescription
 pub const WIPE_LY_OVERRIDES: usize = 0x08c6d8; // 23:46d8 WipeLYOverrides
 pub const WITHDRAW_DESCRIPTION: usize = 0x02db12; // 0b:5b12 WithdrawDescription
 pub const WITHDRAW_MON_TEXT: usize = 0x03f2f4; // 0f:72f4 WithdrawMonText
+pub const WITHDRAW_MON_TEXT_WITHDRAW_MON_TEXT: usize = 0x03f2fa; // 0f:72fa WithdrawMonText.WithdrawMonText
 pub const WITHDRAW_UP_DOWN: usize = 0x0e29b5; // 38:69b5 Withdraw_UpDown
 pub const WOBBLE_PROBABILITIES: usize = 0x00f9ba; // 03:79ba WobbleProbabilities
 pub const WOBBUFFET_BACKPIC: usize = 0x162254; // 58:6254 WobbuffetBackpic
@@ -4865,6 +4991,8 @@ pub const _BATTLE_STAT_WENT_UP_TEXT: usize = 0x1c0ce0; // 70:4ce0 _BattleStatWen
 pub const _BATTLE_STAT_WENT_WAY_UP_TEXT: usize = 0x1c0cd0; // 70:4cd0 _BattleStatWentWayUpText
 pub const _BATTLE_TOOK_SUNLIGHT_TEXT: usize = 0x1c0d26; // 70:4d26 _BattleTookSunlightText
 pub const _BILLS_PC: usize = 0x00e3fd; // 03:63fd _BillsPC
+pub const _BILLS_PC_PC_GOTTA_HAVE_POKEMON_TEXT: usize = 0x00e417; // 03:6417 _BillsPC.PCGottaHavePokemonText
+pub const _BILLS_PC_PC_WHAT_TEXT: usize = 0x00e43a; // 03:643a _BillsPC.PCWhatText
 pub const _BLUE_CARD_BALANCE_TEXT: usize = 0x1c5c5e; // 71:5c5e _BlueCardBalanceText
 pub const _BOOSTED_EXP_POINTS_TEXT: usize = 0x1c02a9; // 70:42a9 _BoostedExpPointsText
 pub const _BOOTED_HM_TEXT: usize = 0x1c0384; // 70:4384 _BootedHMText
@@ -5047,6 +5175,7 @@ pub const _PLAY_MUSIC: usize = 0x0e8b30; // 3a:4b30 _PlayMusic
 pub const _PLAY_SFX: usize = 0x0e8c04; // 3a:4c04 _PlaySFX
 pub const _PLAYED_FLUTE_TEXT: usize = 0x1c5bf9; // 71:5bf9 _PlayedFluteText
 pub const _PLAYER_MAIL_BOX_MENU: usize = 0x0447a0; // 11:47a0 _PlayerMailBoxMenu
+pub const _PLAYER_MAIL_BOX_MENU_EMPTY_MAILBOX_TEXT: usize = 0x0447b4; // 11:47b4 _PlayerMailBoxMenu.EmptyMailboxText
 pub const _POKEMON_ASK_SWAP_ITEM_TEXT: usize = 0x1c1bdc; // 70:5bdc _PokemonAskSwapItemText
 pub const _POKEMON_HOLD_ITEM_TEXT: usize = 0x1c1b57; // 70:5b57 _PokemonHoldItemText
 pub const _POKEMON_NOT_ENOUGH_HP_TEXT: usize = 0x1c1ce3; // 70:5ce3 _PokemonNotEnoughHPText
@@ -5078,6 +5207,7 @@ pub const _SERVE2BPP_REQUEST: usize = 0x00177d; // 00:177d _Serve2bppRequest
 pub const _SHOW_LINK_BATTLE_PARTICIPANTS: usize = 0x02c1b2; // 0b:41b2 _ShowLinkBattleParticipants
 pub const _SINE: usize = 0x0084d9; // 02:44d9 _Sine
 pub const _SQUIRTBOTTLE: usize = 0x050730; // 14:4730 _Squirtbottle
+pub const _SQUIRTBOTTLE_SQUIRTBOTTLE_NOTHING_TEXT: usize = 0x05074e; // 14:474e _Squirtbottle.SquirtbottleNothingText
 pub const _START: usize = 0x00016e; // 00:016e _Start
 pub const _STATIC_MENU_JOYPAD: usize = 0x0241a8; // 09:41a8 _StaticMenuJoypad
 pub const _STATS_SCREEN_D_PAD: usize = 0x0e2998; // 38:6998 _StatsScreenDPad
@@ -5320,6 +5450,7 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x0013e0, "PokeFluteTerminator"),
     (0x0013e5, "PrintTextboxTextAt"),
     (0x0013f6, "DoTextUntilTerminator"),
+    (0x0013ff, "DoTextUntilTerminator.TextCommand"),
     (0x001410, "TextCommands"),
     (0x00143e, "TextCommand_START"),
     (0x001449, "TextCommand_RAM"),
@@ -5583,6 +5714,7 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x002d83, "Predef"),
     (0x002dba, "ReanchorMap"),
     (0x002dcf, "CloseText"),
+    (0x002de2, "CloseText.CloseText"),
     (0x002e08, "OpenText"),
     (0x002e20, "HDMATransferTilemapAndAttrmap_Menu"),
     (0x002e31, "SafeUpdateSprites"),
@@ -5679,6 +5811,10 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x00343b, "GetPokemonName"),
     (0x003468, "GetItemName"),
     (0x003487, "GetTMHMName"),
+    (0x0034d9, "GetTMHMName.TMText"),
+    (0x0034db, "GetTMHMName.TMTextEnd"),
+    (0x0034dc, "GetTMHMName.HMText"),
+    (0x0034de, "GetTMHMName.HMTextEnd"),
     (0x0034df, "IsHM"),
     (0x0034e7, "IsHMMove"),
     (0x0034f8, "GetMoveName"),
@@ -5804,6 +5940,7 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x00667a, "DidNotLearnMoveText"),
     (0x00667f, "AskForgetMoveText"),
     (0x006684, "Text_1_2_and_Poof"),
+    (0x006695, "Text_1_2_and_Poof.MoveForgotText"),
     (0x00669a, "MoveCantForgetHMText"),
     (0x00669f, "CorrectNickErrors"),
     (0x0066de, "_Multiply"),
@@ -5859,6 +5996,7 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x00c2e7, "PlayersHousePC"),
     (0x00c2f6, "CheckMysteryGift"),
     (0x00c309, "GetMysteryGiftItem"),
+    (0x00c345, "GetMysteryGiftItem.ReceiveItemText"),
     (0x00c34a, "BugContestJudging"),
     (0x00c355, "MapRadio"),
     (0x00c360, "UnownPuzzle"),
@@ -5884,6 +6022,7 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x00c699, "ComputeHPBarPixels"),
     (0x00c6e0, "AnimateHPBar"),
     (0x00c731, "CheckBadge"),
+    (0x00c73d, "CheckBadge.BadgeRequiredText"),
     (0x00c785, "CutFunction"),
     (0x00c8ac, "FlashFunction"),
     (0x00c909, "SurfFunction"),
@@ -5892,7 +6031,10 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x00cb95, "EscapeRopeFunction"),
     (0x00cb9c, "DigFunction"),
     (0x00cc61, "TeleportFunction"),
+    (0x00ccb1, "TeleportFunction.TeleportReturnText"),
+    (0x00ccb6, "TeleportFunction.CantUseTeleportText"),
     (0x00cce5, "StrengthFunction"),
+    (0x00cd01, "StrengthFunction.AlreadyUsingStrengthText"),
     (0x00cd9d, "WhirlpoolFunction"),
     (0x00ce7d, "HeadbuttFunction"),
     (0x00ceeb, "RockSmashFunction"),
@@ -5958,10 +6100,15 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x00e3d9, "WasSentToBillsPCText"),
     (0x00e3de, "InitNickname"),
     (0x00e3fd, "_BillsPC"),
+    (0x00e417, "_BillsPC.PCGottaHavePokemonText"),
+    (0x00e43a, "_BillsPC.PCWhatText"),
     (0x00e4cb, "BillsPC_SeeYa"),
     (0x00e4cd, "BillsPC_MovePKMNMenu"),
+    (0x00e4f9, "BillsPC_MovePKMNMenu.PCMonHoldingMailText"),
     (0x00e4fe, "BillsPC_DepositMenu"),
     (0x00e512, "BillsPC_Deposit_CheckPartySize"),
+    (0x00e52e, "BillsPC_Deposit_CheckPartySize.PCNoSingleMonText"),
+    (0x00e533, "BillsPC_Deposit_CheckPartySize.PCCantDepositLastMonText"),
     (0x00e538, "CheckCurPartyMonFainted"),
     (0x00e559, "BillsPC_WithdrawMenu"),
     (0x00e56d, "BillsPC_Withdraw_CheckPartySize"),
@@ -5973,6 +6120,7 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x00e698, "GetBreedMon1LevelGrowth"),
     (0x00e6b3, "GetBreedMon2LevelGrowth"),
     (0x00e6ce, "BugContest_SetCaughtContestMon"),
+    (0x00e71d, "BugContest_SetCaughtContestMon.ContestCaughtMonText"),
     (0x00e722, "_DoItemEffect"),
     (0x00e73c, "ItemEffects"),
     (0x00e8a2, "PokeBallEffect"),
@@ -5983,6 +6131,7 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x00ec2f, "SafariBallMultiplier"),
     (0x00ec38, "HeavyBall_GetDexEntryBank"),
     (0x00ec50, "HeavyBallMultiplier"),
+    (0x00ec61, "HeavyBallMultiplier.SkipText"),
     (0x00eccc, "LureBallMultiplier"),
     (0x00ecdd, "MoonBallMultiplier"),
     (0x00ed12, "LoveBallMultiplier"),
@@ -6060,6 +6209,7 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x00f395, "GetHealingItemAmount"),
     (0x00f3af, "HealingHPAmounts"),
     (0x00f3df, "Softboiled_MilkDrinkFunction"),
+    (0x00f44a, "Softboiled_MilkDrinkFunction.ItemCantUseOnMonText"),
     (0x00f44f, "EscapeRopeEffect"),
     (0x00f462, "SuperRepelEffect"),
     (0x00f466, "MaxRepelEffect"),
@@ -6073,8 +6223,12 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x00f4c5, "XItemEffect"),
     (0x00f504, "XItemStats"),
     (0x00f50c, "PokeFluteEffect"),
+    (0x00f56c, "PokeFluteEffect.PlayedFluteText"),
+    (0x00f571, "PokeFluteEffect.FluteWakeUpText"),
     (0x00f58f, "BlueCardEffect"),
+    (0x00f595, "BlueCardEffect.BlueCardBalanceText"),
     (0x00f59a, "CoinCaseEffect"),
+    (0x00f5a0, "CoinCaseEffect.CoinCaseCountText"),
     (0x00f5a5, "OldRodEffect"),
     (0x00f5a9, "GoodRodEffect"),
     (0x00f5ad, "SuperRodEffect"),
@@ -6100,6 +6254,7 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x00f763, "NormalBoxEffect"),
     (0x00f767, "GorgeousBoxEffect"),
     (0x00f769, "OpenBox"),
+    (0x00f778, "OpenBox.SentTrophyHomeText"),
     (0x00f77d, "NoEffect"),
     (0x00f780, "Play_SFX_FULL_HEAL"),
     (0x00f789, "UseItemText"),
@@ -6136,6 +6291,7 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x00f969, "GetMthMoveOfCurrentMon"),
     (0x00f9ba, "WobbleProbabilities"),
     (0x00f9ea, "KnowsMove"),
+    (0x00fa06, "KnowsMove.KnowsMoveText"),
     (0x010000, "Pack"),
     (0x010249, "MenuHeader_UsableKeyItem"),
     (0x01026a, "Jumptable_UseGiveTossRegisterQuit"),
@@ -6154,6 +6310,7 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x01039d, "ResetPocketCursorPositions"),
     (0x0103c2, "RegisterItem"),
     (0x0103fd, "GiveItem"),
+    (0x01048d, "GiveItem.AnEggCantHoldAnItemText"),
     (0x010492, "QuitItemSubmenu"),
     (0x010493, "BattlePack"),
     (0x0105d3, "ItemSubmenu"),
@@ -6207,8 +6364,14 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x011e75, "_ComposeMailMessage"),
     (0x012324, "HealMachineAnim"),
     (0x012580, "ItemFinder"),
+    (0x0125c3, "ItemFinder.ItemfinderItemNearbyText"),
+    (0x0125c8, "ItemFinder.ItemfinderNopeText"),
     (0x0129d5, "HasNoItems"),
     (0x0129f4, "TossItemFromPC"),
+    (0x012a45, "TossItemFromPC.ItemsTossOutHowManyText"),
+    (0x012a4a, "TossItemFromPC.ItemsThrowAwayText"),
+    (0x012a4f, "TossItemFromPC.ItemsDiscardedText"),
+    (0x012a5b, "TossItemFromPC.ItemsTooImportantText"),
     (0x012a60, "CantUseItem"),
     (0x012a67, "ItemsOakWarningText"),
     (0x012a6c, "PartyMonItemName"),
@@ -6234,6 +6397,12 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x012cf5, "StartMenuYesNo"),
     (0x012cfe, "ComposeMailMessage"),
     (0x012d45, "MonMailAction"),
+    (0x012de2, "MonMailAction.MailLoseMessageText"),
+    (0x012de7, "MonMailAction.MailDetachedText"),
+    (0x012dec, "MonMailAction.MailNoSpaceText"),
+    (0x012df1, "MonMailAction.MailAskSendToPCText"),
+    (0x012df6, "MonMailAction.MailboxFullText"),
+    (0x012dfb, "MonMailAction.MailSentToPCText"),
     (0x012e00, "OpenPartyStats"),
     (0x012e1b, "MonMenu_Cut"),
     (0x012e30, "MonMenu_Fly"),
@@ -6245,6 +6414,7 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x012ebd, "MonMenu_Surf"),
     (0x012ed1, "MonMenu_Dig"),
     (0x012ee6, "MonMenu_Softboiled_MilkDrink"),
+    (0x012f00, "MonMenu_Softboiled_MilkDrink.PokemonNotEnoughHPText"),
     (0x012f26, "MonMenu_Headbutt"),
     (0x012f3b, "MonMenu_RockSmash"),
     (0x012f50, "MonMenu_SweetScent"),
@@ -6324,6 +6494,7 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x015c7d, "LoadBuyMenuText"),
     (0x015c91, "MartAskPurchaseQuantity"),
     (0x015ca3, "GetMartDialogGroup"),
+    (0x015cb0, "GetMartDialogGroup.MartTextFunctionPointers"),
     (0x015cef, "BuyMenuLoop"),
     (0x015d83, "StandardMartAskPurchaseQuantity"),
     (0x015d97, "MartConfirmPurchase"),
@@ -6354,6 +6525,7 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x015ea9, "PharmacyNoMoneyText"),
     (0x015eae, "PharmacyComeAgainText"),
     (0x015eb3, "SellMenu"),
+    (0x015edb, "SellMenu.NothingToSellText"),
     (0x015f73, "MartSellHowManyText"),
     (0x015f78, "MartSellPriceText"),
     (0x015f7d, "UnusedDummyString"),
@@ -6377,11 +6549,26 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x0166d6, "DayCareMan"),
     (0x01672a, "DayCareLady"),
     (0x016936, "DayCareManOutside"),
+    (0x016944, "DayCareManOutside.NotYetText"),
+    (0x016993, "DayCareManOutside.FoundAnEggText"),
+    (0x016998, "DayCareManOutside.ReceivedEggText"),
+    (0x01699d, "DayCareManOutside.TakeGoodCareOfEggText"),
+    (0x0169a2, "DayCareManOutside.IllKeepItThanksText"),
+    (0x0169a7, "DayCareManOutside.NoRoomForEggText"),
     (0x016dc7, "PhotoStudio"),
+    (0x016e04, "PhotoStudio.WhichMonPhotoText"),
+    (0x016e09, "PhotoStudio.HoldStillText"),
+    (0x016e0e, "PhotoStudio.PrestoAllDoneText"),
+    (0x016e13, "PhotoStudio.NoPhotoText"),
+    (0x016e18, "PhotoStudio.EggPhotoText"),
     (0x016e1d, "CheckBreedmonCompatibility"),
     (0x016f3e, "DoEggStep"),
     (0x016f5e, "OverworldHatchEgg"),
     (0x016f70, "HatchEggs"),
+    (0x01708b, "HatchEggs.Text_HatchEgg"),
+    (0x0170b0, "HatchEggs.BreedClearboxText"),
+    (0x0170b5, "HatchEggs.BreedEggHatchText"),
+    (0x0170ba, "HatchEggs.BreedAskNicknameText"),
     (0x0170bf, "InitEggMoves"),
     (0x0170e4, "GetEggMove"),
     (0x017169, "LoadEggMove"),
@@ -6403,6 +6590,11 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x017462, "LeftWithDayCareLadyText"),
     (0x017467, "LeftWithDayCareManText"),
     (0x01746c, "DayCareMonCompatibilityText"),
+    (0x01749c, "DayCareMonCompatibilityText.BreedBrimmingWithEnergyText"),
+    (0x0174a1, "DayCareMonCompatibilityText.BreedNoInterestText"),
+    (0x0174a6, "DayCareMonCompatibilityText.BreedAppearsToCareForText"),
+    (0x0174ab, "DayCareMonCompatibilityText.BreedFriendlyText"),
+    (0x0174b0, "DayCareMonCompatibilityText.BreedShowsInterestText"),
     (0x0174b5, "DayCareMonPrintEmptyString"),
     (0x01c000, "LoadMapGroupRoof"),
     (0x023b11, "EggMovePointers"),
@@ -6556,8 +6748,11 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x024f13, "ContestBattleMenu"),
     (0x024f19, "CommonBattleMenu"),
     (0x024f2c, "BattleMenuHeader"),
+    (0x024f3d, "BattleMenuHeader.Text"),
     (0x024f4e, "SafariBattleMenuHeader"),
+    (0x024f5f, "SafariBattleMenuHeader.Text"),
     (0x024f89, "ContestBattleMenuHeader"),
+    (0x024f9a, "ContestBattleMenuHeader.Text"),
     (0x024fbf, "SelectQuantityToToss"),
     (0x024fc9, "SelectQuantityToBuy"),
     (0x024fcf, "RooftopSale_SelectQuantityToBuy"),
@@ -6772,6 +6967,7 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x02a2a0, "InitRoamMons"),
     (0x02a30d, "UpdateRoamMons"),
     (0x02a4ab, "RandomUnseenWildMon"),
+    (0x02a51a, "RandomUnseenWildMon.JustSawSomeRareMonText"),
     (0x02a51f, "RandomPhoneWildMon"),
     (0x02a567, "RandomPhoneMon"),
     (0x02b930, "DetermineLinkBattleResult"),
@@ -6793,6 +6989,14 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x02c1ef, "TrainerClassNames"),
     (0x02c41a, "AI_Redundant"),
     (0x02c547, "MoveDeletion"),
+    (0x02c5d1, "MoveDeletion.MoveKnowsOneText"),
+    (0x02c5d6, "MoveDeletion.AskDeleteMoveText"),
+    (0x02c5db, "MoveDeletion.DeleterForgotMoveText"),
+    (0x02c5e0, "MoveDeletion.MailEggText"),
+    (0x02c5e5, "MoveDeletion.DeleterNoComeAgainText"),
+    (0x02c5ea, "MoveDeletion.DeleterAskWhichMoveText"),
+    (0x02c5ef, "MoveDeletion.DeleterIntroText"),
+    (0x02c5f4, "MoveDeletion.DeleterAskWhichMonText"),
     (0x02c76f, "TMHMPocket"),
     (0x02c7a7, "ConvertCurItemIntoCurTMHM"),
     (0x02c7b6, "GetTMHMItemMove"),
@@ -6821,6 +7025,8 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x02caca, "Tutorial_TMHMPocket"),
     (0x02cad6, "TMHM_PlaySFX_ReadText2"),
     (0x02cadf, "VerboseReceiveTMHM"),
+    (0x02caf0, "VerboseReceiveTMHM.NoRoomTMHMText"),
+    (0x02caf5, "VerboseReceiveTMHM.ReceivedTMHMText"),
     (0x02cb0c, "ConsumeTM"),
     (0x02cb2a, "CountTMsHMs"),
     (0x02cb3e, "PrintMoveDescription"),
@@ -7231,7 +7437,11 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x0362e3, "BattleCommand_StatDown"),
     (0x036391, "CheckMist"),
     (0x0363b8, "BattleCommand_StatUpMessage"),
+    (0x0363df, "BattleCommand_StatUpMessage.BattleStatWentWayUpText"),
+    (0x0363e4, "BattleCommand_StatUpMessage.BattleStatWentUpText"),
     (0x0363e9, "BattleCommand_StatDownMessage"),
+    (0x036410, "BattleCommand_StatDownMessage.BattleStatSharplyFellText"),
+    (0x036415, "BattleCommand_StatDownMessage.BattleStatFellText"),
     (0x03641a, "TryLowerStat"),
     (0x03644c, "BattleCommand_StatUpFailText"),
     (0x03646a, "BattleCommand_StatDownFailText"),
@@ -7265,6 +7475,13 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x036af3, "BattleCommand_OHKO"),
     (0x036b3a, "BattleCommand_CheckCharge"),
     (0x036b4d, "BattleCommand_Charge"),
+    (0x036bdb, "BattleCommand_Charge.UsedText"),
+    (0x036c0e, "BattleCommand_Charge.BattleMadeWhirlwindText"),
+    (0x036c13, "BattleCommand_Charge.BattleTookSunlightText"),
+    (0x036c18, "BattleCommand_Charge.BattleLoweredHeadText"),
+    (0x036c1d, "BattleCommand_Charge.BattleGlowingText"),
+    (0x036c22, "BattleCommand_Charge.BattleFlewText"),
+    (0x036c27, "BattleCommand_Charge.BattleDugText"),
     (0x036c2c, "BattleCommand_Unused3C"),
     (0x036c2d, "BattleCommand_TrapTarget"),
     (0x036c7e, "BattleCommand_Mist"),
@@ -7631,6 +7848,7 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x03cf4a, "HandleEnemySwitch"),
     (0x03cf78, "EnemyPartyMonEntrance"),
     (0x03cfa4, "WinTrainerBattle"),
+    (0x03d0ab, "WinTrainerBattle.SentToMomTexts"),
     (0x03d0be, "AddBattleMoneyToAccount"),
     (0x03d0ea, "PlayVictoryMusic"),
     (0x03d123, "IsKantoGymLeader"),
@@ -7781,6 +7999,7 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x03f2eb, "PrepareBattleMonNicknameText"),
     (0x03f2ef, "BattleMonNicknameText"),
     (0x03f2f4, "WithdrawMonText"),
+    (0x03f2fa, "WithdrawMonText.WithdrawMonText"),
     (0x03f348, "ThatsEnoughComeBackText"),
     (0x03f34d, "OKComeBackText"),
     (0x03f352, "GoodComeBackText"),
@@ -7824,6 +8043,7 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x03fbff, "GetTrainerBackpic"),
     (0x03fc30, "CopyBackpic"),
     (0x03fc8b, "BattleStartMessage"),
+    (0x03fd0e, "BattleStartMessage.PrintBattleStartText"),
     (0x03fd28, "BattleCommandPointers"),
     (0x040000, "Pokedex"),
     (0x040c65, "AlphabeticalPokedexOrder"),
@@ -8111,10 +8331,17 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x044765, "DeletePartyMonMail"),
     (0x044781, "IsAnyMonHoldingMail"),
     (0x0447a0, "_PlayerMailBoxMenu"),
+    (0x0447b4, "_PlayerMailBoxMenu.EmptyMailboxText"),
     (0x0447b9, "InitMail"),
     (0x0447da, "MailboxPC_GetMailAuthor"),
     (0x0447fb, "MailboxPC_PrintMailAuthor"),
     (0x044806, "MailboxPC"),
+    (0x0448ac, "MailboxPC.MailClearedPutAwayText"),
+    (0x0448b1, "MailboxPC.MailPackFullText"),
+    (0x0448b6, "MailboxPC.MailMessageLostText"),
+    (0x04493c, "MailboxPC.MailAlreadyHoldingItemText"),
+    (0x044941, "MailboxPC.MailEggText"),
+    (0x044946, "MailboxPC.MailMovedFromBoxText"),
     (0x048e81, "DrawKrisPackGFX"),
     (0x048e93, "PackFGFXPointers"),
     (0x048e9b, "PackFGFX"),
@@ -8138,6 +8365,8 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x04d596, "Tilesets"),
     (0x04d7c1, "SmallFarFlagAction"),
     (0x04d87a, "CheckForLuckyNumberWinners"),
+    (0x04d9c9, "CheckForLuckyNumberWinners.LuckyNumberMatchPartyText"),
+    (0x04d9ce, "CheckForLuckyNumberWinners.LuckyNumberMatchPCText"),
     (0x04d9d3, "PrintTodaysLuckyNumber"),
     (0x04d9e5, "CheckPartyFullAfterContest"),
     (0x04db3b, "GiveANickname_YesNo"),
@@ -8243,8 +8472,21 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x050549, "ToWhichPKMNString"),
     (0x050556, "YouHaveNoPKMNString"),
     (0x050566, "PrintPartyMenuActionText"),
+    (0x05057b, "PrintPartyMenuActionText.MenuActionTexts"),
+    (0x05058f, "PrintPartyMenuActionText.RecoveredSomeHPText"),
+    (0x050594, "PrintPartyMenuActionText.CuredOfPoisonText"),
+    (0x050599, "PrintPartyMenuActionText.RidOfParalysisText"),
+    (0x05059e, "PrintPartyMenuActionText.BurnWasHealedText"),
+    (0x0505a3, "PrintPartyMenuActionText.WasDefrostedText"),
+    (0x0505a8, "PrintPartyMenuActionText.WokeUpText"),
+    (0x0505ad, "PrintPartyMenuActionText.HealthReturnedText"),
+    (0x0505b2, "PrintPartyMenuActionText.RevitalizedText"),
+    (0x0505b7, "PrintPartyMenuActionText.GrewToLevelText"),
+    (0x0505bc, "PrintPartyMenuActionText.CameToItsSensesText"),
+    (0x0505c1, "PrintPartyMenuActionText.PrintText"),
     (0x0506bc, "SweetScentFromMenu"),
     (0x050730, "_Squirtbottle"),
+    (0x05074e, "_Squirtbottle.SquirtbottleNothingText"),
     (0x050779, "_CardKey"),
     (0x0507b4, "_BasementKey"),
     (0x0507e6, "_SacredAsh"),
@@ -8504,6 +8746,12 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x08aed5, "MenuHeaders_UnownWalls"),
     (0x08af6b, "BuenasPassword"),
     (0x08afd4, "BuenaPrize"),
+    (0x08b072, "BuenaPrize.BuenaAskWhichPrizeText"),
+    (0x08b077, "BuenaPrize.BuenaIsThatRightText"),
+    (0x08b07c, "BuenaPrize.BuenaHereYouGoText"),
+    (0x08b081, "BuenaPrize.BuenaNotEnoughPointsText"),
+    (0x08b086, "BuenaPrize.BuenaNoRoomText"),
+    (0x08b08b, "BuenaPrize.BuenaComeAgainText"),
     (0x08b170, "GiveDratini"),
     (0x08b342, "Function8b342"),
     (0x08c001, "UpdateTimeOfDayPal"),
@@ -8550,8 +8798,15 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x08ea8c, "HoldSwitchmonIcon"),
     (0x08eac4, "MonMenuIcons"),
     (0x090913, "SetDayOfWeek"),
+    (0x090a3f, "SetDayOfWeek.OakTimeWhatDayIsItText"),
+    (0x090a44, "SetDayOfWeek.ConfirmWeekdayText"),
+    (0x090a4f, "SetDayOfWeek.OakTimeIsItText"),
     (0x090a54, "InitialSetDSTFlag"),
+    (0x090a6c, "InitialSetDSTFlag.Text"),
+    (0x090a83, "InitialSetDSTFlag.DSTIsThatOKText"),
     (0x090a88, "InitialClearDSTFlag"),
+    (0x090aa0, "InitialClearDSTFlag.Text"),
+    (0x090ab7, "InitialClearDSTFlag.TimeAskOkayText"),
     (0x091ae1, "PokegearMap"),
     (0x094000, "MapGroupPointers"),
     (0x096c56, "EnableScriptMode"),
@@ -9079,9 +9334,11 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x0fbb27, "UnownWordY"),
     (0x0fbb2d, "UnownWordZ"),
     (0x0fbb32, "CheckMagikarpLength"),
+    (0x0fbba9, "CheckMagikarpLength.MagikarpGuruMeasureText"),
     (0x0fbbfc, "CalcMagikarpLength"),
     (0x0fbca8, "MagikarpLengths"),
     (0x0fbcd2, "MagikarpHouseSign"),
+    (0x0fbce8, "MagikarpHouseSign.KarpGuruRecordText"),
     (0x0fbced, "HiddenPowerDamage"),
     (0x0fbd54, "_DisappearUser"),
     (0x0fbd69, "_AppearUserRaiseSub"),
@@ -9132,6 +9389,8 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x105e04, "UsedMove1Text"),
     (0x105e0b, "UsedMove2Text"),
     (0x105e10, "UsedMoveText_CheckObedience"),
+    (0x105e1a, "UsedMoveText_CheckObedience.UsedInsteadText"),
+    (0x105e1f, "UsedMoveText_CheckObedience.GetMoveNameText"),
     (0x105e23, "MoveNameText"),
     (0x105e43, "EndUsedMove1Text"),
     (0x105e48, "EndUsedMove2Text"),
@@ -9739,6 +9998,7 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x170215, "BattleTowerBattle"),
     (0x17021d, "UnusedBattleTowerDummySpecial1"),
     (0x1704e1, "Function1704e1"),
+    (0x1705f0, "Function1704e1.PlaceTextItems"),
     (0x170687, "BattleTowerAction"),
     (0x170b44, "LoadOpponentTrainerAndPokemonWithOTSprite"),
     (0x170bd2, "UnusedBattleTowerDummySpecial2"),

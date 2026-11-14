@@ -58,15 +58,16 @@ impl Engine {
     }
 
     /// Render the text at ROM `label` to its messages.
-    pub fn render_text(&self, label: usize) -> Vec<String> {
+    pub fn render_text(&self, label: usize, choices: &[usize]) -> Vec<String> {
         let mut out = Out::default();
-        self.run_text_commands(Ptr::Rom(label), &mut out, 0);
+        let mut choices = choices.iter();
+        self.run_text_commands(Ptr::Rom(label), &mut out, 0, &mut choices);
         out.end_message();
         out.messages
     }
 
     /// `DoTextUntilTerminator`.
-    fn run_text_commands(&self, start: Ptr, out: &mut Out, depth: u8) {
+    fn run_text_commands(&self, start: Ptr, out: &mut Out, depth: u8, choices: &mut std::slice::Iter<'_, usize>) {
         assert!(depth < 16, "text nesting too deep");
         let mut p = start;
         let next = |p: Ptr, n: usize| match p {
@@ -83,12 +84,17 @@ impl Engine {
             p = next(p, 1);
             match cmd {
                 0x50 => return, // TX_END
-                0x00 => p = self.place_string(p, out),
+                0x00 => match self.place_string(p, out) {
+                    Some(n) => p = n,
+                    None => return,
+                },
                 0x01 => {
                     // TX_RAM
                     let addr = word(self, p);
                     p = next(p, 2);
-                    self.place_string(Ptr::Ram(addr), out);
+                    if self.place_string(Ptr::Ram(addr), out).is_none() {
+                        return;
+                    }
                 }
                 0x02 => {
                     // TX_BCD
@@ -106,8 +112,8 @@ impl Engine {
                         Ptr::Rom(o) => o,
                         Ptr::Ram(_) => panic!("text_asm in RAM"),
                     };
-                    match self.text_asm(here) {
-                        Some(label) => return self.run_text_commands(Ptr::Rom(label), out, depth + 1),
+                    match self.text_asm(here, choices) {
+                        Some(label) => return self.run_text_commands(Ptr::Rom(label), out, depth + 1, choices),
                         None => return,
                     }
                 }
@@ -145,7 +151,7 @@ impl Engine {
                     let addr = word(self, p);
                     let b = self.text_byte(next(p, 2));
                     p = next(p, 3);
-                    self.run_text_commands(Ptr::Rom(rom::flat(b, addr)), out, depth + 1);
+                    self.run_text_commands(Ptr::Rom(rom::flat(b, addr)), out, depth + 1, choices);
                 }
                 _ => panic!("unknown text command {cmd:#04x} at bank {:02x}", bank(p)),
             }
@@ -153,8 +159,9 @@ impl Engine {
     }
 
     /// `PlaceString` / `PlaceNextChar`: characters up to `@`. Returns the
-    /// pointer past the terminator.
-    fn place_string(&self, mut p: Ptr, out: &mut Out) -> Ptr {
+    /// pointer past the terminator, or `None` when `<DONE>` / `<PROMPT>`
+    /// ended the whole text.
+    fn place_string(&self, mut p: Ptr, out: &mut Out) -> Option<Ptr> {
         let step = |p: Ptr| match p {
             Ptr::Rom(o) => Ptr::Rom(o + 1),
             Ptr::Ram(a) => Ptr::Ram(a.wrapping_add(1)),
@@ -163,13 +170,13 @@ impl Engine {
             let c = self.text_byte(p);
             p = step(p);
             match c {
-                0x50 => return p, // '@'
+                0x50 => return Some(p), // '@'
                 0x4f | 0x4e | 0x22 | 0x4b | 0x4c | 0x55 => out.newline(), // LINE NEXT LF _CONT SCROLL CONT
                 0x51 => out.end_message(),                                  // PARA
                 0x57 | 0x58 => {
                     // DONE / PROMPT end the whole text.
                     out.end_message();
-                    return p;
+                    return None;
                 }
                 0x52 => {
                     self.place_string(Ptr::Ram(W_PLAYER_NAME), out);
@@ -222,9 +229,61 @@ impl Engine {
     }
 
     /// The `text_asm` block at ROM `addr` (just after its `text_asm` byte):
-    /// returns the text it hands back in `hl`, or `None` to stop.
-    fn text_asm(&self, addr: usize) -> Option<usize> {
+    /// returns the text it hands back in `hl`, or `None` to stop. Blocks
+    /// whose choice the battle code already computed take it from `choices`.
+    fn text_asm(&self, addr: usize, choices: &mut std::slice::Iter<'_, usize>) -> Option<usize> {
         let name = super::rsym_name(addr);
-        panic!("unported text_asm at {addr:#08x} ({name})");
+        let base = name.split('+').next().unwrap_or("");
+        let grammar = self.mem.rb(W_MOVE_GRAMMAR);
+        let disobeyed = self.mem.rb(W_ALREADY_DISOBEYED) != 0;
+        Some(match base {
+            "UsedMoveText" => {
+                if disobeyed || grammar < 3 { r::USED_MOVE2_TEXT } else { r::USED_MOVE1_TEXT }
+            }
+            "UsedMove1Text" | "UsedMove2Text" => {
+                if disobeyed { r::USED_MOVE_TEXT_CHECK_OBEDIENCE_USED_INSTEAD_TEXT } else { r::MOVE_NAME_TEXT }
+            }
+            "UsedMoveText_CheckObedience.UsedInsteadText" => r::MOVE_NAME_TEXT,
+            "MoveNameText" => [
+                r::END_USED_MOVE1_TEXT,
+                r::END_USED_MOVE2_TEXT,
+                r::END_USED_MOVE3_TEXT,
+                r::END_USED_MOVE4_TEXT,
+                r::END_USED_MOVE5_TEXT,
+            ][usize::from(grammar)],
+            "GoMonText" | "DoItMonText" | "GoForItMonText" | "YourFoesWeakGetmMonText" => r::BATTLE_MON_NICKNAME_TEXT,
+            "WithdrawMonText.WithdrawMonText" => *choices.next().expect("WithdrawMonText needs its choice"),
+            "Text_MonGainedExpPoint" => {
+                if self.mem.rb(W_STRING_BUFFER2 + 2) == 0 { r::EXP_POINTS_TEXT } else { r::BOOSTED_EXP_POINTS_TEXT }
+            }
+            "BattleCommand_StatUpMessage" => {
+                if self.mem.rb(W_LOWERED_STAT) & 0xf0 == 0 {
+                    r::BATTLE_COMMAND_STAT_UP_MESSAGE_BATTLE_STAT_WENT_UP_TEXT
+                } else {
+                    r::BATTLE_COMMAND_STAT_UP_MESSAGE_BATTLE_STAT_WENT_WAY_UP_TEXT
+                }
+            }
+            "BattleCommand_StatDownMessage" => {
+                if self.mem.rb(W_LOWERED_STAT) & 0xf0 == 0 {
+                    r::BATTLE_COMMAND_STAT_DOWN_MESSAGE_BATTLE_STAT_FELL_TEXT
+                } else {
+                    r::BATTLE_COMMAND_STAT_DOWN_MESSAGE_BATTLE_STAT_SHARPLY_FELL_TEXT
+                }
+            }
+            "BattleCommand_Charge.UsedText" => {
+                use crate::defs::*;
+                match self.battle_var(BATTLE_VARS_MOVE_ANIM) {
+                    RAZOR_WIND => r::BATTLE_COMMAND_CHARGE_BATTLE_MADE_WHIRLWIND_TEXT,
+                    SOLARBEAM => r::BATTLE_COMMAND_CHARGE_BATTLE_TOOK_SUNLIGHT_TEXT,
+                    SKULL_BASH => r::BATTLE_COMMAND_CHARGE_BATTLE_LOWERED_HEAD_TEXT,
+                    SKY_ATTACK => r::BATTLE_COMMAND_CHARGE_BATTLE_GLOWING_TEXT,
+                    FLY => r::BATTLE_COMMAND_CHARGE_BATTLE_FLEW_TEXT,
+                    // DIG — and, as in the original, `hl` stays DugText for anything else.
+                    _ => r::BATTLE_COMMAND_CHARGE_BATTLE_DUG_TEXT,
+                }
+            }
+            "Text_GotchaMonWasCaught" => r::WAIT_BUTTON_TEXT,
+            _ => panic!("unported text_asm at {addr:#08x} ({name})"),
+        })
     }
 }

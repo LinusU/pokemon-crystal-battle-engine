@@ -213,9 +213,15 @@ impl Engine {
 
     /// `StdBattleTextbox` / `PrintText` with the text at `label`.
     pub fn text(&mut self, label: usize) {
+        self.text_with(label, &[]);
+    }
+
+    /// `text`, for a text whose `text_asm` choices the battle code computed
+    /// (in order).
+    pub fn text_with(&mut self, label: usize, choices: &[usize]) {
         self.texts.push(TextRef(label));
         if self.rendered.is_some() {
-            let messages = self.render_text(label);
+            let messages = self.render_text(label, choices);
             self.rendered.as_mut().unwrap().extend(messages);
         }
     }

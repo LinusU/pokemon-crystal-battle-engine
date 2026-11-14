@@ -572,7 +572,7 @@ impl Engine {
         } else {
             r::GOOD_COME_BACK_TEXT
         };
-        self.text(text);
+        self.text_with(r::WITHDRAW_MON_TEXT_WITHDRAW_MON_TEXT, &[text]);
     }
 
     /// `SpikesDamage`: the mon whose turn it is just came in.

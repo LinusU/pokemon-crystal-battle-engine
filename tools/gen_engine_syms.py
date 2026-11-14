@@ -39,6 +39,9 @@ for line in open('scratch/pokecrystal/pokecrystal.sym'):
         continue
     bank, addr, name = int(m.group(1), 16), int(m.group(2), 16), m.group(3)
     if '.' in name:
+        parent, local = name.split('.', 1)
+        if addr < 0x8000 and parent in MENTIONED and 'Text' in local and name not in rom:
+            rom[name] = (bank, addr)
         continue
     if 0xc000 <= addr <= 0xcfff and bank == 0:
         wram.setdefault(addr, []).append(name)
