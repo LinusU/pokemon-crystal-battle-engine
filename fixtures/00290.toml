@@ -19,16 +19,126 @@ expect.player.active.level = 50
 expect.player.active.hp = 147
 expect.player.active.max_hp = 147
 expect.player.active.status = "none"
-expect.player.active.pp = [15, 15, 20, 30]
+expect.player.active.pp = [14, 15, 20, 30]
 expect.player.active.item = "none"
 expect.player.party = [{ species = "TYPHLOSION", level = 50, hp = 147, max_hp = 147, status = "none", item = "none" }]
-expect.enemy.active_slot = 230
-expect.enemy.active.species = "SNEASEL"
-expect.enemy.active.level = 41
-expect.enemy.active.hp = 102
-expect.enemy.active.max_hp = 102
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GOLBAT"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 121
+expect.enemy.active.max_hp = 121
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [30, 40, 20, 20]
+expect.enemy.active.pp = [15, 25, 10, 35]
 expect.enemy.active.item = "none"
-expect.enemy.party = [{ species = "SNEASEL", level = 41, hp = 102, max_hp = 102, status = "none", item = "none" }, { species = "GOLBAT", level = 42, hp = 121, max_hp = 121, status = "none", item = "none" }, { species = "MAGNETON", level = 41, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "GENGAR", level = 43, hp = 111, max_hp = 111, status = "none", item = "none" }, { species = "ALAKAZAM", level = 43, hp = 107, max_hp = 107, status = "none", item = "none" }, { species = "MEGANIUM", level = 45, hp = 134, max_hp = 134, status = "none", item = "none" }]
-expect.battle.outcome = "win"
+expect.enemy.party = [{ species = "SNEASEL", level = 41, hp = 0, max_hp = 102, status = "none", item = "none" }, { species = "GOLBAT", level = 42, hp = 121, max_hp = 121, status = "none", item = "none" }, { species = "MAGNETON", level = 41, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "GENGAR", level = 43, hp = 111, max_hp = 111, status = "none", item = "none" }, { species = "ALAKAZAM", level = 43, hp = 107, max_hp = 107, status = "none", item = "none" }, { species = "MEGANIUM", level = 45, hp = 134, max_hp = 134, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "TYPHLOSION"
+expect.player.active.level = 50
+expect.player.active.hp = 147
+expect.player.active.max_hp = 147
+expect.player.active.status = "none"
+expect.player.active.pp = [13, 15, 20, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "TYPHLOSION", level = 50, hp = 147, max_hp = 147, status = "none", item = "none" }]
+expect.enemy.active_slot = 1
+expect.enemy.active.species = "GOLBAT"
+expect.enemy.active.level = 42
+expect.enemy.active.hp = 13
+expect.enemy.active.max_hp = 121
+expect.enemy.active.status = "burn"
+expect.enemy.active.pp = [15, 25, 9, 35]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SNEASEL", level = 41, hp = 0, max_hp = 102, status = "none", item = "none" }, { species = "GOLBAT", level = 42, hp = 28, max_hp = 121, status = "burn", item = "none" }, { species = "MAGNETON", level = 41, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "GENGAR", level = 43, hp = 111, max_hp = 111, status = "none", item = "none" }, { species = "ALAKAZAM", level = 43, hp = 107, max_hp = 107, status = "none", item = "none" }, { species = "MEGANIUM", level = 45, hp = 134, max_hp = 134, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "TYPHLOSION"
+expect.player.active.level = 50
+expect.player.active.hp = 147
+expect.player.active.max_hp = 147
+expect.player.active.status = "none"
+expect.player.active.pp = [12, 15, 20, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "TYPHLOSION", level = 50, hp = 147, max_hp = 147, status = "none", item = "none" }]
+expect.enemy.active_slot = 3
+expect.enemy.active.species = "GENGAR"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 111
+expect.enemy.active.max_hp = 111
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [5, 10, 15, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SNEASEL", level = 41, hp = 0, max_hp = 102, status = "none", item = "none" }, { species = "GOLBAT", level = 42, hp = 0, max_hp = 121, status = "burn", item = "none" }, { species = "MAGNETON", level = 41, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "GENGAR", level = 43, hp = 111, max_hp = 111, status = "none", item = "none" }, { species = "ALAKAZAM", level = 43, hp = 107, max_hp = 107, status = "none", item = "none" }, { species = "MEGANIUM", level = 45, hp = 134, max_hp = 134, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "TYPHLOSION"
+expect.player.active.level = 50
+expect.player.active.hp = 147
+expect.player.active.max_hp = 147
+expect.player.active.status = "none"
+expect.player.active.pp = [11, 15, 20, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "TYPHLOSION", level = 50, hp = 147, max_hp = 147, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ALAKAZAM"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 107
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 15, 10]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SNEASEL", level = 41, hp = 0, max_hp = 102, status = "none", item = "none" }, { species = "GOLBAT", level = 42, hp = 0, max_hp = 121, status = "burn", item = "none" }, { species = "MAGNETON", level = 41, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "GENGAR", level = 43, hp = 0, max_hp = 111, status = "none", item = "none" }, { species = "ALAKAZAM", level = 43, hp = 107, max_hp = 107, status = "none", item = "none" }, { species = "MEGANIUM", level = 45, hp = 134, max_hp = 134, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "TYPHLOSION"
+expect.player.active.level = 50
+expect.player.active.hp = 52
+expect.player.active.max_hp = 147
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 15, 20, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "TYPHLOSION", level = 50, hp = 52, max_hp = 147, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ALAKAZAM"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 20
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 15, 9]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SNEASEL", level = 41, hp = 0, max_hp = 102, status = "none", item = "none" }, { species = "GOLBAT", level = 42, hp = 0, max_hp = 121, status = "burn", item = "none" }, { species = "MAGNETON", level = 41, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "GENGAR", level = 43, hp = 0, max_hp = 111, status = "none", item = "none" }, { species = "ALAKAZAM", level = 43, hp = 107, max_hp = 107, status = "none", item = "none" }, { species = "MEGANIUM", level = 45, hp = 134, max_hp = 134, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 0
+expect.player.active_slot = 0
+expect.player.active.species = "TYPHLOSION"
+expect.player.active.level = 50
+expect.player.active.hp = 0
+expect.player.active.max_hp = 147
+expect.player.active.status = "none"
+expect.player.active.pp = [10, 15, 20, 30]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "TYPHLOSION", level = 50, hp = 0, max_hp = 147, status = "none", item = "none" }]
+expect.enemy.active_slot = 4
+expect.enemy.active.species = "ALAKAZAM"
+expect.enemy.active.level = 43
+expect.enemy.active.hp = 20
+expect.enemy.active.max_hp = 107
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [20, 20, 15, 8]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SNEASEL", level = 41, hp = 0, max_hp = 102, status = "none", item = "none" }, { species = "GOLBAT", level = 42, hp = 0, max_hp = 121, status = "burn", item = "none" }, { species = "MAGNETON", level = 41, hp = 98, max_hp = 98, status = "none", item = "none" }, { species = "GENGAR", level = 43, hp = 0, max_hp = 111, status = "none", item = "none" }, { species = "ALAKAZAM", level = 43, hp = 107, max_hp = 107, status = "none", item = "none" }, { species = "MEGANIUM", level = 45, hp = 134, max_hp = 134, status = "none", item = "none" }]
+expect.battle.outcome = "loss"
