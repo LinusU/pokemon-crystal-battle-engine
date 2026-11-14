@@ -305,6 +305,7 @@ impl Engine {
                 }
             }
             "Text_GotchaMonWasCaught" => r::WAIT_BUTTON_TEXT,
+            "Text_1_2_and_Poof" => r::TEXT_1_2_AND_POOF_MOVE_FORGOT_TEXT,
             _ => panic!("unported text_asm at {addr:#08x} ({name})"),
         })
     }
