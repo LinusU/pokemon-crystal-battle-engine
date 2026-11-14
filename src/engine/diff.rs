@@ -20,6 +20,11 @@ pub const COMPARED: &[(u16, u16)] = &[
     (sym::W_BATTLE_RESULT, sym::W_BATTLE_RESULT + 1),
     (sym::W_BATTLE_ACTION, sym::W_BATTLE_ACTION + 1),
     (sym::H_BATTLE_TURN, sym::H_BATTLE_TURN + 1),
+    // The bag (Items and Balls pockets) and what the item routines leave behind.
+    (sym::W_NUM_ITEMS, sym::W_NUM_KEY_ITEMS),
+    (sym::W_NUM_BALLS, sym::W_NUM_BALLS + 26),
+    (sym::W_CUR_ITEM, sym::W_CUR_ITEM_QUANTITY + 1),
+    (sym::W_WILD_MON, sym::W_WILD_MON + 1),
 ];
 
 /// The first way the engine differs from the original.
@@ -68,29 +73,27 @@ pub fn check(trace: &Trace, link: bool, check_text: bool) -> Result<usize, Diver
                 Ok(TurnEnd::Quit) | Err(_) => break,
             }
         }
-        engine
     }));
-    let (log, texts, panic) = match run {
-        Ok(engine) => (engine.decision_log.unwrap(), engine.text_log, None),
-        Err(payload) => {
-            let msg = payload
-                .downcast_ref::<String>()
-                .cloned()
-                .or_else(|| payload.downcast_ref::<&str>().map(|s| s.to_string()))
-                .unwrap_or_default();
-            (Vec::new(), Vec::new(), Some(msg))
-        }
-    };
-    if let Some(message) = panic {
-        // We lost the log; re-run up to the panic to find how far it got.
-        return Err(Divergence::Panic { decision: usize::MAX, message });
-    }
+    // A panic (an unported routine) leaves the log of the decisions before it:
+    // those are still compared, so everything up to the panic is verified.
+    let panic = run.err().map(|payload| {
+        payload
+            .downcast_ref::<String>()
+            .cloned()
+            .or_else(|| payload.downcast_ref::<&str>().map(|s| s.to_string()))
+            .unwrap_or_default()
+    });
+    let log = engine.decision_log.take().unwrap_or_default();
+    let texts = std::mem::take(&mut engine.text_log);
     for (i, (snap, (site, legal, mem, rng))) in trace.decisions.iter().zip(&log).enumerate() {
         compare(i, snap, *site, legal, mem, *rng)?;
         // The first decision's text happened before the engine took over.
         if check_text && i > 0 && snap.texts != texts[i] {
             return Err(Divergence::Text { decision: i, oracle: snap.texts.clone(), engine: texts[i].clone() });
         }
+    }
+    if let Some(message) = panic {
+        return Err(Divergence::Panic { decision: log.len(), message });
     }
     if log.len() != trace.decisions.len() {
         return Err(Divergence::Length { oracle: trace.decisions.len(), engine: log.len() });

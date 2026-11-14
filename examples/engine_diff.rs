@@ -19,13 +19,14 @@ fn main() {
     let first: u64 = args.next().and_then(|s| s.parse().ok()).unwrap_or(1);
     let moves: Vec<u8> = args.map(|m| m.parse().unwrap()).collect();
     let moves = if moves.is_empty() { vec![33] } else { moves };
-    let (mut ok, mut bad) = (0, 0);
+    let opts = testgen::GenOptions { items: std::env::var_os("NO_ITEMS").is_none(), ..Default::default() };
+    let (mut ok, mut bad, mut unported) = (0, 0, 0);
     std::panic::set_hook(Box::new(|_| {}));
     for seed in first..first + battles {
         let config = match kind.as_str() {
-            "wild" => testgen::random_wild_config(seed, &moves, Default::default()),
-            "trainer" => testgen::random_trainer_config(seed, &moves, Default::default()),
-            _ => testgen::random_link_config(seed, &moves, Default::default()),
+            "wild" => testgen::random_wild_config(seed, &moves, opts),
+            "trainer" => testgen::random_trainer_config(seed, &moves, opts),
+            _ => testgen::random_link_config(seed, &moves, opts),
         };
         let Some(trace) = oracle::run(&config, config.battle.seed.unwrap(), seed, 400) else {
             println!("seed {seed}: oracle battle too long or frozen, skipped");
@@ -36,6 +37,11 @@ fn main() {
                 ok += 1;
                 println!("seed {seed}: ok ({n} decisions)");
             }
+            // An unported routine: everything before it matched.
+            Err(diff::Divergence::Panic { decision, message }) if message.contains("unported routine") => {
+                unported += 1;
+                println!("seed {seed}: ok for {decision} decisions, then {message}");
+            }
             Err(d) => {
                 bad += 1;
                 let sites: Vec<_> = trace.decisions.iter().take(6).map(|d| format!("{:?}/{:?}", d.site, d.action)).collect();
@@ -43,5 +49,5 @@ fn main() {
             }
         }
     }
-    println!("{ok} ok, {bad} diverged");
+    println!("{ok} ok, {unported} ok until an unported routine, {bad} diverged");
 }
