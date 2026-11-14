@@ -13,7 +13,12 @@ SOURCES = (glob.glob('scratch/pokecrystal/engine/battle/**/*.asm', recursive=Tru
            + glob.glob('scratch/pokecrystal/home/*.asm')
            + glob.glob('scratch/pokecrystal/data/moves/*.asm')
            + glob.glob('scratch/pokecrystal/data/battle/**/*.asm', recursive=True)
-           + glob.glob('scratch/pokecrystal/data/text/battle.asm'))
+           + glob.glob('scratch/pokecrystal/data/text/battle.asm')
+           + glob.glob('scratch/pokecrystal/engine/events/happiness_egg.asm')
+           + glob.glob('scratch/pokecrystal/engine/pokemon/*.asm')
+           + glob.glob('scratch/pokecrystal/engine/smallflag.asm')
+           + glob.glob('scratch/pokecrystal/data/events/*.asm')
+           + glob.glob('scratch/pokecrystal/data/pokemon/*.asm'))
 MENTIONED = set()
 for path in SOURCES:
     for line in open(path, encoding='utf-8', errors='replace'):
