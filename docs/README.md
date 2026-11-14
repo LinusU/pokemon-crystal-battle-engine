@@ -40,3 +40,4 @@ The transpiled code is in `src/game/`, `src/dispatch.rs`, `src/defs.rs`. We avoi
 - [TOML schema](toml_schema.md) — what a battle config looks like today.
 - [Transpiled code](transpiled_code.md) — the rules for editing `src/game/`, the `HARNESS-PATCH:` convention, and the "graduate to hand-written" model.
 - [Roadmap](roadmap.md) — what step 2+ looks like, open questions to resolve.
+- [Goal](goal.md) — the current working goal (phases 3 and 4), the exactness contract, and known fidelity gaps.
