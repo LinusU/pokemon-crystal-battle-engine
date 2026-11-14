@@ -14,6 +14,20 @@ use crate::runtime::Cpu;
 // always true in the harness. Reseed via `Cpu::seed_rng`. See
 // docs/transpiled_code.md.
 pub fn random(cpu: &mut Cpu) {
+    // HARNESS-PATCH: optional RNG call log for differential testing (see
+    // Cpu::rng_log). Find the routine that asked for the number: Random's own
+    // return address, or — when Random was reached through BattleRandom
+    // (`00:2f9f`..), which pushed `af` (A = caller's bank) before calling
+    // _BattleRandom (which `jp`s here) — the address BattleRandom returns to.
+    let caller = cpu.rng_log.is_some().then(|| {
+        let sp = cpu.sp;
+        let ret = cpu.read_word(sp);
+        if (0x2f9f..0x2fb4).contains(&ret) {
+            (cpu.read_byte(sp + 3), cpu.read_word(sp + 4))
+        } else {
+            (cpu.read_byte(0xff9d), ret)
+        }
+    });
     cpu.pc = 0x2f8c;
     cpu.push_word(cpu.bc());
     cpu.pc += 1;
@@ -41,6 +55,9 @@ pub fn random(cpu: &mut Cpu) {
     cpu.cycle(12 + 4 + 12 + 4 + 12);
     cpu.pc += 2 + 1 + 2 + 1 + 2;
 
+    if let (Some((bank, ret)), Some(log)) = (caller, cpu.rng_log.as_mut()) {
+        log.push(crate::runtime::RngDraw { bank, ret, value: sub_byte });
+    }
     let value = cpu.pop_word();
     cpu.set_bc(value);
     cpu.pc += 1;

@@ -132,6 +132,18 @@ pub struct Cpu {
     gpu_lazy: bool,
     gpu_debt: u32,
     gpu_budget: u32,
+    /// When `Some`, every `Random` call is logged (differential testing): the
+    /// ROM bank and return address of the routine that asked for the number
+    /// (looking through `BattleRandom`), and the byte returned.
+    pub rng_log: Option<Vec<RngDraw>>,
+}
+
+/// One logged `Random` call. See [`Cpu::rng_log`].
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct RngDraw {
+    pub bank: u8,
+    pub ret: u16,
+    pub value: u8,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -180,6 +192,7 @@ impl Default for Cpu {
             gpu_lazy: false,
             gpu_debt: 0,
             gpu_budget: 0,
+            rng_log: None,
             rom_patches: Vec::new(),
             trainer_party_override: false,
             mbc: Mbc::new(crate::rom::ROM),
@@ -217,6 +230,11 @@ impl Cpu {
     /// Reseed the harness PRNG used by [`crate::game::home::random::random`].
     /// A zero seed is mapped to the default constant — xorshift64 cannot
     /// recover from all-zero state.
+    /// The harness PRNG state (see [`Cpu::next_rng_byte`]).
+    pub fn rng_state(&self) -> u64 {
+        self.rng_state
+    }
+
     pub fn seed_rng(&mut self, seed: u64) {
         self.rng_state = if seed == 0 { Self::DEFAULT_RNG_SEED } else { seed };
     }
