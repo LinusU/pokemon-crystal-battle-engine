@@ -64,6 +64,9 @@ impl Engine {
     /// `Divide`: `hDividend` (`b` bytes, big endian) ÷ `hDivisor` →
     /// `hQuotient` (4 bytes), `hRemainder`. A port of `_Divide`.
     pub fn divide(&mut self, mut b: u8) {
+        // The original loops forever dividing by zero (the game freezes, e.g.
+        // pokecrystal's "Switching out against a mon with max HP below 4" bug).
+        assert!(self.h(H_DIVISOR) != 0, "Divide by zero: the original game freezes here");
         for i in 0..=4 {
             self.set_h(H_MATH_BUFFER + i, 0);
         }

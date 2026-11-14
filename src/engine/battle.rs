@@ -33,6 +33,11 @@ pub struct Flags {
     pub link_battle: bool,
     /// A thrown ball caught the wild mon (`Outcome::Caught`).
     pub caught_wild_mon: bool,
+    /// Move slot picked at the battle menu, for the patched
+    /// `MoveSelectionScreen` (`Cpu::cli_pending_move`).
+    pub pending_move: Option<u8>,
+    /// FIGHT with no usable move (`Cpu::cli_pending_struggle`).
+    pub pending_struggle: bool,
 }
 
 /// The whole battle: memory, the random stream, and harness flags. `Clone` is

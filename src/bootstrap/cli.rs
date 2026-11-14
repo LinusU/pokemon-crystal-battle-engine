@@ -1404,7 +1404,7 @@ fn legal_battle_menu_steps(cpu: &impl ReadMem) -> Vec<Step> {
 /// FIGHT goes straight to a move without a menu: `ParsePlayerAction` checks
 /// Encore (`SUBSTATUS_ENCORED` → repeat `wLastPlayerMove`) and then Bide
 /// (`SUBSTATUS_BIDE` → `.locked_in`) before it would call `MoveSelectionScreen`.
-fn fight_skips_move_menu(cpu: &impl ReadMem) -> bool {
+pub fn fight_skips_move_menu(cpu: &impl ReadMem) -> bool {
     cpu.read_byte(W_PLAYER_SUB_STATUS_5) & (1 << defs::SUBSTATUS_ENCORED) != 0
         || cpu.read_byte(W_PLAYER_SUB_STATUS_3) & (1 << defs::SUBSTATUS_BIDE) != 0
 }
@@ -1413,7 +1413,7 @@ fn fight_skips_move_menu(cpu: &impl ReadMem) -> bool {
 /// of its predicate, including its bug: with a move Disabled, the remaining PP
 /// bytes are OR'd *without* masking off the PP-Up bits, so a 0-PP move with PP
 /// Ups counts as usable (see `docs/bugs_and_glitches.md` in pokecrystal).
-fn player_must_struggle(cpu: &impl ReadMem) -> bool {
+pub fn player_must_struggle(cpu: &impl ReadMem) -> bool {
     let pp = |i: u16| cpu.read_byte(W_BATTLE_MON_PP + i);
     let disable = cpu.read_byte(W_PLAYER_DISABLE_COUNT);
     if disable == 0 {

@@ -13,6 +13,7 @@ mod cmd_todo;
 pub mod commands;
 pub mod core;
 pub mod diff;
+pub mod harness;
 pub mod math;
 pub mod mem;
 pub mod names;
