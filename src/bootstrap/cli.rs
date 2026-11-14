@@ -1,3 +1,4 @@
+#![warn(dead_code, unused_imports, unused_variables)]
 //! Terminal-driven battle input. Replaces the engine's keypad menus with stdin
 //! prompts that read WRAM directly. Always on — see the unconditional
 //! `HARNESS-PATCH` sites listed below.
@@ -58,44 +59,38 @@ const SUBSTATUS_X_ACCURACY_MASK: u8 = 1 << 0;
 const SUBSTATUS_MIST_MASK: u8 = 1 << 1;
 const SUBSTATUS_FOCUS_ENERGY_MASK: u8 = 1 << 2;
 const W_ENEMY_SUB_STATUS_5: u16 = 0xc671;
+// `wPlayerSubStatus5` (Encore lives here, `SUBSTATUS_ENCORED`) and
+// `wLastPlayerMove` (the move an Encore repeats). `00:c66c wPlayerSubStatus5`,
+// `00:c71b wLastPlayerMove` in `pokecrystal.sym`.
+const W_PLAYER_SUB_STATUS_5: u16 = 0xc66c;
+// `wLinkMode` — non-zero in a link battle. `00:c2dc wLinkMode`.
+const W_LINK_MODE: u16 = 0xc2dc;
+// Bag-UI state the item hooks fill in. `00:cf63 wJumptableIndex`,
+// `00:cf65 wCurPocket`, `01:d0d8 wPartyMenuCursor`, `01:d108
+// wCurPartySpecies`, `01:dcd8 wPartySpecies` in `pokecrystal.sym`.
+const W_JUMPTABLE_INDEX: u16 = 0xcf63;
+const W_CUR_POCKET: u16 = 0xcf65;
+const W_PARTY_MENU_CURSOR: u16 = 0xd0d8;
+const W_CUR_PARTY_SPECIES: u16 = 0xd108;
+const W_PARTY_SPECIES: u16 = 0xdcd8;
 // The active player mon's Disable counter. High nibble = the disabled move's
 // 1-based slot (0 = nothing disabled); low nibble = turns remaining.
 // `00:c675 wPlayerDisableCount` in `pokecrystal.sym`.
 const W_PLAYER_DISABLE_COUNT: u16 = 0xc675;
 
-// The active player mon's per-stat stage levels — 8 bytes indexed by the stat
-// constants below (only the first 5 are battle stats). Each byte is an ABSOLUTE
-// level 1..=13; 7 (`BASE_STAT_LEVEL`) is neutral, 13 (`MAX_STAT_LEVEL`) is the
-// cap. `00:c6cc wPlayerStatLevels` / `wPlayerAtkLevel` in `pokecrystal.sym`,
-// `NUM_LEVEL_STATS = 8` in `constants/battle_constants.asm`.
-const W_PLAYER_STAT_LEVELS: u16 = 0xc6cc;
-
-// Stat-level bounds and indices. Source: `constants/battle_constants.asm`
-// (`BASE_STAT_LEVEL EQU 7`, `MAX_STAT_LEVEL EQU 13`) and the `const_def`
-// stat-index block (ATTACK=0, DEFENSE=1, SPEED=2, SP_ATTACK=3, SP_DEFENSE=4,
-// ACCURACY=5, EVASION=6, ABILITY=7).
-const BASE_STAT_LEVEL: u8 = 7;
-const MAX_STAT_LEVEL: u8 = 13;
 const STAT_ATTACK: u8 = 0;
 const STAT_DEFENSE: u8 = 1;
 const STAT_SPEED: u8 = 2;
 const STAT_SP_ATTACK: u8 = 3;
-const W_CUR_PLAYER_MOVE: u16 = 0xc6e3;
 const W_LAST_PLAYER_MON: u16 = 0xc71a;
 const W_PLAYER_WRAP_COUNT: u16 = 0xc730;
 
 const W_BATTLE_MENU_CURSOR_POSITION: u16 = 0xd0d2;
 const W_CUR_BATTLE_MON: u16 = 0xd0d4;
-const W_CUR_MOVE_NUM: u16 = 0xd0d5;
 const W_MENU_CURSOR_Y: u16 = 0xcfa9;
 const W_BATTLE_PLAYER_ACTION: u16 = 0xd0ec;
 const W_CUR_ITEM: u16 = 0xd106;
 const W_CUR_PARTY_MON: u16 = 0xd109;
-const W_ITEM_QUANTITY_CHANGE: u16 = 0xd10c;
-/// `wNamedObjectIndex` — the id `GetItemName` reads to fill `wStringBuffer2`,
-/// which "<PLAYER> used the …" prints from. Set by the engine's `DoItemEffect`
-/// preamble; we replicate it when driving an item routine directly.
-const W_NAMED_OBJECT_INDEX: u16 = 0xd265;
 
 const W_PARTY_COUNT: u16 = 0xdcd7;
 const W_PARTY_MON1: u16 = 0xdcdf;
@@ -109,36 +104,12 @@ const W_NUM_BALLS: u16 = 0xd8d7;
 // zero after a failed throw — this is what `BattleMenu_Pack.UseItem` keys on to
 // decide caught-vs-broke-free, and what we key on too.
 const W_WILD_MON: u16 = 0xc64e;
-// `wBattleEnded` (0xc734): the turn loop (`battle_turn_loop1`) quits when this is
-// non-zero. The capture path sets it so the battle ends after a catch.
-const W_BATTLE_ENDED: u16 = 0xc734;
-// `wBattleResult` (0xd0ee): low nibble is WIN/LOSS/DRAW; the high two bits carry
-// the CAUGHT_CELEBI / BOX_FULL flags. The catch path masks it to WIN; the Poké
-// Doll path masks it to DRAW.
-const W_BATTLE_RESULT: u16 = 0xd0ee;
-// `wForcedSwitch` (0xd232): the turn loop (`battle_turn_loop1`) quits when this
-// is non-zero. `PokeDollEffect` sets it to TRUE to end a wild battle as an
-// escape, the same signal the engine uses when the player flees. `01:d232
-// wForcedSwitch` in `pokecrystal.sym`.
-const W_FORCED_SWITCH: u16 = 0xd232;
 
 // Poké Doll item id (`POKE_DOLL` in `scratch/pokecrystal/constants/item_constants.asm`).
 // In a wild battle it ends the battle immediately as an escape (a DRAW); in a
 // trainer battle it does nothing (and we never offer it there). See
 // `PokeDollEffect` in `scratch/pokecrystal/engine/items/item_effects.asm`.
 const POKE_DOLL_ID: u8 = 0x25;
-
-// `PokeBallEffect` lives in ROM bank 0x03 (`03:68a2 PokeBallEffect` in
-// pokecrystal.sym). `battle_menu` (the routine this CLI module patches) runs in
-// bank 0x0f, so we save/switch/restore around the call.
-const BANK_POKE_BALL_EFFECT: u8 = 0x03;
-// The active-mon item effect routines (`XItemEffect`, `XAccuracyEffect`,
-// `GuardSpecEffect`, `DireHitEffect`, `BitterBerryEffect`) all live in ROM bank
-// 0x03 too (verified in pokecrystal.sym), so [`use_active_item_effect`] uses the
-// same save/switch/restore as the ball path. Same numeric value as
-// `BANK_POKE_BALL_EFFECT`; kept distinct for intent.
-const BANK_ITEM_EFFECTS: u8 = 0x03;
-const H_ROM_BANK: u16 = 0xff9d;
 
 // `wBattleMode` — 0 = not in battle, 1 = wild, 2 = trainer (`WILD_BATTLE` /
 // `TRAINER_BATTLE` in `scratch/pokecrystal/constants/battle_constants.asm`).
@@ -201,27 +172,11 @@ fn is_active_confused(sub_status3: u8) -> bool {
 #[derive(Debug, Clone, Copy)]
 enum Action {
     Move(u8),
+    /// FIGHT with no move menu (Encore / Bide / Struggle). See [`Step::Fight`].
+    Fight,
     Switch(u8),
     Item { id: u8, target: Option<u8>, move_slot: Option<u8> },
-    /// Throw a Poké Ball from the Balls pocket. `id` is the ball item id. Only
-    /// offered in wild battles (see [`offers_balls`]). For now this just consumes
-    /// the turn without catching — see the dispatch in [`handle_battle_menu`].
-    Ball { id: u8 },
-    /// Use a guaranteed-escape item from the Items pocket (the Poké Doll). Only
-    /// offered in wild battles (see [`offers_escape_item`]): it ends the battle
-    /// immediately as a DRAW. In a trainer battle the real game's `PokeDollEffect`
-    /// is a no-op, so we never list it there. `id` is the item id. See the
-    /// dispatch in [`handle_battle_menu`].
-    Escape { id: u8 },
     Run,
-}
-
-/// Whether the action menu should offer Poké Balls, given `wBattleMode`. Balls
-/// only make sense in a wild battle (`WILD_BATTLE` = 1); the real game refuses a
-/// ball in a trainer battle ("The trainer blocked the BALL!"), so we never list
-/// one there. Pure helper so the mode test is unit-testable without a `Cpu`.
-fn offers_balls(battle_mode: u8) -> bool {
-    battle_mode == defs::WILD_BATTLE
 }
 
 /// Whether the action menu should offer the Poké Doll (a guaranteed escape),
@@ -264,38 +219,31 @@ fn observe_decision_point(cpu: &Cpu) {
 /// engine sub-routine via `become`).
 pub fn handle_battle_menu(cpu: &mut Cpu) {
     observe_decision_point(cpu);
+    // Never let a move picked at an earlier menu leak into this one.
+    cpu.cli_pending_move = None;
+    cpu.cli_pending_struggle = false;
     loop {
-        print_battle_state(cpu);
-        let action = if let Some(step) = player::consume(
+        if cpu.decider.is_none() {
+            print_battle_state(cpu);
+        }
+        let step = obtain(
             cpu,
             PromptSite::BattleMenu,
-            &[StepKind::Move, StepKind::Switch, StepKind::Item, StepKind::Run],
-        ) {
-            // Playback path: turn the step back into the same `Action` the
-            // stdin path would produce. Item targets come from the step
-            // itself — `prompt_item_target` is bypassed.
+            &[StepKind::Move, StepKind::Fight, StepKind::Switch, StepKind::Item, StepKind::Run],
+            |cpu| action_to_step(prompt_action(cpu)),
+        );
+        let action = {
+            // Turn the step into the dispatch `Action`. Item targets come from
+            // the step itself.
             match step {
-                Step::Move { slot } => {
-                    assert_recorded_move_legal(cpu, slot);
-                    Action::Move(slot)
-                }
+                Step::Move { slot } => Action::Move(slot),
+                Step::Fight => Action::Fight,
                 Step::Switch { slot } => Action::Switch(slot),
-                // A ball is recorded as an `item` step (different pocket, same
-                // representation), so route a ball id back to the ball path —
-                // exactly as the stdin path would produce it.
-                Step::Item { id, .. } if is_ball_id(id) => Action::Ball { id },
-                // The Poké Doll is recorded as an `item` step (same as a ball:
-                // an Items-pocket id with no party target), so route it back to
-                // the escape path exactly as the stdin path would.
-                Step::Item { id, .. } if is_escape_item_id(id) => Action::Escape { id },
                 Step::Item { id, target, move_slot } => Action::Item { id, target, move_slot },
                 Step::Run => Action::Run,
-                // `consume`'s `accepts` filter rules these out — unreachable
-                // in well-formed scripts and reported by `consume` otherwise.
+                // `obtain`'s `accepts` filter rules these out.
                 Step::ForcedSwitch { .. } | Step::OfferSwitch { .. } => unreachable!(),
             }
-        } else {
-            prompt_action(cpu)
         };
         match action {
             Action::Move(slot) => {
@@ -304,6 +252,17 @@ pub fn handle_battle_menu(cpu: &mut Cpu) {
                 cpu.write_byte(W_BATTLE_MENU_CURSOR_POSITION, 1);
                 recorder::record(cpu, Step::Move { slot });
                 // Tail-call battle_menu_fight: clears tilemap, sets and-a-a flags, returns.
+                return crate::game::engine::battle::core::battle_menu_fight(cpu);
+            }
+            Action::Fight => {
+                // FIGHT where the original shows no move menu. For Encore and
+                // Bide `ParsePlayerAction` never calls `MoveSelectionScreen`;
+                // for no-usable-moves it does, and the patched screen runs the
+                // engine's own `CheckPlayerHasUsableMoves` to force Struggle.
+                cpu.cli_pending_struggle = !fight_skips_move_menu(cpu);
+                cpu.write_byte(W_BATTLE_PLAYER_ACTION, defs::BATTLEPLAYERACTION_USEMOVE);
+                cpu.write_byte(W_BATTLE_MENU_CURSOR_POSITION, 1);
+                recorder::record(cpu, Step::Fight);
                 return crate::game::engine::battle::core::battle_menu_fight(cpu);
             }
             Action::Switch(slot) => {
@@ -329,75 +288,16 @@ pub fn handle_battle_menu(cpu: &mut Cpu) {
                 return crate::game::engine::battle::core::player_switch(cpu);
             }
             Action::Item { id, target, move_slot } => {
-                // Active-mon items (X stat-boosters, X Accuracy, Dire Hit, Guard
-                // Spec, Bitter Berry) drive their REAL effect routine so the
-                // authentic battle text prints; that routine also tosses the item
-                // itself, so we must NOT also decrement the bag. Every other item
-                // is applied by the hand-rolled `apply_item` (which decrements).
-                if is_active_effect_item(id) {
-                    use_active_item_effect(cpu, id);
-                } else {
-                    apply_item(cpu, id, target, move_slot);
-                }
-                cpu.write_byte(W_BATTLE_PLAYER_ACTION, defs::BATTLEPLAYERACTION_USEITEM);
-                cpu.write_byte(W_BATTLE_MENU_CURSOR_POSITION, 3);
+                // Run the engine's real `BattleMenu_Pack`. Its bag UI is
+                // replaced by the `battle_pack_loop` HARNESS-PATCH, which uses
+                // this item exactly as the bag's USE choice does; the item's
+                // own effect routine then asks the patched party menu / move
+                // menu for the target and move picked here. Every side effect,
+                // text, the catch / escape exits and the turn bookkeeping are
+                // the original code's.
+                cpu.cli_pending_item = Some((id, target, move_slot));
                 recorder::record(cpu, Step::Item { id, target, move_slot });
-                // Normal return: caller is `battle_turn_loop1`, which then
-                // checks wBattleEnded and continues the turn.
-                cpu.pc = cpu.pop_word();
-                cpu.cycle(16);
-                return;
-            }
-            Action::Ball { id } => {
-                let caught = throw_ball(cpu, id);
-                cpu.write_byte(W_BATTLE_PLAYER_ACTION, defs::BATTLEPLAYERACTION_USEITEM);
-                cpu.write_byte(W_BATTLE_MENU_CURSOR_POSITION, 3);
-                // Recorded as an `item` step (a ball is just an item id from a
-                // different pocket) so playback needs no new step kind.
-                recorder::record(cpu, Step::Item { id, target: None, move_slot: None });
-                if caught {
-                    // Caught: end the battle the way the engine's
-                    // `BattleMenu_Pack.UseItem` → `.run` does (core.asm ~5043):
-                    // zero wWildMon, mask wBattleResult down to WIN, and return
-                    // carry-set so `battle_turn_loop1` quits (`call BattleMenu` /
-                    // `jr c, .quit`). We also set wBattleEnded for the loop's
-                    // second guard. The caught mon is already in the party (the
-                    // real routine ran TryAddMonToParty). The `caught_wild_mon`
-                    // flag makes `read_outcome` report `Outcome::Caught`.
-                    cpu.write_byte(W_WILD_MON, 0);
-                    let result = cpu.read_byte(W_BATTLE_RESULT) & defs::BATTLERESULT_BITMASK;
-                    cpu.write_byte(W_BATTLE_RESULT, result);
-                    cpu.write_byte(W_BATTLE_ENDED, 1);
-                    cpu.caught_wild_mon = true;
-                    cpu.flag_c = true;
-                    cpu.pc = cpu.pop_word();
-                    cpu.cycle(16);
-                    return;
-                }
-                // Broke free: the throw consumed the turn (the ball was tossed
-                // by the real routine). Return to `battle_turn_loop1` carry-clear
-                // — same contract as a healing item — so the enemy gets its turn.
-                cpu.flag_c = false;
-                cpu.pc = cpu.pop_word();
-                cpu.cycle(16);
-                return;
-            }
-            Action::Escape { id } => {
-                use_poke_doll(cpu, id);
-                cpu.write_byte(W_BATTLE_PLAYER_ACTION, defs::BATTLEPLAYERACTION_USEITEM);
-                cpu.write_byte(W_BATTLE_MENU_CURSOR_POSITION, 3);
-                // Recorded as an `item` step (a Poké Doll is just an Items-pocket
-                // id with no party target) so playback needs no new step kind.
-                recorder::record(cpu, Step::Item { id, target: None, move_slot: None });
-                // Return to `battle_turn_loop1` carry-clear. We don't take the
-                // first `jr c` quit (that's the catch path's contract); instead
-                // `use_poke_doll` set `wForcedSwitch`, which the loop's third
-                // guard (`ld a, [wForcedSwitch] / and a / jr nz, .quit`) checks —
-                // so the loop quits there, exactly as `PokeDollEffect` intends.
-                cpu.flag_c = false;
-                cpu.pc = cpu.pop_word();
-                cpu.cycle(16);
-                return;
+                return crate::game::engine::battle::core::battle_menu_pack(cpu);
             }
             Action::Run => {
                 cpu.write_byte(W_BATTLE_MENU_CURSOR_POSITION, 4);
@@ -413,16 +313,15 @@ pub fn handle_battle_menu(cpu: &mut Cpu) {
 /// in [`handle_battle_menu`], so this prompt is rare.
 pub fn handle_move_selection(cpu: &mut Cpu) -> u8 {
     observe_decision_point(cpu);
-    if let Some(Step::Move { slot }) =
-        player::consume(cpu, PromptSite::MoveSelection, &[StepKind::Move])
-    {
-        assert_recorded_move_legal(cpu, slot);
-        // Re-record on the playback path too so a re-recording (record +
-        // play simultaneously) carries the same shape as the original.
-        recorder::record(cpu, Step::Move { slot });
-        return slot;
-    }
+    let step = obtain(cpu, PromptSite::MoveSelection, &[StepKind::Move], prompt_move_selection);
+    let Step::Move { slot } = step else { unreachable!("move selection only accepts moves") };
+    // Same shape as the action-menu Move so playback doesn't need to know
+    // which prompt site produced it.
+    recorder::record(cpu, Step::Move { slot });
+    slot
+}
 
+fn prompt_move_selection(cpu: &Cpu) -> Step {
     let species = cpu.read_byte(W_BATTLE_MON_SPECIES);
     println!(
         "\n[move] {} (Lv {}) — pick a move:",
@@ -436,25 +335,20 @@ pub fn handle_move_selection(cpu: &mut Cpu) -> u8 {
         println!("  {}) {} (PP {pp})", idx + 1, move_name(move_id));
     }
     let pick = prompt_index("> ", slots.len());
-    let slot = slots[pick];
-    // Standalone re-pick from `move_selection_screen` (Disable / no-PP path).
-    // Same shape as the action-menu Move so playback doesn't need to know
-    // which prompt site produced it.
-    recorder::record(cpu, Step::Move { slot });
-    slot
+    Step::Move { slot: slots[pick] }
 }
 
 /// CLI patch at `force_pick_party_mon_in_battle`. Returns the chosen alive,
 /// non-current party slot.
 pub fn handle_forced_switch(cpu: &mut Cpu) -> u8 {
     observe_decision_point(cpu);
-    if let Some(Step::ForcedSwitch { slot }) =
-        player::consume(cpu, PromptSite::ForcedSwitch, &[StepKind::ForcedSwitch])
-    {
-        recorder::record(cpu, Step::ForcedSwitch { slot });
-        return slot;
-    }
+    let step = obtain(cpu, PromptSite::ForcedSwitch, &[StepKind::ForcedSwitch], prompt_forced_switch);
+    let Step::ForcedSwitch { slot } = step else { unreachable!("forced switch only accepts forced_switch") };
+    recorder::record(cpu, Step::ForcedSwitch { slot });
+    slot
+}
 
+fn prompt_forced_switch(cpu: &Cpu) -> Step {
     print_battle_state(cpu);
     println!("\n[forced switch] your active Pokémon fainted — choose the next:");
     let current = cpu.read_byte(W_CUR_BATTLE_MON);
@@ -463,29 +357,26 @@ pub fn handle_forced_switch(cpu: &mut Cpu) -> u8 {
         // Shouldn't happen — the engine only enters this path with surviving
         // mons. Fall back to slot 0 to make the failure visible.
         eprintln!("WARN: no alive party slots; defaulting to slot 0");
-        recorder::record(cpu, Step::ForcedSwitch { slot: 0 });
-        return 0;
+        return Step::ForcedSwitch { slot: 0 };
     }
     for (idx, slot) in options.iter().enumerate() {
         print_party_slot_line(cpu, *slot, idx + 1);
     }
     let pick = prompt_index("> ", options.len());
-    let slot = options[pick];
-    recorder::record(cpu, Step::ForcedSwitch { slot });
-    slot
+    Step::ForcedSwitch { slot: options[pick] }
 }
 
 /// CLI patch at `offer_switch` (trainer about to send in another mon). Returns
 /// `None` if the player keeps the current mon, `Some(slot)` to swap.
 pub fn handle_offer_switch(cpu: &mut Cpu) -> Option<u8> {
     observe_decision_point(cpu);
-    if let Some(Step::OfferSwitch { keep, slot }) =
-        player::consume(cpu, PromptSite::OfferSwitch, &[StepKind::OfferSwitch])
-    {
-        recorder::record(cpu, Step::OfferSwitch { keep, slot });
-        return if keep { None } else { slot };
-    }
+    let step = obtain(cpu, PromptSite::OfferSwitch, &[StepKind::OfferSwitch], prompt_offer_switch);
+    let Step::OfferSwitch { keep, slot } = step else { unreachable!("offer switch only accepts offer_switch") };
+    recorder::record(cpu, Step::OfferSwitch { keep, slot });
+    if keep { None } else { slot }
+}
 
+fn prompt_offer_switch(cpu: &Cpu) -> Step {
     print_battle_state(cpu);
     let current = cpu.read_byte(W_CUR_BATTLE_MON);
     let current_species = read_party_species(cpu, current);
@@ -499,12 +390,9 @@ pub fn handle_offer_switch(cpu: &mut Cpu) -> Option<u8> {
     }
     let pick = prompt_index("> ", 1 + options.len());
     if pick == 0 {
-        recorder::record(cpu, Step::OfferSwitch { keep: true, slot: None });
-        None
+        Step::OfferSwitch { keep: true, slot: None }
     } else {
-        let slot = options[pick - 1];
-        recorder::record(cpu, Step::OfferSwitch { keep: false, slot: Some(slot) });
-        Some(slot)
+        Step::OfferSwitch { keep: false, slot: Some(options[pick - 1]) }
     }
 }
 
@@ -571,17 +459,17 @@ pub fn handle_enemy_action(cpu: &mut Cpu) {
     }
 
     observe_decision_point(cpu);
-    let action = if let Some(step) =
-        player::consume(cpu, PromptSite::EnemyAction, &[StepKind::Move, StepKind::Switch])
-    {
-        match step {
-            Step::Move { slot } => EnemyAction::Move(slot),
-            Step::Switch { slot } => EnemyAction::Switch(slot),
-            // `consume`'s `accepts` filter rules everything else out.
-            _ => unreachable!("EnemyAction consumes only Move/Switch"),
+    let step = obtain(cpu, PromptSite::EnemyAction, &[StepKind::Move, StepKind::Switch], |cpu| {
+        match prompt_enemy_action(cpu, enemy_fainted, &moves, &switches) {
+            EnemyAction::Move(slot) => Step::Move { slot },
+            EnemyAction::Switch(slot) => Step::Switch { slot },
         }
-    } else {
-        prompt_enemy_action(cpu, enemy_fainted, &moves, &switches)
+    });
+    let action = match step {
+        Step::Move { slot } => EnemyAction::Move(slot),
+        Step::Switch { slot } => EnemyAction::Switch(slot),
+        // `obtain`'s `accepts` filter rules everything else out.
+        _ => unreachable!("EnemyAction consumes only Move/Switch"),
     };
 
     let byte = match action {
@@ -753,123 +641,96 @@ fn print_battle_state(cpu: &Cpu) {
 }
 
 fn prompt_action(cpu: &Cpu) -> Action {
-    let mut entries: Vec<(String, Action)> = Vec::new();
-
-    // Moves
-    for slot in move_options(cpu) {
-        let move_id = cpu.read_byte(W_BATTLE_MON_MOVES + u16::from(slot));
-        let pp = cpu.read_byte(W_BATTLE_MON_PP + u16::from(slot)) & defs::PP_MASK;
-        entries.push((
-            format!("{} (PP {pp})", move_name(move_id)),
-            Action::Move(slot),
-        ));
-    }
-
-    // Switches
-    let current = cpu.read_byte(W_CUR_BATTLE_MON);
-    for slot in alive_party_slots(cpu, Some(current)) {
-        let species = read_party_species(cpu, slot);
-        let hp = read_word_be(cpu, party_slot_addr(slot) + PARTY_OFFSET_HP);
-        let max_hp = read_word_be(cpu, party_slot_addr(slot) + PARTY_OFFSET_MAX_HP);
-        entries.push((
-            format!("Switch to {} (HP {}/{})", species_name(species), hp, max_hp),
-            Action::Switch(slot),
-        ));
-    }
-
-    // Items pocket — only the ones the CLI knows how to apply directly, and
-    // only when they'd actually do something to some party mon. The real game
-    // refuses the rest ("It wouldn't have any effect"), so we don't surface
-    // them as choices. Balls and other items go through the engine's bag UI,
-    // which we currently bypass.
-    //
-    // Active-mon items (Bitter Berry, the X stat-boosters) are a parallel case:
-    // they act on the active battler and take NO party target, so they're keyed
-    // off an `active_item_usable` check rather than `item_valid_targets`. They
-    // carry `target: None`, which `apply_item` resolves to the active mon, and
-    // they skip the target prompt below.
-    for (id, qty) in read_pocket(cpu, W_NUM_ITEMS) {
-        // Offer the item if it would do something: an active-mon item when the
-        // active battler currently qualifies (Bitter Berry → confused, an
-        // X-item → its stat below the cap), or a party-target item when at
-        // least one party mon qualifies.
-        if !active_item_usable(cpu, id) && item_valid_targets(cpu, id).is_empty() {
-            continue;
-        }
-        entries.push((
-            format!("Use {} ×{qty}", item_display(id)),
-            Action::Item { id, target: None, move_slot: None },
-        ));
-    }
-    // Balls — only in a wild battle (a trainer blocks the ball). Each entry in
-    // the Balls pocket becomes a "Throw <ball> ×qty" action. The catch itself is
-    // still a stub (see `TODO(capture)` in `handle_battle_menu`'s `Action::Ball`
-    // arm): throwing currently just consumes the turn.
-    if offers_balls(cpu.read_byte(W_BATTLE_MODE)) {
-        for (id, qty) in read_pocket(cpu, W_NUM_BALLS) {
-            entries.push((
-                format!("Throw {} ×{qty}", item_display(id)),
-                Action::Ball { id },
-            ));
-        }
-    }
-    // Poké Doll — a guaranteed escape, only in a wild battle (it's a no-op in a
-    // trainer battle). It lives in the Items pocket but takes no party target and
-    // isn't an `item_effect`, so it's offered here as a dedicated `Escape` action
-    // rather than through the party-target item loop above. `PokeDollEffect`.
-    if offers_escape_item(cpu.read_byte(W_BATTLE_MODE)) {
-        for (id, qty) in read_pocket(cpu, W_NUM_ITEMS) {
-            if is_escape_item_id(id) {
-                entries.push((
-                    format!("Use {} ×{qty} (escape)", item_display(id)),
-                    Action::Escape { id },
-                ));
+    // One menu line per move / switch / run, and one per distinct bag item;
+    // the item's target and move are asked for afterwards. Everything offered
+    // comes from `legal_battle_menu_steps`, so stdin can only pick what the
+    // original menus accept.
+    let legal = legal_battle_menu_steps(cpu);
+    let mut entries: Vec<(String, Step)> = Vec::new();
+    for step in &legal {
+        let label = match *step {
+            Step::Move { slot } => {
+                let move_id = cpu.read_byte(W_BATTLE_MON_MOVES + u16::from(slot));
+                let pp = cpu.read_byte(W_BATTLE_MON_PP + u16::from(slot)) & defs::PP_MASK;
+                format!("{} (PP {pp})", move_name(move_id))
             }
-        }
+            Step::Fight => "Fight".to_string(),
+            Step::Switch { slot } => {
+                let species = read_party_species(cpu, slot);
+                let hp = read_word_be(cpu, party_slot_addr(slot) + PARTY_OFFSET_HP);
+                let max_hp = read_word_be(cpu, party_slot_addr(slot) + PARTY_OFFSET_MAX_HP);
+                format!("Switch to {} (HP {}/{})", species_name(species), hp, max_hp)
+            }
+            Step::Item { id, .. } => {
+                if entries.iter().any(|(_, s)| matches!(s, Step::Item { id: other, .. } if *other == id)) {
+                    continue;
+                }
+                let qty = item_quantity(cpu, id);
+                if is_ball_id(id) {
+                    format!("Throw {} ×{qty}", item_display(id))
+                } else if is_escape_item_id(id) {
+                    format!("Use {} ×{qty} (escape)", item_display(id))
+                } else {
+                    format!("Use {} ×{qty}", item_display(id))
+                }
+            }
+            Step::Run => "Run".to_string(),
+            Step::ForcedSwitch { .. } | Step::OfferSwitch { .. } => unreachable!(),
+        };
+        entries.push((label, *step));
     }
-
-    entries.push(("Run".to_string(), Action::Run));
 
     println!("\n[turn] choose an action:");
     for (idx, (label, _)) in entries.iter().enumerate() {
         println!("  {}) {label}", idx + 1);
     }
     let pick = prompt_index("> ", entries.len());
-    let mut chosen = entries[pick].1;
+    let chosen = entries[pick].1;
 
-    // Active-mon items (Bitter Berry, the X stat-boosters) act on the active
-    // battler — no party target, no move prompt — so they're left exactly as
-    // built above (`target: None`). Every OTHER directly-usable item targets one
-    // party mon;
-    // we prompt for it here so the action menu shows one line per item (not one
-    // line per item×target). Single-move PP items (Ether / Max Ether /
-    // MysteryBerry) then prompt for which of that mon's moves to restore.
-    if let Action::Item { id, .. } = chosen {
-        if active_item_usable(cpu, id) {
-            return chosen;
+    let Step::Item { id, .. } = chosen else {
+        return match chosen {
+            Step::Move { slot } => Action::Move(slot),
+            Step::Fight => Action::Fight,
+            Step::Switch { slot } => Action::Switch(slot),
+            _ => Action::Run,
+        };
+    };
+    // The item's legal (target, move) pairs.
+    let uses: Vec<(Option<u8>, Option<u8>)> = legal
+        .iter()
+        .filter_map(|s| match *s {
+            Step::Item { id: other, target, move_slot } if other == id => Some((target, move_slot)),
+            _ => None,
+        })
+        .collect();
+    let mut targets: Vec<Option<u8>> = Vec::new();
+    for (t, _) in &uses {
+        if !targets.contains(t) {
+            targets.push(*t);
         }
-        let target_slot = prompt_item_target(cpu, id);
-        let move_slot = if is_single_move_pp_item(id) {
-            Some(prompt_pp_move_slot(cpu, id, target_slot))
-        } else {
-            None
-        };
-        chosen = Action::Item {
-            id,
-            target: Some(target_slot),
-            move_slot,
-        };
     }
-    chosen
+    let target = match targets.as_slice() {
+        [None] => None,
+        _ => Some(prompt_item_target(cpu, id, &targets.iter().flatten().copied().collect::<Vec<_>>())),
+    };
+    let moves: Vec<u8> = uses.iter().filter(|(t, _)| *t == target).filter_map(|(_, m)| *m).collect();
+    let move_slot = match (target, moves.is_empty()) {
+        (Some(t), false) => Some(prompt_pp_move_slot(cpu, id, t, &moves)),
+        _ => None,
+    };
+    Action::Item { id, target, move_slot }
 }
 
-fn prompt_item_target(cpu: &Cpu, id: u8) -> u8 {
+fn item_quantity(cpu: &Cpu, id: u8) -> u8 {
+    read_pocket(cpu, W_NUM_ITEMS)
+        .into_iter()
+        .chain(read_pocket(cpu, W_NUM_BALLS))
+        .find(|&(other, _)| other == id)
+        .map_or(0, |(_, qty)| qty)
+}
+
+fn prompt_item_target(cpu: &Cpu, id: u8, options: &[u8]) -> u8 {
     println!("\n[item] use {} on which Pokémon?", item_display(id));
-    // Only mons the item can actually affect — a full-HP mon for a Potion, a
-    // living mon for a Revive, etc. are omitted (the game would just say "It
-    // wouldn't have any effect"). Non-empty because the action menu only offers
-    // an item once at least one slot qualifies.
-    let options = item_valid_targets(cpu, id);
     for (idx, slot) in options.iter().enumerate() {
         print_party_slot_line(cpu, *slot, idx + 1);
     }
@@ -878,17 +739,13 @@ fn prompt_item_target(cpu: &Cpu, id: u8) -> u8 {
 }
 
 /// Prompt for which move of party `slot` to restore PP on, for a single-move PP
-/// item. Lists only moves that exist and are below their max PP (the ones the
-/// item would actually affect), each with its name and `current/max` PP, and
-/// returns the chosen 0-based move slot. Only reached on the interactive path;
-/// playback supplies the move slot from the recorded step.
-fn prompt_pp_move_slot(cpu: &Cpu, id: u8, slot: u8) -> u8 {
+/// item. `options` are the move slots the item would affect.
+fn prompt_pp_move_slot(cpu: &Cpu, id: u8, slot: u8, options: &[u8]) -> u8 {
     println!(
         "\n[item] use {} on which move of {}?",
         item_display(id),
         species_name(read_party_species(cpu, slot)),
     );
-    let options = restorable_move_slots(cpu, slot);
     let base = party_slot_addr(slot);
     for (idx, move_slot) in options.iter().enumerate() {
         let move_id = cpu.read_byte(base + PARTY_OFFSET_MOVES + u16::from(*move_slot));
@@ -968,6 +825,69 @@ fn check_can_switch(cpu: &Cpu, target: u8) -> Result<(), String> {
 }
 
 // ---------------------------------------------------------------------------
+// Bag items through the real engine routines
+
+/// Called at the top of `battle_pack_loop` (HARNESS-PATCH). If the action menu
+/// picked an item, use it exactly as the bag's USE choice does: set the
+/// selection the pocket menu would have left (`wCurItem`, `wCurPocket`) and run
+/// `ItemSubmenu.Use`, which looks up the item's battle context and calls its
+/// real effect routine through `DoItemEffect`. The effect asks for its target
+/// and move through the patched party menu / move menu.
+pub fn use_pending_item_in_pack(cpu: &mut Cpu) {
+    let Some((id, target, move_slot)) = cpu.cli_pending_item.take() else {
+        return;
+    };
+    cpu.write_byte(W_CUR_ITEM, id);
+    let pocket = if is_ball_id(id) { defs::BALL_POCKET } else { defs::ITEM_POCKET };
+    cpu.write_byte(W_CUR_POCKET, pocket);
+    cpu.cli_pending_party_target = target;
+    cpu.cli_pending_item_move = move_slot;
+
+    let return_sentinel: u16 = 0xfffa;
+    cpu.push_word(return_sentinel);
+    crate::game::engine::items::pack::tmhm_submenu_use(cpu);
+    assert_eq!(cpu.pc, return_sentinel);
+
+    // Using the item moves the bag to PACKSTATE_QUITRUNSCRIPT (whose handler
+    // then sets JUMPTABLE_EXIT_F on the loop's next pass). If it didn't, the
+    // original refused the item ("won't have any effect" / "isn't the time")
+    // — and `legal_steps` should never have offered it. That is a bug in the
+    // legality predicates, not a playable state.
+    let used = cpu.read_byte(W_JUMPTABLE_INDEX) == defs::PACKSTATE_QUITRUNSCRIPT;
+    assert!(
+        used,
+        "item {} (target {target:?}, move {move_slot:?}) was offered as legal but its effect refused it",
+        item_display(id),
+    );
+    assert!(cpu.cli_pending_party_target.is_none(), "item effect never asked for its target");
+    assert!(cpu.cli_pending_item_move.is_none(), "item effect never asked for its move");
+    // A catch leaves the species in wWildMon; `BattleMenu_Pack.UseItem` then
+    // ends the battle as a WIN, indistinguishable in WRAM from a KO.
+    if is_ball_id(id) && cpu.read_byte(W_WILD_MON) != 0 {
+        cpu.caught_wild_mon = true;
+    }
+}
+
+/// `party_menu_select` (HARNESS-PATCH) while an item effect is choosing its
+/// target: leave what the routine leaves after A on party slot `slot` — 1-based
+/// `wMenuCursorY` / `wPartyMenuCursor`, `wCurPartyMon`, `wCurPartySpecies` —
+/// and return carry clear. The joypad read and menu sound effects are skipped.
+pub fn select_party_target(cpu: &mut Cpu, slot: u8) {
+    cpu.write_byte(W_MENU_CURSOR_Y, slot + 1);
+    cpu.write_byte(W_PARTY_MENU_CURSOR, slot + 1);
+    cpu.write_byte(W_CUR_PARTY_MON, slot);
+    let species = cpu.read_byte(W_PARTY_SPECIES + u16::from(slot));
+    cpu.write_byte(W_CUR_PARTY_SPECIES, species);
+    cpu.a = species;
+    cpu.flag_z = species == 0;
+    cpu.flag_n = false;
+    cpu.flag_h = false;
+    cpu.flag_c = false;
+    cpu.pc = cpu.pop_word();
+    cpu.cycle(16);
+}
+
+// ---------------------------------------------------------------------------
 // Item application
 //
 // For healing items we apply the effect directly to the target party slot so we
@@ -982,6 +902,7 @@ fn check_can_switch(cpu: &Cpu, target: u8) -> Result<(), String> {
 /// Items not classified here aren't offered in the action menu (balls,
 /// evolution stones, ...).
 #[derive(Debug, Clone, Copy)]
+#[allow(dead_code)] // the payloads document each effect; the real routines apply them
 enum ItemEffect {
     /// Restores HP — only affects a living mon below max HP.
     Hp,
@@ -1160,11 +1081,21 @@ fn item_valid_targets(cpu: &Cpu, id: u8) -> Vec<u8> {
             }
             _ => {
                 let base = party_slot_addr(slot);
-                effect.affects(
-                    read_word_be(cpu, base + PARTY_OFFSET_HP),
-                    read_word_be(cpu, base + PARTY_OFFSET_MAX_HP),
-                    cpu.read_byte(base + PARTY_OFFSET_STATUS),
-                )
+                let hp = read_word_be(cpu, base + PARTY_OFFSET_HP);
+                // `UseStatusHealer` also accepts a heal-everything item (status
+                // mask %11111111) on the active mon when it is only confused
+                // (`IsItemUsedOnConfusedMon`). Full Restore at full HP falls
+                // through to the same routine.
+                let cures_active_confusion = matches!(effect, ItemEffect::Status(0xff) | ItemEffect::FullRestore)
+                    && hp != 0
+                    && slot == cpu.read_byte(W_CUR_BATTLE_MON)
+                    && is_active_confused(cpu.read_byte(W_PLAYER_SUB_STATUS_3));
+                cures_active_confusion
+                    || effect.affects(
+                        hp,
+                        read_word_be(cpu, base + PARTY_OFFSET_MAX_HP),
+                        cpu.read_byte(base + PARTY_OFFSET_STATUS),
+                    )
             }
         })
         .collect()
@@ -1221,413 +1152,15 @@ fn active_item_usable(cpu: &Cpu, id: u8) -> bool {
         Some(ItemEffect::ActiveConfusion) => {
             is_active_confused(cpu.read_byte(W_PLAYER_SUB_STATUS_3))
         }
-        Some(ItemEffect::ActiveStatUp(stat)) => stat_level_can_raise(cpu, stat),
+        // `XItemEffect` never refuses: at +6 the item is still used up and the
+        // turn spent ("…won't rise anymore!"). So it is always legal.
+        Some(ItemEffect::ActiveStatUp(_)) => true,
         // Usable only while the bit is CLEAR — mirrors the asm's
         // `bit mask, [hl] / jp nz, WontHaveAnyEffect` refusal once it's set.
         Some(ItemEffect::ActiveSubStatusSet { addr, mask }) => {
             cpu.read_byte(addr) & mask == 0
         }
         _ => false,
-    }
-}
-
-/// The active player mon's stage level (1..=13) for stat index `stat`, reading
-/// `wPlayerStatLevels[stat]`.
-fn read_stat_level(cpu: &Cpu, stat: u8) -> u8 {
-    cpu.read_byte(W_PLAYER_STAT_LEVELS + u16::from(stat))
-}
-
-/// Can stat `stat` still be raised — i.e. is its stage level below
-/// `MAX_STAT_LEVEL`? An X-item at the cap has no effect, so the game (and the
-/// CLI) doesn't offer it.
-fn stat_level_can_raise(cpu: &Cpu, stat: u8) -> bool {
-    read_stat_level(cpu, stat) < MAX_STAT_LEVEL
-}
-
-/// Throw a Poké Ball by driving the real transpiled catch routine
-/// (`poke_ball_effect`, ROM bank 0x03). The routine does the full catch math +
-/// RNG, runs the (headless-stubbed) throw animation, and on success loads the
-/// caught mon and adds it to the party via its own `TryAddMonToParty` predef.
-/// The nickname UI is skipped by the HARNESS-PATCH in
-/// `src/game/engine/items/item_effects.rs`.
-///
-/// We do NOT decrement the Balls pocket ourselves: the routine's `.toss` tail
-/// calls `TossItem`, which removes one ball. Decrementing here too would double-
-/// count.
-///
-/// Returns `true` if the wild mon was caught. The signal is `wWildMon`
-/// (`W_WILD_MON`): the routine writes the caught species there on success and
-/// leaves it zero on a failed throw — exactly what the engine's
-/// `BattleMenu_Pack.UseItem` keys on (core.asm `.UseItem`: `ld a, [wWildMon] /
-/// and a / jr nz, .run`).
-/// Load `id`'s display name into `wStringBuffer2`, the way the engine's
-/// `DoItemEffect` does before invoking an item effect, so `UseItemText`'s
-/// "<PLAYER> used the <name>." prints the item name. Mirrors the preamble in
-/// the transpiled `_do_item_effect` (`wNamedObjectIndex` ← id, `GetItemName`,
-/// `CopyName1`). `GetItemName`/`CopyName1` are home-bank routines, callable
-/// without a bank switch.
-fn load_item_name(cpu: &mut Cpu, id: u8) {
-    // Both routines end in `ret` (`cpu.pc = pop_word()`), so push a sentinel
-    // return address before each call to keep the stack balanced — the same
-    // call discipline `_do_item_effect` uses.
-    cpu.write_byte(W_NAMED_OBJECT_INDEX, id);
-    let sentinel: u16 = 0xfffc;
-    cpu.push_word(sentinel);
-    crate::game::home::names::get_item_name(cpu);
-    cpu.push_word(sentinel);
-    crate::game::home::copy_name::copy_name1(cpu);
-}
-
-fn throw_ball(cpu: &mut Cpu, id: u8) -> bool {
-    // `PokeBallEffect` reads `wCurItem` for the ball id and `wBattleMode` for the
-    // wild/trainer check (already WILD here — balls are only offered in wild
-    // battles). It increments the toss count from `wItemQuantityChange`, set to 1.
-    cpu.write_byte(W_CUR_ITEM, id);
-    cpu.write_byte(W_ITEM_QUANTITY_CHANGE, 1);
-
-    // `PokeBallEffect` prints "<PLAYER> used the <name>." via `UseItemText`,
-    // which reads the item name out of `wStringBuffer2`. Normally the engine's
-    // `DoItemEffect` dispatcher fills that buffer (set `wNamedObjectIndex`,
-    // `GetItemName`, `CopyName1`) before jumping to the effect; since we call the
-    // effect directly we must replicate that preamble or the name renders blank
-    // ("RED used the ."). Both routines live in the home bank, so no switch yet.
-    load_item_name(cpu, id);
-
-    // Save the current ROM bank, switch to PokeBallEffect's bank, push a sentinel
-    // return address (the routine ends in a `ret` via TossItem), call it, then
-    // restore the bank so the battle code that resumes sees bank 0x0f again.
-    let saved_bank = cpu.read_byte(H_ROM_BANK);
-    super::switch_bank(cpu, BANK_POKE_BALL_EFFECT);
-    let return_sentinel: u16 = 0xfffc;
-    cpu.push_word(return_sentinel);
-    crate::game::engine::items::item_effects::poke_ball_effect(cpu);
-    super::switch_bank(cpu, saved_bank);
-
-    cpu.read_byte(W_WILD_MON) != 0
-}
-
-/// Whether `id` is an "active-mon" battle item that drives a real transpiled
-/// effect routine (so the authentic battle-box text prints) rather than being
-/// applied by hand-rolled WRAM writes. These act on the active battler and take
-/// no party target. Drives the dispatch in [`handle_battle_menu`]'s
-/// `Action::Item` arm to [`use_active_item_effect`].
-///
-/// This covers all eight active-mon items: the X stat-boosters, the in-battle
-/// sub-status setters (X Accuracy / Dire Hit / Guard Spec), and Bitter Berry.
-fn is_active_effect_item(id: u8) -> bool {
-    matches!(
-        item_effect(id),
-        Some(
-            ItemEffect::ActiveStatUp(_)
-                | ItemEffect::ActiveSubStatusSet { .. }
-                | ItemEffect::ActiveConfusion
-        )
-    )
-}
-
-/// Drive the REAL transpiled effect routine for an active-mon battle item, so
-/// the authentic battle text prints (the hand-rolled path printed nothing). This
-/// is the [`throw_ball`] template applied to the X stat-boosters, the sub-status
-/// setters, and Bitter Berry: their effect routines all live in ROM bank 0x03
-/// (`XItemEffect=03:74c5`, `XAccuracyEffect=03:7482`, `GuardSpecEffect=03:74ab`,
-/// `DireHitEffect=03:74b8`, `BitterBerryEffect=03:716a` in pokecrystal.sym), so
-/// the same bank-switch + sentinel-push call discipline applies.
-///
-/// We do NOT decrement the bag ourselves: every one of these routines tails into
-/// `UseItemText` → `UseDisposableItem` → `TossItem`, which removes one of the
-/// item identified by `wCurItem` from `wNumItems`. Decrementing here too would
-/// double-count (the same lesson the ball path learned).
-///
-/// `RaiseStat` (reached via `XItemEffect`'s `farcall RaiseStat`) increments the
-/// stage level in `wPlayerStatLevels` AND recomputes the COMPUTED stat in
-/// `wPlayerStats` (via `CalcPlayerStats`), which is what the damage routine
-/// reads — so the boost actually affects damage, no hand-rolled recompute needed.
-fn use_active_item_effect(cpu: &mut Cpu, id: u8) {
-    // The effect routine reads `wCurItem` for the item id (X items dispatch on it
-    // via `XItemStats`; `UseDisposableItem`/`TossItem` toss it). It bumps the
-    // toss count from `wItemQuantityChange`, set to 1 — same as the ball path.
-    cpu.write_byte(W_CUR_ITEM, id);
-    cpu.write_byte(W_ITEM_QUANTITY_CHANGE, 1);
-
-    // `UseItemText` prints "<PLAYER> used the <name>." by reading the item name
-    // out of `wStringBuffer2`. The engine's `DoItemEffect` dispatcher fills that
-    // buffer before jumping to the effect; since we call the effect directly we
-    // must replicate that preamble or the name renders blank. Home-bank routines,
-    // so no switch yet — same as the ball path.
-    load_item_name(cpu, id);
-
-    // Save the current ROM bank, switch to the effect routine's bank (0x03), push
-    // a sentinel return address (each routine ends in a `ret` via TossItem), call
-    // the right routine by id, then restore the bank so the battle code that
-    // resumes sees bank 0x0f again.
-    let saved_bank = cpu.read_byte(H_ROM_BANK);
-    super::switch_bank(cpu, BANK_ITEM_EFFECTS);
-    let return_sentinel: u16 = 0xfffc;
-    cpu.push_word(return_sentinel);
-    match id {
-        0x31 | 0x33 | 0x34 | 0x35 => {
-            crate::game::engine::items::item_effects::x_item_effect(cpu)
-        }
-        0x21 => crate::game::engine::items::item_effects::x_accuracy_effect(cpu),
-        0x29 => crate::game::engine::items::item_effects::guard_spec_effect(cpu),
-        0x2c => crate::game::engine::items::item_effects::dire_hit_effect(cpu),
-        0x53 => crate::game::engine::items::item_effects::bitter_berry_effect(cpu),
-        // `is_active_effect_item` gates the only caller, so no other id reaches
-        // here.
-        other => unreachable!("not an active-effect item: {other:#x}"),
-    }
-    super::switch_bank(cpu, saved_bank);
-}
-
-/// Mask `wBattleResult` down to a DRAW, preserving the CAUGHT_CELEBI / BOX_FULL
-/// high bits — the `and BATTLERESULT_BITMASK / or DRAW` that `PokeDollEffect`
-/// performs. Pure so it's unit-testable without a `Cpu`. `read_outcome` keys on
-/// the low nibble, so a DRAW (2) surfaces as `Outcome::Draw`.
-fn battle_result_as_draw(result: u8) -> u8 {
-    (result & defs::BATTLERESULT_BITMASK) | defs::DRAW
-}
-
-/// Use the Poké Doll (id `0x25`) in a wild battle: a guaranteed escape that ends
-/// the battle as a DRAW. We replicate the WILD branch of `PokeDollEffect`
-/// (`scratch/pokecrystal/engine/items/item_effects.asm` ~2096) directly rather
-/// than driving the transpiled `poke_doll_effect`: the real routine's effect is
-/// just two trivial WRAM writes, but it tail-calls `UseItemText`, whose
-/// `wait_press_aor_b_blink_cursor` joypad wait hangs headless (the same reason
-/// the heal path hand-applies its effect). So we do the two writes by hand — no
-/// transpiled patch needed.
-///
-/// The two writes, mirroring the asm exactly:
-///   - `wForcedSwitch` (0xd232) = 1 (TRUE) — `battle_turn_loop1` quits when this
-///     is non-zero, ending the battle as an escape.
-///   - `wBattleResult` (0xd0ee) = `(wBattleResult & BATTLERESULT_BITMASK) | DRAW`.
-///
-/// Then we consume one Poké Doll from the Items pocket (the asm reaches
-/// `TossItem` via `UseItemText`, which removes one) and set `wCurItem` /
-/// `wItemQuantityChange` like the heal path does. The caller ends the battle.
-fn use_poke_doll(cpu: &mut Cpu, id: u8) {
-    cpu.write_byte(W_FORCED_SWITCH, 1);
-    let result = cpu.read_byte(W_BATTLE_RESULT);
-    cpu.write_byte(W_BATTLE_RESULT, battle_result_as_draw(result));
-
-    decrement_pocket_item(cpu, W_NUM_ITEMS, id);
-    cpu.write_byte(W_CUR_ITEM, id);
-    cpu.write_byte(W_ITEM_QUANTITY_CHANGE, 1);
-}
-
-fn apply_item(cpu: &mut Cpu, id: u8, target: Option<u8>, move_slot: Option<u8>) {
-    let slot = target.unwrap_or_else(|| cpu.read_byte(W_CUR_BATTLE_MON));
-    let base = party_slot_addr(slot);
-
-    // Status heals first. Full Restore (a separate effect) clears all status as
-    // part of its HP arm below.
-    if let Some(ItemEffect::Status(mask)) = item_effect(id) {
-        clear_status_bits(cpu, slot, mask);
-    }
-
-    // Confusion is a battle-only sub-status on the active mon, separate from the
-    // status byte. MiracleBerry (when its chosen target IS the active slot)
-    // clears it. Mirrors `res SUBSTATUS_CONFUSED, [wPlayerSubStatus3]`. Bitter
-    // Berry (`ActiveConfusion`) is NOT handled here — it drives the real
-    // `BitterBerryEffect` via `use_active_item_effect` so its battle text prints,
-    // and never reaches `apply_item`.
-    let clears_confusion = id == 0x6d && slot == cpu.read_byte(W_CUR_BATTLE_MON);
-    if clears_confusion {
-        clear_active_confusion(cpu);
-    }
-
-    // NOTE: the X stat-boosters and the in-battle sub-status setters (X Accuracy
-    // / Guard Spec / Dire Hit) used to be applied here by hand-rolled WRAM writes
-    // (`raise_active_stat` / a direct `wPlayerSubStatus4` OR). They now drive
-    // their real effect routine via `use_active_item_effect` (which prints the
-    // authentic text), so they never reach `apply_item`.
-
-    // Healing.
-    let max_hp = read_word_be(cpu, base + PARTY_OFFSET_MAX_HP);
-    let cur_hp = read_word_be(cpu, base + PARTY_OFFSET_HP);
-    let heal = match id {
-        0x12 => Some(20),                              // Potion
-        0x11 => Some(50),                              // Super Potion
-        0x10 => Some(200),                             // Hyper Potion
-        0x0f => Some(max_hp.saturating_sub(cur_hp)),   // Max Potion
-        0x0e => {
-            clear_status_bits(cpu, slot, 0xff);
-            Some(max_hp.saturating_sub(cur_hp))
-        }
-        0x2e => Some(50),                              // Fresh Water
-        0x2f => Some(60),                              // Soda Pop
-        0x30 => Some(80),                              // Lemonade
-        0x48 => Some(100),                             // Moomoo Milk
-        0x79 => Some(50),                              // Energypowder
-        0x7a => Some(200),                             // Energy Root
-        0xad => Some(10),                              // Berry
-        0xae => Some(30),                              // Gold Berry
-        0x8b => Some(20),                              // Berry Juice
-        0x72 => Some(20),                              // RageCandyBar
-        0x27 if cur_hp == 0 => Some(max_hp / 2),       // Revive
-        0x28 | 0x7c if cur_hp == 0 => Some(max_hp),     // Max Revive, Revival Herb
-        _ => None,
-    };
-
-    if let Some(amount) = heal {
-        let healed = (cur_hp.saturating_add(amount)).min(max_hp);
-        write_word_be(cpu, base + PARTY_OFFSET_HP, healed);
-        // The active mon's wBattleMon HP is a mirror — update it too if this
-        // slot is currently in battle.
-        if slot == cpu.read_byte(W_CUR_BATTLE_MON) {
-            write_word_be(cpu, W_BATTLE_MON_HP, healed);
-        }
-    }
-
-    // Whole-party PP restore (Elixer / Max Elixer).
-    if let Some(ItemEffect::PpAll { amount }) = item_effect(id) {
-        restore_pp_all(cpu, slot, amount);
-    }
-
-    // Single-move PP restore (Ether / Max Ether / MysteryBerry). The chosen
-    // move slot comes from the prompt (interactive) or the recorded step
-    // (playback); if it's somehow absent, fall back to the first restorable
-    // move so we never silently no-op.
-    if let Some(ItemEffect::PpOne { amount }) = item_effect(id) {
-        let chosen = move_slot
-            .or_else(|| restorable_move_slots(cpu, slot).first().copied())
-            .unwrap_or(0);
-        restore_pp_one(cpu, slot, chosen, amount);
-    }
-
-    // Decrement the bag count.
-    decrement_pocket_item(cpu, W_NUM_ITEMS, id);
-
-    // Make the engine see the item selection (some downstream code reads these).
-    cpu.write_byte(W_CUR_ITEM, id);
-    cpu.write_byte(W_ITEM_QUANTITY_CHANGE, 1);
-}
-
-/// Restore PP on every move of `slot`. `amount = Some(n)` adds `n` PP per move
-/// (capped at max PP); `amount = None` (Max Elixer) sets each move to full. The
-/// PP-Up bits (top 2) are preserved. Mirrors `RestorePP`
-/// (`scratch/pokecrystal/engine/items/item_effects.asm`): the new PP is
-/// `(orig & PP_UP_MASK) | min(cur + n, max)`.
-///
-/// If `slot` is the active battle mon, the matching `wBattleMonPP` slot is
-/// mirrored too — but only for moves the active mon actually has (the game's
-/// `BattleRestorePP` matches by move id), so a transformed/sketched layout is
-/// handled by id rather than by position.
-fn restore_pp_all(cpu: &mut Cpu, slot: u8, amount: Option<u8>) {
-    let base = party_slot_addr(slot);
-    let is_active = slot == cpu.read_byte(W_CUR_BATTLE_MON);
-
-    for i in 0..MOVE_SLOTS {
-        let move_id = cpu.read_byte(base + PARTY_OFFSET_MOVES + i);
-        if move_id == 0 {
-            continue;
-        }
-        let pp_byte = cpu.read_byte(base + PARTY_OFFSET_PP + i);
-        let max = move_pp::max_pp(move_id, pp_byte);
-        let new_pp = match amount {
-            Some(n) => move_pp::current_pp(pp_byte).saturating_add(n).min(max),
-            None => max,
-        };
-        let new_byte = move_pp::pp_up_bits(pp_byte) | new_pp;
-        cpu.write_byte(base + PARTY_OFFSET_PP + i, new_byte);
-
-        if is_active {
-            mirror_battle_mon_pp(cpu, move_id, new_byte);
-        }
-    }
-}
-
-/// Restore PP on a single move slot of `slot` (Ether / Max Ether /
-/// MysteryBerry). `amount = Some(n)` adds `n` PP (capped at max PP); `amount =
-/// None` (Max Ether) sets it to full. The PP-Up bits (top 2) are preserved, the
-/// same `(orig & PP_UP_MASK) | min(cur + n, max)` shape `RestorePP` uses. A move
-/// slot that's empty or already at full PP is left untouched (the game's
-/// `.dont_restore`). If `slot` is the active battle mon, the matching
-/// `wBattleMonPP` slot is mirrored by move id, like [`restore_pp_all`].
-fn restore_pp_one(cpu: &mut Cpu, slot: u8, move_slot: u8, amount: Option<u8>) {
-    if u16::from(move_slot) >= MOVE_SLOTS {
-        return;
-    }
-    let base = party_slot_addr(slot);
-    let move_id = cpu.read_byte(base + PARTY_OFFSET_MOVES + u16::from(move_slot));
-    if move_id == 0 {
-        return;
-    }
-    let pp_byte = cpu.read_byte(base + PARTY_OFFSET_PP + u16::from(move_slot));
-    let max = move_pp::max_pp(move_id, pp_byte);
-    if move_pp::current_pp(pp_byte) >= max {
-        return;
-    }
-    let new_pp = match amount {
-        Some(n) => move_pp::current_pp(pp_byte).saturating_add(n).min(max),
-        None => max,
-    };
-    let new_byte = move_pp::pp_up_bits(pp_byte) | new_pp;
-    cpu.write_byte(base + PARTY_OFFSET_PP + u16::from(move_slot), new_byte);
-
-    if slot == cpu.read_byte(W_CUR_BATTLE_MON) {
-        mirror_battle_mon_pp(cpu, move_id, new_byte);
-    }
-}
-
-/// Copy a restored PP byte into the active mon's `wBattleMonPP` slot whose
-/// `wBattleMonMoves` entry matches `move_id`.
-fn mirror_battle_mon_pp(cpu: &mut Cpu, move_id: u8, pp_byte: u8) {
-    for j in 0..MOVE_SLOTS {
-        if cpu.read_byte(W_BATTLE_MON_MOVES + j) == move_id {
-            cpu.write_byte(W_BATTLE_MON_PP + j, pp_byte);
-            return;
-        }
-    }
-}
-
-/// Clear `SUBSTATUS_CONFUSED` (bit 7) on the active player mon, mirroring
-/// `BitterBerryEffect` (`res SUBSTATUS_CONFUSED, [wPlayerSubStatus3]`). The asm
-/// clears ONLY the bit — it does not zero `wPlayerConfuseCount` — so neither do
-/// we. The natural confusion-decrement loop (`effect_commands.asm`) gates on the
-/// bit, so a now-stale counter is never read again unless confusion is re-set.
-fn clear_active_confusion(cpu: &mut Cpu) {
-    let v = cpu.read_byte(W_PLAYER_SUB_STATUS_3);
-    cpu.write_byte(W_PLAYER_SUB_STATUS_3, v & !SUBSTATUS_CONFUSED_MASK);
-}
-
-fn clear_status_bits(cpu: &mut Cpu, slot: u8, mask: u8) {
-    let addr = party_slot_addr(slot) + PARTY_OFFSET_STATUS;
-    let v = cpu.read_byte(addr);
-    cpu.write_byte(addr, v & !mask);
-    if slot == cpu.read_byte(W_CUR_BATTLE_MON) {
-        let v2 = cpu.read_byte(W_BATTLE_MON_STATUS);
-        cpu.write_byte(W_BATTLE_MON_STATUS, v2 & !mask);
-    }
-}
-
-fn decrement_pocket_item(cpu: &mut Cpu, count_addr: u16, item_id: u8) {
-    let count = cpu.read_byte(count_addr);
-    let mut addr = count_addr + 1;
-    for slot in 0..count {
-        let id = cpu.read_byte(addr);
-        let qty = cpu.read_byte(addr + 1);
-        if id == item_id {
-            if qty > 1 {
-                cpu.write_byte(addr + 1, qty - 1);
-            } else {
-                // Remove entry: shift later entries left.
-                let mut write_addr = addr;
-                let mut read_addr = addr + 2;
-                let mut remaining = count - slot - 1;
-                while remaining > 0 {
-                    cpu.write_byte(write_addr, cpu.read_byte(read_addr));
-                    cpu.write_byte(write_addr + 1, cpu.read_byte(read_addr + 1));
-                    write_addr += 2;
-                    read_addr += 2;
-                    remaining -= 1;
-                }
-                // Move terminator and decrement count.
-                cpu.write_byte(write_addr, 0xff);
-                cpu.write_byte(count_addr, count - 1);
-            }
-            return;
-        }
-        addr += 2;
     }
 }
 
@@ -1644,12 +1177,6 @@ fn read_party_species(cpu: &Cpu, slot: u8) -> u8 {
 
 fn read_word_be(cpu: &Cpu, addr: u16) -> u16 {
     u16::from_be_bytes([cpu.read_byte(addr), cpu.read_byte(addr + 1)])
-}
-
-fn write_word_be(cpu: &mut Cpu, addr: u16, value: u16) {
-    let [hi, lo] = value.to_be_bytes();
-    cpu.write_byte(addr, hi);
-    cpu.write_byte(addr + 1, lo);
 }
 
 fn read_pocket(cpu: &Cpu, count_addr: u16) -> Vec<(u8, u8)> {
@@ -1719,17 +1246,187 @@ fn illegal_move_reason(cpu: &Cpu, slot: u8) -> Option<String> {
 /// forbids, so fail loudly to get it regenerated rather than silently replaying
 /// impossible moves. No-op outside playback: the live menu only ever offers
 /// legal slots, so recording can't produce one.
-fn assert_recorded_move_legal(cpu: &Cpu, slot: u8) {
-    if cpu.player.is_none() {
-        return;
-    }
-    if let Some(reason) = illegal_move_reason(cpu, slot) {
-        eprintln!(
-            "playback: illegal move — recorded {reason}; selectable slots were {:?}",
-            move_options(cpu),
-        );
+// ---------------------------------------------------------------------------
+// Decision points: legal choices and where the choice comes from
+
+/// Get the decision for `site`: from the playback script if one is installed,
+/// else from the installed [`super::decision::Decider`], else from stdin via
+/// `stdin`. Playback and decider steps are checked against [`legal_steps`];
+/// an illegal recorded step exits with status 2 (structural drift), an
+/// illegal decider step panics.
+fn obtain(
+    cpu: &Cpu,
+    site: PromptSite,
+    accepts: &[StepKind],
+    stdin: impl FnOnce(&Cpu) -> Step,
+) -> Step {
+    if let Some(step) = player::consume(cpu, site, accepts) {
+        let legal = legal_steps(cpu, site);
+        if legal.contains(&step) {
+            return step;
+        }
+        // Recordings made before `fight` existed record FIGHT-without-a-menu
+        // (Encore / Bide) as whatever move slot was picked; the engine ignored
+        // it. Read those back as the `fight` they were.
+        if matches!(step, Step::Move { .. }) && legal.contains(&Step::Fight) {
+            return Step::Fight;
+        }
+        if let Step::Move { slot } = step {
+            if let Some(reason) = illegal_move_reason(cpu, slot) {
+                eprintln!(
+                    "playback: illegal move — recorded {reason}; selectable slots were {:?}",
+                    move_options(cpu),
+                );
+                std::process::exit(2);
+            }
+        }
+        eprintln!("playback: illegal step at {site:?} — recorded {step:?}; legal steps were {legal:?}");
         std::process::exit(2);
     }
+    if let Some(cell) = cpu.decider.as_ref() {
+        let legal = legal_steps(cpu, site);
+        let step = cell.borrow_mut().decide(cpu, site, &legal);
+        assert!(legal.contains(&step), "decider chose illegal {step:?} at {site:?}; legal: {legal:?}");
+        return step;
+    }
+    stdin(cpu)
+}
+
+fn action_to_step(action: Action) -> Step {
+    match action {
+        Action::Move(slot) => Step::Move { slot },
+        Action::Fight => Step::Fight,
+        Action::Switch(slot) => Step::Switch { slot },
+        Action::Item { id, target, move_slot } => Step::Item { id, target, move_slot },
+        Action::Run => Step::Run,
+    }
+}
+
+/// Every choice the original game's menus allow at decision point `site`, in
+/// a stable order. This is the action space the library API exposes.
+pub fn legal_steps(cpu: &Cpu, site: PromptSite) -> Vec<Step> {
+    match site {
+        PromptSite::BattleMenu => legal_battle_menu_steps(cpu),
+        PromptSite::MoveSelection => {
+            move_options(cpu).into_iter().map(|slot| Step::Move { slot }).collect()
+        }
+        PromptSite::ForcedSwitch => {
+            let current = cpu.read_byte(W_CUR_BATTLE_MON);
+            alive_party_slots(cpu, Some(current))
+                .into_iter()
+                .map(|slot| Step::ForcedSwitch { slot })
+                .collect()
+        }
+        PromptSite::OfferSwitch => {
+            let current = cpu.read_byte(W_CUR_BATTLE_MON);
+            let mut out = vec![Step::OfferSwitch { keep: true, slot: None }];
+            out.extend(
+                alive_party_slots(cpu, Some(current))
+                    .into_iter()
+                    .map(|slot| Step::OfferSwitch { keep: false, slot: Some(slot) }),
+            );
+            out
+        }
+        PromptSite::EnemyAction => {
+            let enemy_fainted = read_word_be(cpu, W_ENEMY_MON_HP) == 0;
+            let current = cpu.read_byte(W_CUR_OT_MON);
+            let mut out: Vec<Step> = if enemy_fainted {
+                Vec::new()
+            } else {
+                enemy_move_options(cpu).into_iter().map(|slot| Step::Move { slot }).collect()
+            };
+            out.extend(
+                enemy_alive_party_slots(cpu, Some(current))
+                    .into_iter()
+                    .map(|slot| Step::Switch { slot }),
+            );
+            out
+        }
+    }
+}
+
+fn legal_battle_menu_steps(cpu: &Cpu) -> Vec<Step> {
+    let mut out = Vec::new();
+    // FIGHT.
+    if fight_skips_move_menu(cpu) || player_must_struggle(cpu) {
+        out.push(Step::Fight);
+    } else {
+        out.extend(move_options(cpu).into_iter().map(|slot| Step::Move { slot }));
+    }
+    // PKMN.
+    let current = cpu.read_byte(W_CUR_BATTLE_MON);
+    out.extend(
+        alive_party_slots(cpu, Some(current))
+            .into_iter()
+            .filter(|&slot| check_can_switch(cpu, slot).is_ok())
+            .map(|slot| Step::Switch { slot }),
+    );
+    // PACK — every bag item whose real effect would succeed (and so use the
+    // turn), expanded per target / move. `BattleMenu_Pack` refuses all items
+    // in a link battle ("Items can't be used here").
+    let items_allowed = cpu.read_byte(W_LINK_MODE) == 0;
+    for (id, _qty) in read_pocket(cpu, W_NUM_ITEMS).into_iter().filter(|_| items_allowed) {
+        if active_item_usable(cpu, id) {
+            out.push(Step::Item { id, target: None, move_slot: None });
+            continue;
+        }
+        for target in item_valid_targets(cpu, id) {
+            if is_single_move_pp_item(id) {
+                for m in restorable_move_slots(cpu, target) {
+                    out.push(Step::Item { id, target: Some(target), move_slot: Some(m) });
+                }
+            } else {
+                out.push(Step::Item { id, target: Some(target), move_slot: None });
+            }
+        }
+    }
+    // Balls work in every battle: in a trainer battle `UseBallInTrainerBattle`
+    // still tosses the ball and uses the turn ("The trainer blocked the BALL!").
+    // (A full party AND a full box would refuse it; a harness battle starts
+    // with an empty box and can catch at most one mon.)
+    if items_allowed {
+        for (id, _qty) in read_pocket(cpu, W_NUM_BALLS) {
+            out.push(Step::Item { id, target: None, move_slot: None });
+        }
+    }
+    if items_allowed && offers_escape_item(cpu.read_byte(W_BATTLE_MODE)) {
+        for (id, _qty) in read_pocket(cpu, W_NUM_ITEMS) {
+            if is_escape_item_id(id) {
+                out.push(Step::Item { id, target: None, move_slot: None });
+            }
+        }
+    }
+    // RUN.
+    out.push(Step::Run);
+    out
+}
+
+/// FIGHT goes straight to a move without a menu: `ParsePlayerAction` checks
+/// Encore (`SUBSTATUS_ENCORED` → repeat `wLastPlayerMove`) and then Bide
+/// (`SUBSTATUS_BIDE` → `.locked_in`) before it would call `MoveSelectionScreen`.
+fn fight_skips_move_menu(cpu: &Cpu) -> bool {
+    cpu.read_byte(W_PLAYER_SUB_STATUS_5) & (1 << defs::SUBSTATUS_ENCORED) != 0
+        || cpu.read_byte(W_PLAYER_SUB_STATUS_3) & (1 << defs::SUBSTATUS_BIDE) != 0
+}
+
+/// Whether `CheckPlayerHasUsableMoves` would force Struggle. A read-only copy
+/// of its predicate, including its bug: with a move Disabled, the remaining PP
+/// bytes are OR'd *without* masking off the PP-Up bits, so a 0-PP move with PP
+/// Ups counts as usable (see `docs/bugs_and_glitches.md` in pokecrystal).
+fn player_must_struggle(cpu: &Cpu) -> bool {
+    let pp = |i: u16| cpu.read_byte(W_BATTLE_MON_PP + i);
+    let disable = cpu.read_byte(W_PLAYER_DISABLE_COUNT);
+    if disable == 0 {
+        return (pp(0) | pp(1) | pp(2) | pp(3)) & defs::PP_MASK == 0;
+    }
+    let disabled = u16::from(disable >> 4); // 1-based slot
+    let mut acc = 0u8;
+    for i in 0..MOVE_SLOTS {
+        if i + 1 != disabled {
+            acc |= pp(i);
+        }
+    }
+    acc == 0
 }
 
 fn alive_party_slots(cpu: &Cpu, exclude: Option<u8>) -> Vec<u8> {
@@ -1799,6 +1496,11 @@ fn status_suffix(status: u8) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    fn write_word_be(cpu: &mut Cpu, addr: u16, value: u16) {
+        cpu.write_byte(addr, (value >> 8) as u8);
+        cpu.write_byte(addr + 1, value as u8);
+    }
 
     fn effect(id: u8) -> ItemEffect {
         item_effect(id).expect("item should be classified")
@@ -2003,30 +1705,11 @@ mod tests {
         // The stat indices match the `const_def` block (ATTACK=0..SP_ATTACK=3),
         // and neutral is `BASE_STAT_LEVEL`.
         assert_eq!((STAT_ATTACK, STAT_DEFENSE, STAT_SPEED, STAT_SP_ATTACK), (0, 1, 2, 3));
-        assert_eq!(BASE_STAT_LEVEL, 7);
         // X-items never go through the party-target / move-slot machinery.
         for id in [0x31u8, 0x33, 0x34, 0x35] {
             assert!(!effect(id).affects(20, 20, 0), "vitals never claim an effect");
             assert!(!is_single_move_pp_item(id), "X-item has no move-slot prompt");
         }
-    }
-
-    /// `stat_level_can_raise` (and thus whether an X-item is offered) is true iff
-    /// the stage level is below `MAX_STAT_LEVEL`; the real `RaiseStat` (driven via
-    /// `use_active_item_effect`) refuses to raise past the cap. We test the
-    /// boundary logic directly against the constants rather than through a `Cpu`.
-    #[test]
-    fn x_item_usable_below_cap_and_clamps_at_max() {
-        assert_eq!(MAX_STAT_LEVEL, 13);
-        // Usable from neutral up through 12; refused once already at the cap.
-        for level in BASE_STAT_LEVEL..MAX_STAT_LEVEL {
-            assert!(level < MAX_STAT_LEVEL, "level {level} is below the cap — usable");
-        }
-        assert!(!(MAX_STAT_LEVEL < MAX_STAT_LEVEL), "at the cap — no effect, not offered");
-        // The +1 increment never exceeds the cap: from 12 → 13, and 13 stays 13.
-        let next = |lvl: u8| if lvl >= MAX_STAT_LEVEL { lvl } else { lvl + 1 };
-        assert_eq!(next(MAX_STAT_LEVEL - 1), MAX_STAT_LEVEL, "12 → 13");
-        assert_eq!(next(MAX_STAT_LEVEL), MAX_STAT_LEVEL, "13 stays 13 (clamp)");
     }
 
     /// X Accuracy / Guard Spec / Dire Hit each set one bit of `wPlayerSubStatus4`
@@ -2090,26 +1773,6 @@ mod tests {
         );
     }
 
-    /// `is_active_effect_item` selects exactly the eight active-mon items that
-    /// `handle_battle_menu` routes to `use_active_item_effect` (driving the real
-    /// engine effect routine for authentic text), and rejects party-target items,
-    /// balls, the Poké Doll, and unknown ids — which still go through `apply_item`
-    /// / the ball / escape paths.
-    #[test]
-    fn is_active_effect_item_selects_the_eight_active_items() {
-        // The eight active-mon items: X stat-boosters, the sub-status setters,
-        // and Bitter Berry.
-        for id in [0x31u8, 0x33, 0x34, 0x35, 0x21, 0x29, 0x2c, 0x53] {
-            assert!(is_active_effect_item(id), "item {id:#x} drives its effect routine");
-        }
-        // Party-target items (Potion 0x12, Full Restore 0x0e, Ether 0x3f,
-        // Antidote 0x09), a ball (Poké Ball 0x01), the Poké Doll (0x25), and an
-        // unknown id are NOT active-effect items.
-        for id in [0x12u8, 0x0e, 0x3f, 0x09, 0x01, 0x25, 0x00] {
-            assert!(!is_active_effect_item(id), "item {id:#x} is not an active-effect item");
-        }
-    }
-
     /// `SUBSTATUS_CONFUSED` is bit 7 of `wPlayerSubStatus3`; the helper reports
     /// confusion iff that bit is set, ignoring the other SubStatus3 bits.
     #[test]
@@ -2132,18 +1795,6 @@ mod tests {
         assert_eq!(with_other & !SUBSTATUS_CONFUSED_MASK, 1 << 6);
     }
 
-    /// Balls are offered only in a wild battle (`wBattleMode == WILD_BATTLE`).
-    /// A trainer battle (or the not-in-battle 0 value) never lists a ball — the
-    /// real game refuses it ("The trainer blocked the BALL!").
-    #[test]
-    fn balls_offered_only_in_wild_battles() {
-        assert_eq!(defs::WILD_BATTLE, 1);
-        assert_eq!(defs::TRAINER_BATTLE, 2);
-        assert!(offers_balls(defs::WILD_BATTLE), "wild — balls offered");
-        assert!(!offers_balls(defs::TRAINER_BATTLE), "trainer — balls blocked");
-        assert!(!offers_balls(0), "not in battle — no balls");
-    }
-
     /// The Poké Doll (a guaranteed escape) is offered only in a wild battle, the
     /// same gate as a ball: `PokeDollEffect` is a no-op in a trainer battle. And
     /// `is_escape_item_id` recognizes exactly the Poké Doll id — it is NOT a
@@ -2163,27 +1814,6 @@ mod tests {
         assert!(!is_ball_id(POKE_DOLL_ID), "Poké Doll is not a ball");
         // A Potion is not an escape item.
         assert!(!is_escape_item_id(0x12), "Potion is not the escape item");
-    }
-
-    /// `battle_result_as_draw` mirrors `PokeDollEffect`'s `and BATTLERESULT_BITMASK
-    /// / or DRAW`: it forces the low nibble to DRAW (2) while preserving the
-    /// CAUGHT_CELEBI / BOX_FULL high bits. `read_outcome` keys on the low nibble,
-    /// so the result reads as `Outcome::Draw`.
-    #[test]
-    fn poke_doll_masks_result_to_draw() {
-        assert_eq!(defs::DRAW, 2);
-        assert_eq!(defs::BATTLERESULT_BITMASK, 0xc0);
-        // A fresh result (WIN, no flags) becomes DRAW.
-        assert_eq!(battle_result_as_draw(0x00), defs::DRAW);
-        // A prior LOSS low nibble is overwritten by DRAW.
-        assert_eq!(battle_result_as_draw(defs::LOSE), defs::DRAW);
-        // The high CAUGHT_CELEBI / BOX_FULL bits survive; the low nibble is DRAW.
-        assert_eq!(battle_result_as_draw(0xc0), 0xc0 | defs::DRAW);
-        assert_eq!(battle_result_as_draw(0x41), 0x40 | defs::DRAW);
-        // Any input's low nibble reads as Draw (2) under the outcome mask 0x0f.
-        for raw in [0x00u8, 0x01, 0x02, 0x40, 0x80, 0xc0, 0xff] {
-            assert_eq!(battle_result_as_draw(raw) & 0x0f, defs::DRAW);
-        }
     }
 
     /// `is_ball_id` is true for exactly the Balls-pocket ids and false for

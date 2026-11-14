@@ -1,0 +1,23 @@
+//! Where battle decisions come from.
+//!
+//! Every place the engine waits for a choice (the action menu, a move re-pick,
+//! a forced switch after a faint, the "switch before the trainer's next mon?"
+//! offer, and the enemy's action in a link battle) is a *decision point*. At
+//! each one the harness computes the legal choices ([`crate::bootstrap::cli::legal_steps`])
+//! and asks, in order: a playback recording, then an installed [`Decider`],
+//! then stdin.
+//!
+//! The library API ([`crate::battle`]) installs a [`Decider`] that hands the
+//! decision to the caller of `Battle::step`.
+
+use crate::runtime::Cpu;
+
+pub use super::player::PromptSite;
+pub use super::recorder::Step;
+
+/// A source of battle decisions.
+pub trait Decider: Send {
+    /// Pick one of `legal` (never empty) for the decision at `site`. The
+    /// harness panics if the returned step is not in `legal`.
+    fn decide(&mut self, cpu: &Cpu, site: PromptSite, legal: &[Step]) -> Step;
+}

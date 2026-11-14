@@ -46,13 +46,27 @@ The overall plan, in five phases:
 
 ## Fidelity gaps found in the harness (to fix in phase 3)
 
-- **Hand-rolled bag items.** `bootstrap::cli::apply_item` applies Potions, status
-  heals, revives and Ethers/Elixers with hand-written WRAM edits instead of the
-  game's item routines (`engine/items/item_effects.asm`). It misses side effects
-  the original has (for example the battle-mon/party-mon sync done by the real
-  heal routines, stat recalculation after curing a status, and the
-  original's exact text). Only the X items, Dire Hit, Guard Spec, Bitter Berry
-  and Poké Balls currently run their real routines.
+- ✅ **Hand-rolled bag items.** `bootstrap::cli::apply_item` used to apply
+  Potions, status heals, revives and Ethers/Elixers with hand-written WRAM edits.
+  It missed the original's side effects — for example Full Restore and Full Heal
+  also cure confusion, and curing a status on the active mon clears Toxic and
+  Nightmare and recalculates its stats. Items now run the real `BattleMenu_Pack`
+  → `ItemSubmenu.Use` → effect routine; only the bag, party-menu and move-menu
+  *selections* are hooked. Fixture 00030 had recorded the wrong behaviour (a
+  confused Cubone kept hitting itself after a Full Restore) and was re-recorded.
+- ✅ **Illegal actions accepted.** The harness let a Revive be used on a healthy
+  mon (the original says "It won't have any effect" and returns to the menu);
+  five fixtures (00002, 00003, 00021, 00028, 00036) had recorded that and were
+  re-recorded. Every decision point now has a legal-step list mirroring the
+  original menus, and playback rejects anything outside it.
+- ✅ **No Struggle.** With no usable move the harness offered no FIGHT option at
+  all (a one-mon trainer battle would loop on Run forever). FIGHT now exists as
+  the `fight` step whenever the original shows no move menu (Encore, Bide,
+  Struggle).
+- ✅ **Legal item set.** X items are legal even at +6 (the original still uses
+  them up), balls are legal in trainer battles (the original tosses the ball
+  and spends the turn), heal-everything items are legal on a confused active
+  mon, and no item is legal in a link battle.
 - **Hand-rolled switch.** The action-menu switch replicates only the WRAM writes
   of `TryPlayerSwitch`. To be checked line by line against the ASM; switch is
   logic-relevant (it decides Pursuit, trapping, etc.).

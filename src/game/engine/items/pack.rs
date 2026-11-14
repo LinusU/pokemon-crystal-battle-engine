@@ -1705,6 +1705,13 @@ pub(crate) fn battle_pack(cpu: &mut Cpu) {
 
 pub(crate) fn battle_pack_loop(cpu: &mut Cpu) {
     cpu.pc = 0x449b;
+    // HARNESS-PATCH: when the CLI action menu picked a bag item
+    // (cpu.cli_pending_item), use it the way the bag's USE choice does
+    // (`ItemSubmenu.Use` → the item's real effect routine) instead of running
+    // the interactive pocket UI. On success that sets JUMPTABLE_EXIT_F, so the
+    // loop below exits exactly as after a real selection. See
+    // docs/transpiled_code.md.
+    crate::bootstrap::cli::use_pending_item_in_pack(cpu);
     let next_pc = cpu.pc + 3;
     cpu.push_word(next_pc);
     cpu.cycle(24);

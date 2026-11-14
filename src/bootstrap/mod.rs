@@ -9,6 +9,7 @@
 //! TOML + glium window in `main.rs` is just one consumer.
 
 pub mod cli;
+pub mod decision;
 pub mod items;
 pub mod move_pp;
 pub mod names;

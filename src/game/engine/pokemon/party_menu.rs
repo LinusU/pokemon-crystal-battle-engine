@@ -2562,6 +2562,13 @@ pub(crate) fn init_party_menu_no_cancel_done(cpu: &mut Cpu) {
 
 pub(crate) fn party_menu_select(cpu: &mut Cpu) {
     cpu.pc = 0x4457;
+    // HARNESS-PATCH: while an item effect asks which Pokémon to use it on,
+    // return the CLI-chosen party slot (cpu.cli_pending_party_target) with the
+    // routine's success contract instead of reading the joypad. See
+    // docs/transpiled_code.md.
+    if let Some(slot) = cpu.cli_pending_party_target.take() {
+        return crate::bootstrap::cli::select_party_target(cpu, slot);
+    }
     let next_pc = cpu.pc + 3;
     cpu.push_word(next_pc);
     cpu.cycle(24);

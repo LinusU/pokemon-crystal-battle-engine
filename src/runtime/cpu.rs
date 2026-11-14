@@ -68,6 +68,26 @@ pub struct Cpu {
     /// reason as `recorder`: the CLI prompt sites that see this take `&Cpu`,
     /// not `&mut Cpu`.
     pub player: Option<std::cell::RefCell<crate::bootstrap::player::Player>>,
+    /// Decision source consulted at every decision point when no playback
+    /// script supplies the step (and before falling back to stdin). The
+    /// library API installs one. See [`crate::bootstrap::decision`].
+    pub decider: Option<std::cell::RefCell<Box<dyn crate::bootstrap::decision::Decider>>>,
+    /// Set by the CLI action menu when the player picks FIGHT with no usable
+    /// move (Struggle). Consumed by the `move_selection_screen` HARNESS-PATCH,
+    /// which then runs the engine's own `CheckPlayerHasUsableMoves` to force
+    /// Struggle exactly like the original.
+    pub cli_pending_struggle: bool,
+    /// Bag item picked at the CLI action menu as `(id, target, move_slot)`.
+    /// The action menu then runs the engine's real `BattleMenu_Pack`; the
+    /// `battle_pack_loop` HARNESS-PATCH consumes this in place of the bag UI
+    /// and runs the item's real effect routine.
+    pub cli_pending_item: Option<(u8, Option<u8>, Option<u8>)>,
+    /// Party slot the `party_menu_select` HARNESS-PATCH returns while an item
+    /// effect asks which Pokémon to use it on.
+    pub cli_pending_party_target: Option<u8>,
+    /// Move slot the `move_selection_screen` HARNESS-PATCH returns for the
+    /// Ether/Max Ether/MysteryBerry move menu (`wMoveSelectionMenuType == 2`).
+    pub cli_pending_item_move: Option<u8>,
     /// Per-byte ROM overrides applied before `start_battle`. The bootstrap
     /// uses this to poke the trainer class's `TrainerClassAttributes` entry
     /// (items, AI flags) without touching the immutable static ROM slice. Each
@@ -143,6 +163,11 @@ impl Default for Cpu {
             link_battle: false,
             recorder: None,
             player: None,
+            decider: None,
+            cli_pending_struggle: false,
+            cli_pending_item: None,
+            cli_pending_party_target: None,
+            cli_pending_item_move: None,
             rom_patches: Vec::new(),
             trainer_party_override: false,
             mbc: Mbc::new(crate::rom::ROM),

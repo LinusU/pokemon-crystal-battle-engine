@@ -21921,6 +21921,41 @@ pub(crate) fn move_selection_screen(cpu: &mut Cpu) {
     //   wCurMoveNum (0xd0d5)    = slot
     //   wCurPlayerMove (0xc6e3) = move id at that slot
     // Plus cpu.a = 0, flag_z = true, flag_c = false. See docs/transpiled_code.md.
+    // For the Ether/Max Ether/MysteryBerry move menu (wMoveSelectionMenuType
+    // == 2) return the CLI-chosen move slot (cpu.cli_pending_item_move) with
+    // that menu's A-button contract: wSwappingMove = 0, wMenuCursorY =
+    // wCurMoveNum = slot (0-based), a = PAD_A, z set.
+    if cpu.read_byte(0xd235) == 2 {
+        let slot = cpu
+            .cli_pending_item_move
+            .take()
+            .expect("Ether move menu opened without a CLI-chosen move slot");
+        cpu.write_byte(0xd0e3, 0);
+        cpu.write_byte(0xcfa9, slot);
+        cpu.write_byte(0xd0d5, slot);
+        cpu.a = crate::defs::PAD_A as u8;
+        cpu.flag_z = true;
+        cpu.flag_n = false;
+        cpu.flag_h = false;
+        cpu.flag_c = false;
+        cpu.pc = cpu.pop_word();
+        cpu.cycle(16);
+        return;
+    }
+    // When the CLI picked FIGHT with no usable move (cpu.cli_pending_struggle),
+    // run the original `call CheckPlayerHasUsableMoves / ret z` instead: it
+    // prints "has no moves left!" and sets wCurPlayerMove = STRUGGLE.
+    if std::mem::take(&mut cpu.cli_pending_struggle) {
+        let next_pc = cpu.pc + 3;
+        cpu.push_word(next_pc);
+        cpu.cycle(24);
+        check_player_has_usable_moves(cpu);
+        assert_eq!(cpu.pc, next_pc);
+        assert!(cpu.flag_z, "CLI offered Struggle but CheckPlayerHasUsableMoves found a usable move");
+        cpu.pc = cpu.pop_word();
+        cpu.cycle(20);
+        return;
+    }
     let slot = match cpu.cli_pending_move.take() {
         Some(s) => s,
         None => crate::bootstrap::cli::handle_move_selection(cpu),

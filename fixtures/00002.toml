@@ -1,316 +1,85 @@
 [recording]
-seed = "0x2d839779cdfbc413"
+seed = "0x6c0f9a52bf3ef6cf"
 
 [scenario.battle]
 type = "trainer_battle"
-trainer = "BLAINE_1"
+trainer = "BEAUTY_10"
 
 [[scenario.player_party]]
-species = "GOLDEEN"
-level = 44
-
-[[scenario.player_party]]
-species = "GEODUDE"
-level = 42
-
-[[scenario.player_party]]
-species = "BULBASAUR"
-level = 44
-
-[[scenario.player_party]]
-species = "PHANPY"
-level = 43
+species = "GOLDUCK"
+level = 17
 
 [[scenario.player_items]]
-name = "Elixer"
+name = "Max Revive"
 quantity = 1
 
 [[scenario.player_items]]
-name = "Revive"
-quantity = 3
-
-[[scenario.player_items]]
-name = "Max Elixer"
-quantity = 3
+name = "Potion"
+quantity = 1
 
 [[step]]
 kind = "move"
 slot = 3
 expect.player.active_slot = 0
-expect.player.active.species = "GOLDEEN"
-expect.player.active.level = 44
-expect.player.active.hp = 66
-expect.player.active.max_hp = 106
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 17
+expect.player.active.hp = 59
+expect.player.active.max_hp = 59
 expect.player.active.status = "none"
-expect.player.active.pp = [15, 20, 15, 4]
-expect.player.party = [{ species = "GOLDEEN", level = 44, hp = 66, max_hp = 106, status = "none" }, { species = "GEODUDE", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "BULBASAUR", level = 44, hp = 103, max_hp = 103, status = "none" }, { species = "PHANPY", level = 43, hp = 143, max_hp = 143, status = "none" }]
+expect.player.active.pp = [35, 30, 20, 24]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GOLDUCK", level = 17, hp = 59, max_hp = 59, status = "none", item = "none" }]
 expect.enemy.active_slot = 0
-expect.enemy.active.species = "MAGCARGO"
-expect.enemy.active.level = 45
-expect.enemy.active.hp = 107
-expect.enemy.active.max_hp = 107
+expect.enemy.active.species = "SENTRET"
+expect.enemy.active.level = 15
+expect.enemy.active.hp = 21
+expect.enemy.active.max_hp = 36
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [10, 20, 15, 9]
-expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 107, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+expect.enemy.active.pp = [35, 39, 30, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SENTRET", level = 15, hp = 36, max_hp = 36, status = "none", item = "none" }]
 
 [[step]]
 kind = "move"
 slot = 3
 expect.player.active_slot = 0
-expect.player.active.species = "GOLDEEN"
-expect.player.active.level = 44
-expect.player.active.hp = 26
-expect.player.active.max_hp = 106
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 17
+expect.player.active.hp = 51
+expect.player.active.max_hp = 59
 expect.player.active.status = "none"
-expect.player.active.pp = [15, 20, 15, 3]
-expect.player.party = [{ species = "GOLDEEN", level = 44, hp = 26, max_hp = 106, status = "none" }, { species = "GEODUDE", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "BULBASAUR", level = 44, hp = 103, max_hp = 103, status = "none" }, { species = "PHANPY", level = 43, hp = 143, max_hp = 143, status = "none" }]
+expect.player.active.pp = [35, 30, 20, 23]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GOLDUCK", level = 17, hp = 51, max_hp = 59, status = "none", item = "none" }]
 expect.enemy.active_slot = 0
-expect.enemy.active.species = "MAGCARGO"
-expect.enemy.active.level = 45
-expect.enemy.active.hp = 107
-expect.enemy.active.max_hp = 107
+expect.enemy.active.species = "SENTRET"
+expect.enemy.active.level = 15
+expect.enemy.active.hp = 5
+expect.enemy.active.max_hp = 36
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [10, 20, 15, 8]
-expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 107, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
-
-[[step]]
-kind = "item"
-id = 39
-target = 0
-expect.player.active_slot = 0
-expect.player.active.species = "GOLDEEN"
-expect.player.active.level = 44
-expect.player.active.hp = 0
-expect.player.active.max_hp = 106
-expect.player.active.status = "none"
-expect.player.active.pp = [15, 20, 15, 3]
-expect.player.party = [{ species = "GOLDEEN", level = 44, hp = 0, max_hp = 106, status = "none" }, { species = "GEODUDE", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "BULBASAUR", level = 44, hp = 103, max_hp = 103, status = "none" }, { species = "PHANPY", level = 43, hp = 143, max_hp = 143, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "MAGCARGO"
-expect.enemy.active.level = 45
-expect.enemy.active.hp = 107
-expect.enemy.active.max_hp = 107
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [10, 20, 15, 7]
-expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 107, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
-
-[[step]]
-kind = "forced_switch"
-slot = 1
-expect.player.active_slot = 1
-expect.player.active.species = "GEODUDE"
-expect.player.active.level = 42
-expect.player.active.hp = 88
-expect.player.active.max_hp = 88
-expect.player.active.status = "none"
-expect.player.active.pp = [30, 20, 10, 5]
-expect.player.party = [{ species = "GOLDEEN", level = 44, hp = 0, max_hp = 106, status = "none" }, { species = "GEODUDE", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "BULBASAUR", level = 44, hp = 103, max_hp = 103, status = "none" }, { species = "PHANPY", level = 43, hp = 143, max_hp = 143, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "MAGCARGO"
-expect.enemy.active.level = 45
-expect.enemy.active.hp = 107
-expect.enemy.active.max_hp = 107
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [10, 20, 15, 7]
-expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 107, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
+expect.enemy.active.pp = [35, 39, 29, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SENTRET", level = 15, hp = 36, max_hp = 36, status = "none", item = "none" }]
 
 [[step]]
 kind = "move"
-slot = 2
-expect.player.active_slot = 1
-expect.player.active.species = "GEODUDE"
-expect.player.active.level = 42
-expect.player.active.hp = 88
-expect.player.active.max_hp = 88
-expect.player.active.status = "none"
-expect.player.active.pp = [30, 20, 9, 5]
-expect.player.party = [{ species = "GOLDEEN", level = 44, hp = 0, max_hp = 106, status = "none" }, { species = "GEODUDE", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "BULBASAUR", level = 44, hp = 103, max_hp = 103, status = "none" }, { species = "PHANPY", level = 43, hp = 143, max_hp = 143, status = "none" }]
-expect.enemy.active_slot = 0
-expect.enemy.active.species = "MAGCARGO"
-expect.enemy.active.level = 45
-expect.enemy.active.hp = 15
-expect.enemy.active.max_hp = 107
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [9, 20, 15, 7]
-expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 107, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 2
-expect.player.active_slot = 1
-expect.player.active.species = "GEODUDE"
-expect.player.active.level = 42
-expect.player.active.hp = 88
-expect.player.active.max_hp = 88
-expect.player.active.status = "none"
-expect.player.active.pp = [30, 20, 8, 5]
-expect.player.party = [{ species = "GOLDEEN", level = 44, hp = 0, max_hp = 106, status = "none" }, { species = "GEODUDE", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "BULBASAUR", level = 44, hp = 103, max_hp = 103, status = "none" }, { species = "PHANPY", level = 43, hp = 143, max_hp = 143, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "RAPIDASH"
-expect.enemy.active.level = 50
-expect.enemy.active.hp = 133
-expect.enemy.active.max_hp = 133
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [30, 15, 20, 5]
-expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
-
-[[step]]
-kind = "offer_switch"
-keep = true
-expect.player.active_slot = 1
-expect.player.active.species = "GEODUDE"
-expect.player.active.level = 42
-expect.player.active.hp = 88
-expect.player.active.max_hp = 88
-expect.player.active.status = "none"
-expect.player.active.pp = [30, 20, 8, 5]
-expect.player.party = [{ species = "GOLDEEN", level = 44, hp = 0, max_hp = 106, status = "none" }, { species = "GEODUDE", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "BULBASAUR", level = 44, hp = 103, max_hp = 103, status = "none" }, { species = "PHANPY", level = 43, hp = 143, max_hp = 143, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "RAPIDASH"
-expect.enemy.active.level = 50
-expect.enemy.active.hp = 133
-expect.enemy.active.max_hp = 133
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [30, 15, 20, 5]
-expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 2
-expect.player.active_slot = 1
-expect.player.active.species = "GEODUDE"
-expect.player.active.level = 42
-expect.player.active.hp = 88
-expect.player.active.max_hp = 88
-expect.player.active.status = "none"
-expect.player.active.pp = [30, 20, 7, 5]
-expect.player.party = [{ species = "GOLDEEN", level = 44, hp = 0, max_hp = 106, status = "none" }, { species = "GEODUDE", level = 42, hp = 88, max_hp = 88, status = "none" }, { species = "BULBASAUR", level = 44, hp = 103, max_hp = 103, status = "none" }, { species = "PHANPY", level = 43, hp = 143, max_hp = 143, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "RAPIDASH"
-expect.enemy.active.level = 50
-expect.enemy.active.hp = 45
-expect.enemy.active.max_hp = 133
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [30, 15, 20, 4]
-expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 2
-expect.player.active_slot = 1
-expect.player.active.species = "GEODUDE"
-expect.player.active.level = 42
-expect.player.active.hp = 0
-expect.player.active.max_hp = 88
-expect.player.active.status = "none"
-expect.player.active.pp = [30, 20, 7, 5]
-expect.player.party = [{ species = "GOLDEEN", level = 44, hp = 0, max_hp = 106, status = "none" }, { species = "GEODUDE", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "BULBASAUR", level = 44, hp = 103, max_hp = 103, status = "none" }, { species = "PHANPY", level = 43, hp = 143, max_hp = 143, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "RAPIDASH"
-expect.enemy.active.level = 50
-expect.enemy.active.hp = 45
-expect.enemy.active.max_hp = 133
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [30, 15, 20, 3]
-expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
-
-[[step]]
-kind = "forced_switch"
-slot = 2
-expect.player.active_slot = 2
-expect.player.active.species = "BULBASAUR"
-expect.player.active.level = 44
-expect.player.active.hp = 103
-expect.player.active.max_hp = 103
-expect.player.active.status = "none"
-expect.player.active.pp = [25, 20, 40, 5]
-expect.player.party = [{ species = "GOLDEEN", level = 44, hp = 0, max_hp = 106, status = "none" }, { species = "GEODUDE", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "BULBASAUR", level = 44, hp = 103, max_hp = 103, status = "none" }, { species = "PHANPY", level = 43, hp = 143, max_hp = 143, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "RAPIDASH"
-expect.enemy.active.level = 50
-expect.enemy.active.hp = 45
-expect.enemy.active.max_hp = 133
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [30, 15, 20, 3]
-expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 0
-expect.player.active_slot = 2
-expect.player.active.species = "BULBASAUR"
-expect.player.active.level = 44
-expect.player.active.hp = 0
-expect.player.active.max_hp = 103
-expect.player.active.status = "none"
-expect.player.active.pp = [25, 20, 40, 5]
-expect.player.party = [{ species = "GOLDEEN", level = 44, hp = 0, max_hp = 106, status = "none" }, { species = "GEODUDE", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "BULBASAUR", level = 44, hp = 0, max_hp = 103, status = "none" }, { species = "PHANPY", level = 43, hp = 143, max_hp = 143, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "RAPIDASH"
-expect.enemy.active.level = 50
-expect.enemy.active.hp = 45
-expect.enemy.active.max_hp = 133
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [30, 15, 20, 2]
-expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
-
-[[step]]
-kind = "forced_switch"
 slot = 3
-expect.player.active_slot = 3
-expect.player.active.species = "PHANPY"
-expect.player.active.level = 43
-expect.player.active.hp = 143
-expect.player.active.max_hp = 143
+expect.player.active_slot = 0
+expect.player.active.species = "GOLDUCK"
+expect.player.active.level = 17
+expect.player.active.hp = 43
+expect.player.active.max_hp = 59
 expect.player.active.status = "none"
-expect.player.active.pp = [15, 20, 20, 10]
-expect.player.party = [{ species = "GOLDEEN", level = 44, hp = 0, max_hp = 106, status = "none" }, { species = "GEODUDE", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "BULBASAUR", level = 44, hp = 0, max_hp = 103, status = "none" }, { species = "PHANPY", level = 43, hp = 143, max_hp = 143, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "RAPIDASH"
-expect.enemy.active.level = 50
-expect.enemy.active.hp = 45
-expect.enemy.active.max_hp = 133
+expect.player.active.pp = [35, 30, 20, 22]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "GOLDUCK", level = 17, hp = 43, max_hp = 59, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "SENTRET"
+expect.enemy.active.level = 15
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 36
 expect.enemy.active.status = "none"
-expect.enemy.active.pp = [30, 15, 20, 2]
-expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 1
-expect.player.active_slot = 3
-expect.player.active.species = "PHANPY"
-expect.player.active.level = 43
-expect.player.active.hp = 137
-expect.player.active.max_hp = 143
-expect.player.active.status = "none"
-expect.player.active.pp = [15, 19, 20, 10]
-expect.player.party = [{ species = "GOLDEEN", level = 44, hp = 0, max_hp = 106, status = "none" }, { species = "GEODUDE", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "BULBASAUR", level = 44, hp = 0, max_hp = 103, status = "none" }, { species = "PHANPY", level = 43, hp = 137, max_hp = 143, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "RAPIDASH"
-expect.enemy.active.level = 50
-expect.enemy.active.hp = 107
-expect.enemy.active.max_hp = 133
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [30, 15, 20, 2]
-expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
-
-[[step]]
-kind = "move"
-slot = 1
-expect.player.active_slot = 3
-expect.player.active.species = "PHANPY"
-expect.player.active.level = 43
-expect.player.active.hp = 0
-expect.player.active.max_hp = 143
-expect.player.active.status = "none"
-expect.player.active.pp = [15, 19, 20, 10]
-expect.player.party = [{ species = "GOLDEEN", level = 44, hp = 0, max_hp = 106, status = "none" }, { species = "GEODUDE", level = 42, hp = 0, max_hp = 88, status = "none" }, { species = "BULBASAUR", level = 44, hp = 0, max_hp = 103, status = "none" }, { species = "PHANPY", level = 43, hp = 0, max_hp = 143, status = "none" }]
-expect.enemy.active_slot = 2
-expect.enemy.active.species = "RAPIDASH"
-expect.enemy.active.level = 50
-expect.enemy.active.hp = 107
-expect.enemy.active.max_hp = 133
-expect.enemy.active.status = "none"
-expect.enemy.active.pp = [30, 15, 20, 1]
-expect.enemy.party = [{ species = "MAGCARGO", level = 45, hp = 0, max_hp = 107, status = "none" }, { species = "MAGMAR", level = 45, hp = 120, max_hp = 120, status = "none" }, { species = "RAPIDASH", level = 50, hp = 133, max_hp = 133, status = "none" }]
-expect.battle.outcome = "loss"
+expect.enemy.active.pp = [35, 39, 28, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "SENTRET", level = 15, hp = 0, max_hp = 36, status = "none", item = "none" }]
+expect.battle.outcome = "win"

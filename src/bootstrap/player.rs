@@ -126,7 +126,7 @@ impl Player {
 
 /// What kind of decision the CLI driver is asking for. Used for the
 /// mismatch-error message when the recorded `kind` doesn't fit.
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum PromptSite {
     BattleMenu,
     MoveSelection,
@@ -291,6 +291,7 @@ pub enum StepKind {
     Switch,
     Item,
     Run,
+    Fight,
     ForcedSwitch,
     OfferSwitch,
 }
@@ -302,6 +303,7 @@ impl StepKind {
             StepKind::Switch => "switch",
             StepKind::Item => "item",
             StepKind::Run => "run",
+            StepKind::Fight => "fight",
             StepKind::ForcedSwitch => "forced_switch",
             StepKind::OfferSwitch => "offer_switch",
         }
@@ -319,6 +321,7 @@ impl StepExt for Step {
             Step::Switch { .. } => StepKind::Switch,
             Step::Item { .. } => StepKind::Item,
             Step::Run => StepKind::Run,
+            Step::Fight => StepKind::Fight,
             Step::ForcedSwitch { .. } => StepKind::ForcedSwitch,
             Step::OfferSwitch { .. } => StepKind::OfferSwitch,
         }
@@ -401,6 +404,7 @@ impl RawStep {
                 Step::Item { id, target, move_slot }
             }
             "run" => Step::Run,
+            "fight" => Step::Fight,
             "forced_switch" => {
                 let slot = slot.ok_or("`forced_switch` step needs `slot`")?;
                 Step::ForcedSwitch { slot }

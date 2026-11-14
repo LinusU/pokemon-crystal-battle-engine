@@ -74,7 +74,7 @@ impl Side {
 /// half is the `expect.*` keys written by [`observe`] / [`finalize`]. The side
 /// the decision belongs to is tracked separately (see [`Side`] / [`record_side`])
 /// rather than on the variant, since the action shape is identical for both.
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Step {
     /// Action menu picked a move. `slot` is the 0-based move slot.
     Move { slot: u8 },
@@ -90,6 +90,13 @@ pub enum Step {
     Item { id: u8, target: Option<u8>, move_slot: Option<u8> },
     /// Action menu picked Run.
     Run,
+    /// Action menu picked FIGHT in a state where the original game shows no
+    /// move menu and the engine picks the move itself: the mon is Encored
+    /// (`ParsePlayerAction` uses `wLastPlayerMove`), is storing energy with
+    /// Bide, or has no usable move (`CheckPlayerHasUsableMoves` forces
+    /// Struggle). Offered instead of the `Move` options in exactly those
+    /// states.
+    Fight,
     /// `force_pick_party_mon_in_battle` — the active mon fainted and the
     /// engine forces us to send in another. `slot` is the chosen slot.
     ForcedSwitch { slot: u8 },
@@ -301,6 +308,9 @@ fn write_step(writer: &mut BufWriter<File>, side: Side, step: Step) -> std::io::
         }
         Step::Run => {
             writeln!(writer, "kind = \"run\"")?;
+        }
+        Step::Fight => {
+            writeln!(writer, "kind = \"fight\"")?;
         }
         Step::ForcedSwitch { slot } => {
             writeln!(writer, "kind = \"forced_switch\"")?;

@@ -218,7 +218,13 @@ expect.battle.outcome = "win"
 
 The `seed` field is always the *resolved* value: if the scenario omitted `seed = ...`, the harness draws one from system entropy and writes that resolved value into the recording so a later replay reproduces the run bit-for-bit.
 
-`kind` is one of: `move`, `switch`, `item`, `run`, `forced_switch`, `offer_switch`. For `offer_switch`, the keep-current case writes `keep = true`; the swap-in case writes `slot = N` instead.
+`kind` is one of: `move`, `fight`, `switch`, `item`, `run`, `forced_switch`, `offer_switch`. For `offer_switch`, the keep-current case writes `keep = true`; the swap-in case writes `slot = N` instead.
+
+`fight` is FIGHT in a state where the original game shows no move menu and picks the move itself: the active mon is Encored (repeats its last move), is storing energy with Bide, or has no usable move (Struggle). In those states `fight` replaces the `move` options. Recordings made before `fight` existed record Encore/Bide turns as a `move` step; playback reads those back as `fight`.
+
+### Legal steps
+
+Every decision point has a fixed list of legal steps (`bootstrap::cli::legal_steps`) that mirrors what the original menus accept *and* what actually uses the turn: moves with PP that aren't Disabled, switches the trapping rules allow, and bag items whose real effect routine would succeed (an item the game would answer with "It won't have any effect" is not legal). Playback rejects a recorded step that isn't in the list (exit 2). Items run the engine's real routines — `BattleMenu_Pack` → `ItemSubmenu.Use` → the item's effect — so their side effects (stat recalculation after a status cure, Toxic/Nightmare/confusion clearing, happiness, the original battle text) are the original game's.
 
 In a [link battle](#link-battles) both sides' decisions go into the one ordered `[[step]]` list, interleaved in the order the engine prompts them (player, then enemy, each round). The enemy's steps carry `side = "enemy"`; player steps omit the key. The enemy only ever produces `move` and `switch` steps. On playback each prompt site consumes a step of its own side in order — a step whose `side` doesn't fit the current prompt is structural drift (exit 2), the same as a `kind` mismatch. Recordings made before link battles existed have no `side` key and parse as `player`, so they replay unchanged.
 
