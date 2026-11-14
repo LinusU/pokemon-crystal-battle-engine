@@ -40,26 +40,44 @@ pub struct FastBattle {
 }
 
 impl FastBattle {
-    /// Start a battle. The original engine sets it up (the hand-written
-    /// engine takes over at the first decision).
+    /// Start a battle on the hand-written engine (`start::start`: the
+    /// scenario's WRAM, the game's own battle start). A scenario only the
+    /// emulated harness supports (see `start::StartError::Unsupported`) starts
+    /// through the oracle instead; a malformed one gives `None`.
     pub fn new(config: &BattleConfig, seed: u64) -> Option<FastBattle> {
+        match super::start::start(config, seed, false) {
+            Ok(engine) => Some(Self::from_engine(engine, TurnEntry::TurnStart)),
+            Err(super::start::StartError::Unsupported(_)) => Self::new_via_oracle(config, seed),
+            Err(super::start::StartError::Invalid(_)) => None,
+        }
+    }
+
+    /// Start a battle by running the original engine (the transpiled code on
+    /// the emulated CPU, `oracle::first_decision`) up to its first decision;
+    /// the hand-written engine takes over from there. For comparison with
+    /// [`FastBattle::new`].
+    pub fn new_via_oracle(config: &BattleConfig, seed: u64) -> Option<FastBattle> {
         let first = super::oracle::first_decision(config, seed)?;
         let flags = Flags {
             link_battle: config.battle.kind == crate::bootstrap::BattleKind::LinkBattle,
             ..Flags::default()
         };
-        let base = Engine::new(first.mem, first.rng, flags);
+        Some(Self::from_engine(Engine::new(first.mem, first.rng, flags), TurnEntry::BattleMenu))
+    }
+
+    /// A battle whose current turn starts at `entry` in `base`.
+    fn from_engine(base: Engine, entry: TurnEntry) -> FastBattle {
         let mut battle = FastBattle {
             current: base.clone(),
             base,
-            entry: TurnEntry::BattleMenu,
+            entry,
             turn_decisions: Vec::new(),
             status: Status::Ended(Outcome::Draw),
             texts: Vec::new(),
             turn_texts_seen: 0,
         };
         battle.advance();
-        Some(battle)
+        battle
     }
 
     pub fn status(&self) -> &Status {
