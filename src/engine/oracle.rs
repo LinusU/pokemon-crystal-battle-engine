@@ -61,6 +61,9 @@ impl Decider for RecordingDecider {
             drop(out);
             std::panic::resume_unwind(Box::new(TooLong));
         }
+        // The next decision must come within this many cycles (about two
+        // minutes of game time), or the original game has frozen.
+        cpu.cycle_limit.set(cpu.cycles + (1 << 30));
         let action = legal[(mix(&mut self.policy) % legal.len() as u64) as usize];
         out.push(Snapshot {
             site,
@@ -89,6 +92,7 @@ pub fn run(config: &BattleConfig, seed: u64, policy_seed: u64, max_decisions: us
     let mut cpu = Cpu::new_cgb(None, None);
     cpu.interrupt_vectors = crate::interrupt_vectors();
     cpu.rng_log = Some(Vec::new());
+    cpu.cycle_limit.set(1 << 31);
     cpu.events = Some(std::cell::RefCell::new(Default::default()));
     cpu.decider = Some(std::cell::RefCell::new(Box::new(RecordingDecider {
         out: out.clone(),
@@ -101,7 +105,10 @@ pub fn run(config: &BattleConfig, seed: u64, policy_seed: u64, max_decisions: us
     }));
     match finished {
         Ok(()) => {}
-        Err(payload) if payload.downcast_ref::<TooLong>().is_some() => {
+        Err(payload)
+            if payload.downcast_ref::<TooLong>().is_some()
+                || payload.downcast_ref::<crate::runtime::CycleLimit>().is_some() =>
+        {
             let first = out.lock().unwrap_or_else(|e| e.into_inner()).first().cloned();
             FIRST.with(|f| *f.borrow_mut() = first);
             return None;

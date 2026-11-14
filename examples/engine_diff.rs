@@ -28,7 +28,7 @@ fn main() {
             _ => testgen::random_link_config(seed, &moves, Default::default()),
         };
         let Some(trace) = oracle::run(&config, config.battle.seed.unwrap(), seed, 400) else {
-            println!("seed {seed}: oracle battle too long, skipped");
+            println!("seed {seed}: oracle battle too long or frozen, skipped");
             continue;
         };
         match diff::check(&trace, kind == "link", std::env::var_os("NO_TEXT").is_none()) {

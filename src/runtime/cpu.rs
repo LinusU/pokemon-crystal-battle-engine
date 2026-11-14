@@ -14,6 +14,10 @@ pub struct Cpu {
     pub sp: u16,
     pub pc: u16,
     pub cycles: u64,
+    /// Watchdog: `cycle` panics with [`CycleLimit`] once `cycles` passes this.
+    /// A `Cell` so a decider, which only sees `&Cpu`, can re-arm it. Used to
+    /// detect the original game freezing (an endless loop between decisions).
+    pub cycle_limit: std::cell::Cell<u64>,
     pub halted: bool,
     pub ime: bool,
     pub interrupt_vectors: InterruptVectors,
@@ -166,6 +170,7 @@ impl Default for Cpu {
             sp: 0,
             pc: 0,
             cycles: 0,
+            cycle_limit: std::cell::Cell::new(u64::MAX),
             halted: false,
             ime: true,
             interrupt_vectors: InterruptVectors::default(),
@@ -355,6 +360,9 @@ impl Cpu {
         let vram_cycles = self.perform_vramdma();
         let ticks = cycles as u32 + vram_cycles;
         self.cycles += u64::from(ticks);
+        if self.cycles > self.cycle_limit.get() {
+            std::panic::resume_unwind(Box::new(CycleLimit));
+        }
         self.advance_gpu(ticks);
         if self.keypad.has_events() {
             self.keypad.do_cycle();
@@ -835,3 +843,7 @@ mod tests {
         assert_ne!(cpu.next_rng_byte(), 0);
     }
 }
+
+/// Panic payload of the [`Cpu::cycle_limit`] watchdog.
+#[derive(Debug)]
+pub struct CycleLimit;

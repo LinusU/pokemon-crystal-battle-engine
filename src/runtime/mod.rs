@@ -3,7 +3,7 @@ mod gpu;
 mod keypad;
 mod mbc;
 
-pub use cpu::{Cpu, RngDraw};
+pub use cpu::{Cpu, CycleLimit, RngDraw};
 pub use gpu::{Gpu, SCREEN_H, SCREEN_W};
 pub use keypad::{Keypad, KeypadEvent, KeypadKey};
 
