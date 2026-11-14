@@ -30,6 +30,7 @@ pub mod names;
 pub mod oracle;
 pub mod rom;
 pub mod setup;
+pub mod start;
 pub mod rsym;
 pub mod sym;
 pub mod testgen;

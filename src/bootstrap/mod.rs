@@ -602,7 +602,7 @@ fn seed_ot_nickname(cpu: &mut Cpu, slot: u8, species: u8) {
 /// Resolve a mon's optional `moves` list to move ids, validating the count and
 /// every name. `None` means "keep the engine's generated moveset" and leaves
 /// the slot untouched.
-fn resolve_moves(mon: &MonSpec) -> Result<Option<Vec<u8>>, String> {
+pub(crate) fn resolve_moves(mon: &MonSpec) -> Result<Option<Vec<u8>>, String> {
     let Some(names) = &mon.moves else {
         return Ok(None);
     };
@@ -641,7 +641,7 @@ fn apply_moveset(cpu: &mut Cpu, party_mon1_addr: u16, slot: u8, move_ids: &[u8])
 /// Resolve a mon's optional `item` name to its item id, validating the name.
 /// `None` means "no held item" and leaves the slot's `MON_ITEM` byte as
 /// `try_add_mon_to_party` left it (0, since we add mons with `wBattleMode = 0`).
-fn resolve_item(mon: &MonSpec, label: &str) -> Result<Option<u8>, String> {
+pub(crate) fn resolve_item(mon: &MonSpec, label: &str) -> Result<Option<u8>, String> {
     let Some(name) = &mon.item else {
         return Ok(None);
     };

@@ -182,7 +182,7 @@ impl Engine {
     }
 
     /// `CalcMonStatC`: stat `c` (1 = HP .. 6 = SpDef), result in `hMultiplicand + 1..2`.
-    fn calc_mon_stat_c(&mut self, hl: u16, c: u8, with_exp: bool) {
+    pub(super) fn calc_mon_stat_c(&mut self, hl: u16, c: u8, with_exp: bool) {
         let base = self.mem.rb(W_BASE_STATS + u16::from(c) - 1);
         let mut exp_hl = hl;
         if c == STAT_SDEF {
@@ -1324,7 +1324,7 @@ impl Engine {
     }
 
     /// `GetTrainerDVs`: the DVs of `wOtherTrainerClass` in `bc`.
-    fn get_trainer_dvs(&self) -> (u8, u8) {
+    pub(super) fn get_trainer_dvs(&self) -> (u8, u8) {
         let class = self.mem.rb(W_OTHER_TRAINER_CLASS).wrapping_sub(1);
         let p = TRAINER_CLASS_DVS + 2 * usize::from(class);
         (rom::byte(p), rom::byte(p + 1))
@@ -1345,7 +1345,7 @@ impl Engine {
     }
 
     /// `CheckSleepingTreeMon`: carry if the species sleeps in trees at this time of day.
-    fn check_sleeping_tree_mon(&self) -> bool {
+    pub(super) fn check_sleeping_tree_mon(&self) -> bool {
         if self.mem.rb(W_BATTLE_TYPE) != BATTLETYPE_TREE {
             return false;
         }

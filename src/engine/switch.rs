@@ -344,7 +344,7 @@ impl Engine {
 
     /// `CheckFaintedFrzSlp` (`bc` = a party mon): carry if fainted, frozen
     /// or asleep.
-    fn check_fainted_frz_slp(&self, bc: u16) -> bool {
+    pub(super) fn check_fainted_frz_slp(&self, bc: u16) -> bool {
         if self.mem.rw(bc + u16::from(MON_HP)) == 0 {
             return true;
         }
@@ -1022,8 +1022,7 @@ impl Engine {
 
     /// `ShowBattleTextEnemySentOut`.
     pub(super) fn show_battle_text_enemy_sent_out(&mut self) {
-        // Battle_GetTrainerName fills wStringBuffer1 for the text (ported with
-        // the text engine).
+        self.battle_get_trainer_name();
         self.text(r::BATTLE_TEXT_ENEMY_SENT_OUT);
     }
 
@@ -1048,7 +1047,7 @@ impl Engine {
     }
 
     /// `BattleCheckEnemyShininess`.
-    fn battle_check_enemy_shininess(&self) -> bool {
+    pub(super) fn battle_check_enemy_shininess(&self) -> bool {
         let dvs = if !self.mem.bit(W_ENEMY_SUB_STATUS5, SUBSTATUS_TRANSFORMED) {
             W_ENEMY_MON_D_VS
         } else if self.battle_mode() == WILD_BATTLE {

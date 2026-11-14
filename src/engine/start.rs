@@ -1,0 +1,994 @@
+//! Starting a battle without the emulator: from a [`BattleConfig`] and a seed
+//! to the engine state at the top of the first `BattleTurn`, exactly as the
+//! emulated original reaches it.
+//!
+//! Two layers, kept apart:
+//!
+//! * **Harness** (`seed_*`, [`boot_state`], the `launch_*` functions): what
+//!   `bootstrap::run_with` and `bootstrap::launch_*` do — the WRAM a played
+//!   game would have set up before the battle (player name and ID, badges,
+//!   the bag, the party, battle type and trainer class), the few bytes the boot
+//!   leaves behind, the RNG seed. The scenario format is the harness's, not the
+//!   game's; this is plain Rust mirroring `src/bootstrap/mod.rs` line by line.
+//! * **Original** (the `impl Engine` blocks): the game's own routines, one
+//!   function per ASM routine — `TryAddMonToParty` / `GeneratePartyMonStats`,
+//!   `StartBattle`, `BattleIntro`, `ClearBattleRAM`, `InitEnemyTrainer`,
+//!   `ReadTrainerParty`, `InitEnemyWildmon`, `BattleStartMessage`, and the
+//!   opening of `DoBattle` (send-outs, `SpikesDamage`, ...), ending where
+//!   `DoBattle` jumps to `BattleTurn`.
+//!
+//! Dropped as graphics, sound or frame timing: the battle transition, pics,
+//! palettes, HUD drawing, music and cries, `DelayFrames`. Their stray writes
+//! to non-graphics WRAM are kept when later code could read them; the rest
+//! (the boot's stack residue, OAM, `wPredef*` bookkeeping, window/menu data,
+//! HUD scratch such as `wTempMon*`) is not modelled — see docs/engine.md.
+
+use super::battle::{Engine, Flags, PARTY_LEN};
+use super::mem::Mem;
+use super::rom;
+use super::rsym as r;
+use super::switch::FlagAction;
+use super::sym::*;
+use crate::bootstrap::{BattleConfig, BattleKind, ItemSpec, MonSpec, items, species, trainers};
+use crate::defs::*;
+
+/// Why a scenario can't start on the hand-written engine.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum StartError {
+    /// The scenario is malformed (the oracle rejects it too).
+    Invalid(String),
+    /// The scenario uses something only the emulated harness implements
+    /// (e.g. a ROM-patching AI override).
+    Unsupported(&'static str),
+}
+
+impl std::fmt::Display for StartError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            StartError::Invalid(m) => f.write_str(m),
+            StartError::Unsupported(m) => write!(f, "not supported by the engine: {m}"),
+        }
+    }
+}
+
+impl From<String> for StartError {
+    fn from(m: String) -> Self {
+        StartError::Invalid(m)
+    }
+}
+
+/// What the harness decided about the trainer party and items before the
+/// battle starts (the oracle keeps these on its `Cpu` / as ROM patches).
+#[derive(Default)]
+struct Launch {
+    /// `cpu.trainer_party_override`: `ReadTrainerParty` keeps the seeded party.
+    trainer_party_override: bool,
+    /// `poke_trainer_attributes`: the `[[enemy_items]]` slots.
+    enemy_item_override: Option<[u8; 2]>,
+}
+
+const NAME_LEN: u16 = NAME_LENGTH as u16;
+const MON_NAME_LEN: u16 = MON_NAME_LENGTH as u16;
+/// `PARTYMON_STRUCT_LENGTH`.
+const STRUCT: u16 = PARTYMON_STRUCT_LENGTH as u16;
+
+/// Build the engine at the top of the first `BattleTurn` for `config` with
+/// RNG seed `seed`. With `render_text`, the battle text printed so far is
+/// rendered to strings (differential testing).
+pub fn start(config: &BattleConfig, seed: u64, render_text: bool) -> Result<Engine, StartError> {
+    if config.enemy_trainer.as_ref().is_some_and(|t| t.ai_move_flags.is_some() || t.ai_item_flags.is_some()) {
+        return Err(StartError::Unsupported("[enemy_trainer] AI flag overrides patch the ROM"));
+    }
+    let link = config.battle.kind == BattleKind::LinkBattle;
+    // Cpu::seed_rng: a zero seed is mapped to the default constant.
+    let rng = if seed == 0 { 0x9e37_79b9_7f4a_7c15 } else { seed };
+    let mut engine = Engine::new(boot_state(config), rng, Flags { link_battle: link, ..Flags::default() });
+    if render_text {
+        engine.rendered = Some(Vec::new());
+    }
+    let launch = match config.battle.kind {
+        BattleKind::WildEncounter => engine.launch_wild_encounter(config)?,
+        BattleKind::TrainerBattle => engine.launch_trainer_battle(config)?,
+        BattleKind::LinkBattle => engine.launch_link_battle(config)?,
+    };
+    engine.start_battle(&launch)?;
+    Ok(engine)
+}
+
+// ---------------------------------------------------------------------------
+// Harness: the state the emulated boot leaves, and the scenario seeding
+// ---------------------------------------------------------------------------
+
+/// WRAM/HRAM after `entry_routine` with `skip_intro_to_battle` (the boot's
+/// hardware init, no title screen), minus graphics, audio and stack residue:
+/// the options the init sets, and `hSerialConnectionStatus` (0xff: no link).
+/// Then `run_with` sets the Battle Scene bit if the scenario turns it off.
+pub fn boot_state(config: &BattleConfig) -> Mem {
+    let mut mem = Mem::default();
+    mem.wb(W_OPTIONS, 0x03);
+    mem.wb(W_TEXTBOX_FLAGS, 0x01);
+    mem.wb(W_GB_PRINTER_BRIGHTNESS, 0x40);
+    mem.wb(W_OPTIONS2, 0x01);
+    mem.wb(H_SERIAL_CONNECTION_STATUS, 0xff);
+    if config.battle.battle_scene == Some(false) {
+        let options = mem.rb(W_OPTIONS);
+        mem.wb(W_OPTIONS, options | 1 << BATTLE_SCENE);
+    }
+    mem
+}
+
+/// `encode_name` (bootstrap): ASCII to the game's charset, `@`-padded to
+/// `NAME_LENGTH`.
+fn encode_name(text: &str) -> [u8; NAME_LENGTH as usize] {
+    let mut out = [CHAR_TERMINATOR; NAME_LENGTH as usize];
+    for (i, c) in text.chars().take(NAME_LENGTH as usize - 1).enumerate() {
+        out[i] = match c {
+            'A'..='Z' => 0x80 + (c as u8 - b'A'),
+            'a'..='z' => 0xa0 + (c as u8 - b'a'),
+            '0'..='9' => 0xf6 + (c as u8 - b'0'),
+            ' ' => 0x7f,
+            _ => CHAR_TERMINATOR,
+        };
+    }
+    out
+}
+
+use super::names::CHAR_TERMINATOR;
+
+impl Engine {
+    fn write_bytes(&mut self, at: u16, bytes: &[u8]) {
+        for (i, &b) in bytes.iter().enumerate() {
+            self.mem.wb(at + i as u16, b);
+        }
+    }
+
+    /// `seed_player`: name, ID, gender, time of day, empty key/PC item lists.
+    fn seed_player(&mut self) {
+        self.write_bytes(W_PLAYER_NAME, &encode_name("RED"));
+        self.mem.wb(W_PLAYER_ID, 0x12);
+        self.mem.wb(W_PLAYER_ID + 1, 0x34);
+        self.mem.wb(W_PLAYER_GENDER, 0);
+        self.mem.wb(W_TIME_OF_DAY, DAY_F);
+        self.mem.wb(W_TIME_OF_DAY_PAL, 0);
+        self.mem.wb(W_LINK_MODE, 0);
+        self.mem.wb(W_IN_BATTLE_TOWER_BATTLE, 0);
+        self.mem.wb(W_OT_PARTY_COUNT, 0);
+        for list in [W_NUM_KEY_ITEMS, W_NUM_PC_ITEMS] {
+            self.mem.wb(list, 0);
+            self.mem.wb(list + 1, 0xff);
+        }
+    }
+
+    /// `seed_badges`.
+    fn seed_badges(&mut self, config: &BattleConfig) {
+        self.mem.wb(W_JOHTO_BADGES, config.battle.johto_badges.unwrap_or(0));
+        self.mem.wb(W_KANTO_BADGES, config.battle.kanto_badges.unwrap_or(0));
+    }
+
+    /// `seed_player_items`: the Items and Balls pockets.
+    fn seed_player_items(&mut self, specs: &[ItemSpec]) -> Result<(), StartError> {
+        let (mut item_pocket, mut ball_pocket) = (Vec::new(), Vec::new());
+        for spec in specs {
+            let def = items::lookup(&spec.name).ok_or_else(|| format!("unknown item: {}", spec.name))?;
+            if spec.quantity == 0 || spec.quantity > MAX_ITEM_STACK {
+                return Err(format!("item {:?} quantity must be 1..={}, got {}", spec.name, MAX_ITEM_STACK, spec.quantity).into());
+            }
+            match def.pocket {
+                items::Pocket::Item => item_pocket.push((def.id, spec.quantity)),
+                items::Pocket::Ball => ball_pocket.push((def.id, spec.quantity)),
+            }
+        }
+        if item_pocket.len() > MAX_ITEMS as usize {
+            return Err(format!("too many items in Items pocket: {}", item_pocket.len()).into());
+        }
+        if ball_pocket.len() > MAX_BALLS as usize {
+            return Err(format!("too many balls in Balls pocket: {}", ball_pocket.len()).into());
+        }
+        self.write_pocket(W_NUM_ITEMS, &item_pocket);
+        self.write_pocket(W_NUM_BALLS, &ball_pocket);
+        Ok(())
+    }
+
+    fn write_pocket(&mut self, num_addr: u16, entries: &[(u8, u8)]) {
+        self.mem.wb(num_addr, entries.len() as u8);
+        let mut addr = num_addr + 1;
+        for &(id, qty) in entries {
+            self.mem.wb(addr, id);
+            self.mem.wb(addr + 1, qty);
+            addr += 2;
+        }
+        self.mem.wb(addr, 0xff);
+    }
+
+    /// `add_mon`: append one mon through the game's own `TryAddMonToParty`
+    /// (the harness calls it with `wBattleMode = 0`: not in battle yet).
+    fn add_mon(&mut self, species: u8, level: u8, mon_type: u8) {
+        self.mem.wb(W_CUR_PARTY_SPECIES, species);
+        self.mem.wb(W_CUR_PARTY_LEVEL, level);
+        self.mem.wb(W_CUR_SPECIES, species);
+        self.mem.wb(W_MON_TYPE, mon_type);
+        self.mem.wb(W_BATTLE_MODE, 0);
+        self.mem.wb(W_ENEMY_MON_ITEM, 0);
+        self.try_add_mon_to_party();
+    }
+
+    /// `seed_party`: a whole party into the player's or the OT list, with the
+    /// scenario's moveset / held item / OT ID overrides.
+    fn seed_party(&mut self, party: &[MonSpec], mon_type: u8, count_addr: u16, mon1_addr: u16, label: &str) -> Result<(), StartError> {
+        self.mem.wb(count_addr, 0);
+        for (slot, mon) in party.iter().enumerate() {
+            let id = species::id_from_name(&mon.species).ok_or_else(|| format!("unknown {label} species: {}", mon.species))?;
+            let move_ids = crate::bootstrap::resolve_moves(mon)?;
+            let item_id = crate::bootstrap::resolve_item(mon, label)?;
+            self.add_mon(id, mon.level, mon_type);
+            let base = mon1_addr + slot as u16 * STRUCT;
+            if let Some(ids) = move_ids {
+                // `apply_moveset`: full base PP for each given move, the rest zeroed.
+                for i in 0..4usize {
+                    let mv = ids.get(i).copied().unwrap_or(0);
+                    self.mem.wb(base + u16::from(MON_MOVES) + i as u16, mv);
+                    self.mem.wb(base + u16::from(MON_PP) + i as u16, crate::bootstrap::move_pp::MOVE_BASE_PP[usize::from(mv)]);
+                }
+            }
+            if let Some(item) = item_id {
+                self.mem.wb(base + u16::from(MON_ITEM), item);
+            }
+            if let (Some(ot_id), PARTYMON) = (mon.ot_id, mon_type) {
+                self.mem.wb(base + u16::from(MON_OT_ID), (ot_id >> 8) as u8);
+                self.mem.wb(base + u16::from(MON_OT_ID) + 1, ot_id as u8);
+            }
+            // `TryAddMonToParty` skips the nickname of OT mons (a link partner
+            // would supply it): the harness seeds the species name.
+            if mon_type == OTPARTYMON {
+                self.mem.wb(W_NAMED_OBJECT_INDEX, id);
+                self.get_pokemon_name();
+                let dest = W_OT_PARTY_MON_NICKNAMES + slot as u16 * MON_NAME_LEN;
+                self.mem.copy(dest, W_STRING_BUFFER1, MON_NAME_LEN);
+            }
+        }
+        Ok(())
+    }
+
+    /// `launch_wild_encounter`.
+    fn launch_wild_encounter(&mut self, config: &BattleConfig) -> Result<Launch, StartError> {
+        if config.player_party.is_empty() {
+            return Err("wild_encounter requires at least one player_party entry".to_string().into());
+        }
+        if config.enemy_party.len() != 1 {
+            return Err(format!("wild_encounter expects exactly one enemy_party entry, got {}", config.enemy_party.len()).into());
+        }
+        if !config.enemy_items.is_empty() {
+            return Err("wild_encounter does not accept enemy_items".to_string().into());
+        }
+        self.seed_player();
+        self.seed_badges(config);
+        self.seed_player_items(&config.player_items)?;
+        self.seed_party(&config.player_party, PARTYMON, W_PARTY_COUNT, W_PARTY_MON1, "player")?;
+        let enemy = &config.enemy_party[0];
+        let id = species::id_from_name(&enemy.species).ok_or_else(|| format!("unknown enemy species: {}", enemy.species))?;
+        self.mem.wb(W_BATTLE_MODE, WILD_BATTLE);
+        self.mem.wb(W_BATTLE_TYPE, BATTLETYPE_NORMAL);
+        self.mem.wb(W_OTHER_TRAINER_CLASS, 0);
+        self.mem.wb(W_TEMP_WILD_MON_SPECIES, id);
+        self.mem.wb(W_TEMP_ENEMY_MON_SPECIES, id);
+        self.mem.wb(W_CUR_PARTY_LEVEL, enemy.level);
+        self.mem.wb(W_CUR_PARTY_SPECIES, id);
+        Ok(Launch::default())
+    }
+
+    /// `launch_trainer_battle`.
+    fn launch_trainer_battle(&mut self, config: &BattleConfig) -> Result<Launch, StartError> {
+        if config.player_party.is_empty() {
+            return Err("trainer_battle requires at least one player_party entry".to_string().into());
+        }
+        let name = config.battle.trainer.as_deref().ok_or_else(|| "trainer_battle requires a [battle] trainer = \"...\" field".to_string())?;
+        let trainer = trainers::lookup(name).ok_or_else(|| format!("unknown trainer: {name}"))?;
+        if trainer.class == RIVAL1 || trainer.class == RIVAL2 {
+            // The harness never sets wRivalName, so the rival's name text reads
+            // unterminated garbage (and the text renderer would recurse on it).
+            return Err(StartError::Unsupported("rival battles: the harness leaves wRivalName unset"));
+        }
+        let mut launch = Launch::default();
+        self.seed_player();
+        self.seed_badges(config);
+        self.seed_player_items(&config.player_items)?;
+        self.seed_party(&config.player_party, PARTYMON, W_PARTY_COUNT, W_PARTY_MON1, "player")?;
+        if !config.enemy_party.is_empty() {
+            if config.enemy_party.len() > PARTY_LENGTH as usize {
+                return Err(format!("trainer_battle enemy_party: at most {PARTY_LENGTH} entries, got {}", config.enemy_party.len()).into());
+            }
+            self.seed_party(&config.enemy_party, OTPARTYMON, W_OT_PARTY_COUNT, W_OT_PARTY_MON1, "enemy")?;
+            self.mem.wb(W_CUR_OT_MON, 0);
+            self.mem.wb(W_CUR_PARTY_MON, 0);
+            // `cpu.trainer_party_override`: the HARNESS-PATCH in ReadTrainerParty.
+            launch.trainer_party_override = true;
+        }
+        launch.enemy_item_override = enemy_items_override(&config.enemy_items)?;
+        self.mem.wb(W_BATTLE_MODE, TRAINER_BATTLE);
+        self.mem.wb(W_BATTLE_TYPE, BATTLETYPE_NORMAL);
+        self.mem.wb(W_OTHER_TRAINER_CLASS, trainer.class);
+        self.mem.wb(W_OTHER_TRAINER_ID, trainer.id);
+        Ok(launch)
+    }
+
+    /// `launch_link_battle`.
+    fn launch_link_battle(&mut self, config: &BattleConfig) -> Result<Launch, StartError> {
+        let max = PARTY_LENGTH as usize;
+        if config.player_party.is_empty() || config.player_party.len() > max {
+            return Err(format!("link_battle requires 1..={max} player_party entries, got {}", config.player_party.len()).into());
+        }
+        if config.enemy_party.is_empty() || config.enemy_party.len() > max {
+            return Err(format!("link_battle requires 1..={max} enemy_party entries, got {}", config.enemy_party.len()).into());
+        }
+        if !config.player_items.is_empty() || !config.enemy_items.is_empty() {
+            return Err("link_battle does not accept player_items / enemy_items (the bag is disabled in a link battle)".to_string().into());
+        }
+        self.seed_player();
+        self.seed_badges(config);
+        self.seed_player_items(&[])?;
+        self.seed_party(&config.player_party, PARTYMON, W_PARTY_COUNT, W_PARTY_MON1, "player")?;
+        self.seed_party(&config.enemy_party, OTPARTYMON, W_OT_PARTY_COUNT, W_OT_PARTY_MON1, "enemy")?;
+        self.mem.wb(W_LINK_MODE, LINK_COLOSSEUM);
+        self.mem.wb(H_SERIAL_CONNECTION_STATUS, USING_EXTERNAL_CLOCK);
+        self.mem.wb(W_CUR_OT_MON, 0);
+        self.mem.wb(W_CUR_PARTY_MON, 0);
+        let rival = encode_name("RIVAL");
+        self.write_bytes(W_OT_PLAYER_NAME, &rival);
+        self.write_bytes(W_OT_CLASS_NAME, &rival);
+        self.mem.wb(W_BATTLE_MODE, TRAINER_BATTLE);
+        self.mem.wb(W_BATTLE_TYPE, BATTLETYPE_NORMAL);
+        self.mem.wb(W_OTHER_TRAINER_CLASS, CAL);
+        Ok(Launch::default())
+    }
+}
+
+/// `poke_trainer_attributes`, the `[[enemy_items]]` half: the two item slots
+/// the scenario wants in the trainer class's attributes (`None`: ROM's).
+fn enemy_items_override(specs: &[ItemSpec]) -> Result<Option<[u8; 2]>, StartError> {
+    if specs.is_empty() {
+        return Ok(None);
+    }
+    let mut slots = [NO_ITEM; 2];
+    let mut n = 0;
+    for spec in specs {
+        let def = items::lookup(&spec.name).ok_or_else(|| format!("unknown enemy_items item: {}", spec.name))?;
+        if spec.quantity == 0 {
+            return Err(format!("enemy_items {}: quantity must be >= 1", spec.name).into());
+        }
+        for _ in 0..spec.quantity {
+            if n >= 2 {
+                return Err("enemy_items total quantity exceeds 2 (trainer has at most 2 item slots)".to_string().into());
+            }
+            slots[n] = def.id;
+            n += 1;
+        }
+    }
+    Ok(Some(slots))
+}
+
+// ---------------------------------------------------------------------------
+// Original: TryAddMonToParty
+// ---------------------------------------------------------------------------
+
+impl Engine {
+    /// `TryAddMonToParty` (engine/pokemon/move_mon.asm): append
+    /// `wCurPartySpecies` at `wCurPartyLevel` to the player's party
+    /// (`wMonType` = PARTYMON) or the OT party. Returns carry (success).
+    pub fn try_add_mon_to_party(&mut self) -> bool {
+        let opposing = self.mem.rb(W_MON_TYPE) & 0xf != 0;
+        let count_addr = if opposing { W_OT_PARTY_COUNT } else { W_PARTY_COUNT };
+        let count = self.mem.rb(count_addr).wrapping_add(1);
+        if count > PARTY_LENGTH {
+            return false;
+        }
+        self.mem.wb(count_addr, count);
+        self.mem.wb(H_MOVE_MON, count);
+        let species = self.mem.rb(W_CUR_PARTY_SPECIES);
+        let de = count_addr + u16::from(count);
+        self.mem.wb(de, species);
+        self.mem.wb(de + 1, 0xff);
+        // The OT name: the player's, for every mon.
+        let ots = if opposing { W_OT_PARTY_MON_O_TS } else { W_PARTY_MON_O_TS };
+        self.mem.copy(ots + u16::from(count - 1) * NAME_LEN, W_PLAYER_NAME, NAME_LEN);
+        // Only initialize the nickname for party mon.
+        if self.mem.rb(W_MON_TYPE) == 0 {
+            self.mem.wb(W_NAMED_OBJECT_INDEX, species);
+            self.get_pokemon_name();
+            let dest = W_PARTY_MON_NICKNAMES + u16::from(count - 1) * MON_NAME_LEN;
+            self.mem.copy(dest, W_STRING_BUFFER1, MON_NAME_LEN);
+        }
+        let first = if opposing { W_OT_PARTY_MON1 } else { W_PARTY_MON1 };
+        let mon = first + u16::from(count - 1) * STRUCT;
+        self.generate_party_mon_stats(mon);
+        true
+    }
+
+    /// `GeneratePartyMonStats`: fill the `party_struct` at `mon`.
+    /// `wBattleMode` says whether it's a wild mon, `wMonType` whether it's an
+    /// opposing mon; `wCurPartySpecies` / `wCurPartyLevel` the species and level.
+    pub fn generate_party_mon_stats(&mut self, mon: u16) {
+        let species = self.mem.rb(W_CUR_PARTY_SPECIES);
+        self.mem.wb(W_CUR_SPECIES, species);
+        self.get_base_data();
+        let mut de = mon;
+        let dex = self.mem.rb(W_BASE_DEX_NO);
+        self.mem.wb(de, dex);
+        de += 1;
+        // Copy the item if it's a wild mon.
+        let battle_mode = self.mem.rb(W_BATTLE_MODE);
+        let item = if battle_mode == 0 { 0 } else { self.mem.rb(W_ENEMY_MON_ITEM) };
+        self.mem.wb(de, item);
+        de += 1;
+        // Copy the moves if it's a wild mon.
+        let moves = de;
+        if battle_mode != 0 && self.mem.rb(W_MON_TYPE) == 0 {
+            self.mem.copy(moves, W_ENEMY_MON_MOVES, u16::from(NUM_MOVES));
+        } else {
+            self.mem.fill(moves, u16::from(NUM_MOVES), 0);
+            self.mem.wb(W_SKIP_MOVES_BEFORE_LEVEL_UP, 0);
+            self.fill_moves(moves);
+        }
+        de = moves + u16::from(NUM_MOVES);
+        // Initialize ID.
+        let (id_hi, id_lo) = (self.mem.rb(W_PLAYER_ID), self.mem.rb(W_PLAYER_ID + 1));
+        self.mem.wb(de, id_hi);
+        self.mem.wb(de + 1, id_lo);
+        de += 2;
+        // Initialize Exp.
+        let level = self.mem.rb(W_CUR_PARTY_LEVEL);
+        self.calc_exp_at_level(level);
+        for i in 0..3 {
+            let b = self.mem.rb(H_PRODUCT + 1 + i);
+            self.mem.wb(de + i, b);
+        }
+        de += 3;
+        // Initialize stat experience.
+        let stat_exp = u16::from(MON_DVS - MON_STAT_EXP);
+        self.mem.fill(de, stat_exp, 0);
+        de += stat_exp;
+        let opposing = self.mem.rb(W_MON_TYPE) & 0xf != 0;
+        let (b, c);
+        let mut copy_wild_dvs = false;
+        if opposing {
+            (b, c) = self.get_trainer_dvs();
+        } else {
+            // .registerpokedex
+            self.mem.wb(W_TEMP_SPECIES, species);
+            // CheckCaughtMon only reads.
+            self.small_far_flag_action(W_POKEDEX_CAUGHT, species.wrapping_sub(1), FlagAction::Set);
+            self.small_far_flag_action(W_POKEDEX_SEEN, species.wrapping_sub(1), FlagAction::Set);
+            if battle_mode != 0 {
+                copy_wild_dvs = true;
+                (b, c) = (0, 0);
+            } else {
+                b = self.random("GeneratePartyMonStats");
+                c = self.random("GeneratePartyMonStats");
+            }
+        }
+        if copy_wild_dvs {
+            // .copywildmonDVs
+            let (hi, lo) = (self.mem.rb(W_ENEMY_MON_D_VS), self.mem.rb(W_ENEMY_MON_D_VS + 1));
+            self.mem.wb(de, hi);
+            self.mem.wb(de + 1, lo);
+            de += 2;
+            self.mem.copy(de, W_ENEMY_MON_PP, u16::from(NUM_MOVES));
+            de += u16::from(NUM_MOVES);
+            self.mem.wb(de, BASE_HAPPINESS);
+            self.mem.fill(de + 1, 3, 0);
+            de += 4;
+            self.mem.wb(de, level);
+            de += 1;
+            // wEnemyMonStatus (2 bytes), wEnemyMonHP (2 bytes)
+            self.mem.copy(de, W_ENEMY_MON_STATUS, 2);
+            de += 2;
+            self.mem.copy(de, W_ENEMY_MON_HP, 2);
+            de += 2;
+        } else {
+            self.mem.wb(de, b);
+            self.mem.wb(de + 1, c);
+            de += 2;
+            // Initialize PP.
+            self.fill_pp(mon + 2, de);
+            de += u16::from(NUM_MOVES);
+            // Initialize happiness, Pokerus, caught data, level, status.
+            self.mem.wb(de, BASE_HAPPINESS);
+            self.mem.fill(de + 1, 3, 0);
+            de += 4;
+            self.mem.wb(de, level);
+            de += 1;
+            self.mem.fill(de, 2, 0);
+            de += 2;
+            // Initialize HP.
+            let hl = mon + u16::from(MON_STAT_EXP) - 1;
+            self.calc_mon_stat_c(hl, 1, false);
+            let (hi, lo) = (self.mem.rb(H_PRODUCT + 2), self.mem.rb(H_PRODUCT + 3));
+            self.mem.wb(de, hi);
+            self.mem.wb(de + 1, lo);
+            de += 2;
+        }
+        // .initstats
+        if battle_mode == 1 {
+            self.mem.copy(de, W_ENEMY_MON_MAX_HP, STRUCT - u16::from(MON_MAXHP));
+        } else {
+            let hl = mon + u16::from(MON_STAT_EXP) - 1;
+            self.calc_mon_stats(hl, de, false);
+        }
+        // .registerunowndex
+        if !opposing && species == UNOWN {
+            let slot = u16::from(self.mem.rb(W_PARTY_COUNT).wrapping_sub(1));
+            self.get_unown_letter(W_PARTY_MON1_D_VS + slot * STRUCT);
+            self.update_unown_dex();
+        }
+    }
+
+    /// `UpdateUnownDex`: remember `wUnownLetter` in the Unown dex.
+    fn update_unown_dex(&mut self) {
+        let letter = self.mem.rb(W_UNOWN_LETTER);
+        let mut hl = W_UNOWN_DEX;
+        for _ in 0..NUM_UNOWN {
+            let a = self.mem.rb(hl);
+            if a == 0 {
+                self.mem.wb(hl, letter);
+                return;
+            }
+            if a == letter {
+                return;
+            }
+            hl += 1;
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Original: StartBattle .. the first BattleTurn
+// ---------------------------------------------------------------------------
+
+impl Engine {
+    /// `StartBattle` up to `DoBattle`'s `jp BattleTurn` (`ExitBattle` is the
+    /// battle's end, not its start).
+    fn start_battle(&mut self, launch: &Launch) -> Result<(), StartError> {
+        // This check prevents you from entering a battle without any Pokemon.
+        if self.mem.rb(W_PARTY_COUNT) == 0 {
+            return Err("battle needs at least one party mon".to_string().into());
+        }
+        self.battle_intro(launch)?;
+        self.do_battle()
+    }
+
+    /// `BattleIntro`.
+    fn battle_intro(&mut self, launch: &Launch) -> Result<(), StartError> {
+        // LoadTrainerOrWildMonPic
+        let mut a = self.mem.rb(W_OTHER_TRAINER_CLASS);
+        if a == 0 {
+            a = self.mem.rb(W_TEMP_WILD_MON_SPECIES);
+            self.mem.wb(W_CUR_PARTY_SPECIES, a);
+        }
+        self.mem.wb(W_TEMP_ENEMY_MON_SPECIES, a);
+        self.mem.wb(W_TEMP_BATTLE_MON_SPECIES, 0);
+        self.mem.wb(W_BATTLE_MENU_CURSOR_POSITION, 0);
+        self.mem.wb(H_MAP_ANIMS, 0);
+        // PlayBattleMusic, ShowLinkBattleParticipants (patched out for link),
+        // FindFirstAliveMonAndStartBattle (the transition): graphics and sound,
+        // except that the transition respawns the overworld objects.
+        self.hide_all_objects();
+        self.clear_battle_ram();
+        self.init_enemy(launch)?;
+        // InitBattleDisplay: graphics.
+        self.battle_start_message();
+        // EmptyBattleTextbox, ClearBox, ClearSprites: graphics.
+        if self.battle_mode() == WILD_BATTLE {
+            self.update_enemy_hud();
+        }
+        Ok(())
+    }
+
+    /// `HideAllObjects` (from the battle transition's `RespawnPlayerAndOpponent`):
+    /// every object struct faces `STANDING`. Not graphics: a wild battle's
+    /// `DoBattle` walks `wOTPartyMon1HP` + 48n looking for a living mon and
+    /// stops at the first of these bytes (it has no OT party), which fixes
+    /// `wBattleAction`.
+    fn hide_all_objects(&mut self) {
+        for i in 0..u16::from(NUM_OBJECT_STRUCTS) {
+            self.mem.wb(W_PLAYER_FACING + i * u16::from(OBJECT_LENGTH), STANDING as u8);
+        }
+    }
+
+    /// `ClearBattleRAM`.
+    fn clear_battle_ram(&mut self) {
+        for addr in [W_BATTLE_PLAYER_ACTION, W_BATTLE_RESULT] {
+            self.mem.wb(addr, 0);
+        }
+        self.mem.fill(W_PARTY_MENU_CURSOR, 4, 0);
+        for addr in [
+            W_MENU_SCROLL_POSITION, W_CRITICAL_HIT, W_BATTLE_MON_SPECIES, W_BATTLE_PARTICIPANTS_NOT_FAINTED,
+            W_CUR_BATTLE_MON, W_FORCED_SWITCH, W_TIME_OF_DAY_PAL, W_PLAYER_TURNS_TAKEN, W_ENEMY_TURNS_TAKEN,
+            W_EVOLVABLE_FLAGS,
+        ] {
+            self.mem.wb(addr, 0);
+        }
+        self.mem.fill(W_PLAYER_HP_PAL, 2, 0);
+        self.mem.fill(W_BATTLE_MON_D_VS, 2, 0);
+        self.mem.fill(W_ENEMY_MON_D_VS, 2, 0);
+        // Clear the entire BattleMons area
+        self.mem.fill(W_BATTLE, W_BATTLE_END - W_BATTLE, 0);
+        self.reset_enemy_stat_levels();
+        // ClearWindowData: menu data, not battle state.
+    }
+
+    /// `InitEnemy`.
+    fn init_enemy(&mut self, launch: &Launch) -> Result<(), StartError> {
+        let class = self.mem.rb(W_OTHER_TRAINER_CLASS);
+        if class != 0 {
+            self.init_enemy_trainer(launch, class)
+        } else {
+            self.init_enemy_wildmon();
+            Ok(())
+        }
+    }
+
+    /// `InitEnemyTrainer`.
+    fn init_enemy_trainer(&mut self, launch: &Launch, class: u8) -> Result<(), StartError> {
+        self.mem.wb(W_TRAINER_CLASS, class);
+        self.mem.wb(W_TEMP_ENEMY_MON_SPECIES, 0);
+        self.get_trainer_attributes(launch);
+        self.read_trainer_party(launch)?;
+        // RIVAL1's first mon has no held item
+        if self.mem.rb(W_TRAINER_CLASS) == RIVAL1 {
+            self.mem.wb(W_OT_PARTY_MON1_ITEM, 0);
+        }
+        // GetTrainerPic, PlaceGraphic: graphics.
+        self.mem.wb(H_GRAPHIC_START_TILE, 0);
+        self.mem.wb(W_ENEMY_ITEM_STATE, 0xff);
+        self.mem.wb(W_CUR_OT_MON, 0xff);
+        self.mem.wb(W_BATTLE_MODE, TRAINER_BATTLE);
+        if !self.is_gym_leader() {
+            return Ok(());
+        }
+        self.mem.wb(W_CUR_PARTY_MON, 0);
+        let mut b = self.mem.rb(W_PARTY_COUNT);
+        loop {
+            let hp = self.get_party_param_location(MON_HP);
+            if self.mem.rw(hp) != 0 {
+                self.change_happiness(HAPPINESS_GYMBATTLE);
+            }
+            b = b.wrapping_sub(1);
+            if b == 0 {
+                return Ok(());
+            }
+            let cur = self.mem.rb(W_CUR_PARTY_MON);
+            self.mem.wb(W_CUR_PARTY_MON, cur.wrapping_add(1));
+        }
+    }
+
+    /// `IsGymLeader`: `wOtherTrainerClass` is in `GymLeaders` (which falls into
+    /// `KantoGymLeaders`).
+    fn is_gym_leader(&self) -> bool {
+        let class = self.mem.rb(W_OTHER_TRAINER_CLASS);
+        let mut p = r::GYM_LEADERS;
+        loop {
+            let v = rom::byte(p);
+            if v == 0xff {
+                return false;
+            }
+            if v == class {
+                return true;
+            }
+            p += 1;
+        }
+    }
+
+    /// `GetTrainerAttributes` (with `GetOTName`): the class name into
+    /// `wOTClassName`, the class's two items and base reward.
+    fn get_trainer_attributes(&mut self, launch: &Launch) {
+        let class = self.mem.rb(W_TRAINER_CLASS);
+        // GetOTName
+        let src = if self.link_mode() != 0 {
+            W_OT_PLAYER_NAME
+        } else if class == RIVAL1 {
+            W_RIVAL_NAME
+        } else {
+            self.mem.wb(W_CUR_SPECIES, class);
+            self.mem.wb(W_NAMED_OBJECT_TYPE, TRAINER_NAME);
+            self.get_name();
+            W_STRING_BUFFER1
+        };
+        self.mem.copy(W_OT_CLASS_NAME, src, u16::from(TRAINER_CLASS_NAME_LENGTH));
+        let entry = r::TRAINER_CLASS_ATTRIBUTES + usize::from(class - 1) * usize::from(NUM_TRAINER_ATTRIBUTES);
+        let (item1, item2) = match launch.enemy_item_override {
+            Some([a, b]) => (a, b),
+            None => (rom::byte(entry + usize::from(TRNATTR_ITEM1)), rom::byte(entry + usize::from(TRNATTR_ITEM2))),
+        };
+        self.mem.wb(W_ENEMY_TRAINER_ITEM1, item1);
+        self.mem.wb(W_ENEMY_TRAINER_ITEM2, item2);
+        let reward = rom::byte(entry + usize::from(TRNATTR_BASEMONEY));
+        self.mem.wb(W_ENEMY_TRAINER_BASE_REWARD, reward);
+    }
+
+    /// `ReadTrainerParty`: the trainer's party from ROM into `wOTParty*`.
+    fn read_trainer_party(&mut self, launch: &Launch) -> Result<(), StartError> {
+        if self.mem.bit(W_IN_BATTLE_TOWER_BATTLE, IN_BATTLE_TOWER_BATTLE_F) {
+            return Ok(());
+        }
+        if self.link_mode() != 0 {
+            return Ok(());
+        }
+        // HARNESS-PATCH (`trainer_party_override`): the scenario's own party.
+        if launch.trainer_party_override {
+            return Ok(());
+        }
+        self.mem.wb(W_OT_PARTY_COUNT, 0);
+        self.mem.wb(W_OT_PARTY_COUNT + 1, 0xff);
+        self.mem.fill(W_OT_PARTY_MONS, STRUCT * u16::from(PARTY_LENGTH), 0);
+        let mut class = self.mem.rb(W_OTHER_TRAINER_CLASS);
+        if class == CAL && self.mem.rb(W_OTHER_TRAINER_ID) == CAL2 {
+            return Err(StartError::Unsupported("CAL2 reads the Mystery Gift trainer from SRAM"));
+        }
+        if class != CAL {
+            class = self.mem.rb(W_OTHER_TRAINER_CLASS);
+        }
+        let table = r::TRAINER_GROUPS + 2 * usize::from(class.wrapping_sub(1));
+        let mut hl = rom::flat(0x0e, rom::ptr(table));
+        let mut b = self.mem.rb(W_OTHER_TRAINER_ID);
+        loop {
+            b = b.wrapping_sub(1);
+            if b == 0 {
+                break;
+            }
+            while rom::byte(hl) != 0xff {
+                hl += 1;
+            }
+            hl += 1;
+        }
+        // .skip_name
+        while rom::byte(hl) != CHAR_TERMINATOR {
+            hl += 1;
+        }
+        hl += 1;
+        let kind = rom::byte(hl);
+        hl += 1;
+        match kind {
+            TRAINERTYPE_NORMAL => self.trainer_type(hl, false, false),
+            TRAINERTYPE_MOVES => self.trainer_type(hl, false, true),
+            TRAINERTYPE_ITEM => self.trainer_type(hl, true, false),
+            _ => self.trainer_type(hl, true, true),
+        }
+        self.compute_trainer_reward();
+        Ok(())
+    }
+
+    /// `TrainerType1`..`TrainerType4`: level, species, [item], [moves].
+    fn trainer_type(&mut self, mut hl: usize, item: bool, moves: bool) {
+        loop {
+            let level = rom::byte(hl);
+            hl += 1;
+            if level == 0xff {
+                return;
+            }
+            self.mem.wb(W_CUR_PARTY_LEVEL, level);
+            let species = rom::byte(hl);
+            hl += 1;
+            self.mem.wb(W_CUR_PARTY_SPECIES, species);
+            self.mem.wb(W_MON_TYPE, OTPARTYMON);
+            self.try_add_mon_to_party();
+            let mon = W_OT_PARTY_MON1 + u16::from(self.mem.rb(W_OT_PARTY_COUNT).wrapping_sub(1)) * STRUCT;
+            if item {
+                let v = rom::byte(hl);
+                hl += 1;
+                self.mem.wb(mon + u16::from(MON_ITEM), v);
+            }
+            if moves {
+                for i in 0..u16::from(NUM_MOVES) {
+                    let v = rom::byte(hl);
+                    hl += 1;
+                    self.mem.wb(mon + u16::from(MON_MOVES) + i, v);
+                }
+                // .copy_pp: stops at the first empty slot.
+                let mut de = mon + u16::from(MON_PP);
+                for i in 0..u16::from(NUM_MOVES) {
+                    let mv = self.mem.rb(mon + u16::from(MON_MOVES) + i);
+                    if mv == 0 {
+                        break;
+                    }
+                    let pp = rom::byte(r::MOVES + usize::from(mv - 1) * usize::from(MOVE_LENGTH) + usize::from(MOVE_PP));
+                    self.mem.wb(de, pp);
+                    de += 1;
+                }
+            }
+        }
+    }
+
+    /// `ComputeTrainerReward`: base reward × the last mon's level.
+    fn compute_trainer_reward(&mut self) {
+        for i in 0..3 {
+            self.mem.wb(H_PRODUCT + i, 0);
+        }
+        let reward = self.mem.rb(W_ENEMY_TRAINER_BASE_REWARD);
+        self.mem.wb(H_PRODUCT + 3, reward);
+        let level = self.mem.rb(W_CUR_PARTY_LEVEL);
+        self.mem.wb(H_PRODUCT + 4, level);
+        self.multiply();
+        self.mem.wb(W_BATTLE_REWARD, 0);
+        let (a, b) = (self.mem.rb(H_PRODUCT + 2), self.mem.rb(H_PRODUCT + 3));
+        self.mem.wb(W_BATTLE_REWARD + 1, a);
+        self.mem.wb(W_BATTLE_REWARD + 2, b);
+    }
+
+    /// `InitEnemyWildmon`.
+    fn init_enemy_wildmon(&mut self) {
+        self.mem.wb(W_BATTLE_MODE, WILD_BATTLE);
+        self.load_enemy_mon();
+        self.mem.copy(W_WILD_MON_MOVES, W_ENEMY_MON_MOVES, u16::from(NUM_MOVES));
+        self.mem.copy(W_WILD_MON_PP, W_ENEMY_MON_PP, u16::from(NUM_MOVES));
+        self.get_unown_letter(W_ENEMY_MON_D_VS);
+        if self.mem.rb(W_CUR_PARTY_SPECIES) == UNOWN && self.mem.rb(W_FIRST_UNOWN_SEEN) == 0 {
+            let letter = self.mem.rb(W_UNOWN_LETTER);
+            self.mem.wb(W_FIRST_UNOWN_SEEN, letter);
+        }
+        // GetAnimatedFrontpic, PlaceGraphic: graphics.
+        self.mem.wb(W_TRAINER_CLASS, 0);
+        self.mem.wb(H_GRAPHIC_START_TILE, 0);
+    }
+
+    /// `BattleStartMessage`.
+    fn battle_start_message(&mut self) {
+        let text = if self.battle_mode() == WILD_BATTLE {
+            if self.battle_check_enemy_shininess() {
+                self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
+                self.mem.wb(H_BATTLE_TURN, 1);
+                self.mem.wb(W_BATTLE_ANIM_PARAM, 1);
+                // Call_PlayBattleAnim(ANIM_SEND_OUT_MON)
+                self.mem.wb(W_FX_ANIM_ID, ANIM_SEND_OUT_MON as u8);
+                self.mem.wb(W_FX_ANIM_ID + 1, (ANIM_SEND_OUT_MON >> 8) as u8);
+            }
+            if !self.check_sleeping_tree_mon() && self.mem.bit(W_OPTIONS, BATTLE_SCENE) {
+                // .cry_no_anim (the cry itself is sound)
+                self.mem.wb(W_CRY_TRACKS, 0xf);
+            }
+            match self.mem.rb(W_BATTLE_TYPE) {
+                BATTLETYPE_FISH => r::HOOKED_POKEMON_ATTACKED_TEXT,
+                BATTLETYPE_TREE => r::POKEMON_FELL_FROM_TREE_TEXT,
+                BATTLETYPE_CELEBI => r::WILD_CELEBI_APPEARED_TEXT,
+                _ => r::WILD_POKEMON_APPEARED_TEXT,
+            }
+        } else {
+            self.battle_get_trainer_name();
+            r::WANTS_TO_BATTLE_TEXT
+        };
+        // BattleStart_TrainerHuds: graphics.
+        self.text(text);
+    }
+
+    /// `Battle_GetTrainerName` (+ `GetTrainerName`, `CopyTrainerName`): the
+    /// trainer's name into `wStringBuffer1`.
+    pub(super) fn battle_get_trainer_name(&mut self) {
+        let mut src = if self.mem.bit(W_IN_BATTLE_TOWER_BATTLE, IN_BATTLE_TOWER_BATTLE_F) {
+            W_OT_PLAYER_NAME
+        } else {
+            let (mut b, c) = (self.mem.rb(W_OTHER_TRAINER_ID), self.mem.rb(W_OTHER_TRAINER_CLASS));
+            // (CAL: the Mystery Gift house flag lives in SRAM, which is blank.)
+            let table = r::TRAINER_GROUPS + 2 * usize::from(c.wrapping_sub(1));
+            let mut hl = rom::flat(0x0e, rom::ptr(table));
+            loop {
+                b = b.wrapping_sub(1);
+                if b == 0 {
+                    break;
+                }
+                while rom::byte(hl) != 0xff {
+                    hl += 1;
+                }
+                hl += 1;
+            }
+            // CopyTrainerName copies from ROM (bank 0x0e).
+            for i in 0..NAME_LEN {
+                self.mem.wb(W_STRING_BUFFER1 + i, rom::byte(hl + usize::from(i)));
+            }
+            return;
+        };
+        for i in 0..NAME_LEN {
+            let v = self.mem.rb(src);
+            src += 1;
+            self.mem.wb(W_STRING_BUFFER1 + i, v);
+        }
+    }
+
+    /// `UpdateEnemyHUD` (wild battles): the memory side of `DrawEnemyHUD`.
+    fn update_enemy_hud(&mut self) {
+        let species = self.mem.rb(W_TEMP_ENEMY_MON_SPECIES);
+        self.mem.wb(W_CUR_SPECIES, species);
+        self.mem.wb(W_CUR_PARTY_SPECIES, species);
+        self.get_base_data();
+    }
+
+    /// `UpdatePlayerHUD` and the `Call_PlayBattleAnim` of the send-out: the
+    /// memory side (`wTempMon*` scratch, `wMonType`, `wWhichHPBar`,
+    /// `wFXAnimID`), which later code never reads but the original leaves.
+    fn update_player_hud(&mut self) {
+        self.mem.wb(W_FX_ANIM_ID, ANIM_SEND_OUT_MON as u8);
+        self.mem.wb(W_FX_ANIM_ID + 1, (ANIM_SEND_OUT_MON >> 8) as u8);
+        // PrintPlayerHUD
+        let cur = u16::from(self.mem.rb(W_CUR_BATTLE_MON));
+        let dvs = W_PARTY_MON1_D_VS + cur * STRUCT;
+        self.mem.copy(W_TEMP_MON_D_VS, dvs, 2);
+        let tail = STRUCT - u16::from(MON_LEVEL);
+        self.mem.copy(W_TEMP_MON_LEVEL, W_BATTLE_MON_LEVEL, tail);
+        let species = self.mem.rb(W_PARTY_MON1_SPECIES + cur * STRUCT);
+        self.mem.wb(W_CUR_PARTY_SPECIES, species);
+        self.mem.wb(W_CUR_SPECIES, species);
+        self.get_base_data();
+        self.mem.wb(W_MON_TYPE, TEMPMON);
+        let level = self.mem.rb(W_BATTLE_MON_LEVEL);
+        self.mem.wb(W_TEMP_MON_LEVEL, level);
+        // DrawPlayerHP
+        self.mem.wb(W_MON_TYPE, PARTYMON);
+        self.mem.wb(W_WHICH_HP_BAR, 1);
+    }
+
+    /// `DoBattle`, from its start to `jp BattleTurn`.
+    fn do_battle(&mut self) -> Result<(), StartError> {
+        self.mem.wb(W_BATTLE_PARTICIPANTS_NOT_FAINTED, 0);
+        self.mem.wb(W_BATTLE_PARTICIPANTS_INCLUDING_FAINTED, 0);
+        self.mem.wb(W_BATTLE_PLAYER_ACTION, 0);
+        self.mem.wb(W_BATTLE_ENDED, 0);
+        self.mem.wb(W_BATTLE_HAS_JUST_STARTED, 1);
+        // The first OT mon with HP picks wBattleAction (a switch to it).
+        let mut d = BATTLEACTION_SWITCH1 - 1;
+        let mut hl = W_OT_PARTY_MON1_HP;
+        loop {
+            d = d.wrapping_add(1);
+            if self.mem.rb(hl) | self.mem.rb(hl + 1) != 0 {
+                break;
+            }
+            hl += STRUCT;
+        }
+        self.mem.wb(W_BATTLE_ACTION, d);
+        let player_2 = self.link_mode() != 0 && self.mem.rb(H_SERIAL_CONNECTION_STATUS) == USING_INTERNAL_CLOCK;
+        if !player_2 && self.battle_mode() != WILD_BATTLE {
+            self.mem.wb(W_ENEMY_SWITCH_MON_INDEX, 0);
+            self.new_enemy_mon_status();
+            self.reset_enemy_stat_levels();
+            self.break_attraction();
+            // No decision is asked: wBattleHasJustStarted is set.
+            if self.enemy_switch().is_err() {
+                return Err(StartError::Unsupported("the first enemy send-out asked for a decision"));
+            }
+        }
+        // LoadTilemapToTempTilemap: graphics.
+        if self.check_player_party_for_fit_mon() == 0 {
+            return Err(StartError::Unsupported("LostBattle: no party mon can fight"));
+        }
+        let battle_type = self.mem.rb(W_BATTLE_TYPE);
+        if battle_type == BATTLETYPE_DEBUG || battle_type == BATTLETYPE_TUTORIAL {
+            return Ok(());
+        }
+        self.mem.wb(W_CUR_PARTY_MON, 0);
+        while !self.check_if_cur_party_mon_is_fit_to_fight() {
+            let cur = self.mem.rb(W_CUR_PARTY_MON);
+            self.mem.wb(W_CUR_PARTY_MON, cur.wrapping_add(1));
+        }
+        let last = self.mem.rb(W_CUR_BATTLE_MON);
+        self.mem.wb(W_LAST_PLAYER_MON, last);
+        let cur = self.mem.rb(W_CUR_PARTY_MON);
+        self.mem.wb(W_CUR_BATTLE_MON, cur);
+        let species = self.mem.rb(W_PARTY_SPECIES + u16::from(cur));
+        self.mem.wb(W_CUR_PARTY_SPECIES, species);
+        self.mem.wb(W_TEMP_BATTLE_MON_SPECIES, species);
+        // SlideBattlePicOut: graphics.
+        self.reset_battle_participants();
+        self.init_battle_mon();
+        self.reset_player_stat_levels();
+        self.send_out_mon_text();
+        self.new_battle_mon_status();
+        self.break_attraction();
+        self.send_out_player_mon();
+        self.update_player_hud();
+        self.set_player_turn();
+        self.spikes_damage();
+        // A link battle's second player (hSerialConnectionStatus ==
+        // USING_INTERNAL_CLOCK) sends out the enemy here; the harness is
+        // always the first.
+        Ok(())
+    }
+}
+
+#[allow(dead_code)]
+const _: u16 = PARTY_LEN;
