@@ -13,30 +13,32 @@
 //! println!("{:?}", battle.status());
 //! ```
 //!
-//! The battle runs the original game's code (the transpiled engine) on its own
-//! thread. Every place the original waits for a choice — the action menu, a
-//! forced switch after a faint, the "switch before the trainer's next mon?"
-//! offer, and the enemy's action in a link battle — becomes a [`Decision`]
-//! carrying the legal actions and the [`BattleState`]. The engine thread blocks
-//! until [`Battle::step`] supplies the choice, then runs until the next
-//! decision or the end of the battle. Nothing about the engine's control flow
-//! changes, so the battle plays out exactly as the original would given the
-//! same choices and random bytes.
+//! [`Battle`] runs on the hand-written engine (`crate::engine`): plain Rust,
+//! no emulator, microseconds per decision, and `Clone` — copy a battle to
+//! search ahead. Every place the original game waits for a choice — the action
+//! menu, a forced switch after a faint, the "switch before the trainer's next
+//! mon?" offer, and the enemy's action in a link battle — is a [`Decision`]
+//! carrying the legal actions and the [`BattleState`]. Given the same scenario,
+//! seed and actions, a battle plays out exactly as the original game's code
+//! does: same states, same random draws, same text (see docs/goal.md for how
+//! that is verified).
+//!
+//! [`EmulatedBattle`] has the same API on the original code itself (the
+//! transpiled engine on the emulated CPU, on its own thread). It is the
+//! reference the engine is tested against, and what the `gui` window plays.
 
+pub mod emulated;
 pub mod state;
-
-use std::sync::mpsc::{Receiver, SyncSender, sync_channel};
-use std::thread::JoinHandle;
 
 pub use crate::bootstrap::BattleConfig;
 pub use crate::bootstrap::events::{Event, HpBarTarget, one_line};
 pub use crate::bootstrap::decision::{PromptSite, Step as Action};
 pub use crate::bootstrap::recorder::Side;
 pub use crate::bootstrap::snapshot::Outcome;
+pub use emulated::EmulatedBattle;
 pub use state::BattleState;
 
-use crate::bootstrap::decision::Decider;
-use crate::runtime::Cpu;
+use crate::engine::api::{FastBattle, Status as EngineStatus};
 
 /// A choice the engine is waiting for.
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -58,7 +60,7 @@ pub struct Decision {
 /// Where the battle is.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Status<'a> {
-    /// Waiting for [`Battle::step`].
+    /// Waiting for [`Battle::step`] / [`EmulatedBattle::step`].
     Decision(&'a Decision),
     /// The battle is over.
     Ended { outcome: Outcome, state: &'a BattleState, events: &'a [Event] },
@@ -90,78 +92,27 @@ impl std::fmt::Display for Error {
 
 impl std::error::Error for Error {}
 
-enum EngineMsg {
-    Decision(Decision),
-    Ended { outcome: Outcome, state: BattleState, events: Vec<Event> },
-    Failed(Error),
-}
 
+#[derive(Clone)]
 enum Current {
     Decision(Decision),
     Ended { outcome: Outcome, state: BattleState, events: Vec<Event> },
 }
 
-/// One battle in progress.
+/// One battle in progress, on the hand-written engine.
+#[derive(Clone)]
 pub struct Battle {
+    engine: FastBattle,
     current: Current,
-    to_engine: Option<SyncSender<Action>>,
-    from_engine: Receiver<EngineMsg>,
-    thread: Option<JoinHandle<()>>,
 }
-
-/// Unwind payload used to stop the engine thread when the [`Battle`] is
-/// dropped mid-battle.
-struct Abandoned;
-
-/// The [`Decider`] the library installs: hands each decision to the caller.
-struct ChannelDecider {
-    to_api: SyncSender<EngineMsg>,
-    from_api: Receiver<Action>,
-}
-
-impl Decider for ChannelDecider {
-    fn decide(&mut self, cpu: &Cpu, site: PromptSite, legal: &[Action]) -> Action {
-        let side = if site == PromptSite::EnemyAction { Side::Enemy } else { Side::Player };
-        let decision = Decision {
-            site,
-            side,
-            legal: legal.to_vec(),
-            state: BattleState::read(cpu),
-            events: crate::bootstrap::events::take_events(cpu),
-        };
-        if self.to_api.send(EngineMsg::Decision(decision)).is_err() {
-            std::panic::resume_unwind(Box::new(Abandoned));
-        }
-        match self.from_api.recv() {
-            Ok(action) => action,
-            Err(_) => std::panic::resume_unwind(Box::new(Abandoned)),
-        }
-    }
-}
-
-/// Stack for the engine thread. The transpiled code models every `call` as a
-/// Rust call, so deep engine paths use a lot of native stack.
-const ENGINE_STACK: usize = 64 * 1024 * 1024;
 
 impl Battle {
-    /// Start a battle. `seed` seeds the engine's random-byte stream; the same
-    /// config, seed and actions always replay the same battle.
+    /// Start a battle. `seed` seeds the random-byte stream; the same config,
+    /// seed and actions always replay the same battle.
     pub fn new(config: BattleConfig, seed: u64) -> Result<Battle, Error> {
-        let (to_api, from_engine) = sync_channel::<EngineMsg>(1);
-        let (to_engine, from_api) = sync_channel::<Action>(1);
-        let thread = std::thread::Builder::new()
-            .name("battle-engine".into())
-            .stack_size(ENGINE_STACK)
-            .spawn(move || run_engine(config, seed, to_api, from_api))
-            .map_err(|e| Error::Engine(format!("could not spawn the engine thread: {e}")))?;
-        let mut battle = Battle {
-            current: Current::Ended { outcome: Outcome::Draw, state: placeholder_state(), events: Vec::new() },
-            to_engine: Some(to_engine),
-            from_engine,
-            thread: Some(thread),
-        };
-        battle.current = battle.receive()?;
-        Ok(battle)
+        let engine = catch(|| FastBattle::with_events(&config, seed, true))?.map_err(Error::Setup)?;
+        let current = current(&engine);
+        Ok(Battle { engine, current })
     }
 
     /// What the battle showed during the last [`Battle::step`] (or, before the
@@ -205,8 +156,8 @@ impl Battle {
         }
     }
 
-    /// Answer the pending decision and run the engine to the next one (or to
-    /// the end of the battle).
+    /// Answer the pending decision and run to the next one (or to the end of
+    /// the battle).
     pub fn step(&mut self, action: Action) -> Result<Status<'_>, Error> {
         let Current::Decision(decision) = &self.current else {
             return Err(Error::Ended);
@@ -214,86 +165,39 @@ impl Battle {
         if !decision.legal.contains(&action) {
             return Err(Error::IllegalAction(action));
         }
-        let sender = self.to_engine.as_ref().ok_or(Error::Ended)?;
-        if sender.send(action).is_err() {
-            return Err(self.engine_failure());
-        }
-        self.current = self.receive()?;
+        let mut engine = self.engine.clone();
+        catch(move || {
+            engine.step(action).expect("a legal action");
+            engine
+        })
+        .map(|engine| {
+            self.current = current(&engine);
+            self.engine = engine;
+        })?;
         Ok(self.status())
     }
 
-    fn receive(&mut self) -> Result<Current, Error> {
-        match self.from_engine.recv() {
-            Ok(EngineMsg::Decision(d)) => Ok(Current::Decision(d)),
-            Ok(EngineMsg::Ended { outcome, state, events }) => {
-                self.to_engine = None;
-                Ok(Current::Ended { outcome, state, events })
-            }
-            Ok(EngineMsg::Failed(e)) => Err(e),
-            Err(_) => Err(self.engine_failure()),
-        }
-    }
-
-    fn engine_failure(&mut self) -> Error {
-        match self.thread.take().map(JoinHandle::join) {
-            Some(Err(payload)) => Error::Engine(panic_message(&payload)),
-            _ => Error::Engine("engine thread stopped".into()),
-        }
+    /// The underlying engine battle (raw WRAM state, the printed text as ROM
+    /// labels).
+    pub fn engine(&self) -> &FastBattle {
+        &self.engine
     }
 }
 
-impl Drop for Battle {
-    fn drop(&mut self) {
-        // Closing the action channel makes a waiting engine unwind out.
-        self.to_engine = None;
-        if let Some(thread) = self.thread.take() {
-            while self.from_engine.try_recv().is_ok() {}
-            let _ = thread.join();
+/// The API view of `engine` now.
+fn current(engine: &FastBattle) -> Current {
+    let state = engine.state();
+    let events = engine.events().to_vec();
+    match engine.status() {
+        EngineStatus::Decision { site, legal } => {
+            let side = if *site == PromptSite::EnemyAction { Side::Enemy } else { Side::Player };
+            Current::Decision(Decision { site: *site, side, legal: legal.clone(), state, events })
         }
+        EngineStatus::Ended(outcome) => Current::Ended { outcome: *outcome, state, events },
     }
 }
 
-fn run_engine(config: BattleConfig, seed: u64, to_api: SyncSender<EngineMsg>, from_api: Receiver<Action>) {
-    let failures = to_api.clone();
-    let result = std::panic::catch_unwind(std::panic::AssertUnwindSafe(move || {
-        let mut cpu = Cpu::new_cgb(None, None);
-        cpu.interrupt_vectors = crate::interrupt_vectors();
-        cpu.events = Some(std::cell::RefCell::new(Default::default()));
-        cpu.decider = Some(std::cell::RefCell::new(Box::new(ChannelDecider {
-            to_api: to_api.clone(),
-            from_api,
-        })));
-        let options = crate::bootstrap::RunOptions {
-            seed_override: Some(seed),
-            quiet: true,
-            ..Default::default()
-        };
-        if let Err(msg) = crate::bootstrap::run_with(&mut cpu, &config, options) {
-            let _ = to_api.send(EngineMsg::Failed(Error::Setup(msg)));
-            return;
-        }
-        let outcome = crate::bootstrap::snapshot::read_outcome(&cpu);
-        let state = BattleState::read(&cpu);
-        let events = crate::bootstrap::events::take_events(&cpu);
-        let _ = to_api.send(EngineMsg::Ended { outcome, state, events });
-    }));
-    if let Err(payload) = result {
-        if payload.downcast_ref::<Abandoned>().is_none() {
-            let _ = failures.send(EngineMsg::Failed(Error::Engine(panic_message(&payload))));
-        }
-    }
-}
-
-fn panic_message(payload: &Box<dyn std::any::Any + Send>) -> String {
-    if let Some(s) = payload.downcast_ref::<&str>() {
-        (*s).to_string()
-    } else if let Some(s) = payload.downcast_ref::<String>() {
-        s.clone()
-    } else {
-        "engine panicked".into()
-    }
-}
-
-fn placeholder_state() -> BattleState {
-    BattleState::read(&Cpu::new_cgb(None, None))
+/// Run `f`, turning a panic (a bug in the engine) into [`Error::Engine`].
+fn catch<T>(f: impl FnOnce() -> T) -> Result<T, Error> {
+    std::panic::catch_unwind(std::panic::AssertUnwindSafe(f)).map_err(|payload| Error::Engine(emulated::panic_message(&payload)))
 }
