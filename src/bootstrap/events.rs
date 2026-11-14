@@ -59,9 +59,12 @@ fn in_text_area(addr: u16) -> bool {
 
 /// `PlacePartyMenuText`'s prompts ("Use on which PKMN?", …) are party-menu UI
 /// drawn with a bare `PlaceString`, not battle text: `PartyMenuStrings`
-/// through `YouHaveNoPKMNString` in bank 0x14 (`14:44d2`..`14:4570`).
+/// through `YouHaveNoPKMNString` in bank 0x14 (`14:44d2`..`14:4570`). So is
+/// `PlacePartyNicknames`' "CANCEL" (`14:40c8`), which a full party draws on
+/// the text box's top row.
 fn is_party_menu_prompt(cpu: &Cpu) -> bool {
-    cpu.current_rom_bank() == 0x14 && (0x44d2..0x4570).contains(&cpu.de())
+    cpu.current_rom_bank() == 0x14
+        && ((0x44d2..0x4570).contains(&cpu.de()) || (0x40c8..0x40cf).contains(&cpu.de()))
 }
 
 /// `.place` in `CheckDict`: character `cpu.a` is about to be written at `hl`.
