@@ -60,7 +60,7 @@ impl Engine {
     }
 
     /// `PlayFXAnimID` (the animation itself is dropped).
-    fn play_fx_anim_id(&mut self, e: u8, d: u8) {
+    pub(super) fn play_fx_anim_id(&mut self, e: u8, d: u8) {
         self.mem.wb(W_FX_ANIM_ID, e);
         self.mem.wb(W_FX_ANIM_ID + 1, d);
     }
@@ -71,7 +71,7 @@ impl Engine {
     }
 
     /// `LoadMoveAnim`.
-    fn load_move_anim(&mut self) {
+    pub(super) fn load_move_anim(&mut self) {
         self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
         self.mem.wb(W_FX_ANIM_ID + 1, 0);
         let a = self.battle_var(BATTLE_VARS_MOVE_ANIM);
