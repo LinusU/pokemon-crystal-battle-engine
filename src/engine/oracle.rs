@@ -30,7 +30,11 @@ pub struct Snapshot {
 #[derive(Debug, Clone)]
 pub struct Trace {
     pub decisions: Vec<Snapshot>,
-    /// Memory and RNG when the battle ended.
+    /// The battle's end (just before `ExitBattle`): memory, RNG, the battle
+    /// text since the last decision, and the outcome. `site`, `legal` and
+    /// `action` are unused.
+    pub end: Option<Snapshot>,
+    /// Memory and RNG after the game finished (`ExitBattle` included).
     pub end_mem: Mem,
     pub end_rng: u64,
     /// Every `Random` call of the battle, with its caller.
@@ -48,6 +52,7 @@ pub fn mix(state: &mut u64) -> u64 {
 
 struct RecordingDecider {
     out: Arc<Mutex<Vec<Snapshot>>>,
+    end: Arc<Mutex<Option<Snapshot>>>,
     policy: u64,
     max: usize,
     /// When set, the decisions to make (in order) instead of the random policy.
@@ -93,22 +98,33 @@ impl Decider for RecordingDecider {
             }
             None => pool[(mix(&mut self.policy) % pool.len() as u64) as usize],
         };
-        out.push(Snapshot {
-            site,
-            legal: legal.to_vec(),
-            action,
-            mem: Mem::copy_from(cpu),
-            rng: cpu.rng_state(),
-            rng_calls: cpu.rng_log.as_ref().map_or(0, Vec::len),
-            texts: crate::bootstrap::events::take_events(cpu)
-                .into_iter()
-                .filter_map(|e| match e {
-                    crate::bootstrap::events::Event::Text(t) => Some(t),
-                    _ => None,
-                })
-                .collect(),
-        });
+        out.push(snapshot(cpu, site, legal.to_vec(), action));
         action
+    }
+
+    fn battle_ended(&mut self, cpu: &Cpu) {
+        let snap = snapshot(cpu, PromptSite::BattleMenu, Vec::new(), Step::Run);
+        *self.end.lock().unwrap_or_else(|e| e.into_inner()) = Some(snap);
+    }
+}
+
+/// The original's state now, as a [`Snapshot`] (texts: everything printed
+/// since the last one).
+fn snapshot(cpu: &Cpu, site: PromptSite, legal: Vec<Step>, action: Step) -> Snapshot {
+    Snapshot {
+        site,
+        legal,
+        action,
+        mem: Mem::copy_from(cpu),
+        rng: cpu.rng_state(),
+        rng_calls: cpu.rng_log.as_ref().map_or(0, Vec::len),
+        texts: crate::bootstrap::events::take_events(cpu)
+            .into_iter()
+            .filter_map(|e| match e {
+                crate::bootstrap::events::Event::Text(t) => Some(t),
+                _ => None,
+            })
+            .collect(),
     }
 }
 
@@ -135,6 +151,7 @@ fn run_with_decider(
     script: Option<std::collections::VecDeque<Step>>,
 ) -> Option<Trace> {
     let out = Arc::new(Mutex::new(Vec::new()));
+    let end = Arc::new(Mutex::new(None));
     let mut cpu = Cpu::new_cgb(None, None);
     cpu.interrupt_vectors = crate::interrupt_vectors();
     cpu.rng_log = Some(Vec::new());
@@ -142,6 +159,7 @@ fn run_with_decider(
     cpu.events = Some(std::cell::RefCell::new(Default::default()));
     cpu.decider = Some(std::cell::RefCell::new(Box::new(RecordingDecider {
         out: out.clone(),
+        end: end.clone(),
         policy: policy_seed,
         max: max_decisions,
         script,
@@ -164,7 +182,8 @@ fn run_with_decider(
     }
     let decisions = std::mem::take(&mut *out.lock().unwrap_or_else(|e| e.into_inner()));
     let rng_log = cpu.rng_log.take().unwrap_or_default();
-    Some(Trace { decisions, end_mem: Mem::copy_from(&cpu), end_rng: cpu.rng_state(), rng_log })
+    let end = end.lock().unwrap_or_else(|e| e.into_inner()).take();
+    Some(Trace { decisions, end, end_mem: Mem::copy_from(&cpu), end_rng: cpu.rng_state(), rng_log })
 }
 
 /// Run `config` on the original engine up to its first decision and return

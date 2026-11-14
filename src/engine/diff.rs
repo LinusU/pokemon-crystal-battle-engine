@@ -88,6 +88,8 @@ pub enum Divergence {
     Text { decision: usize, oracle: Vec<String>, engine: Vec<String> },
     /// One engine decided more times than the other.
     Length { oracle: usize, engine: usize },
+    /// The battle's end (after the last decision) differs.
+    End { what: String },
 }
 
 /// Memory differences over [`COMPARED`], as `symbol: oracle → engine`.
@@ -213,12 +215,14 @@ pub fn check(config: &BattleConfig, trace: &Trace, check_text: bool) -> Result<u
         loop {
             match engine.battle_turn(entry) {
                 Ok(TurnEnd::Continue) => entry = TurnEntry::TurnStart,
-                Ok(TurnEnd::Quit) | Err(_) => break,
+                Ok(TurnEnd::Quit) => return true,
+                Err(_) => return false,
             }
         }
     }));
     // A panic (an unported routine) leaves the log of the decisions before it:
     // those are still compared, so everything up to the panic is verified.
+    let ended = matches!(run, Ok(true));
     let panic = run.err().map(|payload| {
         payload
             .downcast_ref::<String>()
@@ -239,6 +243,25 @@ pub fn check(config: &BattleConfig, trace: &Trace, check_text: bool) -> Result<u
     }
     if log.len() != trace.decisions.len() {
         return Err(Divergence::Length { oracle: trace.decisions.len(), engine: log.len() });
+    }
+    // The last stretch: from the last decision to the end of the battle.
+    if let Some(end) = &trace.end {
+        if !ended {
+            return Err(Divergence::End { what: "the oracle's battle ended, the engine's didn't".into() });
+        }
+        if end.rng != engine.rng {
+            return Err(Divergence::End { what: format!("rng after {} calls", end.rng_calls) });
+        }
+        let diffs = mem_diffs(&end.mem, &engine.mem);
+        if !diffs.is_empty() {
+            return Err(Divergence::End { what: format!("memory: {diffs:?}") });
+        }
+        if check_text {
+            let rendered = engine.rendered.take().unwrap_or_default();
+            if end.texts != rendered {
+                return Err(Divergence::End { what: format!("text: oracle {:?}, engine {:?}", end.texts, rendered) });
+            }
+        }
     }
     Ok(log.len())
 }
