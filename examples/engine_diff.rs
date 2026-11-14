@@ -38,8 +38,13 @@ fn main() {
                 println!("seed {seed}: oracle battle too long or frozen, skipped");
                 continue;
             }
-            Err(_) => {
-                println!("seed {seed}: oracle panicked, skipped");
+            Err(payload) => {
+                let msg = payload
+                    .downcast_ref::<String>()
+                    .cloned()
+                    .or_else(|| payload.downcast_ref::<&str>().map(|s| s.to_string()))
+                    .unwrap_or_default();
+                println!("seed {seed}: oracle panicked ({msg}), skipped");
                 continue;
             }
         };

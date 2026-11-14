@@ -843,6 +843,7 @@ pub fn use_pending_item_in_pack(cpu: &mut Cpu) {
     cpu.cli_pending_party_target = target;
     cpu.cli_pending_item_move = move_slot;
 
+    let before = cpu.read_byte(W_PLAYER_SUB_STATUS_4);
     let return_sentinel: u16 = 0xfffa;
     cpu.push_word(return_sentinel);
     crate::game::engine::items::pack::tmhm_submenu_use(cpu);
@@ -856,8 +857,12 @@ pub fn use_pending_item_in_pack(cpu: &mut Cpu) {
     let used = cpu.read_byte(W_JUMPTABLE_INDEX) == defs::PACKSTATE_QUITRUNSCRIPT;
     assert!(
         used,
-        "item {} (target {target:?}, move {move_slot:?}) was offered as legal but its effect refused it",
+        "item {} (target {target:?}, move {move_slot:?}) was offered as legal but its effect refused it \
+         (jumptable {:#x}, substatus4 {:#x} before {before:#x}, battle type {:#x})",
         item_display(id),
+        cpu.read_byte(W_JUMPTABLE_INDEX),
+        cpu.read_byte(W_PLAYER_SUB_STATUS_4),
+        cpu.read_byte(0xd230),
     );
     assert!(cpu.cli_pending_party_target.is_none(), "item effect never asked for its target");
     assert!(cpu.cli_pending_item_move.is_none(), "item effect never asked for its move");
