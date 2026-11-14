@@ -9,6 +9,7 @@
 //! Status: under construction. See docs/goal.md.
 
 pub mod ai;
+pub mod api;
 pub mod battle;
 mod cmd_todo;
 mod cmd_todo_status;

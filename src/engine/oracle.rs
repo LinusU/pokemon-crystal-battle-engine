@@ -54,8 +54,9 @@ struct TooLong;
 
 impl Decider for RecordingDecider {
     fn decide(&mut self, cpu: &Cpu, site: PromptSite, legal: &[Step]) -> Step {
-        let mut out = self.out.lock().unwrap();
+        let mut out = self.out.lock().unwrap_or_else(|e| e.into_inner());
         if out.len() >= self.max {
+            drop(out);
             std::panic::resume_unwind(Box::new(TooLong));
         }
         let action = legal[(mix(&mut self.policy) % legal.len() as u64) as usize];
@@ -90,10 +91,28 @@ pub fn run(config: &BattleConfig, seed: u64, policy_seed: u64, max_decisions: us
     }));
     match finished {
         Ok(()) => {}
-        Err(payload) if payload.downcast_ref::<TooLong>().is_some() => return None,
+        Err(payload) if payload.downcast_ref::<TooLong>().is_some() => {
+            let first = out.lock().unwrap_or_else(|e| e.into_inner()).first().cloned();
+            FIRST.with(|f| *f.borrow_mut() = first);
+            return None;
+        }
         Err(payload) => std::panic::resume_unwind(payload),
     }
-    let decisions = std::mem::take(&mut *out.lock().unwrap());
+    let decisions = std::mem::take(&mut *out.lock().unwrap_or_else(|e| e.into_inner()));
     let rng_log = cpu.rng_log.take().unwrap_or_default();
     Some(Trace { decisions, end_mem: Mem::copy_from(&cpu), end_rng: cpu.rng_state(), rng_log })
+}
+
+/// Run `config` on the original engine up to its first decision and return
+/// that state (how the hand-written engine starts a battle until battle
+/// setup is ported).
+pub fn first_decision(config: &BattleConfig, seed: u64) -> Option<Snapshot> {
+    match run(config, seed, 0, 1) {
+        Some(trace) => trace.decisions.into_iter().next(),
+        None => FIRST.with(|f| f.borrow_mut().take()),
+    }
+}
+
+thread_local! {
+    static FIRST: std::cell::RefCell<Option<Snapshot>> = const { std::cell::RefCell::new(None) };
 }
