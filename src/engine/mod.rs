@@ -10,6 +10,14 @@
 
 pub mod battle;
 mod cmd_todo;
+mod cmd_todo_status;
+pub mod status;
+mod cmd_todo_misc;
+pub mod misc;
+mod cmd_todo_effects_a;
+pub mod effects_a;
+mod cmd_todo_effects_b;
+pub mod effects_b;
 pub mod commands;
 pub mod core;
 pub mod diff;
