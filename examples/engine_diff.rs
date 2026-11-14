@@ -20,6 +20,7 @@ fn main() {
     let moves: Vec<u8> = args.map(|m| m.parse().unwrap()).collect();
     let moves = if moves.is_empty() { vec![33] } else { moves };
     let (mut ok, mut bad) = (0, 0);
+    let (mut start_ok, mut start_before_ai, mut start_bad, mut unsupported) = (0, 0, 0, 0);
     std::panic::set_hook(Box::new(|_| {}));
     for seed in first..first + battles {
         let config = match kind.as_str() {
@@ -27,11 +28,37 @@ fn main() {
             "trainer" => testgen::random_trainer_config(seed, &moves, Default::default()),
             _ => testgen::random_link_config(seed, &moves, Default::default()),
         };
-        let Some(trace) = oracle::run(&config, config.battle.seed.unwrap(), seed, 400) else {
-            println!("seed {seed}: oracle battle too long or frozen, skipped");
-            continue;
+        // A few trainer scenarios make the oracle itself panic (a mobile script
+        // the harness can't run): skip them like the frozen ones.
+        let traced = std::panic::catch_unwind(|| oracle::run(&config, config.battle.seed.unwrap(), seed, 400));
+        let trace = match traced {
+            Ok(Some(trace)) => trace,
+            Ok(None) => {
+                println!("seed {seed}: oracle battle too long or frozen, skipped");
+                continue;
+            }
+            Err(_) => {
+                println!("seed {seed}: oracle panicked, skipped");
+                continue;
+            }
         };
-        match diff::check(&trace, kind == "link", std::env::var_os("NO_TEXT").is_none()) {
+        let check_text = std::env::var_os("NO_TEXT").is_none();
+        // First the engine's own start state against the oracle's first decision.
+        match diff::check_start(&config, &trace, check_text) {
+            Ok(diff::StartCheck::Exact) => start_ok += 1,
+            Ok(diff::StartCheck::BeforeFirstTurn) => start_before_ai += 1,
+            Err(diff::Divergence::Unsupported { reason }) => {
+                unsupported += 1;
+                println!("seed {seed}: start not supported by the engine ({reason}), skipped");
+                continue;
+            }
+            Err(d) => {
+                start_bad += 1;
+                println!("seed {seed}: start state differs: {d:?}");
+                continue;
+            }
+        }
+        match diff::check(&config, &trace, check_text) {
             Ok(n) => {
                 ok += 1;
                 println!("seed {seed}: ok ({n} decisions)");
@@ -43,5 +70,8 @@ fn main() {
             }
         }
     }
+    println!(
+        "start state: {start_ok} exact, {start_before_ai} exact before the first turn (AI unported), {start_bad} differ, {unsupported} unsupported"
+    );
     println!("{ok} ok, {bad} diverged");
 }

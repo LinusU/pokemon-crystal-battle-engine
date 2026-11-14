@@ -2,11 +2,13 @@
 //! hand-written engine with the same decisions and compare them at every
 //! decision point.
 
-use super::battle::{Engine, Flags};
+use super::battle::Engine;
 use super::core::{TurnEnd, TurnEntry};
 use super::mem::Mem;
 use super::oracle::{Snapshot, Trace};
+use super::start::{self, StartError};
 use super::sym;
+use crate::bootstrap::BattleConfig;
 
 /// Memory compared at each decision: battle state, both parties, and the
 /// handful of battle variables outside `wBattle`.
@@ -22,11 +24,57 @@ pub const COMPARED: &[(u16, u16)] = &[
     (sym::H_BATTLE_TURN, sym::H_BATTLE_TURN + 1),
 ];
 
+/// What the start-state check ([`check_start`]) leaves out of the WRAM
+/// comparison: everything the original writes that is graphics, sound or
+/// boot/UI scratch and never read by battle code (see docs/engine.md).
+/// Everything else in WRAM is compared, byte for byte.
+pub const START_IGNORED: &[(u16, u16)] = &[
+    (0xc000, 0xc2c5), // wStack, wMusic* / wChannel* / wCry* / wSFX* (audio), wLZ*
+    (0xc4a0, 0xc608), // wTilemap (shadow OAM stays zero)
+    (0xc741, 0xc7d4), // after wBattleEnd: code the transition copies into WRAM
+    (0xcd98, 0xcf50), // wBGMapBuffer, wAttrmap
+    (0xcf63, 0xcf6c), // wBattleTower*, wBattleTransition*, wRequested2bpp*
+    (0xcf71, 0xcf73), // wMenuMetadata
+    (0xcf81, 0xcf92), // menu cursor / border / data
+    (0xcfb2, 0xcfb3), // wTextDelayFrames
+    (0xcfb4, 0xcfbb), // wPredef*, wFarCallBC
+    (0xcfc4, 0xcfca), // wPlaceBalls*, wBGP, wOBP*
+    (0xd003, 0xd008), // wBillsPCTempListIndex.. (scratch)
+    (0xd0ed, 0xd0ee), // wStateFlags
+    (0xd153, 0xd154), // wBGMapAnchor
+    (0xd1ea, 0xd1f0), // wBattleHUDTiles
+];
+
+/// HRAM bytes the start-state check compares (the rest of HRAM is the
+/// boot's, graphics' and the math routines' scratch).
+const START_HRAM: &[u16] = &[
+    sym::H_BATTLE_TURN, sym::H_RANDOM_ADD, sym::H_RANDOM_SUB, sym::H_SERIAL_CONNECTION_STATUS,
+];
+
+/// What the first `BattleTurn` prologue and `AIChooseMove` write on top of
+/// the start state. Excluded when the AI isn't ported yet and the start state
+/// can only be compared before that turn runs ([`StartCheck::BeforeFirstTurn`]).
+const FIRST_TURN_OUTPUTS: &[u16] = &[
+    sym::W_TYPE_MODIFIER, sym::W_ATTACK_MISSED, sym::W_CUR_ENEMY_MOVE, sym::W_ENEMY_IS_SWITCHING,
+    sym::W_ENEMY_AI_SWITCH_SCORE, sym::W_CUR_DAMAGE, sym::W_CUR_DAMAGE + 1, sym::W_BATTLE_HAS_JUST_STARTED,
+    sym::W_NAMED_OBJECT_INDEX, sym::W_CUR_ENEMY_MOVE_NUM,
+    // the enemy's move struct, filled in for the move the AI picked
+    sym::W_ENEMY_MOVE_STRUCT, sym::W_ENEMY_MOVE_STRUCT + 1, sym::W_ENEMY_MOVE_STRUCT + 2,
+    sym::W_ENEMY_MOVE_STRUCT + 3, sym::W_ENEMY_MOVE_STRUCT + 4, sym::W_ENEMY_MOVE_STRUCT + 5,
+    sym::W_ENEMY_MOVE_STRUCT + 6,
+    // the AI's random draws and its use of the turn byte
+    sym::H_BATTLE_TURN, sym::H_RANDOM_ADD, sym::H_RANDOM_SUB,
+];
+
 /// The first way the engine differs from the original.
 #[derive(Debug, Clone)]
 pub enum Divergence {
     /// The engine hit a routine it doesn't have yet (or panicked).
     Panic { decision: usize, message: String },
+    /// The engine's own start state (before the first decision) differs.
+    Start { diffs: Vec<String> },
+    /// The scenario can't start on the engine (see [`StartError::Unsupported`]).
+    Unsupported { reason: String },
     Site { decision: usize, oracle: String, engine: String },
     Legal { decision: usize, oracle: String, engine: String },
     Rng { decision: usize, oracle_calls: usize },
@@ -51,17 +99,112 @@ pub fn mem_diffs(oracle: &Mem, engine: &Mem) -> Vec<String> {
     out
 }
 
-/// Replay `trace` on the engine, starting from the oracle's first decision.
-pub fn check(trace: &Trace, link: bool, check_text: bool) -> Result<usize, Divergence> {
-    let Some(first) = trace.decisions.first() else { return Ok(0) };
-    let mut engine = Engine::new(first.mem.clone(), first.rng, Flags { link_battle: link, ..Flags::default() });
+/// How far [`check_start`] could compare.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum StartCheck {
+    /// The engine reached the first decision: site, legal actions, RNG state,
+    /// text and all of WRAM (but [`START_IGNORED`]) match the oracle's.
+    Exact,
+    /// The first turn needs the unported trainer AI, so the state before it
+    /// was compared instead (memory except [`FIRST_TURN_OUTPUTS`], and text).
+    BeforeFirstTurn,
+}
+
+/// Panic payload to message.
+fn panic_message(payload: &(dyn std::any::Any + Send)) -> String {
+    payload
+        .downcast_ref::<String>()
+        .cloned()
+        .or_else(|| payload.downcast_ref::<&str>().map(|s| s.to_string()))
+        .unwrap_or_default()
+}
+
+/// Memory differences over all WRAM except [`START_IGNORED`] (and the
+/// [`START_HRAM`] bytes), minus `skip`: the start-state comparison.
+pub fn start_mem_diffs(oracle: &Mem, engine: &Mem, skip: &[u16]) -> Vec<String> {
+    let mut out = Vec::new();
+    let ignored = |addr: u16| START_IGNORED.iter().any(|&(a, b)| (a..b).contains(&addr)) || skip.contains(&addr);
+    for addr in (0xc000u16..0xe000).chain(START_HRAM.iter().copied()) {
+        let (a, b) = (oracle.rb(addr), engine.rb(addr));
+        if a != b && !ignored(addr) {
+            out.push(format!("{} ({addr:#06x}): {a:#04x} → {b:#04x}", sym::ram_name(addr)));
+        }
+    }
+    out
+}
+
+/// Start the battle on the engine and compare its state with the oracle's
+/// first decision (`trace.decisions[0]`) before replaying anything: the
+/// engine runs the first turn up to its first decision, then the site, legal
+/// actions, RNG state, battle text so far and WRAM (see [`START_IGNORED`])
+/// must be identical.
+pub fn check_start(config: &BattleConfig, trace: &Trace, check_text: bool) -> Result<StartCheck, Divergence> {
+    let Some(first) = trace.decisions.first() else { return Ok(StartCheck::Exact) };
+    let seed = config.battle.seed.expect("differential scenarios carry a seed");
+    let engine = match start::start(config, seed, check_text) {
+        Ok(engine) => engine,
+        Err(StartError::Unsupported(reason)) => return Err(Divergence::Unsupported { reason: reason.to_string() }),
+        Err(StartError::Invalid(message)) => return Err(Divergence::Panic { decision: 0, message }),
+    };
+    let before = engine.clone();
+    let run = std::panic::catch_unwind(std::panic::AssertUnwindSafe(move || {
+        let mut engine = engine;
+        let result = engine.battle_turn(TurnEntry::TurnStart);
+        (engine, result)
+    }));
+    let mut diffs = Vec::new();
+    let text_diff = |engine: &Engine, diffs: &mut Vec<String>| {
+        if check_text {
+            let texts = engine.rendered.clone().unwrap_or_default();
+            if texts != first.texts {
+                diffs.push(format!("text: {:?} → {texts:?}", first.texts));
+            }
+        }
+    };
+    match run {
+        Ok((engine, Err(suspend))) => {
+            if suspend.site != first.site {
+                diffs.push(format!("site: {:?} → {:?}", first.site, suspend.site));
+            }
+            if suspend.legal != first.legal {
+                diffs.push(format!("legal: {:?} → {:?}", first.legal, suspend.legal));
+            }
+            if engine.rng != first.rng {
+                diffs.push(format!("rng: {:#x} → {:#x} ({} oracle draws)", first.rng, engine.rng, first.rng_calls));
+            }
+            text_diff(&engine, &mut diffs);
+            diffs.extend(start_mem_diffs(&first.mem, &engine.mem, &[]));
+            if diffs.is_empty() { Ok(StartCheck::Exact) } else { Err(Divergence::Start { diffs }) }
+        }
+        Ok((_, Ok(_))) => Err(Divergence::Start { diffs: vec!["the first turn ended without a decision".to_string()] }),
+        Err(payload) => {
+            let message = panic_message(&*payload);
+            if !message.contains("unported routine AI") {
+                return Err(Divergence::Panic { decision: 0, message });
+            }
+            text_diff(&before, &mut diffs);
+            diffs.extend(start_mem_diffs(&first.mem, &before.mem, FIRST_TURN_OUTPUTS));
+            if diffs.is_empty() { Ok(StartCheck::BeforeFirstTurn) } else { Err(Divergence::Start { diffs }) }
+        }
+    }
+}
+
+/// Replay `trace` on the engine from its own start state (`start::start`),
+/// comparing every decision, the first included.
+pub fn check(config: &BattleConfig, trace: &Trace, check_text: bool) -> Result<usize, Divergence> {
+    if trace.decisions.is_empty() {
+        return Ok(0);
+    }
+    let seed = config.battle.seed.expect("differential scenarios carry a seed");
+    let mut engine = match start::start(config, seed, check_text) {
+        Ok(engine) => engine,
+        Err(StartError::Unsupported(reason)) => return Err(Divergence::Unsupported { reason: reason.to_string() }),
+        Err(StartError::Invalid(message)) => return Err(Divergence::Panic { decision: 0, message }),
+    };
     engine.pending = trace.decisions.iter().map(|d| d.action).collect();
     engine.decision_log = Some(Vec::new());
-    if check_text {
-        engine.rendered = Some(Vec::new());
-    }
     let run = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
-        let mut entry = TurnEntry::BattleMenu;
+        let mut entry = TurnEntry::TurnStart;
         loop {
             match engine.battle_turn(entry) {
                 Ok(TurnEnd::Continue) => entry = TurnEntry::TurnStart,
@@ -87,8 +230,7 @@ pub fn check(trace: &Trace, link: bool, check_text: bool) -> Result<usize, Diver
     }
     for (i, (snap, (site, legal, mem, rng))) in trace.decisions.iter().zip(&log).enumerate() {
         compare(i, snap, *site, legal, mem, *rng)?;
-        // The first decision's text happened before the engine took over.
-        if check_text && i > 0 && snap.texts != texts[i] {
+        if check_text && snap.texts != texts[i] {
             return Err(Divergence::Text { decision: i, oracle: snap.texts.clone(), engine: texts[i].clone() });
         }
     }
