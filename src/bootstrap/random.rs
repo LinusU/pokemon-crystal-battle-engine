@@ -92,6 +92,16 @@ const HELD_ITEM_CHANCE_PERCENT: u64 = 15;
 /// the module docs — so the same `base_seed` reproduces the whole run while
 /// the matchup generator and the battle RNG never share state.
 pub fn random_battle_config(base_seed: u64) -> BattleConfig {
+    generate(base_seed, false)
+}
+
+/// [`random_battle_config`], also printing the matchup to stderr (the CLI's
+/// `--random`).
+pub fn random_battle_config_verbose(base_seed: u64) -> BattleConfig {
+    generate(base_seed, true)
+}
+
+fn generate(base_seed: u64, verbose: bool) -> BattleConfig {
     let gen_seed = splitmix64(base_seed ^ GEN_DOMAIN);
     let engine_seed = splitmix64(base_seed ^ ENGINE_DOMAIN);
     let mut rng = Rng::from_seed(gen_seed);
@@ -136,18 +146,20 @@ pub fn random_battle_config(base_seed: u64) -> BattleConfig {
         player_items.push(ItemSpec { name: name.to_string(), quantity });
     }
 
-    eprintln!(
-        "random battle: seed 0x{base_seed:016x} — vs {} — {} mon(s), levels {}..={}",
-        trainer.name, count, lvl_lo, lvl_hi,
-    );
-    for mon in &player_party {
-        match &mon.item {
-            Some(item) => eprintln!("  party: {} L{} @ {}", mon.species, mon.level, item),
-            None => eprintln!("  party: {} L{}", mon.species, mon.level),
+    if verbose {
+        eprintln!(
+            "random battle: seed 0x{base_seed:016x} — vs {} — {} mon(s), levels {}..={}",
+            trainer.name, count, lvl_lo, lvl_hi,
+        );
+        for mon in &player_party {
+            match &mon.item {
+                Some(item) => eprintln!("  party: {} L{} @ {}", mon.species, mon.level, item),
+                None => eprintln!("  party: {} L{}", mon.species, mon.level),
+            }
         }
-    }
-    for item in &player_items {
-        eprintln!("  bag:   {} x{}", item.name, item.quantity);
+        for item in &player_items {
+            eprintln!("  bag:   {} x{}", item.name, item.quantity);
+        }
     }
 
     BattleConfig {

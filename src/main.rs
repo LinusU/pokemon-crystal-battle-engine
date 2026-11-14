@@ -36,7 +36,7 @@ fn main() {
         // seeds inside `random_battle_config` — the engine seed lands in
         // `BattleHeader.seed`.
         let base_seed = cli_args.seed.unwrap_or_else(random_entropy_seed);
-        Some(bootstrap::random::random_battle_config(base_seed))
+        Some(bootstrap::random::random_battle_config_verbose(base_seed))
     } else if let Some(path) = cli_args.scenario.clone() {
         // Explicit positional scenario. On a plain run this is the battle to
         // play; on `--play` it overrides the recording's embedded matchup so the
