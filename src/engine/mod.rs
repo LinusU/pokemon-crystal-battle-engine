@@ -8,6 +8,7 @@
 //!
 //! Status: under construction. See docs/goal.md.
 
+pub mod ai;
 pub mod battle;
 mod cmd_todo;
 mod cmd_todo_status;
@@ -27,6 +28,7 @@ pub mod mem;
 pub mod names;
 pub mod oracle;
 pub mod rom;
+pub mod setup;
 pub mod rsym;
 pub mod sym;
 pub mod testgen;

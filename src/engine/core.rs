@@ -482,7 +482,8 @@ impl Engine {
     /// `Battle_EnemyFirst`.
     fn battle_enemy_first(&mut self) -> Flow {
         if self.try_enemy_flee() {
-            self.unported("WildFled_EnemyFled_LinkBattleCanceled (enemy fled)");
+            self.wild_fled_enemy_fled_link_battle_canceled();
+            return Ok(());
         }
         self.set_enemy_turn();
         self.mem.wb(W_ENEMY_GOES_FIRST, 1);
@@ -543,7 +544,8 @@ impl Engine {
         }
         if !switched_or_item {
             if self.try_enemy_flee() {
-                self.unported("WildFled_EnemyFled_LinkBattleCanceled (enemy fled)");
+                self.wild_fled_enemy_fled_link_battle_canceled();
+                return Ok(());
             }
             self.enemy_turn_end_opponent_protect_endure_destiny_bond()?;
             if self.mem.rb(W_FORCED_SWITCH) != 0 {
@@ -746,7 +748,45 @@ impl Engine {
         if self.battle_mode() != WILD_BATTLE {
             return false;
         }
-        self.unported("TryEnemyFlee (wild battle)")
+        if self.mem.bit(W_PLAYER_SUB_STATUS5, SUBSTATUS_CANT_RUN) || self.mem.rb(W_ENEMY_WRAP_COUNT) != 0 {
+            return false;
+        }
+        if self.mem.rb(W_ENEMY_MON_STATUS) & (1 << FRZ | SLP_MASK) != 0 {
+            return false;
+        }
+        let species = self.mem.rb(W_TEMP_ENEMY_MON_SPECIES);
+        let in_list = |table: usize| super::commands::rom_in_array(table, 1, species).is_some();
+        if in_list(r::ALWAYS_FLEE_MONS) {
+            return true;
+        }
+        let b = self.battle_random("TryEnemyFlee");
+        if b >= percent(50) + 1 {
+            return false;
+        }
+        if in_list(r::OFTEN_FLEE_MONS) {
+            return true;
+        }
+        if b >= percent(10) + 1 {
+            return false;
+        }
+        in_list(r::SOMETIMES_FLEE_MONS)
+    }
+
+    /// `WildFled_EnemyFled_LinkBattleCanceled`.
+    pub fn wild_fled_enemy_fled_link_battle_canceled(&mut self) {
+        let r0 = (self.mem.rb(W_BATTLE_RESULT) & BATTLERESULT_BITMASK).wrapping_add(DRAW);
+        self.mem.wb(W_BATTLE_RESULT, r0);
+        if self.link_mode() == 0 {
+            self.text(r::BATTLE_TEXT_WILD_FLED);
+        } else {
+            let r0 = self.mem.rb(W_BATTLE_RESULT) & BATTLERESULT_BITMASK;
+            self.mem.wb(W_BATTLE_RESULT, r0);
+            self.text(r::BATTLE_TEXT_ENEMY_FLED);
+        }
+        // StopDangerSound
+        self.mem.wb(W_LOW_HEALTH_ALARM, 0);
+        self.set_player_turn();
+        self.mem.wb(W_BATTLE_ENDED, 1);
     }
 
     /// `UpdateBattleMonInParty`: copy `wBattleMonLevel..wBattleMonMaxHP`
@@ -777,24 +817,6 @@ impl Engine {
         if self.is_player_turn() { self.update_enemy_mon_in_party() } else { self.update_battle_mon_in_party() }
     }
 
-    /// `AIChooseMove`.
-    fn ai_choose_move(&mut self) {
-        if self.battle_mode() == WILD_BATTLE {
-            return;
-        }
-        if self.link_mode() != 0 {
-            return;
-        }
-        self.unported("AIChooseMove")
-    }
-
-    /// `AI_SwitchOrTryItem` (carry = the enemy switched or used an item).
-    fn ai_switch_or_try_item(&mut self) -> Flow<bool> {
-        if self.link_mode() != 0 {
-            return Ok(false);
-        }
-        self.unported("AI_SwitchOrTryItem")
-    }
 }
 
 #[allow(dead_code)]

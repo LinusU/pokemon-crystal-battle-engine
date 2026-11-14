@@ -63,3 +63,30 @@ pub fn random_link_config(seed: u64, moves: &[u8], opts: GenOptions) -> BattleCo
         enemy_trainer: None,
     }
 }
+
+/// A random wild battle: a random player party with moves from `moves`, a
+/// random wild mon (its level-up moveset).
+pub fn random_wild_config(seed: u64, moves: &[u8], opts: GenOptions) -> BattleConfig {
+    let mut config = random_link_config(seed, moves, GenOptions { max_party: opts.max_party, ..opts });
+    let mut rng = seed ^ 0x7769_6c64;
+    let idx = (mix(&mut rng) % species::SPECIES_NAMES.len() as u64) as usize;
+    let span = u64::from(opts.max_level - opts.min_level) + 1;
+    let level = opts.min_level + (mix(&mut rng) % span) as u8;
+    config.battle.kind = BattleKind::WildEncounter;
+    config.enemy_party = vec![MonSpec { species: species::SPECIES_NAMES[idx].to_string(), level, moves: None, item: None }];
+    config
+}
+
+/// A random trainer battle against a canonical trainer, the player party's
+/// moves drawn from `moves`.
+pub fn random_trainer_config(seed: u64, moves: &[u8], opts: GenOptions) -> BattleConfig {
+    let mut config = crate::bootstrap::random::random_battle_config(seed);
+    let link = random_link_config(seed, moves, opts);
+    for (mon, donor) in config.player_party.iter_mut().zip(link.player_party.iter().cycle()) {
+        mon.moves = donor.moves.clone();
+        mon.item = None;
+    }
+    config.player_items.clear();
+    config.battle.battle_scene = Some(false);
+    config
+}
