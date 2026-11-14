@@ -81,7 +81,7 @@ impl Engine {
         }
         for layer in 0u8..16 {
             // SmallFarFlagAction (CHECK_FLAG) on the ROM flags.
-            let set = rom::byte(attrs + usize::from(layer >> 3)) & 1 << (layer & 7) != 0;
+            let set = self.rom_byte(attrs + usize::from(layer >> 3)) & 1 << (layer & 7) != 0;
             if set {
                 self.ai_run_layer(layer);
             }

@@ -385,19 +385,34 @@ fn poke_trainer_attributes(
 
     // --- enemy_trainer: AI move-flags and AI item/switch-flags ---
     if let Some(ov) = enemy_trainer {
-        if let Some(names) = &ov.ai_move_flags {
-            let word = resolve_ai_flags(names, AI_MOVE_FLAG_NAMES, "ai_move_flags")?;
-            cpu.poke_rom(entry_base + TRNATTR_OFF_AI_MOVE_LO, (word & 0xff) as u8);
-            cpu.poke_rom(entry_base + TRNATTR_OFF_AI_MOVE_HI, (word >> 8) as u8);
-        }
-        if let Some(names) = &ov.ai_item_flags {
-            let word = resolve_ai_flags(names, AI_ITEM_FLAG_NAMES, "ai_item_flags")?;
-            cpu.poke_rom(entry_base + TRNATTR_OFF_AI_ITEM_LO, (word & 0xff) as u8);
-            cpu.poke_rom(entry_base + TRNATTR_OFF_AI_ITEM_HI, (word >> 8) as u8);
+        for (addr, value) in ai_flag_patches(trainer_class, ov)? {
+            cpu.poke_rom(addr, value);
         }
     }
 
     Ok(())
+}
+
+/// The ROM bytes (flat offset, value) an `[enemy_trainer]` override patches in
+/// `trainer_class`'s `TrainerClassAttributes` entry: the AI move-flag and AI
+/// item/switch-flag words. Shared with the hand-written engine's ROM overlay.
+pub(crate) fn ai_flag_patches(
+    trainer_class: u8,
+    ov: &EnemyTrainerOverride,
+) -> Result<Vec<(usize, u8)>, String> {
+    let entry_base = trnattr_entry_base(trainer_class);
+    let mut patches = Vec::new();
+    if let Some(names) = &ov.ai_move_flags {
+        let word = resolve_ai_flags(names, AI_MOVE_FLAG_NAMES, "ai_move_flags")?;
+        patches.push((entry_base + TRNATTR_OFF_AI_MOVE_LO, (word & 0xff) as u8));
+        patches.push((entry_base + TRNATTR_OFF_AI_MOVE_HI, (word >> 8) as u8));
+    }
+    if let Some(names) = &ov.ai_item_flags {
+        let word = resolve_ai_flags(names, AI_ITEM_FLAG_NAMES, "ai_item_flags")?;
+        patches.push((entry_base + TRNATTR_OFF_AI_ITEM_LO, (word & 0xff) as u8));
+        patches.push((entry_base + TRNATTR_OFF_AI_ITEM_HI, (word >> 8) as u8));
+    }
+    Ok(patches)
 }
 
 /// Mirror what the engine's `Bankswitch` routine does: update the in-HRAM

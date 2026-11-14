@@ -76,9 +76,6 @@ const STRUCT: u16 = PARTYMON_STRUCT_LENGTH as u16;
 /// RNG seed `seed`. With `render_text`, the battle text printed so far is
 /// rendered to strings (differential testing).
 pub fn start(config: &BattleConfig, seed: u64, render_text: bool) -> Result<Engine, StartError> {
-    if config.enemy_trainer.as_ref().is_some_and(|t| t.ai_move_flags.is_some() || t.ai_item_flags.is_some()) {
-        return Err(StartError::Unsupported("[enemy_trainer] AI flag overrides patch the ROM"));
-    }
     let link = config.battle.kind == BattleKind::LinkBattle;
     // Cpu::seed_rng: a zero seed is mapped to the default constant.
     let rng = if seed == 0 { 0x9e37_79b9_7f4a_7c15 } else { seed };
@@ -92,6 +89,12 @@ pub fn start(config: &BattleConfig, seed: u64, render_text: bool) -> Result<Engi
         BattleKind::LinkBattle => engine.launch_link_battle(config)?,
     };
     engine.start_battle(&launch)?;
+    // `[enemy_trainer]` patches the trainer's AI flags in the ROM; nothing
+    // before the first turn reads them.
+    if let (Some(ov), BattleKind::TrainerBattle) = (&config.enemy_trainer, config.battle.kind) {
+        let class = engine.mem.rb(W_TRAINER_CLASS);
+        engine.rom_overlay = crate::bootstrap::ai_flag_patches(class, ov)?;
+    }
     Ok(engine)
 }
 

@@ -37,7 +37,7 @@ impl Engine {
             let class = self.mem.rb(W_TRAINER_CLASS).wrapping_sub(1);
             hl += usize::from(class) * usize::from(NUM_TRAINER_ATTRIBUTES);
         }
-        let flags = rom::byte(hl);
+        let flags = self.rom_byte(hl);
         // (SwitchOften, SwitchRarely, SwitchSometimes) thresholds for the $10, $20 and $30 cases:
         // switch if `Random < threshold` for $10 and $20; for $30, don't switch if
         // `Random < threshold`.
@@ -117,7 +117,7 @@ impl Engine {
         let bc = r::TRAINER_CLASS_ATTRIBUTES
             + usize::from(TRNATTR_AI_ITEM_SWITCH)
             + usize::from(class) * usize::from(NUM_TRAINER_ATTRIBUTES);
-        let flags = rom::byte(bc);
+        let flags = self.rom_byte(bc);
         let mut hl = r::AI_ITEMS;
         // BUG: AI might use its base reward value as an item
         let mut de = W_ENEMY_TRAINER_ITEM1;

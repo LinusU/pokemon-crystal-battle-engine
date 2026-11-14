@@ -68,11 +68,23 @@ pub struct Engine {
     pub rendered: Option<Vec<String>>,
     /// Rendered messages per decision, when both logs are on.
     pub text_log: Vec<Vec<String>>,
+    /// ROM bytes a scenario overrides (flat offset, value): the harness's
+    /// `Cpu::poke_rom` patches of a trainer's AI flags. Read through
+    /// [`Engine::rom_byte`].
+    pub rom_overlay: Vec<(usize, u8)>,
 }
 
 impl Engine {
     pub fn new(mem: Mem, rng: u64, flags: Flags) -> Self {
-        Engine { mem, rng, flags, pending: VecDeque::new(), texts: Vec::new(), rng_trace: None, decision_log: None, damage_regs: [0; 4], rendered: None, text_log: Vec::new() }
+        Engine { mem, rng, flags, pending: VecDeque::new(), texts: Vec::new(), rng_trace: None, decision_log: None, damage_regs: [0; 4], rendered: None, text_log: Vec::new(), rom_overlay: Vec::new() }
+    }
+
+    /// A ROM byte, as patched by the scenario's [`Engine::rom_overlay`].
+    pub fn rom_byte(&self, addr: usize) -> u8 {
+        match self.rom_overlay.iter().find(|&&(a, _)| a == addr) {
+            Some(&(_, v)) => v,
+            None => super::rom::byte(addr),
+        }
     }
 
     // --- the random stream ----------------------------------------------------
