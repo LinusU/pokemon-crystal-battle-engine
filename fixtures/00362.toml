@@ -1,0 +1,81 @@
+[recording]
+seed = "0x4200000000000362"
+
+[scenario.battle]
+type = "trainer_battle"
+trainer = "YOUNGSTER_1"
+
+[[scenario.player_party]]
+species = "Snorlax"
+level = 30
+
+[[scenario.player_items]]
+name = "Poke Ball"
+quantity = 2
+
+[[step]]
+kind = "item"
+id = 5
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 143
+expect.player.active.max_hp = 143
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 30, hp = 143, max_hp = 143, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RATTATA"
+expect.enemy.active.level = 4
+expect.enemy.active.hp = 17
+expect.enemy.active.max_hp = 17
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 29, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RATTATA", level = 4, hp = 17, max_hp = 17, status = "none", item = "none" }]
+
+[[step]]
+kind = "item"
+id = 5
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 143
+expect.player.active.max_hp = 143
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 10, 15]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 30, hp = 143, max_hp = 143, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RATTATA"
+expect.enemy.active.level = 4
+expect.enemy.active.hp = 17
+expect.enemy.active.max_hp = 17
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 28, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RATTATA", level = 4, hp = 17, max_hp = 17, status = "none", item = "none" }]
+
+[[step]]
+kind = "move"
+slot = 3
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 30
+expect.player.active.hp = 143
+expect.player.active.max_hp = 143
+expect.player.active.status = "none"
+expect.player.active.pp = [20, 40, 10, 14]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 30, hp = 143, max_hp = 143, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "RATTATA"
+expect.enemy.active.level = 4
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 17
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 28, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = [{ species = "RATTATA", level = 4, hp = 0, max_hp = 17, status = "none", item = "none" }]
+expect.battle.outcome = "win"

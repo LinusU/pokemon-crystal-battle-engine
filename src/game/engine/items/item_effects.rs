@@ -858,26 +858,25 @@ pub(crate) fn poke_ball_effect_not_kurt_ball(cpu: &mut Cpu) {
     cpu.pc += 2;
     cpu.cycle(8);
     let next_pc = cpu.pc + 3;
-    // HARNESS-PATCH: skip the ball-throw battle animation (`predef PlayBattleAnim`
-    // with `ANIM_THROW_POKE_BALL`; asm engine/items/item_effects.asm:406). Headless,
-    // its OAM-update loop (`battle_anim_oam_update_loop`) never terminates — the
-    // sprite slots it polls are serviced by the on-screen OAM pipeline we don't run.
-    // (Ordinary move animations take a different, terminating script and run fine, so
-    // this is scoped to the ball throw only, not PlayBattleAnim in general.) The
-    // authoritative catch result already lives in `wWildMon` (0xc64e), written by
-    // `.catch_without_fail` / `.fail_to_catch` BEFORE this call, and that is exactly
-    // what the code right below reads to branch to `.caught` vs the break-free path.
-    // The animation's only side effect on control flow is `wThrownBallWobbleCount`
-    // (0xd1eb): the break-free path (below) reads it to pick which "broke free" flavour
-    // text to print, treating 1..=4 as "escaped" and falling through to `.caught`
-    // otherwise. It was just zeroed (`xor a; ld [wThrownBallWobbleCount], a` above), so
-    // if we skipped the anim AND broke free it would wrongly fall through to `.caught`.
-    // To keep the catch/escape decision correct we set it to 1 ("broke free") on an
-    // escape; on a catch `wWildMon != 0` short-circuits to `.caught` and the value is
-    // ignored. Then skip the `predef` call (don't push/invoke), leaving PC where it
-    // would have returned. See docs/transpiled_code.md and bootstrap::cli.
-    if cpu.read_byte(0xc64e) == 0 {
-        cpu.write_byte(0xd1eb, 1);
+    // HARNESS-PATCH: replace the ball-throw battle animation (`predef PlayBattleAnim`
+    // with `ANIM_THROW_POKE_BALL`; asm engine/items/item_effects.asm:406) by its only
+    // game-state effect. Headless, the animation's OAM-update loop
+    // (`battle_anim_oam_update_loop`) never terminates. What the animation does to the
+    // game is its `.Loop` (data/moves/animations.asm `BattleAnim_ThrowPokeBall`):
+    // `anim_checkpokeball` → `GetPokeBallWobble` repeatedly until it returns 1 (click)
+    // or 2 (break free). Each call bumps `wThrownBallWobbleCount` (0xd1eb) and, while
+    // the mon is not caught, draws one `Random` byte — so the wobbles consume the
+    // random stream, and the count picks the "broke free" text below. Run exactly
+    // that loop here (GetPokeBallWobble is in bank 0x03, PokeBallEffect's bank).
+    // See docs/transpiled_code.md.
+    loop {
+        let return_sentinel: u16 = 0xfff8;
+        cpu.push_word(return_sentinel);
+        crate::game::engine::battle_anims::pokeball_wobble::get_poke_ball_wobble(cpu);
+        assert_eq!(cpu.pc, return_sentinel);
+        if cpu.c != 0 {
+            break;
+        }
     }
     cpu.pc = next_pc;
     cpu.cycle(24);

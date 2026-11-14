@@ -1,0 +1,217 @@
+[recording]
+seed = "0x4200000000000363"
+
+[scenario.battle]
+type = "wild_encounter"
+
+[[scenario.player_party]]
+species = "Snorlax"
+level = 20
+moves = ["splash", "tackle"]
+
+[[scenario.enemy_party]]
+species = "Magikarp"
+level = 5
+
+[[scenario.player_items]]
+name = "X Attack"
+quantity = 8
+
+[[step]]
+kind = "item"
+id = 49
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 20
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 35, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 20, hp = 97, max_hp = 97, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGIKARP"
+expect.enemy.active.level = 5
+expect.enemy.active.hp = 17
+expect.enemy.active.max_hp = 17
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [39, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "item"
+id = 49
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 20
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 35, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 20, hp = 97, max_hp = 97, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGIKARP"
+expect.enemy.active.level = 5
+expect.enemy.active.hp = 17
+expect.enemy.active.max_hp = 17
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [38, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "item"
+id = 49
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 20
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 35, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 20, hp = 97, max_hp = 97, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGIKARP"
+expect.enemy.active.level = 5
+expect.enemy.active.hp = 17
+expect.enemy.active.max_hp = 17
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [37, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "item"
+id = 49
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 20
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 35, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 20, hp = 97, max_hp = 97, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGIKARP"
+expect.enemy.active.level = 5
+expect.enemy.active.hp = 17
+expect.enemy.active.max_hp = 17
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [36, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "item"
+id = 49
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 20
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 35, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 20, hp = 97, max_hp = 97, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGIKARP"
+expect.enemy.active.level = 5
+expect.enemy.active.hp = 17
+expect.enemy.active.max_hp = 17
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [35, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "item"
+id = 49
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 20
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 35, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 20, hp = 97, max_hp = 97, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGIKARP"
+expect.enemy.active.level = 5
+expect.enemy.active.hp = 17
+expect.enemy.active.max_hp = 17
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [34, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "item"
+id = 49
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 20
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 35, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 20, hp = 97, max_hp = 97, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGIKARP"
+expect.enemy.active.level = 5
+expect.enemy.active.hp = 17
+expect.enemy.active.max_hp = 17
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [33, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "item"
+id = 49
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 20
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 35, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 20, hp = 97, max_hp = 97, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGIKARP"
+expect.enemy.active.level = 5
+expect.enemy.active.hp = 17
+expect.enemy.active.max_hp = 17
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [32, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+
+[[step]]
+kind = "move"
+slot = 1
+expect.player.active_slot = 0
+expect.player.active.species = "SNORLAX"
+expect.player.active.level = 20
+expect.player.active.hp = 97
+expect.player.active.max_hp = 97
+expect.player.active.status = "none"
+expect.player.active.pp = [40, 34, 0, 0]
+expect.player.active.item = "none"
+expect.player.party = [{ species = "SNORLAX", level = 20, hp = 97, max_hp = 97, status = "none", item = "none" }]
+expect.enemy.active_slot = 0
+expect.enemy.active.species = "MAGIKARP"
+expect.enemy.active.level = 5
+expect.enemy.active.hp = 0
+expect.enemy.active.max_hp = 17
+expect.enemy.active.status = "none"
+expect.enemy.active.pp = [32, 0, 0, 0]
+expect.enemy.active.item = "none"
+expect.enemy.party = []
+expect.battle.outcome = "win"
