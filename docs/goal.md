@@ -108,12 +108,20 @@ The overall plan, in five phases:
       emulation itself (~250M emulated instructions for a 120-decision battle).
 - [x] Fidelity: the Poké Ball wobble rolls (`GetPokeBallWobble` draws
       `Random`) were skipped with the ball animation; they now run.
-- [ ] Hand-written engine (`src/engine/`): pure Rust, typed state, no `Cpu`,
+- [ ] Hand-written engine (`src/engine/`, guide: [engine.md](engine.md)) — in
+      progress. Ported: turn loop, move-effect script reader, CheckTurn,
+      damage pipeline, switching, fainting, between-turn effects, held items
+      in residual effects, the harness menus. Link battles with plain
+      damaging moves match the original exactly (300/300 random battles).
+      Missing: most status/stat/special move effects, AI, bag items,
+      experience, wild/trainer setup, text rendering.
+      Original plan: pure Rust, typed state, no `Cpu`,
       `Clone`-able (so an AI can search ahead), emits `BattleEvent`s. Game data
       (base stats, moves, type chart, trainer parties, item attributes, AI data)
       is read from the ROM image, so tables are exact by construction.
 - [ ] Differential tester: lockstep comparison against the oracle over random
       battles (all battle kinds, all trainers, random parties, random policies).
+      `examples/engine_diff` does this for link battles today.
 - [ ] The library's `Battle` runs on the hand-written engine by default; the
       oracle stays available behind a feature for testing and for the window.
 - [ ] Benchmarks: battles/second for the oracle vs the new engine.
