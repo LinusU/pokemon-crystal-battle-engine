@@ -8,8 +8,12 @@
 //!
 //! Status: under construction. See docs/goal.md.
 
+pub mod battle;
+pub mod core;
+pub mod math;
 pub mod mem;
 pub mod oracle;
-pub mod testgen;
 pub mod rom;
 pub mod sym;
+pub mod testgen;
+mod todo;
