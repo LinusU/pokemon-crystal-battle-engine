@@ -204,7 +204,9 @@ fn outcome(engine: &Engine) -> Outcome {
     if engine.flags.caught_wild_mon {
         return Outcome::Caught;
     }
-    match engine.mem.rb(super::sym::W_BATTLE_RESULT) & crate::defs::BATTLERESULT_BITMASK {
+    // The low nybble is the result (`and $f`, as `ExitBattle` reads it); the
+    // top bits are flags (`BATTLERESULT_BITMASK`).
+    match engine.mem.rb(super::sym::W_BATTLE_RESULT) & 0x0f {
         0 => Outcome::Win,
         1 => Outcome::Loss,
         _ => Outcome::Draw,
