@@ -19,6 +19,9 @@ struct Out {
     line: String,
     lines: Vec<String>,
     messages: Vec<String>,
+    /// `PlaceEnemysName` took its trainer-battle branch, which calls
+    /// `Battle_GetTrainerName`.
+    trainer_name: bool,
 }
 
 impl Out {
@@ -55,6 +58,23 @@ impl Engine {
             Ptr::Rom(o) => rom::byte(o),
             Ptr::Ram(a) => self.mem.rb(a),
         }
+    }
+
+    /// Whether printing the text at `label` places `<ENEMY>` as a trainer's
+    /// name, which in the original calls `Battle_GetTrainerName` (writing
+    /// `wStringBuffer1`). Memoized per label: which branch `<ENEMY>` takes
+    /// depends only on the battle kind, which the caller checks.
+    pub fn text_places_trainer_name(&self, label: usize, choices: &[usize]) -> bool {
+        thread_local! {
+            static SEEN: std::cell::RefCell<std::collections::HashMap<usize, bool>> = Default::default();
+        }
+        if let Some(v) = SEEN.with(|m| m.borrow().get(&label).copied()) {
+            return v;
+        }
+        let mut out = Out::default();
+        self.run_text_commands(Ptr::Rom(label), &mut out, 0, &mut choices.iter());
+        SEEN.with(|m| m.borrow_mut().insert(label, out.trainer_name));
+        out.trainer_name
     }
 
     /// Render the text at ROM `label` to its messages.
@@ -217,6 +237,7 @@ impl Engine {
                         if class == crate::defs::RIVAL1 || class == crate::defs::RIVAL2 {
                             self.place_string(Ptr::Ram(W_RIVAL_NAME), out);
                         } else {
+                            out.trainer_name = true;
                             self.place_string(Ptr::Ram(W_OT_CLASS_NAME), out);
                             out.push(" ");
                             self.place_string(Ptr::Ram(W_STRING_BUFFER1), out);

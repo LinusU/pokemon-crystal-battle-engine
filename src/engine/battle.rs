@@ -219,6 +219,15 @@ impl Engine {
     /// `text`, for a text whose `text_asm` choices the battle code computed
     /// (in order).
     pub fn text_with(&mut self, label: usize, choices: &[usize]) {
+        // PlaceEnemysName in a (non-rival) trainer battle runs
+        // Battle_GetTrainerName as the text prints.
+        if self.mem.rb(W_BATTLE_MODE) == crate::defs::TRAINER_BATTLE
+            && self.link_mode() == 0
+            && !matches!(self.mem.rb(W_TRAINER_CLASS), crate::defs::RIVAL1 | crate::defs::RIVAL2)
+            && self.text_places_trainer_name(label, choices)
+        {
+            self.battle_get_trainer_name();
+        }
         self.texts.push(TextRef(label));
         if self.rendered.is_some() {
             let messages = self.render_text(label, choices);

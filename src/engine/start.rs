@@ -860,7 +860,7 @@ impl Engine {
 
     /// `Battle_GetTrainerName` (+ `GetTrainerName`, `CopyTrainerName`): the
     /// trainer's name into `wStringBuffer1`.
-    pub(super) fn battle_get_trainer_name(&mut self) {
+    pub fn battle_get_trainer_name(&mut self) {
         let mut src = if self.mem.bit(W_IN_BATTLE_TOWER_BATTLE, IN_BATTLE_TOWER_BATTLE_F) {
             W_OT_PLAYER_NAME
         } else {
