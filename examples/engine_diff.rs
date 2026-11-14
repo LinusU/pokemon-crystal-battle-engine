@@ -31,7 +31,7 @@ fn main() {
             println!("seed {seed}: oracle battle too long, skipped");
             continue;
         };
-        match diff::check(&trace, kind == "link") {
+        match diff::check(&trace, kind == "link", std::env::var_os("NO_TEXT").is_none()) {
             Ok(n) => {
                 ok += 1;
                 println!("seed {seed}: ok ({n} decisions)");

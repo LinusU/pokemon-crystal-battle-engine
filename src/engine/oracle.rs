@@ -22,6 +22,8 @@ pub struct Snapshot {
     /// How many `Random` calls had happened by this decision (an index into
     /// [`Trace::rng_log`]).
     pub rng_calls: usize,
+    /// Battle text printed since the previous decision (exact strings).
+    pub texts: Vec<String>,
 }
 
 /// A full oracle run.
@@ -67,6 +69,13 @@ impl Decider for RecordingDecider {
             mem: Mem::copy_from(cpu),
             rng: cpu.rng_state(),
             rng_calls: cpu.rng_log.as_ref().map_or(0, Vec::len),
+            texts: crate::bootstrap::events::take_events(cpu)
+                .into_iter()
+                .filter_map(|e| match e {
+                    crate::bootstrap::events::Event::Text(t) => Some(t),
+                    _ => None,
+                })
+                .collect(),
         });
         action
     }
@@ -80,6 +89,7 @@ pub fn run(config: &BattleConfig, seed: u64, policy_seed: u64, max_decisions: us
     let mut cpu = Cpu::new_cgb(None, None);
     cpu.interrupt_vectors = crate::interrupt_vectors();
     cpu.rng_log = Some(Vec::new());
+    cpu.events = Some(std::cell::RefCell::new(Default::default()));
     cpu.decider = Some(std::cell::RefCell::new(Box::new(RecordingDecider {
         out: out.clone(),
         policy: policy_seed,

@@ -31,6 +31,8 @@ pub enum Divergence {
     Legal { decision: usize, oracle: String, engine: String },
     Rng { decision: usize, oracle_calls: usize },
     Memory { decision: usize, diffs: Vec<String> },
+    /// The battle text before this decision differs.
+    Text { decision: usize, oracle: Vec<String>, engine: Vec<String> },
     /// One engine decided more times than the other.
     Length { oracle: usize, engine: usize },
 }
@@ -50,11 +52,14 @@ pub fn mem_diffs(oracle: &Mem, engine: &Mem) -> Vec<String> {
 }
 
 /// Replay `trace` on the engine, starting from the oracle's first decision.
-pub fn check(trace: &Trace, link: bool) -> Result<usize, Divergence> {
+pub fn check(trace: &Trace, link: bool, check_text: bool) -> Result<usize, Divergence> {
     let Some(first) = trace.decisions.first() else { return Ok(0) };
     let mut engine = Engine::new(first.mem.clone(), first.rng, Flags { link_battle: link, ..Flags::default() });
     engine.pending = trace.decisions.iter().map(|d| d.action).collect();
     engine.decision_log = Some(Vec::new());
+    if check_text {
+        engine.rendered = Some(Vec::new());
+    }
     let run = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
         let mut entry = TurnEntry::BattleMenu;
         loop {
@@ -65,15 +70,15 @@ pub fn check(trace: &Trace, link: bool) -> Result<usize, Divergence> {
         }
         engine
     }));
-    let (log, panic) = match run {
-        Ok(engine) => (engine.decision_log.unwrap(), None),
+    let (log, texts, panic) = match run {
+        Ok(engine) => (engine.decision_log.unwrap(), engine.text_log, None),
         Err(payload) => {
             let msg = payload
                 .downcast_ref::<String>()
                 .cloned()
                 .or_else(|| payload.downcast_ref::<&str>().map(|s| s.to_string()))
                 .unwrap_or_default();
-            (Vec::new(), Some(msg))
+            (Vec::new(), Vec::new(), Some(msg))
         }
     };
     if let Some(message) = panic {
@@ -82,6 +87,10 @@ pub fn check(trace: &Trace, link: bool) -> Result<usize, Divergence> {
     }
     for (i, (snap, (site, legal, mem, rng))) in trace.decisions.iter().zip(&log).enumerate() {
         compare(i, snap, *site, legal, mem, *rng)?;
+        // The first decision's text happened before the engine took over.
+        if check_text && i > 0 && snap.texts != texts[i] {
+            return Err(Divergence::Text { decision: i, oracle: snap.texts.clone(), engine: texts[i].clone() });
+        }
     }
     if log.len() != trace.decisions.len() {
         return Err(Divergence::Length { oracle: trace.decisions.len(), engine: log.len() });

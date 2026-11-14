@@ -105,5 +105,11 @@ for name in sorted(rom):
     bank, addr = rom[name]
     flat = addr if bank == 0 else bank * 0x4000 + (addr - 0x4000)
     print(f"pub const {c}: usize = {flat:#08x}; // {bank:02x}:{addr:04x} {name}")
+print()
+print("/// Every label above, sorted by offset, for naming addresses.")
+print("pub const ROM_SYMBOLS: &[(usize, &str)] = &[")
+for flat, name in sorted(((a if b == 0 else b * 0x4000 + (a - 0x4000)), n) for n, (b, a) in rom.items()):
+    print(f"    ({flat:#08x}, \"{name}\"),")
+print("];")
 
 out.close()

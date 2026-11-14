@@ -33,6 +33,7 @@ pub mod setup;
 pub mod rsym;
 pub mod sym;
 pub mod testgen;
+pub mod text;
 mod todo;
 mod todo_damage;
 mod todo_residual;
@@ -40,3 +41,14 @@ mod todo_switch;
 pub mod damage;
 pub mod residual;
 pub mod switch;
+
+/// The ROM label covering flat offset `addr`, e.g. `UsedMoveText+3`.
+pub fn rsym_name(addr: usize) -> String {
+    let t = rsym::ROM_SYMBOLS;
+    let i = t.partition_point(|&(a, _)| a <= addr);
+    if i == 0 {
+        return format!("{addr:#08x}");
+    }
+    let (base, name) = t[i - 1];
+    if base == addr { name.to_string() } else { format!("{name}+{}", addr - base) }
+}

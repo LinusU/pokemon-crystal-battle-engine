@@ -63,11 +63,16 @@ pub struct Engine {
     /// `BattleCommand_DamageCalc` (attack, defense, move power, level). The
     /// original's script reader preserves them between commands.
     pub damage_regs: [u8; 4],
+    /// When `Some`, every printed text is rendered to its messages here
+    /// (exact strings, see `text.rs`).
+    pub rendered: Option<Vec<String>>,
+    /// Rendered messages per decision, when both logs are on.
+    pub text_log: Vec<Vec<String>>,
 }
 
 impl Engine {
     pub fn new(mem: Mem, rng: u64, flags: Flags) -> Self {
-        Engine { mem, rng, flags, pending: VecDeque::new(), texts: Vec::new(), rng_trace: None, decision_log: None, damage_regs: [0; 4] }
+        Engine { mem, rng, flags, pending: VecDeque::new(), texts: Vec::new(), rng_trace: None, decision_log: None, damage_regs: [0; 4], rendered: None, text_log: Vec::new() }
     }
 
     // --- the random stream ----------------------------------------------------
@@ -209,6 +214,10 @@ impl Engine {
     /// `StdBattleTextbox` / `PrintText` with the text at `label`.
     pub fn text(&mut self, label: usize) {
         self.texts.push(TextRef(label));
+        if self.rendered.is_some() {
+            let messages = self.render_text(label);
+            self.rendered.as_mut().unwrap().extend(messages);
+        }
     }
 
     // --- decisions --------------------------------------------------------------
@@ -218,6 +227,9 @@ impl Engine {
         let legal = crate::bootstrap::cli::legal_steps(&self.mem, site);
         if let Some(log) = self.decision_log.as_mut() {
             log.push((site, legal.clone(), self.mem.clone(), self.rng));
+            if let Some(r) = self.rendered.as_mut() {
+                self.text_log.push(std::mem::take(r));
+            }
         }
         match self.pending.pop_front() {
             Some(step) => {
