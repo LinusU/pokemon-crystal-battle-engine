@@ -53,11 +53,16 @@ pub struct Engine {
     /// Optional record of the engine at every decision point (differential
     /// testing): the site, legal steps, memory and random-stream state.
     pub decision_log: Option<Vec<(PromptSite, Vec<Step>, Mem, u64)>>,
+    /// The registers `b`, `c`, `d`, `e` that `PlayerAttackDamage` /
+    /// `EnemyAttackDamage` / `HitSelfInConfusion` leave for
+    /// `BattleCommand_DamageCalc` (attack, defense, move power, level). The
+    /// original's script reader preserves them between commands.
+    pub damage_regs: [u8; 4],
 }
 
 impl Engine {
     pub fn new(mem: Mem, rng: u64, flags: Flags) -> Self {
-        Engine { mem, rng, flags, pending: VecDeque::new(), texts: Vec::new(), rng_trace: None, decision_log: None }
+        Engine { mem, rng, flags, pending: VecDeque::new(), texts: Vec::new(), rng_trace: None, decision_log: None, damage_regs: [0; 4] }
     }
 
     // --- the random stream ----------------------------------------------------

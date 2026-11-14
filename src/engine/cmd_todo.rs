@@ -11,17 +11,6 @@ impl Engine {
         Ok(Cmd::Next)
     }
 
-    pub fn battle_command_damage_stats(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_DamageStats") }
-    pub fn battle_command_check_hit(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_CheckHit") }
-    pub fn battle_command_lower_sub(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_LowerSub") }
-    pub fn battle_command_move_anim_no_sub(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_MoveAnimNoSub") }
-    pub fn battle_command_raise_sub(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_RaiseSub") }
-    pub fn battle_command_failure_text(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_FailureText") }
-    pub fn battle_command_apply_damage(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_ApplyDamage") }
-    pub fn battle_command_critical_text(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_CriticalText") }
-    pub fn battle_command_super_effective_text(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_SuperEffectiveText") }
-    pub fn battle_command_check_faint(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_CheckFaint") }
-    pub fn battle_command_build_opponent_rage(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_BuildOpponentRage") }
     pub fn battle_command_poison_target(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_PoisonTarget") }
     pub fn battle_command_sleep_target(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_SleepTarget") }
     pub fn battle_command_drain_target(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_DrainTarget") }
@@ -39,7 +28,6 @@ impl Engine {
     pub fn battle_command_store_energy(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_StoreEnergy") }
     pub fn battle_command_unleash_energy(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_UnleashEnergy") }
     pub fn battle_command_force_switch(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_ForceSwitch") }
-    pub fn battle_command_end_loop(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_EndLoop") }
     pub fn battle_command_flinch_target(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_FlinchTarget") }
     pub fn battle_command_ohko(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_OHKO") }
     pub fn battle_command_recoil(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_Recoil") }
@@ -59,14 +47,12 @@ impl Engine {
     pub fn battle_command_leech_seed(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_LeechSeed") }
     pub fn battle_command_splash(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_Splash") }
     pub fn battle_command_disable(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_Disable") }
-    pub fn battle_command_clear_text(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_ClearText") }
     pub fn battle_command_charge(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_Charge") }
     pub fn battle_command_check_charge(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_CheckCharge") }
     pub fn battle_command_trap_target(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_TrapTarget") }
     pub fn battle_command_unused3_c(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_Unused3C") }
     pub fn battle_command_rampage(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_Rampage") }
     pub fn battle_command_check_rampage(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_CheckRampage") }
-    pub fn battle_command_constant_damage(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_ConstantDamage") }
     pub fn battle_command_counter(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_Counter") }
     pub fn battle_command_encore(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_Encore") }
     pub fn battle_command_pain_split(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_PainSplit") }
@@ -78,9 +64,7 @@ impl Engine {
     pub fn battle_command_sleep_talk(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_SleepTalk") }
     pub fn battle_command_destiny_bond(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_DestinyBond") }
     pub fn battle_command_spite(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_Spite") }
-    pub fn battle_command_false_swipe(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_FalseSwipe") }
     pub fn battle_command_heal_bell(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_HealBell") }
-    pub fn battle_command_held_flinch(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_HeldFlinch") }
     pub fn battle_command_triple_kick(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_TripleKick") }
     pub fn battle_command_kick_counter(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_KickCounter") }
     pub fn battle_command_thief(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_Thief") }
@@ -101,7 +85,6 @@ impl Engine {
     pub fn battle_command_attract(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_Attract") }
     pub fn battle_command_happiness_power(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_HappinessPower") }
     pub fn battle_command_present(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_Present") }
-    pub fn battle_command_damage_calc(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_DamageCalc") }
     pub fn battle_command_frustration_power(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_FrustrationPower") }
     pub fn battle_command_safeguard(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_Safeguard") }
     pub fn battle_command_check_safeguard(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_CheckSafeguard") }
@@ -147,10 +130,6 @@ impl Engine {
     pub fn battle_command_stat_down_message(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_StatDownMessage") }
     pub fn battle_command_stat_up_fail_text(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_StatUpFailText") }
     pub fn battle_command_stat_down_fail_text(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_StatDownFailText") }
-    pub fn battle_command_effect_chance(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_EffectChance") }
-    pub fn battle_command_stat_down_anim(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_StatDownAnim") }
-    pub fn battle_command_stat_up_anim(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_StatUpAnim") }
-    pub fn battle_command_switch_turn(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_SwitchTurn") }
     pub fn battle_command_fake_out(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_FakeOut") }
     pub fn battle_command_belly_drum(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_BellyDrum") }
     pub fn battle_command_psych_up(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_PsychUp") }
@@ -165,17 +144,8 @@ impl Engine {
     pub fn battle_command_thunder_accuracy(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_ThunderAccuracy") }
     pub fn battle_command_teleport(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_Teleport") }
     pub fn battle_command_beat_up(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_BeatUp") }
-    pub fn battle_command_rage_damage(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_RageDamage") }
     pub fn battle_command_all_stats_up(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_AllStatsUp") }
-    pub fn battle_command_bide_fail_text(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_BideFailText") }
-    pub fn battle_command_raise_sub_no_anim(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_RaiseSubNoAnim") }
-    pub fn battle_command_lower_sub_no_anim(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_LowerSubNoAnim") }
     pub fn battle_command_beat_up_fail_text(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_BeatUpFailText") }
-    pub fn battle_command_clear_miss_damage(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_ClearMissDamage") }
-    pub fn battle_command_move_delay(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_MoveDelay") }
-    pub fn battle_command_move_anim(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_MoveAnim") }
     pub fn battle_command_tri_status_chance(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_TriStatusChance") }
-    pub fn battle_command_super_effective_loop_text(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_SuperEffectiveLoopText") }
-    pub fn battle_command_start_loop(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_StartLoop") }
     pub fn battle_command_curl(&mut self) -> Flow<Cmd> { self.unported("BattleCommand_Curl") }
 }
