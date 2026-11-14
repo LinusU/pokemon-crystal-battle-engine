@@ -102,6 +102,15 @@ pub(crate) fn battle_command_beat_up_got_mon(cpu: &mut Cpu) {
     cpu.set_hl(0xde41);
     cpu.pc += 3;
     cpu.cycle(12);
+    // HARNESS-PATCH: a stale loop counter runs wCurBeatUpPartyMon past the
+    // party; a nickname that would be read from state the hand-written engine
+    // doesn't keep (live stack, sound, graphics) is read from zeros instead.
+    // hl and a are dead after GetNickname. See docs/transpiled_code.md.
+    let name = 0xde41u16.wrapping_add(u16::from(cpu.a) * 11);
+    if !crate::engine::mem::glitch_range_kept(name, 11) {
+        cpu.set_hl(crate::engine::mem::GLITCH_ZERO);
+        cpu.a = 0;
+    }
     let next_pc = cpu.pc + 3;
     cpu.push_word(next_pc);
     cpu.cycle(24);
@@ -763,6 +772,13 @@ pub(crate) fn get_beatup_mon_location_got_species(cpu: &mut Cpu) {
     cpu.cycle(24);
     crate::game::home::battle::get_party_location(cpu);
     assert_eq!(cpu.pc, next_pc);
+    // HARNESS-PATCH: Beat Up's party index past the party (stale loop
+    // counter) can point at state the hand-written engine doesn't keep (live
+    // stack, sound, graphics, OAM, I/O); read zeros there instead. See
+    // docs/transpiled_code.md.
+    if !crate::engine::mem::glitch_range_kept(cpu.hl(), 2) {
+        cpu.set_hl(crate::engine::mem::GLITCH_ZERO);
+    }
     let value = cpu.pop_word();
     cpu.set_bc(value);
     cpu.pc += 1;

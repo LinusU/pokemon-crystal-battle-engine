@@ -102,6 +102,7 @@ build --release --examples`).
 
 Scenarios where the original game itself freezes (a wild Unown with no
 unlocked letters) or the harness can't run it are skipped by a cycle
-watchdog. Known gap: a glitch that reads past WRAM (Beat Up with a stale loop
-counter walking past the party) reads graphics state the engine doesn't keep;
-the engine stops there with a panic rather than guess.
+watchdog. Glitch reads outside the WRAM the engine keeps: echo RAM and ROM
+bank 0 read like the original (`Mem::rb`); Beat Up's walk past the party
+reads zeros for state neither engine keeps (see [goal.md](goal.md#known-gaps)).
+Any other such read panics rather than guess.

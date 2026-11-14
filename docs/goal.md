@@ -163,12 +163,18 @@ compile the `objc2` 0.4 that glium 0.34 pulled in.
 
 ### Known gaps
 
-- **Reads past WRAM.** A Beat Up whose loop counter was left stale by a miss
-  walks past the party into echo RAM, which mirrors the tilemap and other
-  graphics buffers. The original's result depends on what is on screen; the
-  engine doesn't keep graphics state, so it stops with a panic there instead
-  of guessing (`battle::Battle::step` returns `Error::Engine`). Seen once in
-  170,000 random link battles.
+- **Beat Up's walk past the party** is pinned, not original. A Beat Up that
+  misses leaves its loop flag set; the next one underflows the loop counter
+  and walks the party index through all 256 values: past the party, through
+  echo RAM, OAM and I/O, wrapping around to ROM (about 1 in 2,500 random
+  battles). Where a read lands on WRAM both engines keep, or on ROM, it is
+  exact. Where it lands on state neither keeps the way real Crystal does (the
+  live stack, sound, graphics and menu scratch, OAM, I/O: see
+  `engine::mem::NOT_KEPT` / `DRIFTS`), the transpiled original holds an
+  artifact of itself (what the transpiled code pushed, the emulator's
+  timing), not real hardware state. Both engines read zeros there instead (a
+  HARNESS-PATCH in `GetBeatupMonLocation` and Beat Up's nickname lookup,
+  [transpiled_code.md](transpiled_code.md)).
 - **Scenarios the original itself freezes on** (a wild Unown with no unlocked
   letters) are skipped by the tester's cycle watchdog.
 - **Not offered by the harness, so not ported:** Bug-Catching Contest and

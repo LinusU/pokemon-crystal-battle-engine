@@ -8,6 +8,7 @@
 use super::battle::{Engine, Flow, PARTY_LEN, PP_MASK, percent};
 use super::commands::Cmd;
 use super::names::CHAR_TERMINATOR;
+use super::mem::{GLITCH_ZERO, glitch_range_kept};
 use super::rom;
 use super::rsym as r;
 use super::sym::*;
@@ -289,7 +290,15 @@ impl Engine {
         // .got_mon
         // BUG: Beat Up can desynchronize link battles
         let cur = self.mem.rb(W_CUR_BEAT_UP_PARTY_MON);
-        self.get_nickname(W_PARTY_MON_NICKNAMES, cur);
+        // A stale loop counter runs `cur` past the party (see
+        // `get_beatup_mon_location`); the harness reads zeros for names that
+        // would come from state neither engine keeps.
+        let name = W_PARTY_MON_NICKNAMES.wrapping_add(u16::from(cur) * u16::from(MON_NAME_LENGTH));
+        if glitch_range_kept(name, u16::from(MON_NAME_LENGTH)) {
+            self.get_nickname(W_PARTY_MON_NICKNAMES, cur);
+        } else {
+            self.get_nickname(GLITCH_ZERO, 0);
+        }
         let hp = self.get_beatup_mon_location(MON_HP);
         if self.mem.rb(hp) | self.mem.rb(hp + 1) == 0 {
             return self.beat_up_fail();
@@ -392,10 +401,18 @@ impl Engine {
     }
 
     /// `GetBeatupMonLocation`: address of field `offset` of the current Beat Up mon.
+    ///
+    /// BUG (the original's): a Beat Up that misses leaves `SUBSTATUS_IN_LOOP`
+    /// set, the next one underflows the loop counter and walks the party index
+    /// through all 256 values: past the party, through echo RAM, OAM and I/O,
+    /// wrapping around to ROM. Where that lands on state neither engine keeps
+    /// (the live stack, sound, graphics, I/O) the harness reads zeros
+    /// (a HARNESS-PATCH in the transpiled routine; [`GLITCH_ZERO`]).
     fn get_beatup_mon_location(&self, offset: u8) -> u16 {
         let base = if self.is_player_turn() { W_PARTY_MON1_SPECIES } else { W_OT_PARTY_MON1_SPECIES };
         let n = self.mem.rb(W_CUR_BEAT_UP_PARTY_MON);
-        self.get_party_location(base.wrapping_add(u16::from(offset)), n)
+        let hl = self.get_party_location(base.wrapping_add(u16::from(offset)), n);
+        if glitch_range_kept(hl, 2) { hl } else { GLITCH_ZERO }
     }
 
     // --- belly_drum.asm ----------------------------------------------------------

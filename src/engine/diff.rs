@@ -30,25 +30,10 @@ pub const COMPARED: &[(u16, u16)] = &[
 ];
 
 /// What the start-state check ([`check_start`]) leaves out of the WRAM
-/// comparison: everything the original writes that is graphics, sound or
-/// boot/UI scratch and never read by battle code (see docs/engine.md).
+/// comparison: the WRAM the engine doesn't keep (graphics, sound, the live
+/// stack, boot/UI scratch; never read by battle code, see docs/engine.md).
 /// Everything else in WRAM is compared, byte for byte.
-pub const START_IGNORED: &[(u16, u16)] = &[
-    (0xc000, 0xc2c5), // wStack, wMusic* / wChannel* / wCry* / wSFX* (audio), wLZ*
-    (0xc4a0, 0xc608), // wTilemap (shadow OAM stays zero)
-    (0xc741, 0xc7d4), // after wBattleEnd: code the transition copies into WRAM
-    (0xcd98, 0xcf50), // wBGMapBuffer, wAttrmap
-    (0xcf63, 0xcf6c), // wBattleTower*, wBattleTransition*, wRequested2bpp*
-    (0xcf71, 0xcf73), // wMenuMetadata
-    (0xcf81, 0xcf92), // menu cursor / border / data
-    (0xcfb2, 0xcfb3), // wTextDelayFrames
-    (0xcfb4, 0xcfbb), // wPredef*, wFarCallBC
-    (0xcfc4, 0xcfca), // wPlaceBalls*, wBGP, wOBP*
-    (0xd003, 0xd008), // wBillsPCTempListIndex.. (scratch)
-    (0xd0ed, 0xd0ee), // wStateFlags
-    (0xd153, 0xd154), // wBGMapAnchor
-    (0xd1ea, 0xd1f0), // wBattleHUDTiles
-];
+pub const START_IGNORED: &[(u16, u16)] = super::mem::NOT_KEPT;
 
 /// HRAM bytes the start-state check compares (the rest of HRAM is the
 /// boot's, graphics' and the math routines' scratch).

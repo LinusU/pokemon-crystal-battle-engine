@@ -15,6 +15,74 @@ const WRAM_LEN: usize = 0x2000;
 const HRAM_START: u16 = 0xff80;
 const HRAM_LEN: usize = 0x7f;
 
+/// WRAM the engine has but doesn't keep the way the original does: the live
+/// part of the CPU stack, sound, graphics buffers and menu/UI scratch. They
+/// hold whatever the start state left there. The bottom of the stack
+/// (c000-c07f) is kept: the original never pushes that deep in a battle
+/// (its deepest is around c091), so both sides keep it zero.
+pub const NOT_KEPT: &[(u16, u16)] = &[
+    (0xc080, 0xc2c5), // live stack, wMusic* / wChannel* / wCry* / wSFX* (audio), wLZ*
+    (0xc4a0, 0xc608), // wTilemap (shadow OAM stays zero)
+    (0xc741, 0xc7d4), // after wBattleEnd: code the transition copies into WRAM
+    (0xcd98, 0xcf50), // wBGMapBuffer, wAttrmap
+    (0xcf63, 0xcf6c), // wBattleTower*, wBattleTransition*, wRequested2bpp*
+    (0xcf71, 0xcf73), // wMenuMetadata
+    (0xcf81, 0xcf92), // menu cursor / border / data
+    (0xcfb2, 0xcfb3), // wTextDelayFrames
+    (0xcfb4, 0xcfbb), // wPredef*, wFarCallBC
+    (0xcfc4, 0xcfca), // wPlaceBalls*, wBGP, wOBP*
+    (0xd003, 0xd008), // wBillsPCTempListIndex.. (scratch)
+    (0xd0ed, 0xd0ee), // wStateFlags
+    (0xd153, 0xd154), // wBGMapAnchor
+    (0xd1ea, 0xd1f0), // wBattleHUDTiles
+];
+
+/// Whether `addr` is in [`NOT_KEPT`].
+pub fn is_not_kept(addr: u16) -> bool {
+    NOT_KEPT.iter().any(|&(a, b)| (a..b).contains(&addr))
+}
+
+/// WRAM that is the same on both engines at the start but drifts during the
+/// battle: what the original's menus, sprite and battle animations and HP-bar
+/// code write, and the scratch they leave behind (base data, temp mon, string
+/// buffer 2). Found by comparing every byte at every decision of random
+/// battles (all the others stay equal).
+pub const DRIFTS: &[(u16, u16)] = &[
+    (0xc300, 0xc4a0), // wSpriteAnim*, wCurIcon / wCurAnim*, wShadowOAM
+    (0xcf5f, 0xcfcb), // wMonType, wCurSpecies, window stack, 2D menu, wFXAnimID, wBattleAfterAnim
+    (0xd086, 0xd0a0), // wStringBuffer2
+    (0xd108, 0xd10b), // wCurPartySpecies, wWhichHPBar
+    (0xd123, 0xd13e), // wTempMon
+    (0xd1f0, 0xd1f2), // wCurHPAnimPal, wCurEnemyItem
+    (0xd234, 0xd266), // wUnownLetter, wBaseData, wApplyStatLevelMultipliersToEnemy
+];
+
+/// Whether a glitch read of `addr` reads the same byte on both engines: ROM
+/// bank 0 and WRAM (direct or through echo RAM) that is neither
+/// [`NOT_KEPT`] nor [`DRIFTS`]. Not: the live stack, sound, graphics
+/// buffers, UI scratch, VRAM, OAM, I/O, HRAM.
+pub fn glitch_read_kept(addr: u16) -> bool {
+    let kept = |a: u16| !is_not_kept(a) && !DRIFTS.iter().any(|&(lo, hi)| (lo..hi).contains(&a));
+    match addr {
+        0x0000..=0x3fff => true,
+        0xc000..=0xdfff => kept(addr),
+        0xe000..=0xfdff => kept(addr - 0x2000),
+        _ => false,
+    }
+}
+
+/// Whether all of `addr..addr + len` is [`glitch_read_kept`].
+pub fn glitch_range_kept(addr: u16, len: u16) -> bool {
+    (0..len).all(|i| glitch_read_kept(addr.wrapping_add(i)))
+}
+
+/// Where Beat Up's glitch reads of state neither engine keeps are sent: the
+/// bottom of the stack, which stays zero (see [`NOT_KEPT`]). Those bytes are
+/// hardware state the transpiled original doesn't reproduce either (its stack
+/// holds what the transpiled code pushed, its I/O registers the emulator's
+/// timing), so both engines read zeros there instead. See docs/engine.md.
+pub const GLITCH_ZERO: u16 = 0xc000;
+
 #[derive(Clone, PartialEq, Eq)]
 pub struct Mem {
     wram: Box<[u8; WRAM_LEN]>,
@@ -52,11 +120,31 @@ impl Mem {
         match addr {
             0xc000..=0xdfff => self.wram[usize::from(addr - WRAM_START)],
             0xff80..=0xfffe => self.hram[usize::from(addr - HRAM_START)],
-            // Echo RAM (e000-fdff) mirrors c000-ddff, including the tilemap
-            // and other graphics buffers the engine doesn't keep: a glitch
-            // that reads it (Beat Up's stale loop counter walking past the
-            // party) depends on what's on screen. See docs/goal.md.
-            _ => panic!("engine read outside WRAM/HRAM: {addr:#06x} (graphics state the engine doesn't model)"),
+            _ => self.rb_glitch(addr),
+        }
+    }
+
+    /// Reads only glitches reach: Beat Up's party index running past the
+    /// party (`GetBeatupMonLocation` with a stale loop counter) walks through
+    /// echo RAM and wraps around to ROM bank 0.
+    #[cold]
+    fn rb_glitch(&self, addr: u16) -> u8 {
+        match addr {
+            // ROM bank 0 is always mapped.
+            0x0000..=0x3fff => super::rom::byte(usize::from(addr)),
+            // Echo RAM mirrors c000-ddff (WRAM bank 1 is the one mapped in
+            // battle). Exact where the engine keeps that WRAM the way the
+            // original does.
+            0xe000..=0xfdff => {
+                let mirror = addr - 0x2000;
+                if is_not_kept(mirror) {
+                    panic!(
+                        "engine read of {addr:#06x}, the echo of {mirror:#06x}: stack, sound or graphics state the engine doesn't keep"
+                    );
+                }
+                self.wram[usize::from(mirror - WRAM_START)]
+            }
+            _ => panic!("engine read of {addr:#06x}: graphics or I/O state the engine doesn't model"),
         }
     }
 
