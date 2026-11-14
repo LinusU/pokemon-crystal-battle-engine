@@ -70,7 +70,8 @@ impl Engine {
     pub fn get_item_name(&mut self) -> u16 {
         let item = self.mem.rb(W_NAMED_OBJECT_INDEX);
         if item >= TM01 {
-            self.unported("GetTMHMName");
+            self.get_tmhm_name();
+            return W_STRING_BUFFER1;
         }
         self.mem.wb(W_CUR_SPECIES, item);
         self.mem.wb(W_NAMED_OBJECT_TYPE, ITEM_NAME);

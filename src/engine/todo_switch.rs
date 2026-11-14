@@ -4,5 +4,4 @@
 use super::battle::{Engine, Flow};
 
 impl Engine {
-    pub fn give_experience_points(&mut self) { if self.link_mode() != 0 { return; } self.unported("GiveExperiencePoints") }
 }

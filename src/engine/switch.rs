@@ -11,6 +11,8 @@ use crate::defs::*;
 
 const MON_NAME_LENGTH: u16 = 11;
 const MAX_STAT_VALUE: u16 = 999;
+/// `UnusedEggPic` (bank 0x14).
+const UNUSED_EGG_PIC: u16 = 0x7d9c;
 
 impl Engine {
     // --- sending out / recalling ---------------------------------------------------
@@ -251,11 +253,18 @@ impl Engine {
     pub fn get_base_data(&mut self) {
         let species = self.mem.rb(W_CUR_SPECIES);
         if species == EGG {
-            self.unported("GetBaseData (egg)");
-        }
-        let src = r::BASE_DATA + usize::from(species - 1) * usize::from(BASE_DATA_SIZE);
-        for i in 0..u16::from(BASE_DATA_SIZE) {
-            self.mem.wb(W_CUR_BASE_DATA + i, rom::byte(src + usize::from(i)));
+            // Egg doesn't have BaseData: just the sprite dimensions and the (beta) pics.
+            self.mem.wb(W_BASE_PIC_SIZE, 0x55);
+            let pic = UNUSED_EGG_PIC;
+            for at in [W_BASE_UNUSED_FRONTPIC, W_BASE_UNUSED_BACKPIC] {
+                self.mem.wb(at, pic as u8);
+                self.mem.wb(at + 1, (pic >> 8) as u8);
+            }
+        } else {
+            let src = r::BASE_DATA + usize::from(species - 1) * usize::from(BASE_DATA_SIZE);
+            for i in 0..u16::from(BASE_DATA_SIZE) {
+                self.mem.wb(W_CUR_BASE_DATA + i, rom::byte(src + usize::from(i)));
+            }
         }
         // .end: replace the Pokédex number with the species.
         self.mem.wb(W_BASE_DEX_NO, species);
@@ -731,7 +740,7 @@ impl Engine {
 
     /// `IsAnyMonHoldingExpShare`: (how many living mons hold one, their
     /// party bitmask `d`).
-    fn is_any_mon_holding_exp_share(&self) -> (u8, u8) {
+    pub(super) fn is_any_mon_holding_exp_share(&self) -> (u8, u8) {
         let mut d = 0u8;
         let mut c = 1u8;
         for i in 0..u16::from(self.mem.rb(W_PARTY_COUNT)) {
@@ -757,7 +766,7 @@ impl Engine {
     }
 
     /// `CheckEnemyTrainerDefeated` (z = every OT mon has 0 HP; here: false).
-    fn check_enemy_trainer_defeated(&self) -> bool {
+    pub(super) fn check_enemy_trainer_defeated(&self) -> bool {
         let mut a = 0u8;
         for i in 0..u16::from(self.mem.rb(W_OT_PARTY_COUNT)) {
             let hp = W_OT_PARTY_MON1_HP + i * PARTY_LEN;
@@ -799,18 +808,6 @@ impl Engine {
         self.mem.wb(W_ENEMY_MOVE_STRUCT_ANIMATION, 0);
         self.mem.wb(W_BATTLE_PLAYER_ACTION, 0);
         Ok(())
-    }
-
-    /// `WinTrainerBattle`.
-    fn win_trainer_battle(&mut self) {
-        self.mem.wb(W_LOW_HEALTH_ALARM, 0);
-        self.mem.wb(W_BATTLE_LOW_HEALTH_ALARM, 1);
-        self.mem.wb(W_BATTLE_ENDED, 1);
-        self.text(r::BATTLE_TEXT_ENEMY_WAS_DEFEATED);
-        if self.link_mode() != 0 {
-            return;
-        }
-        self.unported("WinTrainerBattle (money)")
     }
 
     /// `HandlePlayerMonFaint`.
@@ -942,29 +939,6 @@ impl Engine {
         Ok(())
     }
 
-    /// `LostBattle`.
-    fn lost_battle(&mut self) {
-        self.mem.wb(W_BATTLE_ENDED, 1);
-        if self.mem.bit(W_IN_BATTLE_TOWER_BATTLE, IN_BATTLE_TOWER_BATTLE_F) {
-            self.unported("LostBattle (Battle Tower)");
-        }
-        if self.mem.rb(W_BATTLE_TYPE) == BATTLETYPE_CANLOSE {
-            self.unported("LostBattle (BATTLETYPE_CANLOSE)");
-        }
-        if self.link_mode() == 0 {
-            return;
-        }
-        // .LostLinkBattle
-        self.update_enemy_mon_in_party();
-        if !self.check_enemy_trainer_defeated() {
-            self.text(r::TIED_AGAINST_TEXT);
-            let r0 = (self.mem.rb(W_BATTLE_RESULT) & BATTLERESULT_BITMASK).wrapping_add(DRAW);
-            self.mem.wb(W_BATTLE_RESULT, r0);
-        } else {
-            self.text(r::LOST_AGAINST_TEXT);
-        }
-    }
-
     // --- the enemy's switch-in ------------------------------------------------------
 
     /// `AI_Switch` (`engine/battle/ai/items.asm`).
@@ -989,15 +963,6 @@ impl Engine {
         Ok(self.link_mode() == 0)
     }
 
-    /// `EnemySwitch`.
-    pub fn enemy_switch(&mut self) -> Flow {
-        if !self.check_whether_to_ask_switch() {
-            self.enemy_switch_set_mode();
-            return Ok(());
-        }
-        self.unported("EnemySwitch (shift mode / OfferSwitch)")
-    }
-
     /// `EnemySwitch_SetMode`.
     pub fn enemy_switch_set_mode(&mut self) {
         self.reset_enemy_battle_vars();
@@ -1011,30 +976,8 @@ impl Engine {
         self.show_set_enemy_mon_and_send_out_animation();
     }
 
-    /// `FindMonInOTPartyToSwitchIntoBattle`.
-    fn find_mon_in_ot_party_to_switch_into_battle(&mut self) -> u8 {
-        self.unported("FindMonInOTPartyToSwitchIntoBattle")
-    }
-
-    /// `CheckWhetherToAskSwitch` (carry = ask the player).
-    fn check_whether_to_ask_switch(&mut self) -> bool {
-        if self.mem.rb(W_BATTLE_HAS_JUST_STARTED) == 1 {
-            return false;
-        }
-        if self.mem.rb(W_PARTY_COUNT) == 1 {
-            return false;
-        }
-        if self.link_mode() != 0 {
-            return false;
-        }
-        if self.mem.bit(W_OPTIONS, BATTLE_SHIFT) {
-            return false;
-        }
-        self.unported("CheckWhetherToAskSwitch (CheckCurPartyMonFainted)")
-    }
-
     /// `CheckWhetherSwitchmonIsPredetermined`: `Some(b)` (carry) or `None`.
-    fn check_whether_switchmon_is_predetermined(&self) -> Option<u8> {
+    pub(super) fn check_whether_switchmon_is_predetermined(&self) -> Option<u8> {
         if self.link_mode() != 0 {
             return Some(self.mem.rb(W_BATTLE_ACTION).wrapping_sub(BATTLEACTION_SWITCH1));
         }
@@ -1049,7 +992,7 @@ impl Engine {
     }
 
     /// `ResetEnemyBattleVars`.
-    fn reset_enemy_battle_vars(&mut self) {
+    pub(super) fn reset_enemy_battle_vars(&mut self) {
         for addr in [W_LAST_PLAYER_COUNTER_MOVE, W_LAST_ENEMY_COUNTER_MOVE, W_LAST_ENEMY_MOVE, W_CUR_ENEMY_MOVE] {
             self.mem.wb(addr, 0);
         }
@@ -1058,7 +1001,7 @@ impl Engine {
     }
 
     /// `LoadEnemyMonToSwitchTo` (`b` = OT party slot).
-    fn load_enemy_mon_to_switch_to(&mut self, b: u8) {
+    pub(super) fn load_enemy_mon_to_switch_to(&mut self, b: u8) {
         self.mem.wb(W_CUR_PARTY_MON, b);
         let level = self.mem.rb(W_OT_PARTY_MON1_LEVEL + u16::from(b) * PARTY_LEN);
         self.mem.wb(W_CUR_PARTY_LEVEL, level);
@@ -1077,25 +1020,15 @@ impl Engine {
         self.mem.wb(W_ENEMY_HP_AT_TIME_OF_PLAYER_SWITCH + 1, lo);
     }
 
-    /// `LoadEnemyMon`.
-    pub fn load_enemy_mon(&mut self) {
-        self.mem.fill(W_ENEMY_MON_SPECIES, W_ENEMY_MON_END - W_ENEMY_MON, 0);
-        if self.link_mode() != 0 || self.mem.bit(W_IN_BATTLE_TOWER_BATTLE, IN_BATTLE_TOWER_BATTLE_F) {
-            self.init_enemy_mon();
-            return;
-        }
-        self.unported("LoadEnemyMon (wild / trainer)")
-    }
-
     /// `ShowBattleTextEnemySentOut`.
-    fn show_battle_text_enemy_sent_out(&mut self) {
+    pub(super) fn show_battle_text_enemy_sent_out(&mut self) {
         // Battle_GetTrainerName fills wStringBuffer1 for the text (ported with
         // the text engine).
         self.text(r::BATTLE_TEXT_ENEMY_SENT_OUT);
     }
 
     /// `ShowSetEnemyMonAndSendOutAnimation`: the memory side.
-    fn show_set_enemy_mon_and_send_out_animation(&mut self) {
+    pub(super) fn show_set_enemy_mon_and_send_out_animation(&mut self) {
         let species = self.mem.rb(W_TEMP_ENEMY_MON_SPECIES);
         self.mem.wb(W_CUR_PARTY_SPECIES, species);
         self.mem.wb(W_CUR_SPECIES, species);
@@ -1126,14 +1059,6 @@ impl Engine {
         check_shininess(self.mem.rb(dvs), self.mem.rb(dvs + 1))
     }
 
-    /// `CopyMonToTempMon` for `wMonType` = `OTPARTYMON`.
-    fn copy_mon_to_temp_mon(&mut self) {
-        if self.mem.rb(W_MON_TYPE) != OTPARTYMON {
-            self.unported("CopyMonToTempMon (not OTPARTYMON)");
-        }
-        let src = W_OT_PARTY_MON1_SPECIES + u16::from(self.mem.rb(W_CUR_PARTY_MON)) * PARTY_LEN;
-        self.mem.copy(W_TEMP_MON_SPECIES, src, PARTY_LEN);
-    }
 }
 
 /// `SmallFarFlagAction` modes.
