@@ -257,14 +257,14 @@ impl Engine {
             "Text_MonGainedExpPoint" => {
                 if self.mem.rb(W_STRING_BUFFER2 + 2) == 0 { r::EXP_POINTS_TEXT } else { r::BOOSTED_EXP_POINTS_TEXT }
             }
-            "BattleCommand_StatUpMessage" => {
+            "BattleCommand_StatUpMessage" | "BattleCommand_StatUpMessage.stat" => {
                 if self.mem.rb(W_LOWERED_STAT) & 0xf0 == 0 {
                     r::BATTLE_COMMAND_STAT_UP_MESSAGE_BATTLE_STAT_WENT_UP_TEXT
                 } else {
                     r::BATTLE_COMMAND_STAT_UP_MESSAGE_BATTLE_STAT_WENT_WAY_UP_TEXT
                 }
             }
-            "BattleCommand_StatDownMessage" => {
+            "BattleCommand_StatDownMessage" | "BattleCommand_StatDownMessage.stat" => {
                 if self.mem.rb(W_LOWERED_STAT) & 0xf0 == 0 {
                     r::BATTLE_COMMAND_STAT_DOWN_MESSAGE_BATTLE_STAT_FELL_TEXT
                 } else {

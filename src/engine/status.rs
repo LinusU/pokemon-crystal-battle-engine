@@ -639,7 +639,7 @@ impl Engine {
         }
         let b = (self.mem.rb(W_LOWERED_STAT) & 0xf) + 1;
         self.get_stat_name(b);
-        self.text(r::TEXT_BATTLE_EFFECT_ACTIVATE);
+        self.text(r::BATTLE_COMMAND_STAT_UP_MESSAGE_STAT);
         Ok(Cmd::Next)
     }
 
@@ -650,7 +650,7 @@ impl Engine {
         }
         let b = (self.mem.rb(W_LOWERED_STAT) & 0xf) + 1;
         self.get_stat_name(b);
-        self.text(r::TEXT_BATTLE_FOE_EFFECT_ACTIVATE);
+        self.text(r::BATTLE_COMMAND_STAT_DOWN_MESSAGE_STAT);
         Ok(Cmd::Next)
     }
 

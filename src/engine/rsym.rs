@@ -763,6 +763,7 @@ pub const BATTLE_COMMAND_STAT_DOWN_FAIL_TEXT: usize = 0x03646a; // 0d:646a Battl
 pub const BATTLE_COMMAND_STAT_DOWN_MESSAGE: usize = 0x0363e9; // 0d:63e9 BattleCommand_StatDownMessage
 pub const BATTLE_COMMAND_STAT_DOWN_MESSAGE_BATTLE_STAT_FELL_TEXT: usize = 0x036415; // 0d:6415 BattleCommand_StatDownMessage.BattleStatFellText
 pub const BATTLE_COMMAND_STAT_DOWN_MESSAGE_BATTLE_STAT_SHARPLY_FELL_TEXT: usize = 0x036410; // 0d:6410 BattleCommand_StatDownMessage.BattleStatSharplyFellText
+pub const BATTLE_COMMAND_STAT_DOWN_MESSAGE_STAT: usize = 0x0363fe; // 0d:63fe BattleCommand_StatDownMessage.stat
 pub const BATTLE_COMMAND_STAT_UP: usize = 0x0361e4; // 0d:61e4 BattleCommand_StatUp
 pub const BATTLE_COMMAND_STAT_UP_ANIM: usize = 0x034fd1; // 0d:4fd1 BattleCommand_StatUpAnim
 pub const BATTLE_COMMAND_STAT_UP_DOWN_ANIM: usize = 0x034feb; // 0d:4feb BattleCommand_StatUpDownAnim
@@ -770,6 +771,7 @@ pub const BATTLE_COMMAND_STAT_UP_FAIL_TEXT: usize = 0x03644c; // 0d:644c BattleC
 pub const BATTLE_COMMAND_STAT_UP_MESSAGE: usize = 0x0363b8; // 0d:63b8 BattleCommand_StatUpMessage
 pub const BATTLE_COMMAND_STAT_UP_MESSAGE_BATTLE_STAT_WENT_UP_TEXT: usize = 0x0363e4; // 0d:63e4 BattleCommand_StatUpMessage.BattleStatWentUpText
 pub const BATTLE_COMMAND_STAT_UP_MESSAGE_BATTLE_STAT_WENT_WAY_UP_TEXT: usize = 0x0363df; // 0d:63df BattleCommand_StatUpMessage.BattleStatWentWayUpText
+pub const BATTLE_COMMAND_STAT_UP_MESSAGE_STAT: usize = 0x0363cd; // 0d:63cd BattleCommand_StatUpMessage.stat
 pub const BATTLE_COMMAND_STORE_ENERGY: usize = 0x036671; // 0d:6671 BattleCommand_StoreEnergy
 pub const BATTLE_COMMAND_SUBSTITUTE: usize = 0x036e7c; // 0d:6e7c BattleCommand_Substitute
 pub const BATTLE_COMMAND_SUPER_EFFECTIVE_LOOP_TEXT: usize = 0x0351a5; // 0d:51a5 BattleCommand_SuperEffectiveLoopText
@@ -7437,9 +7439,11 @@ pub const ROM_SYMBOLS: &[(usize, &str)] = &[
     (0x0362e3, "BattleCommand_StatDown"),
     (0x036391, "CheckMist"),
     (0x0363b8, "BattleCommand_StatUpMessage"),
+    (0x0363cd, "BattleCommand_StatUpMessage.stat"),
     (0x0363df, "BattleCommand_StatUpMessage.BattleStatWentWayUpText"),
     (0x0363e4, "BattleCommand_StatUpMessage.BattleStatWentUpText"),
     (0x0363e9, "BattleCommand_StatDownMessage"),
+    (0x0363fe, "BattleCommand_StatDownMessage.stat"),
     (0x036410, "BattleCommand_StatDownMessage.BattleStatSharplyFellText"),
     (0x036415, "BattleCommand_StatDownMessage.BattleStatFellText"),
     (0x03641a, "TryLowerStat"),

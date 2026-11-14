@@ -562,21 +562,8 @@ impl Engine {
         // .mimic
         self.reset_damage();
 
-        // .UsedText: "<USER>" then the move's own message.
-        self.text(r::TEXT_BATTLE_USER);
-        let anim = self.battle_var(BATTLE_VARS_MOVE_ANIM);
-        let used = match anim {
-            RAZOR_WIND => Some(r::_BATTLE_MADE_WHIRLWIND_TEXT),
-            SOLARBEAM => Some(r::_BATTLE_TOOK_SUNLIGHT_TEXT),
-            SKULL_BASH => Some(r::_BATTLE_LOWERED_HEAD_TEXT),
-            SKY_ATTACK => Some(r::_BATTLE_GLOWING_TEXT),
-            FLY => Some(r::_BATTLE_FLEW_TEXT),
-            DIG => Some(r::_BATTLE_DUG_TEXT),
-            _ => None,
-        };
-        if let Some(text) = used {
-            self.text(text);
-        }
+        // .UsedText: "<USER>", then a text_asm picks the move's message.
+        self.text(r::BATTLE_COMMAND_CHARGE_USED_TEXT);
 
         if self.battle_var(BATTLE_VARS_MOVE_EFFECT) == EFFECT_SKULL_BASH {
             self.skip_to_battle_command(ENDTURN_CMD);
