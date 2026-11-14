@@ -52,7 +52,11 @@ impl Mem {
         match addr {
             0xc000..=0xdfff => self.wram[usize::from(addr - WRAM_START)],
             0xff80..=0xfffe => self.hram[usize::from(addr - HRAM_START)],
-            _ => panic!("engine read outside WRAM/HRAM: {addr:#06x}"),
+            // Echo RAM (e000-fdff) mirrors c000-ddff, including the tilemap
+            // and other graphics buffers the engine doesn't keep: a glitch
+            // that reads it (Beat Up's stale loop counter walking past the
+            // party) depends on what's on screen. See docs/goal.md.
+            _ => panic!("engine read outside WRAM/HRAM: {addr:#06x} (graphics state the engine doesn't model)"),
         }
     }
 
