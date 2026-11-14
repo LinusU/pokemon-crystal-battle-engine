@@ -20,7 +20,7 @@
 use std::io::{BufRead, Write};
 
 use crate::defs;
-use crate::runtime::Cpu;
+use crate::runtime::{Cpu, ReadMem};
 
 use super::move_pp;
 use super::names;
@@ -561,14 +561,14 @@ fn ot_party_slot_addr(slot: u8) -> u16 {
     W_OT_PARTY_MON1 + u16::from(slot) * PARTY_STRUCT_LEN
 }
 
-fn read_ot_party_species(cpu: &Cpu, slot: u8) -> u8 {
+fn read_ot_party_species(cpu: &impl ReadMem, slot: u8) -> u8 {
     cpu.read_byte(ot_party_slot_addr(slot))
 }
 
 /// The enemy's selectable move slots: a real move (id != 0) with PP left that
 /// isn't Disabled. Mirrors [`move_options`] against the enemy's `wEnemyMon*`
 /// fields and `wEnemyDisableCount`.
-fn enemy_move_options(cpu: &Cpu) -> Vec<u8> {
+fn enemy_move_options(cpu: &impl ReadMem) -> Vec<u8> {
     let disabled_slot = (cpu.read_byte(W_ENEMY_DISABLE_COUNT) >> 4).wrapping_sub(1);
     let mut out = Vec::with_capacity(defs::NUM_MOVES as usize);
     for slot in 0..defs::NUM_MOVES {
@@ -590,7 +590,7 @@ fn enemy_move_options(cpu: &Cpu) -> Vec<u8> {
 
 /// The enemy's alive, non-current OT party slots. Mirrors [`alive_party_slots`]
 /// against `wOTPartyCount` / the OT party list.
-fn enemy_alive_party_slots(cpu: &Cpu, exclude: Option<u8>) -> Vec<u8> {
+fn enemy_alive_party_slots(cpu: &impl ReadMem, exclude: Option<u8>) -> Vec<u8> {
     let n = cpu.read_byte(W_OT_PARTY_COUNT);
     let mut out = Vec::with_capacity(n as usize);
     for slot in 0..n {
@@ -805,7 +805,7 @@ fn prompt_index(prompt: &str, len: usize) -> usize {
 // ---------------------------------------------------------------------------
 // Switch validation
 
-fn check_can_switch(cpu: &Cpu, target: u8) -> Result<(), String> {
+fn check_can_switch(cpu: &impl ReadMem, target: u8) -> Result<(), String> {
     let current = cpu.read_byte(W_CUR_BATTLE_MON);
     if target == current {
         return Err(format!("That Pokémon is already in battle."));
@@ -1060,7 +1060,7 @@ fn item_effect(id: u8) -> Option<ItemEffect> {
 /// would refuse it ("It wouldn't have any effect"), so we neither offer the
 /// item nor list a target for it. Drives both the action menu and the target
 /// prompt.
-fn item_valid_targets(cpu: &Cpu, id: u8) -> Vec<u8> {
+fn item_valid_targets(cpu: &impl ReadMem, id: u8) -> Vec<u8> {
     let Some(effect) = item_effect(id) else {
         return Vec::new();
     };
@@ -1104,14 +1104,14 @@ fn item_valid_targets(cpu: &Cpu, id: u8) -> Vec<u8> {
 /// Does any of `slot`'s 4 move slots hold a move whose current PP is below its
 /// max PP? Drives PP-item targeting (the game's "It wouldn't have any effect"
 /// guard for Elixer/Max Elixer/Ether/Max Ether/MysteryBerry).
-fn slot_has_restorable_pp(cpu: &Cpu, slot: u8) -> bool {
+fn slot_has_restorable_pp(cpu: &impl ReadMem, slot: u8) -> bool {
     !restorable_move_slots(cpu, slot).is_empty()
 }
 
 /// The 0-based move slots of party `slot` that exist (move id != 0) and hold a
 /// move below its max PP — i.e. the moves a single-move PP item could restore.
 /// Drives the move-selection prompt for Ether/Max Ether/MysteryBerry.
-fn restorable_move_slots(cpu: &Cpu, slot: u8) -> Vec<u8> {
+fn restorable_move_slots(cpu: &impl ReadMem, slot: u8) -> Vec<u8> {
     let base = party_slot_addr(slot);
     (0..MOVE_SLOTS)
         .filter(|&i| {
@@ -1147,7 +1147,7 @@ fn is_ball_id(id: u8) -> bool {
 /// (mirrors `RaiseStat`'s "wouldn't have any effect" guard at the cap — the asm
 /// refuses to raise past 13). Returns `false` for every party-target item.
 /// Drives whether the active-mon item appears in the action menu.
-fn active_item_usable(cpu: &Cpu, id: u8) -> bool {
+fn active_item_usable(cpu: &impl ReadMem, id: u8) -> bool {
     match item_effect(id) {
         Some(ItemEffect::ActiveConfusion) => {
             is_active_confused(cpu.read_byte(W_PLAYER_SUB_STATUS_3))
@@ -1171,15 +1171,15 @@ fn party_slot_addr(slot: u8) -> u16 {
     W_PARTY_MON1 + u16::from(slot) * PARTY_STRUCT_LEN
 }
 
-fn read_party_species(cpu: &Cpu, slot: u8) -> u8 {
+fn read_party_species(cpu: &impl ReadMem, slot: u8) -> u8 {
     cpu.read_byte(party_slot_addr(slot))
 }
 
-fn read_word_be(cpu: &Cpu, addr: u16) -> u16 {
+fn read_word_be(cpu: &impl ReadMem, addr: u16) -> u16 {
     u16::from_be_bytes([cpu.read_byte(addr), cpu.read_byte(addr + 1)])
 }
 
-fn read_pocket(cpu: &Cpu, count_addr: u16) -> Vec<(u8, u8)> {
+fn read_pocket(cpu: &impl ReadMem, count_addr: u16) -> Vec<(u8, u8)> {
     let n = cpu.read_byte(count_addr) as u16;
     let mut out = Vec::with_capacity(n as usize);
     for i in 0..n {
@@ -1190,7 +1190,7 @@ fn read_pocket(cpu: &Cpu, count_addr: u16) -> Vec<(u8, u8)> {
     out
 }
 
-fn move_options(cpu: &Cpu) -> Vec<u8> {
+fn move_options(cpu: &impl ReadMem) -> Vec<u8> {
     // A move disabled by Disable is not selectable, same as the engine's
     // move_selection_screen_use_move `.move_disabled` rejection. wPlayerDisableCount
     // packs the disabled move's 1-based slot in its high nibble (0 = nothing
@@ -1219,7 +1219,7 @@ fn move_options(cpu: &Cpu) -> Vec<u8> {
 /// Why a recorded `move` slot could not have been legally chosen, if any.
 /// `None` means the slot is selectable (it's in [`move_options`]). The string
 /// is a human-readable reason for the diagnostic.
-fn illegal_move_reason(cpu: &Cpu, slot: u8) -> Option<String> {
+fn illegal_move_reason(cpu: &impl ReadMem, slot: u8) -> Option<String> {
     if move_options(cpu).contains(&slot) {
         return None;
     }
@@ -1304,7 +1304,7 @@ fn action_to_step(action: Action) -> Step {
 
 /// Every choice the original game's menus allow at decision point `site`, in
 /// a stable order. This is the action space the library API exposes.
-pub fn legal_steps(cpu: &Cpu, site: PromptSite) -> Vec<Step> {
+pub fn legal_steps(cpu: &impl ReadMem, site: PromptSite) -> Vec<Step> {
     match site {
         PromptSite::BattleMenu => legal_battle_menu_steps(cpu),
         PromptSite::MoveSelection => {
@@ -1345,7 +1345,7 @@ pub fn legal_steps(cpu: &Cpu, site: PromptSite) -> Vec<Step> {
     }
 }
 
-fn legal_battle_menu_steps(cpu: &Cpu) -> Vec<Step> {
+fn legal_battle_menu_steps(cpu: &impl ReadMem) -> Vec<Step> {
     let mut out = Vec::new();
     // FIGHT.
     if fight_skips_move_menu(cpu) || player_must_struggle(cpu) {
@@ -1404,7 +1404,7 @@ fn legal_battle_menu_steps(cpu: &Cpu) -> Vec<Step> {
 /// FIGHT goes straight to a move without a menu: `ParsePlayerAction` checks
 /// Encore (`SUBSTATUS_ENCORED` → repeat `wLastPlayerMove`) and then Bide
 /// (`SUBSTATUS_BIDE` → `.locked_in`) before it would call `MoveSelectionScreen`.
-fn fight_skips_move_menu(cpu: &Cpu) -> bool {
+fn fight_skips_move_menu(cpu: &impl ReadMem) -> bool {
     cpu.read_byte(W_PLAYER_SUB_STATUS_5) & (1 << defs::SUBSTATUS_ENCORED) != 0
         || cpu.read_byte(W_PLAYER_SUB_STATUS_3) & (1 << defs::SUBSTATUS_BIDE) != 0
 }
@@ -1413,7 +1413,7 @@ fn fight_skips_move_menu(cpu: &Cpu) -> bool {
 /// of its predicate, including its bug: with a move Disabled, the remaining PP
 /// bytes are OR'd *without* masking off the PP-Up bits, so a 0-PP move with PP
 /// Ups counts as usable (see `docs/bugs_and_glitches.md` in pokecrystal).
-fn player_must_struggle(cpu: &Cpu) -> bool {
+fn player_must_struggle(cpu: &impl ReadMem) -> bool {
     let pp = |i: u16| cpu.read_byte(W_BATTLE_MON_PP + i);
     let disable = cpu.read_byte(W_PLAYER_DISABLE_COUNT);
     if disable == 0 {
@@ -1429,7 +1429,7 @@ fn player_must_struggle(cpu: &Cpu) -> bool {
     acc == 0
 }
 
-fn alive_party_slots(cpu: &Cpu, exclude: Option<u8>) -> Vec<u8> {
+fn alive_party_slots(cpu: &impl ReadMem, exclude: Option<u8>) -> Vec<u8> {
     let n = cpu.read_byte(W_PARTY_COUNT);
     let mut out = Vec::with_capacity(n as usize);
     for slot in 0..n {

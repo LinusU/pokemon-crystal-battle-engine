@@ -9,7 +9,7 @@
 //! Addresses come from `scratch/pokecrystal/pokecrystal.sym`; struct layouts
 //! from `macros/ram.asm` (`battle_struct`, `party_struct`).
 
-use crate::runtime::Cpu;
+use crate::runtime::ReadMem;
 
 /// `battle_struct` (`wBattleMon` / `wEnemyMon`): the active mon, including the
 /// in-battle copies of its stats (which stat stages, paralysis and burn have
@@ -196,20 +196,20 @@ const ENEMY: SideAddrs = SideAddrs {
 
 // --- reading -------------------------------------------------------------------
 
-fn be16(cpu: &Cpu, addr: u16) -> u16 {
+fn be16(cpu: &impl ReadMem, addr: u16) -> u16 {
     u16::from(cpu.read_byte(addr)) << 8 | u16::from(cpu.read_byte(addr + 1))
 }
 
-fn bytes<const N: usize>(cpu: &Cpu, addr: u16) -> [u8; N] {
+fn bytes<const N: usize>(cpu: &impl ReadMem, addr: u16) -> [u8; N] {
     std::array::from_fn(|i| cpu.read_byte(addr + i as u16))
 }
 
-fn stats(cpu: &Cpu, addr: u16) -> [u16; 5] {
+fn stats(cpu: &impl ReadMem, addr: u16) -> [u16; 5] {
     std::array::from_fn(|i| be16(cpu, addr + 2 * i as u16))
 }
 
 impl BattleMon {
-    fn read(cpu: &Cpu, base: u16) -> Self {
+    fn read(cpu: &impl ReadMem, base: u16) -> Self {
         BattleMon {
             species: cpu.read_byte(base),
             item: cpu.read_byte(base + 1),
@@ -228,7 +228,7 @@ impl BattleMon {
 }
 
 impl PartyMon {
-    fn read(cpu: &Cpu, base: u16) -> Self {
+    fn read(cpu: &impl ReadMem, base: u16) -> Self {
         PartyMon {
             species: cpu.read_byte(base),
             item: cpu.read_byte(base + 1),
@@ -246,7 +246,7 @@ impl PartyMon {
 }
 
 impl SideState {
-    fn read(cpu: &Cpu, a: &SideAddrs) -> Self {
+    fn read(cpu: &impl ReadMem, a: &SideAddrs) -> Self {
         let count = cpu.read_byte(a.party_count).min(6);
         let rollout = a.rollout;
         SideState {
@@ -285,7 +285,7 @@ impl SideState {
 
 impl BattleState {
     /// Read the current battle state from the engine's memory.
-    pub fn read(cpu: &Cpu) -> Self {
+    pub fn read(cpu: &impl ReadMem) -> Self {
         BattleState {
             battle_mode: cpu.read_byte(W_BATTLE_MODE),
             link_mode: cpu.read_byte(W_LINK_MODE),
