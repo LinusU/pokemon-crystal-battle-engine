@@ -852,7 +852,12 @@ impl Engine {
                 let next = old.wrapping_add(step as u16);
                 self.mem.ww_le(W_CUR_HP_ANIM_OLD_HP, next);
                 let max = self.mem.rw_le(W_CUR_HP_ANIM_MAX_HP);
-                let e = self.compute_hp_bar_pixels(next, max);
+                // BUG: HP bar animation is slow for high HP. `pop de` before
+                // `ld a, e` drops the pixels just computed: the comparison
+                // (and wCurHPBarPixels) gets the low byte of the HP before
+                // this step, so nearly every step redraws.
+                self.compute_hp_bar_pixels(next, max);
+                let e = old as u8;
                 if e == self.mem.rb(W_CUR_HP_BAR_PIXELS) {
                     continue;
                 }
