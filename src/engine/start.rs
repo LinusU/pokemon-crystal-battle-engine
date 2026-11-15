@@ -29,7 +29,8 @@ use super::rom;
 use super::rsym as r;
 use super::switch::FlagAction;
 use super::sym::*;
-use crate::bootstrap::{BattleConfig, BattleKind, ItemSpec, MonSpec, items, species, trainers};
+use crate::config::{BattleConfig, BattleKind, ItemSpec, MonSpec};
+use crate::data::{items, species, trainers};
 use crate::defs::*;
 
 /// Why a scenario can't start on the hand-written engine.
@@ -82,7 +83,7 @@ pub fn start(config: &BattleConfig, seed: u64, render_text: bool) -> Result<Engi
     let mut engine = Engine::new(boot_state(config), rng, Flags {
         link_battle: link,
         external_enemy: config.battle.kind == BattleKind::TrainerBattle
-            && config.battle.enemy_control == crate::bootstrap::EnemyControl::External,
+            && config.battle.enemy_control == crate::config::EnemyControl::External,
         ..Flags::default()
     });
     if render_text {
@@ -98,7 +99,7 @@ pub fn start(config: &BattleConfig, seed: u64, render_text: bool) -> Result<Engi
     // before the first turn reads them.
     if let (Some(ov), BattleKind::TrainerBattle) = (&config.enemy_trainer, config.battle.kind) {
         let class = engine.mem.rb(W_TRAINER_CLASS);
-        engine.rom_overlay = crate::bootstrap::ai_flag_patches(class, ov)?;
+        engine.rom_overlay = crate::config::ai_flag_patches(class, ov)?;
     }
     Ok(engine)
 }
@@ -154,7 +155,7 @@ impl Engine {
     fn seed_player(&mut self) {
         self.write_bytes(W_PLAYER_NAME, &encode_name("RED"));
         self.write_bytes(W_RIVAL_NAME, &encode_name("SILVER"));
-        for (addr, rom_addr) in crate::bootstrap::NPC_NAMES {
+        for (addr, rom_addr) in crate::config::NPC_NAMES {
             for i in 0..u16::from(NAME_LENGTH) {
                 self.mem.wb(addr + i, rom::byte(rom::flat(0x01, rom_addr + i)));
             }
@@ -232,8 +233,8 @@ impl Engine {
         self.mem.wb(count_addr, 0);
         for (slot, mon) in party.iter().enumerate() {
             let id = species::id_from_name(&mon.species).ok_or_else(|| format!("unknown {label} species: {}", mon.species))?;
-            let move_ids = crate::bootstrap::resolve_moves(mon)?;
-            let item_id = crate::bootstrap::resolve_item(mon, label)?;
+            let move_ids = crate::config::resolve_moves(mon)?;
+            let item_id = crate::config::resolve_item(mon, label)?;
             self.add_mon(id, mon.level, mon_type);
             let base = mon1_addr + slot as u16 * STRUCT;
             if let Some(ids) = move_ids {
@@ -241,7 +242,7 @@ impl Engine {
                 for i in 0..4usize {
                     let mv = ids.get(i).copied().unwrap_or(0);
                     self.mem.wb(base + u16::from(MON_MOVES) + i as u16, mv);
-                    self.mem.wb(base + u16::from(MON_PP) + i as u16, crate::bootstrap::move_pp::MOVE_BASE_PP[usize::from(mv)]);
+                    self.mem.wb(base + u16::from(MON_PP) + i as u16, crate::data::move_pp::MOVE_BASE_PP[usize::from(mv)]);
                 }
             }
             if let Some(item) = item_id {

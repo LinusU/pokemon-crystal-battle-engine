@@ -25,7 +25,7 @@ pub struct TrainerDef {
     pub id: u8,
     /// Average level of the trainer's canonical party, rounded to the nearest
     /// integer. Source: `scratch/pokecrystal/data/trainers/parties.asm`. Used
-    /// by `bootstrap::random` to scale the generated player team.
+    /// by `data::random` to scale the generated player team.
     pub avg_level: u8,
     /// Number of mons in the trainer's canonical party, from the same source.
     pub party_count: u8,
@@ -70,7 +70,7 @@ const ALIASES: &[TrainerDef] = &[
 ];
 
 /// Every battleable trainer instance in the game, in ROM order.
-/// `bootstrap::random` picks one of these uniformly when `--random` is set.
+/// `data::random` picks one of these uniformly when `--random` is set.
 pub fn all() -> &'static [TrainerDef] {
     super::trainers_data::ALL
 }

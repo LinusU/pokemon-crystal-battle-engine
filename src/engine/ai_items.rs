@@ -473,8 +473,8 @@ impl Engine {
         if self.check_enemy_locked_in() {
             return Ok(());
         }
-        let step = self.decide(crate::bootstrap::decision::PromptSite::EnemyTrainerAction)?;
-        let slot = crate::bootstrap::cli::external_enemy_move_slot(&self.mem, step);
+        let step = self.decide(crate::battle::action::PromptSite::EnemyTrainerAction)?;
+        let slot = crate::battle::legal::external_enemy_move_slot(&self.mem, step);
         let mv = self.mem.rb(W_ENEMY_MON_MOVES + u16::from(slot));
         self.mem.wb(W_CUR_ENEMY_MOVE, mv);
         self.mem.wb(W_CUR_ENEMY_MOVE_NUM, slot);
@@ -485,7 +485,7 @@ impl Engine {
     /// `AI_SwitchOrTryItem` for an external trainer: carry out the switch or
     /// item picked at the turn's `EnemyTrainerAction`.
     fn external_enemy_switch_or_item(&mut self) -> Flow<bool> {
-        use crate::bootstrap::decision::Step;
+        use crate::battle::action::Step;
         match self.flags.enemy_choice {
             Some(Step::Switch { slot }) => {
                 // AI_TrySwitch's `.switch`: the 1-based slot, then AI_Switch.

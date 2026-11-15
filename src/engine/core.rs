@@ -9,7 +9,7 @@
 use super::battle::{Engine, Flow, PARTY_LEN, PP_MASK, percent};
 use super::rsym as r;
 use super::sym::*;
-use crate::bootstrap::decision::{PromptSite, Step};
+use crate::battle::action::{PromptSite, Step};
 use crate::defs::*;
 
 /// Where [`Engine::battle_turn`] starts.

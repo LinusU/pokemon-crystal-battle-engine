@@ -33,6 +33,8 @@ use serde::Deserialize;
 
 use crate::runtime::Cpu;
 
+pub use crate::battle::action::PromptSite;
+
 use super::recorder::{Side, Step};
 use super::snapshot::{self, BattleSnapshot, Expect, Outcome};
 
@@ -121,54 +123,6 @@ impl Player {
     /// exhausted.
     pub fn peek(&self) -> Option<Step> {
         self.steps.get(self.cursor).map(|s| s.step)
-    }
-}
-
-/// What kind of decision the CLI driver is asking for. Used for the
-/// mismatch-error message when the recorded `kind` doesn't fit.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
-pub enum PromptSite {
-    BattleMenu,
-    MoveSelection,
-    ForcedSwitch,
-    OfferSwitch,
-    /// The second CLI player's per-round action in a link battle (move or
-    /// switch). Reached from the `link_battle_send_receive_action` hook rather
-    /// than an engine menu. Consumes only `Enemy`-side steps.
-    EnemyAction,
-    /// The enemy trainer's per-turn action when the trainer is controlled
-    /// from outside (`enemy_control = "external"`): a move, FIGHT, a switch,
-    /// or one of the trainer's AI items. Replaces `AIChooseMove` and the
-    /// switch/item choice of `AI_SwitchOrTryItem`. Consumes `Enemy` steps.
-    EnemyTrainerAction,
-    /// Which mon an externally controlled trainer sends in next (after a
-    /// faint, or Baton Pass). Replaces `FindMonInOTPartyToSwitchIntoBattle`.
-    /// Consumes `Enemy` steps.
-    EnemySwitchIn,
-}
-
-impl PromptSite {
-    fn label(self) -> &'static str {
-        match self {
-            PromptSite::BattleMenu => "battle menu (move/switch/item/run)",
-            PromptSite::MoveSelection => "move re-selection (Disable / no-PP)",
-            PromptSite::ForcedSwitch => "forced switch (active fainted)",
-            PromptSite::OfferSwitch => "offer switch (enemy sending in next mon)",
-            PromptSite::EnemyAction => "enemy action (link battle, move/switch)",
-            PromptSite::EnemyTrainerAction => "enemy trainer action (move/switch/item)",
-            PromptSite::EnemySwitchIn => "enemy trainer switch-in",
-        }
-    }
-
-    /// Which side's recorded steps this prompt site consumes. Every player-menu
-    /// site takes `Player` steps; the link-battle enemy hook takes `Enemy`
-    /// steps. Playback uses this to keep the interleaved step stream in lockstep
-    /// with the engine's alternating player/enemy prompts.
-    pub fn side(self) -> Side {
-        match self {
-            PromptSite::EnemyAction | PromptSite::EnemyTrainerAction | PromptSite::EnemySwitchIn => Side::Enemy,
-            _ => Side::Player,
-        }
     }
 }
 

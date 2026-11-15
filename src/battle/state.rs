@@ -4,12 +4,12 @@
 //! decision point — nothing is derived or simplified — so an agent observing a
 //! [`BattleState`] sees exactly what the engine will act on. Ids (species,
 //! moves, items, types) are the game's own byte values; see
-//! [`crate::bootstrap::names`] for display names.
+//! [`crate::data::names`] for display names.
 //!
 //! Addresses come from `scratch/pokecrystal/pokecrystal.sym`; struct layouts
 //! from `macros/ram.asm` (`battle_struct`, `party_struct`).
 
-use crate::runtime::ReadMem;
+use crate::engine::mem::ReadMem;
 
 /// `battle_struct` (`wBattleMon` / `wEnemyMon`): the active mon, including the
 /// in-battle copies of its stats (which stat stages, paralysis and burn have

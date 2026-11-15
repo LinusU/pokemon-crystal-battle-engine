@@ -27,14 +27,17 @@
 //! transpiled engine on the emulated CPU, on its own thread). It is the
 //! reference the engine is tested against, and what the `gui` window plays.
 
+pub mod action;
 pub mod emulated;
+pub mod event;
+pub mod legal;
+pub mod outcome;
 pub mod state;
 
-pub use crate::bootstrap::BattleConfig;
-pub use crate::bootstrap::events::{Event, HpBarTarget, one_line};
-pub use crate::bootstrap::decision::{PromptSite, Step as Action};
-pub use crate::bootstrap::recorder::Side;
-pub use crate::bootstrap::snapshot::Outcome;
+pub use crate::config::BattleConfig;
+pub use action::{PromptSite, Side, Step as Action};
+pub use event::{Event, HpBarTarget, one_line};
+pub use outcome::Outcome;
 pub use emulated::EmulatedBattle;
 pub use state::BattleState;
 

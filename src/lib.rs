@@ -12,6 +12,8 @@
 pub mod ai;
 pub mod battle;
 pub mod bootstrap;
+pub mod config;
+pub mod data;
 pub mod defs;
 pub mod engine;
 pub mod dispatch;

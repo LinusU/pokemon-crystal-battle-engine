@@ -19,7 +19,7 @@ use super::rom;
 use super::rsym as r;
 use super::switch::FlagAction;
 use super::sym::*;
-use crate::bootstrap::decision::{PromptSite, Step};
+use crate::battle::action::{PromptSite, Step};
 use crate::defs::*;
 
 const NAME_LENGTH: u16 = 11;

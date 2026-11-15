@@ -933,8 +933,8 @@ impl Engine {
 
     /// `ForcePickPartyMonInBattle` (patched: `bootstrap::cli::handle_forced_switch`).
     pub fn force_pick_party_mon_in_battle(&mut self) -> Flow {
-        let step = self.decide(crate::bootstrap::decision::PromptSite::ForcedSwitch)?;
-        let crate::bootstrap::decision::Step::ForcedSwitch { slot } = step else { unreachable!() };
+        let step = self.decide(crate::battle::action::PromptSite::ForcedSwitch)?;
+        let crate::battle::action::Step::ForcedSwitch { slot } = step else { unreachable!() };
         self.mem.wb(W_CUR_PARTY_MON, slot);
         Ok(())
     }

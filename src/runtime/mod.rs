@@ -23,12 +23,7 @@ pub struct InterruptVectors {
     pub joypad: Option<Routine>,
 }
 
-/// Read access to Game Boy memory. Implemented by the emulated [`Cpu`] and by
-/// the hand-written engine's memory, so code that only inspects battle state
-/// (legal actions, state snapshots) runs unchanged on either.
-pub trait ReadMem {
-    fn read_byte(&self, addr: u16) -> u8;
-}
+pub use crate::engine::mem::ReadMem;
 
 impl ReadMem for Cpu {
     fn read_byte(&self, addr: u16) -> u8 {

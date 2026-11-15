@@ -164,7 +164,8 @@ impl crate::bootstrap::decision::Decider for AiDecider {
 mod tests {
     use super::*;
     use crate::battle::{Battle, Status};
-    use crate::bootstrap::{EnemyControl, random::random_battle_config};
+    use crate::config::EnemyControl;
+    use crate::data::random::random_battle_config;
 
     /// The built-in model loads and plays a whole trainer battle on both sides,
     /// trainer items and switches included.

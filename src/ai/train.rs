@@ -20,7 +20,8 @@ use super::agent::{argmax, considered, next, sample};
 use super::features::{self, Sparse};
 use super::net::{Adam, Net};
 use crate::battle::{Action, BattleState, Outcome, PromptSite, Side};
-use crate::bootstrap::{BattleConfig, EnemyControl, ItemSpec, names, random::random_battle_config};
+use crate::config::{BattleConfig, EnemyControl, ItemSpec};
+use crate::data::{names, random::random_battle_config};
 use crate::engine::api::{FastBattle, Status};
 use std::sync::Arc;
 use std::sync::atomic::{AtomicUsize, Ordering};
@@ -162,7 +163,7 @@ pub fn scenario(seed: u64, enemy: EnemyControl) -> Option<BattleConfig> {
     config.battle.enemy_control = enemy;
     let mut rng = seed ^ 0x6974_656d;
     if next(&mut rng) % 10 < 7 {
-        let items = crate::bootstrap::cli::ENEMY_TRAINER_ITEMS;
+        let items = crate::battle::legal::ENEMY_TRAINER_ITEMS;
         config.enemy_items = (0..2)
             .map(|_| ItemSpec { name: names::item_name(items[(next(&mut rng) % items.len() as u64) as usize]).to_string(), quantity: 1 })
             .collect();

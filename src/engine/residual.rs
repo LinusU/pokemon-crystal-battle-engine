@@ -803,7 +803,7 @@ impl Engine {
     /// memory (`wCurHPAnim*`, `wCurHPBarPixels`, ...); nothing is drawn.
     pub fn animate_hp_bar(&mut self) {
         if let Some(events) = self.events.as_mut() {
-            use crate::bootstrap::events::{Event, HpBarTarget};
+            use crate::battle::event::{Event, HpBarTarget};
             let target = match self.mem.rb(W_WHICH_HP_BAR) {
                 0 => HpBarTarget::Enemy,
                 1 => HpBarTarget::Player,

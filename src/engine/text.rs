@@ -11,7 +11,7 @@ use super::battle::Engine;
 use super::rom;
 use super::rsym as r;
 use super::sym::*;
-use crate::bootstrap::events::decode;
+use crate::battle::event::decode;
 
 /// Where `PrintTextboxText` starts the cursor: `(TEXTBOX_INNERX, TEXTBOX_INNERY)`.
 const TEXT_LINE1: u16 = W_TILEMAP + 14 * 20 + 1;
@@ -156,7 +156,7 @@ impl Engine {
     /// `.place` (`CheckDict`): `ld [hli], a` with the tile, captured as battle
     /// text when it lands in the text box.
     fn place_tile(&self, out: &mut Out, tile: u8) {
-        if out.lost || crate::bootstrap::events::in_text_area(out.pos) {
+        if out.lost || crate::battle::event::in_text_area(out.pos) {
             out.push(decode(tile));
         }
         self.store(out, out.pos, tile);

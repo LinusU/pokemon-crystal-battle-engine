@@ -9,10 +9,10 @@
 use super::battle::{Engine, Flags, Suspend, TextRef};
 use super::core::{TurnEnd, TurnEntry};
 use crate::battle::BattleState;
-use crate::bootstrap::BattleConfig;
-use crate::bootstrap::decision::{PromptSite, Step};
-use crate::bootstrap::events::Event;
-use crate::bootstrap::snapshot::Outcome;
+use crate::config::BattleConfig;
+use crate::battle::action::{PromptSite, Step};
+use crate::battle::event::Event;
+use crate::battle::outcome::Outcome;
 
 /// Where a [`FastBattle`] is.
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -79,7 +79,7 @@ impl FastBattle {
     pub fn new_via_oracle(config: &BattleConfig, seed: u64) -> Result<FastBattle, String> {
         let first = super::oracle::first_decision(config, seed).ok_or("the oracle could not start the battle")?;
         let flags = Flags {
-            link_battle: config.battle.kind == crate::bootstrap::BattleKind::LinkBattle,
+            link_battle: config.battle.kind == crate::config::BattleKind::LinkBattle,
             ..Flags::default()
         };
         Ok(Self::from_engine(Engine::new(first.mem, first.rng, flags), TurnEntry::BattleMenu))

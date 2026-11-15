@@ -27,7 +27,8 @@
 //! seed-swept corpus (`--seed 0,1,2,…`) drew the same handful of trainers.
 //! Mixing the base before use spreads the selection across all trainers.
 
-use super::{BattleConfig, BattleHeader, BattleKind, ItemSpec, MonSpec, species, trainers};
+use super::{species, trainers};
+use crate::config::{BattleConfig, BattleHeader, BattleKind, ItemSpec, MonSpec};
 
 /// Domain salts that split one base seed into two independent streams. Any two
 /// distinct constants work; these are arbitrary 64-bit odd values.
@@ -185,7 +186,7 @@ fn generate(base_seed: u64, verbose: bool) -> BattleConfig {
 }
 
 /// xorshift64 PRNG seeded from a `u64`. Same shape as the entropy seed
-/// generator in `bootstrap/mod.rs`; kept private here because the random
+/// generator in `bootstrap/mod.rs` (the harness); kept private here because the random
 /// battle generator wants its own independent stream from the battle RNG.
 struct Rng {
     state: u64,
@@ -219,7 +220,7 @@ impl Rng {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::bootstrap::items;
+    use crate::data::items;
 
     /// Every name the generator emits must round-trip through the harness's
     /// lookup tables, every level must fit the engine's 1..=100 range, and

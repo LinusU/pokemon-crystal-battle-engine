@@ -3,7 +3,7 @@
 //! curated unique trainers in [`super::trainers`].
 //!
 //! DO NOT EDIT BY HAND. Regenerate with:
-//!   python3 scratch/gen_trainers.py > src/bootstrap/trainers_data.rs
+//!   python3 scratch/gen_trainers.py > src/data/trainers_data.rs
 //!
 //! Source of truth: `scratch/pokecrystal/data/trainers/parties.asm`. Each
 //! row's `(class, id)` is the `(wOtherTrainerClass, wOtherTrainerID)` pair

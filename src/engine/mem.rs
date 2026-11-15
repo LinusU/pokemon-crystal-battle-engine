@@ -8,7 +8,12 @@
 //! engine's memory with the original's directly. Named accessors live next to
 //! the code that uses them; addresses come from [`super::sym`].
 
-use crate::runtime::ReadMem;
+/// Read access to Game Boy memory. Implemented by the engine's [`Mem`] and by
+/// the emulated original's CPU, so code that only inspects battle state
+/// (legal actions, state snapshots) runs unchanged on either.
+pub trait ReadMem {
+    fn read_byte(&self, addr: u16) -> u8;
+}
 
 const WRAM_START: u16 = 0xc000;
 const WRAM_LEN: usize = 0x2000;

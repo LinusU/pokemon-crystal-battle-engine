@@ -6,7 +6,7 @@ use std::collections::VecDeque;
 
 use super::mem::Mem;
 use super::sym::*;
-use crate::bootstrap::decision::{PromptSite, Step};
+use crate::battle::action::{PromptSite, Step};
 use crate::defs;
 
 /// A routine either finishes or stops because the engine needs a decision it
@@ -80,7 +80,7 @@ pub struct Engine {
     pub rom_overlay: Vec<(usize, u8)>,
     /// When `Some`, what the battle shows, in the emulated harness's format
     /// (`bootstrap::events`): every text message and every HP-bar change.
-    pub events: Option<Vec<crate::bootstrap::events::Event>>,
+    pub events: Option<Vec<crate::battle::event::Event>>,
 }
 
 impl Engine {
@@ -259,7 +259,7 @@ impl Engine {
         if self.rendered.is_some() || self.events.is_some() || side_effects {
             let messages = self.render_text(label, choices);
             if let Some(events) = self.events.as_mut() {
-                events.extend(messages.iter().cloned().map(crate::bootstrap::events::Event::Text));
+                events.extend(messages.iter().cloned().map(crate::battle::event::Event::Text));
             }
             if let Some(rendered) = self.rendered.as_mut() {
                 rendered.extend(messages);
@@ -271,7 +271,7 @@ impl Engine {
 
     /// Take the next decision for `site`, or suspend if none is queued.
     pub fn decide(&mut self, site: PromptSite) -> Flow<Step> {
-        let legal = crate::bootstrap::cli::legal_steps(&self.mem, site);
+        let legal = crate::battle::legal::legal_steps(&self.mem, site);
         if let Some(log) = self.decision_log.as_mut() {
             log.push((site, legal.clone(), self.mem.clone(), self.rng));
             if let Some(r) = self.rendered.as_mut() {
