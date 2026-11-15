@@ -67,6 +67,20 @@ snapshot (about 8 KB).
   choice, pass it with `self.text_with(label, &[choice])`. Printing is
   otherwise read-only, except where the original's text engine writes memory
   (`<ENEMY>` runs `Battle_GetTrainerName`; see `Engine::text_with`).
+- **Text engine model** (`text.rs`): the renderer follows the original's tile
+  cursor exactly — `hl` while placing, `bc` between text commands, and the
+  line start `PlaceString` keeps on the stack (`<NEXT>`, `<LF>`, `<CR>` move
+  from it) — including the registers routines clobber (`ld bc, 40` in
+  `<NEXT>`, the dakuten mark in `b`, `TextScroll`'s `bc = 0`, a link
+  battle's `<PROMPT>`). A character is battle text only if it lands in the
+  text box, as in the capture. Normal text never leaves the box; garbage
+  (Beat Up's names past the party) can, and then the characters it places
+  past the tilemap are written to memory. `<MOBILE>` (`RunMobileScript`) is
+  ported where it stays in WRAM banks 0-1 and ROM (skip commands, cursor
+  moves, the index print with `_MobilePrintNum`, table strings); the
+  commands that read SRAM or leave WRAM bank 4 mapped, a jump into garbage,
+  and garbage reading or writing state the engine doesn't keep (the
+  tilemap, sound, I/O, a ROM bank switch) panic instead.
 - **Random numbers**: `call BattleRandom` → `self.battle_random("Routine")`,
   `call Random` → `self.random("Routine")`, with the routine's name (used by
   the differential tester to say which routine drew a byte).
@@ -97,6 +111,11 @@ build --release --examples`).
 - `api_diff [link|wild|trainer] <battles> <first_seed>`: the library API on
   both engines, `battle::Battle` against `battle::EmulatedBattle`: every
   `Decision` (site, side, legal actions, typed state, events) and the outcome.
+- `text_diff [names] [first_seed]`: the text engine on garbage, which random
+  battles reach too rarely to test: Beat Up's "<name>'s attack!" printed with
+  random raw names (control characters, kana, `<MOBILE>` scripts) on both
+  engines from a battle's first decision (`oracle::TextBench`,
+  `diff::check_garbage_name`). Text and memory must match.
 
 `engine_bench [battles]` measures battles per second on both.
 

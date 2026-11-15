@@ -154,6 +154,17 @@ fixed in the harness (so the oracle got closer to the real game):
   final state there, and the tester compares it.
 - **Text capture.** A full party's party-menu "CANCEL" is no longer captured
   as battle text.
+- **NPC names.** The harness never ran a new game's `InitializeNPCNames`,
+  leaving Mom's, Red's and Green's names zero; garbage text that printed
+  `<MOM>` / `<RED>` / `<GREEN>` then ran on through WRAM. They are now set
+  like a new game sets them.
+- **HP bar animation.** Two of the original's `; BUG:`s had been ported as
+  the fixed code: the long animation's pixel check compares the low byte of
+  the HP before the step (so it redraws almost every step and leaves that
+  byte in `wCurHPBarPixels`), and the short animation clamps the HP it shows
+  to `wCurHPAnimLowHP`..`HighHP`. Neither reached compared memory, but the HP
+  number they leave in `wStringBuffer2` is what garbage text reads after an
+  unterminated name.
 
 ### Toolchain
 
@@ -175,6 +186,13 @@ compile the `objc2` 0.4 that glium 0.34 pulled in.
   timing), not real hardware state. Both engines read zeros there instead (a
   HARNESS-PATCH in `GetBeatupMonLocation` and Beat Up's nickname lookup,
   [transpiled_code.md](transpiled_code.md)).
+- **`<MOBILE>` in garbage text** (`RunMobileScript`, reachable through
+  an enemy Beat Up's names past the party in link battles) is ported where
+  it stays in the memory the engine models; its SRAM commands, the command
+  that leaves WRAM bank 4 mapped, and garbage reaching the tilemap, sound,
+  I/O or a ROM bank switch stop the engine (`Error::Engine`). `text_diff`:
+  12,000 random garbage names, zero differences; the rest stop on purpose
+  or are ones the original can't print either.
 - **Scenarios the original itself freezes on** (a wild Unown with no unlocked
   letters) are skipped by the tester's cycle watchdog.
 - **Not offered by the harness, so not ported:** Bug-Catching Contest and
