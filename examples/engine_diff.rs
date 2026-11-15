@@ -8,7 +8,7 @@
 //! `external` is a trainer battle with the trainer controlled from outside
 //! (`enemy_control = "external"`): the random policy plays both sides.
 
-use rgb2rust_output::oracle::{self, diff, testgen};
+use crystal_battle_harness::oracle::{self, diff, testgen};
 
 fn main() {
     let mut args = std::env::args().skip(1).peekable();

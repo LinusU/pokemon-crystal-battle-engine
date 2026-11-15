@@ -8,19 +8,26 @@
 #![allow(unused_comparisons)]
 #![allow(unused_parens)]
 
+// The library, re-exported under the paths the harness and the transpiled
+// code's hooks use (`crate::defs::…`, `crate::engine::mem::…`).
 #[cfg(feature = "ai")]
-pub mod ai;
-pub mod battle;
+pub use crystal_battle::ai;
+pub use crystal_battle::{config, data, defs, engine, rom};
+
+/// The library API ([`crystal_battle::battle`]), plus [`EmulatedBattle`]: the
+/// same API on the original code.
+pub mod battle {
+    pub use crystal_battle::battle::*;
+
+    pub mod emulated;
+    pub use emulated::EmulatedBattle;
+}
+
 pub mod bootstrap;
-pub mod config;
-pub mod data;
-pub mod defs;
-pub mod engine;
 pub mod dispatch;
 pub mod game;
 pub mod macros;
 pub mod oracle;
-pub mod rom;
 pub mod runtime;
 
 pub fn entry_routine() -> crate::runtime::Routine {

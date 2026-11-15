@@ -1,9 +1,10 @@
 //! A trained battle AI (the `ai` cargo feature). See docs/ai.md.
 //!
 //! ```no_run
-//! use rgb2rust_output::ai::Agent;
-//! use rgb2rust_output::battle::{Battle, Status};
-//! use rgb2rust_output::bootstrap::{EnemyControl, random::random_battle_config};
+//! use crystal_battle::ai::Agent;
+//! use crystal_battle::battle::{Battle, Status};
+//! use crystal_battle::config::EnemyControl;
+//! use crystal_battle::data::random::random_battle_config;
 //!
 //! // A random trainer battle where the AI plays the trainer.
 //! let mut config = random_battle_config(7);

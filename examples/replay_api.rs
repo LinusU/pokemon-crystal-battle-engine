@@ -4,8 +4,8 @@
 //!
 //! cargo run --release --example replay_api -- fixtures/*.toml
 
-use rgb2rust_output::battle::{Action, Battle, Status};
-use rgb2rust_output::bootstrap::player;
+use crystal_battle_harness::battle::{Action, Battle, Status};
+use crystal_battle_harness::bootstrap::player;
 
 fn replay(path: &std::path::Path) -> Result<(), String> {
     let rec = player::load(path)?;

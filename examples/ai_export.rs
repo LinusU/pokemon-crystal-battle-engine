@@ -3,7 +3,7 @@
 //!
 //! cargo run --release --features ai --example ai_export -- <checkpoint.bin> <out.bin>
 
-use rgb2rust_output::ai::net::Net;
+use crystal_battle_harness::ai::net::Net;
 
 fn main() {
     let mut args = std::env::args().skip(1);

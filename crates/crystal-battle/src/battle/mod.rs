@@ -1,8 +1,8 @@
 //! The library API: drive one battle decision by decision.
 //!
 //! ```no_run
-//! use rgb2rust_output::battle::{Battle, Status};
-//! use rgb2rust_output::bootstrap::random::random_battle_config;
+//! use crystal_battle::battle::{Battle, Status};
+//! use crystal_battle::data::random::random_battle_config;
 //!
 //! let config = random_battle_config(7);
 //! let mut battle = Battle::new(config, 0x1234).unwrap();
@@ -23,12 +23,12 @@
 //! does: same states, same random draws, same text (see docs/goal.md for how
 //! that is verified).
 //!
-//! [`EmulatedBattle`] has the same API on the original code itself (the
-//! transpiled engine on the emulated CPU, on its own thread). It is the
-//! reference the engine is tested against, and what the `gui` window plays.
+//! The harness crate (`crystal-battle-harness`, the repository root) has an
+//! `EmulatedBattle` with the same API on the original code itself (the
+//! transpiled engine on the emulated CPU). It is the reference the engine is
+//! tested against, and what the `gui` window plays.
 
 pub mod action;
-pub mod emulated;
 pub mod event;
 pub mod legal;
 pub mod outcome;
@@ -38,7 +38,6 @@ pub use crate::config::BattleConfig;
 pub use action::{PromptSite, Side, Step as Action};
 pub use event::{Event, HpBarTarget, one_line};
 pub use outcome::Outcome;
-pub use emulated::EmulatedBattle;
 pub use state::BattleState;
 
 use crate::engine::api::{FastBattle, Status as EngineStatus};
@@ -63,7 +62,7 @@ pub struct Decision {
 /// Where the battle is.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Status<'a> {
-    /// Waiting for [`Battle::step`] / [`EmulatedBattle::step`].
+    /// Waiting for [`Battle::step`] (or the harness's `EmulatedBattle::step`).
     Decision(&'a Decision),
     /// The battle is over.
     Ended { outcome: Outcome, state: &'a BattleState, events: &'a [Event] },
@@ -202,5 +201,17 @@ fn current(engine: &FastBattle) -> Current {
 
 /// Run `f`, turning a panic (a bug in the engine) into [`Error::Engine`].
 fn catch<T>(f: impl FnOnce() -> T) -> Result<T, Error> {
-    std::panic::catch_unwind(std::panic::AssertUnwindSafe(f)).map_err(|payload| Error::Engine(emulated::panic_message(&payload)))
+    std::panic::catch_unwind(std::panic::AssertUnwindSafe(f)).map_err(|payload| Error::Engine(panic_message(&payload)))
+}
+
+/// The message of a caught panic.
+#[doc(hidden)]
+pub fn panic_message(payload: &Box<dyn std::any::Any + Send>) -> String {
+    if let Some(s) = payload.downcast_ref::<&str>() {
+        (*s).to_string()
+    } else if let Some(s) = payload.downcast_ref::<String>() {
+        s.clone()
+    } else {
+        "engine panicked".into()
+    }
 }

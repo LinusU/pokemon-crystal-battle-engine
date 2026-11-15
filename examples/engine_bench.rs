@@ -10,10 +10,10 @@
 //! - `Battle`: the library API (text and HP-bar events, typed state);
 //! - `EmulatedBattle`: the original code on the emulated CPU.
 
-use rgb2rust_output::battle::{Battle, EmulatedBattle, Status};
-use rgb2rust_output::bootstrap::BattleConfig;
-use rgb2rust_output::engine::api::{FastBattle, Status as FastStatus};
-use rgb2rust_output::oracle::{mix, testgen};
+use crystal_battle_harness::battle::{Battle, EmulatedBattle, Status};
+use crystal_battle_harness::bootstrap::BattleConfig;
+use crystal_battle_harness::engine::api::{FastBattle, Status as FastStatus};
+use crystal_battle_harness::oracle::{mix, testgen};
 use std::time::Instant;
 
 fn main() {

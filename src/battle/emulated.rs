@@ -6,7 +6,7 @@
 use std::sync::mpsc::{Receiver, SyncSender, sync_channel};
 use std::thread::JoinHandle;
 
-use super::{Action, BattleConfig, BattleState, Decision, Error, Event, Outcome, PromptSite, Side, Status};
+use super::{Action, BattleConfig, BattleState, Decision, Error, Event, Outcome, PromptSite, Side, Status, panic_message};
 use crate::bootstrap::decision::Decider;
 use crate::runtime::Cpu;
 
@@ -217,16 +217,6 @@ fn run_engine(config: BattleConfig, seed: u64, to_api: SyncSender<EngineMsg>, fr
         if payload.downcast_ref::<Abandoned>().is_none() {
             let _ = failures.send(EngineMsg::Failed(Error::Engine(panic_message(&payload))));
         }
-    }
-}
-
-pub(super) fn panic_message(payload: &Box<dyn std::any::Any + Send>) -> String {
-    if let Some(s) = payload.downcast_ref::<&str>() {
-        (*s).to_string()
-    } else if let Some(s) = payload.downcast_ref::<String>() {
-        s.clone()
-    } else {
-        "engine panicked".into()
     }
 }
 

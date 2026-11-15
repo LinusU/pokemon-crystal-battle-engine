@@ -4,8 +4,8 @@
 //!
 //! cargo run --release --example watch -- [seed]
 
-use rgb2rust_output::battle::{Battle, Event, Status, one_line};
-use rgb2rust_output::bootstrap::random::random_battle_config;
+use crystal_battle_harness::battle::{Battle, Event, Status, one_line};
+use crystal_battle_harness::bootstrap::random::random_battle_config;
 
 fn show(events: &[Event]) {
     for event in events {

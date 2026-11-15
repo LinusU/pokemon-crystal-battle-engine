@@ -3,9 +3,9 @@
 //!
 //! cargo run --release --example random_agent -- [battles] [first_seed]
 
-use rgb2rust_output::battle::{Battle, Status};
-use rgb2rust_output::bootstrap::names;
-use rgb2rust_output::bootstrap::random::random_battle_config;
+use crystal_battle_harness::battle::{Battle, Status};
+use crystal_battle_harness::bootstrap::names;
+use crystal_battle_harness::bootstrap::random::random_battle_config;
 
 /// splitmix64 — the agent's own randomness, independent of the engine's.
 fn next(state: &mut u64) -> u64 {

@@ -280,6 +280,24 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d0a5c400df2834b80a4c3327b3aad3a4c4cd4de0629063962b03235697506a28"
 
 [[package]]
+name = "crystal-battle"
+version = "0.1.0"
+dependencies = [
+ "serde",
+]
+
+[[package]]
+name = "crystal-battle-harness"
+version = "0.1.0"
+dependencies = [
+ "crystal-battle",
+ "glium",
+ "serde",
+ "toml",
+ "winit",
+]
+
+[[package]]
 name = "cursor-icon"
 version = "1.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1164,16 +1182,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4666a1a60d8412eab19d94f6d13dcc9cea0a5ef4fdf6a5db306537413c661b1b"
 dependencies = [
  "bitflags 2.11.1",
-]
-
-[[package]]
-name = "rgb2rust-output"
-version = "0.1.0"
-dependencies = [
- "glium",
- "serde",
- "toml",
- "winit",
 ]
 
 [[package]]

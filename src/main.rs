@@ -1,5 +1,5 @@
-use rgb2rust_output::bootstrap::{self, BattleConfig, RunOptions};
-use rgb2rust_output::runtime::Cpu;
+use crystal_battle_harness::bootstrap::{self, BattleConfig, RunOptions};
+use crystal_battle_harness::runtime::Cpu;
 
 fn main() {
     let args: Vec<String> = std::env::args().collect();
@@ -102,8 +102,8 @@ type BoxedDecider = Box<dyn bootstrap::decision::Decider>;
 /// The AI opponent for `--vs-ai`: the built-in model, or `--ai-model`.
 #[cfg(feature = "ai")]
 fn ai_decider(args: &AiArgs) -> Result<BoxedDecider, String> {
-    use rgb2rust_output::ai::Agent;
-    use rgb2rust_output::bootstrap::decision::AiDecider;
+    use crystal_battle_harness::ai::Agent;
+    use crystal_battle_harness::bootstrap::decision::AiDecider;
     let agent = match &args.model {
         Some(path) => Agent::load(path)?,
         None => Agent::builtin(),
@@ -156,7 +156,7 @@ fn run_headless(
     decider: Option<BoxedDecider>,
 ) {
     let mut cpu = Cpu::new_cgb(None, None);
-    cpu.interrupt_vectors = rgb2rust_output::interrupt_vectors();
+    cpu.interrupt_vectors = crystal_battle_harness::interrupt_vectors();
     run_battle(&mut cpu, &config, record_path.as_deref(), playback, show_text, decider);
 }
 
@@ -320,8 +320,8 @@ mod gui {
     use std::thread;
     use winit::platform::pump_events::EventLoopExtPumpEvents;
 
-    use rgb2rust_output::bootstrap::{self, BattleConfig};
-    use rgb2rust_output::runtime::{Cpu, KeypadEvent, KeypadKey};
+    use crystal_battle_harness::bootstrap::{self, BattleConfig};
+    use crystal_battle_harness::runtime::{Cpu, KeypadEvent, KeypadKey};
 
     #[derive(Default)]
     struct RenderOptions {
@@ -352,8 +352,8 @@ mod gui {
             &display,
             glium::texture::UncompressedFloatFormat::U8U8U8,
             glium::texture::MipmapsOption::NoMipmap,
-            rgb2rust_output::runtime::SCREEN_W as u32,
-            rgb2rust_output::runtime::SCREEN_H as u32,
+            crystal_battle_harness::runtime::SCREEN_W as u32,
+            crystal_battle_harness::runtime::SCREEN_H as u32,
         )
         .unwrap();
 
@@ -434,7 +434,7 @@ mod gui {
         decider: Option<super::BoxedDecider>,
     ) {
         let mut cpu = Cpu::new_cgb(Some(update_screen), Some(keypad_events));
-        cpu.interrupt_vectors = rgb2rust_output::interrupt_vectors();
+        cpu.interrupt_vectors = crystal_battle_harness::interrupt_vectors();
         super::run_battle(&mut cpu, &config, record_path.as_deref(), playback, show_text, decider);
     }
 
@@ -470,7 +470,7 @@ mod gui {
     }
 
     fn create_window_builder() -> winit::window::WindowAttributes {
-        winit::window::WindowAttributes::default().with_title("rgb2rust")
+        winit::window::WindowAttributes::default().with_title("crystal-battle")
     }
 
     fn recalculate_screen<T>(
@@ -493,16 +493,16 @@ mod gui {
 
         let raw_image = glium::texture::RawImage2d {
             data: std::borrow::Cow::Borrowed(data),
-            width: rgb2rust_output::runtime::SCREEN_W as u32,
-            height: rgb2rust_output::runtime::SCREEN_H as u32,
+            width: crystal_battle_harness::runtime::SCREEN_W as u32,
+            height: crystal_battle_harness::runtime::SCREEN_H as u32,
             format: glium::texture::ClientFormat::U8U8U8,
         };
         texture.write(
             glium::Rect {
                 left: 0,
                 bottom: 0,
-                width: rgb2rust_output::runtime::SCREEN_W as u32,
-                height: rgb2rust_output::runtime::SCREEN_H as u32,
+                width: crystal_battle_harness::runtime::SCREEN_W as u32,
+                height: crystal_battle_harness::runtime::SCREEN_H as u32,
             },
             raw_image,
         );
@@ -524,8 +524,8 @@ mod gui {
 
     fn set_window_size(window: &winit::window::Window, scale: u32) {
         let _ = window.request_inner_size(winit::dpi::LogicalSize::<u32>::from((
-            rgb2rust_output::runtime::SCREEN_W as u32 * scale,
-            rgb2rust_output::runtime::SCREEN_H as u32 * scale,
+            crystal_battle_harness::runtime::SCREEN_W as u32 * scale,
+            crystal_battle_harness::runtime::SCREEN_H as u32 * scale,
         )));
     }
 }

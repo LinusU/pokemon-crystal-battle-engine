@@ -3,8 +3,8 @@
 //!
 //! cargo run --release --example oracle_inspect -- [seed] [moves...]
 
-use rgb2rust_output::engine::sym;
-use rgb2rust_output::oracle::{self, testgen};
+use crystal_battle_harness::engine::sym;
+use crystal_battle_harness::oracle::{self, testgen};
 use std::collections::BTreeMap;
 
 fn main() {

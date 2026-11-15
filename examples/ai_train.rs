@@ -6,8 +6,8 @@
 //! 50 as `<out.bin>.<iteration>`), and every 25 iterations evaluates it as
 //! the trainer against the original trainer AI on 2,000 held-out battles.
 
-use rgb2rust_output::ai::net::Net;
-use rgb2rust_output::ai::train::{Policy, TrainConfig, Trainer, evaluate};
+use crystal_battle_harness::ai::net::Net;
+use crystal_battle_harness::ai::train::{Policy, TrainConfig, Trainer, evaluate};
 use std::sync::Arc;
 
 fn main() {

@@ -5,8 +5,8 @@
 //! cargo build --release --example engine_fixtures
 //! ./target/release/examples/engine_fixtures fixtures/*.toml
 
-use rgb2rust_output::bootstrap::player;
-use rgb2rust_output::oracle::{self, diff};
+use crystal_battle_harness::bootstrap::player;
+use crystal_battle_harness::oracle::{self, diff};
 use std::path::Path;
 
 fn main() {

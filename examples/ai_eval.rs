@@ -5,8 +5,8 @@
 //! Without a model path, evaluates the built-in model. Scores are
 //! win = 1, draw = ½, over the same held-out scenarios for every row.
 
-use rgb2rust_output::ai::Agent;
-use rgb2rust_output::ai::train::{Policy, Record, evaluate};
+use crystal_battle_harness::ai::Agent;
+use crystal_battle_harness::ai::train::{Policy, Record, evaluate};
 use std::sync::Arc;
 
 fn main() {

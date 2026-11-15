@@ -4,7 +4,7 @@
 //! Everything is read from the [`BattleState`] the library hands out (the
 //! original's WRAM at a decision point) plus the game data in the ROM image
 //! (move, base-stat and type-chart tables), so the encoding is the same for
-//! [`crate::battle::Battle`], [`crate::battle::EmulatedBattle`] and the
+//! [`crate::battle::Battle`], the harness's `EmulatedBattle` and the
 //! training loop. The view is always "me" (the side deciding) against "foe":
 //! the same network plays the player and the enemy trainer.
 //!

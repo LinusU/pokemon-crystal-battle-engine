@@ -1,5 +1,11 @@
+[workspace]
+members = [".", "crates/crystal-battle"]
+
+# The harness: the transpiled original on an emulated Game Boy, the CLI, the
+# recorder and the `gui` window — the reference the library in
+# `crates/crystal-battle` is verified against.
 [package]
-name = "rgb2rust-output"
+name = "crystal-battle-harness"
 version = "0.1.0"
 edition = "2024"
 
@@ -7,11 +13,11 @@ edition = "2024"
 # Off by default: a plain build is a lean headless binary with no glium/winit
 # compiled in. Enable the interactive window + renderer with `--features gui`.
 gui = ["dep:glium", "dep:winit"]
-# The trained battle AI (`ai::Agent`), its trainer and the CLI's `--vs-ai`.
-# No extra dependencies: the network is plain Rust.
-ai = []
+# The trained battle AI (`crystal_battle::ai`) and the CLI's `--vs-ai`.
+ai = ["crystal-battle/ai"]
 
 [dependencies]
+crystal-battle = { path = "crates/crystal-battle" }
 glium = { version = "0.36", optional = true }
 winit = { version = "0.30", optional = true }
 serde = { version = "1", features = ["derive"] }

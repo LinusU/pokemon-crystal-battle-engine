@@ -1,0 +1,14 @@
+[package]
+name = "crystal-battle"
+version = "0.1.0"
+edition = "2024"
+description = "Pokémon Crystal's battle engine as a library: hand-written Rust that reproduces the original exactly."
+
+[features]
+# The trained battle AI (`ai::Agent`) and its trainer. No extra dependencies:
+# the network is plain Rust.
+ai = []
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+

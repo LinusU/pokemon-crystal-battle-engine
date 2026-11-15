@@ -7,8 +7,8 @@
 //! cargo build --release --example api_diff
 //! ./target/release/examples/api_diff [link|wild|trainer] <battles> <first_seed> [moves...]
 
-use rgb2rust_output::battle::{Battle, EmulatedBattle, Status};
-use rgb2rust_output::oracle::{mix, testgen};
+use crystal_battle_harness::battle::{Battle, EmulatedBattle, Status};
+use crystal_battle_harness::oracle::{mix, testgen};
 
 fn main() {
     let mut args = std::env::args().skip(1).peekable();
@@ -46,7 +46,7 @@ fn main() {
     println!("{ok} ok, {bad} differ");
 }
 
-fn compare(config: &rgb2rust_output::battle::BattleConfig, seed: u64, policy: u64) -> Result<usize, String> {
+fn compare(config: &crystal_battle_harness::battle::BattleConfig, seed: u64, policy: u64) -> Result<usize, String> {
     let mut fast = Battle::new(config.clone(), seed).map_err(|e| format!("engine setup: {e}"))?;
     let mut slow = EmulatedBattle::new(config.clone(), seed).map_err(|e| format!("oracle setup: {e}"))?;
     let mut policy = policy;
