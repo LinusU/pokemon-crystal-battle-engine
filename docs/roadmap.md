@@ -67,12 +67,20 @@ Consumers:
 1. ✅ glium/winit are gated behind the `gui` feature: a default `cargo build` compiles neither, and the headless binary runs a battle without the screen/keypad channels (`Cpu::new_cgb(None, None)`).
 2. Gate the pixel output of the in-`Cpu` GPU emulation (`runtime/gpu.rs`) behind `gui` too. The transpiled code keeps writing tilemaps/VRAM (cheap memory writes), but headless builds stop producing pixels nobody reads. The window keeps working unchanged and stays the visual reference.
 3. ✅ With Step 3: emit `BattleEvent`s from hooks around the presentation calls (battle textbox, HP-bar updates) and build the CLI text view on them (`--show-text`, `examples/watch`). Today's `battle::Event` is `Text` and `HpBar`; animations, sfx and the finer-grained events above are still to add.
-4. ✅ The logic has graduated: the hand-written engine (`src/engine/`, [engine.md](engine.md)) contains no rendering at all and is what `battle::Battle` runs on. It produces the same events (exact text, HP-bar changes) as the hooks on the original. As logic graduates to hand-written code, presentation calls leave the logic and only event emissions remain. The renderer can keep reusing the *transpiled presentation routines* (textbox, battle anims, HUD), now driven by events instead of being called from inside the logic — likely the same shape Rustic Crystal ends up with.
+4. ✅ The logic has graduated: the hand-written engine (`crates/crystal-battle/src/engine/`, [engine.md](engine.md)) contains no rendering at all and is what `battle::Battle` runs on. It produces the same events (exact text, HP-bar changes) as the hooks on the original. As logic graduates to hand-written code, presentation calls leave the logic and only event emissions remain. The renderer can keep reusing the *transpiled presentation routines* (textbox, battle anims, HUD), now driven by events instead of being called from inside the logic — likely the same shape Rustic Crystal ends up with.
 5. Once the event-driven renderer matches the emulated GPU visually, the emulated GPU can be dropped from the battle path.
 
 **Invariant: rendering never influences logic.** Events describe what happened; they never feed back. In real Crystal, frame timing can leak into randomness (`rDIV`, `hRandomAdd`), so removing `delay_frames` and similar calls must not change outcomes. The fixture corpus enforces this — any rendering change that moves a recording's per-step expectations is a bug.
 
-The `gui` feature gives a glium/winit-free default build without a crate split, so splitting into `pokemon_crystal_battle` (library) + `pokemon_crystal_battle_play` (window harness) is now optional rather than required.
+## Step 5 — a library for Rustic Crystal / Rustic Yellow
+
+- ✅ Crate split: `crystal-battle` (`crates/crystal-battle/`: engine, `Battle`, config, data, AI; `serde` only, stable Rust) and `crystal-battle-harness` (the repository root: transpiled original, emulator, CLI, recorder, `EmulatedBattle`, testers, `gui`). The library never runs the emulator: a scenario the engine can't start is an error, not a fallback to the oracle.
+- Injectable game data: the library still embeds `pokecrystal.gbc` from the repository root with `include_bytes!`, so it can't be a git/path dependency of another repository yet. Either take the ROM bytes at runtime or generate the tables the engine reads into Rust data. (Rustic Crystal ships the 1.1 ROM; check its offsets against the 1.0 symbols.)
+- Full party input: a game hands over its exact party (DVs, stat experience, current HP/PP/status, PP Ups, happiness, Pokérus, nicknames, OT names), the player (name, ID, badges, money), the bag with counts, options, and the battle type — not a species + level scenario.
+- A typed post-battle result: the updated party (HP, PP, status, experience, levels, learned moves), the caught mon, money, items used, which mons evolve.
+- Richer events for a renderer: move animations, sfx and cries, switch-in / faint, status and stat-stage changes, the experience bar, level-up stats, ball shakes (see Step 4).
+- Battle types the harness never offered: the Bug-Catching Contest, the tutorial battle, the Battle Tower; catching with a full party and a full box.
+- Rustic Yellow: mapping Gen 1 party data (internal species indices, item ids, no held items) to Crystal's and back.
 
 ## Open design questions
 

@@ -59,7 +59,7 @@ step and add BPTT complexity for no information gain. Hence:
   one network, and masking is free.
 - **Implementation**: plain Rust, no dependencies — the forward pass, the
   backward pass (checked against finite differences in the tests) and Adam
-  are ~400 lines in [`src/ai/net.rs`](../src/ai/net.rs). Training runs on all
+  are ~400 lines in [`crates/crystal-battle/src/ai/net.rs`](../crates/crystal-battle/src/ai/net.rs). Training runs on all
   cores with the hand-written engine (`FastBattle`, no text): an iteration
   (~17,000 decisions over ~850 battles, then 3 PPO epochs) takes ~1 second
   on an 11-core laptop.
@@ -70,7 +70,7 @@ history earns its keep; the action-scoring head and PPO loop stay as they are.
 Test-time search (cloning the battle with *re-randomised* RNG — cloning the
 real stream would read the future) is the other natural next step.
 
-## Features ([`src/ai/features.rs`](../src/ai/features.rs))
+## Features ([`crates/crystal-battle/src/ai/features.rs`](../crates/crystal-battle/src/ai/features.rs))
 
 From the deciding side's point of view ("me" vs "foe"), so one network plays
 both the player and the trainer:
@@ -90,9 +90,9 @@ Ids (species, moves, effects, items) are one-hot over 256: the input is
 6,267 wide (`OBS_DIM`) but only a few hundred non-zeros, and the input layers only touch those rows.
 Game data comes from the ROM tables (`Moves`, `BaseData`, `TypeMatchups`).
 
-## Training ([`src/ai/train.rs`](../src/ai/train.rs))
+## Training ([`crates/crystal-battle/src/ai/train.rs`](../crates/crystal-battle/src/ai/train.rs))
 
-Battles are `bootstrap::random::random_battle_config` scenarios (a random
+Battles are `crystal_battle::data::random::random_battle_config` scenarios (a random
 trainer, a random player party around its level, a bag of battle items), and
 in 70% of them two random AI items for the trainer. Each iteration mixes:
 
@@ -110,8 +110,8 @@ original refuses it and reopens the menu): early runs learned to stall
 behind that no-op.
 
 ```bash
-cargo run --release --features ai --example ai_train -- run.bin 3000
-cargo run --release --features ai --example ai_export -- run.bin models/crystal-ai.bin
+cargo run --release -p crystal-battle --features ai --example ai_train -- run.bin 3000
+cargo run --release -p crystal-battle --features ai --example ai_export -- run.bin crates/crystal-battle/models/crystal-ai.bin
 ```
 
 The trainer saves an `f32` checkpoint every iteration (and every 50th under
@@ -130,7 +130,7 @@ Two questions, on the same held-out scenarios:
 2. **Does it beat the original head-on?** The AI plays the player's side
    against the original trainer AI (with the player's random party and bag).
 
-`cargo run --release --features ai --example ai_eval -- [model.bin] [games]`
+`cargo run --release -p crystal-battle --features ai --example ai_eval -- [model.bin] [games]`
 prints both.
 
 Shipped model (3,000 iterations, ~45 minutes on an 11-core laptop; 5,000
@@ -160,7 +160,7 @@ are the levers for more.
 Library (`--features ai`):
 
 ```rust
-use rgb2rust_output::ai::Agent;
+use crystal_battle::ai::Agent;
 let mut ai = Agent::builtin(); // or Agent::load("model.bin")
 let action = ai.choose(decision); // any Decision, either side
 ```
@@ -175,7 +175,7 @@ cargo run --features "ai gui" -- --random --vs-ai --show-text
 side too (watch it play itself). `--record` records both sides' decisions;
 `--play` replays them without the AI.
 
-The shipped model is [`models/crystal-ai.bin`](../models/crystal-ai.bin)
+The shipped model is [`crates/crystal-battle/models/crystal-ai.bin`](../crates/crystal-battle/models/crystal-ai.bin)
 (1.8M parameters stored as bf16, 3.6 MB, `include_bytes!` into the library;
 `ai_export` writes one from a training checkpoint). A model file stores the feature
 version and layer sizes and refuses to load against a different encoding;

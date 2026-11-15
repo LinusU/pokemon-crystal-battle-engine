@@ -1,4 +1,4 @@
-# The hand-written engine (`src/engine/`)
+# The hand-written engine (`crates/crystal-battle/src/engine/`)
 
 A port of pret/pokecrystal's battle engine to plain Rust, verified against the
 original (the transpiled engine on the emulated CPU) by differential testing.
@@ -27,9 +27,15 @@ Goal and exactness contract: [goal.md](goal.md).
 | `names.rs`, `text.rs` | Names into `wStringBuffer1`; the text command interpreter (renders a text label to the exact messages, `text_asm` handlers choose the next text). |
 | `harness.rs` | The emulated harness's replacements for the original's menus (action menu, move selection, link actions), ported as the HARNESS-PATCHes run them. |
 | `api.rs` | `FastBattle`: start, `step`, `status`, `state`, `events`, `Clone`. The library's `battle::Battle` wraps it. |
-| `oracle.rs` | Runs the original engine and records memory, RNG state, legal actions, text and the action at every decision (random policy or a recording's script), the battle's end, and every `Random` call with its caller. |
-| `diff.rs` | Differential checks: `check_start` (the start state, all of WRAM) and `check` (every decision and the end: site, legal actions, random stream, `COMPARED` memory, text). |
-| `testgen.rs` | Random scenarios for differential testing: link / wild / trainer, random parties and moves, held items, bags, traded mons, badges. |
+
+The oracle tooling lives in the harness crate (the repository root,
+[`src/oracle/`](../src/oracle/)), since it runs the transpiled original:
+
+| File | What |
+| --- | --- |
+| `oracle/mod.rs` | Runs the original engine and records memory, RNG state, legal actions, text and the action at every decision (random policy or a recording's script), the battle's end, and every `Random` call with its caller. |
+| `oracle/diff.rs` | Differential checks: `check_start` (the start state, all of WRAM) and `check` (every decision and the end: site, legal actions, random stream, `COMPARED` memory, text). |
+| `oracle/testgen.rs` | Random scenarios for differential testing: link / wild / trainer, random parties and moves, held items, bags, traded mons, badges. |
 
 ### Decisions, `step`, and cloning
 

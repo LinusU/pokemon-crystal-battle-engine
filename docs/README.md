@@ -1,8 +1,13 @@
 # pokemon-crystal-battle-engine — living docs
 
-This crate is a Rust port of the [pret/pokecrystal](https://github.com/pret/pokecrystal) Pokémon Crystal disassembly, mechanically produced by a custom transpiler. The current goal is to evolve it into a **headless Pokémon Crystal battle engine** that exposes the battle as a state machine: feed actions in, get the next state out, repeat until the battle ends.
+A **headless Pokémon Crystal battle engine**: the battle as a state machine — feed actions in, get the next state out, repeat until the battle ends. It started as a Rust port of the [pret/pokecrystal](https://github.com/pret/pokecrystal) disassembly, mechanically produced by a custom transpiler; the battle has since been ported by hand and verified against that transpiled original.
 
-The transpiled code is in `src/game/`, `src/dispatch.rs`, `src/defs.rs`. We avoid editing it where we can — when we have to (e.g. boot-flow hooks), we patch a single line and document why here.
+The repository is a Cargo workspace of two crates:
+
+- **`crystal-battle`** ([`crates/crystal-battle/`](../crates/crystal-battle/)) — the library: the hand-written engine, the `Battle` API, the scenario types (`config`), the game-data tables (`data`), and the trained AI (`ai` feature). It depends on `serde` alone and builds on stable Rust. This is what Rustic Crystal / Rustic Yellow depend on.
+- **`crystal-battle-harness`** (the repository root) — the reference the library is verified against: the transpiled original (`src/game/`, `src/dispatch.rs`) on an emulated Game Boy (`src/runtime/`), the battle-launch harness and CLI (`src/bootstrap/`), recording / playback, `EmulatedBattle`, the differential testers (`src/oracle/`, `examples/`), the fixture corpus and the `gui` window. It needs nightly (the transpiled code uses `become`).
+
+We avoid editing the transpiled code where we can — when we have to (e.g. boot-flow hooks), we patch a single line and document why in [transpiled_code.md](transpiled_code.md). The generated constants it shares with the engine (`crates/crystal-battle/src/defs.rs`) live in the library.
 
 ## Where we are
 
@@ -20,23 +25,28 @@ The transpiled code is in `src/game/`, `src/dispatch.rs`, `src/defs.rs`. We avoi
 - ✅ Playback with `--play <recording.toml>` — drives the battle from a recorded `[[step]]` list with no stdin prompts; the recording's seed is authoritative and its embedded `[scenario.*]` block reconstructs the matchup, so no other file is needed. See [TOML schema](toml_schema.md#playback----play-path).
 - ✅ Random battles with `--random` (optionally `--seed <n>`) — skip authoring TOML and start a deterministic randomized trainer battle; the recording embeds the resolved matchup and replays from the seed, so the generator is never re-run. See [TOML schema](toml_schema.md#random-battles----random-and---seed-n).
 - ✅ Headless by default — glium/winit sit behind the off-by-default `gui` cargo feature, so a plain `cargo run` / `cargo build` compiles no graphics deps and drives the battle straight to completion with no window. `--features gui` adds an opt-in window that shows the same battle. Either way a battle must be specified (`<scenario.toml>` / `--random` / `--play`); the binary always runs a single battle and never boots into the overworld.
-- ✅ Battle events: the exact battle text (captured from the original text engine) and HP-bar changes, as `battle::Event`s on every `Decision` / `Battle::events()`. `--show-text` prints them live in the CLI, so any battle or `--play` replay can be watched in the terminal; `cargo run --release --example watch` does the same through the library.
+- ✅ Battle events: the exact battle text (captured from the original text engine) and HP-bar changes, as `battle::Event`s on every `Decision` / `Battle::events()`. `--show-text` prints them live in the CLI, so any battle or `--play` replay can be watched in the terminal; `cargo run --release -p crystal-battle --example watch` does the same through the library.
 - ✅ External enemy trainer: `[battle] enemy_control = "external"` hands the trainer AI's choices (its move, switching, its AI items, the next mon to send in) to `Enemy`-side decisions, on both engines (`engine_diff external`). See [TOML schema](toml_schema.md#external-enemy-trainer).
 - ✅ A trained battle AI (`ai` cargo feature): a policy/value network trained by PPO self-play on the hand-written engine, playing either side of any decision — moves, switches, bag and trainer items. `--vs-ai` makes it the enemy trainer in the CLI (and the `gui` window). See [ai.md](ai.md).
-- ✅ Library API: [`battle::Battle`](../src/battle/mod.rs) — `Battle::new(config, seed)`, `status()` (a `Decision` with the legal actions, a typed [`BattleState`](../src/battle/state.rs) and the events since the last decision, or the outcome), `step(action)`, and `Clone` (copy a battle to search ahead). It runs on the **hand-written engine** ([`src/engine/`](../src/engine/), [engine.md](engine.md)): plain Rust, no emulator, verified to reproduce the original exactly (states, random draws, text, outcome). [`battle::EmulatedBattle`](../src/battle/emulated.rs) has the same API on the original code (the transpiled engine on its own thread), the reference it is tested against. Legal actions mirror the original menus exactly (see [TOML schema](toml_schema.md#legal-steps)). Examples: `random_agent`, `replay_api -- fixtures/*.toml`, `watch`, `api_diff`, `engine_bench`.
+- ✅ Library API: [`battle::Battle`](../crates/crystal-battle/src/battle/mod.rs) — `Battle::new(config, seed)`, `status()` (a `Decision` with the legal actions, a typed [`BattleState`](../crates/crystal-battle/src/battle/state.rs) and the events since the last decision, or the outcome), `step(action)`, and `Clone` (copy a battle to search ahead). It runs on the **hand-written engine** ([`crates/crystal-battle/src/engine/`](../crates/crystal-battle/src/engine/), [engine.md](engine.md)): plain Rust, no emulator, verified to reproduce the original exactly (states, random draws, text, outcome). The harness's [`battle::EmulatedBattle`](../src/battle/emulated.rs) has the same API on the original code (the transpiled engine on its own thread), the reference it is tested against. Legal actions mirror the original menus exactly (see [TOML schema](toml_schema.md#legal-steps)). Library examples: `random_agent`, `watch` (`-p crystal-battle`); harness examples: `replay_api -- fixtures/*.toml`, `api_diff`, `engine_bench`.
 
 ## Layout
 
 | Path | What's there |
 | --- | --- |
-| [`src/bootstrap/`](../src/bootstrap/) | Battle-launch harness — TOML schema, species table, WRAM seeding, dispatch to `start_battle`. |
+| [`crates/crystal-battle/src/engine/`](../crates/crystal-battle/src/engine/) | The hand-written battle engine. See [engine.md](engine.md). |
+| [`crates/crystal-battle/src/battle/`](../crates/crystal-battle/src/battle/) | The library API: `Battle`, actions and legal actions, events, typed state, outcome. |
+| [`crates/crystal-battle/src/config.rs`](../crates/crystal-battle/src/config.rs) | `BattleConfig`: the scenario a battle starts from (the TOML schema deserializes into it). |
+| [`crates/crystal-battle/src/data/`](../crates/crystal-battle/src/data/) | Species, move, item and trainer tables; base PP; the random-battle generator. |
+| [`crates/crystal-battle/src/ai/`](../crates/crystal-battle/src/ai/) | The trained battle AI (`ai` feature): features, network, PPO trainer, `Agent`. See [ai.md](ai.md). |
+| `crates/crystal-battle/models/` | The shipped AI model (`crystal-ai.bin`). |
+| [`src/bootstrap/`](../src/bootstrap/) | Battle-launch harness — WRAM seeding, dispatch to `start_battle`, the CLI, recording and playback. |
 | [`src/runtime/`](../src/runtime/) | The Game Boy hardware emulation (CPU, GPU, MBC, keypad). The transpiled code shares the same `Cpu` struct. |
 | [`src/game/`](../src/game/) | Transpiled engine code. Mirrors the directory layout of pret/pokecrystal. |
-| [`src/engine/`](../src/engine/) | The hand-written battle engine and its differential tests against the transpiled one. See [engine.md](engine.md). |
-| [`src/battle/`](../src/battle/) | The library API (`Battle` on the hand-written engine, `EmulatedBattle` on the original). |
-| [`src/ai/`](../src/ai/) | The trained battle AI (`ai` feature): features, network, PPO trainer, `Agent`. See [ai.md](ai.md). |
-| `models/` | The shipped AI model (`crystal-ai.bin`). |
+| [`src/battle/emulated.rs`](../src/battle/emulated.rs) | `EmulatedBattle`: the library API on the original code. |
+| [`src/oracle/`](../src/oracle/) | Running the original for comparison, the differential checks, random test scenarios. |
 | [`src/main.rs`](../src/main.rs) | CLI parsing + headless battle runner; the glium/winit window + cpu thread live in a `gui`-gated module. |
+| `pokecrystal.gbc` | The ROM (gitignored). Both crates read game data from it (`include_bytes!`). |
 | `scratch/pokecrystal/` | Vendored copy of pret/pokecrystal (gitignored). Source of truth for symbols, constants, struct layouts. |
 | `scratch/*.toml` | Battle scenarios for development. |
 

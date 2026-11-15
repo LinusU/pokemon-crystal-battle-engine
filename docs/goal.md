@@ -108,7 +108,7 @@ The overall plan, in five phases:
       emulation itself (~250M emulated instructions for a 120-decision battle).
 - [x] Fidelity: the Poké Ball wobble rolls (`GetPokeBallWobble` draws
       `Random`) were skipped with the ball animation; they now run.
-- [x] Hand-written engine (`src/engine/`, guide: [engine.md](engine.md)):
+- [x] Hand-written engine (`crates/crystal-battle/src/engine/`, guide: [engine.md](engine.md)):
       plain Rust, no `Cpu`, the original's memory layout (`Mem`, WRAM banks
       0–1 + HRAM), game data read from the ROM image, `Clone` (about 8 KB) so
       an AI can search ahead. Every routine a battle reaches is ported: battle
@@ -135,8 +135,9 @@ The overall plan, in five phases:
       overflow checks: no panics, 0 divergences.
 - [x] The library's `Battle` runs on the hand-written engine;
       `EmulatedBattle` keeps the same API on the original for testing and the
-      window. (Both are compiled; there is no cargo feature, since the
-      engine's tests use the emulated original.)
+      window. The library is its own crate (`crates/crystal-battle`,
+      `serde` its only dependency); `EmulatedBattle`, the transpiled code
+      and the testers are in the harness crate at the repository root.
 - [x] Benchmarks (`examples/engine_bench`, one thread, random policy, all
       moves, setup included):
 
@@ -185,7 +186,8 @@ fixed in the harness (so the oracle got closer to the real game):
 
 ### Toolchain
 
-The crate needs nightly (the transpiled code uses `become` tail calls). The
+The harness crate needs nightly (the transpiled code uses `become` tail
+calls); the library (`crates/crystal-battle`) builds on stable. The
 `gui` feature moved to glium 0.36 / winit 0.30: newer nightlies no longer
 compile the `objc2` 0.4 that glium 0.34 pulled in.
 

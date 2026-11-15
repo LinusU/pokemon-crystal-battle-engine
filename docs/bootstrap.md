@@ -33,7 +33,7 @@ For a wild encounter, the harness writes these WRAM bytes (see [memory_layout.md
 
 - **Player identity**: `wPlayerName`, `wPlayerID`, `wPlayerGender`, `wTimeOfDay`, `wTimeOfDayPal`. Just enough that engine routines that read them get sane values.
 - **Guards**: `wLinkMode = 0`, `wInBattleTowerBattle = 0`, `wOTPartyCount = 0`.
-- **Bag pockets**: `wNumKeyItems` / `wNumPCItems` are always empty (count=0 + `0xff` terminator, matching `_ResetWRAM.InitList`). `wNumItems` and `wNumBalls` are filled from `[[player_items]]` in the TOML — each entry is resolved via [`src/bootstrap/items.rs`](../src/bootstrap/items.rs) and routed to the matching pocket; both pockets always end with the `0xff` terminator. Without the terminator the pack menu walks off the list and corrupts neighbouring WRAM — see [memory_layout.md](memory_layout.md).
+- **Bag pockets**: `wNumKeyItems` / `wNumPCItems` are always empty (count=0 + `0xff` terminator, matching `_ResetWRAM.InitList`). `wNumItems` and `wNumBalls` are filled from `[[player_items]]` in the TOML — each entry is resolved via [`crates/crystal-battle/src/data/items.rs`](../crates/crystal-battle/src/data/items.rs) and routed to the matching pocket; both pockets always end with the `0xff` terminator. Without the terminator the pack menu walks off the list and corrupts neighbouring WRAM — see [memory_layout.md](memory_layout.md).
 - **Player party**: for each entry, set `wCurPartySpecies`, `wCurPartyLevel`, `wCurSpecies`, `wMonType = 0` (PARTYMON), `wBattleMode = 0` (so default item / random moves), then call `try_add_mon_to_party`. The engine fills in DVs, computes stats, picks the default moveset.
 - **Encounter state**: `wBattleMode = WILD_BATTLE`, `wBattleType = BATTLETYPE_NORMAL`, `wOtherTrainerClass = 0`, `wTempWildMonSpecies`, `wTempEnemyMonSpecies`, `wCurPartyLevel` (= enemy level), `wCurPartySpecies` (= enemy species).
 - Finally, call `start_battle`.
@@ -42,7 +42,7 @@ For a wild encounter, the harness writes these WRAM bytes (see [memory_layout.md
 
 For `type = "trainer_battle"`, the player-side seeding is identical to a wild encounter (identity, items, party). The encounter-state bytes differ:
 
-- **Trainer identity**: `wOtherTrainerClass` + `wOtherTrainerID`. The harness resolves `trainer = "Whitney"` (etc.) via [`src/bootstrap/trainers.rs`](../src/bootstrap/trainers.rs).
+- **Trainer identity**: `wOtherTrainerClass` + `wOtherTrainerID`. The harness resolves `trainer = "Whitney"` (etc.) via [`crates/crystal-battle/src/data/trainers.rs`](../crates/crystal-battle/src/data/trainers.rs).
 - **Mode**: `wBattleMode = TRAINER_BATTLE`, `wBattleType = BATTLETYPE_NORMAL`.
 
 Once those are set, `start_battle → BattleIntro → InitEnemy` notices nonzero `wOtherTrainerClass` and routes to `InitEnemyTrainer`. That routine does the heavy lifting for us: `GetTrainerAttributes` copies the AI items + base reward out of `TrainerClassAttributes`, and `ReadTrainerParty` walks `TrainerGroups` for the matching `(class, id)` pair and calls `try_add_mon_to_party` once per OT mon, filling `wOTPartyCount` / `wOTPartyMon{n}` with the canonical party.

@@ -112,7 +112,7 @@ Each round prompts the **player** first (the normal action menu) and then the **
 | Field | Type | Required | Notes |
 | --- | --- | --- | --- |
 | `type` | string | yes | `"wild_encounter"`, `"trainer_battle"`, or `"link_battle"`. |
-| `trainer` | string | for `trainer_battle` | Trainer name. Case- and punctuation-insensitive. Resolved via [`src/bootstrap/trainers.rs`](../src/bootstrap/trainers.rs): every battleable trainer instance in the game is addressable by a `CLASS_id` slug (e.g. `"YOUNGSTER_1"`, `"lt_surge 1"`), and the unique trainers also accept friendly aliases (`"Whitney"`, `"Lance"`, `"Red"`, `"Blue"`, `"Eusine"`, …). |
+| `trainer` | string | for `trainer_battle` | Trainer name. Case- and punctuation-insensitive. Resolved via [`crates/crystal-battle/src/data/trainers.rs`](../crates/crystal-battle/src/data/trainers.rs): every battleable trainer instance in the game is addressable by a `CLASS_id` slug (e.g. `"YOUNGSTER_1"`, `"lt_surge 1"`), and the unique trainers also accept friendly aliases (`"Whitney"`, `"Lance"`, `"Red"`, `"Blue"`, `"Eusine"`, …). |
 | `seed` | integer | no | 64-bit seed for the deterministic battle RNG. Accepts decimal or hex (`0xdeadbeef`). If omitted, the harness picks one from system entropy and logs it on stderr so the same run can be replayed. See [`src/runtime/cpu.rs`](../src/runtime/cpu.rs) (`Cpu::seed_rng`) and the `HARNESS-PATCH` in [`src/game/home/random.rs`](../src/game/home/random.rs). |
 | `johto_badges` | integer | no | Badge bitfield written to `wJohtoBadges` (`0xd857`); `0xff` = all eight. Defaults to 0, so scenarios and recordings without the key behave as before. Badges feed the engine's badge damage boosts (`DoBadgeTypeBoosts` in [`misc.rs`](../src/game/engine/battle/misc.rs): +12.5% to the player's same-type moves per matching badge). |
 | `kanto_badges` | integer | no | Badge bitfield written to `wKantoBadges` (`0xd858`). Defaults to 0. |
@@ -131,11 +131,11 @@ cargo run -- --random --seed 0xdead         # deterministic, hex or decimal
 cargo run -- --random --record /tmp/r.toml  # combine with recording
 ```
 
-`--random` picks one trainer uniformly from the **entire game roster** — every battleable trainer instance, generated into [`src/bootstrap/trainers_data.rs`](../src/bootstrap/trainers_data.rs) from `parties.asm` (see [`all`](../src/bootstrap/trainers.rs)) — and generates a player party scaled to that trainer's canonical level / count (party size ±1 clamped to 1..=6, levels ±10% clamped to 2..=100). Each generated player mon has a small (~15%) chance to walk in holding an item from a curated `HELD_ITEMS` list (Leftovers, type boosters, Quick Claw, King's Rock, … — see [`src/bootstrap/random.rs`](../src/bootstrap/random.rs)). The bag gets 2..=4 entries drawn from a curated `BATTLE_ITEMS` list (potions, status heals, X-items) at 1..=3 each. The chosen matchup — held items included — is logged on stderr.
+`--random` picks one trainer uniformly from the **entire game roster** — every battleable trainer instance, generated into [`crates/crystal-battle/src/data/trainers_data.rs`](../crates/crystal-battle/src/data/trainers_data.rs) from `parties.asm` (see [`all`](../crates/crystal-battle/src/data/trainers.rs)) — and generates a player party scaled to that trainer's canonical level / count (party size ±1 clamped to 1..=6, levels ±10% clamped to 2..=100). Each generated player mon has a small (~15%) chance to walk in holding an item from a curated `HELD_ITEMS` list (Leftovers, type boosters, Quick Claw, King's Rock, … — see [`crates/crystal-battle/src/data/random.rs`](../crates/crystal-battle/src/data/random.rs)). The bag gets 2..=4 entries drawn from a curated `BATTLE_ITEMS` list (potions, status heals, X-items) at 1..=3 each. The chosen matchup — held items included — is logged on stderr.
 
 Pass `--seed <n>` to make the run reproducible (accepts decimal `42` or hex `0xdeadbeef`); otherwise the harness draws a base seed from system entropy and logs it. Two invocations with the same `--seed` produce identical matchups and identical battle outcomes for the same choices.
 
-The base seed is split into **two independent seeds**: one drives matchup generation (trainer / party / items), the other drives the battle engine RNG (damage, crits, AI). They are never the same number, so the generator and the engine never share RNG state — changing how matchups are generated cannot perturb a battle's dynamics, and vice versa. This split also fixes a selection bias: feeding small or sequential seeds straight into the generator used to make trainer selection cluster onto a handful of trainers; mixing the base seed first spreads it across the whole roster. See [`src/bootstrap/random.rs`](../src/bootstrap/random.rs).
+The base seed is split into **two independent seeds**: one drives matchup generation (trainer / party / items), the other drives the battle engine RNG (damage, crits, AI). They are never the same number, so the generator and the engine never share RNG state — changing how matchups are generated cannot perturb a battle's dynamics, and vice versa. This split also fixes a selection bias: feeding small or sequential seeds straight into the generator used to make trainer selection cluster onto a handful of trainers; mixing the base seed first spreads it across the whole roster. See [`crates/crystal-battle/src/data/random.rs`](../crates/crystal-battle/src/data/random.rs).
 
 Mutual exclusions:
 
@@ -226,7 +226,7 @@ The `seed` field is always the *resolved* value: if the scenario omitted `seed =
 
 ### Legal steps
 
-Every decision point has a fixed list of legal steps (`bootstrap::cli::legal_steps`) that mirrors what the original menus accept *and* what actually uses the turn: moves with PP that aren't Disabled, switches the trapping rules allow, and bag items whose real effect routine would succeed (an item the game would answer with "It won't have any effect" is not legal). Playback rejects a recorded step that isn't in the list (exit 2). Items run the engine's real routines — `BattleMenu_Pack` → `ItemSubmenu.Use` → the item's effect — so their side effects (stat recalculation after a status cure, Toxic/Nightmare/confusion clearing, happiness, the original battle text) are the original game's.
+Every decision point has a fixed list of legal steps (`battle::legal::legal_steps`) that mirrors what the original menus accept *and* what actually uses the turn: moves with PP that aren't Disabled, switches the trapping rules allow, and bag items whose real effect routine would succeed (an item the game would answer with "It won't have any effect" is not legal). Playback rejects a recorded step that isn't in the list (exit 2). Items run the engine's real routines — `BattleMenu_Pack` → `ItemSubmenu.Use` → the item's effect — so their side effects (stat recalculation after a status cure, Toxic/Nightmare/confusion clearing, happiness, the original battle text) are the original game's.
 
 In a [link battle](#link-battles) both sides' decisions go into the one ordered `[[step]]` list, interleaved in the order the engine prompts them (player, then enemy, each round). The enemy's steps carry `side = "enemy"`; player steps omit the key. The enemy only ever produces `move` and `switch` steps. On playback each prompt site consumes a step of its own side in order — a step whose `side` doesn't fit the current prompt is structural drift (exit 2), the same as a `kind` mismatch. Recordings made before link battles existed have no `side` key and parse as `player`, so they replay unchanged.
 
@@ -306,8 +306,8 @@ See [`src/bootstrap/player.rs`](../src/bootstrap/player.rs) and [`src/bootstrap/
 | --- | --- | --- | --- |
 | `species` | string | yes | Case-insensitive; punctuation ignored. `"Pikachu"`, `"PIKACHU"`, `"Mr. Mime"`, `"Farfetch'd"`, `"Ho-oh"` all work. |
 | `level` | integer | yes | 1..100. |
-| `moves` | array of strings | no | 1..=4 move names. When omitted, the engine's generated level-up moveset is kept. When present, it overrides the generated moves for that slot. Names are case-insensitive with punctuation ignored, so `"Thunderbolt"`, `"THUNDER WAVE"`, `"thunder_wave"`, `"Double-Edge"` all resolve (see [`src/bootstrap/names.rs`](../src/bootstrap/names.rs)). |
-| `item` | string | no | Held item name (`"Leftovers"`, `"King's Rock"`, `"leftovers"`, …). Case-insensitive, punctuation ignored. When set, the mon walks into battle holding the item, so the engine's held-item mechanics (Leftovers' end-of-turn heal, type boosters, Quick Claw, flinch/crit items, …) all apply. Resolved via [`src/bootstrap/items.rs`](../src/bootstrap/items.rs) — the same table the bag uses. Unknown names are a hard error. |
+| `moves` | array of strings | no | 1..=4 move names. When omitted, the engine's generated level-up moveset is kept. When present, it overrides the generated moves for that slot. Names are case-insensitive with punctuation ignored, so `"Thunderbolt"`, `"THUNDER WAVE"`, `"thunder_wave"`, `"Double-Edge"` all resolve (see [`crates/crystal-battle/src/data/names.rs`](../crates/crystal-battle/src/data/names.rs)). |
+| `item` | string | no | Held item name (`"Leftovers"`, `"King's Rock"`, `"leftovers"`, …). Case-insensitive, punctuation ignored. When set, the mon walks into battle holding the item, so the engine's held-item mechanics (Leftovers' end-of-turn heal, type boosters, Quick Claw, flinch/crit items, …) all apply. Resolved via [`crates/crystal-battle/src/data/items.rs`](../crates/crystal-battle/src/data/items.rs) — the same table the bag uses. Unknown names are a hard error. |
 
 DVs, PP, HP and stats are produced by the engine itself (`try_add_mon_to_party`/`GeneratePartyMonStats`) — they're not user-controllable yet. `moves` and `item` are the exceptions, both written into the slot after generation: `moves` overwrites the four move ids and refills PP to each move's base maximum (no PP Ups — a fresh mon has none; fewer than four moves leaves the trailing slots empty, id 0 / 0 PP), and `item` writes the `MON_ITEM` byte so the mon holds it walking into battle. Listing more than four moves, an empty `moves` list, an unknown move name, or an unknown `item` name is a hard error. For `[[enemy_party]]`: `moves` and `item` are honored for `trainer_battle` when a party override is present (1..=6 entries) and for `link_battle` (always). For a `wild_encounter` and a `trainer_battle` with no override block, the wild mon / ROM party gets its moves and items from the engine, so `moves` and `item` there are parsed but ignored.
 
@@ -328,7 +328,7 @@ For `link_battle`, **required** (1..=6 entries) and fully honored, including `mo
 | `name` | string | yes | Case-insensitive; punctuation ignored. `"Potion"`, `"POTION"`, `"super_potion"`, `"King's Rock"` all work. |
 | `quantity` | integer | yes | 1..=99 (`MAX_ITEM_STACK`). |
 
-Items are sorted into the engine's Items pocket (cap 20) or Balls pocket (cap 12) based on the item's pocket attribute. Key items, TMs, HMs, and mail are not exposed by the harness today — see [`src/bootstrap/items.rs`](../src/bootstrap/items.rs) for the supported list.
+Items are sorted into the engine's Items pocket (cap 20) or Balls pocket (cap 12) based on the item's pocket attribute. Key items, TMs, HMs, and mail are not exposed by the harness today — see [`crates/crystal-battle/src/data/items.rs`](../crates/crystal-battle/src/data/items.rs) for the supported list.
 
 ### `[[enemy_items]]` — trainer battles only
 
@@ -336,7 +336,7 @@ Same field set as `[[player_items]]`. Rejected for `wild_encounter` and `link_ba
 - When **absent**, the trainer's AI item slots (`wEnemyTrainerItem1` / `wEnemyTrainerItem2` at 0xc650/0xc651) are filled from the canonical `TrainerClassAttributes` ROM entry.
 - When **present**, the entries are expanded by `quantity` in order into at most 2 item slots (e.g. one entry with `quantity = 2` fills both slots; `quantity = 1` fills slot 1 only; a second entry fills slot 2). Total quantity > 2 is a hard error. The bootstrap pokes the trainer class's ROM entry via `Cpu::poke_rom` before `start_battle`; `GetTrainerAttributes` then reads and copies the overridden bytes into WRAM.
 
-The item name must resolve via [`src/bootstrap/items.rs`](../src/bootstrap/items.rs) (same table as the player bag). Unknown names are a hard error.
+The item name must resolve via [`crates/crystal-battle/src/data/items.rs`](../crates/crystal-battle/src/data/items.rs) (same table as the player bag). Unknown names are a hard error.
 
 ### `[enemy_trainer]` — trainer battles only
 
@@ -353,7 +353,7 @@ The `[enemy_trainer]` block is embedded in recordings as `[scenario.enemy_traine
 
 ## Species name resolution
 
-See [`src/bootstrap/species.rs`](../src/bootstrap/species.rs). The table is the first 251 species in pokédex order — same order as `scratch/pokecrystal/constants/pokemon_constants.asm`. The lookup is case-insensitive, ignores punctuation, and maps `♀`/`♂` to `F`/`M`.
+See [`crates/crystal-battle/src/data/species.rs`](../crates/crystal-battle/src/data/species.rs). The table is the first 251 species in pokédex order — same order as `scratch/pokecrystal/constants/pokemon_constants.asm`. The lookup is case-insensitive, ignores punctuation, and maps `♀`/`♂` to `F`/`M`.
 
 ## Planned additions
 

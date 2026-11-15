@@ -6,8 +6,10 @@ Keep those docs in sync. If you change the bootstrap, schema, memory layout, or 
 
 Other things worth knowing:
 
+- **Two crates.** `crates/crystal-battle/` is the library (engine, `Battle` API, config, data, AI) — no transpiled code, no emulator, `serde` only, builds on stable; keep it that way. The repository root is `crystal-battle-harness`: the transpiled original, the emulator, the CLI and the differential testers it is verified against. `cargo build` / `cargo test` at the root builds the harness; add `--workspace` (or `-p crystal-battle`) for the library.
+
 - **Build debug, not release.** Release takes several minutes to compile and runs too fast. `cargo build` / `cargo run` / `cargo test`, never `--release`.
 - **Most of `src/game/` is transpiler output** from [pret/pokecrystal](https://github.com/pret/pokecrystal). Don't edit it for style or "cleanup." Small targeted patches (e.g. a runtime hook) are fine, but mark each one with a `HARNESS-PATCH:` comment and add a row to the table in [docs/transpiled_code.md](docs/transpiled_code.md) — that doc is the single source of truth for what's been modified and how the patches will eventually evolve into hand-written modules.
 - **Source of truth** for symbol addresses, constants, and struct layouts is `scratch/pokecrystal/` — especially `pokecrystal.sym`, `constants/`, and `macros/ram.asm`. Look there before guessing.
 - **Bank-switch before calling transpiled engine routines** from `src/bootstrap/`. Transpiled functions assume the right ROM bank is loaded; they don't switch on entry. Use the bank prefix in `pokecrystal.sym` (e.g. `0f:74dd BattleIntro` → bank `0x0f`) and `bootstrap::switch_bank`.
-- **The end goal is a library, not an emulator.** Glium/winit are a harness. New abstractions should make sense for a headless `step(action) -> state` API even if the emulator is the only consumer today.
+- **The end goal is a library, not an emulator.** Glium/winit are a harness. New abstractions should make sense for a headless `step(action) -> state` API (Rustic Crystal and Rustic Yellow are the consumers).
