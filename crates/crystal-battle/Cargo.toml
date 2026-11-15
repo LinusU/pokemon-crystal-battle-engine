@@ -12,3 +12,15 @@ ai = []
 [dependencies]
 serde = { version = "1", features = ["derive"] }
 
+
+[[example]]
+name = "ai_train"
+required-features = ["ai"]
+
+[[example]]
+name = "ai_eval"
+required-features = ["ai"]
+
+[[example]]
+name = "ai_export"
+required-features = ["ai"]

@@ -1,13 +1,13 @@
 //! Train the battle AI with PPO self-play (see docs/ai.md).
 //!
-//! cargo run --release --features ai --example ai_train -- <out.bin> [iterations] [--resume <model.bin>] [--seed <n>]
+//! cargo run --release -p crystal-battle --features ai --example ai_train -- <out.bin> [iterations] [--resume <model.bin>] [--seed <n>]
 //!
 //! Saves the network to `<out.bin>` after every iteration (and a copy every
 //! 50 as `<out.bin>.<iteration>`), and every 25 iterations evaluates it as
 //! the trainer against the original trainer AI on 2,000 held-out battles.
 
-use crystal_battle_harness::ai::net::Net;
-use crystal_battle_harness::ai::train::{Policy, TrainConfig, Trainer, evaluate};
+use crystal_battle::ai::net::Net;
+use crystal_battle::ai::train::{Policy, TrainConfig, Trainer, evaluate};
 use std::sync::Arc;
 
 fn main() {

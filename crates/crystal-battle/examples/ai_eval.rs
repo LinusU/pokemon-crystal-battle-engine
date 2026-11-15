@@ -1,12 +1,12 @@
 //! Evaluate a battle AI model against the original trainer AI (see docs/ai.md).
 //!
-//! cargo run --release --features ai --example ai_eval -- [model.bin] [games] [first_seed]
+//! cargo run --release -p crystal-battle --features ai --example ai_eval -- [model.bin] [games] [first_seed]
 //!
 //! Without a model path, evaluates the built-in model. Scores are
 //! win = 1, draw = ½, over the same held-out scenarios for every row.
 
-use crystal_battle_harness::ai::Agent;
-use crystal_battle_harness::ai::train::{Policy, Record, evaluate};
+use crystal_battle::ai::Agent;
+use crystal_battle::ai::train::{Policy, Record, evaluate};
 use std::sync::Arc;
 
 fn main() {

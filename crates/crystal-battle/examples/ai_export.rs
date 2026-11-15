@@ -1,9 +1,9 @@
 //! Write a training checkpoint as a compact (bf16) model, e.g. the shipped
-//! `models/crystal-ai.bin` (see docs/ai.md).
+//! `crates/crystal-battle/models/crystal-ai.bin` (see docs/ai.md).
 //!
-//! cargo run --release --features ai --example ai_export -- <checkpoint.bin> <out.bin>
+//! cargo run --release -p crystal-battle --features ai --example ai_export -- <checkpoint.bin> <out.bin>
 
-use crystal_battle_harness::ai::net::Net;
+use crystal_battle::ai::net::Net;
 
 fn main() {
     let mut args = std::env::args().skip(1);

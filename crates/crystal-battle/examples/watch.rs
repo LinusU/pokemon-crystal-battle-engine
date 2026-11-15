@@ -2,10 +2,10 @@
 //! battle and every event (the original battle text, HP-bar changes) is
 //! printed as it happens.
 //!
-//! cargo run --release --example watch -- [seed]
+//! cargo run --release -p crystal-battle --example watch -- [seed]
 
-use crystal_battle_harness::battle::{Battle, Event, Status, one_line};
-use crystal_battle_harness::bootstrap::random::random_battle_config;
+use crystal_battle::battle::{Battle, Event, Status, one_line};
+use crystal_battle::data::random::random_battle_config;
 
 fn show(events: &[Event]) {
     for event in events {

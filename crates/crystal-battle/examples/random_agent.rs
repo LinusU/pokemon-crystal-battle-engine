@@ -1,11 +1,11 @@
 //! A random agent: plays randomly generated trainer battles by picking a
 //! uniformly random legal action at every decision.
 //!
-//! cargo run --release --example random_agent -- [battles] [first_seed]
+//! cargo run --release -p crystal-battle --example random_agent -- [battles] [first_seed]
 
-use crystal_battle_harness::battle::{Battle, Status};
-use crystal_battle_harness::bootstrap::names;
-use crystal_battle_harness::bootstrap::random::random_battle_config;
+use crystal_battle::battle::{Battle, Status};
+use crystal_battle::data::names;
+use crystal_battle::data::random::random_battle_config;
 
 /// splitmix64 — the agent's own randomness, independent of the engine's.
 fn next(state: &mut u64) -> u64 {
