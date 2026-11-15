@@ -865,34 +865,39 @@ impl Engine {
     /// `Battle_GetTrainerName` (+ `GetTrainerName`, `CopyTrainerName`): the
     /// trainer's name into `wStringBuffer1`.
     pub fn battle_get_trainer_name(&mut self) {
-        let mut src = if self.mem.bit(W_IN_BATTLE_TOWER_BATTLE, IN_BATTLE_TOWER_BATTLE_F) {
-            W_OT_PLAYER_NAME
-        } else {
-            let (mut b, c) = (self.mem.rb(W_OTHER_TRAINER_ID), self.mem.rb(W_OTHER_TRAINER_CLASS));
-            // (CAL: the Mystery Gift house flag lives in SRAM, which is blank.)
-            let table = r::TRAINER_GROUPS + 2 * usize::from(c.wrapping_sub(1));
-            let mut hl = rom::flat(0x0e, rom::ptr(table));
-            loop {
-                b = b.wrapping_sub(1);
-                if b == 0 {
-                    break;
-                }
-                while rom::byte(hl) != 0xff {
-                    hl += 1;
-                }
+        for (i, v) in self.trainer_name_bytes().into_iter().enumerate() {
+            self.mem.wb(W_STRING_BUFFER1 + i as u16, v);
+        }
+    }
+
+    /// What `Battle_GetTrainerName` copies into `wStringBuffer1`.
+    pub fn trainer_name_bytes(&self) -> [u8; NAME_LEN as usize] {
+        let mut out = [0; NAME_LEN as usize];
+        if self.mem.bit(W_IN_BATTLE_TOWER_BATTLE, IN_BATTLE_TOWER_BATTLE_F) {
+            for (i, v) in out.iter_mut().enumerate() {
+                *v = self.mem.rb(W_OT_PLAYER_NAME + i as u16);
+            }
+            return out;
+        }
+        let (mut b, c) = (self.mem.rb(W_OTHER_TRAINER_ID), self.mem.rb(W_OTHER_TRAINER_CLASS));
+        // (CAL: the Mystery Gift house flag lives in SRAM, which is blank.)
+        let table = r::TRAINER_GROUPS + 2 * usize::from(c.wrapping_sub(1));
+        let mut hl = rom::flat(0x0e, rom::ptr(table));
+        loop {
+            b = b.wrapping_sub(1);
+            if b == 0 {
+                break;
+            }
+            while rom::byte(hl) != 0xff {
                 hl += 1;
             }
-            // CopyTrainerName copies from ROM (bank 0x0e).
-            for i in 0..NAME_LEN {
-                self.mem.wb(W_STRING_BUFFER1 + i, rom::byte(hl + usize::from(i)));
-            }
-            return;
-        };
-        for i in 0..NAME_LEN {
-            let v = self.mem.rb(src);
-            src += 1;
-            self.mem.wb(W_STRING_BUFFER1 + i, v);
+            hl += 1;
         }
+        // CopyTrainerName copies from ROM (bank 0x0e).
+        for (i, v) in out.iter_mut().enumerate() {
+            *v = rom::byte(hl + i);
+        }
+        out
     }
 
     /// `UpdateEnemyHUD` (wild battles): the memory side of `DrawEnemyHUD`.

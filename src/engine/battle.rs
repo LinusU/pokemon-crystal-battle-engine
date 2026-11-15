@@ -236,7 +236,10 @@ impl Engine {
     pub fn text_with(&mut self, label: usize, choices: &[usize]) {
         // PlaceEnemysName in a (non-rival) trainer battle runs
         // Battle_GetTrainerName as the text prints.
-        if self.mem.rb(W_BATTLE_MODE) == crate::defs::TRAINER_BATTLE
+        // (Beat Up's text, which can print garbage, does that as it renders.)
+        let side_effects = label == super::rsym::BEAT_UP_ATTACK_TEXT;
+        if !side_effects
+            && self.mem.rb(W_BATTLE_MODE) == crate::defs::TRAINER_BATTLE
             && self.link_mode() == 0
             && !matches!(self.mem.rb(W_TRAINER_CLASS), crate::defs::RIVAL1 | crate::defs::RIVAL2)
             && self.text_places_trainer_name(label, choices)
@@ -244,7 +247,10 @@ impl Engine {
             self.battle_get_trainer_name();
         }
         self.texts.push(TextRef(label));
-        if self.rendered.is_some() || self.events.is_some() {
+        // Printing only writes memory through glitches: Beat Up's names past
+        // the party can hold a <MOBILE> script (see text.rs), so that text is
+        // always run.
+        if self.rendered.is_some() || self.events.is_some() || side_effects {
             let messages = self.render_text(label, choices);
             if let Some(events) = self.events.as_mut() {
                 events.extend(messages.iter().cloned().map(crate::bootstrap::events::Event::Text));

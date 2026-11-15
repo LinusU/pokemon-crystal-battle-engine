@@ -53,7 +53,7 @@ pub struct EventCapture {
     pub echo: bool,
 }
 
-fn in_text_area(addr: u16) -> bool {
+pub(crate) fn in_text_area(addr: u16) -> bool {
     (TEXT_AREA_START..TEXT_AREA_END).contains(&addr)
 }
 
