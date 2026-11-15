@@ -1,14 +1,19 @@
 //! Differential test: random link battles on the original engine and the
 //! hand-written engine, compared at every decision.
 //!
-//! cargo run --release --example engine_diff -- [link|wild|trainer] [battles] [first_seed] [move ids...]
+//! cargo run --release --example engine_diff -- [link|wild|trainer|external] [battles] [first_seed] [move ids...]
+//!
+//! `DIFF_PANICS=1` keeps the panic hook, to see where the oracle panics.
+//!
+//! `external` is a trainer battle with the trainer controlled from outside
+//! (`enemy_control = "external"`): the random policy plays both sides.
 
 use rgb2rust_output::engine::{diff, oracle, testgen};
 
 fn main() {
     let mut args = std::env::args().skip(1).peekable();
     let kind = match args.peek().map(String::as_str) {
-        Some(k @ ("link" | "wild" | "trainer")) => {
+        Some(k @ ("link" | "wild" | "trainer" | "external")) => {
             let k = k.to_string();
             args.next();
             k
@@ -22,11 +27,14 @@ fn main() {
     let opts = testgen::GenOptions { items: std::env::var_os("NO_ITEMS").is_none(), ..Default::default() };
     let (mut ok, mut bad, mut unported) = (0, 0, 0);
     let (mut start_ok, mut start_before_ai, mut start_bad, mut unsupported) = (0, 0, 0, 0);
-    std::panic::set_hook(Box::new(|_| {}));
+    if std::env::var_os("DIFF_PANICS").is_none() {
+        std::panic::set_hook(Box::new(|_| {}));
+    }
     for seed in first..first + battles {
         let config = match kind.as_str() {
             "wild" => testgen::random_wild_config(seed, &moves, opts),
             "trainer" => testgen::random_trainer_config(seed, &moves, opts),
+            "external" => testgen::random_external_trainer_config(seed, &moves, opts),
             _ => testgen::random_link_config(seed, &moves, opts),
         };
         // A few trainer scenarios make the oracle itself panic (a mobile script

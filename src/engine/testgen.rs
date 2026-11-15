@@ -174,6 +174,23 @@ pub fn random_trainer_config(seed: u64, moves: &[u8], opts: GenOptions) -> Battl
     config
 }
 
+/// [`random_trainer_config`] with the trainer controlled from outside
+/// (`enemy_control = "external"`) and two random AI items in its item slots,
+/// so a random policy plays the enemy trainer's moves, switches and items.
+pub fn random_external_trainer_config(seed: u64, moves: &[u8], opts: GenOptions) -> BattleConfig {
+    let mut config = random_trainer_config(seed, moves, opts);
+    config.battle.enemy_control = crate::bootstrap::EnemyControl::External;
+    let mut rng = seed ^ 0x6578_7465;
+    let items = crate::bootstrap::cli::ENEMY_TRAINER_ITEMS;
+    config.enemy_items = (0..2)
+        .map(|_| {
+            let id = items[(mix(&mut rng) % items.len() as u64) as usize];
+            crate::bootstrap::ItemSpec { name: names::item_name(id).to_string(), quantity: 1 }
+        })
+        .collect();
+    config
+}
+
 /// Make about half the player's mons traded and give the player a random
 /// subset of Johto badges, so obedience (`BattleCommand_CheckObedience`) and
 /// the badge stat boosts get exercised. Link battles skip both.
