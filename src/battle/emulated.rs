@@ -43,7 +43,7 @@ struct ChannelDecider {
 
 impl Decider for ChannelDecider {
     fn decide(&mut self, cpu: &Cpu, site: PromptSite, legal: &[Action]) -> Action {
-        let side = if site == PromptSite::EnemyAction { Side::Enemy } else { Side::Player };
+        let side = site.side();
         let decision = Decision {
             site,
             side,

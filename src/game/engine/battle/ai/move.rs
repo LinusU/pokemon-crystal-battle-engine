@@ -4,6 +4,17 @@ pub const X: u8 = 3;
 
 pub(crate) fn ai_choose_move(cpu: &mut Cpu) {
     cpu.pc = 0x40ce;
+    // HARNESS-PATCH: an externally controlled trainer (`enemy_control =
+    // "external"`) takes one EnemyTrainerAction decision here instead of the
+    // scoring layers; a picked move is written to wCurEnemyMove /
+    // wCurEnemyMoveNum as this routine would. See
+    // bootstrap::cli::handle_external_enemy_action and docs/transpiled_code.md.
+    if cpu.external_enemy {
+        crate::bootstrap::cli::handle_external_enemy_action(cpu);
+        cpu.pc = cpu.pop_word();
+        cpu.cycle(16);
+        return;
+    }
     cpu.a = cpu.read_byte(0xd22d);
     cpu.pc += 3;
     cpu.cycle(16);

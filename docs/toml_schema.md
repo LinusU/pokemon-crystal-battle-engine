@@ -117,6 +117,7 @@ Each round prompts the **player** first (the normal action menu) and then the **
 | `johto_badges` | integer | no | Badge bitfield written to `wJohtoBadges` (`0xd857`); `0xff` = all eight. Defaults to 0, so scenarios and recordings without the key behave as before. Badges feed the engine's badge damage boosts (`DoBadgeTypeBoosts` in [`misc.rs`](../src/game/engine/battle/misc.rs): +12.5% to the player's same-type moves per matching badge). |
 | `kanto_badges` | integer | no | Badge bitfield written to `wKantoBadges` (`0xd858`). Defaults to 0. |
 | `battle_scene` | bool | no | The game's Battle Scene option (`wOptions` bit 7 cleared = on). Defaults to `true`, the game's default. `false` skips move animations: battle logic is identical (the fixture corpus replays unchanged), it runs ~25% faster headless, and one message differs (Present on a fully healed target also prints its failure text). |
+| `enemy_control` | string | no | Trainer battles only. `"original"` (the default) runs the game's own trainer AI. `"external"` hands the trainer's three choices to `Enemy`-side decisions: its action each turn (`enemy_trainer_action`: a move, `fight`, a switch, or one of its two AI items — replacing `AIChooseMove` and the switch/item choice in `AI_SwitchOrTryItem`), and which mon it sends in next (`enemy_switch_in`, replacing `FindMonInOTPartyToSwitchIntoBattle`). This is how a trained AI (or a second player) plays the trainer; see [External enemy trainer](#external-enemy-trainer). |
 
 The battle is always driven from the terminal — see [`src/bootstrap/cli.rs`](../src/bootstrap/cli.rs). All in-battle menus (action / move / forced switch / "switch out enemy mon" prompt) become numbered lists on stdin; "press A to continue" waits are auto-advanced. The glium window still renders. Every item the original game lets you use during a battle is supported: HP heals (Potions, drinks, Moomoo Milk, herbs, HP berries), status heals (Antidote … Full Heal and the cure-berries), Full Restore, revives (Revive / Max Revive / Revival Herb), PP restores (Ether/Max Ether/Elixer/Max Elixer for the whole party, plus the single-move Ether/MysteryBerry which take an extra `move` slot), the in-battle stat boosters (X Attack/Defend/Speed/Special, X Accuracy, Dire Hit, Guard Spec), and confusion cure (Bitter Berry / Miracleberry). Items are only offered when they'd actually have an effect, mirroring the engine's "It wouldn't have any effect" guard. In a wild battle the action menu also lists each Poké Ball in the Balls pocket as a "Throw …" entry, recorded as an `item` step. Throwing one drives the engine's real catch routine: on a successful catch the wild mon is added to the party and the battle ends with `outcome = "caught"`; on a failed throw the ball is consumed and the turn passes to the enemy. Balls are never offered in a trainer battle. A Poké Doll in the Items pocket is likewise offered only in a wild battle as a "Use … (escape)" entry (also recorded as an `item` step): it ends the battle immediately as `outcome = "draw"` (the engine's `PokeDollEffect` sets `wForcedSwitch`, which the turn loop quits on). It's a no-op in a trainer battle, so it's never offered there.
 
@@ -219,7 +220,7 @@ expect.battle.outcome = "win"
 
 The `seed` field is always the *resolved* value: if the scenario omitted `seed = ...`, the harness draws one from system entropy and writes that resolved value into the recording so a later replay reproduces the run bit-for-bit.
 
-`kind` is one of: `move`, `fight`, `switch`, `item`, `run`, `forced_switch`, `offer_switch`. For `offer_switch`, the keep-current case writes `keep = true`; the swap-in case writes `slot = N` instead.
+`kind` is one of: `move`, `fight`, `switch`, `item`, `run`, `forced_switch`, `offer_switch`. (Prompt sites: `battle_menu`, `move_selection`, `forced_switch`, `offer_switch`, and on the enemy side `enemy_action` in link battles, `enemy_trainer_action` / `enemy_switch_in` for an [external trainer](#external-enemy-trainer).) For `offer_switch`, the keep-current case writes `keep = true`; the swap-in case writes `slot = N` instead.
 
 `fight` is FIGHT in a state where the original game shows no move menu and picks the move itself: the active mon is Encored (repeats its last move), is storing energy with Bide, or has no usable move (Struggle). In those states `fight` replaces the `move` options. Recordings made before `fight` existed record Encore/Bide turns as a `move` step; playback reads those back as `fight`.
 
@@ -252,6 +253,15 @@ target = 0     # party slot 0
 move = 1       # restore the PP of move slot 1
 # … expect block …
 ```
+
+### External enemy trainer
+
+With `enemy_control = "external"` the enemy trainer's decisions are `side = "enemy"` steps too, at two prompt sites:
+
+- **`enemy_trainer_action`** — once per turn, before the player's menu, unless the enemy is locked into its move (recharging, a two-turn / rampage / Bide move, Rollout: `CheckEnemyLockedIn`). Legal: each usable `move` slot, or `fight` when the active mon is Encored or has no usable move; a `switch` to every other alive mon unless the player's Mean Look / Spider Web or a binding move traps it (the same checks as `AI_SwitchOrTryItem`); and an `item` for each AI item (`AI_Items`: Full Restore, Max / Hyper / Super Potion, Potion, Full Heal, X Accuracy, Guard Spec, Dire Hit, X Attack / Defend / Speed / Special) in the trainer's two item slots (`[[enemy_items]]`, or the trainer class's defaults). Items are used on the active mon and empty their slot. The switch or item happens where the original AI's would, at the start of the enemy's part of the turn, ahead of either side's move.
+- **`enemy_switch_in`** — which mon to send in after the active one faints, or after a Baton Pass (a `switch` step per alive mon).
+
+The trainer AI's own rules — only using items on its highest-level mon, the class's switch / item flags, the random rolls — are not applied: the external policy decides, and the original's random draws for those choices are not made. Everything else (the item effects and their text, switching, Pursuit, the player's switch offer) runs the original routines. `engine_diff external` checks both engines against each other in this mode.
 
 ### Recording — assertions
 

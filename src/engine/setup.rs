@@ -856,14 +856,14 @@ impl Engine {
     /// `EnemySwitch`.
     pub fn enemy_switch(&mut self) -> Flow {
         if !self.check_whether_to_ask_switch() {
-            self.enemy_switch_set_mode();
+            self.enemy_switch_set_mode()?;
             return Ok(());
         }
         // Shift Mode
         self.reset_enemy_battle_vars();
         let b = match self.check_whether_switchmon_is_predetermined() {
             Some(b) => b,
-            None => self.find_mon_in_ot_party_to_switch_into_battle(),
+            None => self.find_mon_in_ot_party_to_switch_into_battle()?,
         };
         // 'b' contains the PartyNr of the mon the AI will switch to
         self.load_enemy_mon_to_switch_to(b);
@@ -941,7 +941,19 @@ impl Engine {
     }
 
     /// `FindMonInOTPartyToSwitchIntoBattle`: the OT party slot the AI switches to.
-    pub(super) fn find_mon_in_ot_party_to_switch_into_battle(&mut self) -> u8 {
+    /// An external trainer (`enemy_control = "external"`) picks with an
+    /// `EnemySwitchIn` decision instead.
+    pub(super) fn find_mon_in_ot_party_to_switch_into_battle(&mut self) -> Flow<u8> {
+        if self.flags.external_enemy {
+            let step = self.decide(PromptSite::EnemySwitchIn)?;
+            let Step::Switch { slot } = step else { unreachable!("enemy switch-in only accepts switch") };
+            return Ok(slot);
+        }
+        Ok(self.find_mon_in_ot_party_to_switch_into_battle_ai())
+    }
+
+    /// `FindMonInOTPartyToSwitchIntoBattle` itself.
+    fn find_mon_in_ot_party_to_switch_into_battle_ai(&mut self) -> u8 {
         let mut b = 0xffu8;
         self.mem.wb(W_ENEMY_EFFECTIVENESS_VS_PLAYER_MONS, 1);
         self.mem.wb(W_PLAYER_EFFECTIVENESS_VS_ENEMY_MONS, 1);

@@ -38,6 +38,12 @@ pub struct Flags {
     pub pending_move: Option<u8>,
     /// FIGHT with no usable move (`Cpu::cli_pending_struggle`).
     pub pending_struggle: bool,
+    /// The enemy trainer is decided by the caller (`enemy_control =
+    /// "external"`, `Cpu::external_enemy`).
+    pub external_enemy: bool,
+    /// The external trainer's action this turn, for `AI_SwitchOrTryItem`
+    /// (`Cpu::external_enemy_choice`).
+    pub enemy_choice: Option<Step>,
 }
 
 /// The whole battle: memory, the random stream, and harness flags. `Clone` is

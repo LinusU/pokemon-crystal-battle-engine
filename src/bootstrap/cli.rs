@@ -486,6 +486,144 @@ pub fn handle_enemy_action(cpu: &mut Cpu) {
     cpu.write_byte(W_BATTLE_ACTION, byte);
 }
 
+/// `AIChooseMove` patch for an externally controlled trainer
+/// (`cpu.external_enemy`): one [`PromptSite::EnemyTrainerAction`] decision,
+/// unless the enemy is locked in (`CheckEnemyLockedIn`). A move is written
+/// the way `AIChooseMove` writes its pick (`wCurEnemyMove`,
+/// `wCurEnemyMoveNum`); a switch or an item is stashed for the
+/// `AI_SwitchOrTryItem` patch ([`external_enemy_switch_or_item`]).
+pub fn handle_external_enemy_action(cpu: &mut Cpu) {
+    cpu.external_enemy_choice = None;
+    if enemy_locked_in(cpu) {
+        return;
+    }
+    observe_decision_point(cpu);
+    let step = obtain(
+        cpu,
+        PromptSite::EnemyTrainerAction,
+        &[StepKind::Move, StepKind::Fight, StepKind::Switch, StepKind::Item],
+        prompt_enemy_trainer_action,
+    );
+    recorder::record_side(cpu, Side::Enemy, step);
+    let slot = external_enemy_move_slot(cpu, step);
+    let mv = cpu.read_byte(W_ENEMY_MON_MOVES + u16::from(slot));
+    cpu.write_byte(W_CUR_ENEMY_MOVE, mv);
+    cpu.write_byte(W_CUR_ENEMY_MOVE_NUM, slot);
+    cpu.external_enemy_choice = Some(step);
+}
+
+/// The move slot an external trainer's `EnemyTrainerAction` leaves in
+/// `wCurEnemyMoveNum` / `wCurEnemyMove`. `AIChooseMove` always leaves a
+/// pick, and the rest of the turn reads it even when the trainer then
+/// switches or uses an item (`ParseEnemyAction` loads its move data). So a
+/// switch, an item, or FIGHT (Encore / Struggle, which `ParseEnemyAction`
+/// overrides anyway) leaves the first usable move, or slot 0 if none.
+pub fn external_enemy_move_slot(cpu: &impl ReadMem, step: Step) -> u8 {
+    match step {
+        Step::Move { slot } => slot,
+        _ => enemy_move_options(cpu).first().copied().unwrap_or(0),
+    }
+}
+
+const W_CUR_ENEMY_MOVE: u16 = crate::engine::sym::W_CUR_ENEMY_MOVE;
+const W_CUR_ENEMY_MOVE_NUM: u16 = crate::engine::sym::W_CUR_ENEMY_MOVE_NUM;
+
+/// `FindMonInOTPartyToSwitchIntoBattle` patch for an externally controlled
+/// trainer: one [`PromptSite::EnemySwitchIn`] decision. Returns the OT party
+/// slot (the routine's `b`).
+pub fn handle_external_enemy_switch_in(cpu: &mut Cpu) -> u8 {
+    observe_decision_point(cpu);
+    let step = obtain(cpu, PromptSite::EnemySwitchIn, &[StepKind::Switch], |cpu| {
+        print_enemy_state(cpu);
+        let current = cpu.read_byte(W_CUR_OT_MON);
+        let slots = enemy_alive_party_slots(cpu, Some(current));
+        let labels: Vec<String> = slots.iter().map(|&s| enemy_party_label(cpu, s)).collect();
+        let pick = prompt_list("Enemy trainer: send in which mon?", &labels);
+        Step::Switch { slot: slots[pick] }
+    });
+    recorder::record_side(cpu, Side::Enemy, step);
+    let Step::Switch { slot } = step else { unreachable!("EnemySwitchIn consumes only Switch") };
+    slot
+}
+
+/// What the `AI_SwitchOrTryItem` patch does for an external trainer's
+/// stashed choice.
+pub enum ExternalEnemyTurn {
+    /// A move (or nothing to do): return with carry clear.
+    Attack,
+    /// Switch to this OT party slot (`AI_Switch`).
+    Switch(u8),
+    /// Use this AI item on the active mon.
+    Item(u8),
+}
+
+/// The stashed [`handle_external_enemy_action`] choice, for the
+/// `AI_SwitchOrTryItem` patch.
+pub fn external_enemy_switch_or_item(cpu: &Cpu) -> ExternalEnemyTurn {
+    match cpu.external_enemy_choice {
+        Some(Step::Switch { slot }) => ExternalEnemyTurn::Switch(slot),
+        Some(Step::Item { id, .. }) => ExternalEnemyTurn::Item(id),
+        _ => ExternalEnemyTurn::Attack,
+    }
+}
+
+/// `AI_TryItem.used_item` after an external trainer's item: empty the first
+/// trainer item slot holding `id`, then the bookkeeping the original does
+/// (`wEnemyGoesFirst`, Bide / Rage / Fury Cutter / Protect counters,
+/// `wLastEnemyCounterMove`).
+pub fn external_enemy_item_used(cpu: &mut Cpu, id: u8) {
+    use crate::engine::sym as w;
+    let de = if cpu.read_byte(w::W_ENEMY_TRAINER_ITEM1) == id { w::W_ENEMY_TRAINER_ITEM1 } else { w::W_ENEMY_TRAINER_ITEM2 };
+    cpu.write_byte(de, 0);
+    cpu.write_byte(w::W_ENEMY_GOES_FIRST, 1);
+    let sub3 = cpu.read_byte(w::W_ENEMY_SUB_STATUS3);
+    cpu.write_byte(w::W_ENEMY_SUB_STATUS3, sub3 & !(1 << defs::SUBSTATUS_BIDE));
+    cpu.write_byte(w::W_ENEMY_FURY_CUTTER_COUNT, 0);
+    cpu.write_byte(w::W_ENEMY_PROTECT_COUNT, 0);
+    cpu.write_byte(w::W_ENEMY_RAGE_COUNTER, 0);
+    let sub4 = cpu.read_byte(w::W_ENEMY_SUB_STATUS4);
+    cpu.write_byte(w::W_ENEMY_SUB_STATUS4, sub4 & !(1 << defs::SUBSTATUS_RAGE));
+    cpu.write_byte(w::W_LAST_ENEMY_COUNTER_MOVE, 0);
+}
+
+/// "SPECIES (HP x/y)" for OT party slot `slot`.
+fn enemy_party_label(cpu: &Cpu, slot: u8) -> String {
+    let species = read_ot_party_species(cpu, slot);
+    let hp = read_word_be(cpu, ot_party_slot_addr(slot) + PARTY_OFFSET_HP);
+    let max_hp = read_word_be(cpu, ot_party_slot_addr(slot) + PARTY_OFFSET_MAX_HP);
+    format!("{} (HP {hp}/{max_hp})", species_name(species))
+}
+
+/// Print a numbered list under `title` and read a 0-based pick from stdin.
+fn prompt_list(title: &str, labels: &[String]) -> usize {
+    println!("\n[enemy] {title}");
+    for (idx, label) in labels.iter().enumerate() {
+        println!("  {}) {label}", idx + 1);
+    }
+    prompt_index("> ", labels.len())
+}
+
+/// Prompt for an external trainer's action on stdin.
+fn prompt_enemy_trainer_action(cpu: &Cpu) -> Step {
+    print_enemy_state(cpu);
+    let legal = legal_enemy_trainer_steps(cpu);
+    let labels: Vec<String> = legal
+        .iter()
+        .map(|step| match *step {
+            Step::Move { slot } => {
+                let move_id = cpu.read_byte(W_ENEMY_MON_MOVES + u16::from(slot));
+                let pp = cpu.read_byte(W_ENEMY_MON_PP + u16::from(slot)) & defs::PP_MASK;
+                format!("{} (PP {pp})", move_name(move_id))
+            }
+            Step::Fight => "FIGHT".to_string(),
+            Step::Switch { slot } => format!("Switch to {}", enemy_party_label(cpu, slot)),
+            Step::Item { id, .. } => format!("Use {}", names::item_name(id)),
+            _ => unreachable!(),
+        })
+        .collect();
+    legal[prompt_list("Enemy trainer: choose an action", &labels)]
+}
+
 /// Prompt the second player for the enemy's action. `moves` / `switches` are the
 /// already-computed legal options (so the empty/forced cases are handled by the
 /// caller). When `enemy_fainted` the enemy is sending in a replacement, so only
@@ -1351,7 +1489,77 @@ pub fn legal_steps(cpu: &impl ReadMem, site: PromptSite) -> Vec<Step> {
             );
             out
         }
+        PromptSite::EnemyTrainerAction => legal_enemy_trainer_steps(cpu),
+        PromptSite::EnemySwitchIn => {
+            let current = cpu.read_byte(W_CUR_OT_MON);
+            enemy_alive_party_slots(cpu, Some(current)).into_iter().map(|slot| Step::Switch { slot }).collect()
+        }
     }
+}
+
+/// The items an externally controlled trainer can use: the `AI_Items` table
+/// (`engine/battle/ai/items.asm`), each used on the active mon.
+pub const ENEMY_TRAINER_ITEMS: [u8; 13] = [
+    defs::FULL_RESTORE,
+    defs::MAX_POTION,
+    defs::HYPER_POTION,
+    defs::SUPER_POTION,
+    defs::POTION,
+    defs::X_ACCURACY,
+    defs::FULL_HEAL,
+    defs::GUARD_SPEC,
+    defs::DIRE_HIT,
+    defs::X_ATTACK,
+    defs::X_DEFEND,
+    defs::X_SPEED,
+    defs::X_SPECIAL,
+];
+
+const W_ENEMY_TRAINER_ITEM1: u16 = crate::engine::sym::W_ENEMY_TRAINER_ITEM1;
+const W_ENEMY_SUB_STATUS_4: u16 = crate::engine::sym::W_ENEMY_SUB_STATUS4;
+const W_ENEMY_SUB_STATUS_3: u16 = crate::engine::sym::W_ENEMY_SUB_STATUS3;
+const W_ENEMY_WRAP_COUNT: u16 = crate::engine::sym::W_ENEMY_WRAP_COUNT;
+
+/// Whether an externally controlled trainer's action is forced this turn, the
+/// way `CheckEnemyLockedIn` forces it (recharging, a charged / rampaging /
+/// Bide move, Rollout). No [`PromptSite::EnemyTrainerAction`] is asked then.
+pub fn enemy_locked_in(cpu: &impl ReadMem) -> bool {
+    if cpu.read_byte(W_ENEMY_SUB_STATUS_4) & 1 << defs::SUBSTATUS_RECHARGE != 0 {
+        return true;
+    }
+    let sub3 = cpu.read_byte(W_ENEMY_SUB_STATUS_3);
+    if sub3 & (1 << defs::SUBSTATUS_CHARGED | 1 << defs::SUBSTATUS_RAMPAGE | 1 << defs::SUBSTATUS_BIDE) != 0 {
+        return true;
+    }
+    cpu.read_byte(crate::engine::sym::W_ENEMY_SUB_STATUS1) & 1 << defs::SUBSTATUS_ROLLOUT != 0
+}
+
+/// [`PromptSite::EnemyTrainerAction`]: FIGHT when Encored or out of usable
+/// moves (the engine then picks the Encored move or Struggle), else each
+/// usable move; a switch to every other alive mon unless trapped (the
+/// player's Mean Look / Spider Web, or a binding move, the same checks as
+/// `AI_SwitchOrTryItem`); and each AI item the trainer still holds.
+fn legal_enemy_trainer_steps(cpu: &impl ReadMem) -> Vec<Step> {
+    let moves = enemy_move_options(cpu);
+    let mut out: Vec<Step> = if moves.is_empty() || cpu.read_byte(W_ENEMY_SUB_STATUS_5) & 1 << defs::SUBSTATUS_ENCORED != 0 {
+        vec![Step::Fight]
+    } else {
+        moves.into_iter().map(|slot| Step::Move { slot }).collect()
+    };
+    let trapped = cpu.read_byte(W_PLAYER_SUB_STATUS_5) & 1 << defs::SUBSTATUS_CANT_RUN != 0
+        || cpu.read_byte(W_ENEMY_WRAP_COUNT) != 0;
+    if !trapped {
+        let current = cpu.read_byte(W_CUR_OT_MON);
+        out.extend(enemy_alive_party_slots(cpu, Some(current)).into_iter().map(|slot| Step::Switch { slot }));
+    }
+    for i in 0..2 {
+        let id = cpu.read_byte(W_ENEMY_TRAINER_ITEM1 + i);
+        let step = Step::Item { id, target: None, move_slot: None };
+        if ENEMY_TRAINER_ITEMS.contains(&id) && !out.contains(&step) {
+            out.push(step);
+        }
+    }
+    out
 }
 
 fn legal_battle_menu_steps(cpu: &impl ReadMem) -> Vec<Step> {

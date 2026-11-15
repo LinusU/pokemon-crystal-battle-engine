@@ -79,7 +79,12 @@ pub fn start(config: &BattleConfig, seed: u64, render_text: bool) -> Result<Engi
     let link = config.battle.kind == BattleKind::LinkBattle;
     // Cpu::seed_rng: a zero seed is mapped to the default constant.
     let rng = if seed == 0 { 0x9e37_79b9_7f4a_7c15 } else { seed };
-    let mut engine = Engine::new(boot_state(config), rng, Flags { link_battle: link, ..Flags::default() });
+    let mut engine = Engine::new(boot_state(config), rng, Flags {
+        link_battle: link,
+        external_enemy: config.battle.kind == BattleKind::TrainerBattle
+            && config.battle.enemy_control == crate::bootstrap::EnemyControl::External,
+        ..Flags::default()
+    });
     if render_text {
         engine.rendered = Some(Vec::new());
     }

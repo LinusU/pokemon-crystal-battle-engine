@@ -2,6 +2,56 @@ use crate::runtime::Cpu;
 
 pub(crate) fn ai_switch_or_try_item(cpu: &mut Cpu) {
     cpu.pc = 0x4000;
+    // HARNESS-PATCH: an externally controlled trainer carries out the switch
+    // or item it picked at AIChooseMove (see the patch there) instead of
+    // deciding here. Only trainer battles set `external_enemy`, so the wild /
+    // link early returns don't apply; CheckEnemyLockedIn still does. A switch
+    // runs AI_Switch with wEnemySwitchMonIndex set as AI_TrySwitch sets it; an
+    // item runs its EnemyUsed* routine and AI_TryItem's `.used_item`
+    // bookkeeping. See docs/transpiled_code.md.
+    if cpu.external_enemy {
+        use crate::bootstrap::cli::{ExternalEnemyTurn, enemy_locked_in, external_enemy_switch_or_item};
+        let turn = if enemy_locked_in(cpu) { ExternalEnemyTurn::Attack } else { external_enemy_switch_or_item(cpu) };
+        match turn {
+            ExternalEnemyTurn::Attack => {
+                cpu.flag_c = false;
+                cpu.pc = cpu.pop_word();
+                cpu.cycle(16);
+                return;
+            }
+            ExternalEnemyTurn::Switch(slot) => {
+                cpu.write_byte(0xc718, slot + 1); // wEnemySwitchMonIndex
+                become ai_switch(cpu);
+            }
+            ExternalEnemyTurn::Item(id) => {
+                let routine: fn(&mut Cpu) = match id {
+                    crate::defs::FULL_RESTORE => enemy_used_full_restore,
+                    crate::defs::MAX_POTION => enemy_used_max_potion,
+                    crate::defs::HYPER_POTION => enemy_used_hyper_potion,
+                    crate::defs::SUPER_POTION => enemy_used_super_potion,
+                    crate::defs::POTION => enemy_used_potion,
+                    crate::defs::FULL_HEAL => enemy_used_full_heal,
+                    crate::defs::X_ACCURACY => enemy_used_x_accuracy,
+                    crate::defs::GUARD_SPEC => enemy_used_guard_spec,
+                    crate::defs::DIRE_HIT => enemy_used_dire_hit,
+                    crate::defs::X_ATTACK => enemy_used_x_attack,
+                    crate::defs::X_DEFEND => enemy_used_x_defend,
+                    crate::defs::X_SPEED => enemy_used_x_speed,
+                    crate::defs::X_SPECIAL => enemy_used_x_special,
+                    _ => unreachable!("not an AI item: {id}"),
+                };
+                let next_pc = cpu.pc + 1;
+                cpu.push_word(next_pc);
+                routine(cpu);
+                assert_eq!(cpu.pc, next_pc);
+                crate::bootstrap::cli::external_enemy_item_used(cpu, id);
+                cpu.flag_c = true;
+                cpu.pc = cpu.pop_word();
+                cpu.cycle(16);
+                return;
+            }
+        }
+    }
     let value = cpu.a;
     cpu.a &= value;
     cpu.flag_z = cpu.a == 0;

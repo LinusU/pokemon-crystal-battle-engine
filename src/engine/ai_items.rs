@@ -26,6 +26,9 @@ impl Engine {
         if self.check_enemy_locked_in() {
             return Ok(false);
         }
+        if self.flags.external_enemy {
+            return self.external_enemy_switch_or_item();
+        }
 
         if self.mem.bit(W_PLAYER_SUB_STATUS5, SUBSTATUS_CANT_RUN) || self.mem.rb(W_ENEMY_WRAP_COUNT) != 0 {
             return Ok(self.ai_dont_switch());
@@ -454,5 +457,77 @@ impl Engine {
         self.ai_print_text_used_item_on();
         self.raise_stat(b);
         self.ai_update_hud();
+    }
+}
+
+// --- an externally controlled trainer (`enemy_control = "external"`) -------------------
+
+impl Engine {
+    /// The `AIChooseMove` patch for an external trainer: one
+    /// `EnemyTrainerAction` decision (none when the enemy is locked in). A
+    /// move is written the way `AIChooseMove` writes its pick; a switch or an
+    /// item waits for `AI_SwitchOrTryItem` (and leaves the first usable move,
+    /// see `cli::external_enemy_move_slot`).
+    pub fn external_enemy_action(&mut self) -> Flow {
+        self.flags.enemy_choice = None;
+        if self.check_enemy_locked_in() {
+            return Ok(());
+        }
+        let step = self.decide(crate::bootstrap::decision::PromptSite::EnemyTrainerAction)?;
+        let slot = crate::bootstrap::cli::external_enemy_move_slot(&self.mem, step);
+        let mv = self.mem.rb(W_ENEMY_MON_MOVES + u16::from(slot));
+        self.mem.wb(W_CUR_ENEMY_MOVE, mv);
+        self.mem.wb(W_CUR_ENEMY_MOVE_NUM, slot);
+        self.flags.enemy_choice = Some(step);
+        Ok(())
+    }
+
+    /// `AI_SwitchOrTryItem` for an external trainer: carry out the switch or
+    /// item picked at the turn's `EnemyTrainerAction`.
+    fn external_enemy_switch_or_item(&mut self) -> Flow<bool> {
+        use crate::bootstrap::decision::Step;
+        match self.flags.enemy_choice {
+            Some(Step::Switch { slot }) => {
+                // AI_TrySwitch's `.switch`: the 1-based slot, then AI_Switch.
+                self.mem.wb(W_ENEMY_SWITCH_MON_INDEX, slot + 1);
+                self.ai_switch()
+            }
+            Some(Step::Item { id, .. }) => {
+                self.external_enemy_use_item(id);
+                Ok(true)
+            }
+            _ => Ok(false),
+        }
+    }
+
+    /// `AI_TryItem` from `.has_item` for item `id`, minus the decision: the
+    /// item's `EnemyUsed*` routine, then `.used_item` (the first trainer item
+    /// slot holding `id` is emptied).
+    fn external_enemy_use_item(&mut self, id: u8) {
+        match id {
+            FULL_RESTORE => self.enemy_used_full_restore(),
+            MAX_POTION => self.enemy_used_max_potion(),
+            HYPER_POTION => self.enemy_used_potion(HYPER_POTION, 200),
+            SUPER_POTION => self.enemy_used_potion(SUPER_POTION, 50),
+            POTION => self.enemy_used_potion(POTION, 20),
+            FULL_HEAL => self.enemy_used_full_heal(),
+            X_ACCURACY => self.enemy_used_x_accuracy(),
+            GUARD_SPEC => self.enemy_used_guard_spec(),
+            DIRE_HIT => self.enemy_used_dire_hit(),
+            X_ATTACK => self.enemy_used_x_item(ATTACK, X_ATTACK),
+            X_DEFEND => self.enemy_used_x_item(DEFENSE, X_DEFEND),
+            X_SPEED => self.enemy_used_x_item(SPEED, X_SPEED),
+            X_SPECIAL => self.enemy_used_x_item(SP_ATTACK, X_SPECIAL),
+            _ => unreachable!("not an AI item: {id}"),
+        }
+        let de = if self.mem.rb(W_ENEMY_TRAINER_ITEM1) == id { W_ENEMY_TRAINER_ITEM1 } else { W_ENEMY_TRAINER_ITEM2 };
+        self.mem.wb(de, 0);
+        self.mem.wb(W_ENEMY_GOES_FIRST, 1);
+        self.mem.res_bit(W_ENEMY_SUB_STATUS3, SUBSTATUS_BIDE);
+        self.mem.wb(W_ENEMY_FURY_CUTTER_COUNT, 0);
+        self.mem.wb(W_ENEMY_PROTECT_COUNT, 0);
+        self.mem.wb(W_ENEMY_RAGE_COUNTER, 0);
+        self.mem.res_bit(W_ENEMY_SUB_STATUS4, SUBSTATUS_RAGE);
+        self.mem.wb(W_LAST_ENEMY_COUNTER_MOVE, 0);
     }
 }

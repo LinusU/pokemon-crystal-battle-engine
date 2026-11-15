@@ -13450,6 +13450,17 @@ pub(crate) fn add_battle_participant(cpu: &mut Cpu) {
 
 pub(crate) fn find_mon_in_ot_party_to_switch_into_battle(cpu: &mut Cpu) {
     cpu.pc = 0x5599;
+    // HARNESS-PATCH: an externally controlled trainer (`enemy_control =
+    // "external"`) picks the mon to send in with an EnemySwitchIn decision
+    // instead of the type-matchup scoring; the slot is returned in `b` like
+    // the original. See bootstrap::cli::handle_external_enemy_switch_in and
+    // docs/transpiled_code.md.
+    if cpu.external_enemy {
+        cpu.b = crate::bootstrap::cli::handle_external_enemy_switch_in(cpu);
+        cpu.pc = cpu.pop_word();
+        cpu.cycle(16);
+        return;
+    }
     cpu.b = -1i16 as u8;
     cpu.pc += 2;
     cpu.cycle(8);

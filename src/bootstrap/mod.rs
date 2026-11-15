@@ -94,6 +94,25 @@ pub struct BattleHeader {
     /// Present on a fully healed target also prints "…can't receive the gift".
     #[serde(default)]
     pub battle_scene: Option<bool>,
+    /// Who decides for the enemy trainer (trainer battles only). `original`
+    /// (the default) runs the game's own trainer AI. `external` replaces its
+    /// three choices — the move (`AIChooseMove`), switching or using an item
+    /// (`AI_SwitchOrTryItem`), and the next mon to send in
+    /// (`FindMonInOTPartyToSwitchIntoBattle`) — with `Enemy`-side decisions
+    /// ([`PromptSite::EnemyTrainerAction`](player::PromptSite::EnemyTrainerAction),
+    /// [`PromptSite::EnemySwitchIn`](player::PromptSite::EnemySwitchIn)), so
+    /// another policy (a trained AI, a second player) plays the trainer.
+    #[serde(default)]
+    pub enemy_control: EnemyControl,
+}
+
+/// See [`BattleHeader::enemy_control`].
+#[derive(Debug, Deserialize, Clone, Copy, PartialEq, Eq, Default)]
+#[serde(rename_all = "snake_case")]
+pub enum EnemyControl {
+    #[default]
+    Original,
+    External,
 }
 
 #[derive(Debug, Deserialize, Clone, Copy, PartialEq, Eq)]
@@ -748,6 +767,7 @@ fn launch_trainer_battle(cpu: &mut Cpu, config: &BattleConfig) -> Result<(), Str
     let trainer = trainers::lookup(trainer_name)
         .ok_or_else(|| format!("unknown trainer: {trainer_name}"))?;
 
+    cpu.external_enemy = config.battle.enemy_control == EnemyControl::External;
     seed_player(cpu);
     seed_badges(cpu, &config.battle);
     seed_player_items(cpu, &config.player_items)?;

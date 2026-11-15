@@ -800,7 +800,7 @@ impl Engine {
         if a == 0 {
             self.enemy_switch()?;
         } else {
-            self.enemy_switch_set_mode();
+            self.enemy_switch_set_mode()?;
         }
         self.reset_battle_participants();
         self.set_enemy_turn();
@@ -964,16 +964,17 @@ impl Engine {
     }
 
     /// `EnemySwitch_SetMode`.
-    pub fn enemy_switch_set_mode(&mut self) {
+    pub fn enemy_switch_set_mode(&mut self) -> Flow {
         self.reset_enemy_battle_vars();
         let b = match self.check_whether_switchmon_is_predetermined() {
             Some(b) => b,
-            None => self.find_mon_in_ot_party_to_switch_into_battle(),
+            None => self.find_mon_in_ot_party_to_switch_into_battle()?,
         };
         self.load_enemy_mon_to_switch_to(b);
         self.mem.wb(W_ENEMY_IS_SWITCHING, 1);
         self.show_battle_text_enemy_sent_out();
         self.show_set_enemy_mon_and_send_out_animation();
+        Ok(())
     }
 
     /// `CheckWhetherSwitchmonIsPredetermined`: `Some(b)` (carry) or `None`.

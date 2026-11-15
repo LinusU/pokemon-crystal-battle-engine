@@ -58,7 +58,11 @@ impl Engine {
             }
             self.handle_berserk_gene()?;
             self.update_battle_mon_in_party();
-            self.ai_choose_move();
+            if self.flags.external_enemy {
+                self.external_enemy_action()?;
+            } else {
+                self.ai_choose_move();
+            }
             // IsMobileBattle: never.
             if self.check_player_locked_in() {
                 return self.battle_turn_skip_iteration();

@@ -190,7 +190,7 @@ fn current(engine: &FastBattle) -> Current {
     let events = engine.events().to_vec();
     match engine.status() {
         EngineStatus::Decision { site, legal } => {
-            let side = if *site == PromptSite::EnemyAction { Side::Enemy } else { Side::Player };
+            let side = site.side();
             Current::Decision(Decision { site: *site, side, legal: legal.clone(), state, events })
         }
         EngineStatus::Ended(outcome) => Current::Ended { outcome: *outcome, state, events },

@@ -58,6 +58,14 @@ pub struct Cpu {
     /// non-linked end path instead of the link-result SRAM/record display).
     /// See `bootstrap::launch_link_battle` and docs/transpiled_code.md.
     pub link_battle: bool,
+    /// The enemy trainer is decided from outside (`enemy_control =
+    /// "external"`): `AIChooseMove`, `AI_SwitchOrTryItem` and
+    /// `FindMonInOTPartyToSwitchIntoBattle` ask for `Enemy`-side decisions
+    /// instead of running the trainer AI. See `bootstrap::cli::handle_external_enemy_action`.
+    pub external_enemy: bool,
+    /// The external trainer's action this turn, picked at `AIChooseMove` and
+    /// carried out by `AI_SwitchOrTryItem` (a switch or an item).
+    pub external_enemy_choice: Option<crate::bootstrap::recorder::Step>,
     /// Open recording file. When `Some`, the CLI driver appends one
     /// `[[step]]` block per resolved decision (the action plus the `expect`
     /// state it produced) and flushes after each write so a mid-battle crash
@@ -186,6 +194,8 @@ impl Default for Cpu {
             cli_pending_move: None,
             caught_wild_mon: false,
             link_battle: false,
+            external_enemy: false,
+            external_enemy_choice: None,
             recorder: None,
             player: None,
             decider: None,

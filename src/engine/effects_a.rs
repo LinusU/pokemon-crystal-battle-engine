@@ -183,7 +183,7 @@ impl Engine {
         self.animate_current_move()?;
         self.baton_pass_link_enemy_switch()?;
         self.mem.wb(W_ENEMY_SWITCH_MON_INDEX, 0);
-        self.enemy_switch_set_mode();
+        self.enemy_switch_set_mode()?;
         self.reset_battle_participants();
         self.mem.wb(W_APPLY_STAT_LEVEL_MULTIPLIERS_TO_ENEMY, 1);
         self.apply_stat_level_multiplier_on_all_stats();

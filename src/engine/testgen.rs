@@ -129,6 +129,7 @@ pub fn random_link_config(seed: u64, moves: &[u8], opts: GenOptions) -> BattleCo
             johto_badges: None,
             kanto_badges: None,
             battle_scene: Some(false),
+            enemy_control: Default::default(),
         },
         player_party,
         enemy_party,

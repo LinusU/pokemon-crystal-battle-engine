@@ -136,6 +136,15 @@ pub enum PromptSite {
     /// switch). Reached from the `link_battle_send_receive_action` hook rather
     /// than an engine menu. Consumes only `Enemy`-side steps.
     EnemyAction,
+    /// The enemy trainer's per-turn action when the trainer is controlled
+    /// from outside (`enemy_control = "external"`): a move, FIGHT, a switch,
+    /// or one of the trainer's AI items. Replaces `AIChooseMove` and the
+    /// switch/item choice of `AI_SwitchOrTryItem`. Consumes `Enemy` steps.
+    EnemyTrainerAction,
+    /// Which mon an externally controlled trainer sends in next (after a
+    /// faint, or Baton Pass). Replaces `FindMonInOTPartyToSwitchIntoBattle`.
+    /// Consumes `Enemy` steps.
+    EnemySwitchIn,
 }
 
 impl PromptSite {
@@ -146,6 +155,8 @@ impl PromptSite {
             PromptSite::ForcedSwitch => "forced switch (active fainted)",
             PromptSite::OfferSwitch => "offer switch (enemy sending in next mon)",
             PromptSite::EnemyAction => "enemy action (link battle, move/switch)",
+            PromptSite::EnemyTrainerAction => "enemy trainer action (move/switch/item)",
+            PromptSite::EnemySwitchIn => "enemy trainer switch-in",
         }
     }
 
@@ -153,9 +164,9 @@ impl PromptSite {
     /// site takes `Player` steps; the link-battle enemy hook takes `Enemy`
     /// steps. Playback uses this to keep the interleaved step stream in lockstep
     /// with the engine's alternating player/enemy prompts.
-    fn side(self) -> Side {
+    pub fn side(self) -> Side {
         match self {
-            PromptSite::EnemyAction => Side::Enemy,
+            PromptSite::EnemyAction | PromptSite::EnemyTrainerAction | PromptSite::EnemySwitchIn => Side::Enemy,
             _ => Side::Player,
         }
     }
@@ -272,6 +283,8 @@ fn site_str(site: PromptSite) -> &'static str {
         PromptSite::ForcedSwitch => "forced_switch",
         PromptSite::OfferSwitch => "offer_switch",
         PromptSite::EnemyAction => "enemy_action",
+        PromptSite::EnemyTrainerAction => "enemy_trainer_action",
+        PromptSite::EnemySwitchIn => "enemy_switch_in",
     }
 }
 
@@ -674,6 +687,7 @@ slot = 0
                 johto_badges: None,
                 kanto_badges: None,
             battle_scene: None,
+            enemy_control: Default::default(),
             },
             player_party: vec![
                 MonSpec { species: "QUILAVA".into(), level: 20, moves: None, item: None, ot_id: None },
@@ -753,6 +767,7 @@ slot = 0
                 johto_badges: None,
                 kanto_badges: None,
             battle_scene: None,
+            enemy_control: Default::default(),
             },
             player_party: vec![MonSpec {
                 species: "PIKACHU".into(),
