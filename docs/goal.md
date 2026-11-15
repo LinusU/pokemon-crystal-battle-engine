@@ -124,7 +124,7 @@ The overall plan, in five phases:
       the end of the battle. `engine_fixtures` does the same for the
       recorded corpus, `api_diff` for the library API on both engines.
 - [x] One million differential battles (`engine_diff`, all 251 moves,
-      400,000 link + 400,000 wild + 200,000 trainer, seeds 100000–499999,
+      400,000 link + 400,000 wild + 200,000 trainer from seed 100000,
       commit `a5c5331`): 997,997 exact (start state, every decision and the
       end), **0 divergences**; 2,003 skipped by the cycle watchdog (scenarios
       where the original freezes or runs past the tester's budget, such as a wild
