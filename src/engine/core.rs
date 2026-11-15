@@ -496,9 +496,9 @@ impl Engine {
         }
     }
 
-    /// `GetMoveEffect`.
+    /// `GetMoveEffect`. Move 0 (`dec a`) reads entry 255, past the table.
     pub fn get_move_effect(&self, mv: u8) -> u8 {
-        super::rom::byte(r::MOVES + (usize::from(mv) - 1) * usize::from(MOVE_LENGTH) + usize::from(MOVE_EFFECT))
+        super::rom::byte(r::MOVES + usize::from(mv.wrapping_sub(1)) * usize::from(MOVE_LENGTH) + usize::from(MOVE_EFFECT))
     }
 
     /// `Battle_EnemyFirst`.
