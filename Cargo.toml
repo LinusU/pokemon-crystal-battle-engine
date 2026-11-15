@@ -7,9 +7,24 @@ edition = "2024"
 # Off by default: a plain build is a lean headless binary with no glium/winit
 # compiled in. Enable the interactive window + renderer with `--features gui`.
 gui = ["dep:glium", "dep:winit"]
+# The trained battle AI (`ai::Agent`), its trainer and the CLI's `--vs-ai`.
+# No extra dependencies: the network is plain Rust.
+ai = []
 
 [dependencies]
 glium = { version = "0.36", optional = true }
 winit = { version = "0.30", optional = true }
 serde = { version = "1", features = ["derive"] }
 toml = "0.8"
+
+[[example]]
+name = "ai_train"
+required-features = ["ai"]
+
+[[example]]
+name = "ai_eval"
+required-features = ["ai"]
+
+[[example]]
+name = "ai_export"
+required-features = ["ai"]

@@ -8,6 +8,8 @@
 #![allow(unused_comparisons)]
 #![allow(unused_parens)]
 
+#[cfg(feature = "ai")]
+pub mod ai;
 pub mod battle;
 pub mod bootstrap;
 pub mod defs;
