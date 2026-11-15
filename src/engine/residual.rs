@@ -937,9 +937,17 @@ impl Engine {
         if hl >= HP_BAR_LENGTH_PX as u16 {
             b += 1;
         }
-        // .finish: every path stores b (the wCurHPAnimLowHP / HighHP clamps
-        // only select between identical stores).
-        self.mem.wb(W_CUR_HP_ANIM_OLD_HP, b);
+        // .no_carry: clamp to [wCurHPAnimLowHP, wCurHPAnimHighHP] (low bytes);
+        // .finish stores whichever is in `a`.
+        let (low, high) = (self.mem.rb(W_CUR_HP_ANIM_LOW_HP), self.mem.rb(W_CUR_HP_ANIM_HIGH_HP));
+        let a = if low >= b {
+            low
+        } else if high < b {
+            high
+        } else {
+            b
+        };
+        self.mem.wb(W_CUR_HP_ANIM_OLD_HP, a);
     }
 
     /// `HPBarAnim_UpdateHPRemaining` (the part that is not drawing).
