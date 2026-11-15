@@ -123,6 +123,12 @@ The overall plan, in five phases:
       decision (site, legal actions, random-stream state, memory, text) and
       the end of the battle. `engine_fixtures` does the same for the
       recorded corpus, `api_diff` for the library API on both engines.
+- [x] One million differential battles (`engine_diff`, all 251 moves,
+      400,000 link + 400,000 wild + 200,000 trainer, seeds 100000–499999,
+      commit `a5c5331`): 997,997 exact (start state, every decision and the
+      end), **0 divergences**; 2,003 skipped by the cycle watchdog (scenarios
+      where the original freezes or runs past the tester's budget, such as a wild
+      Unown with no unlocked letters). All fixtures pass on both engines.
 - [x] The library's `Battle` runs on the hand-written engine;
       `EmulatedBattle` keeps the same API on the original for testing and the
       window. (Both are compiled; there is no cargo feature, since the
