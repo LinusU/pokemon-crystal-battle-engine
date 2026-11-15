@@ -149,6 +149,11 @@ impl Engine {
     fn seed_player(&mut self) {
         self.write_bytes(W_PLAYER_NAME, &encode_name("RED"));
         self.write_bytes(W_RIVAL_NAME, &encode_name("SILVER"));
+        for (addr, rom_addr) in crate::bootstrap::NPC_NAMES {
+            for i in 0..u16::from(NAME_LENGTH) {
+                self.mem.wb(addr + i, rom::byte(rom::flat(0x01, rom_addr + i)));
+            }
+        }
         self.mem.wb(W_PLAYER_ID, 0x12);
         self.mem.wb(W_PLAYER_ID + 1, 0x34);
         self.mem.wb(W_PLAYER_GENDER, 0);

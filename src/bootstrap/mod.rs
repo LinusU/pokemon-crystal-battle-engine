@@ -206,6 +206,8 @@ const W_OT_PARTY_COUNT: u16 = 0xd280;
 const W_PLAYER_GENDER: u16 = 0xd472;
 const W_PLAYER_ID: u16 = 0xd47b;
 const W_RIVAL_NAME: u16 = 0xd493;
+/// `(wMomsName, InitializeNPCNames.Mom)`, Red's, Green's (bank 01).
+pub(crate) const NPC_NAMES: [(u16, u16); 3] = [(0xd488, 0x5d1f), (0xd49e, 0x5d15), (0xd4a9, 0x5d19)];
 const W_PLAYER_NAME: u16 = 0xd47d;
 const W_TIME_OF_DAY_PAL: u16 = 0xd841;
 const W_PARTY_COUNT: u16 = 0xdcd7;
@@ -453,6 +455,15 @@ fn seed_player(cpu: &mut Cpu) {
     let rival = encode_name("SILVER");
     for (i, b) in rival.iter().enumerate() {
         cpu.write_byte(W_RIVAL_NAME + i as u16, *b);
+    }
+    // Mom's, Red's and Green's names, as a new game's InitializeNPCNames
+    // sets them: NAME_LENGTH bytes copied from each ROM string (bytes past
+    // the '@' included). Only garbage text prints them (<MOM>, <RED>, <GREEN>).
+    for (addr, rom_addr) in NPC_NAMES {
+        for i in 0..11u16 {
+            let b = crate::engine::rom::byte(crate::engine::rom::flat(0x01, rom_addr + i));
+            cpu.write_byte(addr + i, b);
+        }
     }
     cpu.write_byte(W_PLAYER_ID, 0x12);
     cpu.write_byte(W_PLAYER_ID + 1, 0x34);
