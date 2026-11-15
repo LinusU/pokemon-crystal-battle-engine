@@ -8,7 +8,7 @@ fn main() {
         Err(e) => {
             eprintln!("error: {e}");
             eprintln!(
-                "usage: {} [<scenario.toml> | --random] [--seed <n>] [--record <out.toml>] [--play <recording.toml>]",
+                "usage: {} [<scenario.toml> | --random] [--seed <n>] [--record <out.toml>] [--play <recording.toml>] [--show-text] [--vs-ai [--ai-model <model.bin>] [--ai-player]]",
                 args[0],
             );
             std::process::exit(1);
@@ -64,18 +64,56 @@ fn main() {
     let record_path = cli_args.record;
 
     // This binary runs a single battle; it never boots into the overworld.
-    let Some(battle_config) = battle_config else {
+    let Some(mut battle_config) = battle_config else {
         eprintln!(
             "error: no battle specified — pass a <scenario.toml>, --random, or --play <recording.toml>"
         );
         std::process::exit(1);
     };
 
+    // `--vs-ai`: the trained AI plays the enemy trainer.
+    let decider = if cli_args.ai.vs_ai {
+        if battle_config.battle.kind != bootstrap::BattleKind::TrainerBattle {
+            eprintln!("error: --vs-ai needs a trainer battle (a trainer_battle scenario or --random)");
+            std::process::exit(1);
+        }
+        battle_config.battle.enemy_control = bootstrap::EnemyControl::External;
+        match ai_decider(&cli_args.ai) {
+            Ok(d) => Some(d),
+            Err(e) => {
+                eprintln!("error: {e}");
+                std::process::exit(1);
+            }
+        }
+    } else {
+        None
+    };
+
     #[cfg(feature = "gui")]
-    gui::run(battle_config, record_path, playback_recording, cli_args.show_text);
+    gui::run(battle_config, record_path, playback_recording, cli_args.show_text, decider);
 
     #[cfg(not(feature = "gui"))]
-    run_headless(battle_config, record_path, playback_recording, cli_args.show_text);
+    run_headless(battle_config, record_path, playback_recording, cli_args.show_text, decider);
+}
+
+/// Something that answers some of the battle's decisions (the AI).
+type BoxedDecider = Box<dyn bootstrap::decision::Decider>;
+
+/// The AI opponent for `--vs-ai`: the built-in model, or `--ai-model`.
+#[cfg(feature = "ai")]
+fn ai_decider(args: &AiArgs) -> Result<BoxedDecider, String> {
+    use rgb2rust_output::ai::{Agent, AiDecider};
+    let agent = match &args.model {
+        Some(path) => Agent::load(path)?,
+        None => Agent::builtin(),
+    };
+    eprintln!("the trained AI plays the enemy trainer{}", if args.player { " and your side" } else { "" });
+    Ok(Box::new(AiDecider { agent, player: args.player }))
+}
+
+#[cfg(not(feature = "ai"))]
+fn ai_decider(_: &AiArgs) -> Result<BoxedDecider, String> {
+    Err("--vs-ai needs the AI: build with `--features ai`".into())
 }
 
 /// Drive a single fully specified battle to completion on `cpu`. Shared by the
@@ -87,7 +125,9 @@ fn run_battle(
     record_path: Option<&std::path::Path>,
     playback: Option<bootstrap::player::Recording>,
     show_text: bool,
+    decider: Option<BoxedDecider>,
 ) {
+    cpu.decider = decider.map(std::cell::RefCell::new);
     let (seed_override, playback_steps) = match playback {
         Some(rec) => (Some(rec.seed), Some(rec.steps)),
         None => (None, None),
@@ -112,10 +152,11 @@ fn run_headless(
     record_path: Option<std::path::PathBuf>,
     playback: Option<bootstrap::player::Recording>,
     show_text: bool,
+    decider: Option<BoxedDecider>,
 ) {
     let mut cpu = Cpu::new_cgb(None, None);
     cpu.interrupt_vectors = rgb2rust_output::interrupt_vectors();
-    run_battle(&mut cpu, &config, record_path.as_deref(), playback, show_text);
+    run_battle(&mut cpu, &config, record_path.as_deref(), playback, show_text, decider);
 }
 
 /// Argv parser for `[<scenario.toml> | --random] [--seed <n>] [--record <out.toml>] [--play <rec.toml>]`.
@@ -135,6 +176,18 @@ struct CliArgs {
     seed: Option<u64>,
     /// `--show-text`: print the original battle text as the engine prints it.
     show_text: bool,
+    ai: AiArgs,
+}
+
+/// `--vs-ai`, `--ai-model <path>`, `--ai-player`.
+#[derive(Default)]
+struct AiArgs {
+    /// The trained AI plays the enemy trainer (`enemy_control = "external"`).
+    vs_ai: bool,
+    /// A model file instead of the built-in one (implies `vs_ai`).
+    model: Option<std::path::PathBuf>,
+    /// The AI also plays the player's side: watch it play itself.
+    player: bool,
 }
 
 fn parse_cli_args(args: &[String]) -> Result<CliArgs, String> {
@@ -144,6 +197,7 @@ fn parse_cli_args(args: &[String]) -> Result<CliArgs, String> {
     let mut random = false;
     let mut seed: Option<u64> = None;
     let mut show_text = false;
+    let mut ai = AiArgs::default();
     let mut i = 0;
     while i < args.len() {
         let arg = &args[i];
@@ -165,6 +219,21 @@ fn parse_cli_args(args: &[String]) -> Result<CliArgs, String> {
             "--show-text" => {
                 show_text = true;
                 i += 1;
+            }
+            "--vs-ai" => {
+                ai.vs_ai = true;
+                i += 1;
+            }
+            "--ai-player" => {
+                ai.vs_ai = true;
+                ai.player = true;
+                i += 1;
+            }
+            "--ai-model" => {
+                let path = args.get(i + 1).ok_or_else(|| "--ai-model requires a path argument".to_string())?;
+                ai.vs_ai = true;
+                ai.model = Some(std::path::PathBuf::from(path));
+                i += 2;
             }
             "--random" => {
                 random = true;
@@ -209,7 +278,10 @@ fn parse_cli_args(args: &[String]) -> Result<CliArgs, String> {
             "--seed without --random has no effect — put `seed = ...` in the scenario TOML instead".into(),
         );
     }
-    Ok(CliArgs { scenario, record, play, random, seed, show_text })
+    if ai.vs_ai && play.is_some() {
+        return Err("--vs-ai cannot be combined with --play — a recording already holds the AI's decisions".into());
+    }
+    Ok(CliArgs { scenario, record, play, random, seed, show_text, ai })
 }
 
 /// Parse `--seed` as decimal or `0x...`/`0X...` hex. Accepts the same shape
@@ -262,6 +334,7 @@ mod gui {
         record_path: Option<std::path::PathBuf>,
         playback_recording: Option<bootstrap::player::Recording>,
         show_text: bool,
+        decider: Option<super::BoxedDecider>,
     ) {
         let scale = 4;
         let (sender, receiver) = mpsc::sync_channel(1);
@@ -292,6 +365,7 @@ mod gui {
                 record_path,
                 playback_recording,
                 show_text,
+                decider,
             )
         });
 
@@ -356,10 +430,11 @@ mod gui {
         record_path: Option<std::path::PathBuf>,
         playback: Option<bootstrap::player::Recording>,
         show_text: bool,
+        decider: Option<super::BoxedDecider>,
     ) {
         let mut cpu = Cpu::new_cgb(Some(update_screen), Some(keypad_events));
         cpu.interrupt_vectors = rgb2rust_output::interrupt_vectors();
-        super::run_battle(&mut cpu, &config, record_path.as_deref(), playback, show_text);
+        super::run_battle(&mut cpu, &config, record_path.as_deref(), playback, show_text, decider);
     }
 
     fn map_keypad_key(key: winit::keyboard::Key<&str>) -> Option<KeypadKey> {

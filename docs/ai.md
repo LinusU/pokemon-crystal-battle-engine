@@ -165,6 +165,16 @@ let mut ai = Agent::builtin(); // or Agent::load("model.bin")
 let action = ai.choose(decision); // any Decision, either side
 ```
 
+CLI (the AI plays the enemy trainer; you pick on stdin as usual):
+
+```bash
+cargo run --features "ai gui" -- --random --vs-ai --show-text
+```
+
+`--ai-model <path>` loads another model, `--ai-player` lets the AI play your
+side too (watch it play itself). `--record` records both sides' decisions;
+`--play` replays them without the AI.
+
 The shipped model is [`models/crystal-ai.bin`](../models/crystal-ai.bin)
 (1.8M parameters stored as bf16, 3.6 MB, `include_bytes!` into the library;
 `ai_export` writes one from a training checkpoint). A model file stores the feature
