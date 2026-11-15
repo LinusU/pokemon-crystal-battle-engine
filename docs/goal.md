@@ -124,11 +124,15 @@ The overall plan, in five phases:
       the end of the battle. `engine_fixtures` does the same for the
       recorded corpus, `api_diff` for the library API on both engines.
 - [x] One million differential battles (`engine_diff`, all 251 moves,
-      400,000 link + 400,000 wild + 200,000 trainer from seed 100000,
-      commit `a5c5331`): 997,997 exact (start state, every decision and the
-      end), **0 divergences**; 2,003 skipped by the cycle watchdog (scenarios
-      where the original freezes or runs past the tester's budget, such as a wild
-      Unown with no unlocked letters). All fixtures pass on both engines.
+      401,000 link + 401,000 wild from seed 100000 and 500000, 201,000
+      trainer from seed 100000 and 300000; commit `a5c5331`): **1,000,995
+      compared exactly** (start state, every decision and the end), **0
+      divergences**; 2,005 skipped by the cycle watchdog (scenarios where the
+      original freezes or runs past the tester's budget, such as a wild Unown
+      with no unlocked letters). Fixes since then (`get_move_effect` on move
+      0, see below) don't change any of these battles' results. All fixtures
+      pass on both engines. 9,000 more battles on a release build with
+      overflow checks: no panics, 0 divergences.
 - [x] The library's `Battle` runs on the hand-written engine;
       `EmulatedBattle` keeps the same API on the original for testing and the
       window. (Both are compiled; there is no cargo feature, since the
