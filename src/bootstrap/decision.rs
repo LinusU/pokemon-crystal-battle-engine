@@ -42,3 +42,33 @@ pub fn battle_ended(cpu: &Cpu) {
         cell.borrow_mut().battle_ended(cpu);
     }
 }
+
+/// A [`Decider`] that plays the enemy side (and optionally the player side
+/// too) with an [`Agent`](crate::ai::Agent) — the hook for the CLI and the
+/// `gui` window (both run the emulated original), where the sides the AI
+/// doesn't play are decided on stdin. Install it on `Cpu::decider`.
+#[cfg(feature = "ai")]
+pub struct AiDecider {
+    pub agent: crate::ai::Agent,
+    /// Also play the player's side (AI vs AI, to watch).
+    pub player: bool,
+}
+
+#[cfg(feature = "ai")]
+impl AiDecider {
+    pub fn new(agent: crate::ai::Agent) -> AiDecider {
+        AiDecider { agent, player: false }
+    }
+}
+
+#[cfg(feature = "ai")]
+impl Decider for AiDecider {
+    fn handles(&self, site: PromptSite) -> bool {
+        self.player || site.side() == crate::battle::Side::Enemy
+    }
+
+    fn decide(&mut self, cpu: &Cpu, site: PromptSite, legal: &[Step]) -> Step {
+        let state = crate::battle::BattleState::read(cpu);
+        self.agent.choose_at(&state, site, site.side(), legal)
+    }
+}

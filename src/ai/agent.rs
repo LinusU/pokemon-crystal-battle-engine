@@ -133,33 +133,6 @@ pub(crate) fn sample(weights: &[f32], rng: &mut u64) -> usize {
     weights.len() - 1
 }
 
-/// A [`crate::bootstrap::decision::Decider`] that plays the enemy side
-/// (and optionally the player side too) with an [`Agent`] — the hook for the
-/// CLI and the `gui` window (both run the emulated original), where the sides
-/// the AI doesn't play are decided on stdin. Install it on `Cpu::decider`.
-pub struct AiDecider {
-    pub agent: Agent,
-    /// Also play the player's side (AI vs AI, to watch).
-    pub player: bool,
-}
-
-impl AiDecider {
-    pub fn new(agent: Agent) -> AiDecider {
-        AiDecider { agent, player: false }
-    }
-}
-
-impl crate::bootstrap::decision::Decider for AiDecider {
-    fn handles(&self, site: PromptSite) -> bool {
-        self.player || site.side() == Side::Enemy
-    }
-
-    fn decide(&mut self, cpu: &crate::runtime::Cpu, site: PromptSite, legal: &[Action]) -> Action {
-        let state = BattleState::read(cpu);
-        self.agent.choose_at(&state, site, site.side(), legal)
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;

@@ -102,7 +102,8 @@ type BoxedDecider = Box<dyn bootstrap::decision::Decider>;
 /// The AI opponent for `--vs-ai`: the built-in model, or `--ai-model`.
 #[cfg(feature = "ai")]
 fn ai_decider(args: &AiArgs) -> Result<BoxedDecider, String> {
-    use rgb2rust_output::ai::{Agent, AiDecider};
+    use rgb2rust_output::ai::Agent;
+    use rgb2rust_output::bootstrap::decision::AiDecider;
     let agent = match &args.model {
         Some(path) => Agent::load(path)?,
         None => Agent::builtin(),

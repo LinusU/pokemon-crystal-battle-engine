@@ -19,8 +19,9 @@
 //!
 //! - [`features`]: the battle state and each legal action as sparse vectors.
 //! - [`net`]: the policy/value network (MLP, hand-written backprop, Adam).
-//! - [`Agent`]: a network as a player; [`AiDecider`] hooks it into the
-//!   CLI / window (the emulated original) as the enemy trainer.
+//! - [`Agent`]: a network as a player. The harness's
+//!   `bootstrap::decision::AiDecider` hooks it into the CLI / window (the
+//!   emulated original) as the enemy trainer.
 //! - [`train`]: PPO self-play training and evaluation.
 
 pub mod agent;
@@ -28,4 +29,4 @@ pub mod features;
 pub mod net;
 pub mod train;
 
-pub use agent::{Agent, AiDecider, Play};
+pub use agent::{Agent, Play};
