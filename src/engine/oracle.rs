@@ -199,3 +199,115 @@ pub fn first_decision(config: &BattleConfig, seed: u64) -> Option<Snapshot> {
 thread_local! {
     static FIRST: std::cell::RefCell<Option<Snapshot>> = const { std::cell::RefCell::new(None) };
 }
+
+/// The original at a battle's first decision, kept to print text on: a
+/// differential check for text the battle only prints through glitches.
+pub struct TextBench {
+    cpu: Cpu,
+    mem: Mem,
+    sp: u16,
+    config: BattleConfig,
+    seed: u64,
+    /// A failed print left the original mid-routine: start over.
+    broken: bool,
+}
+
+/// Unwinds out of the battle at its first decision.
+struct StopHere;
+
+struct StopDecider;
+
+impl Decider for StopDecider {
+    fn decide(&mut self, _: &Cpu, _: PromptSite, _: &[Step]) -> Step {
+        std::panic::panic_any(StopHere)
+    }
+}
+
+impl TextBench {
+    /// Start `config` on the original and stop at its first decision.
+    pub fn new(config: &BattleConfig, seed: u64) -> Option<TextBench> {
+        let mut cpu = Cpu::new_cgb(None, None);
+        cpu.interrupt_vectors = crate::interrupt_vectors();
+        cpu.cycle_limit.set(1 << 31);
+        cpu.events = Some(std::cell::RefCell::new(Default::default()));
+        cpu.decider = Some(std::cell::RefCell::new(Box::new(StopDecider)));
+        let options = crate::bootstrap::RunOptions { seed_override: Some(seed), quiet: true, ..Default::default() };
+        let run = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+            crate::bootstrap::run_with(&mut cpu, config, options).expect("battle setup");
+        }));
+        match run {
+            Err(payload) if payload.is::<StopHere>() => {}
+            _ => return None,
+        }
+        cpu.decider = None;
+        let mem = Mem::copy_from(&cpu);
+        let sp = cpu.sp;
+        Some(TextBench { cpu, mem, sp, config: config.clone(), seed, broken: false })
+    }
+
+    /// The memory every [`print_name`](Self::print_name) starts from.
+    pub fn mem(&self) -> &Mem {
+        &self.mem
+    }
+
+    /// Print Beat Up's "<name>'s attack!" (`BeatUpAttackText`, through
+    /// `StdBattleTextbox`) with the raw bytes `name` in `wStringBuffer1`.
+    /// Returns the battle text and the memory after, or why the original
+    /// couldn't (a panic, a freeze, or WRAM bank `n` left mapped).
+    pub fn print_name(&mut self, name: &[u8]) -> Result<(Vec<String>, Mem), String> {
+        if self.broken {
+            *self = TextBench::new(&self.config, self.seed).expect("the first decision again");
+        }
+        let result = self.print(name);
+        self.broken = result.is_err();
+        result
+    }
+
+    fn print(&mut self, name: &[u8]) -> Result<(Vec<String>, Mem), String> {
+        // Back to the first decision's memory.
+        let cpu = &mut self.cpu;
+        cpu.write_byte(0xff70, 1);
+        for addr in (0xc000u16..0xe000).chain(0xff80..0xffff) {
+            cpu.write_byte(addr, self.mem.rb(addr));
+        }
+        cpu.sp = self.sp;
+        let _ = crate::bootstrap::events::take_events(cpu);
+        for (i, &b) in name.iter().enumerate() {
+            cpu.write_byte(super::sym::W_STRING_BUFFER1 + i as u16, b);
+        }
+        // Garbage can make the original print very slowly (a '?' over
+        // wTextDelayFrames or the options): TEXT_CYCLES raises the budget.
+        let budget = std::env::var("TEXT_CYCLES").ok().and_then(|v| v.parse().ok()).unwrap_or(1u64 << 26);
+        cpu.cycle_limit.set(cpu.cycles + budget);
+        let label = super::rsym::BEAT_UP_ATTACK_TEXT;
+        cpu.set_hl(0x4000 | (label % 0x4000) as u16);
+        cpu.push_word(0xfffe);
+        let run = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+            crate::game::home::battle::std_battle_textbox(cpu);
+        }));
+        cpu.cycle_limit.set(1 << 31);
+        if let Err(payload) = run {
+            if payload.is::<crate::runtime::CycleLimit>() {
+                return Err("froze".into());
+            }
+            let msg = payload
+                .downcast_ref::<String>()
+                .cloned()
+                .or_else(|| payload.downcast_ref::<&str>().map(|s| s.to_string()))
+                .unwrap_or_default();
+            return Err(format!("panicked: {msg}"));
+        }
+        let bank = cpu.read_byte(0xff70);
+        if bank != 1 {
+            return Err(format!("left WRAM bank {bank} mapped"));
+        }
+        let texts = crate::bootstrap::events::take_events(cpu)
+            .into_iter()
+            .filter_map(|e| match e {
+                crate::bootstrap::events::Event::Text(t) => Some(t),
+                _ => None,
+            })
+            .collect();
+        Ok((texts, Mem::copy_from(cpu)))
+    }
+}

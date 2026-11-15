@@ -308,3 +308,62 @@ fn first_rng_difference(trace: &Trace, engine: &[(&'static str, u8)]) -> String 
         _ => "the draws match; the generator state differs".to_string(),
     }
 }
+
+/// How printing a garbage name went on both engines ([`check_garbage_name`]).
+#[derive(Debug)]
+pub enum GarbageText {
+    /// Same text, same memory.
+    Exact,
+    /// The original can't print it (it panics, freezes, or leaves WRAM bank
+    /// 4 mapped); `engine` is what the engine did.
+    OracleFailed { oracle: String, engine: String },
+    /// The original printed it; the engine panicked.
+    EngineFailed(String),
+    Differs(String),
+}
+
+/// Print Beat Up's "<name>'s attack!" with the raw bytes `name` in
+/// `wStringBuffer1` on both engines, from the same state, and compare the
+/// battle text and memory: a check for the text engine on the garbage a
+/// glitch can print (control characters, kana, `<MOBILE>` scripts).
+pub fn check_garbage_name(bench: &mut super::oracle::TextBench, name: &[u8]) -> GarbageText {
+    let oracle = bench.print_name(name);
+    let mut mem = bench.mem().clone();
+    for (i, &b) in name.iter().enumerate() {
+        mem.wb(sym::W_STRING_BUFFER1 + i as u16, b);
+    }
+    let engine = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+        let mut engine = Engine::new(mem, 0, Default::default());
+        let texts = engine.render_text(super::rsym::BEAT_UP_ATTACK_TEXT, &[]);
+        (texts, engine.mem)
+    }))
+    .map_err(|payload| panic_message(&*payload));
+    let (texts, after) = match oracle {
+        Err(oracle) => {
+            let engine = match engine {
+                Ok(_) => "printed it".to_string(),
+                Err(e) => format!("panicked: {e}"),
+            };
+            return GarbageText::OracleFailed { oracle, engine };
+        }
+        Ok(o) => o,
+    };
+    let (engine_texts, engine_mem) = match engine {
+        Ok(e) => e,
+        Err(e) => return GarbageText::EngineFailed(e),
+    };
+    if texts != engine_texts {
+        return GarbageText::Differs(format!("text: oracle {texts:?}, engine {engine_texts:?}"));
+    }
+    let print_buffer = sym::H_PRINT_NUM_BUFFER..sym::H_PRINT_NUM_BUFFER + 10;
+    let diffs: Vec<String> = (0xc000u16..0xe000)
+        .filter(|&a| !super::mem::is_not_kept(a) && !super::mem::DRIFTS.iter().any(|&(lo, hi)| (lo..hi).contains(&a)))
+        .chain(print_buffer)
+        .filter(|&a| after.rb(a) != engine_mem.rb(a))
+        .map(|a| format!("{} ({a:#06x}): {:#04x} → {:#04x}", sym::ram_name(a), after.rb(a), engine_mem.rb(a)))
+        .collect();
+    if !diffs.is_empty() {
+        return GarbageText::Differs(format!("memory: {}", diffs.join(", ")));
+    }
+    GarbageText::Exact
+}
