@@ -24,7 +24,7 @@ fn main() {
     let first: u64 = args.next().and_then(|s| s.parse().ok()).unwrap_or(1);
     let moves: Vec<u8> = args.map(|m| m.parse().unwrap()).collect();
     let moves = if moves.is_empty() { (1..=251).collect() } else { moves };
-    let (mut ok, mut bad) = (0, 0);
+    let (mut ok, mut bad, mut skipped) = (0, 0, 0);
     for seed in first..first + battles {
         let config = match kind.as_str() {
             "wild" => testgen::random_wild_config(seed, &moves, Default::default()),
@@ -32,6 +32,14 @@ fn main() {
             _ => testgen::random_link_config(seed, &moves, Default::default()),
         };
         let engine_seed = config.battle.seed.unwrap();
+        // A scenario the library refuses (the Mystery Gift trainer, a wild
+        // Unown the original re-rolls forever) has nothing to compare; the
+        // oracle may not even finish it.
+        if let Err(e) = Battle::new(config.clone(), engine_seed) {
+            println!("seed {seed}: skipped, the engine refuses it: {e}");
+            skipped += 1;
+            continue;
+        }
         match compare(&config, engine_seed, seed) {
             Ok(n) => {
                 println!("seed {seed}: ok ({n} decisions)");
@@ -43,7 +51,7 @@ fn main() {
             }
         }
     }
-    println!("{ok} ok, {bad} differ");
+    println!("{ok} ok, {bad} differ, {skipped} skipped");
 }
 
 fn compare(config: &crystal_battle_harness::battle::BattleConfig, seed: u64, policy: u64) -> Result<usize, String> {
