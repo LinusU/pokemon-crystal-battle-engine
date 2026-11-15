@@ -6,7 +6,7 @@ library (`battle::Battle`).
 The overall plan, in five phases:
 
 1. ✅ Run the battle engine fully emulated.
-2. ✅ Record enough battles to cover the engine (349 fixtures, ~80% of battle-code regions).
+2. ✅ Record enough battles to cover the engine (353 fixtures, ~80% of battle-code regions).
 3. ✅ **A library that drives just the battle logic** — `Battle::new(config)`,
    `step(action)`, typed state, legal actions, an ordered event stream.
 4. ✅ **Idiomatic Rust with excellent performance** — a hand-written engine that
@@ -37,7 +37,7 @@ The overall plan, in five phases:
 
 ## Verification
 
-1. **Fixture corpus** (349 recordings, `scratch/validate_fixtures.py`, ~1.5 min in
+1. **Fixture corpus** (353 recordings, `scratch/validate_fixtures.py`, ~1.5 min in
    parallel with the release build). Must stay green throughout.
 2. **Differential testing** (phase 4): the hand-written engine and the transpiled
    oracle run the same random battles in lockstep. At every decision point the
@@ -85,7 +85,7 @@ The overall plan, in five phases:
 - [x] `Battle` API: `Battle::new(BattleConfig, seed)`, `status()`,
       `decision()`, `step(Action)`, `state()`, `outcome()`. The engine runs on
       its own thread and blocks at decision points; this keeps the original
-      control flow untouched. All 349 fixtures replay through it.
+      control flow untouched. All 353 fixtures replay through it.
 - [x] Typed `BattleState` (both sides: active mon, party, stat stages,
       sub-statuses, every per-side counter, screens, weather).
 - [x] `Event` stream from observe-only hooks: battle text (exact strings, from
