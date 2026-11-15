@@ -213,7 +213,10 @@ compile the `objc2` 0.4 that glium 0.34 pulled in.
   12,000 random garbage names, zero differences; the rest stop on purpose
   or are ones the original can't print either.
 - **Scenarios the original itself freezes on** (a wild Unown with no unlocked
-  letters) are skipped by the tester's cycle watchdog.
+  letters: `LoadEnemyMon` re-rolls its DVs forever, and the harness never
+  unlocks any) are skipped by the tester's cycle watchdog. The library
+  refuses that one at the start instead of hanging: `Battle::new` returns
+  `Error::Setup` (`engine::start::UNOWN_FREEZE`).
 - **Not offered by the harness, so not ported:** Bug-Catching Contest and
   tutorial battles, Battle Tower, mobile link battles, PP Up / key items /
   TMs in battle, a full party *and* full PC box when catching (the box lives

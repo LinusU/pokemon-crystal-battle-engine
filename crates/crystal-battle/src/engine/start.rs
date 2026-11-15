@@ -33,10 +33,17 @@ use crate::config::{BattleConfig, BattleKind, ItemSpec, MonSpec};
 use crate::data::{items, species, trainers};
 use crate::defs::*;
 
+/// A wild Unown with no unlocked letters: the original game's `LoadEnemyMon`
+/// re-rolls its DVs forever (no letter a roll gives is unlocked), so the
+/// battle never starts. The engine refuses it instead of hanging.
+pub const UNOWN_FREEZE: &str =
+    "a wild Unown needs an unlocked Unown letter (the original game re-rolls its DVs forever)";
+
 /// Why a scenario can't start on the hand-written engine.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum StartError {
-    /// The scenario is malformed (the oracle rejects it too).
+    /// The scenario is malformed, or one the original game never starts (a
+    /// wild Unown with no unlocked letters, [`UNOWN_FREEZE`]).
     Invalid(String),
     /// The scenario uses something only the emulated harness implements
     /// (e.g. a ROM-patching AI override).
@@ -288,6 +295,9 @@ impl Engine {
         self.mem.wb(W_TEMP_ENEMY_MON_SPECIES, id);
         self.mem.wb(W_CUR_PARTY_LEVEL, enemy.level);
         self.mem.wb(W_CUR_PARTY_SPECIES, id);
+        if id == UNOWN && !self.any_unown_letter_unlocked() {
+            return Err(UNOWN_FREEZE.to_string().into());
+        }
         Ok(Launch::default())
     }
 
@@ -1007,3 +1017,39 @@ impl Engine {
 
 #[allow(dead_code)]
 const _: u16 = PARTY_LEN;
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::config::EnemyControl;
+    use crate::data::random::random_battle_config;
+
+    /// A wild battle against `species`, from a random battle's player side.
+    fn wild_against(species: &str) -> BattleConfig {
+        let mut config = random_battle_config(1);
+        config.battle.kind = BattleKind::WildEncounter;
+        config.battle.trainer = None;
+        config.battle.enemy_control = EnemyControl::default();
+        config.enemy_items.clear();
+        config.enemy_trainer = None;
+        let mut mon = config.player_party[0].clone();
+        mon.species = species.to_string();
+        mon.moves = None;
+        mon.item = None;
+        config.enemy_party = vec![mon];
+        config
+    }
+
+    #[test]
+    fn refuses_a_wild_unown_with_no_unlocked_letters() {
+        for seed in 1..20 {
+            let error = start(&wild_against("Unown"), seed, false).err();
+            assert_eq!(error, Some(StartError::Invalid(UNOWN_FREEZE.to_string())));
+        }
+    }
+
+    #[test]
+    fn starts_other_wild_battles() {
+        assert!(start(&wild_against("Pidgey"), 1, false).is_ok());
+    }
+}

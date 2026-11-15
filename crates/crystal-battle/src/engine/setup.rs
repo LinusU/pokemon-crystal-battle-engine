@@ -1374,20 +1374,32 @@ impl Engine {
 
     /// `CheckUnownLetter`: carry if `wUnownLetter` hasn't been unlocked yet.
     fn check_unown_letter(&self) -> bool {
+        !self.unown_letter_unlocked(self.mem.rb(W_UNOWN_LETTER))
+    }
+
+    /// Whether a wild Unown's DV re-roll in `LoadEnemyMon` can ever end: some
+    /// letter a DV roll gives (`GetUnownLetter`: 1..=`NUM_UNOWN`) is in an
+    /// unlocked set. If none is, the original re-rolls forever.
+    pub(super) fn any_unown_letter_unlocked(&self) -> bool {
+        (1..=NUM_UNOWN).any(|letter| self.unown_letter_unlocked(letter))
+    }
+
+    /// `CheckUnownLetter`'s test: `letter` is in one of the sets
+    /// `wUnlockedUnowns` has unlocked.
+    fn unown_letter_unlocked(&self, letter: u8) -> bool {
         let mut c = self.mem.rb(W_UNLOCKED_UNOWNS);
-        let letter = self.mem.rb(W_UNOWN_LETTER);
         for set in 0..usize::from(NUM_UNLOCKED_UNOWN_SETS) {
             let unlocked = c & 1 != 0;
             c >>= 1;
             if unlocked {
                 let ptr = rom::ptr(r::UNLOCKED_UNOWN_LETTER_SETS + 2 * set);
                 if self.is_in_rom_array(rom::flat(0x0f, ptr), letter) {
-                    return false;
+                    return true;
                 }
             }
         }
         // Hasn't been unlocked, or the letter is invalid
-        true
+        false
     }
 
     /// `CalcMagikarpLength`: Magikarp's length (feet, inches) into `wMagikarpLength`
