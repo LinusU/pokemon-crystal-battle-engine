@@ -46,9 +46,8 @@ pub struct FastBattle {
 
 impl FastBattle {
     /// Start a battle on the hand-written engine (`start::start`: the
-    /// scenario's WRAM, the game's own battle start). A scenario only the
-    /// emulated harness supports (see `start::StartError::Unsupported`) starts
-    /// through the oracle instead.
+    /// scenario's WRAM, the game's own battle start). A scenario the engine
+    /// doesn't start (see `start::StartError::Unsupported`) is an error.
     pub fn new(config: &BattleConfig, seed: u64) -> Result<FastBattle, String> {
         Self::with_events(config, seed, false)
     }
@@ -60,8 +59,7 @@ impl FastBattle {
     pub fn with_events(config: &BattleConfig, seed: u64, events: bool) -> Result<FastBattle, String> {
         let mut engine = match super::start::start(config, seed, false) {
             Ok(engine) => engine,
-            Err(super::start::StartError::Unsupported(_)) => return Self::new_via_oracle(config, seed),
-            Err(super::start::StartError::Invalid(message)) => return Err(message),
+            Err(error) => return Err(error.to_string()),
         };
         if events {
             // The battle start's text, rendered again with events on.
@@ -70,19 +68,6 @@ impl FastBattle {
             engine = again;
         }
         Ok(Self::from_engine(engine, TurnEntry::TurnStart))
-    }
-
-    /// Start a battle by running the original engine (the transpiled code on
-    /// the emulated CPU, `oracle::first_decision`) up to its first decision;
-    /// the hand-written engine takes over from there. For comparison with
-    /// [`FastBattle::new`].
-    pub fn new_via_oracle(config: &BattleConfig, seed: u64) -> Result<FastBattle, String> {
-        let first = super::oracle::first_decision(config, seed).ok_or("the oracle could not start the battle")?;
-        let flags = Flags {
-            link_battle: config.battle.kind == crate::config::BattleKind::LinkBattle,
-            ..Flags::default()
-        };
-        Ok(Self::from_engine(Engine::new(first.mem, first.rng, flags), TurnEntry::BattleMenu))
     }
 
     /// A battle whose current turn starts at `entry` in `base`.
