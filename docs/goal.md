@@ -175,6 +175,13 @@ fixed in the harness (so the oracle got closer to the real game):
   to `wCurHPAnimLowHP`..`HighHP`. Neither reached compared memory, but the HP
   number they leave in `wStringBuffer2` is what garbage text reads after an
   unterminated name.
+- **Move 0's effect.** `GetMoveEffect` on move 0 (`PursuitSwitch` when the
+  other side didn't pick a move) wraps `dec a` to entry 255, past the move
+  table (`EFFECT_TOXIC`); the port read before the table (`EFFECT_ENCORE`).
+  No caller tells them apart, but the port now reads the same byte.
+- **Debug builds.** The CLI's bag-item patch left `pc` at its return
+  sentinel, which overflowed in debug builds (the CLI, the `gui` window) on
+  any battle that used an item; release wrapped silently.
 
 ### Toolchain
 
