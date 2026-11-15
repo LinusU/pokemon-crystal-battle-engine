@@ -1256,8 +1256,12 @@ impl Engine {
         let mut hl = rom::ptr(r::POKEDEX_DATA_POINTER_TABLE + usize::from(species.wrapping_sub(1)) * 2);
         // BUG: Heavy Ball uses wrong weight value for three Pokémon.
         let bank = POKEDEX_ENTRY_BANKS[usize::from(species.rotate_left(2) & 3)];
+        // In the wrong bank, Kadabra's and Sunflora's scan runs past the bank
+        // into VRAM, which the engine doesn't keep: the harness reads bytes
+        // past the bank as '@' (a HARNESS-PATCH in the transpiled routine).
+        let byte = |a: u16| if a >= 0x8000 { TERMINATOR } else { rom::byte(rom::flat(bank, a)) };
         loop {
-            let a = rom::byte(rom::flat(bank, hl));
+            let a = byte(hl);
             hl = hl.wrapping_add(1);
             if a == TERMINATOR {
                 break;
@@ -1265,7 +1269,7 @@ impl Engine {
         }
         // skip the height
         hl = hl.wrapping_add(2);
-        let weight = rom::ptr(rom::flat(bank, hl));
+        let weight = u16::from(byte(hl)) | u16::from(byte(hl.wrapping_add(1))) << 8;
         let mut hl = weight >> 1;
         let mut bc = hl >> 4;
         hl = hl.wrapping_sub(bc);

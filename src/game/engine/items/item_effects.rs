@@ -2281,8 +2281,16 @@ pub(crate) fn heavy_ball_multiplier_skip_text(cpu: &mut Cpu) {
     let next_pc = cpu.pc + 3;
     cpu.push_word(next_pc);
     cpu.cycle(24);
+    let read_at = cpu.hl();
     crate::game::home::copy::get_far_byte(cpu);
     assert_eq!(cpu.pc, next_pc);
+    // HARNESS-PATCH: the wrong-bank BUG makes Kadabra's and Sunflora's scan
+    // run past the ROM bank into VRAM (graphics state the hand-written engine
+    // doesn't keep); bytes past the bank read as '@' on both engines. See
+    // docs/transpiled_code.md.
+    if read_at >= 0x8000 {
+        cpu.a = 0x50;
+    }
     cpu.set_hl(cpu.hl().wrapping_add(1));
     cpu.pc += 1;
     cpu.cycle(8);
@@ -2318,8 +2326,16 @@ pub(crate) fn heavy_ball_multiplier_skip_text(cpu: &mut Cpu) {
     let next_pc = cpu.pc + 3;
     cpu.push_word(next_pc);
     cpu.cycle(24);
+    let read_at = cpu.hl();
     crate::game::home::copy::get_far_word(cpu);
     assert_eq!(cpu.pc, next_pc);
+    // HARNESS-PATCH: the weight, under the same rule (see above).
+    if read_at >= 0x8000 {
+        cpu.l = 0x50;
+    }
+    if read_at.wrapping_add(1) >= 0x8000 {
+        cpu.h = 0x50;
+    }
     let value = cpu.h;
     let result = value >> 1;
     cpu.flag_z = result == 0;
