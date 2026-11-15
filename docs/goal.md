@@ -1,7 +1,7 @@
 # Goal: phases 3 and 4
 
-Phases 3 and 4 are done: the next step is training a battle AI on top of the
-library (`battle::Battle`).
+Phases 3 and 4 are done; phase 5 (a trained battle AI) is described in
+[ai.md](ai.md).
 
 The overall plan, in five phases:
 
@@ -11,7 +11,7 @@ The overall plan, in five phases:
    `step(action)`, typed state, legal actions, an ordered event stream.
 4. ✅ **Idiomatic Rust with excellent performance** — a hand-written engine that
    reproduces the original exactly, with logic separated from rendering.
-5. Machine-learning trainer AI (out of scope here; this goal unblocks it).
+5. ✅ Machine-learning trainer AI — [ai.md](ai.md).
 
 ## The exactness contract
 

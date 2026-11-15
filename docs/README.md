@@ -21,6 +21,8 @@ The transpiled code is in `src/game/`, `src/dispatch.rs`, `src/defs.rs`. We avoi
 - ✅ Random battles with `--random` (optionally `--seed <n>`) — skip authoring TOML and start a deterministic randomized trainer battle; the recording embeds the resolved matchup and replays from the seed, so the generator is never re-run. See [TOML schema](toml_schema.md#random-battles----random-and---seed-n).
 - ✅ Headless by default — glium/winit sit behind the off-by-default `gui` cargo feature, so a plain `cargo run` / `cargo build` compiles no graphics deps and drives the battle straight to completion with no window. `--features gui` adds an opt-in window that shows the same battle. Either way a battle must be specified (`<scenario.toml>` / `--random` / `--play`); the binary always runs a single battle and never boots into the overworld.
 - ✅ Battle events: the exact battle text (captured from the original text engine) and HP-bar changes, as `battle::Event`s on every `Decision` / `Battle::events()`. `--show-text` prints them live in the CLI, so any battle or `--play` replay can be watched in the terminal; `cargo run --release --example watch` does the same through the library.
+- ✅ External enemy trainer: `[battle] enemy_control = "external"` hands the trainer AI's choices (its move, switching, its AI items, the next mon to send in) to `Enemy`-side decisions, on both engines (`engine_diff external`). See [TOML schema](toml_schema.md#external-enemy-trainer).
+- ✅ A trained battle AI (`ai` cargo feature): a policy/value network trained by PPO self-play on the hand-written engine, playing either side of any decision — moves, switches, bag and trainer items. `--vs-ai` makes it the enemy trainer in the CLI (and the `gui` window). See [ai.md](ai.md).
 - ✅ Library API: [`battle::Battle`](../src/battle/mod.rs) — `Battle::new(config, seed)`, `status()` (a `Decision` with the legal actions, a typed [`BattleState`](../src/battle/state.rs) and the events since the last decision, or the outcome), `step(action)`, and `Clone` (copy a battle to search ahead). It runs on the **hand-written engine** ([`src/engine/`](../src/engine/), [engine.md](engine.md)): plain Rust, no emulator, verified to reproduce the original exactly (states, random draws, text, outcome). [`battle::EmulatedBattle`](../src/battle/emulated.rs) has the same API on the original code (the transpiled engine on its own thread), the reference it is tested against. Legal actions mirror the original menus exactly (see [TOML schema](toml_schema.md#legal-steps)). Examples: `random_agent`, `replay_api -- fixtures/*.toml`, `watch`, `api_diff`, `engine_bench`.
 
 ## Layout
@@ -32,6 +34,8 @@ The transpiled code is in `src/game/`, `src/dispatch.rs`, `src/defs.rs`. We avoi
 | [`src/game/`](../src/game/) | Transpiled engine code. Mirrors the directory layout of pret/pokecrystal. |
 | [`src/engine/`](../src/engine/) | The hand-written battle engine and its differential tests against the transpiled one. See [engine.md](engine.md). |
 | [`src/battle/`](../src/battle/) | The library API (`Battle` on the hand-written engine, `EmulatedBattle` on the original). |
+| [`src/ai/`](../src/ai/) | The trained battle AI (`ai` feature): features, network, PPO trainer, `Agent`. See [ai.md](ai.md). |
+| `models/` | The shipped AI model (`crystal-ai.bin`). |
 | [`src/main.rs`](../src/main.rs) | CLI parsing + headless battle runner; the glium/winit window + cpu thread live in a `gui`-gated module. |
 | `scratch/pokecrystal/` | Vendored copy of pret/pokecrystal (gitignored). Source of truth for symbols, constants, struct layouts. |
 | `scratch/*.toml` | Battle scenarios for development. |
@@ -45,3 +49,4 @@ The transpiled code is in `src/game/`, `src/dispatch.rs`, `src/defs.rs`. We avoi
 - [Roadmap](roadmap.md) — what step 2+ looks like, open questions to resolve.
 - [Goal](goal.md) — phases 3 and 4 (done), the exactness contract, how it is verified, and known gaps.
 - [Engine](engine.md) — the hand-written engine: architecture, porting rules, verification tools.
+- [AI](ai.md) — phase 5: the trained battle AI, why PPO + a feed-forward network, features, training, evaluation.
