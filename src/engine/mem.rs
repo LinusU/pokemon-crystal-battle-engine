@@ -43,14 +43,13 @@ pub fn is_not_kept(addr: u16) -> bool {
 }
 
 /// WRAM that is the same on both engines at the start but drifts during the
-/// battle: what the original's menus, sprite and battle animations and HP-bar
-/// code write, and the scratch they leave behind (base data, temp mon, string
-/// buffer 2). Found by comparing every byte at every decision of random
-/// battles (all the others stay equal).
+/// battle: what the original's menus, sprite and battle animations write, and
+/// the scratch they leave behind (base data, temp mon). Found by comparing
+/// every byte at every decision of random battles (all the others stay
+/// equal).
 pub const DRIFTS: &[(u16, u16)] = &[
     (0xc300, 0xc4a0), // wSpriteAnim*, wCurIcon / wCurAnim*, wShadowOAM
     (0xcf5f, 0xcfcb), // wMonType, wCurSpecies, window stack, 2D menu, wFXAnimID, wBattleAfterAnim
-    (0xd086, 0xd0a0), // wStringBuffer2
     (0xd108, 0xd10b), // wCurPartySpecies, wWhichHPBar
     (0xd123, 0xd13e), // wTempMon
     (0xd1f0, 0xd1f2), // wCurHPAnimPal, wCurEnemyItem
