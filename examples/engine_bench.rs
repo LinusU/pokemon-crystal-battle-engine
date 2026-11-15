@@ -13,7 +13,7 @@
 use rgb2rust_output::battle::{Battle, EmulatedBattle, Status};
 use rgb2rust_output::bootstrap::BattleConfig;
 use rgb2rust_output::engine::api::{FastBattle, Status as FastStatus};
-use rgb2rust_output::engine::{oracle::mix, testgen};
+use rgb2rust_output::oracle::{mix, testgen};
 use std::time::Instant;
 
 fn main() {

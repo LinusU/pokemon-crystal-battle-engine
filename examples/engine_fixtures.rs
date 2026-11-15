@@ -6,7 +6,7 @@
 //! ./target/release/examples/engine_fixtures fixtures/*.toml
 
 use rgb2rust_output::bootstrap::player;
-use rgb2rust_output::engine::{diff, oracle};
+use rgb2rust_output::oracle::{self, diff};
 use std::path::Path;
 
 fn main() {

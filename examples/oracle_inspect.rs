@@ -3,7 +3,8 @@
 //!
 //! cargo run --release --example oracle_inspect -- [seed] [moves...]
 
-use rgb2rust_output::engine::{oracle, sym, testgen};
+use rgb2rust_output::engine::sym;
+use rgb2rust_output::oracle::{self, testgen};
 use std::collections::BTreeMap;
 
 fn main() {

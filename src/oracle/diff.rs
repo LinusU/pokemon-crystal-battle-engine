@@ -2,12 +2,12 @@
 //! hand-written engine with the same decisions and compare them at every
 //! decision point.
 
-use super::battle::Engine;
-use super::core::{TurnEnd, TurnEntry};
-use super::mem::Mem;
-use super::oracle::{Snapshot, Trace};
-use super::start::{self, StartError};
-use super::sym;
+use crate::engine::battle::Engine;
+use crate::engine::core::{TurnEnd, TurnEntry};
+use crate::engine::mem::Mem;
+use super::{Snapshot, Trace};
+use crate::engine::start::{self, StartError};
+use crate::engine::sym;
 use crate::bootstrap::BattleConfig;
 
 /// Memory compared at each decision: battle state, both parties, and the
@@ -33,7 +33,7 @@ pub const COMPARED: &[(u16, u16)] = &[
 /// comparison: the WRAM the engine doesn't keep (graphics, sound, the live
 /// stack, boot/UI scratch; never read by battle code, see docs/engine.md).
 /// Everything else in WRAM is compared, byte for byte.
-pub const START_IGNORED: &[(u16, u16)] = super::mem::NOT_KEPT;
+pub const START_IGNORED: &[(u16, u16)] = crate::engine::mem::NOT_KEPT;
 
 /// HRAM bytes the start-state check compares (the rest of HRAM is the
 /// boot's, graphics' and the math routines' scratch).
@@ -289,7 +289,7 @@ fn compare(
 fn first_rng_difference(trace: &Trace, engine: &[(&'static str, u8)]) -> String {
     let Some(first) = trace.decisions.first() else { return String::new() };
     let oracle = &trace.rng_log[first.rng_calls..];
-    let name = |d: &crate::runtime::RngDraw| super::rsym_name(super::rom::flat(d.bank, d.ret));
+    let name = |d: &crate::runtime::RngDraw| crate::engine::rsym_name(crate::engine::rom::flat(d.bank, d.ret));
     for (k, pair) in oracle.iter().zip(engine).enumerate() {
         let (o, (e, ev)) = pair;
         if o.value != *ev {
@@ -326,7 +326,7 @@ pub enum GarbageText {
 /// `wStringBuffer1` on both engines, from the same state, and compare the
 /// battle text and memory: a check for the text engine on the garbage a
 /// glitch can print (control characters, kana, `<MOBILE>` scripts).
-pub fn check_garbage_name(bench: &mut super::oracle::TextBench, name: &[u8]) -> GarbageText {
+pub fn check_garbage_name(bench: &mut super::TextBench, name: &[u8]) -> GarbageText {
     let oracle = bench.print_name(name);
     let mut mem = bench.mem().clone();
     for (i, &b) in name.iter().enumerate() {
@@ -334,7 +334,7 @@ pub fn check_garbage_name(bench: &mut super::oracle::TextBench, name: &[u8]) -> 
     }
     let engine = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
         let mut engine = Engine::new(mem, 0, Default::default());
-        let texts = engine.render_text(super::rsym::BEAT_UP_ATTACK_TEXT, &[]);
+        let texts = engine.render_text(crate::engine::rsym::BEAT_UP_ATTACK_TEXT, &[]);
         (texts, engine.mem)
     }))
     .map_err(|payload| panic_message(&*payload));
@@ -357,7 +357,7 @@ pub fn check_garbage_name(bench: &mut super::oracle::TextBench, name: &[u8]) -> 
     }
     let print_buffer = sym::H_PRINT_NUM_BUFFER..sym::H_PRINT_NUM_BUFFER + 10;
     let diffs: Vec<String> = (0xc000u16..0xe000)
-        .filter(|&a| !super::mem::is_not_kept(a) && !super::mem::DRIFTS.iter().any(|&(lo, hi)| (lo..hi).contains(&a)))
+        .filter(|&a| !crate::engine::mem::is_not_kept(a) && !crate::engine::mem::DRIFTS.iter().any(|&(lo, hi)| (lo..hi).contains(&a)))
         .chain(print_buffer)
         .filter(|&a| after.rb(a) != engine_mem.rb(a))
         .map(|a| format!("{} ({a:#06x}): {:#04x} → {:#04x}", sym::ram_name(a), after.rb(a), engine_mem.rb(a)))

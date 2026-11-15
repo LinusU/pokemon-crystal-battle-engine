@@ -2,9 +2,12 @@
 //! record what it does at every decision point — the reference the
 //! hand-written engine is compared against.
 
+pub mod diff;
+pub mod testgen;
+
 use std::sync::{Arc, Mutex};
 
-use super::mem::Mem;
+use crate::engine::mem::Mem;
 use crate::bootstrap::BattleConfig;
 use crate::bootstrap::decision::{Decider, PromptSite, Step};
 use crate::runtime::Cpu;
@@ -273,13 +276,13 @@ impl TextBench {
         cpu.sp = self.sp;
         let _ = crate::bootstrap::events::take_events(cpu);
         for (i, &b) in name.iter().enumerate() {
-            cpu.write_byte(super::sym::W_STRING_BUFFER1 + i as u16, b);
+            cpu.write_byte(crate::engine::sym::W_STRING_BUFFER1 + i as u16, b);
         }
         // Garbage can make the original print very slowly (a '?' over
         // wTextDelayFrames or the options): TEXT_CYCLES raises the budget.
         let budget = std::env::var("TEXT_CYCLES").ok().and_then(|v| v.parse().ok()).unwrap_or(1u64 << 26);
         cpu.cycle_limit.set(cpu.cycles + budget);
-        let label = super::rsym::BEAT_UP_ATTACK_TEXT;
+        let label = crate::engine::rsym::BEAT_UP_ATTACK_TEXT;
         cpu.set_hl(0x4000 | (label % 0x4000) as u16);
         cpu.push_word(0xfffe);
         let run = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {

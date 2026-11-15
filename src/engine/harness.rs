@@ -10,7 +10,7 @@
 use super::battle::{Engine, Flow};
 use super::rsym as r;
 use super::sym::*;
-use crate::bootstrap::decision::{PromptSite, Step};
+use crate::battle::action::{PromptSite, Step};
 use crate::defs::*;
 
 /// `wBattleMenuCursorPosition`.
@@ -30,7 +30,7 @@ impl Engine {
                 Ok(self.battle_menu_fight())
             }
             Step::Fight => {
-                self.flags.pending_struggle = !crate::bootstrap::cli::fight_skips_move_menu(&self.mem);
+                self.flags.pending_struggle = !crate::battle::legal::fight_skips_move_menu(&self.mem);
                 self.mem.wb(W_BATTLE_PLAYER_ACTION, BATTLEPLAYERACTION_USEMOVE);
                 self.mem.wb(W_BATTLE_MENU_CURSOR_POSITION, 1);
                 Ok(self.battle_menu_fight())
@@ -218,7 +218,7 @@ impl Engine {
     /// move is usable, prints the text and returns z (here: false).
     pub fn check_player_has_usable_moves(&mut self) -> bool {
         self.mem.wb(W_CUR_PLAYER_MOVE, STRUGGLE);
-        let usable = !crate::bootstrap::cli::player_must_struggle(&self.mem);
+        let usable = !crate::battle::legal::player_must_struggle(&self.mem);
         if !usable {
             self.text(r::BATTLE_TEXT_MON_HAS_NO_MOVES_LEFT);
         }
@@ -232,7 +232,7 @@ impl Engine {
             self.mem.wb(W_BATTLE_ACTION, BATTLEACTION_SKIPTURN);
             return Ok(());
         }
-        if crate::bootstrap::cli::legal_steps(&self.mem, PromptSite::EnemyAction).is_empty() {
+        if crate::battle::legal::legal_steps(&self.mem, PromptSite::EnemyAction).is_empty() {
             self.mem.wb(W_BATTLE_ACTION, BATTLEACTION_STRUGGLE);
             return Ok(());
         }

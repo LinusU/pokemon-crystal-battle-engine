@@ -11,9 +11,9 @@
 //! 2^26: garbage over `wTextDelayFrames` can make it print very slowly).
 //! `ONLY=<seed>` checks one name on the link bench.
 
-use rgb2rust_output::engine::diff::{GarbageText, check_garbage_name};
-use rgb2rust_output::engine::oracle::{TextBench, mix};
-use rgb2rust_output::engine::testgen;
+use rgb2rust_output::oracle::diff::{GarbageText, check_garbage_name};
+use rgb2rust_output::oracle::{TextBench, mix};
+use rgb2rust_output::oracle::testgen;
 
 fn main() {
     // The original recurses as deep as garbage takes it; the cycle watchdog

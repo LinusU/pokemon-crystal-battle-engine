@@ -1,6 +1,6 @@
 //! Random scenarios for differential testing.
 
-use super::oracle::mix;
+use super::mix;
 use crate::bootstrap::{BattleConfig, BattleHeader, BattleKind, ItemSpec, MonSpec, names, species};
 
 /// What kind of battles to generate.

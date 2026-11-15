@@ -8,7 +8,7 @@
 //! ./target/release/examples/api_diff [link|wild|trainer] <battles> <first_seed> [moves...]
 
 use rgb2rust_output::battle::{Battle, EmulatedBattle, Status};
-use rgb2rust_output::engine::{oracle::mix, testgen};
+use rgb2rust_output::oracle::{mix, testgen};
 
 fn main() {
     let mut args = std::env::args().skip(1).peekable();

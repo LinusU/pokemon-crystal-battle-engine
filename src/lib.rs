@@ -19,6 +19,7 @@ pub mod engine;
 pub mod dispatch;
 pub mod game;
 pub mod macros;
+pub mod oracle;
 pub mod rom;
 pub mod runtime;
 
