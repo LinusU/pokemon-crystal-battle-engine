@@ -113,7 +113,7 @@ pub enum BattleKind {
 
 impl BattleKind {
     /// The `[battle] type` string this kind deserializes from — the inverse of
-    /// the `snake_case` serde rename. Used by [`recorder`] to write an embedded
+    /// the `snake_case` serde rename. Used by the harness's recorder to write an embedded
     /// scenario block that the harness can read straight back.
     pub fn as_str(self) -> &'static str {
         match self {

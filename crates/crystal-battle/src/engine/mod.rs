@@ -4,7 +4,7 @@
 //! registers, no frames — the original's control flow written as ordinary
 //! functions, operating on the original's memory layout ([`mem::Mem`]) and
 //! data ([`rom`]). It is verified against the original (the transpiled engine
-//! running on the emulated CPU, see [`oracle`]) by differential testing.
+//! running on the emulated CPU, the harness's `oracle` module) by differential testing.
 //!
 //! Status: under construction. See docs/goal.md.
 

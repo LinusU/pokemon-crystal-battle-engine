@@ -6,7 +6,7 @@
 //! port stays a straight copy of the original's sequential code, and cloning
 //! is copying the snapshot.
 
-use super::battle::{Engine, Flags, Suspend, TextRef};
+use super::battle::{Engine, Suspend, TextRef};
 use super::core::{TurnEnd, TurnEntry};
 use crate::battle::BattleState;
 use crate::config::BattleConfig;

@@ -3,9 +3,8 @@
 //! switching, flinching, charging, trapping, recoil, confusion, paralysis,
 //! screens, healing, and the small helpers they share). See docs/engine.md.
 
-use super::battle::{Engine, Flow, PARTY_LEN, percent};
+use super::battle::{Engine, Flow, percent};
 use super::commands::Cmd;
-use super::rom;
 use super::rsym as r;
 use super::sym::*;
 use crate::defs::*;

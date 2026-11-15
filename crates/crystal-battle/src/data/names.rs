@@ -4,7 +4,7 @@
 //! render. Pokémon names also live in [`super::species`] (the same list)
 //! but that table is keyed by canonical lookup name; this one is by id.
 //!
-//! The CLI driver in [`super::cli`] uses these for prompt rendering. If we
+//! The harness's CLI driver (`bootstrap::cli`) uses these for prompt rendering. If we
 //! add a hand-written name pipeline later (title-case, gender symbols, etc.)
 //! this is the seam to extend.
 

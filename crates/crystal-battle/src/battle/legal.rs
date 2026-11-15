@@ -1,4 +1,3 @@
-#![warn(dead_code, unused_imports)]
 //! The legal choices at every decision point, mirroring the original game's
 //! menus exactly: which moves are selectable, which mons can switch in, which
 //! bag items would have an effect and on whom. This is the action space of
@@ -217,7 +216,7 @@ pub fn check_can_switch(cpu: &impl ReadMem, target: u8) -> Result<(), String> {
 
 /// What a battle-usable item does, abstracted over the specific item id. The
 /// single source of truth for which items the CLI applies directly, which party
-/// mons a given item can affect, and the status mask [`apply_item`] clears.
+/// mons a given item can affect, and the status mask the item routine clears.
 /// Items not classified here aren't offered in the action menu (balls,
 /// evolution stones, ...).
 #[derive(Debug, Clone, Copy)]
@@ -250,7 +249,7 @@ pub enum ItemEffect {
     /// `wPlayerSubStatus3`, not the party struct — so this item has NO party
     /// target (it always acts on the active battler) and its validity is judged
     /// from the sub-status byte, not vitals. It's surfaced as an "active-mon item"
-    /// in [`prompt_action`] rather than going through the party-target machinery.
+    /// in the CLI's `prompt_action` rather than going through the party-target machinery.
     ActiveConfusion,
     /// Raises one stat stage of the active player mon by one level (X Attack /
     /// X Defend / X Speed / X Special). The payload is the stat index into
@@ -258,7 +257,7 @@ pub enum ItemEffect {
     /// [`ItemEffect::ActiveConfusion`] this acts on the active battler with no
     /// party target; its validity is judged from the stage level (usable only
     /// while below `MAX_STAT_LEVEL`), so it's an "active-mon item" in
-    /// [`prompt_action`]. See `XItemEffect` / `RaiseStat`
+    /// the CLI's `prompt_action`. See `XItemEffect` / `RaiseStat`
     /// (`scratch/pokecrystal/engine/items/item_effects.asm`,
     /// `engine/battle/effect_commands.asm`).
     ActiveStatUp(u8),
@@ -268,7 +267,7 @@ pub enum ItemEffect {
     /// `wPlayerSubStatus4`). Like [`ItemEffect::ActiveConfusion`] (which is the
     /// inverse — a bit-CLEAR) this acts on the active battler with no party
     /// target; its validity is judged from the sub-status byte (usable only while
-    /// the bit is CLEAR), so it's an "active-mon item" in [`prompt_action`]. See
+    /// the bit is CLEAR), so it's an "active-mon item" in the CLI's `prompt_action`. See
     /// `XAccuracyEffect` / `GuardSpecEffect` / `DireHitEffect`
     /// (`scratch/pokecrystal/engine/items/item_effects.asm`), each literally a
     /// `bit`/`set` of its mask in `wPlayerSubStatus4`. There is no separate Mist
@@ -455,7 +454,7 @@ pub fn is_single_move_pp_item(id: u8) -> bool {
 /// balls / Master Ball / …). A ball is just an item id from a different pocket,
 /// so it's recorded as an `item` step; this lets the dispatch route it to the
 /// ball path (decrement the Balls pocket, throw it) rather than the party-target
-/// item path. Source: the `Pocket::Ball` rows in [`super::items`].
+/// item path. Source: the `Pocket::Ball` rows in [`crate::data::items`].
 pub fn is_ball_id(id: u8) -> bool {
     matches!(crate::data::items::lookup_id(id), Some(d) if d.pocket == crate::data::items::Pocket::Ball)
 }

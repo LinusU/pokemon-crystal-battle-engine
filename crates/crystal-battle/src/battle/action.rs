@@ -6,7 +6,7 @@
 /// recordings — and every fixture made before link battles existed — parse back
 /// as `Player`. A link battle additionally records `Enemy` steps for the second
 /// CLI player's move / switch picks, tagged `side = "enemy"`. See
-/// [`super::cli::handle_enemy_action`] and docs/toml_schema.md.
+/// the harness's `bootstrap::cli::handle_enemy_action` and docs/toml_schema.md.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Side {
     Player,
@@ -26,9 +26,9 @@ impl Side {
 }
 
 /// One captured CLI decision. Each variant maps 1:1 to one of the prompt sites
-/// in [`super::cli`]. This is the *action* half of a `[[step]]`; the *outcome*
-/// half is the `expect.*` keys written by [`observe`] / [`finalize`]. The side
-/// the decision belongs to is tracked separately (see [`Side`] / [`record_side`])
+/// in the harness's `bootstrap::cli`. This is the *action* half of a `[[step]]`; the *outcome*
+/// half is the `expect.*` keys written by the harness's recorder. The side
+/// the decision belongs to is tracked separately (see [`Side`])
 /// rather than on the variant, since the action shape is identical for both.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Step {

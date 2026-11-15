@@ -12,7 +12,7 @@ use crate::defs;
 /// A routine either finishes or stops because the engine needs a decision it
 /// doesn't have yet. `?` propagates the stop to the top of the turn; the
 /// caller then re-runs the turn from its start with the decision supplied (see
-/// [`super::Battle`]).
+/// [`super::api::FastBattle`]).
 pub type Flow<T = ()> = Result<T, Suspend>;
 
 /// "Waiting for a decision at `site`."
