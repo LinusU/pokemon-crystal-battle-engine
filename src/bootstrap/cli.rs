@@ -844,10 +844,14 @@ pub fn use_pending_item_in_pack(cpu: &mut Cpu) {
     cpu.cli_pending_item_move = move_slot;
 
     let before = cpu.read_byte(W_PLAYER_SUB_STATUS_4);
+    let caller_pc = cpu.pc;
     let return_sentinel: u16 = 0xfffa;
     cpu.push_word(return_sentinel);
     crate::game::engine::items::pack::tmhm_submenu_use(cpu);
     assert_eq!(cpu.pc, return_sentinel);
+    // Back at the caller: it computes its return addresses from `pc`, which
+    // would otherwise run past 0xffff.
+    cpu.pc = caller_pc;
 
     // Using the item moves the bag to PACKSTATE_QUITRUNSCRIPT (whose handler
     // then sets JUMPTABLE_EXIT_F on the loop's next pass). If it didn't, the
