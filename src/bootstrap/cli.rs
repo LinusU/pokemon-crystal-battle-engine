@@ -223,7 +223,7 @@ pub fn handle_battle_menu(cpu: &mut Cpu) {
     cpu.cli_pending_move = None;
     cpu.cli_pending_struggle = false;
     loop {
-        if cpu.decider.is_none() {
+        if !decided_externally(cpu, PromptSite::BattleMenu) {
             print_battle_state(cpu);
         }
         let step = obtain(
@@ -1430,13 +1430,19 @@ fn obtain(
         eprintln!("playback: illegal step at {site:?} — recorded {step:?}; legal steps were {legal:?}");
         std::process::exit(2);
     }
-    if let Some(cell) = cpu.decider.as_ref() {
+    if decided_externally(cpu, site) {
+        let cell = cpu.decider.as_ref().expect("checked");
         let legal = legal_steps(cpu, site);
         let step = cell.borrow_mut().decide(cpu, site, &legal);
         assert!(legal.contains(&step), "decider chose illegal {step:?} at {site:?}; legal: {legal:?}");
         return step;
     }
     stdin(cpu)
+}
+
+/// Whether an installed [`super::decision::Decider`] answers `site`.
+fn decided_externally(cpu: &Cpu, site: PromptSite) -> bool {
+    cpu.decider.as_ref().is_some_and(|cell| cell.borrow().handles(site))
 }
 
 fn action_to_step(action: Action) -> Step {

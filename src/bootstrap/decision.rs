@@ -17,6 +17,13 @@ pub use super::recorder::Step;
 
 /// A source of battle decisions.
 pub trait Decider: Send {
+    /// Whether this decider answers decisions at `site`. Sites it doesn't
+    /// handle fall through to stdin (e.g. an AI playing only the enemy side
+    /// while a human plays the player). Defaults to every site.
+    fn handles(&self, _site: PromptSite) -> bool {
+        true
+    }
+
     /// Pick one of `legal` (never empty) for the decision at `site`. The
     /// harness panics if the returned step is not in `legal`.
     fn decide(&mut self, cpu: &Cpu, site: PromptSite, legal: &[Step]) -> Step;
