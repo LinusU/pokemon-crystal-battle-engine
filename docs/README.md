@@ -60,3 +60,4 @@ We avoid editing the transpiled code where we can — when we have to (e.g. boot
 - [Goal](goal.md) — phases 3 and 4 (done), the exactness contract, how it is verified, and known gaps.
 - [Engine](engine.md) — the hand-written engine: architecture, porting rules, verification tools.
 - [AI](ai.md) — phase 5: the trained battle AI, why PPO + a feed-forward network, features, training, evaluation.
+- [Library](library.md) — the library as a game component: ROM-free game data, full setup in, typed events, the result out (in progress).
