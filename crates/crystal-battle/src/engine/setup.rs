@@ -1502,7 +1502,8 @@ impl Engine {
         self.money_at(W_MOMS_MONEY) < MAX_MONEY
     }
 
-    fn money_at(&self, addr: u16) -> u32 {
+    /// A 3-byte big-endian amount of money.
+    pub fn money_at(&self, addr: u16) -> u32 {
         u32::from(self.mem.rb(addr)) << 16 | u32::from(self.mem.rb(addr + 1)) << 8 | u32::from(self.mem.rb(addr + 2))
     }
 

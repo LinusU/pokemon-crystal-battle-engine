@@ -45,6 +45,10 @@ pub struct Names {
     pub party: Vec<Arc<str>>,
     /// The enemy party's nicknames, by slot.
     pub ot_party: Vec<Arc<str>>,
+    /// The player's party's original trainers' names, by slot.
+    pub party_ots: Vec<Arc<str>>,
+    /// The enemy party's original trainers' names, by slot.
+    pub ot_party_ots: Vec<Arc<str>>,
     /// `wOTClassName`.
     pub ot_class: Name,
     pub string_buffer1: Name,

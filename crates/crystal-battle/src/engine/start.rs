@@ -67,11 +67,11 @@ impl From<String> for StartError {
 /// What the harness decided about the trainer party and items before the
 /// battle starts (the oracle keeps these on its `Cpu` / as ROM patches).
 #[derive(Default)]
-struct Launch {
+pub(super) struct Launch {
     /// `cpu.trainer_party_override`: `ReadTrainerParty` keeps the seeded party.
-    trainer_party_override: bool,
+    pub(super) trainer_party_override: bool,
     /// `poke_trainer_attributes`: the `[[enemy_items]]` slots.
-    enemy_item_override: Option<[u8; 2]>,
+    pub(super) enemy_item_override: Option<[u8; 2]>,
 }
 
 /// `InitializeNPCNames`: Mom's, Red's and Green's names as the boot leaves
@@ -127,13 +127,18 @@ pub fn start(config: &BattleConfig, seed: u64, events: bool) -> Result<Engine, S
 /// the options the init sets, and `hSerialConnectionStatus` (0xff: no link).
 /// Then `run_with` sets the Battle Scene bit if the scenario turns it off.
 pub fn boot_state(config: &BattleConfig) -> Mem {
+    boot_mem(config.battle.battle_scene != Some(false))
+}
+
+/// [`boot_state`] with the Battle Scene option `battle_scene`.
+pub fn boot_mem(battle_scene: bool) -> Mem {
     let mut mem = Mem::default();
     mem.wb(W_OPTIONS, 0x03);
     mem.wb(W_TEXTBOX_FLAGS, 0x01);
     mem.wb(W_GB_PRINTER_BRIGHTNESS, 0x40);
     mem.wb(W_OPTIONS2, 0x01);
     mem.wb(H_SERIAL_CONNECTION_STATUS, 0xff);
-    if config.battle.battle_scene == Some(false) {
+    if !battle_scene {
         let options = mem.rb(W_OPTIONS);
         mem.wb(W_OPTIONS, options | 1 << BATTLE_SCENE);
     }
@@ -144,7 +149,7 @@ use super::names::Name;
 
 impl Engine {
     /// `seed_player`: name, ID, gender, time of day, empty key/PC item lists.
-    fn seed_player(&mut self) {
+    pub(super) fn seed_player(&mut self) {
         self.names.player = "RED".into();
         self.names.rival = "SILVER".into();
         // `InitializeNPCNames` copies 11 bytes of ROM to each (the name, its
@@ -200,7 +205,7 @@ impl Engine {
         Ok(())
     }
 
-    fn write_pocket(&mut self, num_addr: u16, entries: &[(u8, u8)]) {
+    pub(super) fn write_pocket(&mut self, num_addr: u16, entries: &[(u8, u8)]) {
         self.mem.wb(num_addr, entries.len() as u8);
         let mut addr = num_addr + 1;
         for &(id, qty) in entries {
@@ -262,7 +267,7 @@ impl Engine {
     }
 
     /// `launch_wild_encounter`.
-    fn launch_wild_encounter(&mut self, config: &BattleConfig) -> Result<Launch, StartError> {
+    pub(super) fn launch_wild_encounter(&mut self, config: &BattleConfig) -> Result<Launch, StartError> {
         if config.player_party.is_empty() {
             return Err("wild_encounter requires at least one player_party entry".to_string().into());
         }
@@ -278,12 +283,17 @@ impl Engine {
         self.seed_party(&config.player_party, PARTYMON, W_PARTY_COUNT, W_PARTY_MON1, "player")?;
         let enemy = &config.enemy_party[0];
         let id = species::id_from_name(&enemy.species).ok_or_else(|| format!("unknown enemy species: {}", enemy.species))?;
+        self.launch_wild(id, enemy.level)
+    }
+
+    /// A wild battle against `id` at `level` (the player already seeded).
+    pub(super) fn launch_wild(&mut self, id: u8, level: u8) -> Result<Launch, StartError> {
         self.mem.wb(W_BATTLE_MODE, WILD_BATTLE);
         self.mem.wb(W_BATTLE_TYPE, BATTLETYPE_NORMAL);
         self.mem.wb(W_OTHER_TRAINER_CLASS, 0);
         self.mem.wb(W_TEMP_WILD_MON_SPECIES, id);
         self.mem.wb(W_TEMP_ENEMY_MON_SPECIES, id);
-        self.mem.wb(W_CUR_PARTY_LEVEL, enemy.level);
+        self.mem.wb(W_CUR_PARTY_LEVEL, level);
         self.mem.wb(W_CUR_PARTY_SPECIES, id);
         if id == UNOWN && !self.any_unown_letter_unlocked() {
             return Err(UNOWN_FREEZE.to_string().into());
@@ -292,7 +302,7 @@ impl Engine {
     }
 
     /// `launch_trainer_battle`.
-    fn launch_trainer_battle(&mut self, config: &BattleConfig) -> Result<Launch, StartError> {
+    pub(super) fn launch_trainer_battle(&mut self, config: &BattleConfig) -> Result<Launch, StartError> {
         if config.player_party.is_empty() {
             return Err("trainer_battle requires at least one player_party entry".to_string().into());
         }
@@ -322,7 +332,7 @@ impl Engine {
     }
 
     /// `launch_link_battle`.
-    fn launch_link_battle(&mut self, config: &BattleConfig) -> Result<Launch, StartError> {
+    pub(super) fn launch_link_battle(&mut self, config: &BattleConfig) -> Result<Launch, StartError> {
         let max = PARTY_LENGTH as usize;
         if config.player_party.is_empty() || config.player_party.len() > max {
             return Err(format!("link_battle requires 1..={max} player_party entries, got {}", config.player_party.len()).into());
@@ -338,12 +348,18 @@ impl Engine {
         self.seed_player_items(&[])?;
         self.seed_party(&config.player_party, PARTYMON, W_PARTY_COUNT, W_PARTY_MON1, "player")?;
         self.seed_party(&config.enemy_party, OTPARTYMON, W_OT_PARTY_COUNT, W_OT_PARTY_MON1, "enemy")?;
+        // (The harness names the other player "RIVAL".)
+        self.launch_link_with("RIVAL")
+    }
+
+    /// A link battle against `name` (both parties already seeded).
+    pub(super) fn launch_link_with(&mut self, name: &str) -> Result<Launch, StartError> {
         self.mem.wb(W_LINK_MODE, LINK_COLOSSEUM);
         self.mem.wb(H_SERIAL_CONNECTION_STATUS, USING_EXTERNAL_CLOCK);
         self.mem.wb(W_CUR_OT_MON, 0);
         self.mem.wb(W_CUR_PARTY_MON, 0);
-        self.names.ot_player = "RIVAL".into();
-        self.names.ot_class = Name::Nickname("RIVAL".into());
+        self.names.ot_player = name.into();
+        self.names.ot_class = Name::Nickname(name.into());
         self.mem.wb(W_BATTLE_MODE, TRAINER_BATTLE);
         self.mem.wb(W_BATTLE_TYPE, BATTLETYPE_NORMAL);
         self.mem.wb(W_OTHER_TRAINER_CLASS, CAL);
@@ -353,7 +369,7 @@ impl Engine {
 
 /// `poke_trainer_attributes`, the `[[enemy_items]]` half: the two item slots
 /// the scenario wants in the trainer class's attributes (`None`: ROM's).
-fn enemy_items_override(specs: &[ItemSpec]) -> Result<Option<[u8; 2]>, StartError> {
+pub(super) fn enemy_items_override(specs: &[ItemSpec]) -> Result<Option<[u8; 2]>, StartError> {
     if specs.is_empty() {
         return Ok(None);
     }
@@ -396,7 +412,10 @@ impl Engine {
         let de = count_addr + u16::from(count);
         self.mem.wb(de, species);
         self.mem.wb(de + 1, 0xff);
-        // (The OT name, the player's for every mon, is text.)
+        // The OT name: the player's, for every mon.
+        let ots = if opposing { &mut self.names.ot_party_ots } else { &mut self.names.party_ots };
+        ots.resize(usize::from(count - 1), Default::default());
+        ots.push(self.names.player.clone());
         // Only initialize the nickname for party mon.
         if self.mem.rb(W_MON_TYPE) == 0 {
             self.mem.wb(W_NAMED_OBJECT_INDEX, species);
@@ -554,7 +573,7 @@ impl Engine {
 impl Engine {
     /// `StartBattle` up to `DoBattle`'s `jp BattleTurn` (`ExitBattle` is the
     /// battle's end, not its start).
-    fn start_battle(&mut self, launch: &Launch) -> Result<(), StartError> {
+    pub(super) fn start_battle(&mut self, launch: &Launch) -> Result<(), StartError> {
         // This check prevents you from entering a battle without any Pokemon.
         if self.mem.rb(W_PARTY_COUNT) == 0 {
             return Err("battle needs at least one party mon".to_string().into());

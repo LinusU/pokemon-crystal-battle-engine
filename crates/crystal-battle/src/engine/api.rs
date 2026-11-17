@@ -56,6 +56,13 @@ impl FastBattle {
         Ok(Self::from_engine(engine, TurnEntry::TurnStart))
     }
 
+    /// Start a battle from a game's [`BattleSetup`] with the random stream at
+    /// `seed`, producing its [`Event`]s when `events`.
+    pub fn from_setup(data: &'static crate::data::GameData, setup: &crate::battle::BattleSetup, seed: u64, events: bool) -> Result<FastBattle, String> {
+        let engine = super::load::start(data, setup, seed, events).map_err(|error| error.to_string())?;
+        Ok(Self::from_engine(engine, TurnEntry::TurnStart))
+    }
+
     /// A battle whose current turn starts at `entry` in `base`.
     fn from_engine(base: Engine, entry: TurnEntry) -> FastBattle {
         let mut battle = FastBattle {

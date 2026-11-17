@@ -22,6 +22,7 @@ pub mod commands;
 pub mod core;
 pub mod harness;
 pub mod items;
+pub mod load;
 pub mod math;
 pub mod mem;
 pub mod message;

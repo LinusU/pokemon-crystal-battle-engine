@@ -33,6 +33,7 @@ pub mod event;
 pub mod legal;
 pub mod message;
 pub mod outcome;
+pub mod setup;
 pub mod state;
 
 pub use crate::config::BattleConfig;
@@ -40,6 +41,7 @@ pub use action::{PromptSite, Side, Step as Action};
 pub use event::{Event, HpBarTarget, one_line};
 pub use message::Message;
 pub use outcome::Outcome;
+pub use setup::{Bag, BattleSetup, Opponent, Options, Player, Pokemon, World};
 pub use state::BattleState;
 
 use crate::engine::api::{FastBattle, Status as EngineStatus};
@@ -115,6 +117,15 @@ impl Battle {
     /// seed and actions always replay the same battle.
     pub fn new(config: BattleConfig, seed: u64) -> Result<Battle, Error> {
         let engine = catch(|| FastBattle::with_events(&config, seed, true))?.map_err(Error::Setup)?;
+        let current = current(&engine);
+        Ok(Battle { engine, current })
+    }
+
+    /// Start a battle from what a game holds ([`BattleSetup`]), with the
+    /// game's data `data` ([`GameData::crystal`](crate::data::GameData::crystal)
+    /// for Pokémon Crystal) and the random stream seeded with `seed`.
+    pub fn start(data: &'static crate::data::GameData, setup: &BattleSetup, seed: u64) -> Result<Battle, Error> {
+        let engine = catch(|| FastBattle::from_setup(data, setup, seed, true))?.map_err(Error::Setup)?;
         let current = current(&engine);
         Ok(Battle { engine, current })
     }
