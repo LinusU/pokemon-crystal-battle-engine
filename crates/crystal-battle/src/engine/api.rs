@@ -63,6 +63,14 @@ impl FastBattle {
         Ok(Self::from_engine(engine, TurnEntry::TurnStart))
     }
 
+    /// What the battle left behind, once it ended.
+    pub fn result(&self) -> Option<crate::battle::BattleResult> {
+        match self.status {
+            Status::Ended(outcome) => Some(self.current.result(outcome)),
+            Status::Decision { .. } => None,
+        }
+    }
+
     /// A battle whose current turn starts at `entry` in `base`.
     fn from_engine(base: Engine, entry: TurnEntry) -> FastBattle {
         let mut battle = FastBattle {

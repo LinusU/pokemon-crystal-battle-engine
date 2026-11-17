@@ -48,46 +48,53 @@ differential testers green.
 ## Shape of the API
 
 ```rust
-let data = GameData::crystal();
+use crystal_battle::battle::*;
+use crystal_battle::data::GameData;
+
 let setup = BattleSetup {
-    kind: BattleKind::Trainer { class, id, party: None }, // or Wild(PartyMon), Link(Vec<PartyMon>)
-    player: Player { name, id, badges, money, options },
-    party: vec![PartyMon { .. }; n],   // exactly as the save holds them
-    bag: Bag { items, balls },
-    world: World { time_of_day, unlocked_unowns, pokedex },
-    names: Names { rival, .. },
+    player: Player { name, id, gender, money, johto_badges, kanto_badges, mom_saving, mom_money },
+    party: vec![Pokemon { .. }],      // every field of the save's party_struct, nickname, OT name
+    bag: Bag { items, balls },        // (item, quantity) per pocket
+    opponent: Opponent::Trainer { class, id, party: None, items: None, ai_flags: None, control },
+    //     or Opponent::Wild { species, level }, Opponent::Link { name, party }
+    options: Options { battle_scene: true },
+    world: World { time_of_day, unlocked_unowns, rival_name, seen, caught, unown_dex },
 };
-let mut battle = Battle::start(data, setup, seed)?;
+let mut battle = Battle::start(GameData::crystal(), &setup, seed)?;
 loop {
-    for event in battle.events() { /* Message, MoveAnimation, HpBar, Cry, … */ }
+    for event in battle.events() { /* Message, HpBar, … */ }
     match battle.status() {
-        Status::Decision(d) => battle.step(choose(d))?,
+        Status::Decision(d) => { battle.step(choose(d))?; }
         Status::Ended { .. } => break,
-    };
+    }
 }
-let result: BattleResult = battle.result()?; // updated party, caught mon, money, bag, Pokédex, evolutions
+let result: BattleResult = battle.result().unwrap();
+// party (HP, PP, status, exp, levels, moves; a caught mon), money, Mom's
+// money, Pay Day money, the bag, the slots that may evolve, the Pokédex
 ```
 
-`BattleResult` gives back the same `PartyMon` type the setup took in. The
-scenario type `BattleConfig` (species + level, the TOML schema) stays as a
-convenience: `BattleSetup::generate(&config, data, rng)` builds the parties
-the way the game does (`TryAddMonToParty`), which is how the harness, the
-fixtures and the random generators keep working unchanged.
+`BattleResult` gives back the same `Pokemon` type the setup took in, so a
+game can write the party straight back into its save. The scenario type
+`BattleConfig` (species + level, the TOML schema) stays as a convenience:
+`BattleSetup::from_config(&config, seed)` makes the setup the way the game
+makes new mons, and the random stream after it; `Battle::start` from those
+plays exactly the scenario's battle (`examples/setup_diff` checks every
+decision, the battle memory at each, the outcome and the result).
 
 ## Steps
 
-1. **Typed `GameData`.** Generate species, moves, items, trainers, type chart,
+1. ✅ **Typed `GameData`.** Generate species, moves, items, trainers, type chart,
    effect scripts and the small mechanic tables; replace every ROM read in
    the engine with a typed lookup. Verified by `engine_diff` /
    `engine_fixtures` after each table.
-2. **`Message` events.** One variant per battle text; the engine emits them
+2. ✅ **`Message` events.** One variant per battle text; the engine emits them
    instead of rendering ROM text. The harness renderer reproduces Crystal's
    English; the testers compare it with the original's captured text. Names
    leave the engine's memory model (the testers stop comparing name
    buffers).
-3. **`BattleSetup` input.** Full parties, player, bag, world state; the engine
+3. ✅ **`BattleSetup` input.** Full parties, player, bag, world state; the engine
    seeds its state from them. `BattleConfig` converts to a `BattleSetup`.
-4. **`BattleResult` output.**
+4. ✅ **`BattleResult` output.**
 5. **Presentation events**, verified against hooks on the original's
    animation and sound routines.
 6. **ROM-free default build**; `rom.rs` and the ROM-path code leave the

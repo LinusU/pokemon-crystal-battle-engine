@@ -2,7 +2,7 @@
 //! scenarios, `Battle::new(config)` (the scenario path) and
 //! `Battle::start(setup)` with the setup `BattleSetup::from_config` makes
 //! must agree on every decision (site, legal actions, state, events), the
-//! battle memory at each, and the outcome.
+//! battle memory at each, the outcome and the result.
 //!
 //! cargo build --release --example setup_diff
 //! ./target/release/examples/setup_diff [link|wild|trainer] <battles> <first_seed>
@@ -68,7 +68,12 @@ fn compare(mut a: Battle, config: &crystal_battle_harness::config::BattleConfig,
                 a.step(action).map_err(|e| e.to_string())?;
                 b.step(action).map_err(|e| e.to_string())?;
             }
-            (x, y) if x == y => return Ok(n),
+            (x, y) if x == y => {
+                if a.result() != b.result() {
+                    return Err(format!("result differs:\n  scenario {:?}\n  setup    {:?}", a.result(), b.result()));
+                }
+                return Ok(n);
+            }
             (x, y) => return Err(format!("end differs after {n}:\n  scenario {x:?}\n  setup    {y:?}")),
         }
     }

@@ -28,7 +28,8 @@ Goal and exactness contract: [goal.md](goal.md).
 | `names.rs`, `message.rs` | Names: what each of the original's name buffers names (`Name`: a species, move, item, … or a nickname, kept as a string), never text; the name bytes stay zero (`mem::NAMES`). Messages: each text label the battle prints, as a typed `battle::Message` read from the state the text reads. |
 | `text.rs` | The original's text engine, ported (renders a text label to its exact characters). Only the harness uses it, to render messages for the differential testers (`oracle::render`); it leaves the library with the ROM. |
 | `harness.rs` | The emulated harness's replacements for the original's menus (action menu, move selection, link actions), ported as the HARNESS-PATCHes run them. |
-| `api.rs` | `FastBattle`: start, `step`, `status`, `state`, `events`, `Clone`. The library's `battle::Battle` wraps it. |
+| `load.rs` | Starting from a game's `BattleSetup` (its parties, player, bag, opponent, world written into the original's layout, then the game's own battle start); `generate`, the setup a `BattleConfig` scenario describes; reading the `BattleResult` back. |
+| `api.rs` | `FastBattle`: start (from a scenario or a setup), `step`, `status`, `state`, `events`, `result`, `Clone`. The library's `battle::Battle` wraps it. |
 
 The oracle tooling lives in the harness crate (the repository root,
 [`src/oracle/`](../src/oracle/)), since it runs the transpiled original:

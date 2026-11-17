@@ -33,6 +33,7 @@ pub mod event;
 pub mod legal;
 pub mod message;
 pub mod outcome;
+pub mod result;
 pub mod setup;
 pub mod state;
 
@@ -41,6 +42,7 @@ pub use action::{PromptSite, Side, Step as Action};
 pub use event::{Event, HpBarTarget, one_line};
 pub use message::Message;
 pub use outcome::Outcome;
+pub use result::BattleResult;
 pub use setup::{Bag, BattleSetup, Opponent, Options, Player, Pokemon, World};
 pub use state::BattleState;
 
@@ -128,6 +130,12 @@ impl Battle {
         let engine = catch(|| FastBattle::from_setup(data, setup, seed, true))?.map_err(Error::Setup)?;
         let current = current(&engine);
         Ok(Battle { engine, current })
+    }
+
+    /// What the battle left behind for the game (the party, money, bag, …),
+    /// once it has ended.
+    pub fn result(&self) -> Option<BattleResult> {
+        self.engine.result()
     }
 
     /// What the battle showed during the last [`Battle::step`] (or, before the

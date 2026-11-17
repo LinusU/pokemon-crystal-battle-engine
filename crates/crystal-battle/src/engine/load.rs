@@ -8,7 +8,9 @@ use std::sync::Arc;
 use super::battle::{Engine, Flags};
 use super::start::{Launch, StartError};
 use super::sym::*;
+use crate::battle::result::BattleResult;
 use crate::battle::setup::{Bag, BattleSetup, Opponent, Options, Player, Pokemon, World};
+use crate::battle::Outcome;
 use crate::config::{BattleConfig, BattleKind, EnemyControl};
 use crate::data::GameData;
 use crate::defs::*;
@@ -225,6 +227,25 @@ impl Engine {
 }
 
 impl Engine {
+    /// What the battle, ended with `outcome`, leaves behind.
+    pub fn result(&self, outcome: Outcome) -> BattleResult {
+        let party = self.read_party(false);
+        let flags = |addr: u16, count: u16| -> Vec<u16> {
+            (0..count).filter(|&i| self.mem.rb(addr + i / 8) & 1 << (i % 8) != 0).collect()
+        };
+        BattleResult {
+            outcome,
+            caught: (outcome == Outcome::Caught).then(|| party.len() - 1),
+            party,
+            money: self.money_at(W_MONEY),
+            mom_money: self.money_at(W_MOMS_MONEY),
+            pay_day: self.money_at(W_PAY_DAY_MONEY),
+            bag: Bag { items: self.read_pocket(W_NUM_ITEMS), balls: self.read_pocket(W_NUM_BALLS) },
+            may_evolve: flags(W_EVOLVABLE_FLAGS, u16::from(PARTY_LENGTH)).into_iter().map(usize::from).collect(),
+            world: self.read_world(),
+        }
+    }
+
     /// The world state the battle keeps.
     fn read_world(&self) -> World {
         let species = |addr: u16| -> Vec<u8> {
