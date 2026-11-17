@@ -327,7 +327,7 @@ impl Engine {
         let item = self.mem.rb(W_CUR_ENEMY_ITEM);
         self.mem.wb(W_NAMED_OBJECT_INDEX, item);
         self.get_item_name();
-        self.mem.copy(W_MON_OR_ITEM_NAME_BUFFER, W_STRING_BUFFER1, u16::from(ITEM_NAME_LENGTH));
+        self.copy_name(W_MON_OR_ITEM_NAME_BUFFER, W_STRING_BUFFER1);
         self.text(r::ENEMY_USED_ON_TEXT);
     }
 

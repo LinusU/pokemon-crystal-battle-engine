@@ -5,7 +5,7 @@
 use crate::engine::battle::Engine;
 use crate::engine::core::{TurnEnd, TurnEntry};
 use crate::engine::mem::Mem;
-use super::{Snapshot, Trace};
+use super::{Snapshot, Trace, render};
 use crate::engine::start::{self, StartError};
 use crate::engine::sym;
 use crate::bootstrap::BattleConfig;
@@ -77,13 +77,27 @@ pub enum Divergence {
     End { what: String },
 }
 
-/// Memory differences over [`COMPARED`], as `symbol: oracle → engine`.
+/// `start::start`, keeping every message printed (from the battle's start)
+/// when `messages` is on.
+fn start_logging(config: &BattleConfig, seed: u64, messages: bool) -> Result<Engine, StartError> {
+    let mut engine = start::start(config, seed, messages)?;
+    if messages {
+        let printed = engine.events.take().unwrap_or_default().into_iter().filter_map(|event| match event {
+            crate::battle::Event::Message(message) => Some(message),
+            _ => None,
+        });
+        engine.messages = Some(printed.collect());
+    }
+    Ok(engine)
+}
+
+/// Memory differences over [`COMPARED`] (names aside), as `symbol: oracle → engine`.
 pub fn mem_diffs(oracle: &Mem, engine: &Mem) -> Vec<String> {
     let mut out = Vec::new();
     for &(start, end) in COMPARED {
         for addr in start..end {
             let (a, b) = (oracle.rb(addr), engine.rb(addr));
-            if a != b {
+            if a != b && !crate::engine::mem::is_name(addr) {
                 out.push(format!("{}: {a:#04x} → {b:#04x}", sym::ram_name(addr)));
             }
         }
@@ -115,7 +129,9 @@ fn panic_message(payload: &(dyn std::any::Any + Send)) -> String {
 /// [`START_HRAM`] bytes), minus `skip`: the start-state comparison.
 pub fn start_mem_diffs(oracle: &Mem, engine: &Mem, skip: &[u16]) -> Vec<String> {
     let mut out = Vec::new();
-    let ignored = |addr: u16| START_IGNORED.iter().any(|&(a, b)| (a..b).contains(&addr)) || skip.contains(&addr);
+    let ignored = |addr: u16| {
+        START_IGNORED.iter().any(|&(a, b)| (a..b).contains(&addr)) || crate::engine::mem::is_name(addr) || skip.contains(&addr)
+    };
     for addr in (0xc000u16..0xe000).chain(START_HRAM.iter().copied()) {
         let (a, b) = (oracle.rb(addr), engine.rb(addr));
         if a != b && !ignored(addr) {
@@ -133,11 +149,12 @@ pub fn start_mem_diffs(oracle: &Mem, engine: &Mem, skip: &[u16]) -> Vec<String> 
 pub fn check_start(config: &BattleConfig, trace: &Trace, check_text: bool) -> Result<StartCheck, Divergence> {
     let Some(first) = trace.decisions.first() else { return Ok(StartCheck::Exact) };
     let seed = config.battle.seed.expect("differential scenarios carry a seed");
-    let engine = match start::start(config, seed, check_text) {
+    let engine = match start_logging(config, seed, check_text) {
         Ok(engine) => engine,
         Err(StartError::Unsupported(reason)) => return Err(Divergence::Unsupported { reason: reason.to_string() }),
         Err(StartError::Invalid(message)) => return Err(Divergence::Panic { decision: 0, message }),
     };
+    let ctx = render::Context::of(config);
     let before = engine.clone();
     let run = std::panic::catch_unwind(std::panic::AssertUnwindSafe(move || {
         let mut engine = engine;
@@ -147,7 +164,7 @@ pub fn check_start(config: &BattleConfig, trace: &Trace, check_text: bool) -> Re
     let mut diffs = Vec::new();
     let text_diff = |engine: &Engine, diffs: &mut Vec<String>| {
         if check_text {
-            let texts = engine.rendered.clone().unwrap_or_default();
+            let texts = render::texts(engine.messages.as_deref().unwrap_or_default(), ctx);
             if texts != first.texts {
                 diffs.push(format!("text: {:?} → {texts:?}", first.texts));
             }
@@ -188,11 +205,12 @@ pub fn check(config: &BattleConfig, trace: &Trace, check_text: bool) -> Result<u
         return Ok(0);
     }
     let seed = config.battle.seed.expect("differential scenarios carry a seed");
-    let mut engine = match start::start(config, seed, check_text) {
+    let mut engine = match start_logging(config, seed, check_text) {
         Ok(engine) => engine,
         Err(StartError::Unsupported(reason)) => return Err(Divergence::Unsupported { reason: reason.to_string() }),
         Err(StartError::Invalid(message)) => return Err(Divergence::Panic { decision: 0, message }),
     };
+    let ctx = render::Context::of(config);
     engine.pending = trace.decisions.iter().map(|d| d.action).collect();
     engine.decision_log = Some(Vec::new());
     engine.rng_trace = Some(Vec::new());
@@ -217,7 +235,11 @@ pub fn check(config: &BattleConfig, trace: &Trace, check_text: bool) -> Result<u
             .unwrap_or_default()
     });
     let log = engine.decision_log.take().unwrap_or_default();
-    let texts = std::mem::take(&mut engine.text_log);
+    let message_log = std::mem::take(&mut engine.message_log);
+    let texts: Vec<Vec<String>> = match std::panic::catch_unwind(|| message_log.iter().map(|m| render::texts(m, ctx)).collect()) {
+        Ok(texts) => texts,
+        Err(payload) => return Err(Divergence::Panic { decision: 0, message: format!("rendering: {}", panic_message(&*payload)) }),
+    };
     for (i, (snap, (site, legal, mem, rng))) in trace.decisions.iter().zip(&log).enumerate() {
         compare(i, snap, *site, legal, mem, *rng).map_err(|d| match d {
             Divergence::Rng { decision, oracle_calls, .. } => Divergence::Rng {
@@ -250,7 +272,9 @@ pub fn check(config: &BattleConfig, trace: &Trace, check_text: bool) -> Result<u
             return Err(Divergence::End { what: format!("memory: {diffs:?}") });
         }
         if check_text {
-            let rendered = engine.rendered.take().unwrap_or_default();
+            let messages = engine.messages.take().unwrap_or_default();
+            let rendered = std::panic::catch_unwind(|| render::texts(&messages, ctx))
+                .map_err(|payload| Divergence::Panic { decision: log.len(), message: format!("rendering: {}", panic_message(&*payload)) })?;
             if end.texts != rendered {
                 return Err(Divergence::End { what: format!("text: oracle {:?}, engine {:?}", end.texts, rendered) });
             }

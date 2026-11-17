@@ -42,6 +42,33 @@ pub const NOT_KEPT: &[(u16, u16)] = &[
     (0xd1ea, 0xd1f0), // wBattleHUDTiles
 ];
 
+/// WRAM the original keeps names in, as text: the name buffers, nicknames,
+/// OT names, the player's and the rival's names. The engine keeps names as
+/// strings instead
+/// (`engine::names`), so these bytes stay zero: the differential testers
+/// don't compare them, and a glitch read of them (Beat Up past the party)
+/// reads zeros on both engines.
+pub const NAMES: &[(u16, u16)] = {
+    use super::sym::*;
+    &[
+    (W_ENEMY_MON_NICKNAME, W_ENEMY_MON_NICKNAME + 11),
+    (W_BATTLE_MON_NICKNAME, W_BATTLE_MON_NICKNAME + 11),
+    (W_OT_CLASS_NAME, W_OT_CLASS_NAME + 13),
+    (W_MON_OR_ITEM_NAME_BUFFER, W_MON_OR_ITEM_NAME_BUFFER + 13),
+    (W_STRING_BUFFER1, W_STRING_BUFFER5 + 19),
+    (W_OT_PLAYER_NAME, W_OT_PLAYER_NAME + 11),
+    (W_OT_PARTY_MON_O_TS, W_OT_PARTY_DATA_END),
+    (W_PLAYER_NAME, W_PLAYER_NAME + 11),
+    (W_RIVAL_NAME, W_RIVAL_NAME + 11),
+    (W_PARTY_MON_O_TS, W_PARTY_MON_NICKNAMES_END),
+    ]
+};
+
+/// Whether `addr` is in [`NAMES`].
+pub fn is_name(addr: u16) -> bool {
+    NAMES.iter().any(|&(a, b)| (a..b).contains(&addr))
+}
+
 /// Whether `addr` is in [`NOT_KEPT`].
 pub fn is_not_kept(addr: u16) -> bool {
     NOT_KEPT.iter().any(|&(a, b)| (a..b).contains(&addr))
@@ -63,10 +90,10 @@ pub const DRIFTS: &[(u16, u16)] = &[
 
 /// Whether a glitch read of `addr` reads the same byte on both engines: ROM
 /// bank 0 and WRAM (direct or through echo RAM) that is neither
-/// [`NOT_KEPT`] nor [`DRIFTS`]. Not: the live stack, sound, graphics
+/// [`NOT_KEPT`], [`NAMES`] nor [`DRIFTS`]. Not: the live stack, sound, graphics
 /// buffers, UI scratch, VRAM, OAM, I/O, HRAM.
 pub fn glitch_read_kept(addr: u16) -> bool {
-    let kept = |a: u16| !is_not_kept(a) && !DRIFTS.iter().any(|&(lo, hi)| (lo..hi).contains(&a));
+    let kept = |a: u16| !is_not_kept(a) && !is_name(a) && !DRIFTS.iter().any(|&(lo, hi)| (lo..hi).contains(&a));
     match addr {
         0x0000..=0x3fff => true,
         0xc000..=0xdfff => kept(addr),
@@ -78,6 +105,16 @@ pub fn glitch_read_kept(addr: u16) -> bool {
 /// Whether all of `addr..addr + len` is [`glitch_read_kept`].
 pub fn glitch_range_kept(addr: u16, len: u16) -> bool {
     (0..len).all(|i| glitch_read_kept(addr.wrapping_add(i)))
+}
+
+/// Whether all of `addr..addr + len` can be read as a name: [`glitch_read_kept`]
+/// memory or a name (Beat Up reads a party nickname, possibly past the
+/// party).
+pub fn glitch_name_range_kept(addr: u16, len: u16) -> bool {
+    (0..len).all(|i| {
+        let a = addr.wrapping_add(i);
+        glitch_read_kept(a) || is_name(a)
+    })
 }
 
 /// Where Beat Up's glitch reads of state neither engine keeps are sent: the

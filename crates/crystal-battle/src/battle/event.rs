@@ -1,5 +1,5 @@
-//! What the battle shows: battle text (exactly as printed) and HP-bar
-//! changes, reported on every decision.
+//! What the battle shows: its messages and HP-bar changes, reported on
+//! every decision.
 
 /// Which HP bar an [`Event::HpBar`] animates.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -15,9 +15,8 @@ pub enum HpBarTarget {
 /// Something the battle showed.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Event {
-    /// One battle-text message, exactly as printed; text-box lines separated
-    /// by `\n` (see [`one_line`] for display).
-    Text(String),
+    /// A battle text.
+    Message(super::message::Message),
     /// An HP bar moved from `from` to `to` (of `max`).
     HpBar { target: HpBarTarget, from: u16, to: u16, max: u16 },
 }

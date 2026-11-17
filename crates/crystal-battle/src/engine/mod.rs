@@ -24,6 +24,7 @@ pub mod harness;
 pub mod items;
 pub mod math;
 pub mod mem;
+pub mod message;
 pub mod names;
 pub mod rom;
 pub mod setup;

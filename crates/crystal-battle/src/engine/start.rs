@@ -25,7 +25,6 @@
 
 use super::battle::{Engine, Flags, PARTY_LEN};
 use super::mem::Mem;
-use super::rom;
 use super::rsym as r;
 use super::switch::FlagAction;
 use super::sym::*;
@@ -75,15 +74,21 @@ struct Launch {
     enemy_item_override: Option<[u8; 2]>,
 }
 
-const NAME_LEN: u16 = NAME_LENGTH as u16;
-const MON_NAME_LEN: u16 = MON_NAME_LENGTH as u16;
+/// `InitializeNPCNames`: Mom's, Red's and Green's names as the boot leaves
+/// them in WRAM.
+const NPC_NAMES: [(u16, [u8; 11]); 3] = [
+    (W_MOMS_NAME, [0x8c, 0x8e, 0x8c, 0x50, 0xcd, 0x0f, 0x61, 0x3e, 0x02, 0x21, 0x29]),
+    (W_REDS_NAME, [0x91, 0x84, 0x83, 0x50, 0x86, 0x91, 0x84, 0x84, 0x8d, 0x50, 0x8c]),
+    (W_GREENS_NAME, [0x86, 0x91, 0x84, 0x84, 0x8d, 0x50, 0x8c, 0x8e, 0x8c, 0x50, 0xcd]),
+];
+
 /// `PARTYMON_STRUCT_LENGTH`.
 const STRUCT: u16 = PARTYMON_STRUCT_LENGTH as u16;
 
 /// Build the engine at the top of the first `BattleTurn` for `config` with
-/// RNG seed `seed`. With `render_text`, the battle text printed so far is
-/// rendered to strings (differential testing).
-pub fn start(config: &BattleConfig, seed: u64, render_text: bool) -> Result<Engine, StartError> {
+/// RNG seed `seed`. With `events`, the engine keeps what the battle shows
+/// ([`Engine::events`]).
+pub fn start(config: &BattleConfig, seed: u64, events: bool) -> Result<Engine, StartError> {
     let link = config.battle.kind == BattleKind::LinkBattle;
     // Cpu::seed_rng: a zero seed is mapped to the default constant.
     let rng = if seed == 0 { 0x9e37_79b9_7f4a_7c15 } else { seed };
@@ -93,8 +98,8 @@ pub fn start(config: &BattleConfig, seed: u64, render_text: bool) -> Result<Engi
             && config.battle.enemy_control == crate::config::EnemyControl::External,
         ..Flags::default()
     });
-    if render_text {
-        engine.rendered = Some(Vec::new());
+    if events {
+        engine.events = Some(Vec::new());
     }
     let launch = match config.battle.kind {
         BattleKind::WildEncounter => engine.launch_wild_encounter(config)?,
@@ -135,38 +140,20 @@ pub fn boot_state(config: &BattleConfig) -> Mem {
     mem
 }
 
-/// `encode_name` (bootstrap): ASCII to the game's charset, `@`-padded to
-/// `NAME_LENGTH`.
-fn encode_name(text: &str) -> [u8; NAME_LENGTH as usize] {
-    let mut out = [CHAR_TERMINATOR; NAME_LENGTH as usize];
-    for (i, c) in text.chars().take(NAME_LENGTH as usize - 1).enumerate() {
-        out[i] = match c {
-            'A'..='Z' => 0x80 + (c as u8 - b'A'),
-            'a'..='z' => 0xa0 + (c as u8 - b'a'),
-            '0'..='9' => 0xf6 + (c as u8 - b'0'),
-            ' ' => 0x7f,
-            _ => CHAR_TERMINATOR,
-        };
-    }
-    out
-}
-
-use super::names::CHAR_TERMINATOR;
+use super::names::Name;
 
 impl Engine {
-    fn write_bytes(&mut self, at: u16, bytes: &[u8]) {
-        for (i, &b) in bytes.iter().enumerate() {
-            self.mem.wb(at + i as u16, b);
-        }
-    }
-
     /// `seed_player`: name, ID, gender, time of day, empty key/PC item lists.
     fn seed_player(&mut self) {
-        self.write_bytes(W_PLAYER_NAME, &encode_name("RED"));
-        self.write_bytes(W_RIVAL_NAME, &encode_name("SILVER"));
-        for (addr, rom_addr) in crate::config::NPC_NAMES {
-            for i in 0..u16::from(NAME_LENGTH) {
-                self.mem.wb(addr + i, rom::byte(rom::flat(0x01, rom_addr + i)));
+        self.names.player = "RED".into();
+        self.names.rival = "SILVER".into();
+        // `InitializeNPCNames` copies 11 bytes of ROM to each (the name, its
+        // `@`, and what follows). They are never printed in battle, but
+        // `DoBattle`'s search for the enemy's first mon with HP runs past an
+        // empty party into Mom's name.
+        for (addr, bytes) in NPC_NAMES {
+            for (i, b) in (0..).zip(bytes) {
+                self.mem.wb(addr + i, b);
             }
         }
         self.mem.wb(W_PLAYER_ID, 0x12);
@@ -266,8 +253,9 @@ impl Engine {
             if mon_type == OTPARTYMON {
                 self.mem.wb(W_NAMED_OBJECT_INDEX, id);
                 self.get_pokemon_name();
-                let dest = W_OT_PARTY_MON_NICKNAMES + slot as u16 * MON_NAME_LEN;
-                self.mem.copy(dest, W_STRING_BUFFER1, MON_NAME_LEN);
+                let name = self.data.names.species[usize::from(id)];
+                self.names.ot_party.resize(slot, Default::default());
+                self.names.ot_party.push(name.into());
             }
         }
         Ok(())
@@ -354,9 +342,8 @@ impl Engine {
         self.mem.wb(H_SERIAL_CONNECTION_STATUS, USING_EXTERNAL_CLOCK);
         self.mem.wb(W_CUR_OT_MON, 0);
         self.mem.wb(W_CUR_PARTY_MON, 0);
-        let rival = encode_name("RIVAL");
-        self.write_bytes(W_OT_PLAYER_NAME, &rival);
-        self.write_bytes(W_OT_CLASS_NAME, &rival);
+        self.names.ot_player = "RIVAL".into();
+        self.names.ot_class = Name::Nickname("RIVAL".into());
         self.mem.wb(W_BATTLE_MODE, TRAINER_BATTLE);
         self.mem.wb(W_BATTLE_TYPE, BATTLETYPE_NORMAL);
         self.mem.wb(W_OTHER_TRAINER_CLASS, CAL);
@@ -409,15 +396,14 @@ impl Engine {
         let de = count_addr + u16::from(count);
         self.mem.wb(de, species);
         self.mem.wb(de + 1, 0xff);
-        // The OT name: the player's, for every mon.
-        let ots = if opposing { W_OT_PARTY_MON_O_TS } else { W_PARTY_MON_O_TS };
-        self.mem.copy(ots + u16::from(count - 1) * NAME_LEN, W_PLAYER_NAME, NAME_LEN);
+        // (The OT name, the player's for every mon, is text.)
         // Only initialize the nickname for party mon.
         if self.mem.rb(W_MON_TYPE) == 0 {
             self.mem.wb(W_NAMED_OBJECT_INDEX, species);
             self.get_pokemon_name();
-            let dest = W_PARTY_MON_NICKNAMES + u16::from(count - 1) * MON_NAME_LEN;
-            self.mem.copy(dest, W_STRING_BUFFER1, MON_NAME_LEN);
+            let name = self.data.names.species[usize::from(species)];
+            self.names.party.resize(usize::from(count - 1), Default::default());
+            self.names.party.push(name.into());
         }
         let first = if opposing { W_OT_PARTY_MON1 } else { W_PARTY_MON1 };
         let mon = first + u16::from(count - 1) * STRUCT;
@@ -704,7 +690,7 @@ impl Engine {
             self.get_name();
             W_STRING_BUFFER1
         };
-        self.mem.copy(W_OT_CLASS_NAME, src, u16::from(TRAINER_CLASS_NAME_LENGTH));
+        self.copy_name(W_OT_CLASS_NAME, src);
         let attributes = self.trainer_class(class);
         let [item1, item2] = launch.enemy_item_override.unwrap_or(attributes.items);
         self.mem.wb(W_ENEMY_TRAINER_ITEM1, item1);
@@ -735,73 +721,39 @@ impl Engine {
         if class != CAL {
             class = self.mem.rb(W_OTHER_TRAINER_CLASS);
         }
-        let table = r::TRAINER_GROUPS + 2 * usize::from(class.wrapping_sub(1));
-        let mut hl = rom::flat(0x0e, rom::ptr(table));
-        let mut b = self.mem.rb(W_OTHER_TRAINER_ID);
-        loop {
-            b = b.wrapping_sub(1);
-            if b == 0 {
-                break;
-            }
-            while rom::byte(hl) != 0xff {
-                hl += 1;
-            }
-            hl += 1;
-        }
-        // .skip_name
-        while rom::byte(hl) != CHAR_TERMINATOR {
-            hl += 1;
-        }
-        hl += 1;
-        let kind = rom::byte(hl);
-        hl += 1;
-        match kind {
-            TRAINERTYPE_NORMAL => self.trainer_type(hl, false, false),
-            TRAINERTYPE_MOVES => self.trainer_type(hl, false, true),
-            TRAINERTYPE_ITEM => self.trainer_type(hl, true, false),
-            _ => self.trainer_type(hl, true, true),
+        let id = self.mem.rb(W_OTHER_TRAINER_ID);
+        let party = self.data.trainer_party(class, id).ok_or(StartError::Unsupported("a trainer id past the game's parties"))?;
+        for mon in party.mons {
+            self.trainer_mon(mon);
         }
         self.compute_trainer_reward();
         Ok(())
     }
 
-    /// `TrainerType1`..`TrainerType4`: level, species, [item], [moves].
-    fn trainer_type(&mut self, mut hl: usize, item: bool, moves: bool) {
-        loop {
-            let level = rom::byte(hl);
-            hl += 1;
-            if level == 0xff {
-                return;
+    /// `TrainerType1`..`TrainerType4`: one mon of the party (level,
+    /// species, and the item and moves the party's type has).
+    fn trainer_mon(&mut self, data: &crate::data::game::TrainerMon) {
+        self.mem.wb(W_CUR_PARTY_LEVEL, data.level);
+        self.mem.wb(W_CUR_PARTY_SPECIES, data.species);
+        self.mem.wb(W_MON_TYPE, OTPARTYMON);
+        self.try_add_mon_to_party();
+        let mon = W_OT_PARTY_MON1 + u16::from(self.mem.rb(W_OT_PARTY_COUNT).wrapping_sub(1)) * STRUCT;
+        if let Some(item) = data.item {
+            self.mem.wb(mon + u16::from(MON_ITEM), item);
+        }
+        if let Some(moves) = data.moves {
+            for (i, mv) in (0..).zip(moves) {
+                self.mem.wb(mon + u16::from(MON_MOVES) + i, mv);
             }
-            self.mem.wb(W_CUR_PARTY_LEVEL, level);
-            let species = rom::byte(hl);
-            hl += 1;
-            self.mem.wb(W_CUR_PARTY_SPECIES, species);
-            self.mem.wb(W_MON_TYPE, OTPARTYMON);
-            self.try_add_mon_to_party();
-            let mon = W_OT_PARTY_MON1 + u16::from(self.mem.rb(W_OT_PARTY_COUNT).wrapping_sub(1)) * STRUCT;
-            if item {
-                let v = rom::byte(hl);
-                hl += 1;
-                self.mem.wb(mon + u16::from(MON_ITEM), v);
-            }
-            if moves {
-                for i in 0..u16::from(NUM_MOVES) {
-                    let v = rom::byte(hl);
-                    hl += 1;
-                    self.mem.wb(mon + u16::from(MON_MOVES) + i, v);
+            // .copy_pp: stops at the first empty slot.
+            let mut de = mon + u16::from(MON_PP);
+            for mv in moves {
+                if mv == 0 {
+                    break;
                 }
-                // .copy_pp: stops at the first empty slot.
-                let mut de = mon + u16::from(MON_PP);
-                for i in 0..u16::from(NUM_MOVES) {
-                    let mv = self.mem.rb(mon + u16::from(MON_MOVES) + i);
-                    if mv == 0 {
-                        break;
-                    }
-                    let pp = self.data.mv(mv).pp;
-                    self.mem.wb(de, pp);
-                    de += 1;
-                }
+                let pp = self.data.mv(mv).pp;
+                self.mem.wb(de, pp);
+                de += 1;
             }
         }
     }
@@ -870,39 +822,17 @@ impl Engine {
     /// `Battle_GetTrainerName` (+ `GetTrainerName`, `CopyTrainerName`): the
     /// trainer's name into `wStringBuffer1`.
     pub fn battle_get_trainer_name(&mut self) {
-        for (i, v) in self.trainer_name_bytes().into_iter().enumerate() {
-            self.mem.wb(W_STRING_BUFFER1 + i as u16, v);
-        }
+        self.names.string_buffer1 = Name::Nickname(self.trainer_name().into());
     }
 
-    /// What `Battle_GetTrainerName` copies into `wStringBuffer1`.
-    pub fn trainer_name_bytes(&self) -> [u8; NAME_LEN as usize] {
-        let mut out = [0; NAME_LEN as usize];
+    /// The trainer's name, as `Battle_GetTrainerName` finds it.
+    pub fn trainer_name(&self) -> String {
         if self.mem.bit(W_IN_BATTLE_TOWER_BATTLE, IN_BATTLE_TOWER_BATTLE_F) {
-            for (i, v) in out.iter_mut().enumerate() {
-                *v = self.mem.rb(W_OT_PLAYER_NAME + i as u16);
-            }
-            return out;
+            return self.names.ot_player.to_string();
         }
-        let (mut b, c) = (self.mem.rb(W_OTHER_TRAINER_ID), self.mem.rb(W_OTHER_TRAINER_CLASS));
         // (CAL: the Mystery Gift house flag lives in SRAM, which is blank.)
-        let table = r::TRAINER_GROUPS + 2 * usize::from(c.wrapping_sub(1));
-        let mut hl = rom::flat(0x0e, rom::ptr(table));
-        loop {
-            b = b.wrapping_sub(1);
-            if b == 0 {
-                break;
-            }
-            while rom::byte(hl) != 0xff {
-                hl += 1;
-            }
-            hl += 1;
-        }
-        // CopyTrainerName copies from ROM (bank 0x0e).
-        for (i, v) in out.iter_mut().enumerate() {
-            *v = rom::byte(hl + i);
-        }
-        out
+        let (id, class) = (self.mem.rb(W_OTHER_TRAINER_ID), self.mem.rb(W_OTHER_TRAINER_CLASS));
+        self.data.trainer_party(class, id).map(|party| party.name.to_string()).unwrap_or_default()
     }
 
     /// `UpdateEnemyHUD` (wild battles): the memory side of `DrawEnemyHUD`.

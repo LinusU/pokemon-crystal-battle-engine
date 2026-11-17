@@ -25,7 +25,8 @@ Goal and exactness contract: [goal.md](goal.md).
 | `setup.rs` | Experience and level-ups, `LoadEnemyMon`, trainer-battle switching (`EnemySwitch`, `FindMonInOTPartyToSwitchIntoBattle`), prize money, `GetTMHMName`. |
 | `ai.rs`, `ai_smart.rs`, `ai_switch.rs`, `ai_items.rs` | The trainer AI (`engine/battle/ai/`): `AIChooseMove` and the scoring layers, the `AI_Smart_*` handlers, `CheckAbleToSwitch` and friends, `AI_SwitchOrTryItem` and the item routines. |
 | `items.rs` | `BattleMenu_Pack` and every bag item the harness offers (`engine/items/item_effects.asm`: heals, status heals, revives, PP items, X items, berries, Poké Doll, Poké Balls with the catch formula, wobble rolls and the party bookkeeping after a catch), `TossItem`. |
-| `names.rs`, `text.rs` | Names into `wStringBuffer1`; the text command interpreter (renders a text label to the exact messages, `text_asm` handlers choose the next text). |
+| `names.rs`, `message.rs` | Names: what each of the original's name buffers names (`Name`: a species, move, item, … or a nickname, kept as a string), never text; the name bytes stay zero (`mem::NAMES`). Messages: each text label the battle prints, as a typed `battle::Message` read from the state the text reads. |
+| `text.rs` | The original's text engine, ported (renders a text label to its exact characters). Only the harness uses it, to render messages for the differential testers (`oracle::render`); it leaves the library with the ROM. |
 | `harness.rs` | The emulated harness's replacements for the original's menus (action menu, move selection, link actions), ported as the HARNESS-PATCHes run them. |
 | `api.rs` | `FastBattle`: start, `step`, `status`, `state`, `events`, `Clone`. The library's `battle::Battle` wraps it. |
 
@@ -69,11 +70,14 @@ snapshot (about 8 KB).
   battle (verified: the corpus replays unchanged with Battle Scene off). Keep
   any memory writes those routines make *outside* graphics/sound RAM.
 - **Text**: `StdBattleTextbox` / `PrintText` with `hl = Label` →
-  `self.text(r::LABEL)`. A text whose `text_asm` picks the next text gets a
-  handler in `text.rs` (`text_asm`); if the battle code already computed the
-  choice, pass it with `self.text_with(label, &[choice])`. Printing is
-  otherwise read-only, except where the original's text engine writes memory
+  `self.text(r::LABEL)`, which emits the label's `battle::Message`
+  (`message.rs`). A text whose `text_asm` choice the battle code computed
+  passes it with `self.text_with(label, &[choice])`. Printing is otherwise
+  read-only, except where the original's text engine runs battle code
   (`<ENEMY>` runs `Battle_GetTrainerName`; see `Engine::text_with`).
+- **Names**: where the original copies a name into a buffer (`GetName`,
+  `GetNickname`, `CopyBytes` of a nickname), set the buffer's `Name`
+  (`names.rs`: `copy_name`, `set_name_at`) instead of writing bytes.
 - **Text engine model** (`text.rs`): the renderer follows the original's tile
   cursor exactly — `hl` while placing, `bc` between text commands, and the
   line start `PlaceString` keeps on the stack (`<NEXT>`, `<LF>`, `<CR>` move

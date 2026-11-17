@@ -7,8 +7,8 @@
 //! cargo build --release --example api_diff
 //! ./target/release/examples/api_diff [link|wild|trainer] <battles> <first_seed> [moves...]
 
-use crystal_battle_harness::battle::{Battle, EmulatedBattle, Status};
-use crystal_battle_harness::oracle::{mix, testgen};
+use crystal_battle_harness::battle::{Battle, EmulatedBattle, EmulatedDecision, EmulatedStatus, Status};
+use crystal_battle_harness::oracle::{mix, render, testgen};
 
 fn main() {
     let mut args = std::env::args().skip(1).peekable();
@@ -58,17 +58,33 @@ fn compare(config: &crystal_battle_harness::battle::BattleConfig, seed: u64, pol
     let mut fast = Battle::new(config.clone(), seed).map_err(|e| format!("engine setup: {e}"))?;
     let mut slow = EmulatedBattle::new(config.clone(), seed).map_err(|e| format!("oracle setup: {e}"))?;
     let mut policy = policy;
+    let ctx = render::Context::of(config);
     for n in 0..400 {
         match (fast.status(), slow.status()) {
-            (Status::Decision(a), Status::Decision(b)) => {
-                if a != b {
+            (Status::Decision(a), EmulatedStatus::Decision(b)) => {
+                // The engine's events, shown as the original shows them.
+                let a = EmulatedDecision {
+                    site: a.site,
+                    side: a.side,
+                    legal: a.legal.clone(),
+                    state: a.state.clone(),
+                    shown: render::shown(&a.events, ctx),
+                };
+                if &a != b {
                     return Err(format!("decision {n} differs: {}", field_diff(&format!("{a:?}"), &format!("{b:?}"))));
                 }
                 let action = a.legal[(mix(&mut policy) % a.legal.len() as u64) as usize];
                 fast.step(action).map_err(|e| format!("engine step {n}: {e}"))?;
                 slow.step(action).map_err(|e| format!("oracle step {n}: {e}"))?;
             }
-            (a, b) if a == b => return Ok(n),
+            (Status::Ended { outcome, state, events }, b @ EmulatedStatus::Ended { .. }) => {
+                let shown = render::shown(events, ctx);
+                let a = EmulatedStatus::Ended { outcome, state, shown: &shown };
+                if a == b {
+                    return Ok(n);
+                }
+                return Err(format!("end differs after {n}: {}", field_diff(&format!("{a:?}"), &format!("{b:?}"))));
+            }
             (a, b) => return Err(format!("end differs after {n}: {}", field_diff(&format!("{a:?}"), &format!("{b:?}")))),
         }
     }

@@ -107,7 +107,7 @@ pub(crate) fn battle_command_beat_up_got_mon(cpu: &mut Cpu) {
     // doesn't keep (live stack, sound, graphics) is read from zeros instead.
     // hl and a are dead after GetNickname. See docs/transpiled_code.md.
     let name = 0xde41u16.wrapping_add(u16::from(cpu.a) * 11);
-    if !crate::engine::mem::glitch_range_kept(name, 11) {
+    if !crate::engine::mem::glitch_name_range_kept(name, 11) {
         cpu.set_hl(crate::engine::mem::GLITCH_ZERO);
         cpu.a = 0;
     }

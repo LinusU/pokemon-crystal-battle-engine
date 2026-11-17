@@ -7,7 +7,7 @@
 
 use super::battle::{Engine, Flow, PARTY_LEN, PP_MASK, percent};
 use super::commands::Cmd;
-use super::names::CHAR_TERMINATOR;
+use super::names::Name;
 use super::mem::{GLITCH_ZERO, glitch_range_kept};
 use super::rom;
 use super::rsym as r;
@@ -32,11 +32,8 @@ impl Engine {
 
     /// `GetTypeName`: the name of type `wNamedObjectIndex` into `wStringBuffer1`.
     pub fn get_type_name(&mut self) {
-        let index = usize::from(self.mem.rb(W_NAMED_OBJECT_INDEX));
-        let src = usize::from(rom::ptr(r::TYPE_NAMES + 2 * index)) - 0x4000 + rom::bank_of(r::TYPE_NAMES) as usize * 0x4000;
-        for i in 0..u16::from(MOVE_NAME_LENGTH) {
-            self.mem.wb(W_STRING_BUFFER1 + i, rom::byte(src + usize::from(i)));
-        }
+        let kind = self.mem.rb(W_NAMED_OBJECT_INDEX);
+        self.names.string_buffer1 = Name::Type(kind);
     }
 
     /// `ProtectChance` (`protect.asm`): carry (`true`) = failed.
@@ -290,15 +287,10 @@ impl Engine {
         // .got_mon
         // BUG: Beat Up can desynchronize link battles
         let cur = self.mem.rb(W_CUR_BEAT_UP_PARTY_MON);
-        // A stale loop counter runs `cur` past the party (see
-        // `get_beatup_mon_location`); the harness reads zeros for names that
-        // would come from state neither engine keeps.
-        let name = W_PARTY_MON_NICKNAMES.wrapping_add(u16::from(cur) * u16::from(MON_NAME_LENGTH));
-        if glitch_range_kept(name, u16::from(MON_NAME_LENGTH)) {
-            self.get_nickname(W_PARTY_MON_NICKNAMES, cur);
-        } else {
-            self.get_nickname(GLITCH_ZERO, 0);
-        }
+        // A stale loop counter can run `cur` past the party (see
+        // `get_beatup_mon_location`): the name is then garbage, which the
+        // engine doesn't reproduce (an empty name).
+        self.get_nickname(W_PARTY_MON_NICKNAMES, cur);
         let hp = self.get_beatup_mon_location(MON_HP);
         if self.mem.rb(hp) | self.mem.rb(hp + 1) == 0 {
             return self.beat_up_fail();
@@ -361,7 +353,7 @@ impl Engine {
         if self.link_mode() != 0 || self.mem.rb(W_IN_BATTLE_TOWER_BATTLE) != 0 {
             // .link_or_tower
             let hl = W_OT_PARTY_MON_NICKNAMES + u16::from(NAME_LENGTH) * u16::from(cur);
-            self.mem.copy(W_STRING_BUFFER1, hl, u16::from(NAME_LENGTH));
+            self.copy_name(W_STRING_BUFFER1, hl);
         } else {
             let species = self.mem.rb(W_OT_PARTY_SPECIES + u16::from(cur));
             self.mem.wb(W_NAMED_OBJECT_INDEX, species);

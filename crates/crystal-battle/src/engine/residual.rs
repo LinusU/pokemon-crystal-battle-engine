@@ -29,11 +29,6 @@ const HELD_STATUS_HEALING_EFFECTS: [(u8, u8); 6] = [
     (HELD_HEAL_STATUS, ALL_STATUS),
 ];
 
-/// `"Your@"` in the game's charmap.
-const YOUR: [u8; 5] = [0x98, 0xae, 0xb4, 0xb1, 0x50];
-/// `"Enemy@"` in the game's charmap.
-const ENEMY: [u8; 6] = [0x84, 0xad, 0xa4, 0xac, 0xb8, 0x50];
-
 impl Engine {
     // --- small helpers -------------------------------------------------------
 
@@ -530,18 +525,14 @@ impl Engine {
     /// `HandleScreens.CheckPlayer`.
     fn handle_screens_player(&mut self) {
         self.set_player_turn();
-        for (i, &b) in YOUR.iter().enumerate() {
-            self.mem.wb(W_STRING_BUFFER1 + i as u16, b);
-        }
+        self.names.string_buffer1 = super::names::Name::Owner(crate::battle::Side::Player);
         self.tick_screens(W_PLAYER_SCREENS, W_PLAYER_LIGHT_SCREEN_COUNT);
     }
 
     /// `HandleScreens.CheckEnemy`.
     fn handle_screens_enemy(&mut self) {
         self.set_enemy_turn();
-        for (i, &b) in ENEMY.iter().enumerate() {
-            self.mem.wb(W_STRING_BUFFER1 + i as u16, b);
-        }
+        self.names.string_buffer1 = super::names::Name::Owner(crate::battle::Side::Enemy);
         self.tick_screens(W_ENEMY_SCREENS, W_ENEMY_LIGHT_SCREEN_COUNT);
     }
 

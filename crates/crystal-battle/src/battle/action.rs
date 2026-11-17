@@ -7,7 +7,7 @@
 /// as `Player`. A link battle additionally records `Enemy` steps for the second
 /// CLI player's move / switch picks, tagged `side = "enemy"`. See
 /// the harness's `bootstrap::cli::handle_enemy_action` and docs/toml_schema.md.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Side {
     Player,
     Enemy,

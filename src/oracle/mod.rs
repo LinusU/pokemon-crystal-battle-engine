@@ -3,6 +3,7 @@
 //! hand-written engine is compared against.
 
 pub mod diff;
+pub mod render;
 pub mod testgen;
 
 use std::sync::{Arc, Mutex};
@@ -124,7 +125,7 @@ fn snapshot(cpu: &Cpu, site: PromptSite, legal: Vec<Step>, action: Step) -> Snap
         texts: crate::bootstrap::events::take_events(cpu)
             .into_iter()
             .filter_map(|e| match e {
-                crate::bootstrap::events::Event::Text(t) => Some(t),
+                crate::bootstrap::events::Shown::Text(t) => Some(t),
                 _ => None,
             })
             .collect(),
@@ -307,7 +308,7 @@ impl TextBench {
         let texts = crate::bootstrap::events::take_events(cpu)
             .into_iter()
             .filter_map(|e| match e {
-                crate::bootstrap::events::Event::Text(t) => Some(t),
+                crate::bootstrap::events::Shown::Text(t) => Some(t),
                 _ => None,
             })
             .collect();

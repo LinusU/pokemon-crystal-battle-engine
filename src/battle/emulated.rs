@@ -6,19 +6,39 @@
 use std::sync::mpsc::{Receiver, SyncSender, sync_channel};
 use std::thread::JoinHandle;
 
-use super::{Action, BattleConfig, BattleState, Decision, Error, Event, Outcome, PromptSite, Side, Status, panic_message};
+use super::{Action, BattleConfig, BattleState, Error, Outcome, PromptSite, Side, panic_message};
+use crate::bootstrap::events::Shown;
+
+/// A decision on the original engine: the library's
+/// [`Decision`](super::Decision), with what the original showed (its
+/// captured text and HP bars) where the library has its events.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct EmulatedDecision {
+    pub site: PromptSite,
+    pub side: Side,
+    pub legal: Vec<Action>,
+    pub state: BattleState,
+    pub shown: Vec<Shown>,
+}
+
+/// Where an [`EmulatedBattle`] is.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum EmulatedStatus<'a> {
+    Decision(&'a EmulatedDecision),
+    Ended { outcome: Outcome, state: &'a BattleState, shown: &'a [Shown] },
+}
 use crate::bootstrap::decision::Decider;
 use crate::runtime::Cpu;
 
 enum EngineMsg {
-    Decision(Decision),
-    Ended { outcome: Outcome, state: BattleState, events: Vec<Event> },
+    Decision(EmulatedDecision),
+    Ended { outcome: Outcome, state: BattleState, shown: Vec<Shown> },
     Failed(Error),
 }
 
 enum Current {
-    Decision(Decision),
-    Ended { outcome: Outcome, state: BattleState, events: Vec<Event> },
+    Decision(EmulatedDecision),
+    Ended { outcome: Outcome, state: BattleState, shown: Vec<Shown> },
 }
 
 /// One battle in progress on the original engine.
@@ -44,12 +64,12 @@ struct ChannelDecider {
 impl Decider for ChannelDecider {
     fn decide(&mut self, cpu: &Cpu, site: PromptSite, legal: &[Action]) -> Action {
         let side = site.side();
-        let decision = Decision {
+        let decision = EmulatedDecision {
             site,
             side,
             legal: legal.to_vec(),
             state: BattleState::read(cpu),
-            events: crate::bootstrap::events::take_events(cpu),
+            shown: crate::bootstrap::events::take_events(cpu),
         };
         if self.to_api.send(EngineMsg::Decision(decision)).is_err() {
             std::panic::resume_unwind(Box::new(Abandoned));
@@ -66,8 +86,8 @@ impl Decider for ChannelDecider {
         self.ended.store(true, std::sync::atomic::Ordering::SeqCst);
         let outcome = crate::bootstrap::snapshot::read_outcome(cpu);
         let state = BattleState::read(cpu);
-        let events = crate::bootstrap::events::take_events(cpu);
-        let _ = self.to_api.send(EngineMsg::Ended { outcome, state, events });
+        let shown = crate::bootstrap::events::take_events(cpu);
+        let _ = self.to_api.send(EngineMsg::Ended { outcome, state, shown });
     }
 }
 
@@ -87,7 +107,7 @@ impl EmulatedBattle {
             .spawn(move || run_engine(config, seed, to_api, from_api))
             .map_err(|e| Error::Engine(format!("could not spawn the engine thread: {e}")))?;
         let mut battle = EmulatedBattle {
-            current: Current::Ended { outcome: Outcome::Draw, state: placeholder_state(), events: Vec::new() },
+            current: Current::Ended { outcome: Outcome::Draw, state: placeholder_state(), shown: Vec::new() },
             to_engine: Some(to_engine),
             from_engine,
             thread: Some(thread),
@@ -98,23 +118,23 @@ impl EmulatedBattle {
 
     /// What the battle showed during the last [`EmulatedBattle::step`] (or, before the
     /// first step, since the battle started).
-    pub fn events(&self) -> &[Event] {
+    pub fn shown(&self) -> &[Shown] {
         match &self.current {
-            Current::Decision(d) => &d.events,
-            Current::Ended { events, .. } => events,
+            Current::Decision(d) => &d.shown,
+            Current::Ended { shown, .. } => shown,
         }
     }
 
     /// The pending decision, or the result.
-    pub fn status(&self) -> Status<'_> {
+    pub fn status(&self) -> EmulatedStatus<'_> {
         match &self.current {
-            Current::Decision(d) => Status::Decision(d),
-            Current::Ended { outcome, state, events } => Status::Ended { outcome: *outcome, state, events },
+            Current::Decision(d) => EmulatedStatus::Decision(d),
+            Current::Ended { outcome, state, shown } => EmulatedStatus::Ended { outcome: *outcome, state, shown },
         }
     }
 
     /// The pending decision, if the battle is still running.
-    pub fn decision(&self) -> Option<&Decision> {
+    pub fn decision(&self) -> Option<&EmulatedDecision> {
         match &self.current {
             Current::Decision(d) => Some(d),
             Current::Ended { .. } => None,
@@ -139,7 +159,7 @@ impl EmulatedBattle {
 
     /// Answer the pending decision and run the engine to the next one (or to
     /// the end of the battle).
-    pub fn step(&mut self, action: Action) -> Result<Status<'_>, Error> {
+    pub fn step(&mut self, action: Action) -> Result<EmulatedStatus<'_>, Error> {
         let Current::Decision(decision) = &self.current else {
             return Err(Error::Ended);
         };
@@ -157,9 +177,9 @@ impl EmulatedBattle {
     fn receive(&mut self) -> Result<Current, Error> {
         match self.from_engine.recv() {
             Ok(EngineMsg::Decision(d)) => Ok(Current::Decision(d)),
-            Ok(EngineMsg::Ended { outcome, state, events }) => {
+            Ok(EngineMsg::Ended { outcome, state, shown }) => {
                 self.to_engine = None;
-                Ok(Current::Ended { outcome, state, events })
+                Ok(Current::Ended { outcome, state, shown })
             }
             Ok(EngineMsg::Failed(e)) => Err(e),
             Err(_) => Err(self.engine_failure()),
@@ -209,8 +229,8 @@ fn run_engine(config: BattleConfig, seed: u64, to_api: SyncSender<EngineMsg>, fr
         if !ended.load(std::sync::atomic::Ordering::SeqCst) {
             let outcome = crate::bootstrap::snapshot::read_outcome(&cpu);
             let state = BattleState::read(&cpu);
-            let events = crate::bootstrap::events::take_events(&cpu);
-            let _ = to_api.send(EngineMsg::Ended { outcome, state, events });
+            let shown = crate::bootstrap::events::take_events(&cpu);
+            let _ = to_api.send(EngineMsg::Ended { outcome, state, shown });
         }
     }));
     if let Err(payload) = result {

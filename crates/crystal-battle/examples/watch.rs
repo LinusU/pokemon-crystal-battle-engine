@@ -1,16 +1,16 @@
 //! Watch one battle in the terminal: a random agent plays a random trainer
-//! battle and every event (the original battle text, HP-bar changes) is
-//! printed as it happens.
+//! battle and every event (its messages, HP-bar changes) is printed as it
+//! happens. The library doesn't render text: messages print as data.
 //!
 //! cargo run --release -p crystal-battle --example watch -- [seed]
 
-use crystal_battle::battle::{Battle, Event, Status, one_line};
+use crystal_battle::battle::{Battle, Event, Status};
 use crystal_battle::data::random::random_battle_config;
 
 fn show(events: &[Event]) {
     for event in events {
         match event {
-            Event::Text(text) => println!("{}", one_line(text)),
+            Event::Message(message) => println!("{message:?}"),
             Event::HpBar { target, from, to, max } => println!("    [{target:?} HP {from} → {to} / {max}]"),
         }
     }

@@ -31,12 +31,14 @@
 pub mod action;
 pub mod event;
 pub mod legal;
+pub mod message;
 pub mod outcome;
 pub mod state;
 
 pub use crate::config::BattleConfig;
 pub use action::{PromptSite, Side, Step as Action};
 pub use event::{Event, HpBarTarget, one_line};
+pub use message::Message;
 pub use outcome::Outcome;
 pub use state::BattleState;
 

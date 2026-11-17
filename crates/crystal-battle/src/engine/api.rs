@@ -6,7 +6,7 @@
 //! port stays a straight copy of the original's sequential code, and cloning
 //! is copying the snapshot.
 
-use super::battle::{Engine, Suspend, TextRef};
+use super::battle::{Engine, Suspend};
 use super::core::{TurnEnd, TurnEntry};
 use crate::battle::BattleState;
 use crate::config::BattleConfig;
@@ -34,10 +34,6 @@ pub struct FastBattle {
     /// The engine at the pending decision (or at the end).
     current: Engine,
     status: Status,
-    /// Text printed during the last step.
-    texts: Vec<TextRef>,
-    /// How many of the current turn's texts were already reported.
-    turn_texts_seen: usize,
     /// Events (text messages, HP bars) shown during the last step, when on.
     events: Vec<Event>,
     /// How many of the current turn's events were already reported.
@@ -53,20 +49,10 @@ impl FastBattle {
     }
 
     /// [`FastBattle::new`], and with `events` also produce the battle's
-    /// [`Event`]s (exact text messages and HP-bar changes, see
-    /// [`FastBattle::events`]). Rendering text costs time; leave it off when
-    /// only the state matters.
+    /// [`Event`]s (its messages and HP-bar changes, see
+    /// [`FastBattle::events`]).
     pub fn with_events(config: &BattleConfig, seed: u64, events: bool) -> Result<FastBattle, String> {
-        let mut engine = match super::start::start(config, seed, false) {
-            Ok(engine) => engine,
-            Err(error) => return Err(error.to_string()),
-        };
-        if events {
-            // The battle start's text, rendered again with events on.
-            let mut again = super::start::start(config, seed, true).map_err(|e| e.to_string())?;
-            again.events = Some(again.rendered.take().unwrap_or_default().into_iter().map(Event::Text).collect());
-            engine = again;
-        }
+        let engine = super::start::start(config, seed, events).map_err(|error| error.to_string())?;
         Ok(Self::from_engine(engine, TurnEntry::TurnStart))
     }
 
@@ -78,8 +64,6 @@ impl FastBattle {
             entry,
             turn_decisions: Vec::new(),
             status: Status::Ended(Outcome::Draw),
-            texts: Vec::new(),
-            turn_texts_seen: 0,
             events: Vec::new(),
             turn_events_seen: 0,
         };
@@ -106,11 +90,6 @@ impl FastBattle {
         &self.current
     }
 
-    /// Text printed during the last step, as ROM text addresses.
-    pub fn texts(&self) -> &[TextRef] {
-        &self.texts
-    }
-
     /// What the battle showed during the last step (or, before the first
     /// step, since the battle started). Empty unless started
     /// [`FastBattle::with_events`].
@@ -133,7 +112,6 @@ impl FastBattle {
     /// Run from the turn's start with the decisions so far until the next
     /// decision or the end, rolling the snapshot forward at turn boundaries.
     fn advance(&mut self) {
-        self.texts.clear();
         loop {
             let mut engine = self.base.clone();
             engine.pending = self.turn_decisions.iter().copied().collect();
@@ -141,24 +119,18 @@ impl FastBattle {
             match result {
                 Err(Suspend { site, legal }) => {
                     // A replay re-prints the turn so far; only the rest is new.
-                    self.texts.extend_from_slice(&engine.texts[self.turn_texts_seen..]);
-                    self.turn_texts_seen = engine.texts.len();
                     self.take_events(&engine);
                     self.current = engine;
                     self.status = Status::Decision { site, legal };
                     return;
                 }
                 Ok(TurnEnd::Quit) => {
-                    self.texts.extend_from_slice(&engine.texts[self.turn_texts_seen..]);
                     self.take_events(&engine);
                     self.status = Status::Ended(outcome(&engine));
                     self.current = engine;
                     return;
                 }
                 Ok(TurnEnd::Continue) => {
-                    self.texts.extend_from_slice(&engine.texts[self.turn_texts_seen..]);
-                    self.turn_texts_seen = 0;
-                    engine.texts.clear();
                     self.take_events(&engine);
                     self.turn_events_seen = 0;
                     if let Some(events) = engine.events.as_mut() {

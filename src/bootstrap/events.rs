@@ -13,14 +13,24 @@
 
 use crate::runtime::Cpu;
 
-pub use crate::battle::event::{Event, HpBarTarget, decode, in_text_area, one_line};
+pub use crate::battle::event::{HpBarTarget, decode, in_text_area, one_line};
+
+/// What the original battle showed, as the harness captures it.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum Shown {
+    /// One battle-text message, exactly as printed; text-box lines separated
+    /// by `\n` (see [`one_line`] for display).
+    Text(String),
+    /// An HP bar moved from `from` to `to` (of `max`).
+    HpBar { target: HpBarTarget, from: u16, to: u16, max: u16 },
+}
 
 /// Capture state. Install with `cpu.events = Some(RefCell::new(EventCapture::default()))`.
 #[derive(Debug, Default)]
 pub struct EventCapture {
     line: String,
     lines: Vec<String>,
-    events: Vec<Event>,
+    events: Vec<Shown>,
     /// Also print each event to stdout as it happens (the CLI's live text
     /// view). Events are still queued for [`take_events`].
     pub echo: bool,
@@ -83,11 +93,11 @@ pub fn hp_bar(cpu: &mut Cpu) {
         1 => HpBarTarget::Player,
         _ => HpBarTarget::Party(cpu.read_byte(0xd109)),
     };
-    let event = Event::HpBar { target, from: le16(0xd1ec), to: le16(0xd1ee), max: le16(0xd1ea) };
+    let event = Shown::HpBar { target, from: le16(0xd1ec), to: le16(0xd1ee), max: le16(0xd1ea) };
     let mut cap = cell.borrow_mut();
     cap.end_message();
     if cap.echo {
-        if let Event::HpBar { target, from, to, max } = &event {
+        if let Shown::HpBar { target, from, to, max } = &event {
             println!("  [{target:?} HP {from} → {to} / {max}]");
         }
     }
@@ -95,7 +105,7 @@ pub fn hp_bar(cpu: &mut Cpu) {
 }
 
 /// Every event since the last call (an open message is closed first).
-pub fn take_events(cpu: &Cpu) -> Vec<Event> {
+pub fn take_events(cpu: &Cpu) -> Vec<Shown> {
     match &cpu.events {
         Some(cell) => {
             let mut cap = cell.borrow_mut();
@@ -127,7 +137,7 @@ impl EventCapture {
             if self.echo {
                 println!("» {}", one_line(&message));
             }
-            self.events.push(Event::Text(message));
+            self.events.push(Shown::Text(message));
         }
     }
 }
@@ -144,6 +154,6 @@ mod tests {
         cap.line.push_str("appeared!   ");
         cap.end_message();
         cap.end_message();
-        assert_eq!(cap.events, vec![Event::Text("Wild PIDGEY\nappeared!".into())]);
+        assert_eq!(cap.events, vec![Shown::Text("Wild PIDGEY\nappeared!".into())]);
     }
 }

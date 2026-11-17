@@ -327,9 +327,10 @@ impl Engine {
         let mut line = out.pos;
         loop {
             if let Some(a) = p.ram() {
-                // Only garbage reads on into memory the engine doesn't keep.
+                // Only garbage reads on into memory the engine doesn't keep
+                // (names are text: the renderer fills them in).
                 assert!(
-                    super::mem::glitch_read_kept(a),
+                    super::mem::glitch_read_kept(a) || super::mem::is_name(a),
                     "text read from {a:#06x}: state the engine doesn't keep"
                 );
             }
@@ -427,8 +428,10 @@ impl Engine {
                             self.place_nested(Ptr::Rom(r::STRING_SPACE), out);
                             // Battle_GetTrainerName, as the name is placed (it
                             // can overwrite the very string being printed).
-                            for (i, v) in self.trainer_name_bytes().into_iter().enumerate() {
-                                out.writes.push((W_STRING_BUFFER1 + i as u16, v));
+                            // (The renderer keeps the trainer's name in
+                            // `wOTPlayerName`.)
+                            for i in 0..11 {
+                                out.writes.push((W_STRING_BUFFER1 + i, self.mem.rb(W_OT_PLAYER_NAME + i)));
                             }
                             self.place_nested(Ptr::Ram(W_STRING_BUFFER1), out);
                         }

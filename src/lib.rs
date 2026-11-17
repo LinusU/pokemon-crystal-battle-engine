@@ -20,7 +20,7 @@ pub mod battle {
     pub use crystal_battle::battle::*;
 
     pub mod emulated;
-    pub use emulated::EmulatedBattle;
+    pub use emulated::{EmulatedBattle, EmulatedDecision, EmulatedStatus};
 }
 
 pub mod bootstrap;

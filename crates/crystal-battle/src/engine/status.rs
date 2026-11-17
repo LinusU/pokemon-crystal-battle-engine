@@ -6,7 +6,6 @@
 
 use super::battle::{Engine, Flow, PARTY_LEN, PP_MASK, percent};
 use super::commands::Cmd;
-use super::names::CHAR_TERMINATOR;
 use super::rom;
 use super::rsym as r;
 use super::sym::*;
@@ -685,28 +684,9 @@ impl Engine {
         Ok(Cmd::Next)
     }
 
-    /// `GetStatName`: copy the `b`th name of `StatNames` to `wStringBuffer2`.
-    pub fn get_stat_name(&mut self, mut b: u8) {
-        let mut hl = r::STAT_NAMES;
-        loop {
-            b = b.wrapping_sub(1);
-            if b == 0 {
-                break;
-            }
-            // .GetName
-            loop {
-                let a = rom::byte(hl);
-                hl += 1;
-                if a == CHAR_TERMINATOR {
-                    break;
-                }
-            }
-        }
-        // .Copy
-        for i in 0..u16::from(STRING_BUFFER_LENGTH) {
-            let v = rom::byte(hl + usize::from(i));
-            self.mem.wb(W_STRING_BUFFER2 + i, v);
-        }
+    /// `GetStatName`: the `b`th name of `StatNames` into `wStringBuffer2`.
+    pub fn get_stat_name(&mut self, b: u8) {
+        self.names.string_buffer2 = super::names::Name::Stat(b);
     }
 
     // --- AllStatsUp, LowerStat, TriStatusChance, Curl ----------------------------------------

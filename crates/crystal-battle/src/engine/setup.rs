@@ -23,9 +23,6 @@ use crate::battle::action::{PromptSite, Step};
 use crate::defs::*;
 
 const NAME_LENGTH: u16 = 11;
-const MON_NAME_LENGTH_U16: u16 = 11;
-/// `CorrectNickErrors.textcommands`.
-const NICK_TEXT_COMMANDS: usize = rom::flat(0x01, 0x66cf);
 /// `MapGroupPointers`.
 const MAP_GROUP_POINTERS: u16 = 0x4000;
 const MAP_GROUP_POINTERS_BANK: u8 = 0x25;
@@ -39,43 +36,11 @@ impl Engine {
         W_PARTY_MONS.wrapping_add(u16::from(a)).wrapping_add(u16::from(cur).wrapping_mul(PARTY_LEN))
     }
 
-    /// `GetNickname`: nickname `a` of the list at `hl` into `wStringBuffer1`
-    /// (through `CorrectNickErrors`).
+    /// `GetNickname`: nickname `a` of the list at `hl` into `wStringBuffer1`.
+    /// (`CorrectNickErrors` only fixes the name's characters.)
     pub fn get_nickname(&mut self, hl: u16, a: u8) {
         let src = hl.wrapping_add(u16::from(a).wrapping_mul(NAME_LENGTH));
-        self.mem.copy(W_STRING_BUFFER1, src, MON_NAME_LENGTH_U16);
-        self.correct_nick_errors(W_STRING_BUFFER1);
-    }
-
-    /// `CorrectNickErrors`.
-    fn correct_nick_errors(&mut self, de0: u16) {
-        let mut de = de0;
-        let mut b = MON_NAME_LENGTH_U16 as u8;
-        loop {
-            // .checkchar
-            if self.mem.rb(de) == 0x50 {
-                return;
-            }
-            let mut hl = NICK_TEXT_COMMANDS;
-            loop {
-                if rom::byte(hl) == 0xff {
-                    break;
-                }
-                let c = self.mem.rb(de);
-                if c >= rom::byte(hl) && c < rom::byte(hl + 1) {
-                    self.mem.wb(de, 0xe6);
-                }
-                hl += 2;
-            }
-            // .done
-            de += 1;
-            b -= 1;
-            if b == 0 {
-                break;
-            }
-        }
-        self.mem.wb(de0, 0xe6); // '?'
-        self.mem.wb(de0 + 1, 0x50);
+        self.copy_name(W_STRING_BUFFER1, src);
     }
 
     /// `GetSquareRoot`: the index of the first square not below `de`, in `b`.
@@ -94,48 +59,6 @@ impl Engine {
         }
     }
 
-    // --- GetBaseData / names ---------------------------------------------------------
-
-    /// `GetTMHMName`: "TM##" / "HM##" for item `wNamedObjectIndex` into `wStringBuffer1`.
-    pub fn get_tmhm_name(&mut self) {
-        let item = self.mem.rb(W_NAMED_OBJECT_INDEX);
-        let is_hm = item >= HM01;
-        // "TM" / "HM" in the game's charmap.
-        let prefix: [u8; 2] = if is_hm { [0x87, 0x8c] } else { [0x93, 0x8c] };
-        let mut de = W_STRING_BUFFER1;
-        for c in prefix {
-            self.mem.wb(de, c);
-            de += 1;
-        }
-        // GetTMHMNumber: skip the dummy items, then number from 1.
-        let mut a = item;
-        if a >= ITEM_C3 {
-            if a >= ITEM_DC {
-                a = a.wrapping_sub(1);
-            }
-            a = a.wrapping_sub(1);
-        }
-        let mut a = a.wrapping_sub(TM01).wrapping_add(1);
-        // HM numbers start from 51, not 1
-        if is_hm {
-            a = a.wrapping_sub(NUM_TMS);
-        }
-        // Divide and mod by 10 to get the top and bottom digits respectively
-        let mut b = 0xf6u8; // '0'
-        loop {
-            let (r, borrow) = a.overflowing_sub(10);
-            if borrow {
-                break;
-            }
-            a = r;
-            b += 1;
-        }
-        self.mem.wb(de, b);
-        de += 1;
-        self.mem.wb(de, a.wrapping_add(0xf6));
-        de += 1;
-        self.mem.wb(de, 0x50);
-    }
 }
 
 // --- stats and experience tables -----------------------------------------------------
@@ -712,7 +635,7 @@ impl Engine {
             self.mem.wb(W_CUR_PARTY_LEVEL, level);
             self.mem.wb(W_BATTLE_MON_LEVEL, level);
             // PrintPlayerHUD, the level-up jingle: graphics and sound
-            self.mem.copy(W_STRING_BUFFER1, W_BATTLE_MON_NICKNAME, MON_NAME_LENGTH_U16);
+            self.copy_name(W_STRING_BUFFER1, W_BATTLE_MON_NICKNAME);
             self.text(r::BATTLE_TEXT_STRING_BUFFER1_GREW_TO_LEVEL);
             e += 1;
         }
@@ -758,7 +681,7 @@ impl Engine {
     fn learn_move(&mut self) -> u8 {
         let cur = self.mem.rb(W_CUR_PARTY_MON);
         self.get_nickname(W_PARTY_MON_NICKNAMES, cur);
-        self.mem.copy(W_MON_OR_ITEM_NAME_BUFFER, W_STRING_BUFFER1, MON_NAME_LENGTH_U16);
+        self.copy_name(W_MON_OR_ITEM_NAME_BUFFER, W_STRING_BUFFER1);
         let de = W_PARTY_MON1_MOVES + u16::from(cur) * PARTY_LEN;
         let mut hl = de;
         // Get the first empty move slot.
@@ -1190,7 +1113,7 @@ impl Engine {
             return;
         }
         // Update enemy nickname
-        self.mem.copy(W_ENEMY_MON_NICKNAME, W_STRING_BUFFER1, MON_NAME_LENGTH_U16);
+        self.copy_name(W_ENEMY_MON_NICKNAME, W_STRING_BUFFER1);
         // Saw this mon
         let species = self.mem.rb(W_TEMP_ENEMY_MON_SPECIES);
         self.small_far_flag_action(W_POKEDEX_SEEN, species.wrapping_sub(1), FlagAction::Set);

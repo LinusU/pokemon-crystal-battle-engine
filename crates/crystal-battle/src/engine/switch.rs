@@ -218,7 +218,7 @@ impl Engine {
         self.mem.wb(W_BATTLE_MON_TYPE1, t1);
         self.mem.wb(W_BATTLE_MON_TYPE2, t2);
         let names = W_PARTY_MON_NICKNAMES + u16::from(self.mem.rb(W_CUR_BATTLE_MON)) * MON_NAME_LENGTH;
-        self.mem.copy(W_BATTLE_MON_NICKNAME, names, MON_NAME_LENGTH);
+        self.copy_name(W_BATTLE_MON_NICKNAME, names);
         self.mem.copy(W_PLAYER_STATS, W_BATTLE_MON_ATTACK, PARTY_LEN - u16::from(MON_ATK));
         self.apply_status_effect_on_player_stats();
         self.badge_stat_boosts();
@@ -235,7 +235,7 @@ impl Engine {
         self.mem.wb(W_CUR_SPECIES, species);
         self.get_base_data();
         let names = W_OT_PARTY_MON_NICKNAMES + u16::from(cur) * MON_NAME_LENGTH;
-        self.mem.copy(W_ENEMY_MON_NICKNAME, names, MON_NAME_LENGTH);
+        self.copy_name(W_ENEMY_MON_NICKNAME, names);
         self.mem.copy(W_ENEMY_STATS, W_ENEMY_MON_ATTACK, PARTY_LEN - u16::from(MON_ATK));
         self.apply_status_effect_on_enemy_stats();
         let t1 = self.mem.rb(W_BASE_TYPE1);

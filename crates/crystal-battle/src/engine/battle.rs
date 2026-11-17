@@ -22,10 +22,6 @@ pub struct Suspend {
     pub legal: Vec<Step>,
 }
 
-/// One message the battle would print: the ROM address of its text.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub struct TextRef(pub usize);
-
 /// Harness-level flags the emulated harness keeps on its `Cpu`.
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
 pub struct Flags {
@@ -56,8 +52,6 @@ pub struct Engine {
     pub flags: Flags,
     /// Decisions to hand out before suspending (filled when replaying a turn).
     pub pending: VecDeque<Step>,
-    /// Every message printed since the log was last taken.
-    pub texts: Vec<TextRef>,
     /// Optional record of every random draw (differential testing): the
     /// routine that asked, and the byte.
     pub rng_trace: Option<Vec<(&'static str, u8)>>,
@@ -69,11 +63,10 @@ pub struct Engine {
     /// `BattleCommand_DamageCalc` (attack, defense, move power, level). The
     /// original's script reader preserves them between commands.
     pub damage_regs: [u8; 4],
-    /// When `Some`, every printed text is rendered to its messages here
-    /// (exact strings, see `text.rs`).
-    pub rendered: Option<Vec<String>>,
-    /// Rendered messages per decision, when both logs are on.
-    pub text_log: Vec<Vec<String>>,
+    /// When `Some`, every message printed is kept here.
+    pub messages: Option<Vec<crate::battle::Message>>,
+    /// The messages per decision, when both logs are on.
+    pub message_log: Vec<Vec<crate::battle::Message>>,
     /// A trainer class whose attributes the scenario overrides (the
     /// `[enemy_trainer]` AI flags; the emulated harness patches the ROM).
     /// Read through [`Engine::trainer_class`].
@@ -83,11 +76,13 @@ pub struct Engine {
     pub events: Option<Vec<crate::battle::event::Event>>,
     /// The game's data (species, moves, items, …).
     pub data: &'static crate::data::GameData,
+    /// The battle's names, and what the original's name buffers hold.
+    pub names: super::names::Names,
 }
 
 impl Engine {
     pub fn new(mem: Mem, rng: u64, flags: Flags) -> Self {
-        Engine { mem, rng, flags, pending: VecDeque::new(), texts: Vec::new(), rng_trace: None, decision_log: None, damage_regs: [0; 4], rendered: None, text_log: Vec::new(), trainer_class_patch: None, events: None, data: crate::data::GameData::crystal() }
+        Engine { mem, rng, flags, pending: VecDeque::new(), rng_trace: None, decision_log: None, damage_regs: [0; 4], messages: None, message_log: Vec::new(), trainer_class_patch: None, events: None, data: crate::data::GameData::crystal(), names: Default::default() }
     }
 
     /// Trainer class `id`'s attributes, as the scenario patches them.
@@ -242,31 +237,40 @@ impl Engine {
     /// `text`, for a text whose `text_asm` choices the battle code computed
     /// (in order).
     pub fn text_with(&mut self, label: usize, choices: &[usize]) {
-        // PlaceEnemysName in a (non-rival) trainer battle runs
-        // Battle_GetTrainerName as the text prints.
-        // (Beat Up's text, which can print garbage, does that as it renders.)
-        let side_effects = label == super::rsym::BEAT_UP_ATTACK_TEXT;
-        if !side_effects
+        if self.messages.is_none() && self.events.is_none() && !self.text_runs_code(label) {
+            return;
+        }
+        let message = self.message(label, choices);
+        // Printing `<ENEMY>` in a (non-rival) trainer battle runs
+        // Battle_GetTrainerName.
+        if self.text_runs_code(label) {
+            self.battle_get_trainer_name();
+        }
+        if let Some(events) = self.events.as_mut() {
+            events.push(crate::battle::event::Event::Message(message.clone()));
+        }
+        if let Some(messages) = self.messages.as_mut() {
+            messages.push(message);
+        }
+    }
+
+    /// Whether printing the text at `label` runs battle code: `<ENEMY>` in a
+    /// (non-rival) trainer battle calls `Battle_GetTrainerName`.
+    fn text_runs_code(&self, label: usize) -> bool {
+        use super::rsym as r;
+        const ENEMY_TEXTS: [usize; 7] = [
+            r::WANTS_TO_BATTLE_TEXT,
+            r::BATTLE_TEXT_ENEMY_SENT_OUT,
+            r::ENEMY_WITHDREW_TEXT,
+            r::BATTLE_TEXT_ENEMY_WAS_DEFEATED,
+            r::LOST_AGAINST_TEXT,
+            r::TIED_AGAINST_TEXT,
+            r::ENEMY_USED_ON_TEXT,
+        ];
+        ENEMY_TEXTS.contains(&label)
             && self.mem.rb(W_BATTLE_MODE) == crate::defs::TRAINER_BATTLE
             && self.link_mode() == 0
             && !matches!(self.mem.rb(W_TRAINER_CLASS), crate::defs::RIVAL1 | crate::defs::RIVAL2)
-            && self.text_places_trainer_name(label, choices)
-        {
-            self.battle_get_trainer_name();
-        }
-        self.texts.push(TextRef(label));
-        // Printing only writes memory through glitches: Beat Up's names past
-        // the party can hold a <MOBILE> script (see text.rs), so that text is
-        // always run.
-        if self.rendered.is_some() || self.events.is_some() || side_effects {
-            let messages = self.render_text(label, choices);
-            if let Some(events) = self.events.as_mut() {
-                events.extend(messages.iter().cloned().map(crate::battle::event::Event::Text));
-            }
-            if let Some(rendered) = self.rendered.as_mut() {
-                rendered.extend(messages);
-            }
-        }
     }
 
     // --- decisions --------------------------------------------------------------
@@ -276,8 +280,8 @@ impl Engine {
         let legal = crate::battle::legal::legal_steps(&self.mem, site);
         if let Some(log) = self.decision_log.as_mut() {
             log.push((site, legal.clone(), self.mem.clone(), self.rng));
-            if let Some(r) = self.rendered.as_mut() {
-                self.text_log.push(std::mem::take(r));
+            if let Some(m) = self.messages.as_mut() {
+                self.message_log.push(std::mem::take(m));
             }
         }
         match self.pending.pop_front() {
