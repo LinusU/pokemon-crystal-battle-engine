@@ -7,8 +7,8 @@ and the AI decide, and gets the battle's result back to write into its save.
 The battle still plays exactly like the original's (see [goal.md](goal.md)):
 the same random draws, the same messages in the same order, the same result.
 
-**Status:** in progress on branch `library-io`. Each step below lands with the
-differential testers green.
+**Status:** done on branch `library-io` (steps 1–6 below), each step landed
+with the differential testers green.
 
 ## Principles
 
@@ -99,8 +99,11 @@ decision, the battle memory at each, the outcome and the result).
    animation and sound routines: `Event::Animation`, `Sound`, `Cry`,
    `Faint`, `SlideOut`, `TrainerSlidesIn`, `ExpBar`, `StatsBox`,
    `Frontpic`, `BallWobbles`.
-6. **ROM-free default build**; `rom.rs` and the ROM-path code leave the
-   library.
+6. ✅ **ROM-free build**: the library has no ROM; the text renderer, the
+   ROM image and the ROM-patch helpers live in the harness. The map
+   location a battle reads (`World::location`) is an input; a read of the
+   game's code (Beat Up past the party, wrapping to ROM bank 0) is an
+   unsupported glitch.
 
 Later: the engine's state is still the original's WRAM byte for byte
 (`engine::mem::Mem`). Replacing it with typed state, routine by routine, is

@@ -12,7 +12,8 @@
 // code's hooks use (`crate::defs::…`, `crate::engine::mem::…`).
 #[cfg(feature = "ai")]
 pub use crystal_battle::ai;
-pub use crystal_battle::{config, data, defs, engine, rom};
+pub use crystal_battle::{config, data, defs, engine};
+pub mod rom;
 
 /// The library API ([`crystal_battle::battle`]), plus [`EmulatedBattle`]: the
 /// same API on the original code.

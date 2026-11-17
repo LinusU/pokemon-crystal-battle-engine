@@ -4,6 +4,7 @@
 
 pub mod diff;
 pub mod render;
+pub mod text;
 pub mod testgen;
 
 use std::sync::{Arc, Mutex};

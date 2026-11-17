@@ -18,4 +18,3 @@ pub mod data;
 #[allow(unused_parens)]
 pub mod defs;
 pub mod engine;
-pub mod rom;

@@ -46,7 +46,7 @@ We avoid editing the transpiled code where we can — when we have to (e.g. boot
 | [`src/battle/emulated.rs`](../src/battle/emulated.rs) | `EmulatedBattle`: the library API on the original code. |
 | [`src/oracle/`](../src/oracle/) | Running the original for comparison, the differential checks, random test scenarios. |
 | [`src/main.rs`](../src/main.rs) | CLI parsing + headless battle runner; the glium/winit window + cpu thread live in a `gui`-gated module. |
-| `pokecrystal.gbc` | The ROM (gitignored). Both crates read game data from it (`include_bytes!`). |
+| `pokecrystal.gbc` | The ROM (gitignored). Only the harness needs it: the emulated original runs it, and `tools/gen_game_data.py` generates the library's game data (`crates/crystal-battle/src/data/crystal.rs`) from it. The library builds without it. |
 | `scratch/pokecrystal/` | Vendored copy of pret/pokecrystal (gitignored). Source of truth for symbols, constants, struct layouts. |
 | `scratch/*.toml` | Battle scenarios for development. |
 

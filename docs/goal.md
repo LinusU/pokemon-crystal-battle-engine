@@ -197,8 +197,11 @@ compile the `objc2` 0.4 that glium 0.34 pulled in.
   misses leaves its loop flag set; the next one underflows the loop counter
   and walks the party index through all 256 values: past the party, through
   echo RAM, OAM and I/O, wrapping around to ROM (about 1 in 2,500 random
-  battles). Where a read lands on WRAM both engines keep, or on ROM, it is
-  exact. Where it lands on state neither keeps the way real Crystal does (the
+  battles). Where a read lands on WRAM both engines keep, it is exact. Where
+  it wraps around to ROM bank 0, the game's code, the library stops with an
+  unsupported-glitch error (it has no ROM). The names it prints past the
+  party are garbage text, which the library doesn't reproduce (an empty
+  name). Where it lands on state neither keeps the way real Crystal does (the
   live stack, sound, graphics and menu scratch, OAM, I/O: see
   `engine::mem::NOT_KEPT` / `DRIFTS`), the transpiled original holds an
   artifact of itself (what the transpiled code pushed, the emulator's

@@ -1,7 +1,7 @@
 //! Crystal's English for the library's [`Message`]s, as the original prints
 //! them: each message is mapped back to the text label it stands for, the
 //! memory that text reads is rebuilt from the message, and the text engine's
-//! port (`engine::text`) renders it. The differential testers compare this
+//! port (`oracle::text`) renders it. The differential testers compare this
 //! with the original's captured text, which checks both the messages (which,
 //! when, and that they carry what the text needs) and this mapping.
 
@@ -146,7 +146,7 @@ impl Scene {
             self.write(W_RIVAL_NAME, &trainer.name);
         } else {
             self.write(W_OT_CLASS_NAME, data.names.trainer_classes[usize::from(trainer.class)]);
-            // `engine::text` places the trainer's name from here.
+            // `oracle::text` places the trainer's name from here.
             self.write(W_OT_PLAYER_NAME, &trainer.name);
         }
     }
@@ -662,7 +662,7 @@ pub fn render(message: &Message, ctx: Context) -> Vec<String> {
             r::NEW_DEX_DATA_TEXT
         }
     };
-    s.engine.render_text(label, &choices)
+    super::text::render_text(&mut s.engine, label, &choices)
 }
 
 fn user_text(s: &mut Scene, user: &Mon, label: usize) -> usize {

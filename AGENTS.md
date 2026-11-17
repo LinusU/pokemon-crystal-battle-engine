@@ -6,7 +6,7 @@ Keep those docs in sync. If you change the bootstrap, schema, memory layout, or 
 
 Other things worth knowing:
 
-- **Two crates.** `crates/crystal-battle/` is the library (engine, `Battle` API, config, data, AI) — no transpiled code, no emulator, `serde` only, builds on stable; keep it that way. The repository root is `crystal-battle-harness`: the transpiled original, the emulator, the CLI and the differential testers it is verified against. `cargo build` / `cargo test` at the root builds the harness; add `--workspace` (or `-p crystal-battle`) for the library.
+- **Two crates.** `crates/crystal-battle/` is the library (engine, `Battle` API, config, data, AI) — no transpiled code, no emulator, no ROM (its game data is generated: `tools/gen_game_data.py`), `serde` only, builds on stable; keep it that way. The repository root is `crystal-battle-harness`: the transpiled original, the emulator, the CLI and the differential testers it is verified against. `cargo build` / `cargo test` at the root builds the harness; add `--workspace` (or `-p crystal-battle`) for the library.
 
 - **Build debug, not release.** Release takes several minutes to compile and runs too fast. `cargo build` / `cargo run` / `cargo test`, never `--release`.
 - **Most of `src/game/` is transpiler output** from [pret/pokecrystal](https://github.com/pret/pokecrystal). Don't edit it for style or "cleanup." Small targeted patches (e.g. a runtime hook) are fine, but mark each one with a `HARNESS-PATCH:` comment and add a row to the table in [docs/transpiled_code.md](docs/transpiled_code.md) — that doc is the single source of truth for what's been modified and how the patches will eventually evolve into hand-written modules.

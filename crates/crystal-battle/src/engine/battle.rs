@@ -80,11 +80,14 @@ pub struct Engine {
     pub data: &'static crate::data::GameData,
     /// The battle's names, and what the original's name buffers hold.
     pub names: super::names::Names,
+    /// The Pokégear location of the map the battle is on (caught data, the
+    /// happiness of a level-up at the mon's home).
+    pub location: u8,
 }
 
 impl Engine {
     pub fn new(mem: Mem, rng: u64, flags: Flags) -> Self {
-        Engine { mem, rng, flags, pending: VecDeque::new(), rng_trace: None, decision_log: None, damage_regs: [0; 4], messages: None, message_log: Vec::new(), event_log: Vec::new(), trainer_class_patch: None, events: None, data: crate::data::GameData::crystal(), names: Default::default() }
+        Engine { mem, rng, flags, pending: VecDeque::new(), rng_trace: None, decision_log: None, damage_regs: [0; 4], messages: None, message_log: Vec::new(), event_log: Vec::new(), trainer_class_patch: None, events: None, data: crate::data::GameData::crystal(), names: Default::default(), location: HARNESS_MAP_LOCATION }
     }
 
     /// Trainer class `id`'s attributes, as the scenario patches them.
@@ -318,6 +321,11 @@ impl Engine {
         }
     }
 }
+
+/// `GetWorldMapLocation` of the emulated harness's map (group 0, number 0):
+/// it reads past `MapGroupPointers` into ROM bank 0, which holds 33 there.
+/// A scenario's battles happen there.
+pub const HARNESS_MAP_LOCATION: u8 = 33;
 
 /// `PP_MASK` and other small constants used across the port.
 pub const PP_MASK: u8 = defs::PP_MASK;

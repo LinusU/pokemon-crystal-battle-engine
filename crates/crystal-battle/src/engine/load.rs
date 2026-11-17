@@ -59,6 +59,7 @@ impl Engine {
         self.mem.wb(W_PLAYER_GENDER, player.gender);
         self.mem.wb(W_TIME_OF_DAY, world.time_of_day);
         self.mem.wb(W_UNLOCKED_UNOWNS, world.unlocked_unowns);
+        self.location = world.location;
         for (list, addr) in [(&world.seen, W_POKEDEX_SEEN), (&world.caught, W_POKEDEX_CAUGHT)] {
             for &species in list {
                 let i = u16::from(species.wrapping_sub(1));
@@ -258,6 +259,7 @@ impl Engine {
             seen: species(W_POKEDEX_SEEN),
             caught: species(W_POKEDEX_CAUGHT),
             unown_dex: (0..u16::from(NUM_UNOWN)).map(|i| self.mem.rb(W_UNOWN_DEX + i)).take_while(|&l| l != 0).collect(),
+            location: self.location,
         }
     }
 }

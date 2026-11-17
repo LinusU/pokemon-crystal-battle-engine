@@ -10,7 +10,6 @@ Goal and exactness contract: [goal.md](goal.md).
 | --- | --- |
 | `mem.rs` | `Mem`: the original's WRAM banks 0–1 and HRAM, byte for byte. All battle state lives here, in the original layout. |
 | `../data/game.rs`, `../data/crystal.rs` | `GameData`: species, moves, items, trainer classes, the type chart, move effect scripts, growth rates and the mechanics' small tables, typed. `crystal.rs` is generated from the ROM by `tools/gen_game_data.py`; tables indexed by an id cover all 256 values, past the real range holding what the original reads there. `Engine::data` points at it; `Engine::trainer_class` applies the scenario's `[enemy_trainer]` AI-flag override. |
-| `rom.rs` | What still reads `pokecrystal.gbc` directly while the port moves off it: text, names, trainer parties, map locations (see [library.md](library.md)). |
 | `sym.rs`, `rsym.rs` | Generated (`python3 tools/gen_engine_syms.py`, writes both): every WRAM/HRAM symbol (`W_BATTLE_MON_HP`, `H_BATTLE_TURN`, …) and every ROM label the battle code mentions, local text labels included (`r::MOVES`, `r::BATTLE_TEXT_…`, as flat ROM offsets). |
 | `battle.rs` | `Engine` (memory + random stream + flags + optional logs) and shared primitives: `random` / `battle_random`, `battle_var*` (`GetBattleVar`), turn switching, `text` / `text_with`, `decide`. |
 | `math.rs` | `Multiply` / `Divide` on the original's overlapping HRAM buffers. |
@@ -26,7 +25,6 @@ Goal and exactness contract: [goal.md](goal.md).
 | `ai.rs`, `ai_smart.rs`, `ai_switch.rs`, `ai_items.rs` | The trainer AI (`engine/battle/ai/`): `AIChooseMove` and the scoring layers, the `AI_Smart_*` handlers, `CheckAbleToSwitch` and friends, `AI_SwitchOrTryItem` and the item routines. |
 | `items.rs` | `BattleMenu_Pack` and every bag item the harness offers (`engine/items/item_effects.asm`: heals, status heals, revives, PP items, X items, berries, Poké Doll, Poké Balls with the catch formula, wobble rolls and the party bookkeeping after a catch), `TossItem`. |
 | `names.rs`, `message.rs` | Names: what each of the original's name buffers names (`Name`: a species, move, item, … or a nickname, kept as a string), never text; the name bytes stay zero (`mem::NAMES`). Messages: each text label the battle prints, as a typed `battle::Message` read from the state the text reads. |
-| `text.rs` | The original's text engine, ported (renders a text label to its exact characters). Only the harness uses it, to render messages for the differential testers (`oracle::render`); it leaves the library with the ROM. |
 | `harness.rs` | The emulated harness's replacements for the original's menus (action menu, move selection, link actions), ported as the HARNESS-PATCHes run them. |
 | `load.rs` | Starting from a game's `BattleSetup` (its parties, player, bag, opponent, world written into the original's layout, then the game's own battle start); `generate`, the setup a `BattleConfig` scenario describes; reading the `BattleResult` back. |
 | `api.rs` | `FastBattle`: start (from a scenario or a setup), `step`, `status`, `state`, `events`, `result`, `Clone`. The library's `battle::Battle` wraps it. |
@@ -39,6 +37,7 @@ The oracle tooling lives in the harness crate (the repository root,
 | `oracle/mod.rs` | Runs the original engine and records memory, RNG state, legal actions, text and the action at every decision (random policy or a recording's script), the battle's end, and every `Random` call with its caller. |
 | `oracle/diff.rs` | Differential checks: `check_start` (the start state, all of WRAM) and `check` (every decision and the end: site, legal actions, random stream, `COMPARED` memory, text). |
 | `oracle/testgen.rs` | Random scenarios for differential testing: link / wild / trainer, random parties and moves, held items, bags, traded mons, badges. |
+| `oracle/render.rs`, `oracle/text.rs` | The library's messages rendered back to the original's exact English: each message's text label and the memory it reads, through the ported text engine (`text.rs`). The library never renders; the testers compare this with the original's captured text. |
 
 ### Decisions, `step`, and cloning
 
@@ -86,7 +85,8 @@ snapshot (about 8 KB).
 - **Names**: where the original copies a name into a buffer (`GetName`,
   `GetNickname`, `CopyBytes` of a nickname), set the buffer's `Name`
   (`names.rs`: `copy_name`, `set_name_at`) instead of writing bytes.
-- **Text engine model** (`text.rs`): the renderer follows the original's tile
+- **Text engine model** (the harness's [`src/oracle/text.rs`](../src/oracle/text.rs),
+  which renders messages back to text for the testers): the renderer follows the original's tile
   cursor exactly — `hl` while placing, `bc` between text commands, and the
   line start `PlaceString` keeps on the stack (`<NEXT>`, `<LF>`, `<CR>` move
   from it) — including the registers routines clobber (`ld bc, 40` in
@@ -142,7 +142,8 @@ Scenarios where the original game itself freezes (a wild Unown with no
 unlocked letters) or the harness can't run it are skipped by a cycle
 watchdog. The engine refuses the Unown one at the start (`start::UNOWN_FREEZE`,
 a setup error) rather than re-roll forever; `api_diff` reports scenarios the
-engine refuses as skipped. Glitch reads outside the WRAM the engine keeps: echo RAM and ROM
-bank 0 read like the original (`Mem::rb`); Beat Up's walk past the party
+engine refuses as skipped. Glitch reads outside the WRAM the engine keeps: echo RAM reads like the
+original (`Mem::rb`); a read of ROM bank 0 (the game's code, which the
+library doesn't have) is an unsupported glitch and stops the engine; Beat Up's walk past the party
 reads zeros for state neither engine keeps (see [goal.md](goal.md#known-gaps)).
 Any other such read panics rather than guess.

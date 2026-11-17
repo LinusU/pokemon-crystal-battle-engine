@@ -311,7 +311,7 @@ fn compare(
 fn first_rng_difference(trace: &Trace, engine: &[(&'static str, u8)]) -> String {
     let Some(first) = trace.decisions.first() else { return String::new() };
     let oracle = &trace.rng_log[first.rng_calls..];
-    let name = |d: &crate::runtime::RngDraw| crate::engine::rsym_name(crate::engine::rom::flat(d.bank, d.ret));
+    let name = |d: &crate::runtime::RngDraw| crate::engine::rsym_name(crate::rom::flat(d.bank, d.ret));
     for (k, pair) in oracle.iter().zip(engine).enumerate() {
         let (o, (e, ev)) = pair;
         if o.value != *ev {
@@ -356,7 +356,7 @@ pub fn check_garbage_name(bench: &mut super::TextBench, name: &[u8]) -> GarbageT
     }
     let engine = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
         let mut engine = Engine::new(mem, 0, Default::default());
-        let texts = engine.render_text(crate::engine::rsym::BEAT_UP_ATTACK_TEXT, &[]);
+        let texts = super::text::render_text(&mut engine, crate::engine::rsym::BEAT_UP_ATTACK_TEXT, &[]);
         (texts, engine.mem)
     }))
     .map_err(|payload| panic_message(&*payload));

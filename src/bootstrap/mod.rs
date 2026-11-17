@@ -14,10 +14,12 @@ pub mod player;
 pub mod recorder;
 pub mod snapshot;
 pub mod events;
+pub mod rom_patches;
 
 // The scenario types and game-data tables live with the engine; re-exported
 // under their old paths for the harness and the transpiled code's hooks.
 pub use crate::config::*;
+pub use rom_patches::*;
 pub use crate::data::{items, move_pp, names, random, species, trainers, trainers_data};
 
 use crate::defs;
@@ -239,7 +241,7 @@ fn seed_player(cpu: &mut Cpu) {
     // the '@' included). Only garbage text prints them (<MOM>, <RED>, <GREEN>).
     for (addr, rom_addr) in NPC_NAMES {
         for i in 0..11u16 {
-            let b = crate::engine::rom::byte(crate::engine::rom::flat(0x01, rom_addr + i));
+            let b = crate::rom::byte(crate::rom::flat(0x01, rom_addr + i));
             cpu.write_byte(addr + i, b);
         }
     }

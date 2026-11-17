@@ -166,6 +166,10 @@ pub struct World {
     pub caught: Vec<u8>,
     /// The Unown letters caught, in order (`wUnownDex`).
     pub unown_dex: Vec<u8>,
+    /// The Pokégear location of the map the battle is on (`LANDMARK_*`; for
+    /// the Pokémon Center 2F, of the map before it): a caught mon's caught
+    /// data, and a level-up at its home location.
+    pub location: u8,
 }
 
 impl Default for World {
@@ -177,6 +181,7 @@ impl Default for World {
             seen: Vec::new(),
             caught: Vec::new(),
             unown_dex: Vec::new(),
+            location: crate::engine::battle::HARNESS_MAP_LOCATION,
         }
     }
 }

@@ -167,12 +167,12 @@ impl Mem {
 
     /// Reads only glitches reach: Beat Up's party index running past the
     /// party (`GetBeatupMonLocation` with a stale loop counter) walks through
-    /// echo RAM and wraps around to ROM bank 0.
+    /// echo RAM and wraps around to ROM bank 0, the game's code, which the
+    /// library doesn't have: that glitch is unsupported.
     #[cold]
     fn rb_glitch(&self, addr: u16) -> u8 {
         match addr {
-            // ROM bank 0 is always mapped.
-            0x0000..=0x3fff => super::rom::byte(usize::from(addr)),
+            0x0000..=0x3fff => panic!("unsupported glitch: a read of the game's code (ROM bank 0, {addr:#06x})"),
             // Echo RAM mirrors c000-ddff (WRAM bank 1 is the one mapped in
             // battle). Exact where the engine keeps that WRAM the way the
             // original does.

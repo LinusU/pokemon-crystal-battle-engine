@@ -6,11 +6,14 @@
 //! Rendering only reads memory: the logic of `text_asm` blocks that change the
 //! battle is ported where the battle code prints them; here each block only
 //! chooses which text to print next.
+//!
+//! The library emits typed messages and never renders; the harness renders
+//! them with this ([`super::render`]) to compare with the original's text.
 
-use super::battle::Engine;
-use super::rom;
-use super::rsym as r;
-use super::sym::*;
+use crate::engine::battle::Engine;
+use crate::engine::rsym as r;
+use crate::engine::sym::*;
+use crate::rom;
 use crate::battle::event::decode;
 
 /// Where `PrintTextboxText` starts the cursor: `(TEXTBOX_INNERX, TEXTBOX_INNERY)`.
@@ -19,6 +22,21 @@ const TEXT_LINE1: u16 = W_TILEMAP + 14 * 20 + 1;
 const TEXT_LINE2: u16 = W_TILEMAP + 16 * 20 + 1;
 /// The tilemap (`SCREEN_WIDTH` × `SCREEN_HEIGHT`), which the engine doesn't keep.
 const TILEMAP: std::ops::Range<u16> = W_TILEMAP..W_TILEMAP + 20 * 18;
+
+/// The text engine reading `e`'s memory.
+struct Renderer<'a> {
+    e: &'a Engine,
+}
+
+/// Render the text at ROM `label` in `engine`'s memory to its messages,
+/// applying what the text engine writes to memory (only glitches write).
+pub fn render_text(engine: &mut Engine, label: usize, choices: &[usize]) -> Vec<String> {
+    let (messages, writes) = Renderer { e: engine }.render(label, choices);
+    for (addr, value) in writes {
+        engine.mem.wb(addr, value);
+    }
+    messages
+}
 
 /// Text being assembled into messages.
 #[derive(Default)]
@@ -117,7 +135,7 @@ impl Ptr {
     }
 }
 
-impl Engine {
+impl Renderer<'_> {
     fn text_byte(&self, out: &Out, p: Ptr) -> u8 {
         match p {
             Ptr::Rom(o) => rom::byte(o),
@@ -133,7 +151,7 @@ impl Engine {
         let a = if (0xe000..=0xfdff).contains(&addr) { addr - 0x2000 } else { addr };
         match out.writes.iter().rev().find(|&&(w, _)| w == a) {
             Some(&(_, v)) => v,
-            None => self.mem.rb(addr),
+            None => self.e.mem.rb(addr),
         }
     }
 
@@ -170,34 +188,14 @@ impl Engine {
         out.pos = out.bc;
     }
 
-    /// Whether printing the text at `label` places `<ENEMY>` as a trainer's
-    /// name, which in the original calls `Battle_GetTrainerName` (writing
-    /// `wStringBuffer1`). Memoized per label: which branch `<ENEMY>` takes
-    /// depends only on the battle kind, which the caller checks.
-    pub fn text_places_trainer_name(&self, label: usize, choices: &[usize]) -> bool {
-        thread_local! {
-            static SEEN: std::cell::RefCell<std::collections::HashMap<usize, bool>> = Default::default();
-        }
-        if let Some(v) = SEEN.with(|m| m.borrow().get(&label).copied()) {
-            return v;
-        }
-        let mut out = Out::new();
-        self.run_text_commands(Ptr::Rom(label), &mut out, 0, &mut choices.iter());
-        SEEN.with(|m| m.borrow_mut().insert(label, out.trainer_name));
-        out.trainer_name
-    }
-
-    /// Render the text at ROM `label` to its messages, applying what the
-    /// text engine writes to memory (only glitches write: see [`Out::writes`]).
-    pub fn render_text(&mut self, label: usize, choices: &[usize]) -> Vec<String> {
+    /// Render the text at ROM `label` to its messages, and what the text
+    /// engine writes to memory (only glitches write: see [`Out::writes`]).
+    fn render(&self, label: usize, choices: &[usize]) -> (Vec<String>, Vec<(u16, u8)>) {
         let mut out = Out::new();
         let mut choices = choices.iter();
         self.run_text_commands(Ptr::Rom(label), &mut out, 0, &mut choices);
         out.end_message();
-        for &(addr, value) in &out.writes {
-            self.mem.wb(addr, value);
-        }
-        out.messages
+        (out.messages, out.writes)
     }
 
     /// `DoTextUntilTerminator`.
@@ -233,7 +231,7 @@ impl Engine {
                 }
                 0x02 => {
                     // TX_BCD
-                    self.unported("text_bcd");
+                    self.e.unported("text_bcd");
                 }
                 0x03 => {
                     // TX_MOVE
@@ -272,7 +270,7 @@ impl Engine {
                     let digits = usize::from(param & 0xf);
                     let mut value: u32 = 0;
                     for i in 0..u16::from(bytes) {
-                        value = value << 8 | u32::from(self.mem.rb(addr + i));
+                        value = value << 8 | u32::from(self.e.mem.rb(addr + i));
                     }
                     out.pos = out.bc;
                     for c in print_num_left_aligned(value, digits as u8) {
@@ -293,9 +291,9 @@ impl Engine {
                 }
                 0x14 => {
                     // TX_STRINGBUFFER
-                    self.unported("text_buffer");
+                    self.e.unported("text_buffer");
                 }
-                0x15 => self.unported("text_today"),
+                0x15 => self.e.unported("text_today"),
                 0x16 => {
                     // TX_FAR: address, bank.
                     let addr = word(self, out, p);
@@ -330,7 +328,7 @@ impl Engine {
                 // Only garbage reads on into memory the engine doesn't keep
                 // (names are text: the renderer fills them in).
                 assert!(
-                    super::mem::glitch_read_kept(a) || super::mem::is_name(a),
+                    crate::engine::mem::glitch_read_kept(a) || crate::engine::mem::is_name(a),
                     "text read from {a:#06x}: state the engine doesn't keep"
                 );
             }
@@ -378,7 +376,7 @@ impl Engine {
                 0x57 | 0x58 => {
                     // <DONE> / <PROMPT>; a link battle's PromptButton waits
                     // with DelayFrames (c = 0).
-                    if c == 0x58 && self.link_mode() != 0 {
+                    if c == 0x58 && self.e.link_mode() != 0 {
                         out.bc &= 0xff00;
                     }
                     out.end_message();
@@ -406,7 +404,7 @@ impl Engine {
                 0x25 => {}                          // <WBR>
                 0x59 | 0x5a => {
                     // <TARGET> / <USER>
-                    let turn = self.turn() ^ u8::from(c == 0x59);
+                    let turn = self.e.turn() ^ u8::from(c == 0x59);
                     if turn == 0 {
                         self.place_nested(Ptr::Ram(W_BATTLE_MON_NICKNAME), out);
                     } else {
@@ -416,10 +414,10 @@ impl Engine {
                 }
                 0x3f => {
                     // <ENEMY>
-                    if self.link_mode() != 0 {
+                    if self.e.link_mode() != 0 {
                         self.place_nested(Ptr::Ram(W_OT_CLASS_NAME), out);
                     } else {
-                        let class = self.mem.rb(W_TRAINER_CLASS);
+                        let class = self.e.mem.rb(W_TRAINER_CLASS);
                         if class == crate::defs::RIVAL1 || class == crate::defs::RIVAL2 {
                             self.place_nested(Ptr::Ram(W_RIVAL_NAME), out);
                         } else {
@@ -431,7 +429,7 @@ impl Engine {
                             // (The renderer keeps the trainer's name in
                             // `wOTPlayerName`.)
                             for i in 0..11 {
-                                out.writes.push((W_STRING_BUFFER1 + i, self.mem.rb(W_OT_PLAYER_NAME + i)));
+                                out.writes.push((W_STRING_BUFFER1 + i, self.e.mem.rb(W_OT_PLAYER_NAME + i)));
                             }
                             self.place_nested(Ptr::Ram(W_STRING_BUFFER1), out);
                         }
@@ -622,7 +620,7 @@ impl Engine {
             return rom::byte(rom::flat(0x5f, addr));
         }
         assert!(
-            super::mem::glitch_read_kept(addr),
+            crate::engine::mem::glitch_read_kept(addr),
             "<MOBILE> script reads {addr:#06x}: state the engine doesn't keep"
         );
         self.peek(out, addr)
@@ -717,10 +715,10 @@ impl Engine {
     /// returns the text it hands back in `hl`, or `None` to stop. Blocks
     /// whose choice the battle code already computed take it from `choices`.
     fn text_asm(&self, addr: usize, choices: &mut std::slice::Iter<'_, usize>) -> Option<usize> {
-        let name = super::rsym_name(addr);
+        let name = crate::engine::rsym_name(addr);
         let base = name.split('+').next().unwrap_or("");
-        let grammar = self.mem.rb(W_MOVE_GRAMMAR);
-        let disobeyed = self.mem.rb(W_ALREADY_DISOBEYED) != 0;
+        let grammar = self.e.mem.rb(W_MOVE_GRAMMAR);
+        let disobeyed = self.e.mem.rb(W_ALREADY_DISOBEYED) != 0;
         Some(match base {
             "UsedMoveText" => {
                 if disobeyed || grammar < 3 { r::USED_MOVE2_TEXT } else { r::USED_MOVE1_TEXT }
@@ -740,17 +738,17 @@ impl Engine {
             "GoMonText" | "DoItMonText" | "GoForItMonText" | "YourFoesWeakGetmMonText" | "PrepareBattleMonNicknameText" => r::BATTLE_MON_NICKNAME_TEXT,
             "WithdrawMonText.WithdrawMonText" => *choices.next().expect("WithdrawMonText needs its choice"),
             "Text_MonGainedExpPoint" => {
-                if self.mem.rb(W_STRING_BUFFER2 + 2) == 0 { r::EXP_POINTS_TEXT } else { r::BOOSTED_EXP_POINTS_TEXT }
+                if self.e.mem.rb(W_STRING_BUFFER2 + 2) == 0 { r::EXP_POINTS_TEXT } else { r::BOOSTED_EXP_POINTS_TEXT }
             }
             "BattleCommand_StatUpMessage" | "BattleCommand_StatUpMessage.stat" => {
-                if self.mem.rb(W_LOWERED_STAT) & 0xf0 == 0 {
+                if self.e.mem.rb(W_LOWERED_STAT) & 0xf0 == 0 {
                     r::BATTLE_COMMAND_STAT_UP_MESSAGE_BATTLE_STAT_WENT_UP_TEXT
                 } else {
                     r::BATTLE_COMMAND_STAT_UP_MESSAGE_BATTLE_STAT_WENT_WAY_UP_TEXT
                 }
             }
             "BattleCommand_StatDownMessage" | "BattleCommand_StatDownMessage.stat" => {
-                if self.mem.rb(W_LOWERED_STAT) & 0xf0 == 0 {
+                if self.e.mem.rb(W_LOWERED_STAT) & 0xf0 == 0 {
                     r::BATTLE_COMMAND_STAT_DOWN_MESSAGE_BATTLE_STAT_FELL_TEXT
                 } else {
                     r::BATTLE_COMMAND_STAT_DOWN_MESSAGE_BATTLE_STAT_SHARPLY_FELL_TEXT
@@ -758,7 +756,7 @@ impl Engine {
             }
             "BattleCommand_Charge.UsedText" => {
                 use crate::defs::*;
-                match self.battle_var(BATTLE_VARS_MOVE_ANIM) {
+                match self.e.battle_var(BATTLE_VARS_MOVE_ANIM) {
                     RAZOR_WIND => r::BATTLE_COMMAND_CHARGE_BATTLE_MADE_WHIRLWIND_TEXT,
                     SOLARBEAM => r::BATTLE_COMMAND_CHARGE_BATTLE_TOOK_SUNLIGHT_TEXT,
                     SKULL_BASH => r::BATTLE_COMMAND_CHARGE_BATTLE_LOWERED_HEAD_TEXT,

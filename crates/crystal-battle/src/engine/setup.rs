@@ -15,7 +15,6 @@
 #![allow(unused_imports)]
 
 use super::battle::{Engine, Flow, PARTY_LEN, PP_MASK, percent};
-use super::rom;
 use super::rsym as r;
 use super::switch::FlagAction;
 use super::sym::*;
@@ -23,9 +22,6 @@ use crate::battle::action::{PromptSite, Step};
 use crate::defs::*;
 
 const NAME_LENGTH: u16 = 11;
-/// `MapGroupPointers`.
-const MAP_GROUP_POINTERS: u16 = 0x4000;
-const MAP_GROUP_POINTERS_BANK: u8 = 0x25;
 
 impl Engine {
     // --- small helpers -----------------------------------------------------------
@@ -285,26 +281,11 @@ impl Engine {
         self.change_happiness(c);
     }
 
-    /// `GetWorldMapLocation`: the Pokégear location of map `b`:`c`.
-    pub fn get_world_map_location(&self, b: u8, c: u8) -> u8 {
-        // GetAnyMapPointer
-        let ptr_addr = MAP_GROUP_POINTERS.wrapping_add(2 * u16::from(b.wrapping_sub(1)));
-        let map_ptr = u16::from(self.map_byte(ptr_addr)) | u16::from(self.map_byte(ptr_addr.wrapping_add(1))) << 8;
-        let hl = map_ptr.wrapping_add(u16::from(c.wrapping_sub(1)).wrapping_mul(u16::from(MAP_LENGTH)));
-        self.map_byte(hl.wrapping_add(u16::from(MAP_LOCATION)))
-    }
-
-    /// A byte at `MapGroupPointers`' bank (ROM) or, outside it, plain memory.
-    fn map_byte(&self, addr: u16) -> u8 {
-        if addr >= 0xc000 {
-            self.mem.rb(addr)
-        } else if addr >= 0x4000 && addr < 0x8000 {
-            rom::byte(rom::flat(MAP_GROUP_POINTERS_BANK, addr))
-        } else if addr < 0x4000 {
-            rom::byte(usize::from(addr))
-        } else {
-            0
-        }
+    /// `GetWorldMapLocation` of the current map (`wMapGroup`:`wMapNumber`, or
+    /// for the Pokémon Center 2F the map before it): the battle's location,
+    /// which the game passes in ([`Engine::location`]).
+    pub fn get_world_map_location(&self, _group: u8, _number: u8) -> u8 {
+        self.location
     }
 }
 
