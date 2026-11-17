@@ -251,6 +251,18 @@ pub fn ai_flag_patches(
     Ok(patches)
 }
 
+/// Apply an `[enemy_trainer]` override's AI flags to a trainer class's
+/// attributes.
+pub fn apply_ai_flag_override(class: &mut crate::data::game::TrainerClass, ov: &EnemyTrainerOverride) -> Result<(), String> {
+    if let Some(names) = &ov.ai_move_flags {
+        class.ai_move_weights = resolve_ai_flags(names, AI_MOVE_FLAG_NAMES, "ai_move_flags")?.to_le_bytes();
+    }
+    if let Some(names) = &ov.ai_item_flags {
+        class.ai_item_switch = resolve_ai_flags(names, AI_ITEM_FLAG_NAMES, "ai_item_flags")?.to_le_bytes();
+    }
+    Ok(())
+}
+
 /// Resolve a mon's optional `moves` list to move ids, validating the count and
 /// every name. `None` means "keep the engine's generated moveset" and leaves
 /// the slot untouched.

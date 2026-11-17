@@ -24,7 +24,7 @@ impl Engine {
     /// `GetMoveAttr` + `GetMoveByte`: attribute at offset `off` of move `mv`
     /// (the original is handed `mv - 1`, wrapping for 0).
     fn ai_move_attr(&self, mv: u8, off: u8) -> u8 {
-        rom::byte(r::MOVES + usize::from(mv.wrapping_sub(1)) * usize::from(MOVE_LENGTH) + usize::from(off))
+        self.data.mv(mv).field(off)
     }
 
     /// `CheckPlayerMoveTypeMatchups`: check how well the moves you've already

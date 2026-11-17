@@ -46,16 +46,9 @@ impl Engine {
             (W_PARTY_MON1_ITEM, W_BATTLE_MON_ITEM, self.mem.rb(W_CUR_BATTLE_MON))
         };
         let (b, _) = self.get_item_held_effect(self.mem.rb(de));
-        let mut at = r::CONSUMABLE_EFFECTS;
-        loop {
-            let a = rom::byte(at);
-            at += 1;
-            if a == b {
-                break;
-            }
-            if a == 0xff {
-                return;
-            }
+        // The list ends with -1, which a held effect of $ff matches.
+        if b != 0xff && !self.data.tables.consumable_effects.contains(&b) {
+            return;
         }
         self.mem.wb(de, 0);
         let hl = self.get_party_location(party, mon);
@@ -819,7 +812,7 @@ impl Engine {
         for _ in 0..NUM_BATTLE_STATS {
             let level = self.mem.rb(hl);
             hl += 1;
-            let table = r::STAT_LEVEL_MULTIPLIERS + 2 * usize::from(level.wrapping_sub(1));
+            let (multiplier, divisor) = self.data.tables.stat_level_multipliers[usize::from(level)];
             self.mem.wb(H_MULTIPLICAND, 0);
             let hi = self.mem.rb(de);
             self.mem.wb(H_MULTIPLICAND + 1, hi);
@@ -827,9 +820,9 @@ impl Engine {
             let lo = self.mem.rb(de);
             self.mem.wb(H_MULTIPLICAND + 2, lo);
             de += 1;
-            self.mem.wb(H_MULTIPLIER, rom::byte(table));
+            self.mem.wb(H_MULTIPLIER, multiplier);
             self.multiply();
-            self.mem.wb(H_DIVISOR, rom::byte(table + 1));
+            self.mem.wb(H_DIVISOR, divisor);
             self.divide(4);
             let q2 = self.mem.rb(H_QUOTIENT + 2);
             let q3 = self.mem.rb(H_QUOTIENT + 3);

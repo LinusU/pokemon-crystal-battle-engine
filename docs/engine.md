@@ -9,7 +9,8 @@ Goal and exactness contract: [goal.md](goal.md).
 | File | What |
 | --- | --- |
 | `mem.rs` | `Mem`: the original's WRAM banks 0–1 and HRAM, byte for byte. All battle state lives here, in the original layout. |
-| `rom.rs` | Read-only data straight from `pokecrystal.gbc` (`rom::byte`, `rom::ptr`). `Engine::rom_byte` adds the scenario's ROM overlay (the `[enemy_trainer]` AI-flag patches). |
+| `../data/game.rs`, `../data/crystal.rs` | `GameData`: species, moves, items, trainer classes, the type chart, move effect scripts, growth rates and the mechanics' small tables, typed. `crystal.rs` is generated from the ROM by `tools/gen_game_data.py`; tables indexed by an id cover all 256 values, past the real range holding what the original reads there. `Engine::data` points at it; `Engine::trainer_class` applies the scenario's `[enemy_trainer]` AI-flag override. |
+| `rom.rs` | What still reads `pokecrystal.gbc` directly while the port moves off it: text, names, trainer parties, map locations (see [library.md](library.md)). |
 | `sym.rs`, `rsym.rs` | Generated (`python3 tools/gen_engine_syms.py`, writes both): every WRAM/HRAM symbol (`W_BATTLE_MON_HP`, `H_BATTLE_TURN`, …) and every ROM label the battle code mentions, local text labels included (`r::MOVES`, `r::BATTLE_TEXT_…`, as flat ROM offsets). |
 | `battle.rs` | `Engine` (memory + random stream + flags + optional logs) and shared primitives: `random` / `battle_random`, `battle_var*` (`GetBattleVar`), turn switching, `text` / `text_with`, `decide`. |
 | `math.rs` | `Multiply` / `Divide` on the original's overlapping HRAM buffers. |

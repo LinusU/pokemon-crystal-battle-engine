@@ -35,12 +35,8 @@ impl Engine {
         }
 
         // Always load the first trainer class in wTrainerClass for Battle Tower trainers.
-        let mut hl = r::TRAINER_CLASS_ATTRIBUTES + usize::from(TRNATTR_AI_ITEM_SWITCH);
-        if self.mem.rb(W_IN_BATTLE_TOWER_BATTLE) == 0 {
-            let class = self.mem.rb(W_TRAINER_CLASS).wrapping_sub(1);
-            hl += usize::from(class) * usize::from(NUM_TRAINER_ATTRIBUTES);
-        }
-        let flags = self.rom_byte(hl);
+        let class = if self.mem.rb(W_IN_BATTLE_TOWER_BATTLE) == 0 { self.mem.rb(W_TRAINER_CLASS) } else { 1 };
+        let flags = self.trainer_class(class).ai_item_switch[0];
         // (SwitchOften, SwitchRarely, SwitchSometimes) thresholds for the $10, $20 and $30 cases:
         // switch if `Random < threshold` for $10 and $20; for $30, don't switch if
         // `Random < threshold`.
@@ -116,31 +112,24 @@ impl Engine {
             return false;
         }
 
-        let class = self.mem.rb(W_TRAINER_CLASS).wrapping_sub(1);
-        let bc = r::TRAINER_CLASS_ATTRIBUTES
-            + usize::from(TRNATTR_AI_ITEM_SWITCH)
-            + usize::from(class) * usize::from(NUM_TRAINER_ATTRIBUTES);
-        let flags = self.rom_byte(bc);
-        let mut hl = r::AI_ITEMS;
+        let flags = self.trainer_class(self.mem.rb(W_TRAINER_CLASS)).ai_item_switch[0];
+        let mut items = self.data.tables.ai_items.iter();
         // BUG: AI might use its base reward value as an item
         let mut de = W_ENEMY_TRAINER_ITEM1;
         loop {
-            let item = rom::byte(hl);
-            if item == 0xff {
+            let Some(&item) = items.next() else {
                 return false;
-            }
+            };
             if self.mem.rb(de) != item {
                 de += 1;
                 if self.mem.rb(de) != item {
                     de -= 1;
-                    hl += 3;
                     continue;
                 }
             }
             // .has_item
             let dont_use = self.ai_item_handler(item, flags);
             if dont_use {
-                hl += 3;
                 continue;
             }
 

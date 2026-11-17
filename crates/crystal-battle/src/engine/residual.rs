@@ -88,8 +88,8 @@ impl Engine {
         if item == 0 {
             return (0, 0);
         }
-        let entry = r::ITEM_ATTRIBUTES + usize::from(item - 1) * usize::from(ITEMATTR_STRUCT_LENGTH);
-        (rom::byte(entry + usize::from(ITEMATTR_EFFECT)), rom::byte(entry + usize::from(ITEMATTR_PARAM)))
+        let attributes = self.data.item(item);
+        (attributes.effect, attributes.param)
     }
 
     // --- ResidualDamage ------------------------------------------------------

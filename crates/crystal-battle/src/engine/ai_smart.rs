@@ -8,7 +8,6 @@
 
 use super::ai::SCORES;
 use super::battle::{Engine, PARTY_LEN, percent};
-use super::commands::rom_in_array;
 use super::rom;
 use super::rsym as r;
 use super::sym::*;
@@ -397,7 +396,7 @@ impl Engine {
             return self.ai_discourage_move(hl);
         }
         // If the player did use a move last turn, do nothing if he didn't use a useful move.
-        if rom_in_array(r::USEFUL_MOVES, 1, last).is_none() {
+        if !self.data.tables.useful_moves.contains(&last) {
             return;
         }
         // If he did, 50% chance to encourage this move...
@@ -777,7 +776,7 @@ impl Engine {
         }
         // .encourage
         let last = self.mem.rb(W_LAST_PLAYER_COUNTER_MOVE);
-        if rom_in_array(r::USEFUL_MOVES, 1, last).is_none() {
+        if !self.data.tables.useful_moves.contains(&last) {
             return;
         }
         if self.ai_50_50() {
@@ -843,7 +842,7 @@ impl Engine {
     fn ai_smart_disable(&mut self, hl: u16) {
         let discourage = if !self.ai_compare_speed() {
             true
-        } else if rom_in_array(r::USEFUL_MOVES, 1, self.mem.rb(W_LAST_PLAYER_COUNTER_MOVE)).is_some() {
+        } else if self.data.tables.useful_moves.contains(&self.mem.rb(W_LAST_PLAYER_COUNTER_MOVE)) {
             if self.random("AI_Smart_Disable") < percent(39) + 1 {
                 return;
             }
@@ -889,7 +888,7 @@ impl Engine {
         if weak {
             // .weakmove
             let last = self.mem.rb(W_LAST_PLAYER_COUNTER_MOVE);
-            if rom_in_array(r::ENCORE_MOVES, 1, last).is_none() {
+            if !self.data.tables.encore_moves.contains(&last) {
                 return self.ai_inc(hl, 3);
             }
         }
@@ -1037,8 +1036,8 @@ impl Engine {
         let discourage = if self.mem.rb(W_LAST_PLAYER_MOVE) != 0 {
             true
         } else {
-            // The original indexes `Moves` with `a - 1` = $ff here.
-            let ty = rom::byte(r::MOVES + 0xff * usize::from(MOVE_LENGTH) + usize::from(MOVE_TYPE));
+            // The original indexes `Moves` with `a - 1` = $ff here: move 0.
+            let ty = self.data.mv(0).kind;
             self.mem.wb(W_PLAYER_MOVE_STRUCT + u16::from(MOVE_TYPE), ty);
             self.mem.wb(H_BATTLE_TURN, 0);
             self.battle_check_type_matchup();
@@ -1504,7 +1503,7 @@ impl Engine {
                 return self.ai_good_weather_type(hl);
             }
         }
-        self.ai_smart_weather_move(hl, r::RAIN_DANCE_MOVES);
+        self.ai_smart_weather_move(hl, self.data.tables.rain_dance_moves);
     }
 
     /// `AI_Smart_SunnyDay`.
@@ -1519,11 +1518,11 @@ impl Engine {
                 return self.ai_good_weather_type(hl);
             }
         }
-        self.ai_smart_weather_move(hl, r::SUNNY_DAY_MOVES);
+        self.ai_smart_weather_move(hl, self.data.tables.sunny_day_moves);
     }
 
     /// `AI_Smart_WeatherMove`: Rain Dance, Sunny Day.
-    fn ai_smart_weather_move(&mut self, hl: u16, table: usize) {
+    fn ai_smart_weather_move(&mut self, hl: u16, table: &[u8]) {
         // Greatly discourage this move if the enemy doesn't have one of the useful moves.
         if !self.ai_has_move_in_array(table) {
             return self.ai_bad_weather_type(hl);

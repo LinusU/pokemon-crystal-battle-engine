@@ -5,9 +5,9 @@
 //! `DoMove` re-entrantly).
 
 use super::battle::{Engine, Flow, PP_MASK, percent};
-use super::rom;
 use super::rsym as r;
 use super::sym::*;
+use crate::data::game::TypeMatchup;
 use crate::defs::*;
 
 /// What a command tells the script reader.
@@ -61,17 +61,11 @@ impl Engine {
     /// `DoMove`.
     pub fn do_move(&mut self) -> Flow {
         let effect = self.battle_var(BATTLE_VARS_MOVE_EFFECT);
-        let bank = rom::bank_of(r::MOVE_EFFECTS);
-        let mut src = rom::flat(bank, rom::ptr(r::MOVE_EFFECTS_POINTERS + 2 * usize::from(effect)));
+        let script = self.data.effect_script(effect);
         let mut de = W_BATTLE_SCRIPT_BUFFER;
-        loop {
-            let a = rom::byte(src);
-            src += 1;
-            self.mem.wb(de, a);
+        for &command in script.iter().chain([&ENDMOVE_COMMAND]) {
+            self.mem.wb(de, command);
             de += 1;
-            if a == ENDMOVE_COMMAND {
-                break;
-            }
         }
         self.mem.ww_le(W_BATTLE_SCRIPT_BUFFER_ADDRESS, W_BATTLE_SCRIPT_BUFFER);
         loop {
@@ -291,9 +285,9 @@ impl Engine {
 
     /// `GetMoveData`: copy move struct `index` (0-based) to `de`.
     pub fn get_move_data(&mut self, index: u8, de: u16) {
-        let src = r::MOVES + usize::from(index) * usize::from(MOVE_LENGTH);
-        for i in 0..u16::from(MOVE_LENGTH) {
-            self.mem.wb(de + i, rom::byte(src + usize::from(i)));
+        let bytes = self.data.mv(index.wrapping_add(1)).bytes();
+        for (i, b) in (0..).zip(bytes) {
+            self.mem.wb(de + i, b);
         }
     }
 
@@ -716,14 +710,12 @@ impl Engine {
     fn get_move_grammar(&mut self) {
         let mv = self.mem.rb(W_MOVE_GRAMMAR);
         let mut b = 0u8;
-        let mut p = r::MOVE_GRAMMAR;
-        loop {
-            let a = rom::byte(p);
-            p += 1;
-            if a == 0xff || a == mv {
-                break;
-            }
-            if a == 0 {
+        // The groups end with a 0 each, so move 0 stops at the first group's end.
+        if mv != 0 {
+            for group in self.data.tables.move_grammar {
+                if group.contains(&mv) {
+                    break;
+                }
                 b += 1;
             }
         }
@@ -882,7 +874,7 @@ impl Engine {
             }
             // .CheckCritical
             let anim = self.battle_var(BATTLE_VARS_MOVE_ANIM);
-            if rom_in_array(r::CRITICAL_HIT_MOVES, 1, anim).is_some() {
+            if self.data.tables.critical_hit_moves.contains(&anim) {
                 c += 2;
             }
             // .ScopeLens
@@ -892,7 +884,7 @@ impl Engine {
             }
         }
         // .Tally
-        let chance = rom::byte(r::CRITICAL_HIT_CHANCES + usize::from(c));
+        let chance = self.data.tables.critical_hit_chances[usize::from(c)];
         if self.battle_random("BattleCommand_Critical") < chance {
             self.mem.wb(W_CRITICAL_HIT, 1);
         }
@@ -934,25 +926,20 @@ impl Engine {
         }
         // .SkipStab
         let mtype = self.battle_var(BATTLE_VARS_MOVE_TYPE);
-        let mut hl = r::TYPE_MATCHUPS;
-        loop {
-            let a = rom::byte(hl);
-            hl += 1;
-            if a == 0xff {
-                break;
-            }
-            if a == 0xfe {
-                if self.battle_var_bit(BATTLE_VARS_SUBSTATUS1_OPP, SUBSTATUS_IDENTIFIED) {
-                    break;
+        for &matchup in self.data.type_matchups {
+            let (attacker, def, mut eff) = match matchup {
+                TypeMatchup::Foresight => {
+                    if self.battle_var_bit(BATTLE_VARS_SUBSTATUS1_OPP, SUBSTATUS_IDENTIFIED) {
+                        break;
+                    }
+                    continue;
                 }
-                continue;
-            }
-            if a == mtype {
-                let def = rom::byte(hl);
+                TypeMatchup::Matchup { attacker, defender, multiplier } => (attacker, defender, multiplier),
+            };
+            if attacker == mtype {
                 if def == d || def == e {
                     // .GotMatchup
                     let stab = self.mem.rb(W_TYPE_MODIFIER) & STAB_DAMAGE;
-                    let mut eff = rom::byte(hl + 1);
                     if eff == 0 {
                         self.mem.wb(W_ATTACK_MISSED, 1);
                         eff = 0;
@@ -979,8 +966,6 @@ impl Engine {
                     self.mem.wb(W_CUR_DAMAGE + 1, lo);
                 }
             }
-            // .SkipType
-            hl += 2;
         }
         // .end
         self.battle_check_type_matchup();
@@ -1002,35 +987,24 @@ impl Engine {
         let d = self.battle_var(BATTLE_VARS_MOVE_TYPE);
         let (b, c) = (self.mem.rb(hl), self.mem.rb(hl + 1));
         self.mem.wb(W_TYPE_MATCHUP, EFFECTIVE);
-        let mut p = r::TYPE_MATCHUPS;
-        loop {
-            let a = rom::byte(p);
-            p += 1;
-            if a == 0xff {
-                return;
-            }
-            if a == 0xfe {
-                if self.battle_var_bit(BATTLE_VARS_SUBSTATUS1_OPP, SUBSTATUS_IDENTIFIED) {
-                    return;
+        for &matchup in self.data.type_matchups {
+            let (attacker, def, multiplier) = match matchup {
+                TypeMatchup::Foresight => {
+                    if self.battle_var_bit(BATTLE_VARS_SUBSTATUS1_OPP, SUBSTATUS_IDENTIFIED) {
+                        return;
+                    }
+                    continue;
                 }
-                continue;
-            }
-            if a != d {
-                p += 2;
-                continue;
-            }
-            let def = rom::byte(p);
-            p += 1;
-            if def != b && def != c {
-                p += 1;
+                TypeMatchup::Matchup { attacker, defender, multiplier } => (attacker, defender, multiplier),
+            };
+            if attacker != d || (def != b && def != c) {
                 continue;
             }
             // .Yup
             self.mem.wb(H_DIVIDEND, 0);
             self.mem.wb(H_MULTIPLICAND, 0);
             self.mem.wb(H_MULTIPLICAND + 1, 0);
-            self.mem.wb(H_MULTIPLICAND + 2, rom::byte(p));
-            p += 1;
+            self.mem.wb(H_MULTIPLICAND + 2, multiplier);
             let m = self.mem.rb(W_TYPE_MATCHUP);
             self.mem.wb(H_MULTIPLIER, m);
             self.multiply();
@@ -1082,18 +1056,3 @@ impl Engine {
     }
 }
 
-/// `IsInArray` over a ROM table of `stride`-byte entries ending in `-1`.
-pub fn rom_in_array(mut table: usize, stride: usize, value: u8) -> Option<u8> {
-    let mut b = 0u8;
-    loop {
-        let a = rom::byte(table);
-        if a == 0xff {
-            return None;
-        }
-        if a == value {
-            return Some(b);
-        }
-        b = b.wrapping_add(1);
-        table += stride;
-    }
-}

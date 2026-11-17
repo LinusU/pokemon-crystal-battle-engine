@@ -6,7 +6,7 @@
 #![allow(unused_imports)]
 
 use super::battle::{Engine, Flow, PARTY_LEN, PP_MASK, percent};
-use super::commands::{Cmd, rom_in_array};
+use super::commands::Cmd;
 use super::rom;
 use super::rsym as r;
 use super::sym::*;
@@ -186,23 +186,14 @@ impl Engine {
             return Ok(Cmd::Next);
         }
         let b = self.battle_random("BattleCommand_Present");
-        let mut hl = r::PRESENT_POWER;
-        let mut c = 0u8;
-        loop {
-            let a = rom::byte(hl);
-            hl += 1;
-            if a == 0xff {
-                break;
-            }
-            if a >= b {
+        for (c, &(threshold, power)) in (0u8..).zip(self.data.tables.present_power) {
+            if threshold >= b {
                 // .got_power
                 self.mem.wb(W_BATTLE_ANIM_PARAM, c);
                 self.animate_current_move_either_side();
-                self.damage_regs[2] = rom::byte(hl);
+                self.damage_regs[2] = power;
                 return Ok(Cmd::Next);
             }
-            c += 1;
-            hl += 1;
         }
         // .heal_effect
         self.mem.wb(W_BATTLE_ANIM_PARAM, 3);
@@ -520,7 +511,7 @@ impl Engine {
         }
         hl = hl.wrapping_add(1);
         self.mem.wb(hl, b);
-        let pp = rom::byte(r::MOVES + usize::from(b - 1) * usize::from(MOVE_LENGTH) + usize::from(MOVE_PP));
+        let pp = self.data.mv(b).pp;
         let hl = hl.wrapping_add(W_BATTLE_MON_PP - W_BATTLE_MON_MOVES);
         self.mem.wb(hl, pp);
         if !self.is_player_turn() && self.mem.rb(W_BATTLE_MODE) == 1 {
@@ -867,7 +858,7 @@ impl Engine {
         }
         // Can't steal mail.
         self.mem.wb(W_NAMED_OBJECT_INDEX, item);
-        if rom_in_array(r::MAIL_ITEMS, 1, item).is_some() {
+        if self.data.tables.mail_items.contains(&item) {
             return Ok(Cmd::Next);
         }
         if self.mem.rb(W_EFFECT_FAILED) != 0 {

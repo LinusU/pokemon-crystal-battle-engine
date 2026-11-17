@@ -14,14 +14,10 @@
 //! menus "return" them with the contracts of the patches.
 
 use super::battle::{Engine, Flow, PARTY_LEN};
-use super::rom;
 use super::rsym as r;
 use super::sym::*;
 use super::switch::FlagAction;
 use crate::defs::*;
-
-/// `'@'`.
-const TERMINATOR: u8 = 0x50;
 
 /// `ITEMMENU_*` as `CheckItemContext` returns them for the battle.
 const ITEMMENU_CURRENT: u8 = 4;
@@ -36,10 +32,6 @@ pub struct Pending {
     pub target: Option<u8>,
     pub move_slot: Option<u8>,
 }
-
-/// The ROM bank of the Pokédex entries of species `1 + 64 * n`, as
-/// `HeavyBall_GetDexEntryBank` lists them ("Pokedex Entries 001-064", ...).
-const POKEDEX_ENTRY_BANKS: [u8; 4] = [0x60, 0x6e, 0x73, 0x74];
 
 impl Engine {
     // --- BattleMenu_Pack ---------------------------------------------------------------------
@@ -176,7 +168,9 @@ impl Engine {
     /// `GetItemAttr`: attribute `attr` of item `item` (`wCurItem` in the
     /// original; this takes the item as an argument).
     fn item_attr(&self, item: u8, attr: u8) -> u8 {
-        rom::byte(r::ITEM_ATTRIBUTES + usize::from(item - 1) * usize::from(ITEMATTR_STRUCT_LENGTH) + usize::from(attr))
+        let a = self.data.item(item);
+        let price = a.price.to_le_bytes();
+        [price[0], price[1], a.effect, a.param, a.permissions, a.pocket, a.help][usize::from(attr)]
     }
 
     /// `CheckItemPocket`: the pocket of `wCurItem` into `wItemAttributeValue`
@@ -342,11 +336,7 @@ impl Engine {
         self.use_item_text();
         let item = self.mem.rb(W_CUR_ITEM);
         // XItemStats
-        let mut at = r::X_ITEM_STATS;
-        while rom::byte(at) != item {
-            at += 2;
-        }
-        let b = rom::byte(at + 1);
+        let &(_, b) = self.data.tables.x_item_stats.iter().find(|&&(x, _)| x == item).expect("an X item");
         self.set_player_turn();
         self.mem.wb(W_ATTACK_MISSED, 0);
         self.mem.wb(W_EFFECT_FAILED, 0);
@@ -417,11 +407,9 @@ impl Engine {
     /// `GetItemHealingAction`: (`b` = party menu text, `c` = status mask).
     fn get_item_healing_action(&self) -> (u8, u8) {
         let item = self.mem.rb(W_CUR_ITEM);
-        let mut at = r::STATUS_HEALING_ACTIONS;
-        while rom::byte(at) != item {
-            at += 3;
-        }
-        (rom::byte(at + 1), rom::byte(at + 2))
+        let &(_, action, mask) =
+            self.data.tables.status_healing_actions.iter().find(|&&(i, _, _)| i == item).expect("a status-healing item");
+        (action, mask)
     }
 
     /// `UseStatusHealer`: 0 = used, 1 = no effect.
@@ -617,14 +605,9 @@ impl Engine {
     /// `GetHealingItemAmount`.
     fn get_healing_item_amount(&self) -> u16 {
         let item = self.mem.rb(W_CUR_ITEM);
-        let mut at = r::HEALING_HP_AMOUNTS;
-        loop {
-            let id = rom::byte(at);
-            if id == 0xff || id == item {
-                return rom::ptr(at + 1);
-            }
-            at += 3;
-        }
+        let amounts = self.data.tables.healing_hp_amounts;
+        let &(_, hp) = amounts.iter().find(|&&(id, _)| id == 0xff || id == item).expect("the -1 entry ends the table");
+        hp
     }
 
     /// A 16-bit value stored low byte first (`wHPBuffer1`..3).
@@ -804,7 +787,7 @@ impl Engine {
         }
         let mv_at = self.party_move_addr(W_PARTY_MON1_MOVES);
         let mv = self.mem.rb(mv_at);
-        let base_pp = rom::byte(r::MOVES + usize::from(mv.wrapping_sub(1)) * usize::from(MOVE_LENGTH) + usize::from(MOVE_PP));
+        let base_pp = self.data.mv(mv).pp;
         self.mem.wb(W_STRING_BUFFER1, base_pp);
         let ups = self.mem.rb(mv_at + u16::from(MON_PP - MON_MOVES)) & PP_UP_MASK;
         self.mem.wb(W_STRING_BUFFER1 + 1, ups | base_pp);
@@ -938,17 +921,8 @@ impl Engine {
         let mut caught = true;
         if self.mem.rb(W_BATTLE_TYPE) != BATTLETYPE_TUTORIAL && item != MASTER_BALL {
             // BallMultiplierFunctionTable
-            let mut at = r::BALL_MULTIPLIER_FUNCTION_TABLE;
-            loop {
-                let id = rom::byte(at);
-                if id == 0xff {
-                    break;
-                }
-                if id == item {
-                    b = self.ball_multiplier(item, b);
-                    break;
-                }
-                at += 3;
+            if self.data.tables.ball_multiplier_items.contains(&item) {
+                b = self.ball_multiplier(item, b);
             }
             // .skip_or_return_from_ball_fn
             let a = if item == LEVEL_BALL { b } else { self.catch_rate_from_hp(b) };
@@ -1132,11 +1106,8 @@ impl Engine {
             return 0;
         }
         let rate = self.mem.rb(W_FINAL_CATCH_RATE);
-        let mut at = r::WOBBLE_PROBABILITIES;
-        while rom::byte(at) < rate {
-            at += 2;
-        }
-        let chance = rom::byte(at + 1);
+        let &(_, chance) =
+            self.data.tables.wobble_probabilities.iter().find(|&&(r, _)| r >= rate).expect("the last rate is $ff");
         let roll = self.random("GetPokeBallWobble");
         if roll < chance { 0 } else { 2 }
     }
@@ -1218,11 +1189,8 @@ impl Engine {
             }
             FAST_BALL => {
                 let species = self.mem.rb(W_TEMP_ENEMY_MON_SPECIES);
-                let mut at = r::FLEE_MONS;
                 // BUG: Fast Ball only boosts catch rate for three Pokémon.
-                for _ in 0..3 {
-                    let a = rom::byte(at);
-                    at += 1;
+                for a in self.data.tables.fast_ball_species {
                     if a != 0xff && a == species {
                         let Some(b) = b.checked_mul(2).and_then(|d| d.checked_mul(2)) else { return 0xff };
                         return b;
@@ -1232,15 +1200,14 @@ impl Engine {
             }
             MOON_BALL => {
                 let species = self.mem.rb(W_TEMP_ENEMY_MON_SPECIES);
-                let bank = rom::bank_of(r::EVOS_ATTACKS_POINTERS);
-                let ptr = rom::ptr(r::EVOS_ATTACKS_POINTERS + usize::from(species.wrapping_sub(1)) * 2);
-                let evo = rom::flat(bank, ptr);
-                if rom::byte(evo) != EVOLVE_ITEM {
+                let evolutions = self.data.species(species).evolutions;
+                if evolutions.first().map(|e| e.method()) != Some(EVOLVE_ITEM) {
                     return b;
                 }
-                // BUG: Moon Ball does not boost catch rate (the species byte
-                // is compared with the Moon Stone's number).
-                if rom::byte(evo + 3) != MOON_STONE_RED {
+                // BUG: Moon Ball does not boost catch rate: it compares the
+                // byte after the first evolution (the next one's method, or
+                // the list's 0) with the Moon Stone's number.
+                if evolutions.get(1).map_or(0, |e| e.method()) != MOON_STONE_RED {
                     return b;
                 }
                 b.checked_mul(2).and_then(|d| d.checked_mul(2)).unwrap_or(0xff)
@@ -1253,23 +1220,9 @@ impl Engine {
     /// `HeavyBallMultiplier`.
     fn heavy_ball_multiplier(&mut self, b: u8) -> u8 {
         let species = self.mem.rb(W_ENEMY_MON_SPECIES);
-        let mut hl = rom::ptr(r::POKEDEX_DATA_POINTER_TABLE + usize::from(species.wrapping_sub(1)) * 2);
-        // BUG: Heavy Ball uses wrong weight value for three Pokémon.
-        let bank = POKEDEX_ENTRY_BANKS[usize::from(species.rotate_left(2) & 3)];
-        // In the wrong bank, Kadabra's and Sunflora's scan runs past the bank
-        // into VRAM, which the engine doesn't keep: the harness reads bytes
-        // past the bank as '@' (a HARNESS-PATCH in the transpiled routine).
-        let byte = |a: u16| if a >= 0x8000 { TERMINATOR } else { rom::byte(rom::flat(bank, a)) };
-        loop {
-            let a = byte(hl);
-            hl = hl.wrapping_add(1);
-            if a == TERMINATOR {
-                break;
-            }
-        }
-        // skip the height
-        hl = hl.wrapping_add(2);
-        let weight = u16::from(byte(hl)) | u16::from(byte(hl.wrapping_add(1))) << 8;
+        // BUG: Heavy Ball uses wrong weight value for three Pokémon (the
+        // generated weight is the one the original reads).
+        let weight = self.data.species(species).heavy_ball_weight;
         let mut hl = weight >> 1;
         let mut bc = hl >> 4;
         hl = hl.wrapping_sub(bc);

@@ -26,8 +26,8 @@ impl Engine {
     }
 
     /// `GetMoveAttr` for the `Moves` table: attribute `attr` of move `mv` (1-based).
-    fn move_attr(mv: u8, attr: u8) -> u8 {
-        rom::byte(r::MOVES + usize::from(mv.wrapping_sub(1)) * usize::from(MOVE_LENGTH) + usize::from(attr))
+    fn move_attr(&self, mv: u8, attr: u8) -> u8 {
+        self.data.mv(mv).field(attr)
     }
 
     /// `GetTypeName`: the name of type `wNamedObjectIndex` into `wStringBuffer1`.
@@ -94,7 +94,7 @@ impl Engine {
         };
         let b = (self.mem.rb(dvs) & 0xf0) | (self.mem.rb(dvs + 1) & 0xf0) >> 4;
         let species = self.mem.rb(W_CUR_PARTY_SPECIES);
-        let ratio = rom::byte(r::BASE_DATA + usize::from(species.wrapping_sub(1)) * usize::from(BASE_DATA_SIZE) + usize::from(BASE_GENDER));
+        let ratio = self.data.species(species).gender_ratio;
         if ratio == 0xff {
             return None;
         }
@@ -519,7 +519,7 @@ impl Engine {
             if a == 0 {
                 break;
             }
-            self.mem.wb(buf, Self::move_attr(a, MOVE_TYPE));
+            self.mem.wb(buf, self.move_attr(a, MOVE_TYPE));
             buf += 1;
         }
         for _ in 0..3 {
@@ -571,7 +571,7 @@ impl Engine {
         if a == 0 {
             { self.fail_move()?; return Ok(Cmd::Next); }
         }
-        let d = Self::move_attr(a, MOVE_TYPE);
+        let d = self.move_attr(a, MOVE_TYPE);
         if d == CURSE_TYPE {
             { self.fail_move()?; return Ok(Cmd::Next); }
         }
@@ -952,12 +952,9 @@ impl Engine {
     /// `BattleCommand_GetMagnitude`: move power `d` from a random magnitude.
     pub fn battle_command_get_magnitude(&mut self) -> Flow<Cmd> {
         let b = self.battle_random("BattleCommand_GetMagnitude");
-        let mut hl = r::MAGNITUDE_POWER;
-        while rom::byte(hl) < b {
-            hl += 3;
-        }
-        let d = rom::byte(hl + 1);
-        self.mem.wb(W_TEXT_DECIMAL_BYTE, rom::byte(hl + 2));
+        let &(_, d, magnitude) =
+            self.data.tables.magnitude_power.iter().find(|&&(threshold, _, _)| threshold >= b).expect("the last threshold is $ff");
+        self.mem.wb(W_TEXT_DECIMAL_BYTE, magnitude);
         self.battle_command_move_delay()?;
         self.text(r::MAGNITUDE_TEXT);
         self.damage_regs[2] = d;
@@ -1112,7 +1109,7 @@ impl Engine {
                 continue;
             }
             // None of the moves in MetronomeExcepts.
-            if super::commands::rom_in_array(r::METRONOME_EXCEPTS, 1, b).is_some() {
+            if self.data.tables.metronome_excepts.contains(&b) {
                 continue;
             }
             // No moves the user already has.

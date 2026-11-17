@@ -74,25 +74,27 @@ pub struct Engine {
     pub rendered: Option<Vec<String>>,
     /// Rendered messages per decision, when both logs are on.
     pub text_log: Vec<Vec<String>>,
-    /// ROM bytes a scenario overrides (flat offset, value): the harness's
-    /// `Cpu::poke_rom` patches of a trainer's AI flags. Read through
-    /// [`Engine::rom_byte`].
-    pub rom_overlay: Vec<(usize, u8)>,
+    /// A trainer class whose attributes the scenario overrides (the
+    /// `[enemy_trainer]` AI flags; the emulated harness patches the ROM).
+    /// Read through [`Engine::trainer_class`].
+    pub trainer_class_patch: Option<(u8, crate::data::game::TrainerClass)>,
     /// When `Some`, what the battle shows, in the emulated harness's format
     /// (`bootstrap::events`): every text message and every HP-bar change.
     pub events: Option<Vec<crate::battle::event::Event>>,
+    /// The game's data (species, moves, items, …).
+    pub data: &'static crate::data::GameData,
 }
 
 impl Engine {
     pub fn new(mem: Mem, rng: u64, flags: Flags) -> Self {
-        Engine { mem, rng, flags, pending: VecDeque::new(), texts: Vec::new(), rng_trace: None, decision_log: None, damage_regs: [0; 4], rendered: None, text_log: Vec::new(), rom_overlay: Vec::new(), events: None }
+        Engine { mem, rng, flags, pending: VecDeque::new(), texts: Vec::new(), rng_trace: None, decision_log: None, damage_regs: [0; 4], rendered: None, text_log: Vec::new(), trainer_class_patch: None, events: None, data: crate::data::GameData::crystal() }
     }
 
-    /// A ROM byte, as patched by the scenario's [`Engine::rom_overlay`].
-    pub fn rom_byte(&self, addr: usize) -> u8 {
-        match self.rom_overlay.iter().find(|&&(a, _)| a == addr) {
-            Some(&(_, v)) => v,
-            None => super::rom::byte(addr),
+    /// Trainer class `id`'s attributes, as the scenario patches them.
+    pub fn trainer_class(&self, id: u8) -> crate::data::game::TrainerClass {
+        match self.trainer_class_patch {
+            Some((class, patched)) if class == id => patched,
+            _ => *self.data.trainer_class(id),
         }
     }
 

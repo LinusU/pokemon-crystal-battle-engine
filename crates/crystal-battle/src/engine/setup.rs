@@ -24,14 +24,8 @@ use crate::defs::*;
 
 const NAME_LENGTH: u16 = 11;
 const MON_NAME_LENGTH_U16: u16 = 11;
-/// `UnlockedUnownLetterSets` data labels sit in bank 0x0f.
-const TRAINER_CLASS_DVS: usize = rom::flat(0x09, 0x70d6);
 /// `CorrectNickErrors.textcommands`.
 const NICK_TEXT_COMMANDS: usize = rom::flat(0x01, 0x66cf);
-/// `GetSquareRoot.Squares`.
-const SQUARES: usize = rom::flat(0x04, 0x7b98);
-/// `IsHMMove.HMMoves`.
-const HM_MOVES: usize = rom::flat(0x00, 0x34f0);
 /// `MapGroupPointers`.
 const MAP_GROUP_POINTERS: u16 = 0x4000;
 const MAP_GROUP_POINTERS_BANK: u8 = 0x25;
@@ -43,21 +37,6 @@ impl Engine {
     pub fn get_party_param_location(&self, a: u8) -> u16 {
         let cur = self.mem.rb(W_CUR_PARTY_MON);
         W_PARTY_MONS.wrapping_add(u16::from(a)).wrapping_add(u16::from(cur).wrapping_mul(PARTY_LEN))
-    }
-
-    /// `IsInArray` for a ROM array with `-1` terminator and 1-byte entries.
-    fn is_in_rom_array(&self, array: usize, a: u8) -> bool {
-        let mut p = array;
-        loop {
-            let v = rom::byte(p);
-            if v == 0xff {
-                return false;
-            }
-            if v == a {
-                return true;
-            }
-            p += 1;
-        }
     }
 
     /// `GetNickname`: nickname `a` of the list at `hl` into `wStringBuffer1`
@@ -107,7 +86,8 @@ impl Engine {
             if b == 255 {
                 return b;
             }
-            let sq = rom::ptr(SQUARES + 2 * usize::from(b - 1));
+            // `GetSquareRoot.Squares` holds b² for b = 1..=254.
+            let sq = u16::from(b) * u16::from(b);
             if sq >= de {
                 return b;
             }
@@ -262,37 +242,34 @@ impl Engine {
     /// `hMultiplicand..+2` (the three bytes of `hProduct + 1..3`).
     pub fn calc_exp_at_level(&mut self, d: u8) {
         let growth = self.mem.rb(W_BASE_GROWTH_RATE);
-        let mut hl = r::GROWTH_RATES + usize::from(growth.wrapping_mul(4));
+        let rate = *self.data.growth_rate(growth);
         // Cube the level
         self.level_squared(d);
         self.mem.wb(H_MULTIPLIER, d);
         self.multiply();
         // Multiply by a
-        self.mem.wb(H_MULTIPLIER, (rom::byte(hl) & 0xf0) >> 4);
+        self.mem.wb(H_MULTIPLIER, (rate.cubic & 0xf0) >> 4);
         self.multiply();
         // Divide by b
-        self.mem.wb(H_DIVISOR, rom::byte(hl) & 0x0f);
-        hl += 1;
+        self.mem.wb(H_DIVISOR, rate.cubic & 0x0f);
         self.divide(4);
         // Push the cubic term to the stack
         let cubic = [self.mem.rb(H_QUOTIENT + 1), self.mem.rb(H_QUOTIENT + 2), self.mem.rb(H_QUOTIENT + 3)];
         // Square the level and multiply by the lower 7 bits of c
         self.level_squared(d);
-        self.mem.wb(H_MULTIPLIER, rom::byte(hl) & 0x7f);
+        self.mem.wb(H_MULTIPLIER, rate.quadratic & 0x7f);
         self.multiply();
         // Push the absolute value of the quadratic term to the stack
         let quad = [self.mem.rb(H_PRODUCT + 1), self.mem.rb(H_PRODUCT + 2), self.mem.rb(H_PRODUCT + 3)];
-        let c_byte = rom::byte(hl);
-        hl += 1;
+        let c_byte = rate.quadratic;
         // Multiply the level by d
         self.mem.wb(H_MULTIPLICAND, 0);
         self.mem.wb(H_MULTIPLICAND + 1, 0);
         self.mem.wb(H_MULTIPLICAND + 2, d);
-        self.mem.wb(H_MULTIPLIER, rom::byte(hl));
-        hl += 1;
+        self.mem.wb(H_MULTIPLIER, rate.linear);
         self.multiply();
         // Subtract e
-        let b = rom::byte(hl);
+        let b = rate.constant;
         let (v, borrow) = self.mem.rb(H_PRODUCT + 3).overflowing_sub(b);
         self.mem.wb(H_MULTIPLICAND + 2, v);
         let (v, borrow) = sbc(self.mem.rb(H_PRODUCT + 2), 0, borrow);
@@ -753,25 +730,8 @@ impl Engine {
     fn learn_level_moves(&mut self) {
         let species = self.mem.rb(W_TEMP_SPECIES);
         self.mem.wb(W_CUR_PARTY_SPECIES, species);
-        let table = r::EVOS_ATTACKS_POINTERS + 2 * usize::from(species.wrapping_sub(1));
-        let mut hl = rom::flat(0x10, rom::ptr(table));
-        // .skip_evos
-        loop {
-            let a = rom::byte(hl);
-            hl += 1;
-            if a == 0 {
-                break;
-            }
-        }
-        loop {
+        for &(b, a) in self.data.species(species).learnset {
             // .find_move
-            let b = rom::byte(hl);
-            hl += 1;
-            if b == 0 {
-                break;
-            }
-            let a = rom::byte(hl);
-            hl += 1;
             if self.mem.rb(W_CUR_PARTY_LEVEL) != b {
                 continue;
             }
@@ -817,7 +777,7 @@ impl Engine {
             self.text(r::MOVE_ASK_FORGET_TEXT);
             let slot = de;
             let forgotten = self.mem.rb(slot);
-            if self.is_in_rom_array(HM_MOVES, forgotten) {
+            if self.data.tables.hm_moves.contains(&forgotten) {
                 // MoveCantForgetHMText, then the menu opens again and A picks the same
                 // move: the original never gets out of this loop.
                 panic!("engine: the oracle hangs forgetting an HM move ({forgotten})");
@@ -835,7 +795,7 @@ impl Engine {
         let mv = self.mem.rb(W_PUTATIVE_TMHM_MOVE);
         self.mem.wb(hl, mv);
         let pp_slot = hl + u16::from(MON_PP - MON_MOVES);
-        let pp = rom::byte(r::MOVES + usize::from(mv.wrapping_sub(1)) * usize::from(MOVE_LENGTH) + usize::from(MOVE_PP));
+        let pp = self.data.mv(mv).pp;
         self.mem.wb(pp_slot, pp);
         if self.battle_mode() != 0
             && self.mem.rb(W_CUR_BATTLE_MON) == cur
@@ -988,9 +948,8 @@ impl Engine {
             if a == 0 {
                 return;
             }
-            let src = r::MOVES + usize::from(a - 1) * usize::from(MOVE_LENGTH);
-            for i in 0..u16::from(MOVE_LENGTH) {
-                self.mem.wb(W_ENEMY_MOVE_STRUCT + i, rom::byte(src + usize::from(i)));
+            for (i, b) in (0..).zip(self.data.mv(a).bytes()) {
+                self.mem.wb(W_ENEMY_MOVE_STRUCT + i, b);
             }
             self.set_enemy_turn();
             self.battle_check_type_matchup();
@@ -1005,9 +964,8 @@ impl Engine {
     /// OT mon `b` (whose base types are written over `wEnemyMonType`, as in the original).
     fn is_the_player_mon_types_effective_against_ot_mon(&mut self, b: u8) {
         let species = self.mem.rb(W_OT_PARTY_COUNT + 1 + u16::from(b));
-        let src = r::BASE_DATA + usize::from(species.wrapping_sub(1)) * usize::from(BASE_DATA_SIZE) + usize::from(BASE_TYPES);
-        for i in 0..u16::from(BASE_CATCH_RATE - BASE_TYPES) {
-            self.mem.wb(W_ENEMY_MON_TYPE1 + i, rom::byte(src + usize::from(i)));
+        for (i, t) in (0..).zip(self.data.species(species).types) {
+            self.mem.wb(W_ENEMY_MON_TYPE1 + i, t);
         }
         let t1 = self.mem.rb(W_BATTLE_MON_TYPE1);
         self.mem.wb(W_PLAYER_MOVE_STRUCT + u16::from(MOVE_TYPE), t1);
@@ -1337,9 +1295,8 @@ impl Engine {
 
     /// `GetTrainerDVs`: the DVs of `wOtherTrainerClass` in `bc`.
     pub(super) fn get_trainer_dvs(&self) -> (u8, u8) {
-        let class = self.mem.rb(W_OTHER_TRAINER_CLASS).wrapping_sub(1);
-        let p = TRAINER_CLASS_DVS + 2 * usize::from(class);
-        (rom::byte(p), rom::byte(p + 1))
+        let [b, c] = self.data.trainer_class(self.mem.rb(W_OTHER_TRAINER_CLASS)).dvs;
+        (b, c)
     }
 
     /// `GetRoamMonHP` / `GetRoamMonDVs`: the field at `first_mon_field` (a field of
@@ -1362,14 +1319,15 @@ impl Engine {
             return false;
         }
         let tod = self.mem.rb(W_TIME_OF_DAY);
+        let tables = self.data.tables;
         let list = if tod < DAY_F {
-            r::ASLEEP_TREE_MONS_MORN
+            tables.asleep_tree_mons_morn
         } else if tod == DAY_F {
-            r::ASLEEP_TREE_MONS_DAY
+            tables.asleep_tree_mons_day
         } else {
-            r::ASLEEP_TREE_MONS_NITE
+            tables.asleep_tree_mons_nite
         };
-        self.is_in_rom_array(list, self.mem.rb(W_TEMP_ENEMY_MON_SPECIES))
+        list.contains(&self.mem.rb(W_TEMP_ENEMY_MON_SPECIES))
     }
 
     /// `CheckUnownLetter`: carry if `wUnownLetter` hasn't been unlocked yet.
@@ -1388,14 +1346,11 @@ impl Engine {
     /// `wUnlockedUnowns` has unlocked.
     fn unown_letter_unlocked(&self, letter: u8) -> bool {
         let mut c = self.mem.rb(W_UNLOCKED_UNOWNS);
-        for set in 0..usize::from(NUM_UNLOCKED_UNOWN_SETS) {
+        for set in self.data.tables.unlocked_unown_letter_sets.iter().take(usize::from(NUM_UNLOCKED_UNOWN_SETS)) {
             let unlocked = c & 1 != 0;
             c >>= 1;
-            if unlocked {
-                let ptr = rom::ptr(r::UNLOCKED_UNOWN_LETTER_SETS + 2 * set);
-                if self.is_in_rom_array(rom::flat(0x0f, ptr), letter) {
-                    return true;
-                }
+            if unlocked && set.contains(&letter) {
+                return true;
             }
         }
         // Hasn't been unlocked, or the letter is invalid
@@ -1415,19 +1370,15 @@ impl Engine {
         if b == 0 && c < 10 {
             mm = bc16.wrapping_add(190);
         } else {
-            let mut hl = r::MAGIKARP_LENGTHS;
             let mut counter = 2u8;
             self.mem.wb(W_TEMP_BYTE_VALUE, counter);
             let mut found = None;
             let mut last_de = 0u16;
-            while counter < 16 {
-                let de16 = rom::ptr(hl);
-                hl += 2;
+            for &(de16, divisor) in self.data.tables.magikarp_lengths.iter().take(14) {
                 last_de = de16;
                 // BUG: Magikarp lengths can be miscalculated: only b is compared (kept)
                 if (bc16 >> 8) as u8 >= (de16 >> 8) as u8 {
                     // .next
-                    hl += 1;
                     counter += 1;
                     self.mem.wb(W_TEMP_BYTE_VALUE, counter);
                     continue;
@@ -1436,7 +1387,7 @@ impl Engine {
                 bc16 = bc16.wrapping_sub(de16);
                 self.mem.wb(H_DIVIDEND, (bc16 >> 8) as u8);
                 self.mem.wb(H_DIVIDEND + 1, bc16 as u8);
-                self.mem.wb(H_DIVISOR, rom::byte(hl));
+                self.mem.wb(H_DIVISOR, divisor);
                 self.divide(2);
                 let c = self.mem.rb(H_QUOTIENT + 3);
                 // de = c + 100 × (2 + i)
@@ -1479,34 +1430,19 @@ impl Engine {
     /// `FillMoves`: fill in the moves at `de` for `wCurPartySpecies` at `wCurPartyLevel`.
     pub fn fill_moves(&mut self, de0: u16) {
         let species = self.mem.rb(W_CUR_PARTY_SPECIES);
-        let table = r::EVOS_ATTACKS_POINTERS + 2 * usize::from(species.wrapping_sub(1));
-        let mut hl = rom::flat(0x10, rom::ptr(table));
-        // .GoToAttacks
-        loop {
-            let a = rom::byte(hl);
-            hl += 1;
-            if a == 0 {
-                break;
-            }
-        }
-        'moves: loop {
+        'moves: for &(b, mv) in self.data.species(species).learnset {
             // .GetLevel
-            let b = rom::byte(hl);
-            hl += 1;
-            if b == 0 || self.mem.rb(W_CUR_PARTY_LEVEL) < b {
+            if self.mem.rb(W_CUR_PARTY_LEVEL) < b {
                 return;
             }
             if self.mem.rb(W_SKIP_MOVES_BEFORE_LEVEL_UP) != 0 && self.mem.rb(W_PREV_PARTY_LEVEL) >= b {
                 // .GetMove
-                hl += 1;
                 continue;
             }
             // .CheckMove
-            let mv = rom::byte(hl);
             for i in 0..u16::from(NUM_MOVES) {
                 if self.mem.rb(de0 + i) == mv {
                     // .NextMove
-                    hl += 1;
                     continue 'moves;
                 }
             }
@@ -1530,11 +1466,10 @@ impl Engine {
             // .LearnMove
             self.mem.wb(de, mv);
             if self.mem.rb(W_EVOLUTION_OLD_SPECIES) != 0 {
-                let pp = rom::byte(r::MOVES + usize::from(mv - 1) * usize::from(MOVE_LENGTH) + usize::from(MOVE_PP));
+                let pp = self.data.mv(mv).pp;
                 self.mem.wb(de + u16::from(MON_PP - MON_MOVES), pp);
             }
             // .NextMove
-            hl += 1;
         }
     }
 
@@ -1552,9 +1487,8 @@ impl Engine {
             let mv = self.mem.rb(hl + i);
             let mut a = mv;
             if mv != 0 {
-                let src = r::MOVES + usize::from(mv - 1) * usize::from(MOVE_LENGTH);
-                for j in 0..u16::from(MOVE_LENGTH) {
-                    self.mem.wb(W_STRING_BUFFER1 + j, rom::byte(src + usize::from(j)));
+                for (j, b) in (0..).zip(self.data.mv(mv).bytes()) {
+                    self.mem.wb(W_STRING_BUFFER1 + j, b);
                 }
                 a = self.mem.rb(W_STRING_BUFFER1 + u16::from(MOVE_PP));
             }

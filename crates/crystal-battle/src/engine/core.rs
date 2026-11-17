@@ -487,22 +487,20 @@ impl Engine {
             return 0;
         }
         let effect = self.get_move_effect(mv);
-        let mut p = r::MOVE_EFFECT_PRIORITIES;
-        loop {
-            let a = super::rom::byte(p);
-            if a == effect {
-                return super::rom::byte(p + 1);
+        for &(e, priority) in self.data.tables.move_effect_priorities {
+            if e == effect {
+                return priority;
             }
-            p += 2;
-            if a == 0xff {
-                return BASE_PRIORITY;
+            if e == 0xff {
+                break;
             }
         }
+        BASE_PRIORITY
     }
 
     /// `GetMoveEffect`. Move 0 (`dec a`) reads entry 255, past the table.
     pub fn get_move_effect(&self, mv: u8) -> u8 {
-        super::rom::byte(r::MOVES + usize::from(mv.wrapping_sub(1)) * usize::from(MOVE_LENGTH) + usize::from(MOVE_EFFECT))
+        self.data.mv(mv).effect
     }
 
     /// `Battle_EnemyFirst`.
@@ -781,21 +779,21 @@ impl Engine {
             return false;
         }
         let species = self.mem.rb(W_TEMP_ENEMY_MON_SPECIES);
-        let in_list = |table: usize| super::commands::rom_in_array(table, 1, species).is_some();
-        if in_list(r::ALWAYS_FLEE_MONS) {
+        let tables = self.data.tables;
+        if tables.always_flee_mons.contains(&species) {
             return true;
         }
         let b = self.battle_random("TryEnemyFlee");
         if b >= percent(50) + 1 {
             return false;
         }
-        if in_list(r::OFTEN_FLEE_MONS) {
+        if tables.often_flee_mons.contains(&species) {
             return true;
         }
         if b >= percent(10) + 1 {
             return false;
         }
-        in_list(r::SOMETIMES_FLEE_MONS)
+        tables.sometimes_flee_mons.contains(&species)
     }
 
     /// `WildFled_EnemyFled_LinkBattleCanceled`.

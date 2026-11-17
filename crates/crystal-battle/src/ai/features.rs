@@ -15,7 +15,7 @@
 use crate::battle::state::{BattleMon, PartyMon, SideState};
 use crate::battle::{Action, BattleState, PromptSite, Side};
 use crate::defs;
-use crate::engine::{rom, rsym as r};
+use crate::data::game::{GameData, TypeMatchup};
 use std::sync::OnceLock;
 
 /// Bump when the encoding changes: saved models record it and refuse to load
@@ -117,15 +117,8 @@ pub fn move_data(id: u8) -> MoveData {
     if id == 0 || id > defs::NUM_ATTACKS {
         return MoveData::default();
     }
-    let at = r::MOVES + usize::from(id - 1) * usize::from(defs::MOVE_LENGTH);
-    MoveData {
-        effect: rom::byte(at + usize::from(defs::MOVE_EFFECT)),
-        power: rom::byte(at + usize::from(defs::MOVE_POWER)),
-        kind: rom::byte(at + usize::from(defs::MOVE_TYPE)),
-        accuracy: rom::byte(at + usize::from(defs::MOVE_ACC)),
-        pp: rom::byte(at + usize::from(defs::MOVE_PP)),
-        chance: rom::byte(at + usize::from(defs::MOVE_CHANCE)),
-    }
+    let m = GameData::crystal().mv(id);
+    MoveData { effect: m.effect, power: m.power, kind: m.kind, accuracy: m.accuracy, pp: m.pp, chance: m.effect_chance }
 }
 
 /// A species' two types (`BaseData`).
@@ -133,8 +126,7 @@ pub fn species_types(species: u8) -> [u8; 2] {
     if species == 0 || species > defs::NUM_POKEMON {
         return [0xff, 0xff];
     }
-    let at = r::BASE_DATA + usize::from(species - 1) * usize::from(defs::BASE_DATA_SIZE) + usize::from(defs::BASE_TYPES);
-    [rom::byte(at), rom::byte(at + 1)]
+    GameData::crystal().species(species).types
 }
 
 /// `TypeMatchups` as a table: effectiveness ×10 (0, 5, 10, 20) of an
@@ -143,22 +135,13 @@ fn type_chart() -> &'static [[u8; TYPES as usize]; TYPES as usize] {
     static CHART: OnceLock<[[u8; TYPES as usize]; TYPES as usize]> = OnceLock::new();
     CHART.get_or_init(|| {
         let mut chart = [[defs::EFFECTIVE; TYPES as usize]; TYPES as usize];
-        let mut at = r::TYPE_MATCHUPS;
-        loop {
-            let atk = rom::byte(at);
-            if atk == 0xff {
-                break;
+        // Past the Foresight marker, the entries still apply.
+        for &matchup in GameData::crystal().type_matchups {
+            if let TypeMatchup::Matchup { attacker, defender, multiplier } = matchup
+                && let (Some(a), Some(d)) = (type_index(attacker), type_index(defender))
+            {
+                chart[a][d] = multiplier;
             }
-            if atk == 0xfe {
-                // The Foresight marker: the entries after it still apply.
-                at += 1;
-                continue;
-            }
-            let (def, eff) = (rom::byte(at + 1), rom::byte(at + 2));
-            if let (Some(a), Some(d)) = (type_index(atk), type_index(def)) {
-                chart[a][d] = eff;
-            }
-            at += 3;
         }
         chart
     })

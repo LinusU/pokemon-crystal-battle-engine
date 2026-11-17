@@ -261,9 +261,9 @@ impl Engine {
                 self.mem.wb(at + 1, (pic >> 8) as u8);
             }
         } else {
-            let src = r::BASE_DATA + usize::from(species - 1) * usize::from(BASE_DATA_SIZE);
-            for i in 0..u16::from(BASE_DATA_SIZE) {
-                self.mem.wb(W_CUR_BASE_DATA + i, rom::byte(src + usize::from(i)));
+            let bytes = self.data.species(species).base_data_bytes();
+            for (i, b) in (0..).zip(bytes) {
+                self.mem.wb(W_CUR_BASE_DATA + i, b);
             }
         }
         // .end: replace the Pokédex number with the species.
@@ -448,14 +448,14 @@ impl Engine {
         let level = self.mem.rb(bc + u16::from(c));
         let hl = hl + 2 * u16::from(c);
         let de = de + 2 * u16::from(c);
-        let table = r::STAT_LEVEL_MULTIPLIERS_APPLIED + 2 * usize::from(level.wrapping_sub(1));
+        let (multiplier, divisor) = self.data.tables.stat_level_multipliers_applied[usize::from(level)];
         self.mem.wb(H_MULTIPLICAND, 0);
         let (hi, lo) = (self.mem.rb(de), self.mem.rb(de + 1));
         self.mem.wb(H_MULTIPLICAND + 1, hi);
         self.mem.wb(H_MULTIPLICAND + 2, lo);
-        self.mem.wb(H_MULTIPLIER, rom::byte(table));
+        self.mem.wb(H_MULTIPLIER, multiplier);
         self.multiply();
-        self.mem.wb(H_DIVISOR, rom::byte(table + 1));
+        self.mem.wb(H_DIVISOR, divisor);
         self.divide(4);
         let q = u16::from(self.mem.rb(H_QUOTIENT + 2)) << 8 | u16::from(self.mem.rb(H_QUOTIENT + 3));
         if q >= MAX_STAT_VALUE {
@@ -879,7 +879,7 @@ impl Engine {
         let de = W_PARTY_MON1_HAPPINESS + u16::from(cur) * PARTY_LEN;
         let happiness = self.mem.rb(de);
         let e = if happiness < HAPPINESS_THRESHOLD_1 { 0 } else if happiness < HAPPINESS_THRESHOLD_2 { 1 } else { 2 };
-        let change = rom::byte(r::HAPPINESS_CHANGES + 3 * usize::from(c.wrapping_sub(1)) + e);
+        let change = self.data.tables.happiness_changes[usize::from(c)][e];
         let new = if change < 0x64 {
             happiness.checked_add(change).unwrap_or(0xff)
         } else {

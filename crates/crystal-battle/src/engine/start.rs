@@ -106,7 +106,9 @@ pub fn start(config: &BattleConfig, seed: u64, render_text: bool) -> Result<Engi
     // before the first turn reads them.
     if let (Some(ov), BattleKind::TrainerBattle) = (&config.enemy_trainer, config.battle.kind) {
         let class = engine.mem.rb(W_TRAINER_CLASS);
-        engine.rom_overlay = crate::config::ai_flag_patches(class, ov)?;
+        let mut patched = *engine.data.trainer_class(class);
+        crate::config::apply_ai_flag_override(&mut patched, ov)?;
+        engine.trainer_class_patch = Some((class, patched));
     }
     Ok(engine)
 }
@@ -684,17 +686,7 @@ impl Engine {
     /// `KantoGymLeaders`).
     fn is_gym_leader(&self) -> bool {
         let class = self.mem.rb(W_OTHER_TRAINER_CLASS);
-        let mut p = r::GYM_LEADERS;
-        loop {
-            let v = rom::byte(p);
-            if v == 0xff {
-                return false;
-            }
-            if v == class {
-                return true;
-            }
-            p += 1;
-        }
+        self.data.tables.gym_leaders.contains(&class)
     }
 
     /// `GetTrainerAttributes` (with `GetOTName`): the class name into
@@ -713,14 +705,11 @@ impl Engine {
             W_STRING_BUFFER1
         };
         self.mem.copy(W_OT_CLASS_NAME, src, u16::from(TRAINER_CLASS_NAME_LENGTH));
-        let entry = r::TRAINER_CLASS_ATTRIBUTES + usize::from(class - 1) * usize::from(NUM_TRAINER_ATTRIBUTES);
-        let (item1, item2) = match launch.enemy_item_override {
-            Some([a, b]) => (a, b),
-            None => (rom::byte(entry + usize::from(TRNATTR_ITEM1)), rom::byte(entry + usize::from(TRNATTR_ITEM2))),
-        };
+        let attributes = self.trainer_class(class);
+        let [item1, item2] = launch.enemy_item_override.unwrap_or(attributes.items);
         self.mem.wb(W_ENEMY_TRAINER_ITEM1, item1);
         self.mem.wb(W_ENEMY_TRAINER_ITEM2, item2);
-        let reward = rom::byte(entry + usize::from(TRNATTR_BASEMONEY));
+        let reward = attributes.base_money;
         self.mem.wb(W_ENEMY_TRAINER_BASE_REWARD, reward);
     }
 
@@ -809,7 +798,7 @@ impl Engine {
                     if mv == 0 {
                         break;
                     }
-                    let pp = rom::byte(r::MOVES + usize::from(mv - 1) * usize::from(MOVE_LENGTH) + usize::from(MOVE_PP));
+                    let pp = self.data.mv(mv).pp;
                     self.mem.wb(de, pp);
                     de += 1;
                 }

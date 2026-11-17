@@ -43,10 +43,8 @@ impl Engine {
         if item == 0 {
             return (0, 0);
         }
-        let at = r::ITEM_ATTRIBUTES
-            + usize::from(item - 1) * usize::from(ITEMATTR_STRUCT_LENGTH)
-            + usize::from(ITEMATTR_EFFECT);
-        (rom::byte(at), rom::byte(at + 1))
+        let attributes = self.data.item(item);
+        (attributes.effect, attributes.param)
     }
 
     // --- battle scene, animations (memory effects only) ---------------------------
@@ -298,11 +296,10 @@ impl Engine {
         let mut d = 2;
         loop {
             // .accuracy_loop
-            let idx = usize::from(b.wrapping_sub(1).wrapping_shl(1));
-            let row = r::ACCURACY_LEVEL_MULTIPLIERS + idx;
-            self.mem.wb(H_MULTIPLIER, rom::byte(row));
+            let (multiplier, divisor) = self.data.tables.accuracy_level_multipliers[usize::from(b)];
+            self.mem.wb(H_MULTIPLIER, multiplier);
             self.multiply();
-            self.mem.wb(H_DIVISOR, rom::byte(row + 1));
+            self.mem.wb(H_DIVISOR, divisor);
             self.divide(4);
             // minimum accuracy is $0001
             if self.mem.rb(H_QUOTIENT + 3) | self.mem.rb(H_QUOTIENT + 2) == 0 {
@@ -1257,18 +1254,7 @@ impl Engine {
         // Item boosts
         let (_, item_effect, item_param) = self.get_user_item();
         if item_effect != 0 {
-            let mut hl = r::TYPE_BOOST_ITEMS;
-            loop {
-                let a = rom::byte(hl);
-                hl += 1;
-                if a == 0xff {
-                    break;
-                }
-                let boost_type = rom::byte(hl);
-                hl += 1;
-                if a != item_effect {
-                    continue;
-                }
+            if let Some(&(_, boost_type)) = self.data.tables.type_boost_items.iter().find(|&&(effect, _)| effect == item_effect) {
                 // Type
                 if self.battle_var(BATTLE_VARS_MOVE_TYPE) == boost_type {
                     // * 100 + item effect amount
@@ -1278,7 +1264,6 @@ impl Engine {
                     self.mem.wb(H_DIVISOR, 100);
                     self.divide(4);
                 }
-                break;
             }
         }
 
@@ -1432,17 +1417,10 @@ impl Engine {
         // .skip_to_divide
         self.divide(4);
         let b = self.mem.rb(H_QUOTIENT + 3);
-        let mut p = r::FLAIL_REVERSAL_POWER;
-        loop {
-            let a = rom::byte(p);
-            p += 1;
-            if a >= b {
-                break;
-            }
-            p += 1;
-        }
+        let Some(&(_, power)) = self.data.tables.flail_reversal_power.iter().find(|&&(threshold, _)| threshold >= b) else {
+            panic!("unsupported glitch: Flail/Reversal with HP above the maximum");
+        };
         // .break_loop
-        let power = rom::byte(p);
         let hl = if self.is_player_turn() { W_PLAYER_MOVE_STRUCT_POWER } else { W_ENEMY_MOVE_STRUCT_POWER };
         self.mem.wb(hl, power);
         if self.is_player_turn() {
@@ -1461,44 +1439,19 @@ impl Engine {
     pub fn do_weather_modifiers(&mut self) {
         let b = self.mem.rb(W_BATTLE_WEATHER);
         let c = self.mem.rb(W_CUR_TYPE);
-        let mut found = None;
-        let mut de = r::WEATHER_TYPE_MODIFIERS;
-        loop {
-            let a = rom::byte(de);
-            de += 1;
-            if a == 0xff {
-                break;
-            }
-            if a == b && rom::byte(de) == c {
-                found = Some(de);
-                break;
-            }
-            de += 2;
-        }
-        if found.is_none() {
-            let c = self.battle_var(BATTLE_VARS_MOVE_EFFECT);
-            let mut de = r::WEATHER_MOVE_MODIFIERS;
-            loop {
-                let a = rom::byte(de);
-                de += 1;
-                if a == 0xff {
-                    break;
-                }
-                if a == b && rom::byte(de) == c {
-                    found = Some(de);
-                    break;
-                }
-                de += 2;
-            }
-        }
-        let Some(de) = found else { return };
+        let tables = self.data.tables;
+        let found = tables.weather_type_modifiers.iter().find(|&&(weather, ty, _)| weather == b && ty == c).or_else(|| {
+            let effect = self.battle_var(BATTLE_VARS_MOVE_EFFECT);
+            tables.weather_move_modifiers.iter().find(|&&(weather, e, _)| weather == b && e == effect)
+        });
+        let Some(&(_, _, multiplier)) = found else { return };
         // .ApplyModifier
         self.mem.wb(H_MULTIPLICAND, 0);
         let hi = self.mem.rb(W_CUR_DAMAGE);
         let lo = self.mem.rb(W_CUR_DAMAGE + 1);
         self.mem.wb(H_MULTIPLICAND + 1, hi);
         self.mem.wb(H_MULTIPLICAND + 2, lo);
-        self.mem.wb(H_MULTIPLIER, rom::byte(de + 1));
+        self.mem.wb(H_MULTIPLIER, multiplier);
         self.multiply();
         self.mem.wb(H_DIVISOR, 10);
         self.divide(4);
@@ -1523,19 +1476,18 @@ impl Engine {
             return;
         }
         let mut bc = u16::from(self.mem.rb(W_KANTO_BADGES)) << 8 | u16::from(self.mem.rb(W_JOHTO_BADGES));
-        let mut hl = r::BADGE_TYPE_BOOSTS;
-        loop {
-            let t = rom::byte(hl);
-            if t == 0xff {
-                return;
-            }
+        let mut boosted = false;
+        for &t in self.data.tables.badge_type_boosts {
             let carry = bc & 1 != 0;
             bc >>= 1;
             if carry && self.mem.rb(W_CUR_TYPE) == t {
+                boosted = true;
                 break;
             }
             // .NextBadge
-            hl += 1;
+        }
+        if !boosted {
+            return;
         }
         // .ApplyBoost
         let damage = self.mem.rw(W_CUR_DAMAGE);

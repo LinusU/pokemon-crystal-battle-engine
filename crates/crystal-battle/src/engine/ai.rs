@@ -12,7 +12,7 @@
 #![allow(unused_imports)]
 
 use super::battle::{Engine, Flow, PARTY_LEN, PP_MASK, percent};
-use super::commands::{Cmd, rom_in_array};
+use super::commands::Cmd;
 use super::rom;
 use super::rsym as r;
 use super::sym::*;
@@ -74,14 +74,15 @@ impl Engine {
 
         // Apply AI scoring layers depending on the trainer class.
         // In the Battle Tower, always use the attributes of the first class.
-        let mut attrs = r::TRAINER_CLASS_ATTRIBUTES + usize::from(TRNATTR_AI_MOVE_WEIGHTS);
-        if self.mem.rb(W_IN_BATTLE_TOWER_BATTLE) & 1 << IN_BATTLE_TOWER_BATTLE_F == 0 {
-            let class = self.mem.rb(W_TRAINER_CLASS).wrapping_sub(1);
-            attrs += usize::from(class) * usize::from(NUM_TRAINER_ATTRIBUTES);
-        }
+        let class = if self.mem.rb(W_IN_BATTLE_TOWER_BATTLE) & 1 << IN_BATTLE_TOWER_BATTLE_F == 0 {
+            self.mem.rb(W_TRAINER_CLASS)
+        } else {
+            1
+        };
+        let weights = self.trainer_class(class).ai_move_weights;
         for layer in 0u8..16 {
-            // SmallFarFlagAction (CHECK_FLAG) on the ROM flags.
-            let set = self.rom_byte(attrs + usize::from(layer >> 3)) & 1 << (layer & 7) != 0;
+            // SmallFarFlagAction (CHECK_FLAG) on the class's flags.
+            let set = weights[usize::from(layer >> 3)] & 1 << (layer & 7) != 0;
             if set {
                 self.ai_run_layer(layer);
             }
@@ -262,7 +263,7 @@ impl Engine {
             }
 
             // Dismiss status-only moves if the player can't be statused.
-            if rom_in_array(r::STATUS_ONLY_EFFECTS, 1, c).is_none() {
+            if !self.data.tables.status_only_effects.contains(&c) {
                 continue;
             }
             if self.mem.rb(W_BATTLE_MON_STATUS) != 0 {
@@ -431,7 +432,7 @@ impl Engine {
             if mv == 0 {
                 return;
             }
-            if rom_in_array(r::STALL_MOVES, 1, mv).is_some() {
+            if self.data.tables.stall_moves.contains(&mv) {
                 self.ai_inc(hl, 1);
             }
         }
@@ -498,7 +499,7 @@ impl Engine {
             }
             // Ignore this move if it is reckless.
             let effect = self.mem.rb(W_ENEMY_MOVE_STRUCT + u16::from(MOVE_EFFECT));
-            if rom_in_array(r::RECKLESS_MOVES, 1, effect).is_some() {
+            if self.data.tables.reckless_moves.contains(&effect) {
                 continue;
             }
             // If we made it this far, discourage this move.
@@ -510,7 +511,7 @@ impl Engine {
     pub fn ai_damage_calc(&mut self) {
         self.mem.wb(H_BATTLE_TURN, 1);
         let effect = self.mem.rb(W_ENEMY_MOVE_STRUCT + u16::from(MOVE_EFFECT));
-        if rom_in_array(r::CONSTANT_DAMAGE_EFFECTS, 1, effect).is_some() {
+        if self.data.tables.constant_damage_effects.contains(&effect) {
             let _ = self.battle_command_constant_damage();
             return;
         }
@@ -531,7 +532,7 @@ impl Engine {
             if mv == 0 {
                 return;
             }
-            if rom_in_array(r::RESIDUAL_MOVES, 1, mv).is_none() {
+            if !self.data.tables.residual_moves.contains(&mv) {
                 continue;
             }
             // BUG: "Cautious" AI may fail to discourage residual moves
@@ -596,7 +597,7 @@ impl Engine {
             }
             // Don't use risky moves at max HP.
             let effect = self.mem.rb(W_ENEMY_MOVE_STRUCT + u16::from(MOVE_EFFECT));
-            if rom_in_array(r::RISKY_EFFECTS, 1, effect).is_some() {
+            if self.data.tables.risky_effects.contains(&effect) {
                 if self.ai_check_enemy_max_hp() {
                     continue;
                 }
@@ -637,9 +638,8 @@ impl Engine {
 
     /// `AIGetEnemyMove`: load the attributes of move `a` into `wEnemyMoveStruct`.
     pub fn ai_get_enemy_move(&mut self, a: u8) {
-        let src = r::MOVES + usize::from(a.wrapping_sub(1)) * usize::from(MOVE_LENGTH);
-        for i in 0..usize::from(MOVE_LENGTH) {
-            self.mem.wb(W_ENEMY_MOVE_STRUCT + i as u16, rom::byte(src + i));
+        for (i, b) in (0..).zip(self.data.mv(a).bytes()) {
+            self.mem.wb(W_ENEMY_MOVE_STRUCT + i, b);
         }
     }
 
@@ -719,21 +719,9 @@ impl Engine {
     }
 
     /// `AIHasMoveInArray`: carry (`true`) if the enemy has a move in the
-    /// `-1`-terminated ROM array at `table`.
-    pub fn ai_has_move_in_array(&self, table: usize) -> bool {
-        let mut hl = table;
-        loop {
-            let b = rom::byte(hl);
-            hl += 1;
-            if b == 0xff {
-                return false;
-            }
-            for i in 0..u16::from(NUM_MOVES) {
-                if self.mem.rb(W_ENEMY_MON_MOVES + i) == b {
-                    return true;
-                }
-            }
-        }
+    /// list `moves`.
+    pub fn ai_has_move_in_array(&self, moves: &[u8]) -> bool {
+        moves.iter().any(|&mv| (0..u16::from(NUM_MOVES)).any(|i| self.mem.rb(W_ENEMY_MON_MOVES + i) == mv))
     }
 
     /// `AICheckLastPlayerMon`: nz (`true`) if the player has another
