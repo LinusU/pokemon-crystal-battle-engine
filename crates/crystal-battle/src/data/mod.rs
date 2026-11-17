@@ -8,3 +8,7 @@ pub mod random;
 pub mod species;
 pub mod trainers;
 pub mod trainers_data;
+pub mod crystal;
+pub mod game;
+
+pub use game::GameData;
