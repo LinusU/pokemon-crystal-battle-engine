@@ -868,7 +868,10 @@ pub(crate) fn poke_ball_effect_not_kurt_ball(cpu: &mut Cpu) {
     // the mon is not caught, draws one `Random` byte — so the wobbles consume the
     // random stream, and the count picks the "broke free" text below. Run exactly
     // that loop here (GetPokeBallWobble is in bank 0x03, PokeBallEffect's bank).
-    // See docs/transpiled_code.md.
+    // See docs/transpiled_code.md. (It reports the animation and its outcome,
+    // observe only.)
+    crate::bootstrap::events::battle_anim(cpu);
+    let mut wobbles = 0u8;
     loop {
         let return_sentinel: u16 = 0xfff8;
         cpu.push_word(return_sentinel);
@@ -877,7 +880,10 @@ pub(crate) fn poke_ball_effect_not_kurt_ball(cpu: &mut Cpu) {
         if cpu.c != 0 {
             break;
         }
+        wobbles += 1;
     }
+    crate::bootstrap::events::battle_anim_done(cpu);
+    crate::bootstrap::events::ball_wobbles(cpu, wobbles, cpu.c == 1);
     cpu.pc = next_pc;
     cpu.cycle(24);
     cpu.a = cpu.read_byte(0xc64e);

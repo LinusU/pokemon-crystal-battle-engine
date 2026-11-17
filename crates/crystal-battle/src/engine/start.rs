@@ -146,6 +146,7 @@ pub fn boot_mem(battle_scene: bool) -> Mem {
 }
 
 use super::names::Name;
+use crate::battle::Event;
 
 impl Engine {
     /// `seed_player`: name, ID, gender, time of day, empty key/PC item lists.
@@ -819,10 +820,18 @@ impl Engine {
                 // Call_PlayBattleAnim(ANIM_SEND_OUT_MON)
                 self.mem.wb(W_FX_ANIM_ID, ANIM_SEND_OUT_MON as u8);
                 self.mem.wb(W_FX_ANIM_ID + 1, (ANIM_SEND_OUT_MON >> 8) as u8);
+                self.play_battle_anim();
             }
-            if !self.check_sleeping_tree_mon() && self.mem.bit(W_OPTIONS, BATTLE_SCENE) {
-                // .cry_no_anim (the cry itself is sound)
-                self.mem.wb(W_CRY_TRACKS, 0xf);
+            if !self.check_sleeping_tree_mon() {
+                let species = self.mem.rb(W_TEMP_ENEMY_MON_SPECIES);
+                if self.mem.bit(W_OPTIONS, BATTLE_SCENE) {
+                    // .cry_no_anim
+                    self.mem.wb(W_CRY_TRACKS, 0xf);
+                    self.show(Event::Cry(species));
+                } else {
+                    // AnimateFrontpic (the cry plays during the animation)
+                    self.show(Event::Frontpic(species));
+                }
             }
             match self.mem.rb(W_BATTLE_TYPE) {
                 BATTLETYPE_FISH => r::HOOKED_POKEMON_ATTACKED_TEXT,
@@ -831,6 +840,7 @@ impl Engine {
                 _ => r::WILD_POKEMON_APPEARED_TEXT,
             }
         } else {
+            self.show(Event::Sound(SFX_SHINE.into()));
             self.battle_get_trainer_name();
             r::WANTS_TO_BATTLE_TEXT
         };
@@ -935,7 +945,7 @@ impl Engine {
         let species = self.mem.rb(W_PARTY_SPECIES + u16::from(cur));
         self.mem.wb(W_CUR_PARTY_SPECIES, species);
         self.mem.wb(W_TEMP_BATTLE_MON_SPECIES, species);
-        // SlideBattlePicOut: graphics.
+        self.show(Event::SlideOut(crate::battle::Side::Player));
         self.reset_battle_participants();
         self.init_battle_mon();
         self.reset_player_stat_levels();

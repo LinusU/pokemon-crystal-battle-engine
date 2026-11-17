@@ -9,7 +9,6 @@ use super::battle::{Engine, Flow, PARTY_LEN, PP_MASK, percent};
 use super::commands::Cmd;
 use super::names::Name;
 use super::mem::{GLITCH_ZERO, glitch_range_kept};
-use super::rom;
 use super::rsym as r;
 use super::sym::*;
 use crate::defs::*;

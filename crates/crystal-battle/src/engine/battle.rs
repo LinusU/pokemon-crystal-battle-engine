@@ -67,6 +67,8 @@ pub struct Engine {
     pub messages: Option<Vec<crate::battle::Message>>,
     /// The messages per decision, when both logs are on.
     pub message_log: Vec<Vec<crate::battle::Message>>,
+    /// The events per decision, when the decision log and the events are on.
+    pub event_log: Vec<Vec<crate::battle::Event>>,
     /// A trainer class whose attributes the scenario overrides (the
     /// `[enemy_trainer]` AI flags; the emulated harness patches the ROM).
     /// Read through [`Engine::trainer_class`].
@@ -82,7 +84,7 @@ pub struct Engine {
 
 impl Engine {
     pub fn new(mem: Mem, rng: u64, flags: Flags) -> Self {
-        Engine { mem, rng, flags, pending: VecDeque::new(), rng_trace: None, decision_log: None, damage_regs: [0; 4], messages: None, message_log: Vec::new(), trainer_class_patch: None, events: None, data: crate::data::GameData::crystal(), names: Default::default() }
+        Engine { mem, rng, flags, pending: VecDeque::new(), rng_trace: None, decision_log: None, damage_regs: [0; 4], messages: None, message_log: Vec::new(), event_log: Vec::new(), trainer_class_patch: None, events: None, data: crate::data::GameData::crystal(), names: Default::default() }
     }
 
     /// Trainer class `id`'s attributes, as the scenario patches them.
@@ -234,6 +236,26 @@ impl Engine {
         self.text_with(label, &[]);
     }
 
+    /// Show `event` (when the battle's events are kept).
+    pub fn show(&mut self, event: crate::battle::Event) {
+        if let Some(events) = self.events.as_mut() {
+            events.push(event);
+        }
+    }
+
+    /// The side whose turn it is (`hBattleTurn`).
+    pub fn turn_side(&self) -> crate::battle::Side {
+        if self.turn() == 0 { crate::battle::Side::Player } else { crate::battle::Side::Enemy }
+    }
+
+    /// `PlayBattleAnim`: animation `wFXAnimID` from `hBattleTurn`'s side with
+    /// `wBattleAnimParam`.
+    pub fn play_battle_anim(&mut self) {
+        let anim = self.mem.rw_le(W_FX_ANIM_ID);
+        let event = crate::battle::Event::Animation { anim, user: self.turn_side(), param: self.mem.rb(W_BATTLE_ANIM_PARAM) };
+        self.show(event);
+    }
+
     /// `text`, for a text whose `text_asm` choices the battle code computed
     /// (in order).
     pub fn text_with(&mut self, label: usize, choices: &[usize]) {
@@ -282,6 +304,9 @@ impl Engine {
             log.push((site, legal.clone(), self.mem.clone(), self.rng));
             if let Some(m) = self.messages.as_mut() {
                 self.message_log.push(std::mem::take(m));
+            }
+            if let Some(e) = self.events.as_mut() {
+                self.event_log.push(std::mem::take(e));
             }
         }
         match self.pending.pop_front() {

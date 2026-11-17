@@ -1,5 +1,7 @@
-//! What the battle shows: its messages and HP-bar changes, reported on
-//! every decision.
+//! What the battle shows: its messages, HP bars, animations, sounds and the
+//! rest of what the screen does, reported on every decision.
+
+use super::action::Side;
 
 /// Which HP bar an [`Event::HpBar`] animates.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -19,6 +21,33 @@ pub enum Event {
     Message(super::message::Message),
     /// An HP bar moved from `from` to `to` (of `max`).
     HpBar { target: HpBarTarget, from: u16, to: u16, max: u16 },
+    /// A battle animation (`PlayBattleAnim`): a move's own (`anim` is the
+    /// move's animation id, below `$100`) or one of the game's `ANIM_*`
+    /// effects (send-outs, status, stat changes, balls, weather, …), played
+    /// from `user`'s side. `param` picks a variant (the hit of a multi-hit
+    /// move, Present's, a ball's shakes, …). The animation's own sounds and
+    /// cries are part of it.
+    Animation { anim: u16, user: Side, param: u8 },
+    /// A sound effect (`SFX_*`) the battle plays outside animations and text.
+    Sound(u16),
+    /// The cry of a species (a mon fainting, a wild mon appearing, …).
+    Cry(u8),
+    /// The active mon on `side` faints: its picture slides down.
+    Faint(Side),
+    /// The picture on `side` slides off the screen.
+    SlideOut(Side),
+    /// The enemy trainer slides back onto the screen (after the battle).
+    TrainerSlidesIn,
+    /// The active mon (party slot `slot`)'s experience bar fills by `gained`.
+    ExpBar { slot: u8, gained: u16 },
+    /// The stats box of party mon `slot` (after a level-up).
+    StatsBox { slot: u8 },
+    /// The enemy mon's front picture animates, with its cry (it appears).
+    Frontpic(u8),
+    /// The ball thrown (the `Animation` before) shakes `wobbles` times, then
+    /// clicks shut (`caught`) or breaks open. The original's animation draws
+    /// these as it plays; this is their outcome.
+    BallWobbles { wobbles: u8, caught: bool },
 }
 
 /// `wTilemap` (`00:c4a0`), 20 tiles per row. The battle text box (and the

@@ -6,6 +6,7 @@ use crate::engine::battle::Engine;
 use crate::engine::core::{TurnEnd, TurnEntry};
 use crate::engine::mem::Mem;
 use super::{Snapshot, Trace, render};
+use crate::bootstrap::events::Shown;
 use crate::engine::start::{self, StartError};
 use crate::engine::sym;
 use crate::bootstrap::BattleConfig;
@@ -69,8 +70,8 @@ pub enum Divergence {
     Legal { decision: usize, oracle: String, engine: String },
     Rng { decision: usize, oracle_calls: usize, first_difference: String },
     Memory { decision: usize, diffs: Vec<String> },
-    /// The battle text before this decision differs.
-    Text { decision: usize, oracle: Vec<String>, engine: Vec<String> },
+    /// What the battle showed before this decision differs.
+    Shown { decision: usize, oracle: Vec<Shown>, engine: Vec<Shown> },
     /// One engine decided more times than the other.
     Length { oracle: usize, engine: usize },
     /// The battle's end (after the last decision) differs.
@@ -79,16 +80,8 @@ pub enum Divergence {
 
 /// `start::start`, keeping every message printed (from the battle's start)
 /// when `messages` is on.
-fn start_logging(config: &BattleConfig, seed: u64, messages: bool) -> Result<Engine, StartError> {
-    let mut engine = start::start(config, seed, messages)?;
-    if messages {
-        let printed = engine.events.take().unwrap_or_default().into_iter().filter_map(|event| match event {
-            crate::battle::Event::Message(message) => Some(message),
-            _ => None,
-        });
-        engine.messages = Some(printed.collect());
-    }
-    Ok(engine)
+fn start_logging(config: &BattleConfig, seed: u64, events: bool) -> Result<Engine, StartError> {
+    start::start(config, seed, events)
 }
 
 /// Memory differences over [`COMPARED`] (names aside), as `symbol: oracle → engine`.
@@ -164,9 +157,9 @@ pub fn check_start(config: &BattleConfig, trace: &Trace, check_text: bool) -> Re
     let mut diffs = Vec::new();
     let text_diff = |engine: &Engine, diffs: &mut Vec<String>| {
         if check_text {
-            let texts = render::texts(engine.messages.as_deref().unwrap_or_default(), ctx);
-            if texts != first.texts {
-                diffs.push(format!("text: {:?} → {texts:?}", first.texts));
+            let shown = render::shown(engine.events.as_deref().unwrap_or_default(), ctx);
+            if shown != first.shown {
+                diffs.push(format!("shown: {:?} → {shown:?}", first.shown));
             }
         }
     };
@@ -235,9 +228,9 @@ pub fn check(config: &BattleConfig, trace: &Trace, check_text: bool) -> Result<u
             .unwrap_or_default()
     });
     let log = engine.decision_log.take().unwrap_or_default();
-    let message_log = std::mem::take(&mut engine.message_log);
-    let texts: Vec<Vec<String>> = match std::panic::catch_unwind(|| message_log.iter().map(|m| render::texts(m, ctx)).collect()) {
-        Ok(texts) => texts,
+    let event_log = std::mem::take(&mut engine.event_log);
+    let shown: Vec<Vec<Shown>> = match std::panic::catch_unwind(|| event_log.iter().map(|e| render::shown(e, ctx)).collect()) {
+        Ok(shown) => shown,
         Err(payload) => return Err(Divergence::Panic { decision: 0, message: format!("rendering: {}", panic_message(&*payload)) }),
     };
     for (i, (snap, (site, legal, mem, rng))) in trace.decisions.iter().zip(&log).enumerate() {
@@ -249,8 +242,11 @@ pub fn check(config: &BattleConfig, trace: &Trace, check_text: bool) -> Result<u
             },
             d => d,
         })?;
-        if check_text && snap.texts != texts[i] {
-            return Err(Divergence::Text { decision: i, oracle: snap.texts.clone(), engine: texts[i].clone() });
+        if check_text && snap.shown != shown[i] {
+            // From the first difference on.
+            let at = snap.shown.iter().zip(&shown[i]).take_while(|(a, b)| a == b).count().saturating_sub(1);
+            let tail = |v: &[Shown]| v.iter().skip(at).take(6).cloned().collect();
+            return Err(Divergence::Shown { decision: i, oracle: tail(&snap.shown), engine: tail(&shown[i]) });
         }
     }
     if let Some(message) = panic {
@@ -272,11 +268,13 @@ pub fn check(config: &BattleConfig, trace: &Trace, check_text: bool) -> Result<u
             return Err(Divergence::End { what: format!("memory: {diffs:?}") });
         }
         if check_text {
-            let messages = engine.messages.take().unwrap_or_default();
-            let rendered = std::panic::catch_unwind(|| render::texts(&messages, ctx))
+            let events = engine.events.take().unwrap_or_default();
+            let rendered = std::panic::catch_unwind(|| render::shown(&events, ctx))
                 .map_err(|payload| Divergence::Panic { decision: log.len(), message: format!("rendering: {}", panic_message(&*payload)) })?;
-            if end.texts != rendered {
-                return Err(Divergence::End { what: format!("text: oracle {:?}, engine {:?}", end.texts, rendered) });
+            if end.shown != rendered {
+                let at = end.shown.iter().zip(&rendered).take_while(|(a, b)| a == b).count().saturating_sub(1);
+                let tail = |v: &[Shown]| v.iter().skip(at).take(6).cloned().collect::<Vec<_>>();
+                return Err(Divergence::End { what: format!("shown: oracle {:?}, engine {:?}", tail(&end.shown), tail(&rendered)) });
             }
         }
     }

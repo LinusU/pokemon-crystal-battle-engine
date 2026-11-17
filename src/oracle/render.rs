@@ -708,6 +708,18 @@ pub fn shown(events: &[Event], ctx: Context) -> Vec<Shown> {
             Event::HpBar { target, from, to, max } => {
                 out.push(Shown::HpBar { target: *target, from: *from, to: *to, max: *max })
             }
+            Event::Animation { anim, user, param } => {
+                out.push(Shown::Animation { anim: *anim, turn: u8::from(*user == Side::Enemy), param: *param })
+            }
+            Event::Sound(sfx) => out.push(Shown::Sound { sfx: *sfx }),
+            Event::Cry(species) => out.push(Shown::Cry { species: *species }),
+            Event::Faint(side) => out.push(Shown::Faint { side: u8::from(*side == Side::Enemy) }),
+            Event::SlideOut(side) => out.push(Shown::SlideOut { side: u8::from(*side == Side::Enemy) }),
+            Event::TrainerSlidesIn => out.push(Shown::TrainerSlidesIn),
+            Event::ExpBar { slot, gained } => out.push(Shown::ExpBar { slot: *slot, gained: *gained }),
+            Event::StatsBox { slot } => out.push(Shown::StatsBox { slot: *slot }),
+            Event::Frontpic(species) => out.push(Shown::Frontpic { species: *species }),
+            Event::BallWobbles { wobbles, caught } => out.push(Shown::BallWobbles { wobbles: *wobbles, caught: *caught }),
         }
     }
     out

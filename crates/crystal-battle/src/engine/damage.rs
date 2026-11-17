@@ -11,7 +11,6 @@
 
 use super::battle::{Engine, Flow, PARTY_LEN, PP_MASK, percent};
 use super::commands::Cmd;
-use super::rom;
 use super::rsym as r;
 use super::sym::*;
 use crate::defs::*;
@@ -61,12 +60,31 @@ impl Engine {
     pub fn play_fx_anim_id(&mut self, e: u8, d: u8) {
         self.mem.wb(W_FX_ANIM_ID, e);
         self.mem.wb(W_FX_ANIM_ID + 1, d);
+        self.play_battle_anim();
         self.battle_anim_script_effects();
     }
 
-    /// `LoadAnim` (the animation itself is dropped).
+    /// `FarPlayBattleAnimation`: animation `de`, unless the user is flying or
+    /// underground.
+    pub fn far_play_battle_animation(&mut self, de: u16) {
+        if self.battle_var(BATTLE_VARS_SUBSTATUS3) & (1 << SUBSTATUS_FLYING | 1 << SUBSTATUS_UNDERGROUND) != 0 {
+            return;
+        }
+        self.play_fx_anim_id(de as u8, (de >> 8) as u8);
+    }
+
+    /// The flicker of `HitConfusion`: `ANIM_HIT_CONFUSION` unless the
+    /// opponent is flying or underground.
+    pub fn hit_confusion_anim(&mut self) {
+        if self.battle_var(BATTLE_VARS_SUBSTATUS3_OPP) & (1 << SUBSTATUS_FLYING | 1 << SUBSTATUS_UNDERGROUND) == 0 {
+            self.play_fx_anim_id(ANIM_HIT_CONFUSION as u8, (ANIM_HIT_CONFUSION >> 8) as u8);
+        }
+    }
+
+    /// `LoadAnim` (with `PlayUserBattleAnim`).
     pub fn load_anim(&mut self, a: u8) {
         self.mem.wb(W_FX_ANIM_ID, a);
+        self.play_battle_anim();
         self.battle_anim_script_effects();
     }
 

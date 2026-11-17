@@ -8,7 +8,6 @@
 
 use super::ai::SCORES;
 use super::battle::{Engine, PARTY_LEN, percent};
-use super::rom;
 use super::rsym as r;
 use super::sym::*;
 use crate::defs::*;

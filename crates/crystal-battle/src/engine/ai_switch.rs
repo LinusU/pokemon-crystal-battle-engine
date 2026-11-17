@@ -7,7 +7,6 @@
 #![allow(unused_imports)]
 
 use super::battle::{Engine, PARTY_LEN};
-use super::rom;
 use super::rsym as r;
 use super::sym::*;
 use crate::defs::*;

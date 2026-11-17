@@ -272,6 +272,9 @@ pub(crate) fn draw_hp_not_boxmon_2(cpu: &mut Cpu) {
 }
 
 pub(crate) fn print_temp_mon_stats(cpu: &mut Cpu) {
+    // HARNESS-PATCH: report the level-up stats box (observe only); see
+    // docs/transpiled_code.md.
+    crate::bootstrap::events::stats_box(cpu);
     cpu.pc = 0x4b7b;
     cpu.push_word(cpu.bc());
     cpu.pc += 1;

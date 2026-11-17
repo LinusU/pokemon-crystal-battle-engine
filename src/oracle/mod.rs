@@ -26,8 +26,9 @@ pub struct Snapshot {
     /// How many `Random` calls had happened by this decision (an index into
     /// [`Trace::rng_log`]).
     pub rng_calls: usize,
-    /// Battle text printed since the previous decision (exact strings).
-    pub texts: Vec<String>,
+    /// What the battle showed since the previous decision (text, HP bars,
+    /// animations, sounds, …).
+    pub shown: Vec<crate::bootstrap::events::Shown>,
 }
 
 /// A full oracle run.
@@ -122,13 +123,7 @@ fn snapshot(cpu: &Cpu, site: PromptSite, legal: Vec<Step>, action: Step) -> Snap
         mem: Mem::copy_from(cpu),
         rng: cpu.rng_state(),
         rng_calls: cpu.rng_log.as_ref().map_or(0, Vec::len),
-        texts: crate::bootstrap::events::take_events(cpu)
-            .into_iter()
-            .filter_map(|e| match e {
-                crate::bootstrap::events::Shown::Text(t) => Some(t),
-                _ => None,
-            })
-            .collect(),
+        shown: crate::bootstrap::events::take_events(cpu),
     }
 }
 

@@ -173,6 +173,7 @@ impl Engine {
                 let r0 = (self.mem.rb(W_BATTLE_RESULT) & BATTLERESULT_BITMASK).wrapping_add(outcome);
                 self.mem.wb(W_BATTLE_RESULT, r0);
                 self.mem.wb(W_LOW_HEALTH_ALARM, 0); // StopDangerSound
+                self.show(crate::battle::Event::Sound(SFX_RUN.into()));
                 self.text(r::BATTLE_TEXT_GOT_AWAY_SAFELY);
                 Ok(true)
             }

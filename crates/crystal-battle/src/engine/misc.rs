@@ -53,6 +53,9 @@ impl Engine {
         self.mem.wb(W_FX_ANIM_ID, de as u8);
         self.mem.wb(W_FX_ANIM_ID + 1, (de >> 8) as u8);
         self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
+        self.switch_turn();
+        self.play_battle_anim();
+        self.switch_turn();
     }
 
     // --- failure texts ----------------------------------------------------------------

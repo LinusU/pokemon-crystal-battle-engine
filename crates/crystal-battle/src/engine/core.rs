@@ -809,6 +809,9 @@ impl Engine {
         }
         // StopDangerSound
         self.mem.wb(W_LOW_HEALTH_ALARM, 0);
+        // BUG: SFX_RUN does not play correctly when a wild Pokémon flees from
+        // battle (it is still requested)
+        self.show(crate::battle::Event::Sound(SFX_RUN.into()));
         self.set_player_turn();
         self.mem.wb(W_BATTLE_ENDED, 1);
     }

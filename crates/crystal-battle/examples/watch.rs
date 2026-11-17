@@ -12,6 +12,7 @@ fn show(events: &[Event]) {
         match event {
             Event::Message(message) => println!("{message:?}"),
             Event::HpBar { target, from, to, max } => println!("    [{target:?} HP {from} → {to} / {max}]"),
+            other => println!("    [{other:?}]"),
         }
     }
 }

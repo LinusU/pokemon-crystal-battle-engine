@@ -387,6 +387,8 @@ pub(crate) fn _prep_mon_frontpic_not_pokemon(cpu: &mut Cpu) {
 }
 
 pub fn play_stereo_cry(cpu: &mut Cpu) {
+    // HARNESS-PATCH: report the cry (observe only); see docs/transpiled_code.md.
+    crate::bootstrap::events::cry(cpu);
     cpu.pc = 0x37b6;
     cpu.push_word(cpu.af());
     cpu.pc += 1;

@@ -518,12 +518,15 @@ impl Engine {
         // .skip_active_mon_update
         self.level_up_happiness_mod();
         if self.mem.rb(W_CUR_BATTLE_MON) != cur {
+            self.show(crate::battle::Event::Sound(SFX_HIT_END_OF_EXP_BAR.into()));
             self.text(r::BATTLE_TEXT_STRING_BUFFER1_GREW_TO_LEVEL);
         }
         // .skip_exp_bar_animation
         self.mem.wb(W_MON_TYPE, PARTYMON);
         self.copy_mon_to_temp_mon();
         // PrintTempMonStats, WaitPressAorB_BlinkCursor: the stat screen
+        let slot = self.mem.rb(W_CUR_PARTY_MON);
+        self.show(crate::battle::Event::StatsBox { slot });
         self.mem.wb(W_MON_TYPE, PARTYMON);
         let species = self.mem.rb(W_CUR_SPECIES);
         self.mem.wb(W_TEMP_SPECIES, species);
@@ -590,6 +593,8 @@ impl Engine {
         let p3 = self.mem.rb(H_PRODUCT + 3);
         self.mem.wb(W_EXPERIENCE_GAINED + 2, p3);
         let p2 = self.mem.rb(H_PRODUCT + 2);
+        let slot = self.mem.rb(W_CUR_PARTY_MON);
+        self.show(crate::battle::Event::ExpBar { slot, gained: u16::from(p2) << 8 | u16::from(p3) });
         self.mem.wb(W_EXPERIENCE_GAINED + 1, p2);
         self.mem.wb(W_EXPERIENCE_GAINED, 0);
         self.mem.wb(W_MON_TYPE, PARTYMON);
@@ -1435,6 +1440,7 @@ impl Engine {
         if self.mem.bit(W_IN_BATTLE_TOWER_BATTLE, IN_BATTLE_TOWER_BATTLE_F) {
             return;
         }
+        self.show(crate::battle::Event::TrainerSlidesIn);
         if self.mem.rb(W_BATTLE_TYPE) == BATTLETYPE_CANLOSE {
             self.unported("WinTrainerBattle (BATTLETYPE_CANLOSE: HealParty)");
         }

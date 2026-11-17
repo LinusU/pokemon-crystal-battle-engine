@@ -14,7 +14,6 @@
 #![allow(unused_imports)]
 
 use super::battle::{Engine, Flow, PARTY_LEN, PP_MASK, percent};
-use super::rom;
 use super::rsym as r;
 use super::sym::*;
 use crate::defs::*;
@@ -62,10 +61,11 @@ impl Engine {
     /// `UpdateBattleHuds`: HUD redraw only (see the module docs), so nothing.
     pub fn update_battle_huds(&mut self) {}
 
-    /// `Call_PlayBattleAnim`: the animation itself is dropped, `wFXAnimID` is kept.
-    fn call_play_battle_anim(&mut self, anim: u16) {
+    /// `Call_PlayBattleAnim`: animation `anim`.
+    pub fn call_play_battle_anim(&mut self, anim: u16) {
         self.mem.wb(W_FX_ANIM_ID, anim as u8);
         self.mem.wb(W_FX_ANIM_ID + 1, (anim >> 8) as u8);
+        self.play_battle_anim();
     }
 
     /// `Call_PlayBattleAnim_OnlyIfVisible`.
@@ -243,7 +243,7 @@ impl Engine {
             self.switch_turn();
             self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
             self.mem.wb(W_FX_ANIM_ID + 1, 0);
-            // predef PlayBattleAnim
+            self.play_battle_anim();
             self.switch_turn();
         }
         // .skip_anim
@@ -1038,7 +1038,7 @@ impl Engine {
         self.switch_turn();
         self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
         self.mem.wb(W_FX_ANIM_ID + 1, 0);
-        // predef PlayBattleAnim
+        self.play_battle_anim();
         self.switch_turn();
     }
 

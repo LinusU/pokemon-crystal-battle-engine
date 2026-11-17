@@ -333,8 +333,17 @@ impl Engine {
                 if player { self.update_battle_mon_in_party() } else { self.update_enemy_mon_in_party() }
                 self.mem.res_bit(sub1, SUBSTATUS_NIGHTMARE);
             } else {
-                // .fast_asleep
-                self.text(r::FAST_ASLEEP_TEXT);
+                // .fast_asleep (the player's animation plays before the
+                // text, the enemy's after it)
+                if player {
+                    self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
+                    self.far_play_battle_animation(ANIM_SLP);
+                    self.text(r::FAST_ASLEEP_TEXT);
+                } else {
+                    self.text(r::FAST_ASLEEP_TEXT);
+                    self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
+                    self.far_play_battle_animation(ANIM_SLP);
+                }
                 let mv = self.mem.rb(cur_move);
                 if mv != SNORE && mv != SLEEP_TALK {
                     self.cant_move();
@@ -387,6 +396,7 @@ impl Engine {
                 // .confused
                 self.text(r::IS_CONFUSED_TEXT);
                 self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
+                self.far_play_battle_animation(ANIM_CONFUSED);
                 if self.battle_random("CheckTurn") < percent(50) + 1 {
                     let v = self.mem.rb(sub3) & 1 << SUBSTATUS_CONFUSED;
                     self.mem.wb(sub3, v);
@@ -399,6 +409,7 @@ impl Engine {
                         self.battle_command_damage_calc()?;
                         self.battle_command_lower_sub()?;
                         self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
+                        self.hit_confusion_anim();
                         self.do_enemy_damage(true);
                         self.battle_command_raise_sub()?;
                     }
@@ -413,6 +424,7 @@ impl Engine {
         if self.mem.bit(sub1, SUBSTATUS_IN_LOVE) {
             self.text(r::IN_LOVE_WITH_TEXT);
             self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
+            self.far_play_battle_animation(ANIM_IN_LOVE);
             if self.battle_random("CheckTurn") >= percent(50) + 1 {
                 self.text(r::INFATUATION_TEXT);
                 self.cant_move();
@@ -496,6 +508,7 @@ impl Engine {
         self.battle_command_damage_calc()?;
         self.battle_command_lower_sub()?;
         self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
+        self.hit_confusion_anim();
         self.do_player_damage(true);
         self.battle_command_raise_sub()?;
         Ok(())

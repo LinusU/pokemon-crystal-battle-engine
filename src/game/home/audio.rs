@@ -506,6 +506,9 @@ pub fn play_cry(cpu: &mut Cpu) {
 }
 
 pub fn play_sfx(cpu: &mut Cpu) {
+    // HARNESS-PATCH: report the sound effect (observe only); see
+    // docs/transpiled_code.md.
+    crate::bootstrap::events::sfx(cpu);
     cpu.pc = 0x3c23;
     cpu.push_word(cpu.hl());
     cpu.pc += 1;

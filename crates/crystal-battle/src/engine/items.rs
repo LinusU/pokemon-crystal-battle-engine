@@ -297,6 +297,8 @@ impl Engine {
     /// `UseItemText` (and its fall-through, `UseDisposableItem`).
     fn use_item_text(&mut self) {
         self.text(r::ITEM_USED_TEXT);
+        // Play_SFX_FULL_HEAL
+        self.show(crate::battle::Event::Sound(SFX_FULL_HEAL.into()));
         self.use_disposable_item();
     }
 
@@ -433,6 +435,7 @@ impl Engine {
         self.mem.wb(W_PARTY_MENU_ACTION_TEXT, b);
         self.heal_status();
         // Play_SFX_FULL_HEAL
+        self.show(crate::battle::Event::Sound(SFX_FULL_HEAL.into()));
         self.item_action_text_wait_button();
         self.use_disposable_item();
         0
@@ -538,6 +541,7 @@ impl Engine {
 
     /// `HealHP_SFX_GFX`: the party HP bar animation (its effect on memory).
     fn heal_hp_sfx_gfx(&mut self) {
+        self.show(crate::battle::Event::Sound(SFX_POTION.into()));
         self.mem.wb(W_WHICH_HP_BAR, 2);
         self.animate_hp_bar();
     }
@@ -728,6 +732,8 @@ impl Engine {
         {
             self.update_battle_mon_pp();
         }
+        // Play_SFX_FULL_HEAL
+        self.show(crate::battle::Event::Sound(SFX_FULL_HEAL.into()));
         self.text(r::PP_RESTORED_TEXT);
         self.use_disposable_item();
     }
@@ -937,13 +943,21 @@ impl Engine {
         // The throw (DelayFrames dropped).
         let anim_param = if item < POKE_BALL + 1 { item } else { POKE_BALL };
         self.mem.wb(W_BATTLE_ANIM_PARAM, anim_param);
-        self.play_fx_anim_id(ANIM_THROW_POKE_BALL as u8, (ANIM_THROW_POKE_BALL >> 8) as u8);
+        self.mem.ww_le(W_FX_ANIM_ID, ANIM_THROW_POKE_BALL);
         self.set_player_turn();
         self.mem.wb(W_THROWN_BALL_WOBBLE_COUNT, 0);
         self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
+        self.play_battle_anim();
         // HARNESS-PATCH not_kurt_ball: the animation's `anim_checkpokeball`
         // loop is GetPokeBallWobble until it returns click (1) or break free (2).
-        while self.get_poke_ball_wobble() == 0 {}
+        let mut wobbles = 0;
+        let result = loop {
+            match self.get_poke_ball_wobble() {
+                0 => wobbles += 1,
+                result => break result,
+            }
+        };
+        self.show(crate::battle::Event::BallWobbles { wobbles, caught: result == 1 });
 
         if self.mem.rb(W_WILD_MON) == 0 {
             let text = match self.mem.rb(W_THROWN_BALL_WOBBLE_COUNT) {
@@ -1084,10 +1098,11 @@ impl Engine {
     /// `UseBallInTrainerBattle`.
     fn use_ball_in_trainer_battle(&mut self) -> Flow {
         // ReturnToBattle_UseBall (patched: nothing)
-        self.play_fx_anim_id(ANIM_THROW_POKE_BALL as u8, (ANIM_THROW_POKE_BALL >> 8) as u8);
+        self.mem.ww_le(W_FX_ANIM_ID, ANIM_THROW_POKE_BALL);
         self.mem.wb(W_BATTLE_ANIM_PARAM, 0);
         self.set_player_turn();
         self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
+        self.play_battle_anim();
         self.text(r::BALL_BLOCKED_TEXT);
         self.text(r::BALL_DONT_BE_A_THIEF_TEXT);
         self.use_disposable_item();

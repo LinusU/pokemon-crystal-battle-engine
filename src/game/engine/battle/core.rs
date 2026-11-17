@@ -12586,6 +12586,9 @@ pub(crate) fn lost_battle_mobile(cpu: &mut Cpu) {
 }
 
 pub(crate) fn enemy_mon_fainted_animation(cpu: &mut Cpu) {
+    // HARNESS-PATCH: report what the battle shows (observe only); see
+    // docs/transpiled_code.md.
+    crate::bootstrap::events::faint(cpu, 1);
     cpu.pc = 0x5432;
     cpu.set_hl({ const N: i32 = ((((5 as i32) * (crate::defs::SCREEN_WIDTH as u16 as i32)) + (12 as i32)) + (0xc4a0 as i32)); N as u16 });
     cpu.pc += 3;
@@ -12598,6 +12601,9 @@ pub(crate) fn enemy_mon_fainted_animation(cpu: &mut Cpu) {
 }
 
 pub(crate) fn player_mon_fainted_animation(cpu: &mut Cpu) {
+    // HARNESS-PATCH: report what the battle shows (observe only); see
+    // docs/transpiled_code.md.
+    crate::bootstrap::events::faint(cpu, 0);
     cpu.pc = 0x543b;
     cpu.set_hl({ const N: i32 = ((((10 as i32) * (crate::defs::SCREEN_WIDTH as u16 as i32)) + (1 as i32)) + (0xc4a0 as i32)); N as u16 });
     cpu.pc += 3;
@@ -12798,6 +12804,9 @@ pub(crate) fn mon_fainted_animation_inner_loop(cpu: &mut Cpu) {
 }
 
 pub(crate) fn slide_battle_pic_out(cpu: &mut Cpu) {
+    // HARNESS-PATCH: report what the battle shows (observe only); see
+    // docs/transpiled_code.md.
+    crate::bootstrap::events::slide_out(cpu);
     cpu.pc = 0x5490;
     cpu.write_byte(0xffaf, cpu.a);
     cpu.pc += 2;
@@ -26196,6 +26205,9 @@ pub(crate) fn swap_battler_levels(cpu: &mut Cpu) {
 }
 
 pub(crate) fn battle_win_slide_in_enemy_trainer_frontpic(cpu: &mut Cpu) {
+    // HARNESS-PATCH: report what the battle shows (observe only); see
+    // docs/transpiled_code.md.
+    crate::bootstrap::events::trainer_slides_in(cpu);
     cpu.pc = 0x6bd8;
     cpu.a = 0;
     cpu.flag_z = true;
@@ -29955,6 +29967,9 @@ pub(crate) fn text_mon_gained_exp_point_text_asm_0(cpu: &mut Cpu) {
 }
 
 pub(crate) fn animate_exp_bar(cpu: &mut Cpu) {
+    // HARNESS-PATCH: report what the battle shows (observe only); see
+    // docs/transpiled_code.md.
+    crate::bootstrap::events::exp_bar(cpu);
     cpu.pc = 0x7136;
     cpu.push_word(cpu.bc());
     cpu.pc += 1;

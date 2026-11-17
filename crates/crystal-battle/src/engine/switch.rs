@@ -4,7 +4,6 @@
 #![allow(unused_imports)]
 
 use super::battle::{Engine, Flow, PARTY_LEN, PP_MASK, percent};
-use super::rom;
 use super::rsym as r;
 use super::sym::*;
 use crate::defs::*;
@@ -129,6 +128,7 @@ impl Engine {
         let turn = self.turn();
         self.mem.wb(H_BATTLE_TURN, 0);
         self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
+        self.call_play_battle_anim(ANIM_RETURN_MON);
         self.mem.wb(H_BATTLE_TURN, turn);
     }
 
@@ -153,6 +153,9 @@ impl Engine {
             if self.mem.rw(W_ENEMY_MON_HP) != 0 {
                 return Ok(false);
             }
+            self.show(crate::battle::Event::Sound(SFX_KINESIS.into()));
+            self.show(crate::battle::Event::Sound(SFX_FAINT.into()));
+            self.show(crate::battle::Event::Faint(crate::battle::Side::Enemy));
             self.text(r::BATTLE_TEXT_ENEMY_MON_FAINTED);
             return Ok(true);
         }
@@ -163,7 +166,10 @@ impl Engine {
         }
         // BUG: A Pokémon that fainted from Pursuit keeps its old status (kept).
         self.mem.wb(W_CRY_TRACKS, 0xf0);
+        let species = self.mem.rb(W_BATTLE_MON_SPECIES);
+        self.show(crate::battle::Event::Cry(species));
         self.small_far_flag_action(W_BATTLE_PARTICIPANTS_NOT_FAINTED, last, FlagAction::Reset);
+        self.show(crate::battle::Event::Faint(crate::battle::Side::Player));
         self.text(r::BATTLE_TEXT_MON_FAINTED);
         Ok(true)
     }
@@ -332,13 +338,17 @@ impl Engine {
         self.set_player_turn();
         self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
         self.mem.wb(W_BATTLE_ANIM_PARAM, 0);
+        self.call_play_battle_anim(ANIM_SEND_OUT_MON);
         if self.battle_check_player_shininess() {
             self.mem.wb(W_BATTLE_ANIM_PARAM, 1);
+            self.call_play_battle_anim(ANIM_SEND_OUT_MON);
         }
-        // Cry: CheckFaintedFrzSlp decides whether wCryTracks is set.
+        // Cry: CheckFaintedFrzSlp decides whether there is one.
         let species_addr = W_PARTY_MON1_SPECIES + u16::from(self.mem.rb(W_CUR_PARTY_MON)) * PARTY_LEN;
         if !self.check_fainted_frz_slp(species_addr) {
             self.mem.wb(W_CRY_TRACKS, 0xf0);
+            let species = self.mem.rb(W_CUR_PARTY_SPECIES);
+            self.show(crate::battle::Event::Cry(species));
         }
     }
 
@@ -757,11 +767,17 @@ impl Engine {
     fn faint_your_pokemon(&mut self) {
         self.mem.wb(W_LOW_HEALTH_ALARM, 0);
         self.mem.wb(W_CRY_TRACKS, 0xf0);
+        let species = self.mem.rb(W_BATTLE_MON_SPECIES);
+        self.show(crate::battle::Event::Cry(species));
+        self.show(crate::battle::Event::Faint(crate::battle::Side::Player));
         self.text(r::BATTLE_TEXT_MON_FAINTED);
     }
 
     /// `FaintEnemyPokemon`.
     fn faint_enemy_pokemon(&mut self) {
+        self.show(crate::battle::Event::Sound(SFX_KINESIS.into()));
+        self.show(crate::battle::Event::Faint(crate::battle::Side::Enemy));
+        self.show(crate::battle::Event::Sound(SFX_FAINT.into()));
         self.text(r::BATTLE_TEXT_ENEMY_MON_FAINTED);
     }
 
@@ -999,6 +1015,7 @@ impl Engine {
         }
         self.mem.wb(W_ENEMY_ITEM_STATE, 0xff);
         self.mem.wb(W_PLAYER_WRAP_COUNT, 0);
+        self.show(crate::battle::Event::SlideOut(crate::battle::Side::Enemy));
     }
 
     /// `LoadEnemyMonToSwitchTo` (`b` = OT party slot).
@@ -1038,12 +1055,20 @@ impl Engine {
         self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
         self.mem.wb(W_BATTLE_ANIM_PARAM, 0);
         self.set_enemy_turn();
+        self.call_play_battle_anim(ANIM_SEND_OUT_MON);
         if self.battle_check_enemy_shininess() {
             self.mem.wb(W_BATTLE_ANIM_PARAM, 1);
+            self.call_play_battle_anim(ANIM_SEND_OUT_MON);
         }
-        if !self.check_fainted_frz_slp(W_TEMP_MON_SPECIES) && self.mem.bit(W_OPTIONS, BATTLE_SCENE) {
-            // .cry_no_anim
-            self.mem.wb(W_CRY_TRACKS, 0xf);
+        if !self.check_fainted_frz_slp(W_TEMP_MON_SPECIES) {
+            if self.mem.bit(W_OPTIONS, BATTLE_SCENE) {
+                // .cry_no_anim
+                self.mem.wb(W_CRY_TRACKS, 0xf);
+                self.show(crate::battle::Event::Cry(species));
+            } else {
+                // AnimateFrontpic (the cry plays during the animation)
+                self.show(crate::battle::Event::Frontpic(species));
+            }
         }
     }
 

@@ -141,6 +141,9 @@ pub(crate) fn animate_mon_hof(cpu: &mut Cpu) {
 }
 
 pub(crate) fn animate_frontpic(cpu: &mut Cpu) {
+    // HARNESS-PATCH: report the front picture's animation (observe only);
+    // see docs/transpiled_code.md.
+    crate::bootstrap::events::frontpic(cpu);
     cpu.pc = 0x408e;
     let next_pc = cpu.pc + 3;
     cpu.push_word(next_pc);

@@ -95,8 +95,10 @@ decision, the battle memory at each, the outcome and the result).
 3. ✅ **`BattleSetup` input.** Full parties, player, bag, world state; the engine
    seeds its state from them. `BattleConfig` converts to a `BattleSetup`.
 4. ✅ **`BattleResult` output.**
-5. **Presentation events**, verified against hooks on the original's
-   animation and sound routines.
+5. ✅ **Presentation events**, verified against hooks on the original's
+   animation and sound routines: `Event::Animation`, `Sound`, `Cry`,
+   `Faint`, `SlideOut`, `TrainerSlidesIn`, `ExpBar`, `StatsBox`,
+   `Frontpic`, `BallWobbles`.
 6. **ROM-free default build**; `rom.rs` and the ROM-path code leave the
    library.
 

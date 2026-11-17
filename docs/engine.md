@@ -65,11 +65,18 @@ snapshot (about 8 KB).
 - **Keep every write to battle memory**, including ones that look cosmetic
   (`wNamedObjectIndex`, `wStringBuffer1`, `wFXAnimID`): later code or text may
   read them, and the differential tester compares memory.
-- **Drop graphics, sound and frame timing**: `DelayFrames`, `WaitBGMap`,
-  animations (`PlayBattleAnim`, `Call_PlayBattleAnim*`, `FarPlayBattleAnimation`),
-  HUD redraws, `PlaySFX`/cries, `ClearBox`, tilemap work. These never affect the
-  battle (verified: the corpus replays unchanged with Battle Scene off). Keep
-  any memory writes those routines make *outside* graphics/sound RAM.
+- **Show, don't draw**: what the original plays becomes a `battle::Event`
+  at the same point: `PlayBattleAnim` (and `Call_PlayBattleAnim*`,
+  `FarPlayBattleAnimation`, `PlayFXAnimID`, `LoadAnim`) → `play_battle_anim` /
+  `call_play_battle_anim` / `far_play_battle_animation` / `play_fx_anim_id`;
+  `PlaySFX` → `self.show(Event::Sound(..))`; `PlayStereoCry` → `Event::Cry`;
+  the faint slides, `SlideBattlePicOut`, the trainer sliding back in,
+  `AnimateExpBar`, `PrintTempMonStats`, `AnimateFrontpic` → their events. The
+  testers compare the stream with hooks on those routines. Drop what is only
+  drawing and timing: `DelayFrames`, `WaitBGMap`, HUD redraws, `ClearBox`,
+  tilemap work (they never affect the battle; verified: the corpus replays
+  unchanged with Battle Scene off). Keep any memory writes those routines
+  make *outside* graphics/sound RAM.
 - **Text**: `StdBattleTextbox` / `PrintText` with `hl = Label` →
   `self.text(r::LABEL)`, which emits the label's `battle::Message`
   (`message.rs`). A text whose `text_asm` choice the battle code computed

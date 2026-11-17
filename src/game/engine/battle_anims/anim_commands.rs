@@ -13,6 +13,9 @@ pub const Y: i32 = 0;
 // duplicate assembler constant X
 
 pub(crate) fn play_battle_anim(cpu: &mut Cpu) {
+    // HARNESS-PATCH: report the animation (observe only); see
+    // docs/transpiled_code.md.
+    crate::bootstrap::events::battle_anim(cpu);
     cpu.pc = 0x40d6;
     cpu.a = cpu.read_byte(crate::defs::R_WBK as u16);
     cpu.pc += 2;
@@ -31,6 +34,7 @@ pub(crate) fn play_battle_anim(cpu: &mut Cpu) {
     cpu.cycle(24);
     _play_battle_anim(cpu);
     assert_eq!(cpu.pc, next_pc);
+    crate::bootstrap::events::battle_anim_done(cpu);
     let value = cpu.pop_word();
     cpu.set_af(value);
     cpu.pc += 1;

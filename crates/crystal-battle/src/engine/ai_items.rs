@@ -9,7 +9,6 @@
 #![allow(unused_imports)]
 
 use super::battle::{Engine, Flow, PARTY_LEN, percent};
-use super::rom;
 use super::rsym as r;
 use super::sym::*;
 use crate::defs::*;
@@ -333,8 +332,14 @@ impl Engine {
 
     /// `EnemyUsedFullHeal`.
     fn enemy_used_full_heal(&mut self) {
+        self.ai_used_item_sound();
         self.ai_heal_status();
         self.ai_print_used_item_on_and_update_hud(FULL_HEAL);
+    }
+
+    /// `AIUsedItemSound`.
+    fn ai_used_item_sound(&mut self) {
+        self.show(crate::battle::Event::Sound(SFX_FULL_HEAL.into()));
     }
 
     /// `AI_HealStatus`.
@@ -417,24 +422,28 @@ impl Engine {
     fn enemy_potion_finish(&mut self) {
         self.ai_print_text_used_item_on();
         self.mem.wb(W_WHICH_HP_BAR, 0);
+        self.ai_used_item_sound();
         self.animate_hp_bar();
         self.ai_update_hud();
     }
 
     /// `EnemyUsedXAccuracy`.
     fn enemy_used_x_accuracy(&mut self) {
+        self.ai_used_item_sound();
         self.mem.set_bit(W_ENEMY_SUB_STATUS4, SUBSTATUS_X_ACCURACY);
         self.ai_print_used_item_on_and_update_hud(X_ACCURACY);
     }
 
     /// `EnemyUsedGuardSpec`.
     fn enemy_used_guard_spec(&mut self) {
+        self.ai_used_item_sound();
         self.mem.set_bit(W_ENEMY_SUB_STATUS4, SUBSTATUS_MIST);
         self.ai_print_used_item_on_and_update_hud(GUARD_SPEC);
     }
 
     /// `EnemyUsedDireHit`.
     fn enemy_used_dire_hit(&mut self) {
+        self.ai_used_item_sound();
         self.mem.set_bit(W_ENEMY_SUB_STATUS4, SUBSTATUS_FOCUS_ENERGY);
         self.ai_print_used_item_on_and_update_hud(DIRE_HIT);
     }
