@@ -1400,10 +1400,13 @@ impl Engine {
         if effect == EFFECT_LEVEL_DAMAGE {
             a = 0;
         } else if effect == EFFECT_PSYWAVE {
+            let level = b;
             b = (b >> 1).wrapping_add(b);
+            // Crystal draws from 1 up to 1.5 × level; Crystal Legacy from the level.
+            let low = if self.data.rules.bug_fixes { level } else { 1 };
             let r = loop {
                 let r = self.battle_random("BattleCommand_ConstantDamage");
-                if r != 0 && r < b {
+                if r >= low && r < b {
                     break r;
                 }
             };

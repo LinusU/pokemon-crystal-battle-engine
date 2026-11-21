@@ -64,7 +64,8 @@ pub struct Rules {
     /// power; a wild Pokémon's Teleport can fail against a higher level;
     /// Belly Drum raises Attack only once the user has the HP; Counter and
     /// Mirror Coat without damage to return set `wEffectFailed`; Thick Club
-    /// and Light Ball double a stat to at most 999.
+    /// and Light Ball double a stat to at most 999; Psywave deals from the
+    /// user's level up to 1.5 times it.
     pub bug_fixes: bool,
 }
 

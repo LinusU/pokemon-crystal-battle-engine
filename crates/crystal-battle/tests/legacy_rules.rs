@@ -34,6 +34,17 @@ fn teach(data: &GameData, mon: &mut Pokemon, moves: [u8; 4]) {
 /// enemy's `enemy`, each knowing one move, after `edit`.
 fn link(
     data: &'static GameData,
+    player: (&str, u8),
+    enemy: (&str, u8),
+    edit: impl FnOnce(&mut Pokemon, &mut Pokemon),
+) -> Battle {
+    link_seeded(data, 1, player, enemy, edit)
+}
+
+/// [`link`] with battle seed `seed`.
+fn link_seeded(
+    data: &'static GameData,
+    seed: u64,
     (player, player_move): (&str, u8),
     (enemy, enemy_move): (&str, u8),
     edit: impl FnOnce(&mut Pokemon, &mut Pokemon),
@@ -42,7 +53,7 @@ fn link(
         battle: BattleHeader {
             kind: BattleKind::LinkBattle,
             trainer: None,
-            seed: Some(1),
+            seed: Some(seed),
             johto_badges: None,
             kanto_badges: None,
             battle_scene: None,
@@ -54,7 +65,7 @@ fn link(
         enemy_items: vec![],
         enemy_trainer: None,
     };
-    let (mut setup, rng) = BattleSetup::from_config_in(data, &config, 1).expect("a valid scenario");
+    let (mut setup, rng) = BattleSetup::from_config_in(data, &config, seed).expect("a valid scenario");
     let Opponent::Link { party, .. } = &mut setup.opponent else { unreachable!() };
     teach(data, &mut setup.party[0], [player_move, 0, 0, 0]);
     teach(data, &mut party[0], [enemy_move, 0, 0, 0]);
@@ -221,6 +232,21 @@ fn light_ball_caps_the_stat_under_legacy_rules() {
     assert_eq!(hit(legacy, 600), hit(legacy, 999));
     let crystal = legacy_with(Rules::CRYSTAL);
     assert_ne!(hit(crystal, 600), hit(crystal, 999));
+}
+
+#[test]
+fn psywave_deals_at_least_the_level_under_legacy_rules() {
+    const PSYWAVE: u8 = 149;
+    let lowest = |data: &'static GameData| {
+        // (A miss deals nothing.)
+        (1..60)
+            .map(|seed| one_turn(link_seeded(data, seed, ("ALAKAZAM", PSYWAVE), ("BLASTOISE", SPLASH), |_, _| {})).1)
+            .filter(|&damage| damage > 0)
+            .min()
+            .unwrap()
+    };
+    assert!(lowest(legacy_with(Rules::CRYSTAL_LEGACY)) >= 50);
+    assert!(lowest(legacy_with(Rules::CRYSTAL)) < 50);
 }
 
 #[test]
