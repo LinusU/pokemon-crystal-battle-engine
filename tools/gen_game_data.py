@@ -25,6 +25,8 @@ import re
 #   leaves ITEM_C3 and ITEM_DC unused between the TMs; Crystal Legacy moves
 #   them before TM01).
 # - `parties`: the trainer party format, or None when it isn't decoded yet.
+# The generated data's `rules` are `Rules::<static>` (`data/game.rs`): what the
+# game's battle code does differently, which no table says.
 GAMES = {
     "crystal": {
         "static": "CRYSTAL",
@@ -206,6 +208,7 @@ emit("    tables: &TABLES,")
 emit("    names: &NAMES,")
 emit("    trainer_parties: TRAINER_PARTIES,")
 emit("    trainer_class_first_party: TRAINER_CLASS_FIRST_PARTY,")
+emit(f"    rules: Rules::{GAME['static']},")
 emit("};")
 emit("")
 

@@ -16,6 +16,7 @@ pub static CRYSTAL: GameData = GameData {
     names: &NAMES,
     trainer_parties: TRAINER_PARTIES,
     trainer_class_first_party: TRAINER_CLASS_FIRST_PARTY,
+    rules: Rules::CRYSTAL,
 };
 
 static SPECIES: &[Species] = &[

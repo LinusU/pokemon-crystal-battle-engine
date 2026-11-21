@@ -23,6 +23,7 @@ pub static CRYSTAL_LEGACY: GameData = GameData {
     names: &NAMES,
     trainer_parties: TRAINER_PARTIES,
     trainer_class_first_party: TRAINER_CLASS_FIRST_PARTY,
+    rules: Rules::CRYSTAL_LEGACY,
 };
 
 static SPECIES: &[Species] = &[

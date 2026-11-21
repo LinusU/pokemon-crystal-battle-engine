@@ -45,6 +45,22 @@ pub struct GameData {
     /// Per trainer class id (256 entries): the index of its first party in
     /// [`GameData::trainer_parties`], `u16::MAX` for none.
     pub trainer_class_first_party: &'static [u16],
+    /// What the game's battle code does differently from Crystal's.
+    pub rules: Rules,
+}
+
+/// The ways a game's battle code differs from Pokémon Crystal's: the
+/// changes a pokecrystal fork makes to the code rather than to its data.
+/// Each flag is off in [`Rules::CRYSTAL`]; [`Rules::CRYSTAL_LEGACY`] turns on
+/// Crystal Legacy's (V1.3.1) changes, ported from its source.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
+pub struct Rules {}
+
+impl Rules {
+    /// Pokémon Crystal's own code.
+    pub const CRYSTAL: Rules = Rules {};
+    /// Crystal Legacy's code.
+    pub const CRYSTAL_LEGACY: Rules = Rules {};
 }
 
 /// A trainer's party (`data/trainers/parties.asm`).
