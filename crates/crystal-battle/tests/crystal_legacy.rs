@@ -3,7 +3,7 @@
 
 use crystal_battle::battle::{Battle, BattleSetup, Opponent, Status};
 use crystal_battle::data::GameData;
-use crystal_battle::data::game::Evolution;
+use crystal_battle::data::game::{Evolution, Rules, TrainerMon, TrainerParty, TrainerStage};
 use crystal_battle::data::random::random_battle_config;
 
 const KADABRA: u8 = 64;
@@ -52,6 +52,67 @@ fn a_built_in_trainer_is_unsupported() {
     let (setup, rng) = BattleSetup::from_config(&config, config.battle.seed.unwrap()).expect("a valid scenario");
     assert!(matches!(setup.opponent, Opponent::Trainer { party: None, .. }));
     assert!(Battle::start(GameData::crystal_legacy(), &setup, rng).is_err());
+}
+
+/// The battle state once the first Pokémon is out, against trainer `class`
+/// and `id`, with `badges` Johto badges.
+fn against(data: &'static GameData, (class, id): (u8, u8), badges: u8) -> Result<crystal_battle::battle::BattleState, String> {
+    let config = random_battle_config(1);
+    let (mut setup, rng) = BattleSetup::from_config_in(data, &config, 1).expect("a valid scenario");
+    setup.player.johto_badges = badges;
+    let Opponent::Trainer { class: c, id: i, party, .. } = &mut setup.opponent else { panic!("a trainer battle") };
+    (*c, *i, *party) = (class, id, None);
+    Battle::start(data, &setup, rng).map(|battle| battle.state().clone()).map_err(|e| e.to_string())
+}
+
+/// Legacy's data with one party for trainer class 1: `party`.
+fn with_party(rules: Rules, party: TrainerParty) -> &'static GameData {
+    let mut firsts = [u16::MAX; 256];
+    firsts[1] = 0;
+    Box::leak(Box::new(GameData {
+        rules,
+        trainer_parties: Box::leak(Box::new([party])),
+        trainer_class_first_party: Box::leak(Box::new(firsts)),
+        ..*GameData::crystal_legacy()
+    }))
+}
+
+const fn mon(level: u8, species: u8, nickname: Option<&'static str>) -> TrainerMon {
+    TrainerMon { level, species, item: None, moves: None, nickname, dvs: None, stat_exp: None, happiness: None }
+}
+
+#[test]
+fn a_legacy_trainer_mon_goes_by_its_nickname() {
+    use crystal_battle::battle::{Event, Message};
+    const NICKNAME: u8 = 1 << 2;
+    let sent_out = |rules: Rules| {
+        let party = TrainerParty { name: "JOEY", kind: NICKNAME, mons: &[const { mon(10, PIKACHU, Some("BUDDY")) }], stages: &[] };
+        let data = with_party(rules, party);
+        let config = random_battle_config(1);
+        let (mut setup, rng) = BattleSetup::from_config_in(data, &config, 1).unwrap();
+        let Opponent::Trainer { class, id, party, .. } = &mut setup.opponent else { panic!("a trainer battle") };
+        (*class, *id, *party) = (1, 1, None);
+        let battle = Battle::start(data, &setup, rng).unwrap();
+        battle.events().iter().find_map(|e| if let Event::Message(Message::EnemySentOut { mon, .. }) = e { Some(mon.clone()) } else { None }).unwrap()
+    };
+    assert_eq!(sent_out(Rules::CRYSTAL_LEGACY), "BUDDY");
+    assert_eq!(sent_out(Rules { trainer_nicknames: false, ..Rules::CRYSTAL_LEGACY }), "PIKACHU");
+}
+
+#[test]
+fn a_staged_legacy_party_follows_the_badges() {
+    const VARIABLE: u8 = 1 << 5;
+    const RATTATA: u8 = 19;
+    const PIDGEY: u8 = 16;
+    let stages = &[
+        TrainerStage { kind: 0, mons: &[const { mon(5, RATTATA, None) }] },
+        TrainerStage { kind: 0, mons: &[const { mon(12, PIDGEY, None) }] },
+    ];
+    let data = with_party(Rules::CRYSTAL_LEGACY, TrainerParty { name: "JOEY", kind: VARIABLE, mons: &[], stages });
+    let first = |badges| against(data, (1, 1), badges).map(|state| (state.enemy.party[0].species, state.enemy.party[0].level));
+    assert_eq!(first(0), Ok((RATTATA, 5)));
+    assert_eq!(first(1 << 3), Ok((PIDGEY, 12)));
+    assert!(first(0b11).is_err(), "two badges, two stages");
 }
 
 /// Random battles play to the end on Legacy's data, with mons made from it.

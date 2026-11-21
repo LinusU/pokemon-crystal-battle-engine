@@ -138,7 +138,8 @@ layout, the trainer party format) is a profile in the generator.
     texts, the AI's items and scoring). Two messages are Legacy's own:
     `AlreadyBurned` and `AlreadyFrozen`.
   - `zephyr_badge_obedience`, `trainer_party_stats` (a trainer's Pokémon
-    fight with their party's DVs, happiness and stat experience) and
+    fight with their party's DVs, happiness and stat experience),
+    `trainer_nicknames` (and go by their party's nicknames) and
     `max_level_takes_no_exp` (Legacy's level cap of 100 outside hard mode).
 
   Each rule is ported from Legacy's asm with a test in

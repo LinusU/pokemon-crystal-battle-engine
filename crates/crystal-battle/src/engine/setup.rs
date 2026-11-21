@@ -1120,18 +1120,29 @@ impl Engine {
         let species = self.mem.rb(W_TEMP_ENEMY_MON_SPECIES);
         self.mem.wb(W_NAMED_OBJECT_INDEX, species);
         // Crystal Legacy looks the name up after the check (for a nickname).
-        if !self.data.rules.trainer_party_stats {
+        let nicknames = self.data.rules.trainer_nicknames;
+        if !nicknames {
             self.get_pokemon_name();
         }
         // Did we catch it?
         if mode == 0 {
             return;
         }
-        if self.data.rules.trainer_party_stats {
-            self.get_pokemon_name();
+        // Update enemy nickname (Crystal Legacy: the party's, if it has one)
+        let cur = self.mem.rb(W_CUR_PARTY_MON);
+        let nickname = W_OT_PARTY_MON_NICKNAMES + u16::from(cur) * u16::from(MON_NAME_LENGTH);
+        let has_nickname = nicknames
+            && mode != WILD_BATTLE
+            && self.mem.rb(super::start::W_OTHER_TRAINER_TYPE) & super::start::TRAINERTYPE_NICKNAME != 0
+            && self.names.ot_party.get(usize::from(cur)).is_some_and(|name| !name.is_empty());
+        if has_nickname {
+            self.copy_name(W_ENEMY_MON_NICKNAME, nickname);
+        } else {
+            if nicknames {
+                self.get_pokemon_name();
+            }
+            self.copy_name(W_ENEMY_MON_NICKNAME, W_STRING_BUFFER1);
         }
-        // Update enemy nickname
-        self.copy_name(W_ENEMY_MON_NICKNAME, W_STRING_BUFFER1);
         // Saw this mon
         let species = self.mem.rb(W_TEMP_ENEMY_MON_SPECIES);
         self.small_far_flag_action(W_POKEDEX_SEEN, species.wrapping_sub(1), FlagAction::Set);

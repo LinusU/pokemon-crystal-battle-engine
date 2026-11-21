@@ -32,6 +32,15 @@ use crate::config::{BattleConfig, BattleKind, ItemSpec, MonSpec};
 use crate::data::{items, species, trainers};
 use crate::defs::*;
 
+/// Crystal Legacy's `TRAINERTYPE_VARIABLE`: a party per number of badges.
+pub const TRAINERTYPE_VARIABLE: u8 = 1 << 5;
+/// Crystal Legacy's `TRAINERTYPE_NICKNAME`.
+pub const TRAINERTYPE_NICKNAME: u8 = 1 << 2;
+/// Crystal Legacy's `wOtherTrainerType`: the party's type, in the first of
+/// the four bytes Crystal leaves unused after `wOTPartyDataEnd` (Legacy moves
+/// the enemy party's data, keeping that place right after it).
+pub const W_OTHER_TRAINER_TYPE: u16 = W_OT_PARTY_DATA_END;
+
 /// A wild Unown with no unlocked letters: the original game's `LoadEnemyMon`
 /// re-rolls its DVs forever (no letter a roll gives is unlocked), so the
 /// battle never starts. The engine refuses it instead of hanging.
@@ -721,6 +730,8 @@ impl Engine {
     }
 
     /// `ReadTrainerParty`: the trainer's party from ROM into `wOTParty*`.
+    /// Crystal Legacy's parties may follow the badge count, and its
+    /// `wOtherTrainerType` keeps the party's type for `LoadEnemyMon`.
     fn read_trainer_party(&mut self, launch: &Launch) -> Result<(), StartError> {
         if self.mem.bit(W_IN_BATTLE_TOWER_BATTLE, IN_BATTLE_TOWER_BATTLE_F) {
             return Ok(());
@@ -744,7 +755,21 @@ impl Engine {
         }
         let id = self.mem.rb(W_OTHER_TRAINER_ID);
         let party = self.data.trainer_party(class, id).ok_or(StartError::Unsupported("a trainer id past the game's parties"))?;
-        for mon in party.mons {
+        // Crystal Legacy's `TRAINERTYPE_VARIABLE`: the stage for the number of badges.
+        let (kind, mons) = if party.kind & TRAINERTYPE_VARIABLE != 0 {
+            let badges = self.mem.rb(W_JOHTO_BADGES).count_ones() + self.mem.rb(W_KANTO_BADGES).count_ones();
+            let stage = party
+                .stages
+                .get(badges as usize)
+                .ok_or(StartError::Unsupported("a party with fewer stages than the player's badges"))?;
+            (stage.kind, stage.mons)
+        } else {
+            (party.kind, party.mons)
+        };
+        if self.data.rules.trainer_nicknames {
+            self.mem.wb(W_OTHER_TRAINER_TYPE, kind);
+        }
+        for mon in mons {
             self.trainer_mon(mon);
         }
         self.compute_trainer_reward();
@@ -753,12 +778,35 @@ impl Engine {
 
     /// `TrainerType1`..`TrainerType4`: one mon of the party (level,
     /// species, and the item and moves the party's type has).
+    /// Crystal Legacy's fields come first, in its `ReadTrainerPartyPieces`'
+    /// order: nickname, DVs, stat experience, happiness; with DVs or stat
+    /// experience the stats are calculated again, at full HP.
     fn trainer_mon(&mut self, data: &crate::data::game::TrainerMon) {
         self.mem.wb(W_CUR_PARTY_LEVEL, data.level);
         self.mem.wb(W_CUR_PARTY_SPECIES, data.species);
         self.mem.wb(W_MON_TYPE, OTPARTYMON);
         self.try_add_mon_to_party();
-        let mon = W_OT_PARTY_MON1 + u16::from(self.mem.rb(W_OT_PARTY_COUNT).wrapping_sub(1)) * STRUCT;
+        let slot = usize::from(self.mem.rb(W_OT_PARTY_COUNT).wrapping_sub(1));
+        let mon = W_OT_PARTY_MON1 + slot as u16 * STRUCT;
+        if let Some(nickname) = data.nickname {
+            let nicknames = &mut self.names.ot_party;
+            if nicknames.len() <= slot {
+                nicknames.resize(slot + 1, std::sync::Arc::from(""));
+            }
+            nicknames[slot] = std::sync::Arc::from(nickname);
+        }
+        if let Some([atk_def, spd_spc]) = data.dvs {
+            self.mem.wb(mon + u16::from(MON_DVS), atk_def);
+            self.mem.wb(mon + u16::from(MON_DVS) + 1, spd_spc);
+        }
+        if let Some(stat_exp) = data.stat_exp {
+            for (i, exp) in (0..).zip(stat_exp) {
+                self.mem.ww(mon + u16::from(MON_STAT_EXP) + 2 * i, exp);
+            }
+        }
+        if let Some(happiness) = data.happiness {
+            self.mem.wb(mon + u16::from(MON_HAPPINESS), happiness);
+        }
         if let Some(item) = data.item {
             self.mem.wb(mon + u16::from(MON_ITEM), item);
         }
@@ -776,6 +824,12 @@ impl Engine {
                 self.mem.wb(de, pp);
                 de += 1;
             }
+        }
+        if data.dvs.is_some() || data.stat_exp.is_some() {
+            // Custom DVs or stat experience affect stats.
+            self.calc_mon_stats(mon + u16::from(MON_STAT_EXP) - 1, mon + u16::from(MON_MAXHP), true);
+            let max = self.mem.rw(mon + u16::from(MON_MAXHP));
+            self.mem.ww(mon + u16::from(MON_HP), max);
         }
     }
 
