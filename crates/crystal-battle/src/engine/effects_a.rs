@@ -653,6 +653,10 @@ impl Engine {
         let hi = self.mem.rb(W_CUR_DAMAGE);
         let lo = self.mem.rb(W_CUR_DAMAGE + 1);
         if hi | lo == 0 {
+            // Crystal Legacy's `.failed`: the effect failed, too.
+            if self.data.rules.bug_fixes {
+                self.mem.wb(W_EFFECT_FAILED, 1);
+            }
             return Ok(Cmd::Next);
         }
         let doubled = (u16::from(hi) << 8 | u16::from(lo)) << 1;

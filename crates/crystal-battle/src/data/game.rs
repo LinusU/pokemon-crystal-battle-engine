@@ -62,7 +62,8 @@ pub struct Rules {
     /// Crystal Legacy's fixes to the battle's known bugs (pokecrystal's
     /// `docs/bugs_and_glitches.md`): Return and Frustration have at least 1
     /// power; a wild Pokémon's Teleport can fail against a higher level;
-    /// Belly Drum raises Attack only once the user has the HP.
+    /// Belly Drum raises Attack only once the user has the HP; Counter and
+    /// Mirror Coat without damage to return set `wEffectFailed`.
     pub bug_fixes: bool,
 }
 
