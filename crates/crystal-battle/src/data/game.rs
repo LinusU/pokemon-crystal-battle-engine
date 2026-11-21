@@ -1,7 +1,9 @@
 //! The game's data, typed: species, moves, items, trainer classes, the type
 //! chart, move effect scripts and the small tables the battle mechanics
 //! consult. [`GameData::crystal`] is Pokémon Crystal's, generated from the
-//! ROM by `tools/gen_game_data.py` (see [`super::crystal`]).
+//! ROM by `tools/gen_game_data.py` (see [`super::crystal`]);
+//! `GameData::crystal_legacy` (feature `crystal-legacy`) is Crystal Legacy's,
+//! generated the same way.
 //!
 //! Tables indexed by an id (species, move, item, trainer class, …) have one
 //! entry for every `u8`. Entries outside the real range (species 0 or 252+,
@@ -327,6 +329,13 @@ impl GameData {
     /// Pokémon Crystal's data.
     pub fn crystal() -> &'static GameData {
         &super::crystal::CRYSTAL
+    }
+
+    /// Pokémon Crystal Legacy's data (V1.3.1). It has no trainer parties: a
+    /// trainer battle brings its own.
+    #[cfg(feature = "crystal-legacy")]
+    pub fn crystal_legacy() -> &'static GameData {
+        &super::crystal_legacy::CRYSTAL_LEGACY
     }
 
     pub fn species(&self, id: u8) -> &Species {

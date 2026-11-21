@@ -8,6 +8,8 @@ description = "Pokémon Crystal's battle engine as a library: hand-written Rust 
 # The trained battle AI (`ai::Agent`) and its trainer. No extra dependencies:
 # the network is plain Rust.
 ai = []
+# Pokémon Crystal Legacy's game data (`GameData::crystal_legacy`).
+crystal-legacy = []
 
 [dependencies]
 serde = { version = "1", features = ["derive"] }
@@ -24,3 +26,7 @@ required-features = ["ai"]
 [[example]]
 name = "ai_export"
 required-features = ["ai"]
+
+[[test]]
+name = "crystal_legacy"
+required-features = ["crystal-legacy"]

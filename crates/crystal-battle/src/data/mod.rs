@@ -9,6 +9,8 @@ pub mod species;
 pub mod trainers;
 pub mod trainers_data;
 pub mod crystal;
+#[cfg(feature = "crystal-legacy")]
+pub mod crystal_legacy;
 pub mod game;
 
 pub use game::GameData;
