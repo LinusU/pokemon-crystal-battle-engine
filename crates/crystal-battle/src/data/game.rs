@@ -73,7 +73,9 @@ pub struct Rules {
     /// update a second time, as Legacy's `CheckEnemyTurn` does); sleep,
     /// poison and paralysis moves fail on any status, naming it (two new
     /// messages, [`Message::AlreadyBurned`] and [`Message::AlreadyFrozen`]),
-    /// and other failures say the target evaded or protected itself.
+    /// and other failures say the target evaded or protected itself; the
+    /// AI's switching checks the types it means to (`CheckTypeMatchup`
+    /// keeps the type it is given).
     ///
     /// [`Message::AlreadyBurned`]: crate::battle::Message::AlreadyBurned
     /// [`Message::AlreadyFrozen`]: crate::battle::Message::AlreadyFrozen

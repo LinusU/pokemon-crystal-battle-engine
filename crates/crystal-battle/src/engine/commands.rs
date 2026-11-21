@@ -1010,6 +1010,18 @@ impl Engine {
     /// types at `hl`, into `wTypeMatchup`.
     pub fn check_type_matchup(&mut self, hl: u16) {
         let d = self.battle_var(BATTLE_VARS_MOVE_TYPE);
+        self.type_matchup_of(d, hl);
+    }
+
+    /// `CheckTypeMatchup` as the AI calls it, meaning type `a`. Crystal
+    /// overwrites `a` with the move's type; Crystal Legacy keeps it.
+    pub fn ai_check_type_matchup(&mut self, a: u8, hl: u16) {
+        if self.data.rules.bug_fixes { self.type_matchup_of(a, hl) } else { self.check_type_matchup(hl) }
+    }
+
+    /// The effectiveness of type `d` against the types at `hl`, into
+    /// `wTypeMatchup`.
+    fn type_matchup_of(&mut self, d: u8, hl: u16) {
         let (b, c) = (self.mem.rb(hl), self.mem.rb(hl + 1));
         self.mem.wb(W_TYPE_MATCHUP, EFFECTIVE);
         for &matchup in self.data.type_matchups {

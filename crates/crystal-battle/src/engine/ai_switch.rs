@@ -34,13 +34,14 @@ impl Engine {
         if self.mem.rb(hl) == 0 {
             // .unknown_moves
             let b = self.mem.rb(W_BATTLE_MON_TYPE1);
-            self.check_type_matchup(W_ENEMY_MON_TYPE1);
+            self.ai_check_type_matchup(b, W_ENEMY_MON_TYPE1);
             if self.mem.rb(W_TYPE_MATCHUP) >= EFFECTIVE + 1 {
                 self.ai_switch_score(-1);
             }
             // .ok
-            if self.mem.rb(W_BATTLE_MON_TYPE2) != b {
-                self.check_type_matchup(W_ENEMY_MON_TYPE1);
+            let type2 = self.mem.rb(W_BATTLE_MON_TYPE2);
+            if type2 != b {
+                self.ai_check_type_matchup(type2, W_ENEMY_MON_TYPE1);
                 if self.mem.rb(W_TYPE_MATCHUP) >= EFFECTIVE + 1 {
                     self.ai_switch_score(-1);
                 }
@@ -57,7 +58,7 @@ impl Engine {
                     break;
                 }
                 if self.ai_move_attr(a, MOVE_POWER) != 0 {
-                    self.check_type_matchup(W_ENEMY_MON_TYPE1);
+                    self.ai_check_type_matchup(self.ai_move_attr(a, MOVE_TYPE), W_ENEMY_MON_TYPE1);
                     let m = self.mem.rb(W_TYPE_MATCHUP);
                     if m >= EFFECTIVE + 1 {
                         // .super_effective
@@ -118,7 +119,7 @@ impl Engine {
             if self.ai_move_attr(a, MOVE_POWER) == 0 {
                 continue;
             }
-            self.check_type_matchup(W_BATTLE_MON_TYPE1);
+            self.ai_check_type_matchup(self.ai_move_attr(a, MOVE_TYPE), W_BATTLE_MON_TYPE1);
             let m = self.mem.rb(W_TYPE_MATCHUP);
             // immune
             if m == 0 {
@@ -280,7 +281,7 @@ impl Engine {
                     let last = self.mem.rb(W_LAST_PLAYER_COUNTER_MOVE);
                     if self.ai_move_attr(last, MOVE_POWER) != 0 {
                         // and the Pokemon is immune to it...
-                        self.check_type_matchup(W_BASE_TYPE);
+                        self.ai_check_type_matchup(self.ai_move_attr(last, MOVE_TYPE), W_BASE_TYPE);
                         if self.mem.rb(W_TYPE_MATCHUP) == 0 {
                             // ... encourage that Pokemon.
                             let s = self.mem.rb(W_ENEMY_AI_SWITCH_SCORE) | c;
@@ -347,7 +348,7 @@ impl Engine {
                         continue;
                     }
                     // check type matchups
-                    self.check_type_matchup(W_BATTLE_MON_TYPE1);
+                    self.ai_check_type_matchup(self.ai_move_attr(mv, MOVE_TYPE), W_BATTLE_MON_TYPE1);
                     let m = self.mem.rb(W_TYPE_MATCHUP);
                     // if immune or not very effective: continue
                     if m < EFFECTIVE {
@@ -420,17 +421,23 @@ impl Engine {
             self.get_base_data();
             let last = self.mem.rb(W_LAST_PLAYER_COUNTER_MOVE);
             let mut choose = true;
+            // The type `.check_type` checks: the player's second type after
+            // `.skip_move` (which checks the first), or the last move's.
+            let check_type;
             if last == 0 || self.ai_move_attr(last, MOVE_POWER) == 0 {
                 // .skip_move: the type matchup is checked twice; with the original's
                 // CheckTypeMatchup ignoring its type argument both give the same result.
-                self.check_type_matchup(W_BASE_TYPE);
+                self.ai_check_type_matchup(self.mem.rb(W_BATTLE_MON_TYPE1), W_BASE_TYPE);
                 if self.mem.rb(W_TYPE_MATCHUP) >= EFFECTIVE + 1 {
                     choose = false;
                 }
+                check_type = self.mem.rb(W_BATTLE_MON_TYPE2);
+            } else {
+                check_type = self.ai_move_attr(last, MOVE_TYPE);
             }
             if choose {
                 // .check_type
-                self.check_type_matchup(W_BASE_TYPE);
+                self.ai_check_type_matchup(check_type, W_BASE_TYPE);
                 if self.mem.rb(W_TYPE_MATCHUP) >= EFFECTIVE + 1 {
                     choose = false;
                 }
