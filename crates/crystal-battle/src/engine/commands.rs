@@ -566,6 +566,8 @@ impl Engine {
             50
         } else if badges & (1 << HIVEBADGE) != 0 {
             30
+        } else if self.data.rules.zephyr_badge_obedience && badges & (1 << ZEPHYRBADGE) != 0 {
+            16
         } else {
             10
         };

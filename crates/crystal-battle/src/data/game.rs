@@ -59,35 +59,40 @@ pub struct Rules {
     /// asks: damage, critical hits, Counter, Mirror Coat and the AI. Crystal
     /// goes by the type's place in the type list, special from Fire on.
     pub ghost_special_dark_physical: bool,
-    /// Crystal Legacy's fixes to the battle's known bugs (pokecrystal's
-    /// `docs/bugs_and_glitches.md`): Return and Frustration have at least 1
-    /// power; a wild Pokémon's Teleport can fail against a higher level;
-    /// Belly Drum raises Attack only once the user has the HP; Counter and
-    /// Mirror Coat without damage to return set `wEffectFailed`; Thick Club
-    /// and Light Ball double a stat to at most 999; Psywave deals from the
-    /// user's level up to 1.5 times it; Beat Up reads the right party
-    /// member's status, raises a Substitute again after failing, and ends
-    /// like any move with one Pokémon (a failed one triggers no King's Rock);
-    /// the player hurting itself in confusion takes no type-boosting item or
-    /// Explosion halving into account (the enemy's self-hit runs the damage
-    /// update a second time, as Legacy's `CheckEnemyTurn` does); sleep,
-    /// poison and paralysis moves fail on any status, naming it (two new
-    /// messages, [`Message::AlreadyBurned`] and [`Message::AlreadyFrozen`]),
-    /// and other failures say the target evaded or protected itself; the
-    /// AI's switching checks the types it means to (`CheckTypeMatchup`
-    /// keeps the type it is given); Lock-On and Mind Reader reach a Pokémon
-    /// that is flying or underground.
+    /// Crystal Legacy's fixes to the battle's known bugs (most in pokecrystal's
+    /// `docs/bugs_and_glitches.md`):
+    /// - Return and Frustration have at least 1 power.
+    /// - A wild Pokémon's Teleport can fail against a higher level.
+    /// - Belly Drum raises Attack only once the user has the HP.
+    /// - Counter and Mirror Coat with no damage to return set `wEffectFailed`.
+    /// - Thick Club and Light Ball double a stat to at most 999.
+    /// - Psywave deals from the user's level up to 1.5 times it.
+    /// - Beat Up reads the right party member's status, raises a Substitute
+    ///   again after failing, and plays its whole script with one Pokémon
+    ///   (one that never hit triggers no King's Rock).
+    /// - The player hurting itself in confusion leaves type-boosting items and
+    ///   Explosion's halving out. The enemy's self-hit runs the damage update
+    ///   a second time, as Legacy's `CheckEnemyTurn` does.
+    /// - Sleep, poison and paralysis moves fail on any status and name it
+    ///   ([`Message::AlreadyBurned`] and [`Message::AlreadyFrozen`] are new);
+    ///   other failures say the target evaded or is protecting itself.
+    /// - The AI's switching checks the types it means to (`CheckTypeMatchup`
+    ///   keeps the type it is given).
+    /// - Lock-On and Mind Reader reach a Pokémon that is flying or underground.
     ///
     /// [`Message::AlreadyBurned`]: crate::battle::Message::AlreadyBurned
     /// [`Message::AlreadyFrozen`]: crate::battle::Message::AlreadyFrozen
     pub bug_fixes: bool,
+    /// The Zephyr Badge makes traded Pokémon up to level 16 obey (Crystal:
+    /// 10 until the Hive Badge).
+    pub zephyr_badge_obedience: bool,
 }
 
 impl Rules {
     /// Pokémon Crystal's own code.
-    pub const CRYSTAL: Rules = Rules { ghost_special_dark_physical: false, bug_fixes: false };
+    pub const CRYSTAL: Rules = Rules { ghost_special_dark_physical: false, bug_fixes: false, zephyr_badge_obedience: false };
     /// Crystal Legacy's code.
-    pub const CRYSTAL_LEGACY: Rules = Rules { ghost_special_dark_physical: true, bug_fixes: true };
+    pub const CRYSTAL_LEGACY: Rules = Rules { ghost_special_dark_physical: true, bug_fixes: true, zephyr_badge_obedience: true };
 }
 
 /// A trainer's party (`data/trainers/parties.asm`).

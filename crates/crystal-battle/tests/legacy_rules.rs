@@ -346,6 +346,43 @@ fn status_moves_name_the_status_already_there_under_legacy_rules() {
 }
 
 #[test]
+fn the_zephyr_badge_commands_obedience_under_legacy_rules() {
+    use crystal_battle::battle::{Event, Message as M};
+    use crystal_battle::defs::{TACKLE, ZEPHYRBADGE};
+    let disobeys = |data: &'static GameData| {
+        (1..40)
+            .filter(|&seed| {
+                let config = BattleConfig {
+                    battle: BattleHeader {
+                        kind: BattleKind::WildEncounter,
+                        trainer: None,
+                        seed: Some(seed),
+                        johto_badges: Some(1 << ZEPHYRBADGE),
+                        kanto_badges: None,
+                        battle_scene: None,
+                        enemy_control: EnemyControl::Original,
+                    },
+                    player_party: vec![MonSpec { level: 15, ot_id: Some(1), ..mon("RATTATA") }],
+                    enemy_party: vec![MonSpec { level: 10, ..mon("MAGIKARP") }],
+                    player_items: vec![],
+                    enemy_items: vec![],
+                    enemy_trainer: None,
+                };
+                let (mut setup, rng) = BattleSetup::from_config_in(data, &config, seed).unwrap();
+                teach(data, &mut setup.party[0], [TACKLE, 0, 0, 0]);
+                let mut battle = Battle::start(data, &setup, rng).unwrap();
+                battle.step(Action::Move { slot: 0 }).unwrap();
+                battle.events().iter().any(|e| {
+                    matches!(e, Event::Message(M::WontObey { .. } | M::IgnoredOrders { .. } | M::LoafingAround { .. } | M::TurnedAway { .. } | M::BeganToNap { .. }))
+                })
+            })
+            .count()
+    };
+    assert_eq!(disobeys(legacy_with(Rules::CRYSTAL_LEGACY)), 0);
+    assert!(disobeys(legacy_with(Rules::CRYSTAL)) > 0);
+}
+
+#[test]
 fn legacy_data_has_legacy_rules() {
     assert_eq!(GameData::crystal().rules, Rules::CRYSTAL);
     assert_eq!(GameData::crystal_legacy().rules, Rules::CRYSTAL_LEGACY);
