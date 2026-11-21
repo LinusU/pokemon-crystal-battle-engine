@@ -13,6 +13,29 @@
 /// (legal actions, state snapshots) runs unchanged on either.
 pub trait ReadMem {
     fn read_byte(&self, addr: u16) -> u8;
+
+    /// A move's base PP, from the game's data (`Moves`): Pokémon Crystal's
+    /// unless the reader knows which game it is reading.
+    fn base_pp(&self, move_id: u8) -> u8 {
+        crate::data::GameData::crystal().mv(move_id).pp
+    }
+}
+
+/// Memory read alongside the game's data, so that what depends on both (a
+/// move's max PP) reads the game's.
+pub struct WithData<'a> {
+    pub mem: &'a Mem,
+    pub data: &'static crate::data::GameData,
+}
+
+impl ReadMem for WithData<'_> {
+    fn read_byte(&self, addr: u16) -> u8 {
+        self.mem.read_byte(addr)
+    }
+
+    fn base_pp(&self, move_id: u8) -> u8 {
+        self.data.mv(move_id).pp
+    }
 }
 
 const WRAM_START: u16 = 0xc000;

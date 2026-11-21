@@ -302,7 +302,7 @@ impl Engine {
 
     /// Take the next decision for `site`, or suspend if none is queued.
     pub fn decide(&mut self, site: PromptSite) -> Flow<Step> {
-        let legal = crate::battle::legal::legal_steps(&self.mem, site);
+        let legal = crate::battle::legal::legal_steps(&super::mem::WithData { mem: &self.mem, data: self.data }, site);
         if let Some(log) = self.decision_log.as_mut() {
             log.push((site, legal.clone(), self.mem.clone(), self.rng));
             if let Some(m) = self.messages.as_mut() {

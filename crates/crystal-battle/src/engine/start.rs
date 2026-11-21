@@ -244,7 +244,8 @@ impl Engine {
                 for i in 0..4usize {
                     let mv = ids.get(i).copied().unwrap_or(0);
                     self.mem.wb(base + u16::from(MON_MOVES) + i as u16, mv);
-                    self.mem.wb(base + u16::from(MON_PP) + i as u16, crate::data::move_pp::MOVE_BASE_PP[usize::from(mv)]);
+                    let pp = if mv == 0 { 0 } else { self.data.mv(mv).pp };
+                    self.mem.wb(base + u16::from(MON_PP) + i as u16, pp);
                 }
             }
             if let Some(item) = item_id {

@@ -233,7 +233,7 @@ impl Engine {
             self.mem.wb(W_BATTLE_ACTION, BATTLEACTION_SKIPTURN);
             return Ok(());
         }
-        if crate::battle::legal::legal_steps(&self.mem, PromptSite::EnemyAction).is_empty() {
+        if crate::battle::legal::legal_steps(&super::mem::WithData { mem: &self.mem, data: self.data }, PromptSite::EnemyAction).is_empty() {
             self.mem.wb(W_BATTLE_ACTION, BATTLEACTION_STRUGGLE);
             return Ok(());
         }

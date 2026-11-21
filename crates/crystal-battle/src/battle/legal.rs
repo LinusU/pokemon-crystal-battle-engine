@@ -438,7 +438,7 @@ pub fn restorable_move_slots(cpu: &impl ReadMem, slot: u8) -> Vec<u8> {
                 return false;
             }
             let pp_byte = cpu.read_byte(base + PARTY_OFFSET_PP + i);
-            move_pp::current_pp(pp_byte) < move_pp::max_pp(move_id, pp_byte)
+            move_pp::current_pp(pp_byte) < move_pp::max_pp_of(cpu.base_pp(move_id), pp_byte)
         })
         .map(|i| i as u8)
         .collect()

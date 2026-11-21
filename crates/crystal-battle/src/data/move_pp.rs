@@ -60,8 +60,14 @@ const PP_UP_MASK: u8 = 0xc0;
 /// The `min(quotient, 7)` clamp is the asm's `cp $8 / jr c / ld a, $7`: a 40-PP
 /// move would otherwise reach 64 with three PP Ups and overflow into bit 6, so
 /// the per-PP-Up bonus is capped at 7, yielding a maximum of 61.
+///
+/// This reads Pokémon Crystal's base PP; [`max_pp_of`] takes another game's.
 pub fn max_pp(move_id: u8, pp_byte: u8) -> u8 {
-    let base = MOVE_BASE_PP[move_id as usize];
+    max_pp_of(MOVE_BASE_PP[move_id as usize], pp_byte)
+}
+
+/// [`max_pp`] for a move whose base PP is `base`.
+pub fn max_pp_of(base: u8, pp_byte: u8) -> u8 {
     let num_pp_ups = (pp_byte & PP_UP_MASK) >> 6;
     let per_pp_up = (base / 5).min(7);
     (base.wrapping_add(per_pp_up.wrapping_mul(num_pp_ups))) & PP_MASK
@@ -80,6 +86,14 @@ pub fn pp_up_bits(pp_byte: u8) -> u8 {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// `ReadMem::base_pp` reads `GameData`; for Crystal that is this table.
+    #[test]
+    fn table_matches_crystal_game_data() {
+        for id in 1..=NUM_MOVES as u8 {
+            assert_eq!(MOVE_BASE_PP[usize::from(id)], crate::data::GameData::crystal().mv(id).pp, "move {id}");
+        }
+    }
 
     #[test]
     fn table_is_sized_and_indexed_by_move_id() {
