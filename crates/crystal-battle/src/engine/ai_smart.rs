@@ -1043,11 +1043,14 @@ impl Engine {
     /// `AI_Smart_Conversion2`.
     fn ai_smart_conversion2(&mut self, hl: u16) {
         // BUG: "Smart" AI discourages Conversion2 after the first turn
-        let discourage = if self.mem.rb(W_LAST_PLAYER_MOVE) != 0 {
+        // (Crystal Legacy's fix: `jr z`, before the player's first move.)
+        let last = self.mem.rb(W_LAST_PLAYER_MOVE);
+        let discourage = if (last != 0) != self.data.rules.bug_fixes {
             true
         } else {
-            // The original indexes `Moves` with `a - 1` = $ff here: move 0.
-            let ty = self.data.mv(0).kind;
+            // The player's last move's type; in Crystal `a` is 0 here, so its
+            // `a - 1` = $ff indexes move 0.
+            let ty = self.data.mv(last).kind;
             self.mem.wb(W_PLAYER_MOVE_STRUCT + u16::from(MOVE_TYPE), ty);
             self.mem.wb(H_BATTLE_TURN, 0);
             self.battle_check_type_matchup();
@@ -1082,7 +1085,8 @@ impl Engine {
             }
             // 80% chance to greatly encourage this move if the enemy is badly poisoned.
             // BUG: "Smart" AI encourages Mean Look if its own Pokémon is badly poisoned
-            if self.mem.bit(W_ENEMY_SUB_STATUS5, SUBSTATUS_TOXIC) {
+            let toxic = if self.data.rules.bug_fixes { W_PLAYER_SUB_STATUS5 } else { W_ENEMY_SUB_STATUS5 };
+            if self.mem.bit(toxic, SUBSTATUS_TOXIC) {
                 break 'out false;
             }
             // 80% chance to greatly encourage this move if the player is either in love,

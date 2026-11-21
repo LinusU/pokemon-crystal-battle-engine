@@ -230,7 +230,11 @@ impl Engine {
             EFFECT_SWAGGER => self.mem.bit(W_PLAYER_SUB_STATUS3, SUBSTATUS_CONFUSED),
             EFFECT_FUTURE_SIGHT => {
                 // BUG: AI does not discourage Future Sight when it's already been used
-                enemy_screens & 1 << SCREENS_UNUSED != 0
+                if self.data.rules.bug_fixes {
+                    self.mem.rb(W_ENEMY_FUTURE_SIGHT_COUNT) != 0
+                } else {
+                    enemy_screens & 1 << SCREENS_UNUSED != 0
+                }
             }
             _ => false,
         }

@@ -91,6 +91,11 @@ pub struct Rules {
     /// - The Glacier Badge's Special Defense boost doesn't depend on what
     ///   the other badges' boosts left in `a`.
     /// - "Go!" or "Come back!" goes by the enemy's HP in true percentages.
+    /// - The AI's item use starts from its first item each time (it can't
+    ///   use its base reward as one); its Full Heal cures Nightmare and
+    ///   confusion; it sees a pending Future Sight as redundant, discourages
+    ///   Conversion2 only before the player's first move, and encourages
+    ///   Mean Look on a badly poisoned player.
     ///
     /// [`Message::AlreadyBurned`]: crate::battle::Message::AlreadyBurned
     /// [`Message::AlreadyFrozen`]: crate::battle::Message::AlreadyFrozen

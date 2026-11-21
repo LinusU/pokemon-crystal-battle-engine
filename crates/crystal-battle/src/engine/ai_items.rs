@@ -119,6 +119,10 @@ impl Engine {
             let Some(&item) = items.next() else {
                 return false;
             };
+            // Crystal Legacy's fix: start from the first item every time.
+            if self.data.rules.bug_fixes {
+                de = W_ENEMY_TRAINER_ITEM1;
+            }
             if self.mem.rb(de) != item {
                 de += 1;
                 if self.mem.rb(de) != item {
@@ -349,6 +353,11 @@ impl Engine {
         let hl = W_OT_PARTY_MON1_STATUS + u16::from(self.mem.rb(W_CUR_OT_MON)) * PARTY_LEN;
         self.mem.wb(hl, 0);
         self.mem.wb(W_ENEMY_MON_STATUS, 0);
+        if self.data.rules.bug_fixes {
+            // Crystal Legacy's fix.
+            self.mem.res_bit(W_ENEMY_SUB_STATUS1, SUBSTATUS_NIGHTMARE);
+            self.mem.res_bit(W_ENEMY_SUB_STATUS3, SUBSTATUS_CONFUSED);
+        }
         self.mem.res_bit(W_ENEMY_SUB_STATUS5, SUBSTATUS_TOXIC);
     }
 
@@ -363,8 +372,11 @@ impl Engine {
     fn enemy_used_full_restore(&mut self) {
         self.ai_heal_status();
         self.mem.wb(W_CUR_ENEMY_ITEM, FULL_RESTORE);
-        self.mem.res_bit(W_ENEMY_SUB_STATUS3, SUBSTATUS_CONFUSED);
-        self.mem.wb(W_ENEMY_CONFUSE_COUNT, 0);
+        // Crystal Legacy leaves the confusion to AI_HealStatus (and the count as it is).
+        if !self.data.rules.bug_fixes {
+            self.mem.res_bit(W_ENEMY_SUB_STATUS3, SUBSTATUS_CONFUSED);
+            self.mem.wb(W_ENEMY_CONFUSE_COUNT, 0);
+        }
         self.full_restore_continue();
     }
 
