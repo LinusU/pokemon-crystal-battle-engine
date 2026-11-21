@@ -506,7 +506,11 @@ impl Engine {
             let carry = b & 1 != 0;
             b >>= 1;
             if carry {
-                a = self.boost_stat(hl);
+                let left = self.boost_stat(hl);
+                // Crystal Legacy's fix: push af / pop af around the call.
+                if !self.data.rules.bug_fixes {
+                    a = left;
+                }
             }
             hl += 2;
             b >>= 1;
