@@ -61,7 +61,7 @@ pub struct Rules {
     pub ghost_special_dark_physical: bool,
     /// Crystal Legacy's fixes to the battle's known bugs (pokecrystal's
     /// `docs/bugs_and_glitches.md`): Return and Frustration have at least 1
-    /// power.
+    /// power; a wild Pokémon's Teleport can fail against a higher level.
     pub bug_fixes: bool,
 }
 

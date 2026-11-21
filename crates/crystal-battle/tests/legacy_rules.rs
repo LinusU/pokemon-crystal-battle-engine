@@ -154,6 +154,41 @@ fn return_and_frustration_have_power_under_legacy_rules() {
     assert_eq!(hit(crystal, FRUSTRATION, 255), 0);
 }
 
+/// Whether a wild level-2 Abra (it knows only Teleport) gets away from a
+/// level-100 Snorlax using Splash, with battle seed `seed`.
+fn abra_teleports(data: &'static GameData, seed: u64) -> bool {
+    let config = BattleConfig {
+        battle: BattleHeader {
+            kind: BattleKind::WildEncounter,
+            trainer: None,
+            seed: Some(seed),
+            johto_badges: None,
+            kanto_badges: None,
+            battle_scene: None,
+            enemy_control: EnemyControl::Original,
+        },
+        player_party: vec![MonSpec { level: 100, ..mon("SNORLAX") }],
+        enemy_party: vec![MonSpec { level: 2, ..mon("ABRA") }],
+        player_items: vec![],
+        enemy_items: vec![],
+        enemy_trainer: None,
+    };
+    let (mut setup, rng) = BattleSetup::from_config_in(data, &config, seed).expect("a valid scenario");
+    teach(data, &mut setup.party[0], [SPLASH, 0, 0, 0]);
+    let mut battle = Battle::start(data, &setup, rng).expect("battle setup");
+    battle.step(Action::Move { slot: 0 }).expect("a legal action");
+    battle.outcome().is_some()
+}
+
+#[test]
+fn wild_teleport_can_fail_under_legacy_rules() {
+    let crystal = legacy_with(Rules::CRYSTAL);
+    assert!((1..40).all(|seed| abra_teleports(crystal, seed)));
+    let legacy = legacy_with(Rules::CRYSTAL_LEGACY);
+    let escapes = (1..40).filter(|&seed| abra_teleports(legacy, seed)).count();
+    assert!(escapes > 0 && escapes < 39, "{escapes} of 39 escaped");
+}
+
 #[test]
 fn legacy_data_has_legacy_rules() {
     assert_eq!(GameData::crystal().rules, Rules::CRYSTAL);

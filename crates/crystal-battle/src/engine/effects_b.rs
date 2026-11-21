@@ -804,14 +804,15 @@ impl Engine {
                     break 'check true;
                 }
                 let c = a.wrapping_add(b).wrapping_add(1);
-                loop {
+                let a = loop {
                     // BUG: Wild Pokémon can always Teleport regardless of level difference
                     let a = self.battle_random("BattleCommand_Teleport");
                     if a < c {
-                        break;
+                        break a;
                     }
-                }
-                true
+                };
+                // Crystal Legacy's fix: `jr c, .failed` where Crystal falls through.
+                !self.data.rules.bug_fixes || a >= b >> 2
             }
         };
         if !escapes {
