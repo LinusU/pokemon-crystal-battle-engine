@@ -82,6 +82,8 @@ pub struct Rules {
     /// - With a move disabled, PP Ups don't count as PP left.
     /// - A Pokémon fainted by Pursuit as it switches out loses its status
     ///   (and happiness) like any fainted Pokémon.
+    /// - Between turns, faints are handled until neither side's Pokémon is
+    ///   fainted.
     ///
     /// [`Message::AlreadyBurned`]: crate::battle::Message::AlreadyBurned
     /// [`Message::AlreadyFrozen`]: crate::battle::Message::AlreadyFrozen

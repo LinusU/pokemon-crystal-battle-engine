@@ -178,7 +178,25 @@ impl Engine {
     }
 
     /// `CheckFaint_EnemyThenPlayer`. Returns carry (the battle is over).
+    /// Crystal Legacy repeats it while a side's Pokémon is still fainted.
     fn check_faint_enemy_then_player(&mut self) -> Flow<bool> {
+        loop {
+            if self.check_faint_enemy_then_player_once()? {
+                return Ok(true);
+            }
+            if !self.data.rules.bug_fixes || !self.has_anyone_fainted() {
+                return Ok(false);
+            }
+        }
+    }
+
+    /// Crystal Legacy's `HasAnyoneFainted`.
+    fn has_anyone_fainted(&self) -> bool {
+        self.has_player_fainted() || self.has_enemy_fainted()
+    }
+
+    /// `CheckFaint_EnemyThenPlayer` (Crystal Legacy's `.Function`).
+    fn check_faint_enemy_then_player_once(&mut self) -> Flow<bool> {
         if self.has_enemy_fainted() {
             self.handle_enemy_mon_faint()?;
             if self.mem.rb(W_BATTLE_ENDED) != 0 {
@@ -195,7 +213,20 @@ impl Engine {
     }
 
     /// `CheckFaint_PlayerThenEnemy`. Returns carry (the battle is over).
+    /// Crystal Legacy repeats it while a side's Pokémon is still fainted.
     fn check_faint_player_then_enemy(&mut self) -> Flow<bool> {
+        loop {
+            if self.check_faint_player_then_enemy_once()? {
+                return Ok(true);
+            }
+            if !self.data.rules.bug_fixes || !self.has_anyone_fainted() {
+                return Ok(false);
+            }
+        }
+    }
+
+    /// `CheckFaint_PlayerThenEnemy` (Crystal Legacy's `.Function`).
+    fn check_faint_player_then_enemy_once(&mut self) -> Flow<bool> {
         if self.has_player_fainted() {
             self.handle_player_mon_faint()?;
             if self.mem.rb(W_BATTLE_ENDED) != 0 {
