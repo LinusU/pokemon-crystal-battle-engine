@@ -1193,19 +1193,23 @@ impl Engine {
             return false;
         }
         // BUG: Magikarp length limits have a unit conversion error (kept)
+        // Crystal Legacy's fix compares feet and inches.
+        let fixed = self.data.rules.bug_fixes;
+        let (feet_cap, inches_4, inches_3, feet_floor) =
+            if fixed { (5, 4, 3, 3) } else { (6, 1616u16 as u8, 1600u16 as u8, (1024u16 >> 8) as u8) };
         self.calc_magikarp_length(W_ENEMY_MON_D_VS, W_PLAYER_ID);
         // No reason to keep going if length > 1536 mm (i.e. if HIGH(length) > 6 feet)
-        if self.mem.rb(W_MAGIKARP_LENGTH) == 6 {
+        if self.mem.rb(W_MAGIKARP_LENGTH) == feet_cap {
             // 5% chance of skipping both size checks
             if self.random("LoadEnemyMon") >= percent(5) {
                 // Try again if length >= 1616 mm (i.e. if LOW(length) >= 4 inches)
-                if self.mem.rb(W_MAGIKARP_LENGTH + 1) >= 1616u16 as u8 {
+                if self.mem.rb(W_MAGIKARP_LENGTH + 1) >= inches_4 {
                     return true;
                 }
                 // 20% chance of skipping this check
                 if self.random("LoadEnemyMon") >= percent(20) - 1 {
                     // Try again if length >= 1600 mm (i.e. if LOW(length) >= 3 inches)
-                    if self.mem.rb(W_MAGIKARP_LENGTH + 1) >= 1600u16 as u8 {
+                    if self.mem.rb(W_MAGIKARP_LENGTH + 1) >= inches_3 {
                         return true;
                     }
                 }
@@ -1213,10 +1217,11 @@ impl Engine {
         }
         // .CheckMagikarpArea
         // BUG: Magikarp in Lake of Rage are shorter, not longer (kept)
-        if self.mem.rb(W_MAP_GROUP) == GROUP_LAKE_OF_RAGE {
+        // Crystal Legacy's fix floors the Lake of Rage only (`jr nz`).
+        if (self.mem.rb(W_MAP_GROUP) == GROUP_LAKE_OF_RAGE) != fixed {
             return false;
         }
-        if self.mem.rb(W_MAP_NUMBER) == MAP_LAKE_OF_RAGE {
+        if (self.mem.rb(W_MAP_NUMBER) == MAP_LAKE_OF_RAGE) != fixed {
             return false;
         }
         // 40% chance of not flooring
@@ -1224,7 +1229,7 @@ impl Engine {
             return false;
         }
         // Try again if length < 1024 mm (i.e. if HIGH(length) < 3 feet)
-        self.mem.rb(W_MAGIKARP_LENGTH) < (1024u16 >> 8) as u8
+        self.mem.rb(W_MAGIKARP_LENGTH) < feet_floor
     }
 
     /// `GetTrainerDVs`: the DVs of `wOtherTrainerClass` in `bc`.

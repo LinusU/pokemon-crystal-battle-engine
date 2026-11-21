@@ -84,6 +84,8 @@ pub struct Rules {
     ///   (and happiness) like any fainted Pokémon.
     /// - Between turns, faints are handled until neither side's Pokémon is
     ///   fainted.
+    /// - A wild Magikarp's length filters work in feet and inches, and the
+    ///   Lake of Rage's is the one with a minimum.
     ///
     /// [`Message::AlreadyBurned`]: crate::battle::Message::AlreadyBurned
     /// [`Message::AlreadyFrozen`]: crate::battle::Message::AlreadyFrozen
