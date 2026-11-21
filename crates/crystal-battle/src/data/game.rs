@@ -98,13 +98,17 @@ pub struct Rules {
     /// experience from the party (Crystal: the trainer class's DVs, base
     /// happiness, no stat experience).
     pub trainer_party_stats: bool,
+    /// Level-100 Pokémon take no experience (Crystal Legacy's level cap
+    /// outside hard mode): no award or message, though they still gain stat
+    /// experience, and they don't count when experience is divided.
+    pub max_level_takes_no_exp: bool,
 }
 
 impl Rules {
     /// Pokémon Crystal's own code.
-    pub const CRYSTAL: Rules = Rules { ghost_special_dark_physical: false, bug_fixes: false, zephyr_badge_obedience: false, trainer_party_stats: false };
+    pub const CRYSTAL: Rules = Rules { ghost_special_dark_physical: false, bug_fixes: false, zephyr_badge_obedience: false, trainer_party_stats: false, max_level_takes_no_exp: false };
     /// Crystal Legacy's code.
-    pub const CRYSTAL_LEGACY: Rules = Rules { ghost_special_dark_physical: true, bug_fixes: true, zephyr_badge_obedience: true, trainer_party_stats: true };
+    pub const CRYSTAL_LEGACY: Rules = Rules { ghost_special_dark_physical: true, bug_fixes: true, zephyr_badge_obedience: true, trainer_party_stats: true, max_level_takes_no_exp: true };
 }
 
 /// A trainer's party (`data/trainers/parties.asm`).

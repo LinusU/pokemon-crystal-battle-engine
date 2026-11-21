@@ -461,6 +461,38 @@ fn a_paralyzed_enemy_is_slowed_when_sent_out_under_legacy_rules() {
 }
 
 #[test]
+fn a_level_100_pokemon_takes_no_exp_under_legacy_rules() {
+    use crystal_battle::battle::{Event, Message as M};
+    use crystal_battle::defs::{SURF, TACKLE};
+    let gains = |data: &'static GameData| {
+        let config = BattleConfig {
+            battle: BattleHeader {
+                kind: BattleKind::WildEncounter,
+                trainer: None,
+                seed: Some(1),
+                johto_badges: None,
+                kanto_badges: None,
+                battle_scene: None,
+                enemy_control: EnemyControl::Original,
+            },
+            player_party: vec![MonSpec { level: 100, ..mon("LAPRAS") }],
+            enemy_party: vec![MonSpec { level: 5, ..mon("PIDGEY") }],
+            player_items: vec![],
+            enemy_items: vec![],
+            enemy_trainer: None,
+        };
+        let (mut setup, rng) = BattleSetup::from_config_in(data, &config, 1).unwrap();
+        teach(data, &mut setup.party[0], [SURF, TACKLE, 0, 0]);
+        let mut battle = Battle::start(data, &setup, rng).unwrap();
+        battle.step(Action::Move { slot: 0 }).unwrap();
+        assert!(battle.state().enemy.active.hp == 0 || battle.outcome().is_some());
+        battle.events().iter().any(|e| matches!(e, Event::Message(M::GainedExp { .. })))
+    };
+    assert!(!gains(legacy_with(Rules::CRYSTAL_LEGACY)));
+    assert!(gains(legacy_with(Rules::CRYSTAL)));
+}
+
+#[test]
 fn legacy_data_has_legacy_rules() {
     assert_eq!(GameData::crystal().rules, Rules::CRYSTAL);
     assert_eq!(GameData::crystal_legacy().rules, Rules::CRYSTAL_LEGACY);

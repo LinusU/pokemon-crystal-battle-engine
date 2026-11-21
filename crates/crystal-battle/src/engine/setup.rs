@@ -388,6 +388,9 @@ impl Engine {
             // .stat_exp_awarded
             de += 2;
         }
+        if self.data.rules.max_level_takes_no_exp && self.mem.rb(bc + u16::from(MON_LEVEL)) >= MAX_LEVEL {
+            return;
+        }
         self.mem.wb(H_MULTIPLICAND, 0);
         self.mem.wb(H_MULTIPLICAND + 1, 0);
         let base_exp = self.mem.rb(W_ENEMY_MON_BASE_EXP);
@@ -530,8 +533,13 @@ impl Engine {
     fn evenly_divide_exp_among_participants(&mut self) {
         let mut b = self.mem.rb(W_BATTLE_PARTICIPANTS_NOT_FAINTED);
         let mut count = 0u8;
-        for _ in 0..PARTY_LENGTH {
-            count += b & 1;
+        for slot in 0..PARTY_LENGTH {
+            // Crystal Legacy doesn't count those at the level cap.
+            let capped = self.data.rules.max_level_takes_no_exp
+                && self.mem.rb(W_PARTY_MON1_LEVEL + u16::from(slot) * super::battle::PARTY_LEN) >= MAX_LEVEL;
+            if !capped {
+                count += b & 1;
+            }
             b >>= 1;
         }
         if count < 2 {
