@@ -75,7 +75,8 @@ pub struct Rules {
     /// messages, [`Message::AlreadyBurned`] and [`Message::AlreadyFrozen`]),
     /// and other failures say the target evaded or protected itself; the
     /// AI's switching checks the types it means to (`CheckTypeMatchup`
-    /// keeps the type it is given).
+    /// keeps the type it is given); Lock-On and Mind Reader reach a Pokémon
+    /// that is flying or underground.
     ///
     /// [`Message::AlreadyBurned`]: crate::battle::Message::AlreadyBurned
     /// [`Message::AlreadyFrozen`]: crate::battle::Message::AlreadyFrozen

@@ -140,6 +140,10 @@ impl Engine {
     /// `CheckHiddenOpponent`: nz (`true`) = the opponent is flying or underground.
     pub fn check_hidden_opponent(&self) -> bool {
         // BUG: Lock-On and Mind Reader don't always bypass Fly and Dig (see docs/bugs_and_glitches.md)
+        // Crystal Legacy's fix: a locked-on opponent isn't hidden.
+        if self.data.rules.bug_fixes && self.battle_var_bit(BATTLE_VARS_SUBSTATUS5_OPP, SUBSTATUS_LOCK_ON) {
+            return false;
+        }
         self.battle_var(BATTLE_VARS_SUBSTATUS3_OPP) & (1 << SUBSTATUS_FLYING | 1 << SUBSTATUS_UNDERGROUND) != 0
     }
 
