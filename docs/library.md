@@ -124,9 +124,31 @@ layout, the trainer party format) is a profile in the generator.
   (`ReadMem::base_pp`), not Crystal's table.
 - **Scenarios.** `BattleSetup::from_config_in(data, …)` makes a scenario's
   mons from another game's data.
-- **Rules.** Legacy also changes the battle's code (Ghost moves special and
-  Dark moves physical, fixes to known bugs, AI fixes). Those aren't ported
-  yet: on Legacy's data the engine still plays by Crystal's code.
+- **Rules.** Legacy also changes the battle's code. `GameData::rules` holds
+  those differences as a `Rules` value (`Rules::CRYSTAL`: none;
+  `Rules::CRYSTAL_LEGACY`: Legacy's), so a game's data carries its rules:
+  - `ghost_special_dark_physical`: Ghost moves special, Dark moves physical
+    (damage, critical hits, Counter, Mirror Coat, the AI), Legacy's quirks
+    included.
+  - `bug_fixes`: Legacy's fixes to the battle's known bugs (Return and
+    Frustration, Teleport, Belly Drum, Counter, Psywave, Beat Up, confusion
+    damage, status moves and their texts, the AI's type checks, Lock-On,
+    Pursuit, the faint loop, Magikarp's length, status penalties on a
+    sent-out enemy, level 1's experience, the Glacier Badge, the send-out
+    texts, the AI's items and scoring). Two messages are Legacy's own:
+    `AlreadyBurned` and `AlreadyFrozen`.
+  - `zephyr_badge_obedience`, `trainer_party_stats` (a trainer's Pokémon
+    fight with their party's DVs, happiness and stat experience) and
+    `max_level_takes_no_exp` (Legacy's level cap of 100 outside hard mode).
+
+  Each rule is ported from Legacy's asm with a test in
+  `tests/legacy_rules.rs` that plays a battle under both rule sets, where a
+  battle can show it. There is no transpiled Legacy to test against, so the
+  differential testers only keep Crystal's rules exact. Not ported: hard
+  mode (lower level caps, the battle types that force the Set style or ban
+  items), Legacy's trainer parties (and with them its trainer nicknames),
+  and changes to graphics, sound and the HP bar's animation, which the
+  library doesn't model.
 
 Later: the engine's state is still the original's WRAM byte for byte
 (`engine::mem::Mem`). Replacing it with typed state, routine by routine, is

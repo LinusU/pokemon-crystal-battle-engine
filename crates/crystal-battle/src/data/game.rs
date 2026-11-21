@@ -404,8 +404,9 @@ impl GameData {
         &super::crystal::CRYSTAL
     }
 
-    /// Pokémon Crystal Legacy's data (V1.3.1). It has no trainer parties: a
-    /// trainer battle brings its own.
+    /// Pokémon Crystal Legacy's data (V1.3.1), with its rules
+    /// ([`Rules::CRYSTAL_LEGACY`]). It has no trainer parties: a trainer
+    /// battle brings its own.
     #[cfg(feature = "crystal-legacy")]
     pub fn crystal_legacy() -> &'static GameData {
         &super::crystal_legacy::CRYSTAL_LEGACY
