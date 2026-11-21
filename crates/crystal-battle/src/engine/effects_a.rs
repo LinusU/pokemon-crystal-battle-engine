@@ -411,23 +411,41 @@ impl Engine {
     /// `BattleCommand_BellyDrum`.
     /// BUG: Belly Drum sharply boosts Attack even with under 50% HP.
     pub fn battle_command_belly_drum(&mut self) -> Flow<Cmd> {
+        if self.data.rules.bug_fixes {
+            // Crystal Legacy checks the HP first.
+            let bc = self.get_half_max_hp();
+            if self.check_user_has_enough_hp(bc) {
+                self.battle_command_attack_up2()?;
+                if self.mem.rb(W_ATTACK_MISSED) == 0 {
+                    return self.belly_drum_succeeds(bc);
+                }
+            }
+            self.animate_failed_move()?;
+            self.print_but_it_failed();
+            return Ok(Cmd::Next);
+        }
         self.battle_command_attack_up2()?;
         if self.mem.rb(W_ATTACK_MISSED) == 0 {
             let bc = self.get_half_max_hp();
             if self.check_user_has_enough_hp(bc) {
-                self.animate_current_move()?;
-                self.subtract_hp_from_user(bc);
-                self.update_user_in_party();
-                for _ in 0..MAX_STAT_LEVEL - BASE_STAT_LEVEL - 1 {
-                    self.battle_command_attack_up2()?;
-                }
-                self.text(r::BELLY_DRUM_TEXT);
-                return Ok(Cmd::Next);
+                return self.belly_drum_succeeds(bc);
             }
         }
         // .failed
         self.animate_failed_move()?;
         self.print_but_it_failed();
+        Ok(Cmd::Next)
+    }
+
+    /// Belly Drum's success: the HP `bc` paid, Attack raised to the maximum.
+    fn belly_drum_succeeds(&mut self, bc: u16) -> Flow<Cmd> {
+        self.animate_current_move()?;
+        self.subtract_hp_from_user(bc);
+        self.update_user_in_party();
+        for _ in 0..MAX_STAT_LEVEL - BASE_STAT_LEVEL - 1 {
+            self.battle_command_attack_up2()?;
+        }
+        self.text(r::BELLY_DRUM_TEXT);
         Ok(Cmd::Next)
     }
 

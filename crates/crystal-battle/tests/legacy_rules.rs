@@ -64,6 +64,11 @@ fn link(
 
 /// Both sides use their move once; the HP each side lost.
 fn one_turn(mut battle: Battle) -> (u16, u16) {
+    one_turn_on(&mut battle)
+}
+
+/// [`one_turn`], keeping the battle.
+fn one_turn_on(battle: &mut Battle) -> (u16, u16) {
     let start = battle.state().clone();
     for _ in 0..2 {
         let Status::Decision(decision) = battle.status() else { break };
@@ -187,6 +192,18 @@ fn wild_teleport_can_fail_under_legacy_rules() {
     let legacy = legacy_with(Rules::CRYSTAL_LEGACY);
     let escapes = (1..40).filter(|&seed| abra_teleports(legacy, seed)).count();
     assert!(escapes > 0 && escapes < 39, "{escapes} of 39 escaped");
+}
+
+#[test]
+fn belly_drum_needs_the_hp_first_under_legacy_rules() {
+    const BELLY_DRUM: u8 = 187;
+    let attack_level = |data: &'static GameData| {
+        let mut battle = link(data, ("SNORLAX", BELLY_DRUM), ("BLASTOISE", SPLASH), |player, _| player.hp = 1);
+        one_turn_on(&mut battle);
+        battle.state().player.stat_levels[0]
+    };
+    assert_eq!(attack_level(legacy_with(Rules::CRYSTAL_LEGACY)), 7);
+    assert_eq!(attack_level(legacy_with(Rules::CRYSTAL)), 9);
 }
 
 #[test]
