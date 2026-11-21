@@ -1166,7 +1166,9 @@ impl Engine {
         }
         // Double the stat
         // BUG: Thick Club and Light Ball can make (Special) Attack wrap around above 1024
-        value << 1
+        let doubled = value << 1;
+        // Crystal Legacy caps it at MAX_STAT_VALUE.
+        if self.data.rules.bug_fixes && doubled > MAX_STAT_VALUE { MAX_STAT_VALUE } else { doubled }
     }
 
     /// `DittoMetalPowder`: takes and returns `(b, c)` = (attack, defense).

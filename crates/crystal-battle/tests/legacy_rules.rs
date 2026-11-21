@@ -207,6 +207,23 @@ fn belly_drum_needs_the_hp_first_under_legacy_rules() {
 }
 
 #[test]
+fn light_ball_caps_the_stat_under_legacy_rules() {
+    use crystal_battle::defs::{LIGHT_BALL, THUNDERBOLT};
+    let hit = |data: &'static GameData, sp_attack: u16| {
+        one_turn(link(data, ("PIKACHU", THUNDERBOLT), ("BLASTOISE", SPLASH), |player, enemy| {
+            player.item = LIGHT_BALL;
+            player.stats[SP_ATTACK] = sp_attack;
+            (enemy.stats[0], enemy.hp, enemy.stats[5]) = (999, 999, 999);
+        }))
+        .1
+    };
+    let legacy = legacy_with(Rules::CRYSTAL_LEGACY);
+    assert_eq!(hit(legacy, 600), hit(legacy, 999));
+    let crystal = legacy_with(Rules::CRYSTAL);
+    assert_ne!(hit(crystal, 600), hit(crystal, 999));
+}
+
+#[test]
 fn legacy_data_has_legacy_rules() {
     assert_eq!(GameData::crystal().rules, Rules::CRYSTAL);
     assert_eq!(GameData::crystal_legacy().rules, Rules::CRYSTAL_LEGACY);

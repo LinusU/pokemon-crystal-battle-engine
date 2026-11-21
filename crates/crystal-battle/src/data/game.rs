@@ -63,7 +63,8 @@ pub struct Rules {
     /// `docs/bugs_and_glitches.md`): Return and Frustration have at least 1
     /// power; a wild Pokémon's Teleport can fail against a higher level;
     /// Belly Drum raises Attack only once the user has the HP; Counter and
-    /// Mirror Coat without damage to return set `wEffectFailed`.
+    /// Mirror Coat without damage to return set `wEffectFailed`; Thick Club
+    /// and Light Ball double a stat to at most 999.
     pub bug_fixes: bool,
 }
 
