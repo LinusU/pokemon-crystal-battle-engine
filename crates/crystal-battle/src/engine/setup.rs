@@ -160,6 +160,11 @@ impl Engine {
     /// `CalcExpAtLevel` for level `d`: `(a/b)*n^3 + c*n^2 + d*n - e` into
     /// `hMultiplicand..+2` (the three bytes of `hProduct + 1..3`).
     pub fn calc_exp_at_level(&mut self, d: u8) {
+        if self.data.rules.bug_fixes && d == 1 {
+            // Crystal Legacy: Pokémon have 0 experience at level 1.
+            self.mem.fill(H_PRODUCT, 4, 0);
+            return;
+        }
         let growth = self.mem.rb(W_BASE_GROWTH_RATE);
         let rate = *self.data.growth_rate(growth);
         // Cube the level

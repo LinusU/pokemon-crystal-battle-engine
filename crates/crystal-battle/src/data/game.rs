@@ -87,6 +87,7 @@ pub struct Rules {
     /// - A wild Magikarp's length filters work in feet and inches, and the
     ///   Lake of Rage's is the one with a minimum.
     /// - An enemy sent out paralyzed or burned has its Speed or Attack cut.
+    /// - Level 1 needs no experience (`CalcExpAtLevel`).
     ///
     /// [`Message::AlreadyBurned`]: crate::battle::Message::AlreadyBurned
     /// [`Message::AlreadyFrozen`]: crate::battle::Message::AlreadyFrozen
