@@ -205,4 +205,14 @@ impl BattleSetup {
     pub fn from_config(config: &crate::config::BattleConfig, seed: u64) -> Result<(BattleSetup, u64), String> {
         crate::engine::load::generate(config, seed).map_err(|error| error.to_string())
     }
+
+    /// [`BattleSetup::from_config`] with another game's data: the mons'
+    /// stats and moves are that game's.
+    pub fn from_config_in(
+        data: &'static crate::data::GameData,
+        config: &crate::config::BattleConfig,
+        seed: u64,
+    ) -> Result<(BattleSetup, u64), String> {
+        crate::engine::load::generate_in(data, config, seed).map_err(|error| error.to_string())
+    }
 }

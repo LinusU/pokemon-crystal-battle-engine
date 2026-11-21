@@ -150,8 +150,14 @@ impl Engine {
 /// DVs). Starting [`start`] from both is the same battle as
 /// `start::start(config, seed, ..)`.
 pub fn generate(config: &BattleConfig, seed: u64) -> Result<(BattleSetup, u64), StartError> {
+    generate_in(crate::data::GameData::crystal(), config, seed)
+}
+
+/// [`generate`], making the mons from `data`.
+pub fn generate_in(data: &'static crate::data::GameData, config: &BattleConfig, seed: u64) -> Result<(BattleSetup, u64), StartError> {
     let rng = if seed == 0 { 0x9e37_79b9_7f4a_7c15 } else { seed };
     let mut engine = Engine::new(super::start::boot_state(config), rng, Flags::default());
+    engine.data = data;
     match config.battle.kind {
         BattleKind::WildEncounter => engine.launch_wild_encounter(config)?,
         BattleKind::TrainerBattle => engine.launch_trainer_battle(config)?,
