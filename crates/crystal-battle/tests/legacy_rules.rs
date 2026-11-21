@@ -382,6 +382,44 @@ fn the_zephyr_badge_commands_obedience_under_legacy_rules() {
     assert!(disobeys(legacy_with(Rules::CRYSTAL)) > 0);
 }
 
+/// A poisoned Pokémon with 1 HP switches out into a Pursuit: its status
+/// afterwards.
+fn pursued_status(data: &'static GameData) -> u8 {
+    use crystal_battle::defs::{PSN, PURSUIT};
+    let config = BattleConfig {
+        battle: BattleHeader {
+            kind: BattleKind::LinkBattle,
+            trainer: None,
+            seed: Some(1),
+            johto_badges: None,
+            kanto_badges: None,
+            battle_scene: None,
+            enemy_control: EnemyControl::Original,
+        },
+        player_party: vec![mon("SNORLAX"), mon("LAPRAS")],
+        enemy_party: vec![mon("TYRANITAR")],
+        player_items: vec![],
+        enemy_items: vec![],
+        enemy_trainer: None,
+    };
+    let (mut setup, rng) = BattleSetup::from_config_in(data, &config, 1).expect("a valid scenario");
+    let Opponent::Link { party, .. } = &mut setup.opponent else { unreachable!() };
+    teach(data, &mut party[0], [PURSUIT, 0, 0, 0]);
+    (setup.party[0].hp, setup.party[0].status) = (1, 1 << PSN);
+    let mut battle = Battle::start(data, &setup, rng).expect("battle setup");
+    battle.step(Action::Switch { slot: 1 }).expect("a legal switch");
+    battle.step(Action::Move { slot: 0 }).expect("a legal move");
+    let fainted = &battle.state().player.party[0];
+    assert_eq!(fainted.hp, 0);
+    fainted.status
+}
+
+#[test]
+fn pursuit_cures_the_fainted_pokemon_under_legacy_rules() {
+    assert_eq!(pursued_status(legacy_with(Rules::CRYSTAL_LEGACY)), 0);
+    assert_ne!(pursued_status(legacy_with(Rules::CRYSTAL)), 0);
+}
+
 #[test]
 fn legacy_data_has_legacy_rules() {
     assert_eq!(GameData::crystal().rules, Rules::CRYSTAL);

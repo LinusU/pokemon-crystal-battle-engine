@@ -168,7 +168,15 @@ impl Engine {
         self.mem.wb(W_CRY_TRACKS, 0xf0);
         let species = self.mem.rb(W_BATTLE_MON_SPECIES);
         self.show(crate::battle::Event::Cry(species));
-        self.small_far_flag_action(W_BATTLE_PARTICIPANTS_NOT_FAINTED, last, FlagAction::Reset);
+        if self.data.rules.bug_fixes {
+            // Crystal Legacy's fix: the whole `UpdateFaintedPlayerMon` for it.
+            let cur = self.mem.rb(W_CUR_BATTLE_MON);
+            self.mem.wb(W_CUR_BATTLE_MON, last);
+            self.update_fainted_player_mon();
+            self.mem.wb(W_CUR_BATTLE_MON, cur);
+        } else {
+            self.small_far_flag_action(W_BATTLE_PARTICIPANTS_NOT_FAINTED, last, FlagAction::Reset);
+        }
         self.show(crate::battle::Event::Faint(crate::battle::Side::Player));
         self.text(r::BATTLE_TEXT_MON_FAINTED);
         Ok(true)
