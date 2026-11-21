@@ -65,7 +65,9 @@ pub struct Rules {
     /// Belly Drum raises Attack only once the user has the HP; Counter and
     /// Mirror Coat without damage to return set `wEffectFailed`; Thick Club
     /// and Light Ball double a stat to at most 999; Psywave deals from the
-    /// user's level up to 1.5 times it.
+    /// user's level up to 1.5 times it; Beat Up reads the right party
+    /// member's status, raises a Substitute again after failing, and ends
+    /// like any move with one Pokémon (a failed one triggers no King's Rock).
     pub bug_fixes: bool,
 }
 

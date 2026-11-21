@@ -294,8 +294,10 @@ impl Engine {
         if self.mem.rb(hp) | self.mem.rb(hp + 1) == 0 {
             return self.beat_up_fail();
         }
-        // `cp [hl]` compares wCurBattleMon with the HP's low byte.
-        let status = if self.mem.rb(W_CUR_BATTLE_MON) == self.mem.rb(hp + 1) {
+        // `cp [hl]` compares wCurBattleMon with the HP's low byte; Crystal
+        // Legacy's `cp c` with the Beat Up mon's index.
+        let index = if self.data.rules.bug_fixes { cur } else { self.mem.rb(hp + 1) };
+        let status = if self.mem.rb(W_CUR_BATTLE_MON) == index {
             W_BATTLE_MON_STATUS
         } else {
             self.get_beatup_mon_location(MON_STATUS)
@@ -386,6 +388,9 @@ impl Engine {
     pub fn battle_command_beat_up_fail_text(&mut self) -> Flow<Cmd> {
         if self.mem.rb(W_BEAT_UP_HIT_AT_LEAST_ONCE) != 0 {
             return Ok(Cmd::Next);
+        }
+        if self.data.rules.bug_fixes {
+            self.mem.wb(W_ATTACK_MISSED, 1);
         }
         self.print_but_it_failed();
         Ok(Cmd::Next)

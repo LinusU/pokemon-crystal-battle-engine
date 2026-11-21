@@ -508,7 +508,8 @@ impl Engine {
         }
         // BUG: Beat Up may fail to raise Substitute
         let effect = self.battle_var(BATTLE_VARS_MOVE_EFFECT);
-        if matches!(effect, EFFECT_MULTI_HIT | EFFECT_DOUBLE_HIT | EFFECT_POISON_MULTI_HIT) {
+        let beat_up = self.data.rules.bug_fixes && effect == EFFECT_BEAT_UP;
+        if beat_up || matches!(effect, EFFECT_MULTI_HIT | EFFECT_DOUBLE_HIT | EFFECT_POISON_MULTI_HIT) {
             self.battle_command_raise_sub()?;
         }
         self.end_move_effect();
@@ -653,6 +654,10 @@ impl Engine {
                     // .only_one_beatup
                     // BUG: Beat Up works incorrectly with only one Pokemon in the party
                     self.res_battle_var_bit(BATTLE_VARS_SUBSTATUS3, SUBSTATUS_IN_LOOP);
+                    if self.data.rules.bug_fixes {
+                        // Crystal Legacy goes on with the script (`ret`).
+                        return Ok(Cmd::Next);
+                    }
                     self.battle_command_beat_up_fail_text()?;
                     self.end_move_effect();
                     return Ok(Cmd::Next);

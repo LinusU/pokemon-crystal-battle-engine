@@ -249,6 +249,28 @@ fn psywave_deals_at_least_the_level_under_legacy_rules() {
     assert!(lowest(legacy_with(Rules::CRYSTAL)) < 50);
 }
 
+/// Crystal ends a lone Beat Up at `endloop`, before King's Rock; Crystal
+/// Legacy plays the rest of the move.
+#[test]
+fn a_lone_beat_up_reaches_kings_rock_under_legacy_rules() {
+    use crystal_battle::battle::{Event, Message};
+    use crystal_battle::defs::{BEAT_UP, KINGS_ROCK};
+    let flinches = |data: &'static GameData| {
+        (1..80)
+            .filter(|&seed| {
+                let mut battle =
+                    link_seeded(data, seed, ("SNEASEL", BEAT_UP), ("SLOWBRO", SPLASH), |player, _| player.item = KINGS_ROCK);
+                let Status::Decision(_) = battle.status() else { unreachable!() };
+                battle.step(Action::Move { slot: 0 }).unwrap();
+                battle.step(Action::Move { slot: 0 }).unwrap();
+                battle.events().iter().any(|e| matches!(e, Event::Message(Message::Flinched { .. })))
+            })
+            .count()
+    };
+    assert!(flinches(legacy_with(Rules::CRYSTAL_LEGACY)) > 0);
+    assert_eq!(flinches(legacy_with(Rules::CRYSTAL)), 0);
+}
+
 #[test]
 fn legacy_data_has_legacy_rules() {
     assert_eq!(GameData::crystal().rules, Rules::CRYSTAL);
