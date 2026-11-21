@@ -19,6 +19,10 @@ use crate::defs::*;
 const DAMAGE_CAP: u16 = 999 - 2;
 const MIN_DAMAGE: u8 = 2;
 
+/// Crystal Legacy's `wIsConfusionDamage`: the byte Crystal leaves unused after
+/// `wTurnEnded`.
+pub const W_IS_CONFUSION_DAMAGE: u16 = W_TURN_ENDED + 1;
+
 impl Engine {
     // --- items ---------------------------------------------------------------
 
@@ -1214,6 +1218,7 @@ impl Engine {
 
     /// `HitSelfInConfusion`: sets up confusion damage for `BattleCommand_DamageCalc`
     /// (power 40, the user's level, its attack and defense).
+    /// Crystal Legacy also sets [`W_IS_CONFUSION_DAMAGE`].
     pub fn hit_self_in_confusion(&mut self) {
         self.reset_damage();
         let (def, screens, level) = if self.is_player_turn() {
@@ -1229,6 +1234,9 @@ impl Engine {
         let hl = self.mem.rw(def - 2);
         let (b, c) = self.truncate_hl_bc(hl, bc);
         self.damage_regs = [b, c, 40, level];
+        if self.data.rules.bug_fixes {
+            self.mem.wb(W_IS_CONFUSION_DAMAGE, 1);
+        }
     }
 
     // --- DamageCalc ----------------------------------------------------------------
@@ -1255,6 +1263,24 @@ impl Engine {
                 return Ok(Cmd::Next);
             }
         }
+        if self.data.rules.bug_fixes {
+            // Not confusion damage.
+            self.mem.wb(W_IS_CONFUSION_DAMAGE, 0);
+        }
+        self.damage_calc_from([b, c, d, e])
+    }
+
+    /// Crystal Legacy's `ConfusionDamageCalc`: the damage from
+    /// [`Engine::damage_regs`], skipping `BattleCommand_DamageCalc`'s start.
+    pub fn confusion_damage_calc(&mut self) -> Flow<Cmd> {
+        self.damage_calc_from(self.damage_regs)
+    }
+
+    /// The rest of `BattleCommand_DamageCalc` (Crystal Legacy's
+    /// `ConfusionDamageCalc` label) for attack `b`, defense `c`, power `d`
+    /// and level `e`, without type-boosting items while
+    /// [`W_IS_CONFUSION_DAMAGE`] is set.
+    pub fn damage_calc_from(&mut self, [b, mut c, d, e]: [u8; 4]) -> Flow<Cmd> {
 
         // Minimum defense value is 1.
         if c == 0 {
@@ -1296,9 +1322,10 @@ impl Engine {
         self.mem.wb(H_DIVISOR, 50);
         self.divide(4);
 
-        // Item boosts
+        // Item boosts (Crystal Legacy: not for confusion damage)
         let (_, item_effect, item_param) = self.get_user_item();
-        if item_effect != 0 {
+        let confused = self.data.rules.bug_fixes && self.mem.rb(W_IS_CONFUSION_DAMAGE) != 0;
+        if item_effect != 0 && !confused {
             if let Some(&(_, boost_type)) = self.data.tables.type_boost_items.iter().find(|&&(effect, _)| effect == item_effect) {
                 // Type
                 if self.battle_var(BATTLE_VARS_MOVE_TYPE) == boost_type {

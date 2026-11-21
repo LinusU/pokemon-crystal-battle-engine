@@ -407,6 +407,13 @@ impl Engine {
                         self.text(r::HURT_ITSELF_TEXT);
                         self.hit_self_in_confusion();
                         self.battle_command_damage_calc()?;
+                        if self.data.rules.bug_fixes {
+                            // Crystal Legacy adds a `ConfusionDamageCalc` after the
+                            // first, which leaves `b` (the Attack) 0: it adds no
+                            // damage, only runs the update of wCurDamage again.
+                            let [_, c, d, e] = self.damage_regs;
+                            self.damage_calc_from([0, c, d, e])?;
+                        }
                         self.battle_command_lower_sub()?;
                         self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
                         self.hit_confusion_anim();
@@ -505,7 +512,12 @@ impl Engine {
         self.text(r::HURT_ITSELF_TEXT);
         self.mem.wb(W_CRITICAL_HIT, 0);
         self.hit_self_in_confusion();
-        self.battle_command_damage_calc()?;
+        if self.data.rules.bug_fixes {
+            // Crystal Legacy: no Explosion halving, no type-boosting items.
+            self.confusion_damage_calc()?;
+        } else {
+            self.battle_command_damage_calc()?;
+        }
         self.battle_command_lower_sub()?;
         self.mem.wb(W_BATTLE_AFTER_ANIM, 0);
         self.hit_confusion_anim();

@@ -67,7 +67,10 @@ pub struct Rules {
     /// and Light Ball double a stat to at most 999; Psywave deals from the
     /// user's level up to 1.5 times it; Beat Up reads the right party
     /// member's status, raises a Substitute again after failing, and ends
-    /// like any move with one Pokémon (a failed one triggers no King's Rock).
+    /// like any move with one Pokémon (a failed one triggers no King's Rock);
+    /// the player hurting itself in confusion takes no type-boosting item or
+    /// Explosion halving into account (the enemy's self-hit runs the damage
+    /// update a second time, as Legacy's `CheckEnemyTurn` does).
     pub bug_fixes: bool,
 }
 

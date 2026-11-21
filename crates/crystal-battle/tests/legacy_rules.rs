@@ -271,6 +271,47 @@ fn a_lone_beat_up_reaches_kings_rock_under_legacy_rules() {
     assert_eq!(flinches(legacy_with(Rules::CRYSTAL)), 0);
 }
 
+/// The HP a confused side loses hurting itself on turn 1 (after a faster
+/// Gengar's Confuse Ray), for the seeds where it does.
+fn self_hits(data: &'static GameData, enemy_confused: bool, bow: bool) -> Vec<(u64, u16)> {
+    use crystal_battle::battle::{Event, Message};
+    use crystal_battle::defs::{CONFUSE_RAY, PINK_BOW, TACKLE};
+    (1..60)
+        .filter_map(|seed| {
+            let (player, enemy) = if enemy_confused { (("GENGAR", CONFUSE_RAY), ("SNORLAX", TACKLE)) } else { (("SNORLAX", TACKLE), ("GENGAR", CONFUSE_RAY)) };
+            let mut battle = link_seeded(data, seed, player, enemy, |player, enemy| {
+                let snorlax = if enemy_confused { enemy } else { player };
+                if bow {
+                    snorlax.item = PINK_BOW;
+                }
+            });
+            let (player_lost, enemy_lost) = one_turn_on(&mut battle);
+            let hurt = battle.events().iter().any(|e| matches!(e, Event::Message(Message::HurtItself)));
+            hurt.then_some((seed, if enemy_confused { enemy_lost } else { player_lost }))
+        })
+        .collect()
+}
+
+#[test]
+fn confusion_ignores_type_boosting_items_under_legacy_rules() {
+    let legacy = legacy_with(Rules::CRYSTAL_LEGACY);
+    let hits = self_hits(legacy, false, false);
+    assert!(!hits.is_empty());
+    assert_eq!(self_hits(legacy, false, true), hits);
+    let crystal = legacy_with(Rules::CRYSTAL);
+    assert_ne!(self_hits(crystal, false, true), self_hits(crystal, false, false));
+}
+
+/// Crystal Legacy's enemy runs the damage update twice: 2 more damage
+/// (under 256) than Crystal's.
+#[test]
+fn an_enemy_hurts_itself_twice_over_under_legacy_rules() {
+    let crystal = self_hits(legacy_with(Rules::CRYSTAL), true, false);
+    let legacy = self_hits(legacy_with(Rules::CRYSTAL_LEGACY), true, false);
+    assert!(!crystal.is_empty());
+    assert_eq!(legacy, crystal.iter().map(|&(seed, hp)| (seed, hp + 2)).collect::<Vec<_>>());
+}
+
 #[test]
 fn legacy_data_has_legacy_rules() {
     assert_eq!(GameData::crystal().rules, Rules::CRYSTAL);
