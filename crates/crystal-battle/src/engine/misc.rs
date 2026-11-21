@@ -109,7 +109,12 @@ impl Engine {
     /// `PrintDidntAffect2`.
     pub fn print_didnt_affect2(&mut self) -> Flow {
         self.animate_failed_move()?;
-        self.fail_text_check_opponent_protect(r::DIDNT_AFFECT1_TEXT, r::DIDNT_AFFECT2_TEXT);
+        if self.data.rules.bug_fixes {
+            // Crystal Legacy: "evaded the attack!" / "protecting itself!"
+            self.fail_text_check_opponent_protect(r::EVADED_TEXT, r::PROTECTING_ITSELF_TEXT);
+        } else {
+            self.fail_text_check_opponent_protect(r::DIDNT_AFFECT1_TEXT, r::DIDNT_AFFECT2_TEXT);
+        }
         Ok(())
     }
 
@@ -719,9 +724,15 @@ impl Engine {
 
     /// `BattleCommand_Paralyze`.
     pub fn battle_command_paralyze(&mut self) -> Flow<Cmd> {
-        if self.battle_var_bit(BATTLE_VARS_STATUS_OPP, PAR) {
+        let legacy = self.data.rules.bug_fixes;
+        let already = if legacy {
+            self.already_has_status_text()
+        } else {
+            self.battle_var_bit(BATTLE_VARS_STATUS_OPP, PAR).then_some(r::ALREADY_PARALYZED_TEXT)
+        };
+        if let Some(text) = already {
             self.animate_failed_move()?;
-            self.text(r::ALREADY_PARALYZED_TEXT);
+            self.text(text);
             return Ok(Cmd::Next);
         }
         if self.mem.rb(W_TYPE_MODIFIER) & EFFECTIVENESS_MASK == 0 {
@@ -750,7 +761,7 @@ impl Engine {
         }
         // .dont_sample_failure
         if failed
-            || self.battle_var(BATTLE_VARS_STATUS_OPP) != 0
+            || (!legacy && self.battle_var(BATTLE_VARS_STATUS_OPP) != 0)
             || self.mem.rb(W_ATTACK_MISSED) != 0
             || self.check_substitute_opp()
         {

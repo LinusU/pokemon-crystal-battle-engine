@@ -71,6 +71,25 @@ impl Engine {
         res
     }
 
+    /// Crystal Legacy's `CheckForStatusIfAlreadyHasAny`: the "already" text
+    /// for the target's status, if it has one.
+    pub(super) fn already_has_status_text(&self) -> Option<usize> {
+        let status = self.battle_var(BATTLE_VARS_STATUS_OPP);
+        if status & SLP_MASK != 0 {
+            Some(r::ALREADY_ASLEEP_TEXT)
+        } else if status & 1 << FRZ != 0 {
+            Some(super::message::ALREADY_FROZEN_TEXT)
+        } else if status & 1 << PAR != 0 {
+            Some(r::ALREADY_PARALYZED_TEXT)
+        } else if status & 1 << PSN != 0 {
+            Some(r::ALREADY_POISONED_TEXT)
+        } else if status & 1 << BRN != 0 {
+            Some(super::message::ALREADY_BURNED_TEXT)
+        } else {
+            None
+        }
+    }
+
     /// `BattleCommand_SleepTarget`.
     pub fn battle_command_sleep_target(&mut self) -> Flow<Cmd> {
         let (item, b, _) = self.get_opponent_item();
@@ -81,7 +100,12 @@ impl Engine {
             return self.fail_with_text(r::PROTECTED_BY_TEXT);
         }
         let de = self.battle_var_addr(BATTLE_VARS_STATUS_OPP);
-        if self.mem.rb(de) & SLP_MASK != 0 {
+        let legacy = self.data.rules.bug_fixes;
+        if legacy {
+            if let Some(text) = self.already_has_status_text() {
+                return self.fail_with_text(text);
+            }
+        } else if self.mem.rb(de) & SLP_MASK != 0 {
             return self.fail_with_text(r::ALREADY_ASLEEP_TEXT);
         }
         if self.mem.rb(W_ATTACK_MISSED) != 0 {
@@ -91,7 +115,7 @@ impl Engine {
         if self.sleep_check_ai_random_fail() {
             return self.fail_with_text(r::DIDNT_AFFECT1_TEXT);
         }
-        if self.mem.rb(de) != 0 {
+        if !legacy && self.mem.rb(de) != 0 {
             return self.fail_with_text(r::DIDNT_AFFECT1_TEXT);
         }
         if self.check_substitute_opp() {
@@ -168,7 +192,12 @@ impl Engine {
         if self.check_if_target_is_poison_type() {
             return self.fail_with_text(r::DOESNT_AFFECT_TEXT);
         }
-        if self.battle_var(BATTLE_VARS_STATUS_OPP) & 1 << PSN != 0 {
+        let legacy = self.data.rules.bug_fixes;
+        if legacy {
+            if let Some(text) = self.already_has_status_text() {
+                return self.fail_with_text(text);
+            }
+        } else if self.battle_var(BATTLE_VARS_STATUS_OPP) & 1 << PSN != 0 {
             return self.fail_with_text(r::ALREADY_POISONED_TEXT);
         }
         let (item, b, _) = self.get_opponent_item();
@@ -192,9 +221,12 @@ impl Engine {
                 return self.fail_with_text(r::DIDNT_AFFECT1_TEXT);
             }
         }
-        // .dont_sample_failure
-        if self.check_substitute_opp() || self.mem.rb(W_ATTACK_MISSED) != 0 {
-            return self.fail_with_text(r::DIDNT_AFFECT1_TEXT);
+        // .dont_sample_failure (Crystal Legacy names the reason)
+        if self.check_substitute_opp() {
+            return self.fail_with_text(if legacy { r::PROTECTING_ITSELF_TEXT } else { r::DIDNT_AFFECT1_TEXT });
+        }
+        if self.mem.rb(W_ATTACK_MISSED) != 0 {
+            return self.fail_with_text(if legacy { r::EVADED_TEXT } else { r::DIDNT_AFFECT1_TEXT });
         }
         // .check_toxic
         let hl = self.battle_var_addr(BATTLE_VARS_SUBSTATUS5_OPP);

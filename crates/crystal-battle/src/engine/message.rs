@@ -12,6 +12,12 @@ use crate::battle::message::{Message, Mon, SendOut, Trainer, Withdraw};
 use crate::battle::Side;
 use crate::defs::{RIVAL1, RIVAL2};
 
+/// Crystal Legacy's `AlreadyBurnedText`, which Crystal's ROM lacks: a label
+/// past its end.
+pub const ALREADY_BURNED_TEXT: usize = 0x20_0000;
+/// Crystal Legacy's `AlreadyFrozenText`.
+pub const ALREADY_FROZEN_TEXT: usize = 0x20_0001;
+
 impl Engine {
     /// The mon a name buffer names, as the battle shows it.
     fn mon_name(&self, name: &Name) -> String {
@@ -277,6 +283,8 @@ impl Engine {
             r::ALREADY_POISONED_TEXT => M::AlreadyPoisoned { target: self.target() },
             r::HURT_BY_POISON_TEXT => M::HurtByPoison { user: self.user() },
             r::WAS_BURNED_TEXT => M::WasBurned { target: self.target() },
+            ALREADY_BURNED_TEXT => M::AlreadyBurned { target: self.target() },
+            ALREADY_FROZEN_TEXT => M::AlreadyFrozen { target: self.target() },
             r::HURT_BY_BURN_TEXT => M::HurtByBurn { user: self.user() },
             r::WAS_FROZEN_TEXT => M::WasFrozen { target: self.target() },
             r::FROZEN_SOLID_TEXT => M::FrozenSolid { user: self.user() },

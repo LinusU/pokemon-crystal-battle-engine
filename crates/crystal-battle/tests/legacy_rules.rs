@@ -312,6 +312,39 @@ fn an_enemy_hurts_itself_twice_over_under_legacy_rules() {
     assert_eq!(legacy, crystal.iter().map(|&(seed, hp)| (seed, hp + 2)).collect::<Vec<_>>());
 }
 
+/// The messages of the player's `mv` on a Blastoise whose status is `status`.
+fn messages_against(data: &'static GameData, user: &str, mv: u8, status: u8) -> Vec<crystal_battle::battle::Message> {
+    use crystal_battle::battle::Event;
+    let mut battle = link(data, (user, mv), ("BLASTOISE", SPLASH), |_, enemy| enemy.status = status);
+    let mut messages = vec![];
+    for _ in 0..2 {
+        let Status::Decision(_) = battle.status() else { break };
+        battle.step(Action::Move { slot: 0 }).unwrap();
+        messages.extend(battle.events().iter().filter_map(|e| if let Event::Message(m) = e { Some(m.clone()) } else { None }));
+    }
+    messages
+}
+
+#[test]
+fn status_moves_name_the_status_already_there_under_legacy_rules() {
+    use crystal_battle::battle::Message as M;
+    use crystal_battle::defs::{BRN, FRZ, HYPNOSIS, PAR, POISONPOWDER, THUNDER_WAVE};
+    let legacy = legacy_with(Rules::CRYSTAL_LEGACY);
+    let crystal = legacy_with(Rules::CRYSTAL);
+    let cases: [(&str, u8, u8, fn(&M) -> bool); 3] = [
+        ("PIKACHU", THUNDER_WAVE, 1 << BRN, |m| matches!(m, M::AlreadyBurned { .. })),
+        ("GENGAR", HYPNOSIS, 1 << FRZ, |m| matches!(m, M::AlreadyFrozen { .. })),
+        ("VILEPLUME", POISONPOWDER, 1 << PAR, |m| matches!(m, M::AlreadyParalyzed { .. })),
+    ];
+    for (user, mv, status, already) in cases {
+        let messages = messages_against(legacy, user, mv, status);
+        assert!(messages.iter().any(already), "{user}: {messages:?}");
+        let messages = messages_against(crystal, user, mv, status);
+        assert!(!messages.iter().any(already), "{user}: {messages:?}");
+        assert!(messages.iter().any(|m| matches!(m, M::DidntAffect { .. })), "{user}: {messages:?}");
+    }
+}
+
 #[test]
 fn legacy_data_has_legacy_rules() {
     assert_eq!(GameData::crystal().rules, Rules::CRYSTAL);

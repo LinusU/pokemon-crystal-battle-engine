@@ -300,10 +300,14 @@ pub enum Message {
     HurtByPoison { user: Mon },
     /// "… was burned!"
     WasBurned { target: Mon },
+    /// "…'s already burned!" (Crystal Legacy)
+    AlreadyBurned { target: Mon },
     /// "…'s hurt by its burn!"
     HurtByBurn { user: Mon },
     /// "… was frozen solid!"
     WasFrozen { target: Mon },
+    /// "…'s already frozen!" (Crystal Legacy)
+    AlreadyFrozen { target: Mon },
     /// "… is frozen solid!"
     FrozenSolid { user: Mon },
     /// "… was defrosted!"

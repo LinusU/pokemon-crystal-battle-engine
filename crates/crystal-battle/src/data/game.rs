@@ -70,7 +70,13 @@ pub struct Rules {
     /// like any move with one Pokémon (a failed one triggers no King's Rock);
     /// the player hurting itself in confusion takes no type-boosting item or
     /// Explosion halving into account (the enemy's self-hit runs the damage
-    /// update a second time, as Legacy's `CheckEnemyTurn` does).
+    /// update a second time, as Legacy's `CheckEnemyTurn` does); sleep,
+    /// poison and paralysis moves fail on any status, naming it (two new
+    /// messages, [`Message::AlreadyBurned`] and [`Message::AlreadyFrozen`]),
+    /// and other failures say the target evaded or protected itself.
+    ///
+    /// [`Message::AlreadyBurned`]: crate::battle::Message::AlreadyBurned
+    /// [`Message::AlreadyFrozen`]: crate::battle::Message::AlreadyFrozen
     pub bug_fixes: bool,
 }
 

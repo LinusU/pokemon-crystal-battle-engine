@@ -489,6 +489,9 @@ pub fn render(message: &Message, ctx: Context) -> Vec<String> {
         M::WasBurned { target } => target_text(&mut s, target, r::WAS_BURNED_TEXT),
         M::HurtByBurn { user } => user_text(&mut s, user, r::HURT_BY_BURN_TEXT),
         M::WasFrozen { target } => target_text(&mut s, target, r::WAS_FROZEN_TEXT),
+        M::AlreadyBurned { .. } | M::AlreadyFrozen { .. } => {
+            panic!("render: {message:?} is Crystal Legacy's text, which Crystal's ROM doesn't have")
+        }
         M::FrozenSolid { user } => user_text(&mut s, user, r::FROZEN_SOLID_TEXT),
         M::WasDefrosted { user } => user_text(&mut s, user, r::WAS_DEFROSTED_TEXT),
         M::DefrostedOpponent { target } => target_text(&mut s, target, r::DEFROSTED_OPPONENT_TEXT),
