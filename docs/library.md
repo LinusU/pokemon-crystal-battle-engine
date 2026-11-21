@@ -115,10 +115,15 @@ from a build of the V1.3.1 tag (identical to the official patch on Crystal
 1.0). What a fork changes that the ROM and its `.sym` don't say (the TM item
 layout, the trainer party format) is a profile in the generator.
 
-- **Parties.** Legacy's trainer party format (nicknames, DVs, stat
-  experience, happiness, stages picked by badge count) isn't decoded:
-  `GameData::trainer_parties` is empty, so a trainer battle brings its own
-  party, and one against a built-in trainer is `StartError::Unsupported`.
+- **Parties.** Legacy's party types are flags: nicknames, DVs, stat
+  experience and happiness join items and moves (`TrainerMon`'s optional
+  fields), and a `TRAINERTYPE_VARIABLE` party has a stage per number of
+  badges (`TrainerParty::stages`). The generator decodes them the way
+  Legacy's `ReadTrainerPartyPieces` reads them (its stray `ld a, [hli]`
+  before a nickname included), and the engine plays them the same way:
+  DVs or stat experience mean the stats are calculated again, at full HP.
+  A staged party with fewer stages than the player has badges is
+  `StartError::Unsupported`; V1.3.1 has none.
 - **Base PP.** What depends on a move's base PP outside the engine's memory
   (the legal PP items, a scenario's moves) reads the game's data
   (`ReadMem::base_pp`), not Crystal's table.
@@ -147,9 +152,8 @@ layout, the trainer party format) is a profile in the generator.
   battle can show it. There is no transpiled Legacy to test against, so the
   differential testers only keep Crystal's rules exact. Not ported: hard
   mode (lower level caps, the battle types that force the Set style or ban
-  items), Legacy's trainer parties (and with them its trainer nicknames),
-  and changes to graphics, sound and the HP bar's animation, which the
-  library doesn't model.
+  items), and changes to graphics, sound and the HP bar's animation, which
+  the library doesn't model.
 
 Later: the engine's state is still the original's WRAM byte for byte
 (`engine::mem::Mem`). Replacing it with typed state, routine by routine, is

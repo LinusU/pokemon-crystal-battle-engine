@@ -24,7 +24,8 @@ import re
 # - `tm01`, `item_gaps`: the TM item layout `GetTMHMNumber` assumes (Crystal
 #   leaves ITEM_C3 and ITEM_DC unused between the TMs; Crystal Legacy moves
 #   them before TM01).
-# - `parties`: the trainer party format, or None when it isn't decoded yet.
+# - `parties`: the trainer party format ("crystal" or "legacy"), or None when
+#   it isn't decoded.
 # The generated data's `rules` are `Rules::<static>` (`data/game.rs`): what the
 # game's battle code does differently, which no table says.
 GAMES = {
@@ -48,14 +49,10 @@ GAMES = {
             "//! (github.com/cRz-Shadows/Pokemon_Crystal_Legacy, tag V1.3.1), built with rgbds",
             "//! 0.5.2: the same ROM as the official V1.3.1 patch on Crystal 1.0 (SHA-1",
             "//! 74a6727e4406c35bc2d4f81347a5c5fdb8970663).",
-            "//!",
-            "//! Its trainer parties are not decoded yet: Legacy's format adds nicknames,",
-            "//! DVs, stat experience, happiness and badge-count stages, which",
-            "//! `TrainerParty` can't hold. A battle has to bring its own party.",
         ],
         "tm01": 0xC1,
         "item_gaps": (),
-        "parties": None,
+        "parties": "legacy",
     },
 }
 
@@ -659,8 +656,97 @@ def emit_parties(parties, firsts):
     emit(f"static TRAINER_CLASS_FIRST_PARTY: &[u16] = &[{', '.join(firsts)}];")
 
 
+def legacy_parties():
+    """Crystal Legacy's `TrainerGroups` (`dba`: a bank, then an address) and
+    parties, read the way its `ReadTrainerPartyPieces` reads them."""
+    MOVES, ITEM, NICKNAME, DVS, STAT_EXP, VARIABLE, HAPPINESS = (1 << f for f in range(7))
+    PERFECT_DV, PERFECT_STAT_EXP, MAX_HAPPINESS = 0x11, 0x1337, 0x42
+    groups = label("TrainerGroups")
+    group_labels = {flat(*SYM[name]) for name in SYM if name.endswith("Group") and "." not in name}
+    starts = {}
+    for c in range(1, 256):
+        e = groups + 3 * idx(c)
+        start = flat(ROM[e], w(e + 1))
+        if start not in group_labels:
+            break
+        starts[c] = start
+    order = sorted(set(starts.values()))
+
+    def mons_of(kind, q):
+        """The mons from `q` to a $ff (or a stage's $fe): (mons, end byte, next)."""
+        mons = []
+        while ROM[q] not in (0xFE, 0xFF):
+            m = {"level": ROM[q], "species": ROM[q + 1]}
+            q += 2
+            if kind & NICKNAME:
+                q += 1  # `ld a, [hli]` steps over a byte before the nickname.
+                chars = []
+                while True:
+                    c = ROM[q]
+                    q += 1
+                    if c == 0x50:
+                        break
+                    chars.append(c)
+                if chars:
+                    m["nickname"] = decode(chars)
+            if kind & DVS:
+                m["dvs"] = [0xFF if b == PERFECT_DV else b for b in ROM[q : q + 2]]
+                q += 2
+            if kind & STAT_EXP:
+                exp = []
+                for _ in range(5):
+                    lo, hi = ROM[q], ROM[q + 1]
+                    # Stored byte for byte in the (big-endian) party struct.
+                    exp.append(0xFFFF if lo | hi << 8 == PERFECT_STAT_EXP else lo << 8 | hi)
+                    q += 2
+                m["stat_exp"] = exp
+            if kind & HAPPINESS:
+                m["happiness"] = 0xFF if ROM[q] == MAX_HAPPINESS else ROM[q]
+                q += 1
+            if kind & ITEM:
+                m["item"] = ROM[q]
+                q += 1
+            if kind & MOVES:
+                m["moves"] = list(ROM[q : q + 4])
+                q += 4
+            mons.append(m)
+        return mons, ROM[q], q + 1
+
+    parties = []
+    party_at = {}
+    for n, start in enumerate(order):
+        end = order[n + 1] if n + 1 < len(order) and order[n + 1] // 0x4000 == start // 0x4000 else None
+        q = start
+        while end is None or q < end:
+            name_end = q
+            while ROM[name_end] != 0x50 and name_end - q <= 16:
+                name_end += 1
+            if ROM[name_end] != 0x50:
+                break  # past the group's last party
+            party = {"name": decode(ROM[q:name_end]), "kind": ROM[name_end + 1], "mons": [], "stages": []}
+            party_at[q] = len(parties)
+            q = name_end + 2
+            if party["kind"] & VARIABLE:
+                while True:
+                    kind = ROM[q]
+                    mons, last, q = mons_of(kind, q + 1)
+                    party["stages"].append({"kind": kind, "mons": mons})
+                    if last == 0xFF:
+                        break
+            else:
+                party["mons"], last, q = mons_of(party["kind"], q)
+                assert last == 0xFF, f"{party['name']}: a $fe outside a staged party"
+            parties.append(party)
+            if end is None and (q >= len(ROM) or ROM[q] in (0x00, 0xFF)):
+                break
+    firsts = [str(party_at[starts[c]]) if c in starts else "u16::MAX" for c in range(256)]
+    emit_parties(parties, firsts)
+
+
 if GAME["parties"] == "crystal":
     crystal_parties()
+elif GAME["parties"] == "legacy":
+    legacy_parties()
 else:
     emit("static TRAINER_PARTIES: &[TrainerParty] = &[];")
     emit("")
