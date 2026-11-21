@@ -1018,14 +1018,27 @@ impl Engine {
             self.init_enemy_mon_dvs(mode);
         }
         // .Happiness
-        self.mem.wb(W_ENEMY_MON_HAPPINESS, BASE_HAPPINESS);
+        let party = self.data.rules.trainer_party_stats;
+        let cur = self.mem.rb(W_CUR_PARTY_MON);
+        let happiness = if party && mode != WILD_BATTLE {
+            self.mem.rb(self.get_party_location(W_OT_PARTY_MON1_HAPPINESS, cur))
+        } else {
+            BASE_HAPPINESS
+        };
+        self.mem.wb(W_ENEMY_MON_HAPPINESS, happiness);
         let level = self.mem.rb(W_CUR_PARTY_LEVEL);
         self.mem.wb(W_ENEMY_MON_LEVEL, level);
-        self.calc_mon_stats(
-            W_ENEMY_MON_D_VS - u16::from(MON_DVS - MON_STAT_EXP + 1),
-            W_ENEMY_MON_MAX_HP,
-            false,
-        );
+        if party && mode == TRAINER_BATTLE {
+            // Crystal Legacy: with the party's stat experience.
+            let hl = self.get_party_location(W_OT_PARTY_MON1_STAT_EXP, cur) - 1;
+            self.calc_mon_stats(hl, W_ENEMY_MON_MAX_HP, true);
+        } else {
+            self.calc_mon_stats(
+                W_ENEMY_MON_D_VS - u16::from(MON_DVS - MON_STAT_EXP + 1),
+                W_ENEMY_MON_MAX_HP,
+                false,
+            );
+        }
         if mode == TRAINER_BATTLE {
             // .OpponentParty: the rest comes from the party struct.
             let cur = self.mem.rb(W_CUR_PARTY_MON);
@@ -1093,10 +1106,16 @@ impl Engine {
         self.mem.wb(base + 1, v);
         let species = self.mem.rb(W_TEMP_ENEMY_MON_SPECIES);
         self.mem.wb(W_NAMED_OBJECT_INDEX, species);
-        self.get_pokemon_name();
+        // Crystal Legacy looks the name up after the check (for a nickname).
+        if !self.data.rules.trainer_party_stats {
+            self.get_pokemon_name();
+        }
         // Did we catch it?
         if mode == 0 {
             return;
+        }
+        if self.data.rules.trainer_party_stats {
+            self.get_pokemon_name();
         }
         // Update enemy nickname
         self.copy_name(W_ENEMY_MON_NICKNAME, W_STRING_BUFFER1);
@@ -1110,7 +1129,13 @@ impl Engine {
     /// `LoadEnemyMon`'s `.InitDVs` .. `.Magikarp`: the trainer class DVs, or a wild
     /// mon's (roaming, forced shiny or random, with the Unown and Magikarp filters).
     fn init_enemy_mon_dvs(&mut self, mode: u8) {
-        let (mut b, mut c) = self.get_trainer_dvs();
+        let (mut b, mut c) = if self.data.rules.trainer_party_stats && mode != WILD_BATTLE {
+            // Crystal Legacy: the party's DVs.
+            let dvs = self.get_party_location(W_OT_PARTY_MON1_D_VS, self.mem.rb(W_CUR_PARTY_MON));
+            (self.mem.rb(dvs), self.mem.rb(dvs + 1))
+        } else {
+            self.get_trainer_dvs()
+        };
         if mode == WILD_BATTLE {
             let battle_type = self.mem.rb(W_BATTLE_TYPE);
             if battle_type == BATTLETYPE_ROAMING {

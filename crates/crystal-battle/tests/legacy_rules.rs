@@ -420,6 +420,35 @@ fn pursuit_cures_the_fainted_pokemon_under_legacy_rules() {
     assert_ne!(pursued_status(legacy_with(Rules::CRYSTAL)), 0);
 }
 
+/// A trainer battle (a random scenario's trainer) against a Snorlax of the
+/// party's own, after `edit`: the battle state once it is sent out.
+fn trainer_snorlax(data: &'static GameData, edit: impl FnOnce(&mut Pokemon)) -> crystal_battle::battle::BattleState {
+    use crystal_battle::data::random::random_battle_config;
+    let mut config = random_battle_config(1);
+    config.enemy_party = vec![mon("SNORLAX")];
+    config.player_party = vec![mon("BLASTOISE")];
+    let (mut setup, rng) = BattleSetup::from_config_in(data, &config, 1).expect("a valid scenario");
+    let snorlax_config = BattleConfig { player_party: vec![mon("SNORLAX")], ..config.clone() };
+    let mut snorlax = BattleSetup::from_config_in(data, &snorlax_config, 1).expect("a valid scenario").0.party[0].clone();
+    edit(&mut snorlax);
+    let Opponent::Trainer { party, .. } = &mut setup.opponent else { panic!("a trainer battle") };
+    *party = Some(vec![snorlax]);
+    Battle::start(data, &setup, rng).expect("battle setup").state().clone()
+}
+
+#[test]
+fn trainer_pokemon_bring_their_dvs_and_happiness_under_legacy_rules() {
+    let edit = |snorlax: &mut Pokemon| {
+        snorlax.dvs = [0x12, 0x34];
+        snorlax.happiness = 200;
+    };
+    let legacy = trainer_snorlax(legacy_with(Rules::CRYSTAL_LEGACY), edit);
+    assert_eq!((legacy.enemy.active.dvs, legacy.enemy.active.happiness), (0x1234, 200));
+    let crystal = trainer_snorlax(legacy_with(Rules::CRYSTAL), edit);
+    assert_ne!(crystal.enemy.active.dvs, 0x1234);
+    assert_ne!(crystal.enemy.active.happiness, 200);
+}
+
 #[test]
 fn legacy_data_has_legacy_rules() {
     assert_eq!(GameData::crystal().rules, Rules::CRYSTAL);

@@ -91,13 +91,17 @@ pub struct Rules {
     /// The Zephyr Badge makes traded Pokémon up to level 16 obey (Crystal:
     /// 10 until the Hive Badge).
     pub zephyr_badge_obedience: bool,
+    /// A trainer's Pokémon fights with its own DVs, happiness and stat
+    /// experience from the party (Crystal: the trainer class's DVs, base
+    /// happiness, no stat experience).
+    pub trainer_party_stats: bool,
 }
 
 impl Rules {
     /// Pokémon Crystal's own code.
-    pub const CRYSTAL: Rules = Rules { ghost_special_dark_physical: false, bug_fixes: false, zephyr_badge_obedience: false };
+    pub const CRYSTAL: Rules = Rules { ghost_special_dark_physical: false, bug_fixes: false, zephyr_badge_obedience: false, trainer_party_stats: false };
     /// Crystal Legacy's code.
-    pub const CRYSTAL_LEGACY: Rules = Rules { ghost_special_dark_physical: true, bug_fixes: true, zephyr_badge_obedience: true };
+    pub const CRYSTAL_LEGACY: Rules = Rules { ghost_special_dark_physical: true, bug_fixes: true, zephyr_badge_obedience: true, trainer_party_stats: true };
 }
 
 /// A trainer's party (`data/trainers/parties.asm`).
