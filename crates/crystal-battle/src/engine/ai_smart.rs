@@ -615,7 +615,12 @@ impl Engine {
         if a >= BASE_STAT_LEVEL + 2 {
             return;
         }
-        if self.mem.rb(W_BATTLE_MON_TYPE1) < SPECIAL && self.mem.rb(W_BATTLE_MON_TYPE2) < SPECIAL {
+        let t1 = self.mem.rb(W_BATTLE_MON_TYPE1);
+        if self.data.rules.ghost_special_dark_physical && t1 == DARK {
+            return;
+        }
+        let special_type1 = t1 >= SPECIAL || (self.data.rules.ghost_special_dark_physical && t1 == GHOST);
+        if !special_type1 && self.mem.rb(W_BATTLE_MON_TYPE2) < SPECIAL {
             return;
         }
         // .encourage
@@ -787,12 +792,18 @@ impl Engine {
     /// Shared scan of `wPlayerUsedMoves` of `AI_Smart_Counter` (`special` =
     /// false) and `AI_Smart_MirrorCoat` (`special` = true).
     fn ai_smart_counter_like(&mut self, hl: u16, special: bool, name: &'static str) {
-        let is_wanted = |e: &Engine| -> bool {
+        // `last`: the check of the player's last move. In Crystal Legacy's
+        // Mirror Coat it treats Ghost as physical and Dark as special (it
+        // copies Counter's), unlike its scan of the player's moves.
+        let is_wanted = |e: &Engine, last: bool| -> bool {
             let power = e.mem.rb(W_ENEMY_MOVE_STRUCT + u16::from(MOVE_POWER));
             if power == 0 {
                 return false;
             }
             let t = e.mem.rb(W_ENEMY_MOVE_STRUCT + u16::from(MOVE_TYPE));
+            if e.data.rules.ghost_special_dark_physical && (t == GHOST || t == DARK) {
+                return if special && !last { t == GHOST } else { t == DARK };
+            }
             if special { t >= SPECIAL } else { t < SPECIAL }
         };
         let mut b = 0u8;
@@ -802,7 +813,7 @@ impl Engine {
                 continue;
             }
             self.ai_get_enemy_move(mv);
-            if is_wanted(self) {
+            if is_wanted(self, false) {
                 b += 1;
             }
         }
@@ -816,7 +827,7 @@ impl Engine {
                 return;
             }
             self.ai_get_enemy_move(last);
-            if !is_wanted(self) {
+            if !is_wanted(self, true) {
                 return;
             }
         }
@@ -1136,10 +1147,12 @@ impl Engine {
             // .greatly_discourage
             return self.ai_inc(hl, 2);
         }
-        if t1 >= SPECIAL {
+        let dark_physical = self.data.rules.ghost_special_dark_physical;
+        if t1 >= SPECIAL && !(dark_physical && t1 == DARK) {
             return;
         }
-        if self.mem.rb(W_BATTLE_MON_TYPE2) >= SPECIAL {
+        let t2 = self.mem.rb(W_BATTLE_MON_TYPE2);
+        if t2 >= SPECIAL && !(dark_physical && t2 == DARK) {
             return;
         }
         if self.ai_80_20() {

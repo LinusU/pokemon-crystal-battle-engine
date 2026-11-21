@@ -1014,6 +1014,18 @@ impl Engine {
         self.attack_damage(false)
     }
 
+    /// Whether moves of type `t` are special: from Fire on in Crystal; Ghost
+    /// too but not Dark under [`Rules::ghost_special_dark_physical`].
+    ///
+    /// [`Rules::ghost_special_dark_physical`]: crate::data::game::Rules::ghost_special_dark_physical
+    pub(super) fn is_special_type(&self, t: u8) -> bool {
+        if self.data.rules.ghost_special_dark_physical {
+            t == GHOST || (t != DARK && t >= SPECIAL)
+        } else {
+            t >= SPECIAL
+        }
+    }
+
     /// Shared body of `PlayerAttackDamage` / `EnemyAttackDamage` (mirror images).
     fn attack_damage(&mut self, player: bool) -> bool {
         self.reset_damage();
@@ -1039,7 +1051,7 @@ impl Engine {
 
         let hl: u16;
         let mut bc: u16;
-        if self.mem.rb(mtype) < SPECIAL {
+        if !self.is_special_type(self.mem.rb(mtype)) {
             // physical
             bc = self.mem.rw(def);
             if self.mem.bit(screens, SCREENS_REFLECT) {
@@ -1111,7 +1123,15 @@ impl Engine {
         } else {
             (W_ENEMY_MOVE_STRUCT_TYPE, W_ENEMY_S_ATK_LEVEL, W_PLAYER_S_DEF_LEVEL, W_ENEMY_ATK_LEVEL, W_PLAYER_DEF_LEVEL)
         };
-        let (a_level, d_level) = if self.mem.rb(mtype) < SPECIAL {
+        let t = self.mem.rb(mtype);
+        // Crystal Legacy's enemy side tests `cp DARK / jr nc` where its player
+        // side tests the category: only Ghost and Dark use the special levels.
+        let special = if self.data.rules.ghost_special_dark_physical && !player {
+            t == GHOST || t >= DARK
+        } else {
+            self.is_special_type(t)
+        };
+        let (a_level, d_level) = if !special {
             (self.mem.rb(atk), self.mem.rb(def))
         } else {
             (self.mem.rb(sp_atk), self.mem.rb(sp_def))

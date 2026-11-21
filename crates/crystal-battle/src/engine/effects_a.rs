@@ -629,7 +629,7 @@ impl Engine {
             return Ok(Cmd::Next);
         }
         let mtype = self.mem.rb(W_STRING_BUFFER1 + u16::from(MOVE_TYPE));
-        if special != (mtype >= SPECIAL) {
+        if special != self.is_special_type(mtype) {
             return Ok(Cmd::Next);
         }
         let hi = self.mem.rb(W_CUR_DAMAGE);

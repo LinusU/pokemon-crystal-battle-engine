@@ -30,3 +30,7 @@ required-features = ["ai"]
 [[test]]
 name = "crystal_legacy"
 required-features = ["crystal-legacy"]
+
+[[test]]
+name = "legacy_rules"
+required-features = ["crystal-legacy"]

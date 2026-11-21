@@ -54,13 +54,18 @@ pub struct GameData {
 /// Each flag is off in [`Rules::CRYSTAL`]; [`Rules::CRYSTAL_LEGACY`] turns on
 /// Crystal Legacy's (V1.3.1) changes, ported from its source.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
-pub struct Rules {}
+pub struct Rules {
+    /// Ghost moves are special and Dark moves physical, wherever the battle
+    /// asks: damage, critical hits, Counter, Mirror Coat and the AI. Crystal
+    /// goes by the type's place in the type list, special from Fire on.
+    pub ghost_special_dark_physical: bool,
+}
 
 impl Rules {
     /// Pokémon Crystal's own code.
-    pub const CRYSTAL: Rules = Rules {};
+    pub const CRYSTAL: Rules = Rules { ghost_special_dark_physical: false };
     /// Crystal Legacy's code.
-    pub const CRYSTAL_LEGACY: Rules = Rules {};
+    pub const CRYSTAL_LEGACY: Rules = Rules { ghost_special_dark_physical: true };
 }
 
 /// A trainer's party (`data/trainers/parties.asm`).
