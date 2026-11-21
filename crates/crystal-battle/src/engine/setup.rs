@@ -1124,6 +1124,10 @@ impl Engine {
         self.small_far_flag_action(W_POKEDEX_SEEN, species.wrapping_sub(1), FlagAction::Set);
         self.mem.copy(W_ENEMY_STATS, W_ENEMY_MON_STATS, u16::from(NUM_BATTLE_STATS) * 2);
         // BUG: PRZ and BRN stat reductions don't apply to switched Pokémon (kept)
+        if self.data.rules.bug_fixes {
+            // Crystal Legacy's fix.
+            self.apply_status_effect_on_enemy_stats();
+        }
     }
 
     /// `LoadEnemyMon`'s `.InitDVs` .. `.Magikarp`: the trainer class DVs, or a wild

@@ -450,6 +450,17 @@ fn trainer_pokemon_bring_their_dvs_and_happiness_under_legacy_rules() {
 }
 
 #[test]
+fn a_paralyzed_enemy_is_slowed_when_sent_out_under_legacy_rules() {
+    use crystal_battle::defs::PAR;
+    const SPEED: usize = 2;
+    let speed = |data: &'static GameData, status: u8| trainer_snorlax(data, |snorlax| snorlax.status = status).enemy.active.stats[SPEED];
+    let legacy = legacy_with(Rules::CRYSTAL_LEGACY);
+    assert_eq!(speed(legacy, 1 << PAR), (speed(legacy, 0) / 4).max(1));
+    let crystal = legacy_with(Rules::CRYSTAL);
+    assert_eq!(speed(crystal, 1 << PAR), speed(crystal, 0));
+}
+
+#[test]
 fn legacy_data_has_legacy_rules() {
     assert_eq!(GameData::crystal().rules, Rules::CRYSTAL);
     assert_eq!(GameData::crystal_legacy().rules, Rules::CRYSTAL_LEGACY);
