@@ -367,7 +367,7 @@ impl Engine {
         self.multiply();
         self.mem.wb(H_DIVISOR, 25);
         self.divide(4);
-        self.damage_regs[2] = self.mem.rb(H_QUOTIENT + 3);
+        self.damage_regs[2] = self.happiness_power_floor(self.mem.rb(H_QUOTIENT + 3));
         Ok(Cmd::Next)
     }
 

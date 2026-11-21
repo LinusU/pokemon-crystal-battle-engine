@@ -140,6 +140,21 @@ fn counter_takes_dark_moves_not_ghost_moves_under_legacy_rules() {
 }
 
 #[test]
+fn return_and_frustration_have_power_under_legacy_rules() {
+    const RETURN: u8 = 216;
+    const FRUSTRATION: u8 = 218;
+    let hit = |data: &'static GameData, mv: u8, happiness: u8| {
+        one_turn(link(data, ("SNORLAX", mv), ("BLASTOISE", SPLASH), |player, _| player.happiness = happiness)).1
+    };
+    let legacy = legacy_with(Rules::CRYSTAL_LEGACY);
+    assert!(hit(legacy, RETURN, 0) > 0);
+    assert!(hit(legacy, FRUSTRATION, 255) > 0);
+    let crystal = legacy_with(Rules::CRYSTAL);
+    assert_eq!(hit(crystal, RETURN, 0), 0);
+    assert_eq!(hit(crystal, FRUSTRATION, 255), 0);
+}
+
+#[test]
 fn legacy_data_has_legacy_rules() {
     assert_eq!(GameData::crystal().rules, Rules::CRYSTAL);
     assert_eq!(GameData::crystal_legacy().rules, Rules::CRYSTAL_LEGACY);

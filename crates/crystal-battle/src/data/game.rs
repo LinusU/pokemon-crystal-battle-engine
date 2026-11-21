@@ -59,13 +59,17 @@ pub struct Rules {
     /// asks: damage, critical hits, Counter, Mirror Coat and the AI. Crystal
     /// goes by the type's place in the type list, special from Fire on.
     pub ghost_special_dark_physical: bool,
+    /// Crystal Legacy's fixes to the battle's known bugs (pokecrystal's
+    /// `docs/bugs_and_glitches.md`): Return and Frustration have at least 1
+    /// power.
+    pub bug_fixes: bool,
 }
 
 impl Rules {
     /// Pokémon Crystal's own code.
-    pub const CRYSTAL: Rules = Rules { ghost_special_dark_physical: false };
+    pub const CRYSTAL: Rules = Rules { ghost_special_dark_physical: false, bug_fixes: false };
     /// Crystal Legacy's code.
-    pub const CRYSTAL_LEGACY: Rules = Rules { ghost_special_dark_physical: true };
+    pub const CRYSTAL_LEGACY: Rules = Rules { ghost_special_dark_physical: true, bug_fixes: true };
 }
 
 /// A trainer's party (`data/trainers/parties.asm`).
