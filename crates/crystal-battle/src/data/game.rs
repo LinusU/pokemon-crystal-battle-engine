@@ -124,18 +124,40 @@ impl Rules {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct TrainerParty {
     pub name: &'static str,
-    /// `TRAINERTYPE_*`: whether the mons have items and moves.
+    /// `TRAINERTYPE_*`: whether the mons have items and moves (Crystal
+    /// Legacy's are flags, which add nicknames, DVs, stat experience,
+    /// happiness and stages).
+    pub kind: u8,
+    pub mons: &'static [TrainerMon],
+    /// Crystal Legacy's `TRAINERTYPE_VARIABLE` parties: one stage per number
+    /// of badges, each with its own type and mons (`mons` is then empty).
+    pub stages: &'static [TrainerStage],
+}
+
+/// A stage of a Crystal Legacy party that changes with the player's badges.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct TrainerStage {
+    /// The stage's `TRAINERTYPE_*` flags.
     pub kind: u8,
     pub mons: &'static [TrainerMon],
 }
 
-/// One mon of a trainer's party.
+/// One mon of a trainer's party. The fields past `moves` are Crystal
+/// Legacy's, as its `ReadTrainerParty` stores them in the party struct.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct TrainerMon {
     pub level: u8,
     pub species: u8,
     pub item: Option<u8>,
     pub moves: Option<[u8; 4]>,
+    /// `TRAINERTYPE_NICKNAME` (none for an empty one).
+    pub nickname: Option<&'static str>,
+    /// `TRAINERTYPE_DVS`: the attack/defense and speed/special bytes.
+    pub dvs: Option<[u8; 2]>,
+    /// `TRAINERTYPE_STAT_EXP`: HP, Attack, Defense, Speed, Special.
+    pub stat_exp: Option<[u16; 5]>,
+    /// `TRAINERTYPE_HAPPINESS`.
+    pub happiness: Option<u8>,
 }
 
 /// Names (species, moves, …), as the game spells them. Indexed like the

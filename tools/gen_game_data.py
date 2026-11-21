@@ -627,18 +627,35 @@ def crystal_parties():
         if p >= label("MysticalmanGroup") and not is_party(p):
             break
 
-    emit("static TRAINER_PARTIES: &[TrainerParty] = &[")
-    for name, kind, mons in parties:
-        ms = []
-        for level, species, item, moves in mons:
-            ms.append(f"TrainerMon {{ level: {level}, species: {species}, item: {'Some(' + str(item) + ')' if item is not None else 'None'}, moves: {'Some(' + str(moves) + ')' if moves is not None else 'None'} }}")
-        emit(f"    TrainerParty {{ name: {rust_str(name)}, kind: {kind}, mons: &[{', '.join(ms)}] }},")
-    emit("];")
-    emit("")
     firsts = []
     for c in range(256):
         st = group_starts.get(c)
         firsts.append(str(party_at[st]) if st in party_at else "u16::MAX")
+    emit_parties([{"name": name, "kind": kind, "mons": [{"level": level, "species": species, "item": item, "moves": moves} for level, species, item, moves in mons]} for name, kind, mons in parties], firsts)
+
+
+def rust_option(value, fmt=str):
+    return "None" if value is None else f"Some({fmt(value)})"
+
+
+def rust_mon(m):
+    return (f"TrainerMon {{ level: {m['level']}, species: {m['species']}, item: {rust_option(m.get('item'))}, "
+            f"moves: {rust_option(m.get('moves'))}, nickname: {rust_option(m.get('nickname'), rust_str)}, "
+            f"dvs: {rust_option(m.get('dvs'))}, stat_exp: {rust_option(m.get('stat_exp'))}, "
+            f"happiness: {rust_option(m.get('happiness'))} }}")
+
+
+def emit_parties(parties, firsts):
+    """`TRAINER_PARTIES` (`parties`: dicts of name, kind, mons and stages, in
+    the original's order) and `TRAINER_CLASS_FIRST_PARTY` (`firsts`)."""
+    emit("static TRAINER_PARTIES: &[TrainerParty] = &[")
+    for party in parties:
+        mons = ", ".join(rust_mon(m) for m in party["mons"])
+        stages = ", ".join(f"TrainerStage {{ kind: {st['kind']}, mons: &[{', '.join(rust_mon(m) for m in st['mons'])}] }}"
+                           for st in party.get("stages", []))
+        emit(f"    TrainerParty {{ name: {rust_str(party['name'])}, kind: {party['kind']}, mons: &[{mons}], stages: &[{stages}] }},")
+    emit("];")
+    emit("")
     emit(f"static TRAINER_CLASS_FIRST_PARTY: &[u16] = &[{', '.join(firsts)}];")
 
 
