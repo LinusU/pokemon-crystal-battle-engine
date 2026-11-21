@@ -492,6 +492,46 @@ fn a_level_100_pokemon_takes_no_exp_under_legacy_rules() {
     assert!(gains(legacy_with(Rules::CRYSTAL)));
 }
 
+/// The "Go!" a switch-in gets against an enemy Blastoise with 4 of 6 HP.
+fn send_out(data: &'static GameData) -> crystal_battle::battle::message::SendOut {
+    use crystal_battle::battle::{Event, Message as M};
+    let config = BattleConfig {
+        battle: BattleHeader {
+            kind: BattleKind::LinkBattle,
+            trainer: None,
+            seed: Some(1),
+            johto_badges: None,
+            kanto_badges: None,
+            battle_scene: None,
+            enemy_control: EnemyControl::Original,
+        },
+        player_party: vec![mon("SNORLAX"), mon("LAPRAS")],
+        enemy_party: vec![mon("BLASTOISE")],
+        player_items: vec![],
+        enemy_items: vec![],
+        enemy_trainer: None,
+    };
+    let (mut setup, rng) = BattleSetup::from_config_in(data, &config, 1).expect("a valid scenario");
+    let Opponent::Link { party, .. } = &mut setup.opponent else { unreachable!() };
+    teach(data, &mut party[0], [SPLASH, 0, 0, 0]);
+    (party[0].stats[0], party[0].hp) = (6, 4);
+    let mut battle = Battle::start(data, &setup, rng).expect("battle setup");
+    battle.step(Action::Switch { slot: 1 }).expect("a legal switch");
+    battle.step(Action::Move { slot: 0 }).expect("a legal move");
+    battle
+        .events()
+        .iter()
+        .find_map(|e| if let Event::Message(M::PlayerSentOut { how, .. }) = e { Some(*how) } else { None })
+        .expect("a send-out")
+}
+
+#[test]
+fn send_out_texts_use_true_percentages_under_legacy_rules() {
+    use crystal_battle::battle::message::SendOut;
+    assert_eq!(send_out(legacy_with(Rules::CRYSTAL_LEGACY)), SendOut::DoIt);
+    assert_eq!(send_out(legacy_with(Rules::CRYSTAL)), SendOut::Go);
+}
+
 #[test]
 fn legacy_data_has_legacy_rules() {
     assert_eq!(GameData::crystal().rules, Rules::CRYSTAL);

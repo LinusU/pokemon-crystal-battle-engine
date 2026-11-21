@@ -540,8 +540,25 @@ impl Engine {
     // --- send-out / withdraw texts (their text_asm logic) ------------------------------
 
     /// Enemy HP as a quarter-percentage: `hMultiplicand+1..2` × 25 ÷ (max HP / 4).
-    /// (Max HP below 4 divides by zero; the original freezes.)
+    /// (Max HP below 4 divides by zero; the original freezes.) Crystal
+    /// Legacy halves the max HP until it fits a byte, and 100 with it.
     fn enemy_hp_percent_of(&mut self) -> u8 {
+        if self.data.rules.bug_fixes {
+            let max = self.mem.rw(W_ENEMY_MON_MAX_HP);
+            let (mut hi, mut lo, mut c) = ((max >> 8) as u8, max as u8, 100u8);
+            while hi != 0 {
+                // rra / rr b / srl c
+                let carry = hi & 1;
+                hi >>= 1;
+                lo = carry << 7 | lo >> 1;
+                c >>= 1;
+            }
+            self.mem.wb(H_MULTIPLIER, c);
+            self.multiply();
+            self.mem.wb(H_DIVISOR, lo);
+            self.divide(4);
+            return self.mem.rb(H_QUOTIENT + 3);
+        }
         self.mem.wb(H_MULTIPLIER, 25);
         self.multiply();
         let max = self.mem.rw(W_ENEMY_MON_MAX_HP);

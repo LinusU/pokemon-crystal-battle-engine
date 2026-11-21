@@ -88,6 +88,7 @@ pub struct Rules {
     ///   Lake of Rage's is the one with a minimum.
     /// - An enemy sent out paralyzed or burned has its Speed or Attack cut.
     /// - Level 1 needs no experience (`CalcExpAtLevel`).
+    /// - "Go!" or "Come back!" goes by the enemy's HP in true percentages.
     ///
     /// [`Message::AlreadyBurned`]: crate::battle::Message::AlreadyBurned
     /// [`Message::AlreadyFrozen`]: crate::battle::Message::AlreadyFrozen
