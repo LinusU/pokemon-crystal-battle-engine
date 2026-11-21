@@ -219,7 +219,7 @@ impl Engine {
     /// move is usable, prints the text and returns z (here: false).
     pub fn check_player_has_usable_moves(&mut self) -> bool {
         self.mem.wb(W_CUR_PLAYER_MOVE, STRUGGLE);
-        let usable = !crate::battle::legal::player_must_struggle(&self.mem);
+        let usable = !crate::battle::legal::player_must_struggle(&super::mem::WithData { mem: &self.mem, data: self.data });
         if !usable {
             self.text(r::BATTLE_TEXT_MON_HAS_NO_MOVES_LEFT);
         }

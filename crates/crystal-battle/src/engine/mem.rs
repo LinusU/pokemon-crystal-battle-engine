@@ -14,10 +14,15 @@
 pub trait ReadMem {
     fn read_byte(&self, addr: u16) -> u8;
 
-    /// A move's base PP, from the game's data (`Moves`): Pokémon Crystal's
-    /// unless the reader knows which game it is reading.
+    /// The game whose memory this is: Pokémon Crystal unless the reader
+    /// knows (its data and rules).
+    fn data(&self) -> &'static crate::data::GameData {
+        crate::data::GameData::crystal()
+    }
+
+    /// A move's base PP, from the game's data (`Moves`).
     fn base_pp(&self, move_id: u8) -> u8 {
-        crate::data::GameData::crystal().mv(move_id).pp
+        self.data().mv(move_id).pp
     }
 }
 
@@ -33,8 +38,8 @@ impl ReadMem for WithData<'_> {
         self.mem.read_byte(addr)
     }
 
-    fn base_pp(&self, move_id: u8) -> u8 {
-        self.data.mv(move_id).pp
+    fn data(&self) -> &'static crate::data::GameData {
+        self.data
     }
 }
 

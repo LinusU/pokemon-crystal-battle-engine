@@ -79,6 +79,7 @@ pub struct Rules {
     /// - The AI's switching checks the types it means to (`CheckTypeMatchup`
     ///   keeps the type it is given).
     /// - Lock-On and Mind Reader reach a Pokémon that is flying or underground.
+    /// - With a move disabled, PP Ups don't count as PP left.
     ///
     /// [`Message::AlreadyBurned`]: crate::battle::Message::AlreadyBurned
     /// [`Message::AlreadyFrozen`]: crate::battle::Message::AlreadyFrozen

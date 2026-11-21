@@ -742,6 +742,10 @@ pub fn player_must_struggle(cpu: &impl ReadMem) -> bool {
             acc |= pp(i);
         }
     }
+    // BUG (Crystal's): PP Ups count as PP here; Crystal Legacy masks them.
+    if cpu.data().rules.bug_fixes {
+        acc &= defs::PP_MASK;
+    }
     acc == 0
 }
 
